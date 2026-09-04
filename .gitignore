@@ -48,7 +48,6 @@ data/exports/*
 !data/**/.gitkeep
 
 # Personal Notes / Scratch
-Dados iniciais.txt
 scratch/
 *.tmp
 *.bak
