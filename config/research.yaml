@@ -1,0 +1,5 @@
+research:
+  start_date: 2021-01-01
+  end_date: null
+  default_temporal_alignment: SAME_NATIVE_FREQUENCY
+

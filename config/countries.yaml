@@ -1,0 +1,20 @@
+countries:
+  - code: BR
+    name: Brasil
+  - code: US
+    name: Estados Unidos
+  - code: GB
+    name: Reino Unido
+  - code: FR
+    name: França
+  - code: DE
+    name: Alemanha
+  - code: ES
+    name: Espanha
+  - code: PT
+    name: Portugal
+  - code: IT
+    name: Itália
+  - code: SE
+    name: Suécia
+

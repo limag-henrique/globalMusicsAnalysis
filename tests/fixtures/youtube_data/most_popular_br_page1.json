@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","nextPageToken":"PAGE_2","pageInfo":{"totalResults":2,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"br-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-a","title":"Synthetic Video A","channelTitle":"Artist A","categoryId":"10"},"statistics":{"viewCount":"1200"}}]}

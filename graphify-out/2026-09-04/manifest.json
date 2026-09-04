@@ -1,0 +1,687 @@
+{
+  "Dados iniciais.txt": {
+    "mtime": 1787863768.9094262,
+    "ast_hash": "b8b270e8cd2c18bdca5c5370a6f6841c",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-09-03-multiplatform-chart-foundation.md": {
+    "mtime": 1788524138.6278613,
+    "ast_hash": "9714e72c2a366fd2e6ef1544752d02ff",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-09-03-multiplatform-chart-foundation-design.md": {
+    "mtime": 1788482230.301733,
+    "ast_hash": "77053dce422a8cf1cb4907bcf56a5731",
+    "semantic_hash": ""
+  },
+  "research/historical_sources_assessment.md": {
+    "mtime": 1788482091.846189,
+    "ast_hash": "88e63840ffefc3d445dcf4303d81149c",
+    "semantic_hash": ""
+  },
+  "research/spotify_official_capabilities_2026-09-03.md": {
+    "mtime": 1788481129.662283,
+    "ast_hash": "372d036f749ebf912e03c6f38e927466",
+    "semantic_hash": ""
+  },
+  "migrations/env.py": {
+    "mtime": 1788485484.9707408,
+    "ast_hash": "928b73b8af957b8401b4973150fedebb",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0001_reference_entities.py": {
+    "mtime": 1788484103.6797059,
+    "ast_hash": "4eca0e7d59afc549eb0bafa0f4c3eaf6",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0002_rights_profiles.py": {
+    "mtime": 1788485484.9547656,
+    "ast_hash": "125760d0b6b52d83109772c30e62fc56",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0003_track_identity.py": {
+    "mtime": 1788485484.9547656,
+    "ast_hash": "d3ec84efa914a9dc7d420aeb94190b9a",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0004_resolution_records.py": {
+    "mtime": 1788485484.9562736,
+    "ast_hash": "feffcd09177e23c3a30a69438837953f",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0005_charts.py": {
+    "mtime": 1788485540.8536346,
+    "ast_hash": "3d51d65328c0b5abb5a2ecad80e8e0c0",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0006_provenance.py": {
+    "mtime": 1788485540.855678,
+    "ast_hash": "a4599cbfdd3f6191fbeda5a0d28a9ebb",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0007_collection_coverage.py": {
+    "mtime": 1788485484.9582856,
+    "ast_hash": "fb864d8f75e3c23fc168e732cbe34519",
+    "semantic_hash": ""
+  },
+  "migrations/versions/0008_analysis_exports.py": {
+    "mtime": 1788485484.9592836,
+    "ast_hash": "f6f8747dc2900f666d54bf7230876ccc",
+    "semantic_hash": ""
+  },
+  "pyproject.toml": {
+    "mtime": 1788524093.4921553,
+    "ast_hash": "443d29907a24f8a340d4e55b6eae0466",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/__init__.py": {
+    "mtime": 1788485484.9547656,
+    "ast_hash": "72a9c8249d8c78db3776de407e532d6a",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/__init__.py": {
+    "mtime": 1788484866.704668,
+    "ast_hash": "6c83180793685bbf06831f057b01a010",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/apple_music/__init__.py": {
+    "mtime": 1788485058.9635544,
+    "ast_hash": "36989eaa9ef52bf04d15ebffebca357f",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/apple_music/auth.py": {
+    "mtime": 1788485484.9572868,
+    "ast_hash": "4572372a962a00cd6be8582bffb10a69",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/apple_music/charts.py": {
+    "mtime": 1788485613.1513703,
+    "ast_hash": "09666c37b5658bd2212f648ae8c5d047",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/apple_music/mapper.py": {
+    "mtime": 1788485484.9612849,
+    "ast_hash": "f95964d585e9dd48802c29739c7d71fd",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/disabled.py": {
+    "mtime": 1788485602.6842759,
+    "ast_hash": "a19e04bd0de066fbf1643254ccc06f92",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/files/__init__.py": {
+    "mtime": 1788484950.7145655,
+    "ast_hash": "ce1d59a6fbb865c3098903e3db66b14e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/files/manual.py": {
+    "mtime": 1788523842.320817,
+    "ast_hash": "76fe099c2115f08b7c234ac99e5bdf8c",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/files/schema.py": {
+    "mtime": 1788485602.675186,
+    "ast_hash": "70c2c558ad6ca82aa797c23ccda92e8e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/files/validation.py": {
+    "mtime": 1788485484.9662838,
+    "ast_hash": "f90f69ebcf1ea90284f335cec01841c2",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/adapters/http.py": {
+    "mtime": 1788485484.9923966,
+    "ast_hash": "596a643c0b68929eee1130c106d7873e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/__init__.py": {
+    "mtime": 1788485366.7269464,
+    "ast_hash": "9d1cf408b69835b12147a0a6533898fe",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/app.py": {
+    "mtime": 1788485366.7774954,
+    "ast_hash": "d052e3f66901e59fb6a2cacb1e3ccc96",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/dependencies.py": {
+    "mtime": 1788485644.9906485,
+    "ast_hash": "c650b4961841abcb7b4b4a3abdf974be",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/__init__.py": {
+    "mtime": 1788485366.7452645,
+    "ast_hash": "fd0f93aa9edd9f2b104a05f2163ee3cd",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/charts.py": {
+    "mtime": 1788485644.9926555,
+    "ast_hash": "30d97aebed8f36f14897665ad7b4df61",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/coverage.py": {
+    "mtime": 1788485644.9936564,
+    "ast_hash": "9c742787e68f4e6fd95519ec1bbf4f6c",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/exports.py": {
+    "mtime": 1788485644.9946551,
+    "ast_hash": "973b095aed0c98e1143ca18208acbdde",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/rights.py": {
+    "mtime": 1788485644.9946551,
+    "ast_hash": "53bd5ab48859e930ea539b248208db7f",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/api/routes/tracks.py": {
+    "mtime": 1788485644.998168,
+    "ast_hash": "4a5bcb774b8c8359aa83a0068d04bb5d",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/application.py": {
+    "mtime": 1788485644.990076,
+    "ast_hash": "5ba98b132394e93796b238f44f37b6bf",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/artifacts/__init__.py": {
+    "mtime": 1788484737.3605797,
+    "ast_hash": "06bb75c0dea9200929b9244cce895423",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/artifacts/manifest.py": {
+    "mtime": 1788485602.6945636,
+    "ast_hash": "f83dbf9cd32657fcd6b464758b18526c",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/artifacts/models.py": {
+    "mtime": 1788484737.3615923,
+    "ast_hash": "0b61272ec23c52ee19044ebc2a595277",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/artifacts/repository.py": {
+    "mtime": 1788523794.0477571,
+    "ast_hash": "765599b6f8c4e25ec79c29ef2bbada2d",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/artifacts/store.py": {
+    "mtime": 1788484737.3615923,
+    "ast_hash": "1e83595b7ed6504498f1583c345eebdb",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/__init__.py": {
+    "mtime": 1788484660.911803,
+    "ast_hash": "0c8954c47d0e57ae24a936f881d6762a",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/collection_runs.py": {
+    "mtime": 1788484802.4499142,
+    "ast_hash": "cbfac24bdfcd823e98ead19be5bae603",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/coverage.py": {
+    "mtime": 1788485484.9687936,
+    "ast_hash": "899f28ae32cdfdf640035071195bdb2e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/dto.py": {
+    "mtime": 1788484866.6904824,
+    "ast_hash": "bb4ceaa2457322141c2ec38549a3e04a",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/ingestion.py": {
+    "mtime": 1788485654.5355115,
+    "ast_hash": "121ac67b9cf02fc771fe7aa04bf8680c",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/models.py": {
+    "mtime": 1788484660.9147868,
+    "ast_hash": "405acb8c7a02ca778b290c0040009629",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/ports.py": {
+    "mtime": 1788484866.6931536,
+    "ast_hash": "e3f4c3900eca51c90dbb6f59843e5f55",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/registry.py": {
+    "mtime": 1788485759.9159198,
+    "ast_hash": "0ea364ca49bc3e09d0468773d0d1259b",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/charts/repository.py": {
+    "mtime": 1788485484.9582856,
+    "ast_hash": "4d870d2ae33437800f460cad52596fad",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/cli.py": {
+    "mtime": 1788485484.9612849,
+    "ast_hash": "2dee01efca4c32133c7659c48b9179dc",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/config.py": {
+    "mtime": 1788485602.6666455,
+    "ast_hash": "b59017ab24af48b4869277636d795f78",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/__init__.py": {
+    "mtime": 1788485484.9662838,
+    "ast_hash": "17ff76ed71c6d4ab9184dd85c5811086",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/base.py": {
+    "mtime": 1788485484.9537642,
+    "ast_hash": "4e2b8aa32111cd377cee519d1c78c8ac",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/engine.py": {
+    "mtime": 1788485484.965289,
+    "ast_hash": "e3464751ee4bde971c0ee5897b98d68b",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/__init__.py": {
+    "mtime": 1788485484.965289,
+    "ast_hash": "2345a5712d8786e050584c74e1eb5029",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/analysis.py": {
+    "mtime": 1788485484.684447,
+    "ast_hash": "e9cc98ea91ca02200c8bf6351be5982f",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/audit.py": {
+    "mtime": 1788484737.3645945,
+    "ast_hash": "3c8742b4033a55e13854d70b5b2b78b2",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/charts.py": {
+    "mtime": 1788485484.9537642,
+    "ast_hash": "ca01f26f799b5b9bd29c32f3f3e7396e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/collection.py": {
+    "mtime": 1788485484.9602854,
+    "ast_hash": "aaaed5b0fd9137392cef477d853dfe28",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/provenance.py": {
+    "mtime": 1788485484.729093,
+    "ast_hash": "ff23fb2e469f204aa74a4339444a696a",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/reference.py": {
+    "mtime": 1788485484.9537642,
+    "ast_hash": "da5cc2d44e043a3282dc38f76cd538ca",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/resolution.py": {
+    "mtime": 1788485484.687953,
+    "ast_hash": "2cf21cba51922f19cad4d5af1b2a98c5",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/rights.py": {
+    "mtime": 1788484401.2041066,
+    "ast_hash": "3d509d0e31db2316d2fa40bf493341a8",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/models/tracks.py": {
+    "mtime": 1788485484.9602854,
+    "ast_hash": "9cb568b71a76ccbe91898a3db0dd96c5",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/repositories/__init__.py": {
+    "mtime": 1788485484.9622858,
+    "ast_hash": "623810f7e638d8b76022e3cdccc5eb17",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/repositories/reference.py": {
+    "mtime": 1788485613.1477935,
+    "ast_hash": "f8e27df5b6fbb415d395492cb775c998",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/db/session.py": {
+    "mtime": 1788485484.991397,
+    "ast_hash": "9591ca56f8ba6103599f17d955378de9",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/domain/__init__.py": {
+    "mtime": 1788485485.0024285,
+    "ast_hash": "c82453daeda0ac71c89e7ed1a39cdc47",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/domain/enums.py": {
+    "mtime": 1788485484.9743779,
+    "ast_hash": "d4eb31d9bd0e8889aa5a9cdcb4374f61",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/domain/errors.py": {
+    "mtime": 1788485484.9823914,
+    "ast_hash": "ad165d0a3e5688a17365adb0db07815e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/domain/values.py": {
+    "mtime": 1788483998.717398,
+    "ast_hash": "622f6608bda4926baeab400a7db68f58",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/exports/__init__.py": {
+    "mtime": 1788485259.1051784,
+    "ast_hash": "8244823687930d28a2ea6a509393a84b",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/exports/datasets.py": {
+    "mtime": 1788485484.993394,
+    "ast_hash": "735366fb2bbf0de7eda1859e2023d626",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/exports/manifest.py": {
+    "mtime": 1788485259.1172094,
+    "ast_hash": "6061af1231e6985a298af4d8996dbed1",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/exports/models.py": {
+    "mtime": 1788485259.1071763,
+    "ast_hash": "7133761c339d8fe4aad9ad7a390586ba",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/exports/writer.py": {
+    "mtime": 1788485613.1493375,
+    "ast_hash": "6e9b0addda41993af027b5035ca1d0d9",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/__init__.py": {
+    "mtime": 1788485110.6915967,
+    "ast_hash": "2d39ae3bb4bf8548c9df674b22fae595",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/models.py": {
+    "mtime": 1788485110.6956396,
+    "ast_hash": "60a1c15c1ede5bc0f773879215fe9f7b",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/overlap.py": {
+    "mtime": 1788485602.6801853,
+    "ast_hash": "847b2efc0048ea0e38645ace42fd6a3e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/presence.py": {
+    "mtime": 1788485485.0024285,
+    "ast_hash": "d36b654e4dee582850ea6f5af0571c46",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/temporal_alignment.py": {
+    "mtime": 1788485485.0034306,
+    "ast_hash": "7dde94ad20ec940847f00d72bd8cde81",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/metrics/track_summary.py": {
+    "mtime": 1788485485.0044289,
+    "ast_hash": "8bbd3255b3bc718931a8486bccbf90ee",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/rights/__init__.py": {
+    "mtime": 1788484401.2001064,
+    "ast_hash": "af64513048f87be768af2d6bd7cf36d8",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/rights/gate.py": {
+    "mtime": 1788484401.2031064,
+    "ast_hash": "20eb41f76b16767369297e2451a0827e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/rights/models.py": {
+    "mtime": 1788484401.2011046,
+    "ast_hash": "bcf08a4455dd89e53c3df2c377dc573c",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/rights/repository.py": {
+    "mtime": 1788485484.6814468,
+    "ast_hash": "6b71bcf96887b72e7dc68b249d8c1264",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/__init__.py": {
+    "mtime": 1788484493.513241,
+    "ast_hash": "4dfdf4f687a337c3ae4ebcd83128962f",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/models.py": {
+    "mtime": 1788484493.5162404,
+    "ast_hash": "c8161a9b39ba2725e9e69b7ef5c34cc7",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/normalization.py": {
+    "mtime": 1788485484.6784465,
+    "ast_hash": "5d8f3101c027784bd3ffe628cb2aaf1f",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/repository.py": {
+    "mtime": 1788485485.0060394,
+    "ast_hash": "496f9ba4f8041cd368c78fbde1818fc9",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/resolution.py": {
+    "mtime": 1788485613.1363592,
+    "ast_hash": "9a9c96829048667c2777963f53adcb47",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/tracks/similarity.py": {
+    "mtime": 1788484571.7518833,
+    "ast_hash": "d52630dd0ba4f702b46c8bf03f7d8a5e",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/__init__.py": {
+    "mtime": 1788485420.0890408,
+    "ast_hash": "ab8a03d685f2fc7e3088fd5e95b3d844",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/app.py": {
+    "mtime": 1788485420.0930498,
+    "ast_hash": "26f278e6e747faee51d0bd5a69ace1bf",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/coverage.py": {
+    "mtime": 1788485420.1179833,
+    "ast_hash": "cabd08002d3edf2a33f4c9a1681d2a28",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/frequent.py": {
+    "mtime": 1788485420.1015618,
+    "ast_hash": "97df7ada1c16ec8f5efd90985c99d161",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/international.py": {
+    "mtime": 1788485420.1149793,
+    "ast_hash": "d7a6e7e26ec66b3966e55f3317838dc5",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/platforms.py": {
+    "mtime": 1788485420.1115615,
+    "ast_hash": "968fdaa0ec898952fabfc12a95a134ac",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/provenance.py": {
+    "mtime": 1788485420.1210022,
+    "ast_hash": "8bac8884e8538b19776347b380a42648",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/rankings.py": {
+    "mtime": 1788485420.0970495,
+    "ast_hash": "d0cfd3db5ba1f51995abff27f9ff157d",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/ui/pages/resolution.py": {
+    "mtime": 1788485420.138321,
+    "ast_hash": "de2d7c772e55b49183fdd4d66212f9d1",
+    "semantic_hash": ""
+  },
+  "tests/contract/apple_music/test_chart_source.py": {
+    "mtime": 1788485484.9622858,
+    "ast_hash": "67cd8aacebc27501fbd5663f6c0c1a52",
+    "semantic_hash": ""
+  },
+  "tests/contract/test_synthetic_chart_source.py": {
+    "mtime": 1788485484.9662838,
+    "ast_hash": "7f613103059461eb5887a82cb4150127",
+    "semantic_hash": ""
+  },
+  "tests/e2e/test_milestone_1a.py": {
+    "mtime": 1788485484.9707408,
+    "ast_hash": "46718be3566f70002e1a60b6a902bc60",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/apple_music/charts_empty.json": {
+    "mtime": 1788485018.4903893,
+    "ast_hash": "3ce499aac1f3b57a0b62043f3bf36500",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/apple_music/charts_songs_br.json": {
+    "mtime": 1788485018.4893732,
+    "ast_hash": "bae523de8c65a66615ba33ec811e4020",
+    "semantic_hash": ""
+  },
+  "tests/fixtures/apple_music/rate_limited.json": {
+    "mtime": 1788485018.493768,
+    "ast_hash": "98c786872ee26c31c78995598f46714b",
+    "semantic_hash": ""
+  },
+  "tests/integration/adapters/files/test_import.py": {
+    "mtime": 1788523842.320817,
+    "ast_hash": "aba7da0982bc8234b86e726a781757d9",
+    "semantic_hash": ""
+  },
+  "tests/integration/charts/test_chart_repository.py": {
+    "mtime": 1788485485.0044289,
+    "ast_hash": "fbe5385645df38017ae722971b3ff420",
+    "semantic_hash": ""
+  },
+  "tests/integration/db/test_reference_entities.py": {
+    "mtime": 1788484028.6985471,
+    "ast_hash": "98f3ed0e56d8a250d334e0a8106ee7d0",
+    "semantic_hash": ""
+  },
+  "tests/integration/exports/test_datasets.py": {
+    "mtime": 1788485485.0034306,
+    "ast_hash": "025b916c2242aeee9b281ed01e8fcbb5",
+    "semantic_hash": ""
+  },
+  "tests/integration/tracks/test_track_identity.py": {
+    "mtime": 1788484437.3325646,
+    "ast_hash": "cc2886b3a718bbce568819611f827fab",
+    "semantic_hash": ""
+  },
+  "tests/unit/adapters/apple_music/test_mapper.py": {
+    "mtime": 1788485484.686447,
+    "ast_hash": "2db571f0ec35cad362c8cfdc23dcd8d8",
+    "semantic_hash": ""
+  },
+  "tests/unit/adapters/files/test_preview.py": {
+    "mtime": 1788485484.6892984,
+    "ast_hash": "05d511a3c19bf8c4ef2548ee90441f85",
+    "semantic_hash": ""
+  },
+  "tests/unit/adapters/test_http_policy.py": {
+    "mtime": 1788485018.5088606,
+    "ast_hash": "e5d812b8bb3311e468cf60bd1ff3b104",
+    "semantic_hash": ""
+  },
+  "tests/unit/artifacts/test_store.py": {
+    "mtime": 1788485484.9707408,
+    "ast_hash": "aa68467db0d50f97b89d2f694dca13e5",
+    "semantic_hash": ""
+  },
+  "tests/unit/charts/test_coverage.py": {
+    "mtime": 1788485485.0034306,
+    "ast_hash": "7d475ebe364b3493ce861d3c8be3e608",
+    "semantic_hash": ""
+  },
+  "tests/unit/charts/test_registry.py": {
+    "mtime": 1788485749.5745392,
+    "ast_hash": "a25b75a57c4e027022ed08961e46275e",
+    "semantic_hash": ""
+  },
+  "tests/unit/domain/test_values.py": {
+    "mtime": 1788483946.934588,
+    "ast_hash": "a4e72d222e12966fea70b4a187baf9d9",
+    "semantic_hash": ""
+  },
+  "tests/unit/exports/test_manifest.py": {
+    "mtime": 1788485484.9662838,
+    "ast_hash": "3a8645d35c7a405a0575212936358ecc",
+    "semantic_hash": ""
+  },
+  "tests/unit/metrics/test_overlap.py": {
+    "mtime": 1788485484.985392,
+    "ast_hash": "c599a079a1a28c12934a4c4935332ecf",
+    "semantic_hash": ""
+  },
+  "tests/unit/metrics/test_temporal_alignment.py": {
+    "mtime": 1788485135.900406,
+    "ast_hash": "93c57144e925f7caa6c342ac78dcd7bf",
+    "semantic_hash": ""
+  },
+  "tests/unit/metrics/test_track_summary.py": {
+    "mtime": 1788485485.0034306,
+    "ast_hash": "a7bdb578c5103c393d6fd706c010bb4d",
+    "semantic_hash": ""
+  },
+  "tests/unit/rights/test_gate.py": {
+    "mtime": 1788485484.9883933,
+    "ast_hash": "da27ff78a4e942016886ec3d3875e167",
+    "semantic_hash": ""
+  },
+  "tests/unit/test_config.py": {
+    "mtime": 1788485484.7162447,
+    "ast_hash": "f13ecff69206fd1b29a3fe347c70d58e",
+    "semantic_hash": ""
+  },
+  "tests/unit/tracks/test_normalization.py": {
+    "mtime": 1788484437.3265977,
+    "ast_hash": "5eaa17f6c6f1bf64df15f563e7d469dc",
+    "semantic_hash": ""
+  },
+  "tests/unit/tracks/test_resolution.py": {
+    "mtime": 1788484524.3017542,
+    "ast_hash": "833dc43b6030ccf74fb1d010fc3dbe3e",
+    "semantic_hash": ""
+  },
+  "compose.yaml": {
+    "mtime": 1788483738.9102077,
+    "ast_hash": "2531aad2c019246fe02fec57fcdbf98e",
+    "semantic_hash": ""
+  },
+  "config/countries.yaml": {
+    "mtime": 1788483738.922191,
+    "ast_hash": "3f217c553d0dc5a5bb7a99fe727ad890",
+    "semantic_hash": ""
+  },
+  "config/research.yaml": {
+    "mtime": 1788483739.0742602,
+    "ast_hash": "9c8062ee6595d545e0e769ba7054f75c",
+    "semantic_hash": ""
+  },
+  "config/schemas/manual_generic.yaml": {
+    "mtime": 1788484898.0009344,
+    "ast_hash": "de7a0c6188cfccbf18d67a864f8135aa",
+    "semantic_hash": ""
+  },
+  "research/data_dictionary.md": {
+    "mtime": 1788485420.1415045,
+    "ast_hash": "1e7d41d243c5a576635bbe8dabc08982",
+    "semantic_hash": ""
+  },
+  "research/limitations.md": {
+    "mtime": 1788485420.1454644,
+    "ast_hash": "a0eb3c563e9c18d4255aca71544d7dc2",
+    "semantic_hash": ""
+  },
+  "research/methodology.md": {
+    "mtime": 1788485420.144463,
+    "ast_hash": "0ce31a271821ffbfd1dbc568098e84d5",
+    "semantic_hash": ""
+  },
+  "research/milestone_1a_acceptance_report.md": {
+    "mtime": 1788524160.8894603,
+    "ast_hash": "0b8649604a0800d02a7cc275981ce6e0",
+    "semantic_hash": ""
+  }
+}

@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","etag":"fixture-se","pageInfo":{"totalResults":1,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"se-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-se","title":"Synthetic SE Video","channelTitle":"Artist SE","categoryId":"10"},"statistics":{"viewCount":"100"}}]}

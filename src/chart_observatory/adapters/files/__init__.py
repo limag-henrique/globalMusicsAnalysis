@@ -1,0 +1,1 @@
+"""Authorized local-file adapters."""

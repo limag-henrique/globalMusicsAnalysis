@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","pageInfo":{"totalResults":2,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"br-video-b","snippet":{"publishedAt":"2026-09-02T10:00:00Z","channelId":"channel-b","title":"Synthetic Video B","channelTitle":"Artist B","categoryId":"10"}}]}

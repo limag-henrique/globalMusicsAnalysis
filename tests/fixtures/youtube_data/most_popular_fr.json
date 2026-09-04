@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","etag":"fixture-fr","pageInfo":{"totalResults":1,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"fr-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-fr","title":"Synthetic FR Video","channelTitle":"Artist FR","categoryId":"10"},"statistics":{"viewCount":"100"}}]}

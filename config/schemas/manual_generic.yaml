@@ -1,0 +1,16 @@
+version: manual_generic_v1
+columns:
+  country: country
+  period_start: period_start
+  period_end: period_end
+  position: rank
+  native_id: platform_item_id
+  title: title
+  metric_value: metric_value
+defaults:
+  platform_code: SPOTIFY
+  source_code: MANUAL_AUTHORIZED_FILE
+  chart_name: supplied_chart
+  native_frequency: DAILY
+  item_kind: CATALOG_TRACK
+  metric_type: STREAMS

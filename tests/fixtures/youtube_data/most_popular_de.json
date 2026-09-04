@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","etag":"fixture-de","pageInfo":{"totalResults":1,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"de-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-de","title":"Synthetic DE Video","channelTitle":"Artist DE","categoryId":"10"},"statistics":{"viewCount":"100"}}]}

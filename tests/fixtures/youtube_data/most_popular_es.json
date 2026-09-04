@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","etag":"fixture-es","pageInfo":{"totalResults":1,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"es-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-es","title":"Synthetic ES Video","channelTitle":"Artist ES","categoryId":"10"},"statistics":{"viewCount":"100"}}]}

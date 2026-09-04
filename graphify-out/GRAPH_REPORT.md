@@ -1,16 +1,16 @@
-# Graph Report - Promiscuidade Musical  (2026-09-03)
+# Graph Report - Promiscuidade Musical  (2026-09-04)
 
 ## Corpus Check
-- 4 files · ~16,163 words
+- 133 files · ~29,129 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 118 nodes · 114 edges · 11 communities
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 708 nodes · 1610 edges · 58 communities (36 shown, 22 thin omitted)
+- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 303 edges (avg confidence: 0.51)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5ee94c5d`
+- Built from commit: `d34ab022`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,93 +19,188 @@
 - Multiplatform Historical Chart Foundation — Design Specification
 - Spotify official capabilities and constraints for cross-cultural chart research
 - Avaliação de fontes históricas para rankings musicais multinacionais
-- Multiplatform Historical Chart Foundation Implementation Plan
-- Avaliação detalhada por fonte
-- 4. Policy restrictions material to this research design
-- 6. Provider strategies
-- 13. Milestone sequence
-- Shortlist e estratégia de aquisição
-- 2. Spotify Web API: current resolution/enrichment capability
+- Base
+- RightsOperation
+- enums.py
+- api/app.py
+- apple_music/charts.py
+- errors.py
+- config.py
+- exports/manifest.py
+- track_summary.py
+- overlap.py
+- Milestone 1A acceptance report
+- 0001_reference_entities.py
+- 0003_track_identity.py
+- 0005_charts.py
+- 0007_collection_coverage.py
+- build_session_factory
+- AppleMusicTokenProvider
+- .for_preview
+- presence_summary
+- test_datasets.py
+- build_engine
+- data_dictionary.md
+- limitations.md
+- methodology.md
+- apple_music/__init__.py
+- files/__init__.py
+- adapters/__init__.py
+- artifacts/__init__.py
+- charts/__init__.py
+- charts/models.py
+- db/__init__.py
+- repositories/__init__.py
+- domain/__init__.py
+- exports/__init__.py
+- chart_observatory/__init__.py
+- metrics/__init__.py
+- rights/__init__.py
+- tracks/__init__.py
+- tracks/models.py
+- ui/__init__.py
+- chart-observatory
 
 ## God Nodes (most connected - your core abstractions)
-1. `Milestone 1A` - 17 edges
-2. `Multiplatform Historical Chart Foundation — Design Specification` - 16 edges
-3. `Spotify official capabilities and constraints for cross-cultural chart research` - 12 edges
-4. `Avaliação de fontes históricas para rankings musicais multinacionais` - 11 edges
-5. `Multiplatform Historical Chart Foundation Implementation Plan` - 10 edges
-6. `Avaliação detalhada por fonte` - 10 edges
-7. `4. Policy restrictions material to this research design` - 8 edges
-8. `6. Provider strategies` - 7 edges
-9. `13. Milestone sequence` - 6 edges
-10. `Shortlist e estratégia de aquisição` - 6 edges
+1. `RightsOperation` - 49 edges
+2. `RightsGate` - 45 edges
+3. `Base` - 30 edges
+4. `UuidPrimaryKeyMixin` - 29 edges
+5. `CreatedAtMixin` - 29 edges
+6. `LocalResearchApplication` - 28 edges
+7. `ArtifactStore` - 24 edges
+8. `PlatformItem` - 23 edges
+9. `DomainValidationError` - 23 edges
+10. `AppleMusicChartSource` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
-- None detected - all connections are within the same source files.
+- `HttpResponse` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `RetryingTransport` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `SpyTransport` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `TokenProvider` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `NeverCalledAdapter` --uses--> `RightsOperation`  [INFERRED]
+  tests/unit/charts/test_registry.py → src/chart_observatory/domain/enums.py
 
-## Communities (11 total, 0 thin omitted)
+## Import Cycles
+- None detected.
+
+## Communities (58 total, 22 thin omitted)
 
 ### Community 0 - "Milestone 1A"
-Cohesion: 0.12
-Nodes (17): Milestone 1A, Task 10: Define adapter ports, registry, and conformance suite, Task 11: Build the schema-configurable manual importer, Task 12: Implement the disabled Apple Music chart adapter against fixtures, Task 13: Calculate native-period persistence and rank metrics, Task 14: Implement presence, Top-N overlap, and rank correlation, Task 15: Build versioned exports and analysis-run manifests, Task 16: Expose CLI, FastAPI, Streamlit, and complete the 1A acceptance pass (+9 more)
+Cohesion: 0.07
+Nodes (28): Evidence-driven provider and coverage baseline, Final acceptance criteria for Milestone 1, Global Constraints, Milestone 1A, Milestone 1B — requires a new approval after 1A, Milestone 1C — historical provider decision gate, Milestone 1D — later authorized sources, Multiplatform Historical Chart Foundation Implementation Plan (+20 more)
 
 ### Community 1 - "Multiplatform Historical Chart Foundation — Design Specification"
-Cohesion: 0.12
-Nodes (15): 10. Metrics, 11. Import, provenance, and idempotency, 12. UI and exports, 14. Acceptance criteria, 15. Deferred decisions and explicit gates, 1. Goal and boundary, 2. Research finding that controls implementation, 3. Domain vocabulary (+7 more)
+Cohesion: 0.07
+Nodes (28): 10. Metrics, 11. Import, provenance, and idempotency, 12. UI and exports, 13. Milestone sequence, 14. Acceptance criteria, 15. Deferred decisions and explicit gates, 1. Goal and boundary, 2. Research finding that controls implementation (+20 more)
 
 ### Community 2 - "Spotify official capabilities and constraints for cross-cultural chart research"
-Cohesion: 0.12
-Nodes (15): 1. Spotify Charts: what is officially documented, 3. Rate limits, quotas, and Development Mode constraints, 5. Capability matrix for the proposed platform, 6. Recommended architecture boundary, 7. Decisions requiring approval before implementation, 8. Minimum acceptance criteria for a legally viable data foundation, CSV/export status and access constraints, Documented facts (+7 more)
+Cohesion: 0.07
+Nodes (28): 1. Spotify Charts: what is officially documented, 2. Spotify Web API: current resolution/enrichment capability, 3. Rate limits, quotas, and Development Mode constraints, 4. Policy restrictions material to this research design, 5. Capability matrix for the proposed platform, 6. Recommended architecture boundary, 7. Decisions requiring approval before implementation, 8. Minimum acceptance criteria for a legally viable data foundation (+20 more)
 
 ### Community 3 - "Avaliação de fontes históricas para rankings musicais multinacionais"
-Cohesion: 0.13
-Nodes (14): Agregadores/licenciadores, Amazon, Apple, Avaliação de fontes históricas para rankings musicais multinacionais, Como ler esta avaliação, Comparação normalizada, Critério de aprovação de uma fonte, Direitos, retenção e publicabilidade (+6 more)
+Cohesion: 0.06
+Nodes (30): 1. Apple Music API Charts e Apple Music Feed, 1. Luminate — primeiro contato, 2. Soundcharts — segundo contato, 2. YouTube Data API — `videos.list?chart=mostPopular`, 3. Chartmetric — terceiro contato, 3. YouTube Music Charts, 4. Spotify Charts e Web API, 4. YouTube Researcher Program — trilha paralela (+22 more)
 
-### Community 4 - "Multiplatform Historical Chart Foundation Implementation Plan"
-Cohesion: 0.17
-Nodes (11): Evidence-driven provider and coverage baseline, Final acceptance criteria for Milestone 1, Global Constraints, Milestone 1B — requires a new approval after 1A, Milestone 1C — historical provider decision gate, Milestone 1D — later authorized sources, Multiplatform Historical Chart Foundation Implementation Plan, Planned file map (+3 more)
+### Community 4 - "Base"
+Cohesion: 0.06
+Nodes (59): DeclarativeBase, Session, UUID, SqlArtifactCatalog, ChartRepository, date, datetime, Decimal (+51 more)
 
-### Community 5 - "Avaliação detalhada por fonte"
-Cohesion: 0.20
-Nodes (10): 1. Apple Music API Charts e Apple Music Feed, 2. YouTube Data API — `videos.list?chart=mostPopular`, 3. YouTube Music Charts, 4. Spotify Charts e Web API, 5. Amazon Music Web API, 6. Soundcharts, 7. Chartmetric, 8. Luminate CONNECT, Music API e Data Share (+2 more)
+### Community 5 - "RightsOperation"
+Cohesion: 0.06
+Nodes (62): ImportPreview, ImportRequest, ImportResult, ImportSink, InMemoryImportSink, ManualChartImporter, ManualRow, Path (+54 more)
 
-### Community 6 - "4. Policy restrictions material to this research design"
-Cohesion: 0.25
-Nodes (8): 4. Policy restrictions material to this research design, Analysis and derived metrics — critical blocker, Lyrics and copyright, Metadata, artwork, audio, and attribution, ML/AI and deterministic classification, Research/publication and redistribution, Scraping, private endpoints, and login automation, Storage, databases, caching, and historical reproducibility
+### Community 6 - "enums.py"
+Cohesion: 0.08
+Nodes (35): CollectionRunResult, CommonObservationWindow, CoverageRecord, CoverageService, UUID, ChartFrequency, CoverageStatus, ItemKind (+27 more)
 
-### Community 7 - "6. Provider strategies"
+### Community 7 - "api/app.py"
+Cohesion: 0.08
+Nodes (29): FastAPI, Request, create_app(), application(), apply(), ApplyRequest, preview(), PreviewRequest (+21 more)
+
+### Community 8 - "apple_music/charts.py"
+Cohesion: 0.07
+Nodes (39): AppleMusicChartSource, AppleRequest, Any, datetime, UUID, map_chart_payload(), datetime, execute_http() (+31 more)
+
+### Community 9 - "errors.py"
+Cohesion: 0.10
+Nodes (24): command, Exception, NoReturn, DisabledChartSource, AdapterRegistration, AdapterRegistry, Any, datetime (+16 more)
+
+### Community 10 - "config.py"
+Cohesion: 0.15
+Nodes (12): BaseSettings, field_validator, model_validator, CountryConfig, _load_yaml(), Any, BaseModel, Path (+4 more)
+
+### Community 11 - "exports/manifest.py"
+Cohesion: 0.42
+Nodes (6): deterministic_manifest(), Any, manifest_bytes(), manifest_sha256(), ExportManifest, test_manifest_is_deterministic_and_complete()
+
+### Community 12 - "track_summary.py"
+Cohesion: 0.47
+Nodes (7): MetricObservation, TrackPlatformCountrySummary, Decimal, _sum_type(), summarize(), test_native_period_rank_and_unit_specific_metrics(), test_weekly_period_counts_once()
+
+### Community 13 - "overlap.py"
+Cohesion: 0.42
+Nodes (8): CorrelationResult, _effective_depth(), jaccard_overlap(), OverlapResult, rank_correlations(), RankedItem, test_correlations_are_null_when_shared_sample_is_insufficient(), test_overlap_uses_common_observed_depth_and_reports_items()
+
+### Community 14 - "Milestone 1A acceptance report"
 Cohesion: 0.29
-Nodes (7): 6. Provider strategies, Amazon Music, Apple Music, Historical commercial providers, Spotify, YouTube Data API, YouTube Music
+Nodes (6): Activation state and review gate, Milestone 1A acceptance report, Outcome, Scientific invariants verified, Synthetic acceptance evidence, Verification record
 
-### Community 8 - "13. Milestone sequence"
-Cohesion: 0.33
-Nodes (6): 13. Milestone sequence, Milestone 0 — provider rights and coverage, Milestone 1A — domain and first ingestion path, Milestone 1B — YouTube video chart, Milestone 1C — licensed history, Milestone 1D — Spotify and other later sources
+### Community 16 - "0001_reference_entities.py"
+Cohesion: 0.60
+Nodes (3): Column, _reference_columns(), upgrade()
 
-### Community 9 - "Shortlist e estratégia de aquisição"
-Cohesion: 0.33
-Nodes (6): 1. Luminate — primeiro contato, 2. Soundcharts — segundo contato, 3. Chartmetric — terceiro contato, 4. YouTube Researcher Program — trilha paralela, Não priorizar, Shortlist e estratégia de aquisição
+### Community 17 - "0003_track_identity.py"
+Cohesion: 0.60
+Nodes (3): _audit_columns(), Column, upgrade()
 
-### Community 10 - "2. Spotify Web API: current resolution/enrichment capability"
+### Community 18 - "0005_charts.py"
+Cohesion: 0.60
+Nodes (3): _audit(), Column, upgrade()
+
+### Community 19 - "0007_collection_coverage.py"
+Cohesion: 0.60
+Nodes (3): _audit(), Column, upgrade()
+
+### Community 20 - "build_session_factory"
 Cohesion: 0.40
-Nodes (5): 2. Spotify Web API: current resolution/enrichment capability, Authentication, Endpoints useful for track identity, Fields/capabilities that must not be relied upon in Development Mode, Fields currently usable for a single track
+Nodes (4): sessionmaker, build_session_factory(), Engine, Session
+
+### Community 21 - "AppleMusicTokenProvider"
+Cohesion: 0.40
+Nodes (3): AppleMusicTokenProvider, Protocol, Secret-backed provider; concrete credential loading stays outside the adapter.
+
+### Community 22 - ".for_preview"
+Cohesion: 0.60
+Nodes (3): test_invalid_and_duplicate_ranks_are_reported(), test_preview_is_read_only_and_preserves_unknown_columns(), test_weekly_period_is_not_expanded_and_null_metric_is_preserved()
+
+### Community 23 - "presence_summary"
+Cohesion: 0.60
+Nodes (4): presence_summary(), PresenceSummary, UUID, Observations are (country, platform, platform_item_id); item multiplicity is…
 
 ## Knowledge Gaps
-- **98 isolated node(s):** `Global Constraints`, `Scope and execution gates`, `Evidence-driven provider and coverage baseline`, `Planned file map`, `Task 1: Bootstrap the project and configuration` (+93 more)
+- **109 isolated node(s):** `chart-observatory`, `ChartObservation`, `ExternalId`, `Global Constraints`, `Scope and execution gates` (+104 more)
   These have ≤1 connection - possible missing edges or undocumented components.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Avaliação de fontes históricas para rankings musicais multinacionais` connect `Avaliação de fontes históricas para rankings musicais multinacionais` to `Shortlist e estratégia de aquisição`, `Avaliação detalhada por fonte`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
-- **Why does `Multiplatform Historical Chart Foundation — Design Specification` connect `Multiplatform Historical Chart Foundation — Design Specification` to `13. Milestone sequence`, `6. Provider strategies`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
-- **Why does `Spotify official capabilities and constraints for cross-cultural chart research` connect `Spotify official capabilities and constraints for cross-cultural chart research` to `2. Spotify Web API: current resolution/enrichment capability`, `4. Policy restrictions material to this research design`?**
-  _High betweenness centrality (0.049) - this node is a cross-community bridge._
-- **What connects `Global Constraints`, `Scope and execution gates`, `Evidence-driven provider and coverage baseline` to the rest of the system?**
-  _98 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Milestone 1A` be split into smaller, more focused modules?**
-  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Should `Multiplatform Historical Chart Foundation — Design Specification` be split into smaller, more focused modules?**
-  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
-- **Should `Spotify official capabilities and constraints for cross-cultural chart research` be split into smaller, more focused modules?**
-  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
+- **Why does `RightsOperation` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`, `enums.py`?**
+  _High betweenness centrality (0.067) - this node is a cross-community bridge._
+- **Why does `RightsGate` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`?**
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `LocalResearchApplication` connect `RightsOperation` to `errors.py`, `api/app.py`?**
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._
+- **Are the 31 inferred relationships involving `RightsOperation` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsOperation` has 31 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 22 inferred relationships involving `RightsGate` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsGate` has 22 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 19 inferred relationships involving `Base` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**
+  _`Base` has 19 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 19 inferred relationships involving `UuidPrimaryKeyMixin` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**
+  _`UuidPrimaryKeyMixin` has 19 INFERRED edges - model-reasoned connections that need verification._

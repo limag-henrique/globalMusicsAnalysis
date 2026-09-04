@@ -1,0 +1,1 @@
+{"kind":"youtube#videoListResponse","etag":"fixture-it","pageInfo":{"totalResults":1,"resultsPerPage":1},"items":[{"kind":"youtube#video","id":"it-video-a","snippet":{"publishedAt":"2026-09-01T10:00:00Z","channelId":"channel-it","title":"Synthetic IT Video","channelTitle":"Artist IT","categoryId":"10"},"statistics":{"viewCount":"100"}}]}

@@ -1,0 +1,4 @@
+country,period_start,period_end,rank,platform_item_id,title,metric_value,label_note
+BR,2026-09-01,2026-09-01,1,item-1,Synthetic One,1000,keep-me
+BR,2026-09-01,2026-09-01,2,item-2,Synthetic Two,900,keep-me-too
+BR,2026-09-01,2026-09-01,3,item-3,Synthetic Three,,unknown-metric
