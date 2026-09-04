@@ -1,0 +1,27 @@
+{
+  "Dados iniciais.txt": {
+    "mtime": 1787863768.9094262,
+    "ast_hash": "b8b270e8cd2c18bdca5c5370a6f6841c",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-09-03-multiplatform-chart-foundation.md": {
+    "mtime": 1788482532.1923888,
+    "ast_hash": "9714e72c2a366fd2e6ef1544752d02ff",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-09-03-multiplatform-chart-foundation-design.md": {
+    "mtime": 1788482230.301733,
+    "ast_hash": "77053dce422a8cf1cb4907bcf56a5731",
+    "semantic_hash": ""
+  },
+  "research/historical_sources_assessment.md": {
+    "mtime": 1788482091.846189,
+    "ast_hash": "88e63840ffefc3d445dcf4303d81149c",
+    "semantic_hash": ""
+  },
+  "research/spotify_official_capabilities_2026-09-03.md": {
+    "mtime": 1788481129.662283,
+    "ast_hash": "372d036f749ebf912e03c6f38e927466",
+    "semantic_hash": ""
+  }
+}
