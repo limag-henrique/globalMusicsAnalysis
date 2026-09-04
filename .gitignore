@@ -1,7 +1,14 @@
+# Environment and Virtualenv
 .env
+.env.local
 .venv/
+env/
+venv/
+
+# Python Cache & Artifacts
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -11,9 +18,37 @@ dist/
 build/
 *.egg-info/
 
+# Tool & AI Artifacts
+graphify-out/
+.graphify-out/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local Databases & Logs
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# Project Data Directories (keep structure via .gitkeep)
 data/raw/*
 data/interim/*
 data/processed/*
 data/exports/*
 !data/**/.gitkeep
 
+# Personal Notes / Scratch
+Dados iniciais.txt
+scratch/
+*.tmp
+*.bak
