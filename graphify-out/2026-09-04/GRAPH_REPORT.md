@@ -1,12 +1,12 @@
 # Graph Report - Promiscuidade Musical  (2026-09-04)
 
 ## Corpus Check
-- 132 files · ~28,604 words
+- 133 files · ~29,129 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 688 nodes · 1505 edges · 59 communities (36 shown, 23 thin omitted)
-- Extraction: 82% EXTRACTED · 18% INFERRED · 0% AMBIGUOUS · INFERRED: 267 edges (avg confidence: 0.51)
+- 708 nodes · 1610 edges · 58 communities (36 shown, 22 thin omitted)
+- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 303 edges (avg confidence: 0.51)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
@@ -22,15 +22,14 @@
 - Base
 - RightsOperation
 - enums.py
-- LocalResearchApplication
-- ChartPayload
-- AdapterRegistry
-- ValueError
+- api/app.py
+- apple_music/charts.py
+- errors.py
+- config.py
 - exports/manifest.py
 - track_summary.py
 - overlap.py
 - Milestone 1A acceptance report
-- HttpPolicy
 - 0001_reference_entities.py
 - 0003_track_identity.py
 - 0005_charts.py
@@ -63,8 +62,8 @@
 - chart-observatory
 
 ## God Nodes (most connected - your core abstractions)
-1. `RightsOperation` - 45 edges
-2. `RightsGate` - 40 edges
+1. `RightsOperation` - 49 edges
+2. `RightsGate` - 45 edges
 3. `Base` - 30 edges
 4. `UuidPrimaryKeyMixin` - 29 edges
 5. `CreatedAtMixin` - 29 edges
@@ -72,24 +71,24 @@
 7. `ArtifactStore` - 24 edges
 8. `PlatformItem` - 23 edges
 9. `DomainValidationError` - 23 edges
-10. `AdapterRegistry` - 21 edges
+10. `AppleMusicChartSource` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `HttpResponse` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `RetryingTransport` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `SpyTransport` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
+- `TokenProvider` --uses--> `RightsOperation`  [INFERRED]
+  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
 - `NeverCalledAdapter` --uses--> `RightsOperation`  [INFERRED]
   tests/unit/charts/test_registry.py → src/chart_observatory/domain/enums.py
-- `SpyTransport` --uses--> `SourceDisabled`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/errors.py
-- `SpyTransport` --uses--> `AppleMusicChartSource`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/adapters/apple_music/charts.py
-- `test_apple_mapping_preserves_identity_and_does_not_invent_period()` --calls--> `map_chart_payload()`  [EXTRACTED]
-  tests/unit/adapters/apple_music/test_mapper.py → src/chart_observatory/adapters/apple_music/mapper.py
-- `test_sql_sink_persists_unresolved_rows_transactionally()` --calls--> `SqlArtifactCatalog`  [EXTRACTED]
-  tests/integration/adapters/files/test_import.py → src/chart_observatory/artifacts/repository.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (59 total, 23 thin omitted)
+## Communities (58 total, 22 thin omitted)
 
 ### Community 0 - "Milestone 1A"
 Cohesion: 0.07
@@ -109,31 +108,31 @@ Nodes (30): 1. Apple Music API Charts e Apple Music Feed, 1. Luminate — primei
 
 ### Community 4 - "Base"
 Cohesion: 0.06
-Nodes (53): DeclarativeBase, Session, UUID, SqlArtifactCatalog, ChartRepository, date, datetime, Decimal (+45 more)
+Nodes (59): DeclarativeBase, Session, UUID, SqlArtifactCatalog, ChartRepository, date, datetime, Decimal (+51 more)
 
 ### Community 5 - "RightsOperation"
-Cohesion: 0.08
-Nodes (54): ImportPreview, ImportRequest, ImportResult, ImportSink, InMemoryImportSink, ManualChartImporter, ManualRow, Path (+46 more)
+Cohesion: 0.06
+Nodes (62): ImportPreview, ImportRequest, ImportResult, ImportSink, InMemoryImportSink, ManualChartImporter, ManualRow, Path (+54 more)
 
 ### Community 6 - "enums.py"
+Cohesion: 0.08
+Nodes (35): CollectionRunResult, CommonObservationWindow, CoverageRecord, CoverageService, UUID, ChartFrequency, CoverageStatus, ItemKind (+27 more)
+
+### Community 7 - "api/app.py"
+Cohesion: 0.08
+Nodes (29): FastAPI, Request, create_app(), application(), apply(), ApplyRequest, preview(), PreviewRequest (+21 more)
+
+### Community 8 - "apple_music/charts.py"
 Cohesion: 0.07
-Nodes (42): Exception, CollectionRunResult, CommonObservationWindow, CoverageRecord, CoverageService, UUID, ChartFrequency, CoverageStatus (+34 more)
+Nodes (39): AppleMusicChartSource, AppleRequest, Any, datetime, UUID, map_chart_payload(), datetime, execute_http() (+31 more)
 
-### Community 7 - "LocalResearchApplication"
-Cohesion: 0.06
-Nodes (33): FastAPI, Request, create_app(), application(), apply(), ApplyRequest, preview(), PreviewRequest (+25 more)
+### Community 9 - "errors.py"
+Cohesion: 0.10
+Nodes (24): command, Exception, NoReturn, DisabledChartSource, AdapterRegistration, AdapterRegistry, Any, datetime (+16 more)
 
-### Community 8 - "ChartPayload"
-Cohesion: 0.09
-Nodes (26): AppleMusicChartSource, AppleRequest, Any, datetime, UUID, map_chart_payload(), datetime, ChartEntryDTO (+18 more)
-
-### Community 9 - "AdapterRegistry"
-Cohesion: 0.11
-Nodes (21): command, NoReturn, DisabledChartSource, AdapterRegistration, AdapterRegistry, Any, datetime, collect_current() (+13 more)
-
-### Community 10 - "ValueError"
-Cohesion: 0.11
-Nodes (17): BaseSettings, field_validator, model_validator, CountryConfig, _load_yaml(), Any, BaseModel, Path (+9 more)
+### Community 10 - "config.py"
+Cohesion: 0.15
+Nodes (12): BaseSettings, field_validator, model_validator, CountryConfig, _load_yaml(), Any, BaseModel, Path (+4 more)
 
 ### Community 11 - "exports/manifest.py"
 Cohesion: 0.42
@@ -186,21 +185,21 @@ Nodes (4): presence_summary(), PresenceSummary, UUID, Observations are (country,
 ## Knowledge Gaps
 - **109 isolated node(s):** `chart-observatory`, `ChartObservation`, `ExternalId`, `Global Constraints`, `Scope and execution gates` (+104 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `RightsOperation` connect `RightsOperation` to `ChartPayload`, `AdapterRegistry`, `enums.py`, `LocalResearchApplication`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `LocalResearchApplication` connect `LocalResearchApplication` to `AdapterRegistry`, `RightsOperation`?**
+- **Why does `RightsOperation` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`, `enums.py`?**
+  _High betweenness centrality (0.067) - this node is a cross-community bridge._
+- **Why does `RightsGate` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`?**
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `LocalResearchApplication` connect `RightsOperation` to `errors.py`, `api/app.py`?**
   _High betweenness centrality (0.043) - this node is a cross-community bridge._
-- **Why does `RightsGate` connect `RightsOperation` to `ChartPayload`, `AdapterRegistry`, `LocalResearchApplication`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
-- **Are the 27 inferred relationships involving `RightsOperation` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
-  _`RightsOperation` has 27 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 18 inferred relationships involving `RightsGate` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
-  _`RightsGate` has 18 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 31 inferred relationships involving `RightsOperation` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsOperation` has 31 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 22 inferred relationships involving `RightsGate` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsGate` has 22 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 19 inferred relationships involving `Base` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**
   _`Base` has 19 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 19 inferred relationships involving `UuidPrimaryKeyMixin` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**

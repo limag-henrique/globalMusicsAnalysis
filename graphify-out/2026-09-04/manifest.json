@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "src/chart_observatory/adapters/apple_music/charts.py": {
-    "mtime": 1788485613.1513703,
-    "ast_hash": "09666c37b5658bd2212f648ae8c5d047",
+    "mtime": 1788524408.6776793,
+    "ast_hash": "2cec15455c8531f7bd3097370a42b76c",
     "semantic_hash": ""
   },
   "src/chart_observatory/adapters/apple_music/mapper.py": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "src/chart_observatory/adapters/http.py": {
-    "mtime": 1788485484.9923966,
-    "ast_hash": "596a643c0b68929eee1130c106d7873e",
+    "mtime": 1788524408.6776793,
+    "ast_hash": "23e04b05fda987a4d839593ba18b931c",
     "semantic_hash": ""
   },
   "src/chart_observatory/api/__init__.py": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "src/chart_observatory/rights/repository.py": {
-    "mtime": 1788485484.6814468,
-    "ast_hash": "6b71bcf96887b72e7dc68b249d8c1264",
+    "mtime": 1788524258.0924716,
+    "ast_hash": "30ec33ad787c1af24d80d269a14d7945",
     "semantic_hash": ""
   },
   "src/chart_observatory/tracks/__init__.py": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   "tests/contract/apple_music/test_chart_source.py": {
-    "mtime": 1788485484.9622858,
-    "ast_hash": "67cd8aacebc27501fbd5663f6c0c1a52",
+    "mtime": 1788524408.678682,
+    "ast_hash": "343ddd6ec8d3a09c23b6f07e780c8d5b",
     "semantic_hash": ""
   },
   "tests/contract/test_synthetic_chart_source.py": {
@@ -580,8 +580,8 @@
     "semantic_hash": ""
   },
   "tests/unit/adapters/test_http_policy.py": {
-    "mtime": 1788485018.5088606,
-    "ast_hash": "e5d812b8bb3311e468cf60bd1ff3b104",
+    "mtime": 1788524397.971704,
+    "ast_hash": "c00da311a1e974946e9968a3e962cdbe",
     "semantic_hash": ""
   },
   "tests/unit/artifacts/test_store.py": {
@@ -680,8 +680,13 @@
     "semantic_hash": ""
   },
   "research/milestone_1a_acceptance_report.md": {
-    "mtime": 1788524160.8894603,
-    "ast_hash": "0b8649604a0800d02a7cc275981ce6e0",
+    "mtime": 1788524413.7511969,
+    "ast_hash": "3a7253b62cd6f14b3f15461b811f8ec3",
+    "semantic_hash": ""
+  },
+  "tests/integration/rights/test_rights_repository.py": {
+    "mtime": 1788524397.971704,
+    "ast_hash": "9935a2722847aa69ea7d8bc0bb3c9431",
     "semantic_hash": ""
   }
 }

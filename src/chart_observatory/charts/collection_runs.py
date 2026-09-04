@@ -62,7 +62,8 @@ class CollectionRunRepository:
     def coverage_history(self, chart_definition_id: UUID) -> list[CoverageCell]:
         statement = (
             select(CoverageCell)
+            .join(CollectionRun, CoverageCell.collection_run_id == CollectionRun.id)
             .where(CoverageCell.chart_definition_id == chart_definition_id)
-            .order_by(CoverageCell.created_at, CoverageCell.id)
+            .order_by(CollectionRun.started_at, CoverageCell.id)
         )
         return list(self.session.scalars(statement))

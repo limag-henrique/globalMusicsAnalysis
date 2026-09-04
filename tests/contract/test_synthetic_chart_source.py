@@ -1,8 +1,9 @@
 from datetime import UTC, datetime
 from decimal import Decimal
 
-from chart_observatory.charts.dto import ChartEntryDTO, ChartPayload
 from chart_source_contract import assert_chart_payload_contract
+
+from chart_observatory.charts.dto import ChartEntryDTO, ChartPayload
 
 
 def test_payload_preserves_raw_and_deterministic_rank_order() -> None:

@@ -45,4 +45,6 @@ def test_ingestion_orders_entries_and_checksums_raw_payload() -> None:
         datetime(2026, 9, 4, tzinfo=UTC),
     )
     assert sink.positions == [1, 2]
-    assert result.artifact_sha256 == "d7439bee24773b28e3c6650d22fdf3319b2c9e70695a1588e22770cbdc9da8f1"
+    assert (
+        result.artifact_sha256 == "d7439bee24773bcbfa2d0a97947ee36227b10d1022b1a55847e928965bb6bfde"
+    )

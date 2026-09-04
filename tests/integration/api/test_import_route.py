@@ -5,7 +5,6 @@ from fastapi.testclient import TestClient
 from chart_observatory.api.app import create_app
 from chart_observatory.application import LocalResearchApplication
 
-
 FIXTURE = Path(__file__).parents[2] / "fixtures" / "manual" / "valid_daily.csv"
 
 

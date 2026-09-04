@@ -36,3 +36,15 @@ Fixtures cover BR, US, GB, FR, DE, ES, PT, IT, and SE. They validate mapping and
 ## Gate after 1B
 
 Production YouTube collection remains disabled pending an approved retention/derivatives route and explicit activation. Milestone 1C is a commercial-provider procurement decision and was not started because it requires contracts, samples, pricing, and a human provider selection rather than additional speculative adapter code.
+
+## Verification record
+
+- Non-live tests: 84 passed.
+- Ruff: passed.
+- Mypy strict: passed for 94 source files.
+- Python compileall: passed.
+- Docker Compose configuration validation: passed.
+- Collection history is append-only and ordered by attempt time, so an outage cannot overwrite earlier available coverage.
+- Track/platform/country summaries retain unresolved observations in the denominator while excluding observations resolved to other tracks.
+- Snapshot and entry mutation is rejected by SQLAlchemy in every supported test database and by PostgreSQL triggers for direct database writes.
+- The shared chart-source payload contract is exercised by the synthetic adapter test.
