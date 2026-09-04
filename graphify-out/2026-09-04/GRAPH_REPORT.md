@@ -1,16 +1,16 @@
 # Graph Report - Promiscuidade Musical  (2026-09-04)
 
 ## Corpus Check
-- 133 files · ~29,129 words
+- 166 files · ~32,710 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 708 nodes · 1610 edges · 58 communities (36 shown, 22 thin omitted)
-- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 303 edges (avg confidence: 0.51)
+- 828 nodes · 2016 edges · 64 communities (41 shown, 23 thin omitted)
+- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 407 edges (avg confidence: 0.51)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d34ab022`
+- Built from commit: `030a0bcf`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -20,29 +20,30 @@
 - Spotify official capabilities and constraints for cross-cultural chart research
 - Avaliação de fontes históricas para rankings musicais multinacionais
 - Base
-- RightsOperation
-- enums.py
-- api/app.py
-- apple_music/charts.py
+- RightsGate
 - errors.py
+- LocalResearchApplication
+- HttpPolicy
+- AdapterRegistry
 - config.py
-- exports/manifest.py
+- writer.py
 - track_summary.py
 - overlap.py
 - Milestone 1A acceptance report
+- RightsOperation
 - 0001_reference_entities.py
 - 0003_track_identity.py
 - 0005_charts.py
 - 0007_collection_coverage.py
 - build_session_factory
 - AppleMusicTokenProvider
-- .for_preview
-- presence_summary
-- test_datasets.py
+- models/charts.py
+- TrackRepository
+- ReferenceRepository
 - build_engine
 - data_dictionary.md
-- limitations.md
-- methodology.md
+- Limitations — Milestone 1A
+- Methodology — Milestone 1A
 - apple_music/__init__.py
 - files/__init__.py
 - adapters/__init__.py
@@ -60,35 +61,40 @@
 - tracks/models.py
 - ui/__init__.py
 - chart-observatory
+- collection_runs.py
+- tracks/resolution.py
+- Milestone 1B acceptance report
+- YouTubeApiKeyProvider
+- youtube_data/__init__.py
 
 ## God Nodes (most connected - your core abstractions)
-1. `RightsOperation` - 49 edges
-2. `RightsGate` - 45 edges
-3. `Base` - 30 edges
-4. `UuidPrimaryKeyMixin` - 29 edges
-5. `CreatedAtMixin` - 29 edges
-6. `LocalResearchApplication` - 28 edges
-7. `ArtifactStore` - 24 edges
-8. `PlatformItem` - 23 edges
-9. `DomainValidationError` - 23 edges
-10. `AppleMusicChartSource` - 21 edges
+1. `RightsOperation` - 58 edges
+2. `RightsGate` - 56 edges
+3. `HttpPolicy` - 31 edges
+4. `YouTubeMostPopularSource` - 30 edges
+5. `LocalResearchApplication` - 30 edges
+6. `ChartPayload` - 30 edges
+7. `Base` - 30 edges
+8. `SourceDisabled` - 30 edges
+9. `UuidPrimaryKeyMixin` - 29 edges
+10. `CreatedAtMixin` - 29 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `HttpResponse` --uses--> `RightsOperation`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
-- `RetryingTransport` --uses--> `RightsOperation`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
-- `SpyTransport` --uses--> `RightsOperation`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
-- `TokenProvider` --uses--> `RightsOperation`  [INFERRED]
-  tests/contract/apple_music/test_chart_source.py → src/chart_observatory/domain/enums.py
-- `NeverCalledAdapter` --uses--> `RightsOperation`  [INFERRED]
-  tests/unit/charts/test_registry.py → src/chart_observatory/domain/enums.py
+- `NeverTransport` --uses--> `HttpPolicy`  [INFERRED]
+  tests/contract/youtube_data/test_most_popular_source.py → src/chart_observatory/adapters/http.py
+- `PageTransport` --uses--> `HttpPolicy`  [INFERRED]
+  tests/contract/youtube_data/test_most_popular_source.py → src/chart_observatory/adapters/http.py
+- `NeverTransport` --uses--> `YouTubeApiError`  [INFERRED]
+  tests/contract/youtube_data/test_most_popular_source.py → src/chart_observatory/adapters/youtube_data/most_popular.py
+- `PageTransport` --uses--> `YouTubeApiError`  [INFERRED]
+  tests/contract/youtube_data/test_most_popular_source.py → src/chart_observatory/adapters/youtube_data/most_popular.py
+- `NeverTransport` --uses--> `YouTubeQuotaExceeded`  [INFERRED]
+  tests/contract/youtube_data/test_most_popular_source.py → src/chart_observatory/adapters/youtube_data/most_popular.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (58 total, 22 thin omitted)
+## Communities (64 total, 23 thin omitted)
 
 ### Community 0 - "Milestone 1A"
 Cohesion: 0.07
@@ -107,40 +113,40 @@ Cohesion: 0.06
 Nodes (30): 1. Apple Music API Charts e Apple Music Feed, 1. Luminate — primeiro contato, 2. Soundcharts — segundo contato, 2. YouTube Data API — `videos.list?chart=mostPopular`, 3. Chartmetric — terceiro contato, 3. YouTube Music Charts, 4. Spotify Charts e Web API, 4. YouTube Researcher Program — trilha paralela (+22 more)
 
 ### Community 4 - "Base"
-Cohesion: 0.06
-Nodes (59): DeclarativeBase, Session, UUID, SqlArtifactCatalog, ChartRepository, date, datetime, Decimal (+51 more)
+Cohesion: 0.31
+Nodes (11): DeclarativeBase, Base, CreatedAtMixin, UuidPrimaryKeyMixin, AnalysisRun, AuditEvent, SourceArtifact, RightsGrantRow (+3 more)
 
-### Community 5 - "RightsOperation"
-Cohesion: 0.06
-Nodes (62): ImportPreview, ImportRequest, ImportResult, ImportSink, InMemoryImportSink, ManualChartImporter, ManualRow, Path (+54 more)
+### Community 5 - "RightsGate"
+Cohesion: 0.09
+Nodes (37): ImportPreview, ImportRequest, ImportResult, ImportSink, InMemoryImportSink, ManualChartImporter, ManualRow, Path (+29 more)
 
-### Community 6 - "enums.py"
-Cohesion: 0.08
-Nodes (35): CollectionRunResult, CommonObservationWindow, CoverageRecord, CoverageService, UUID, ChartFrequency, CoverageStatus, ItemKind (+27 more)
-
-### Community 7 - "api/app.py"
-Cohesion: 0.08
-Nodes (29): FastAPI, Request, create_app(), application(), apply(), ApplyRequest, preview(), PreviewRequest (+21 more)
-
-### Community 8 - "apple_music/charts.py"
+### Community 6 - "errors.py"
 Cohesion: 0.07
-Nodes (39): AppleMusicChartSource, AppleRequest, Any, datetime, UUID, map_chart_payload(), datetime, execute_http() (+31 more)
+Nodes (40): CommonObservationWindow, CoverageRecord, CoverageService, UUID, ChartFrequency, ItemKind, MetricType, PlatformCode (+32 more)
 
-### Community 9 - "errors.py"
-Cohesion: 0.10
-Nodes (24): command, Exception, NoReturn, DisabledChartSource, AdapterRegistration, AdapterRegistry, Any, datetime (+16 more)
+### Community 7 - "LocalResearchApplication"
+Cohesion: 0.06
+Nodes (35): FastAPI, Request, create_app(), application(), apply(), ApplyRequest, preview(), PreviewRequest (+27 more)
+
+### Community 8 - "HttpPolicy"
+Cohesion: 0.06
+Nodes (55): RuntimeError, AppleMusicChartSource, AppleRequest, Any, datetime, UUID, map_chart_payload(), datetime (+47 more)
+
+### Community 9 - "AdapterRegistry"
+Cohesion: 0.08
+Nodes (27): command, NoReturn, DisabledChartSource, ChartIngestionService, IngestionResult, date, datetime, Coordinates authorization before delegating persistence to an injected sink. (+19 more)
 
 ### Community 10 - "config.py"
 Cohesion: 0.15
 Nodes (12): BaseSettings, field_validator, model_validator, CountryConfig, _load_yaml(), Any, BaseModel, Path (+4 more)
 
-### Community 11 - "exports/manifest.py"
-Cohesion: 0.42
-Nodes (6): deterministic_manifest(), Any, manifest_bytes(), manifest_sha256(), ExportManifest, test_manifest_is_deterministic_and_complete()
+### Community 11 - "writer.py"
+Cohesion: 0.13
+Nodes (14): deterministic_manifest(), Any, manifest_bytes(), manifest_sha256(), ExportManifest, AtomicDatasetWriter, AuthorizedDatasetWriter, DataFrame (+6 more)
 
 ### Community 12 - "track_summary.py"
-Cohesion: 0.47
-Nodes (7): MetricObservation, TrackPlatformCountrySummary, Decimal, _sum_type(), summarize(), test_native_period_rank_and_unit_specific_metrics(), test_weekly_period_counts_once()
+Cohesion: 0.11
+Nodes (26): map_most_popular_page(), datetime, YouTubePage, MetricObservation, TrackPlatformCountrySummary, presence_summary(), PresenceSummary, UUID (+18 more)
 
 ### Community 13 - "overlap.py"
 Cohesion: 0.42
@@ -149,6 +155,10 @@ Nodes (8): CorrelationResult, _effective_depth(), jaccard_overlap(), OverlapResu
 ### Community 14 - "Milestone 1A acceptance report"
 Cohesion: 0.29
 Nodes (6): Activation state and review gate, Milestone 1A acceptance report, Outcome, Scientific invariants verified, Synthetic acceptance evidence, Verification record
+
+### Community 15 - "RightsOperation"
+Cohesion: 0.10
+Nodes (36): RightsOperation, RightsProfileStatus, datetime, UUID, AuthorizationDecision, datetime, RightsGrant, RightsProfile (+28 more)
 
 ### Community 16 - "0001_reference_entities.py"
 Cohesion: 0.60
@@ -174,33 +184,49 @@ Nodes (4): sessionmaker, build_session_factory(), Engine, Session
 Cohesion: 0.40
 Nodes (3): AppleMusicTokenProvider, Protocol, Secret-backed provider; concrete credential loading stays outside the adapter.
 
-### Community 22 - ".for_preview"
-Cohesion: 0.60
-Nodes (3): test_invalid_and_duplicate_ranks_are_reported(), test_preview_is_read_only_and_preserves_unknown_columns(), test_weekly_period_is_not_expanded_and_null_metric_is_preserved()
+### Community 22 - "models/charts.py"
+Cohesion: 0.13
+Nodes (16): Connection, Mapper, ChartRepository, date, datetime, Decimal, Session, UUID (+8 more)
 
-### Community 23 - "presence_summary"
-Cohesion: 0.60
-Nodes (4): presence_summary(), PresenceSummary, UUID, Observations are (country, platform, platform_item_id); item multiplicity is…
+### Community 23 - "TrackRepository"
+Cohesion: 0.17
+Nodes (10): ExternalIdClaim, Session, UUID, TrackRepository, test_conflicting_isrc_claims_are_retained(), test_multiple_videos_remain_distinct_for_one_recording(), _session(), test_conflicting_isrc_needs_review() (+2 more)
+
+### Community 24 - "ReferenceRepository"
+Cohesion: 0.22
+Nodes (8): Country, DataSource, Platform, Session, ReferenceRepository, test_initial_countries_are_seeded_without_europe_aggregate(), test_soundcharts_provider_is_distinct_from_spotify_platform(), test_network_sources_are_seeded_pending_without_grants()
+
+### Community 59 - "collection_runs.py"
+Cohesion: 0.24
+Nodes (11): CollectionRunRepository, CollectionRunResult, date, datetime, Session, UUID, Append-only persistence for collection attempts and their coverage result., CollectionRun (+3 more)
+
+### Community 60 - "tracks/resolution.py"
+Cohesion: 0.28
+Nodes (10): ResolutionRecord, CanonicalTrack, ResolutionStatus, Session, UUID, ResolutionCandidate, ResolutionOutcome, TrackResolutionService (+2 more)
+
+### Community 61 - "Milestone 1B acceptance report"
+Cohesion: 0.29
+Nodes (6): Adapter evidence, Gate after 1B, Milestone 1B acceptance report, Nine-country synthetic acceptance, Outcome, Verification record
 
 ## Knowledge Gaps
-- **109 isolated node(s):** `chart-observatory`, `ChartObservation`, `ExternalId`, `Global Constraints`, `Scope and execution gates` (+104 more)
+- **114 isolated node(s):** `chart-observatory`, `ChartObservation`, `ExternalId`, `Global Constraints`, `Scope and execution gates` (+109 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `RightsOperation` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`, `enums.py`?**
-  _High betweenness centrality (0.067) - this node is a cross-community bridge._
-- **Why does `RightsGate` connect `RightsOperation` to `apple_music/charts.py`, `errors.py`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
-- **Why does `LocalResearchApplication` connect `RightsOperation` to `errors.py`, `api/app.py`?**
-  _High betweenness centrality (0.043) - this node is a cross-community bridge._
-- **Are the 31 inferred relationships involving `RightsOperation` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
-  _`RightsOperation` has 31 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 22 inferred relationships involving `RightsGate` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
-  _`RightsGate` has 22 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 19 inferred relationships involving `Base` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**
-  _`Base` has 19 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 19 inferred relationships involving `UuidPrimaryKeyMixin` (e.g. with `AnalysisRun` and `AuditEvent`) actually correct?**
-  _`UuidPrimaryKeyMixin` has 19 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `RightsOperation` connect `RightsOperation` to `RightsGate`, `errors.py`, `LocalResearchApplication`, `HttpPolicy`, `AdapterRegistry`, `writer.py`?**
+  _High betweenness centrality (0.073) - this node is a cross-community bridge._
+- **Why does `RightsGate` connect `RightsGate` to `LocalResearchApplication`, `HttpPolicy`, `AdapterRegistry`, `writer.py`, `RightsOperation`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Why does `LocalResearchApplication` connect `LocalResearchApplication` to `AdapterRegistry`, `writer.py`, `RightsGate`, `RightsOperation`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Are the 39 inferred relationships involving `RightsOperation` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsOperation` has 39 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 30 inferred relationships involving `RightsGate` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`RightsGate` has 30 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 17 inferred relationships involving `HttpPolicy` (e.g. with `AppleMusicChartSource` and `AppleRequest`) actually correct?**
+  _`HttpPolicy` has 17 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 14 inferred relationships involving `YouTubeMostPopularSource` (e.g. with `HttpPolicy` and `YouTubeRegion`) actually correct?**
+  _`YouTubeMostPopularSource` has 14 INFERRED edges - model-reasoned connections that need verification._

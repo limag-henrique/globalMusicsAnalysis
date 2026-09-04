@@ -1,7 +1,7 @@
 {
   "Dados iniciais.txt": {
-    "mtime": 1788525620.0058546,
-    "ast_hash": "3295232677ceaa4dca0936964894b74d",
+    "mtime": 1788525677.255047,
+    "ast_hash": "0a462367f6266984f7aad45dfca17df7",
     "semantic_hash": ""
   },
   "docs/superpowers/plans/2026-09-03-multiplatform-chart-foundation.md": {
@@ -255,8 +255,8 @@
     "semantic_hash": ""
   },
   "src/chart_observatory/cli.py": {
-    "mtime": 1788485484.9612849,
-    "ast_hash": "2dee01efca4c32133c7659c48b9179dc",
+    "mtime": 1788525946.6886065,
+    "ast_hash": "75de67659746d811c10b2d3d11de6cb2",
     "semantic_hash": ""
   },
   "src/chart_observatory/config.py": {
@@ -852,6 +852,36 @@
   "research/milestone_1b_acceptance_report.md": {
     "mtime": 1788525627.1968246,
     "ast_hash": "ba337e4428a9efeebe6e6df4474ec700",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/procurement/__init__.py": {
+    "mtime": 1788525910.075773,
+    "ast_hash": "d610652403c813bdfc86017d5dbf49c1",
+    "semantic_hash": ""
+  },
+  "src/chart_observatory/procurement/schema_profiler.py": {
+    "mtime": 1788525910.0767746,
+    "ast_hash": "a94b4f93e3876318f78878e25e9f19c3",
+    "semantic_hash": ""
+  },
+  "tests/unit/procurement/test_schema_profiler.py": {
+    "mtime": 1788525930.814281,
+    "ast_hash": "e3b120c737b9768ad322a79de31c4198",
+    "semantic_hash": ""
+  },
+  "research/milestone_1c_decision_record.md": {
+    "mtime": 1788526097.4933374,
+    "ast_hash": "c2e5dfb8712aeb940b0dad8e956bd3b8",
+    "semantic_hash": ""
+  },
+  "research/milestone_1c_procurement_packet.md": {
+    "mtime": 1788526097.4913356,
+    "ast_hash": "3b3694b615c73e931bbef7c1ed9a1443",
+    "semantic_hash": ""
+  },
+  "research/milestone_1c_provider_diligence_2026-09-04.md": {
+    "mtime": 1788526097.4943373,
+    "ast_hash": "133c75fb5a12dcff015dfea5a39b650f",
     "semantic_hash": ""
   }
 }

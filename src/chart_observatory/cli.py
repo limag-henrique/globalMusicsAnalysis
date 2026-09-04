@@ -8,6 +8,7 @@ from chart_observatory.application import LocalResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
 from chart_observatory.domain.enums import RightsOperation
 from chart_observatory.domain.errors import SourceDisabled
+from chart_observatory.procurement.schema_profiler import profile_sample
 
 app = typer.Typer(help="Rights-gated cross-platform chart research tools.")
 collect_app = typer.Typer()
@@ -15,11 +16,13 @@ import_app = typer.Typer()
 coverage_app = typer.Typer()
 metrics_app = typer.Typer()
 export_app = typer.Typer()
+procurement_app = typer.Typer()
 app.add_typer(collect_app, name="collect")
 app.add_typer(import_app, name="import-chart")
 app.add_typer(coverage_app, name="coverage")
 app.add_typer(metrics_app, name="metrics")
 app.add_typer(export_app, name="export")
+app.add_typer(procurement_app, name="procurement")
 
 
 def _service(authorized: bool = False) -> LocalResearchApplication:
@@ -81,6 +84,12 @@ def export_create(
     dataset: str, format: str = "parquet", authorize_local_file: bool = typer.Option(False)
 ) -> None:
     typer.echo(json.dumps(_service(authorize_local_file).export(dataset, format)))
+
+
+@procurement_app.command("profile-sample")
+def procurement_profile_sample(path: Path) -> None:
+    """Inspect a vendor sample without importing or retaining its row values."""
+    typer.echo(json.dumps(profile_sample(path).as_dict(), sort_keys=True))
 
 
 if __name__ == "__main__":
