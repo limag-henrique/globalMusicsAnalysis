@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date
+from pathlib import Path
 from typing import Any
 
 from chart_observatory.adapters.http import HttpPolicy, execute_http
@@ -171,6 +173,63 @@ class ChartmetricClient:
             for index, row in enumerate(_rows(payload), start=offset + 1)
         )
 
+    def collect_chart_pages(
+        self,
+        *,
+        platform: str,
+        country_code: str,
+        interval: str,
+        chart_type: str,
+        period: date,
+        page_size: int = 200,
+        checkpoint_path: Path | None = None,
+        max_pages: int | None = None,
+    ) -> tuple[SourceObservation, ...]:
+        """Collect a bounded chart with an on-disk offset checkpoint.
+
+        The checkpoint contains only the request fingerprint and the next offset;
+        provider rows are returned to the caller and are never written here.
+        """
+        if not 1 <= page_size <= 200:
+            raise ValueError("page_size must be between 1 and 200")
+        if max_pages is not None and max_pages < 1:
+            raise ValueError("max_pages must be positive when provided")
+
+        fingerprint = _checkpoint_fingerprint(
+            platform, country_code, interval, chart_type, period, page_size
+        )
+        offset, complete = _load_checkpoint(checkpoint_path, fingerprint)
+        if complete:
+            return ()
+        rows: list[SourceObservation] = []
+        pages = 0
+        while True:
+            payload = self.get(
+                f"/api/charts/{platform}",
+                {
+                    "country_code": country_code.upper(),
+                    "interval": interval,
+                    "type": chart_type,
+                    "date": period.isoformat(),
+                    "limit": page_size,
+                    "offset": offset,
+                },
+            )
+            page_rows = _rows(payload)
+            rows.extend(
+                _observation_from_row(platform, country_code, chart_type, period, index, row)
+                for index, row in enumerate(page_rows, start=offset + 1)
+            )
+            pages += 1
+            next_offset = _next_offset(payload, offset, len(page_rows), page_size)
+            if next_offset is None:
+                _save_checkpoint(checkpoint_path, fingerprint, "COMPLETE", None)
+                return tuple(rows)
+            offset = next_offset
+            if max_pages is not None and pages >= max_pages:
+                _save_checkpoint(checkpoint_path, fingerprint, "PAUSED", offset)
+                return tuple(rows)
+
     def _send_raw(self, request: ChartmetricRequest, *, authenticate: bool) -> Any:
         headers = dict(request.headers)
         if authenticate and "Authorization" not in headers:
@@ -283,3 +342,70 @@ def _observation_from_row(
         metric_type="STREAMS" if metric is not None else None,
         raw_fields=row,
     )
+
+
+def _checkpoint_fingerprint(
+    platform: str,
+    country_code: str,
+    interval: str,
+    chart_type: str,
+    period: date,
+    page_size: int,
+) -> str:
+    request = "|".join(
+        (
+            platform.casefold(),
+            country_code.upper(),
+            interval,
+            chart_type,
+            period.isoformat(),
+            str(page_size),
+        )
+    )
+    return hashlib.sha256(request.encode("utf-8")).hexdigest()
+
+
+def _load_checkpoint(path: Path | None, fingerprint: str) -> tuple[int, bool]:
+    if path is None or not path.exists():
+        return 0, False
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("request_fingerprint") != fingerprint:
+        raise ValueError("Chartmetric checkpoint belongs to a different request")
+    if payload.get("status") == "COMPLETE":
+        return 0, True
+    next_offset = payload.get("next_offset")
+    return (int(next_offset) if next_offset is not None else 0), False
+
+
+def _save_checkpoint(
+    path: Path | None, fingerprint: str, status: str, next_offset: int | None
+) -> None:
+    if path is None:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "request_fingerprint": fingerprint,
+        "status": status,
+        "next_offset": next_offset,
+    }
+    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary.write_text(json.dumps(payload, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
+def _next_offset(
+    payload: dict[str, Any], offset: int, row_count: int, page_size: int
+) -> int | None:
+    obj = payload.get("obj", payload)
+    if isinstance(obj, dict):
+        for key in ("next_offset", "nextOffset"):
+            value = obj.get(key)
+            if value is None:
+                continue
+            return int(value)
+        total = obj.get("total")
+        if total is not None and offset + row_count < int(total):
+            return offset + row_count
+    if row_count == 0 or row_count < page_size:
+        return None
+    return offset + row_count

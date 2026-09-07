@@ -268,7 +268,7 @@ def sources_kaggle_import(
 @chartmetric_app.command("auth-test")
 def sources_chartmetric_auth_test() -> None:
     settings = Settings.load(Path.cwd())
-    if not settings.chartmetric_refresh_token:
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
         typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
         return
     transport = HttpxTransport("https://api.chartmetric.com")
@@ -298,7 +298,7 @@ def sources_chartmetric_auth_test() -> None:
 @chartmetric_app.command("discover")
 def sources_chartmetric_discover() -> None:
     settings = Settings.load(Path.cwd())
-    if not settings.chartmetric_refresh_token:
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
         typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
         return
     transport = HttpxTransport("https://api.chartmetric.com")
@@ -327,6 +327,84 @@ def sources_chartmetric_discover() -> None:
         typer.echo(
             json.dumps(
                 {"status": "FAILED", "provider": "CHARTMETRIC", "status_code": error.status_code}
+            )
+        )
+    finally:
+        transport.close()
+
+
+@chartmetric_app.command("collect")
+def sources_chartmetric_collect(
+    platform: str = typer.Option(..., help="Origin platform, for example spotify."),
+    country_code: str = typer.Option(..., help="ISO-3166 alpha-2 market code."),
+    interval: str = typer.Option(..., help="Provider interval, for example daily."),
+    chart_type: str = typer.Option(..., help="Provider chart type."),
+    period: str = typer.Option(..., help="Native period date in YYYY-MM-DD format."),
+    output: Path = typer.Option(Path("data/normalized/chartmetric_observations.parquet")),
+    checkpoint: Path = typer.Option(Path("data/interim/chartmetric-checkpoint.json")),
+    page_size: int = typer.Option(200, min=1, max=200),
+    max_pages: int = typer.Option(1, min=1, max=100),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to one bounded authenticated collection; no broad collection is performed.",
+    ),
+) -> None:
+    """Collect one explicitly selected Chartmetric chart window."""
+    settings = Settings.load(Path.cwd())
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
+        typer.echo(json.dumps({"provider": "CHARTMETRIC", "status": "NOT_CONFIGURED"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"provider": "CHARTMETRIC", "status": "NETWORK_DISABLED"}))
+        return
+
+    import polars as pl
+
+    collection_period = date.fromisoformat(period)
+    transport = HttpxTransport("https://api.chartmetric.com")
+    try:
+        rows = ChartmetricClient(
+            settings.chartmetric_refresh_token, transport=transport
+        ).collect_chart_pages(
+            platform=platform,
+            country_code=country_code,
+            interval=interval,
+            chart_type=chart_type,
+            period=collection_period,
+            page_size=page_size,
+            checkpoint_path=checkpoint,
+            max_pages=max_pages,
+        )
+        output.parent.mkdir(parents=True, exist_ok=True)
+        pl.DataFrame(
+            [
+                {
+                    key: value
+                    for key, value in asdict(row).items()
+                    if key != "raw_fields"
+                }
+                for row in rows
+            ]
+        ).write_parquet(output)
+        typer.echo(
+            json.dumps(
+                {
+                    "provider": "CHARTMETRIC",
+                    "status": "COLLECTED",
+                    "rows": len(rows),
+                    "output": str(output),
+                    "checkpoint": str(checkpoint),
+                }
+            )
+        )
+    except ChartmetricError as error:
+        typer.echo(
+            json.dumps(
+                {
+                    "provider": "CHARTMETRIC",
+                    "status": "FAILED",
+                    "status_code": error.status_code,
+                }
             )
         )
     finally:
