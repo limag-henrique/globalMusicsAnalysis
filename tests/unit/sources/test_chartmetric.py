@@ -201,3 +201,21 @@ def test_collect_command_is_bounded_and_requires_network_opt_in() -> None:
         "provider": "CHARTMETRIC",
         "status": "NETWORK_DISABLED",
     }
+
+
+def test_auth_and_discover_commands_require_network_opt_in(monkeypatch) -> None:
+    monkeypatch.setenv("CHARTMETRIC_REFRESH_TOKEN", "refresh-token")
+
+    class UnexpectedTransport:
+        def __init__(self, *_args, **_kwargs):
+            raise AssertionError("network transport must not be constructed")
+
+    monkeypatch.setattr("chart_observatory.cli.HttpxTransport", UnexpectedTransport)
+
+    for command in ("auth-test", "discover"):
+        result = CliRunner().invoke(app, ["sources", "chartmetric", command])
+        assert result.exit_code == 0
+        assert json.loads(result.stdout) == {
+            "provider": "CHARTMETRIC",
+            "status": "NETWORK_DISABLED",
+        }

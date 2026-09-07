@@ -266,10 +266,18 @@ def sources_kaggle_import(
 
 
 @chartmetric_app.command("auth-test")
-def sources_chartmetric_auth_test() -> None:
+def sources_chartmetric_auth_test(
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to one bounded authenticated token exchange.",
+    ),
+) -> None:
     settings = Settings.load(Path.cwd())
     if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
         typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "CHARTMETRIC"}))
         return
     transport = HttpxTransport("https://api.chartmetric.com")
     try:
@@ -296,10 +304,18 @@ def sources_chartmetric_auth_test() -> None:
 
 
 @chartmetric_app.command("discover")
-def sources_chartmetric_discover() -> None:
+def sources_chartmetric_discover(
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to bounded authenticated capability discovery.",
+    ),
+) -> None:
     settings = Settings.load(Path.cwd())
     if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
         typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "CHARTMETRIC"}))
         return
     transport = HttpxTransport("https://api.chartmetric.com")
     try:
@@ -461,13 +477,15 @@ def sources_youtube_discover(
             payload["category_region"] = region.upper()
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        categories_value = payload.get("categories")
+        category_count = len(categories_value) if isinstance(categories_value, list) else 0
         typer.echo(
             json.dumps(
                 {
                     "status": "DISCOVERED",
                     "provider": "YOUTUBE_DATA_API",
                     "regions": len(regions),
-                    "categories": len(payload.get("categories", [])),
+                    "categories": category_count,
                     "output": str(output),
                 }
             )

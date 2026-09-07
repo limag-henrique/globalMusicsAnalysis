@@ -4,7 +4,9 @@ import importlib
 import json
 from collections.abc import Iterator
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
+from typing import Any
 
 import polars as pl
 
@@ -77,7 +79,11 @@ class KaggleSpotifyChartsSource:
                 )
                 .collect(engine="streaming")
             )
-            row = frame.row(0, named=True) if frame.height else {"rows": 0, "regions": []}
+            row: dict[str, Any] = (
+                frame.row(0, named=True)
+                if frame.height
+                else {"rows": 0, "regions": []}
+            )
             regions = (
                 pl.scan_csv(path, infer_schema_length=1000)
                 .select(pl.col(columns["region"]).cast(pl.String).unique())
@@ -291,10 +297,10 @@ class KaggleSpotifyChartsSource:
         )
 
 
-def _integer(value: object) -> int | None:
+def _integer(value: object) -> Decimal | None:
     if value is None or str(value).strip() in {"", "null", "None"}:
         return None
     try:
-        return int(str(value).replace(",", "").strip())
+        return Decimal(str(value).replace(",", "").strip())
     except ValueError:
         return None

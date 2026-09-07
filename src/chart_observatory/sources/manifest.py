@@ -19,7 +19,9 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
 
 
 def _json_default(value: Any) -> str:
-    if isinstance(value, (Path, date)):
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, date):
         return value.isoformat()
     raise TypeError(f"unsupported manifest value: {type(value)!r}")
 

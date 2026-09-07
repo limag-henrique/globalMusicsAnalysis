@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from collections.abc import Iterator
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 
 import polars as pl
@@ -33,11 +34,11 @@ def _parse_date(value: object) -> date:
     return date.fromisoformat(str(value))
 
 
-def _parse_metric(value: object) -> int | None:
+def _parse_metric(value: object) -> Decimal | None:
     if value is None or str(value).strip() in {"", "null", "None"}:
         return None
     try:
-        return int(str(value).replace(",", "").strip())
+        return Decimal(str(value).replace(",", "").strip())
     except ValueError:
         return None
 

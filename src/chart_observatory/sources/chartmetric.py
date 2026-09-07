@@ -6,6 +6,7 @@ import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -338,7 +339,7 @@ def _observation_from_row(
         track_title=title,
         artist=artist,
         native_id=str(native_id) if native_id is not None else None,
-        metric_value=int(metric) if isinstance(metric, (int, float)) else None,
+        metric_value=Decimal(str(metric)) if isinstance(metric, (int, float)) else None,
         metric_type="STREAMS" if metric is not None else None,
         raw_fields=row,
     )

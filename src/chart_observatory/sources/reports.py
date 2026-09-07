@@ -4,8 +4,10 @@ import csv
 from collections import defaultdict
 from collections.abc import Iterable
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from statistics import mean
+from typing import Any, cast
 
 import polars as pl
 
@@ -102,7 +104,7 @@ def write_artist_year_report(
         "streams_sum",
         "stream_observations",
     ]
-    rows = []
+    rows: list[dict[str, object]] = []
     for row in grouped.values():
         assert row.unique_tracks is not None
         assert row.ranks is not None
@@ -128,8 +130,8 @@ def write_artist_year_report(
         key=lambda row: (
             row["country_code"],
             row["year"],
-            -int(row["chart_appearances"]),
-            int(row["best_rank"]),
+            -_as_int(row["chart_appearances"]),
+            _as_int(row["best_rank"]),
             str(row["artist"]).casefold(),
         )
     )
@@ -137,7 +139,7 @@ def write_artist_year_report(
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
-    all_years = [int(row["year"]) for row in rows]
+    all_years = [_as_int(row["year"]) for row in rows]
     return ReportSummary(
         output_path,
         len(rows),
@@ -197,9 +199,9 @@ def write_artist_year_report_from_parquet(
     return ReportSummary(
         output_path,
         summary.height,
-        tuple(summary.get_column("country_code").unique().sort().to_list()),
-        int(summary.get_column("year").min()) if summary.height else None,
-        int(summary.get_column("year").max()) if summary.height else None,
+        tuple(str(value) for value in summary.get_column("country_code").unique().sort().to_list()),
+        _series_int(summary, "year", minimum=True),
+        _series_int(summary, "year", minimum=False),
     )
 
 
@@ -239,13 +241,14 @@ def write_top_artist_list(
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     frame.write_csv(output_path)
-    years = frame.get_column("year") if frame.height else []
     return ReportSummary(
         output_path,
         frame.height,
-        tuple(frame.get_column("country_code").unique().sort().to_list()) if frame.height else (),
-        int(years.min()) if frame.height else None,
-        int(years.max()) if frame.height else None,
+        tuple(str(value) for value in frame.get_column("country_code").unique().sort().to_list())
+        if frame.height
+        else (),
+        _series_int(frame, "year", minimum=True),
+        _series_int(frame, "year", minimum=False),
     )
 
 
@@ -268,12 +271,14 @@ def write_global_market_coverage(manifests: Iterable[SourceManifest], output_dir
             assert isinstance(providers, set) and isinstance(platforms, set)
             providers.add(manifest.provider)
             platforms.add(manifest.origin_platform)
+            earliest = cast(date | None, row["earliest"])
             if manifest.earliest_date and (
-                row["earliest"] is None or manifest.earliest_date < row["earliest"]
+                earliest is None or manifest.earliest_date < earliest
             ):
                 row["earliest"] = manifest.earliest_date
+            latest = cast(date | None, row["latest"])
             if manifest.latest_date and (
-                row["latest"] is None or manifest.latest_date > row["latest"]
+                latest is None or manifest.latest_date > latest
             ):
                 row["latest"] = manifest.latest_date
 
@@ -293,8 +298,8 @@ def write_global_market_coverage(manifests: Iterable[SourceManifest], output_dir
         writer.writeheader()
         for country in sorted(by_country):
             row = by_country[country]
-            providers = sorted(row["providers"])
-            platforms = sorted(row["platforms"])
+            providers = sorted(cast(set[str], row["providers"]))
+            platforms = sorted(cast(set[str], row["platforms"]))
             writer.writerow(
                 {
                     "country": country,
@@ -356,11 +361,11 @@ def write_market_capability_inventory(
                     number_of_observations=manifest.number_of_observations,
                 )
             )
-            row["chart_types"].update(manifest.chart_types)
+            cast(set[str], row["chart_types"]).update(manifest.chart_types)
 
     for capability in capabilities:
         row = ensure(capability)
-        row["chart_types"].update(capability.chart_types)
+        cast(set[str], row["chart_types"]).update(capability.chart_types)
         if capability.country_name:
             row["country_name"] = capability.country_name
         if capability.earliest_date:
@@ -390,9 +395,20 @@ def write_market_capability_inventory(
         writer.writeheader()
         for key in sorted(rows):
             row = rows[key]
-            row["chart_types"] = ";".join(sorted(row["chart_types"]))
+            row["chart_types"] = ";".join(sorted(cast(set[str], row["chart_types"])))
             writer.writerow(row)
     return output_path
+
+
+def _as_int(value: object) -> int:
+    if isinstance(value, (int, float)):
+        return int(value)
+    return int(str(value))
+
+
+def _series_int(frame: pl.DataFrame, column: str, *, minimum: bool) -> int | None:
+    value: Any = frame.get_column(column).min() if minimum else frame.get_column(column).max()
+    return int(value) if value is not None else None
 
 
 def write_overlap_report(
