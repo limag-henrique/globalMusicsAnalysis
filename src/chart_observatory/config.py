@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml  # type: ignore[import-untyped]
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -54,13 +54,25 @@ class Settings(BaseSettings):
     artifact_root: Path = Path("data/raw")
     config_root: Path = Path("config")
     log_level: str = "INFO"
+    chartmetric_refresh_token: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "CHARTMETRIC_REFRESH_TOKEN", "CHART_OBSERVATORY_CHARTMETRIC_REFRESH_TOKEN"
+        ),
+    )
+    youtube_data_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "YOUTUBE_DATA_API_KEY", "CHART_OBSERVATORY_YOUTUBE_DATA_API_KEY"
+        ),
+    )
 
     @classmethod
     def load(cls, project_root: Path) -> Settings:
         country_data = _load_yaml(project_root / "config" / "countries.yaml")
         research_data = _load_yaml(project_root / "config" / "research.yaml")
         return cls(
-            countries=tuple(country_data["countries"]),
+            countries=tuple(country_data.get("countries", [])),
             research=research_data["research"],
         )
 

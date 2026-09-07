@@ -1,20 +1,3 @@
-countries:
-  - code: BR
-    name: Brasil
-  - code: US
-    name: Estados Unidos
-  - code: GB
-    name: Reino Unido
-  - code: FR
-    name: França
-  - code: DE
-    name: Alemanha
-  - code: ES
-    name: Espanha
-  - code: PT
-    name: Portugal
-  - code: IT
-    name: Itália
-  - code: SE
-    name: Suécia
-
+# Deliberately empty: markets are discovered from each source inventory.
+# This file remains as a compatibility hook for future curated metadata.
+countries: []

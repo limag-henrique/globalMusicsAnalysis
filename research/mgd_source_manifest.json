@@ -1,0 +1,1589 @@
+{
+  "files": [
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "AE"
+      ],
+      "earliest_date": "2019-06-04",
+      "filename": "charts\\regional\\spotify_charts_regional_ae.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 158253,
+      "number_of_tracks": 2784,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ae.csv",
+      "provider": "MGD",
+      "row_count": 158253,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "4781b5664dac0929b1b175db6eeb627553d9dbb5c3b4dc819815350321de6bca",
+      "size_bytes": 15051587,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "AR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ar.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 4227,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ar.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "c6b7c4e4be95e66e4599c77b26af87424e71a6b24de3b9af0b835d7eb1573141",
+      "size_bytes": 37892991,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "AT"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_at.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378134,
+      "number_of_tracks": 9322,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_at.csv",
+      "provider": "MGD",
+      "row_count": 378134,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "f44eaef92271c7f232f5d996f4a08290660e30dbf305aaf94dfaf76d380b3e6c",
+      "size_bytes": 36038287,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "AU"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_au.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378800,
+      "number_of_tracks": 5732,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_au.csv",
+      "provider": "MGD",
+      "row_count": 378800,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "48f637bcdefcb6ca267d2ca48378def7c5aa54203994512c705cbaaa52e9bc56",
+      "size_bytes": 36579710,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "BE"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_be.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 8419,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_be.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "53a0d8a7a64af459e5ee02534f12c3ec5a9a13aabdcf8fb74a82769dd23aceb7",
+      "size_bytes": 36366272,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "BG"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_bg.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 106859,
+      "number_of_tracks": 3315,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_bg.csv",
+      "provider": "MGD",
+      "row_count": 106859,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "3cbd28911703a6f3b9d1c2a330076809414404c53607c02b1704e238cab64c90",
+      "size_bytes": 10136700,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "BO"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_bo.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 327663,
+      "number_of_tracks": 3471,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_bo.csv",
+      "provider": "MGD",
+      "row_count": 327663,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "8d98fe4a07843ab58980d4df9609f39aca2d5f966cd4e6a4527bdb4cebca0abd",
+      "size_bytes": 32662145,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "BR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_br.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379200,
+      "number_of_tracks": 5010,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_br.csv",
+      "provider": "MGD",
+      "row_count": 379200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "02f893989aab8908a12cad1999101cb9d572b1954a00e4132d82906e74babf5a",
+      "size_bytes": 40296648,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CA"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ca.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379200,
+      "number_of_tracks": 8249,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ca.csv",
+      "provider": "MGD",
+      "row_count": 379200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "654fd7e26315b503237ea846bf1821776ee63b2a14419330db39b72f7779e09c",
+      "size_bytes": 37101498,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CH"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ch.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 11249,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ch.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "5bc7c97034914550413a17bba503ac57e517d7fa20df4985b29bbf6afce2a2ed",
+      "size_bytes": 36139201,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CL"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_cl.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 4769,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_cl.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "66c4ce545fc803413a0becf2e53e130e6786aa43a0d87fc3b2cb47f1d526f72b",
+      "size_bytes": 38933763,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CO"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_co.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378200,
+      "number_of_tracks": 4534,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_co.csv",
+      "provider": "MGD",
+      "row_count": 378200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "f57e9e0393d0d53a860da9b54fe10afd331dbbdd6384f9a47545cba89dcdf1a9",
+      "size_bytes": 37764454,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_cr.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 4258,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_cr.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "ea08e30e3f84ba9608f850f8082332e950d48fff6cc5c0053fffe5ee2c587e35",
+      "size_bytes": 37499954,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [],
+      "countries": [],
+      "earliest_date": null,
+      "filename": "charts\\regional\\spotify_charts_regional_cy.csv",
+      "latest_date": null,
+      "missing_periods": null,
+      "number_of_observations": null,
+      "number_of_tracks": null,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_cy.csv",
+      "provider": "MGD",
+      "row_count": 0,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "62150d9e36b0e70db105ff948b5fffcb96ed0d1a0e4eaf1e5f5ff516d96f16bb",
+      "size_bytes": 58,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "CZ"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_cz.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 376720,
+      "number_of_tracks": 7309,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_cz.csv",
+      "provider": "MGD",
+      "row_count": 376720,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "d4d999c23e3baa4b21a6325f7eb9ae619756097679b472b8a435234436929d05",
+      "size_bytes": 36307461,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "DE"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_de.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379102,
+      "number_of_tracks": 10624,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_de.csv",
+      "provider": "MGD",
+      "row_count": 379102,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "8fe093dc42d378d68dc699585a17788f35cffccde3b204699f9567a85503e4f9",
+      "size_bytes": 36382519,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "DK"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_dk.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 7452,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_dk.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "4af70ca2784df11d88c8141bc3b9dfb94df2685e0c96824f726a920d0283320d",
+      "size_bytes": 35869518,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "DO"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_do.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 362203,
+      "number_of_tracks": 5049,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_do.csv",
+      "provider": "MGD",
+      "row_count": 362203,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "b983409cf3333750b05d761d938cdead0ac2e6f52cabf1431cf64b615064ac58",
+      "size_bytes": 36723711,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "EC"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ec.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 3795,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ec.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "6dd1a10adffb52840866dc2ae0460b49ab782b6d2cb4636b4c44008e9e1084fd",
+      "size_bytes": 37618633,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "EE"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ee.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 118257,
+      "number_of_tracks": 4182,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ee.csv",
+      "provider": "MGD",
+      "row_count": 118257,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "11576b4619bbc61435c534cd437305c3e50008fb20fe9a5ea91c388587a681ef",
+      "size_bytes": 11261259,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "EG"
+      ],
+      "earliest_date": "2019-07-22",
+      "filename": "charts\\regional\\spotify_charts_regional_eg.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 143981,
+      "number_of_tracks": 1901,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_eg.csv",
+      "provider": "MGD",
+      "row_count": 143981,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "4659365e61cff8d275c3c6cad5cced06ee5a9b299e19365faaca61782e72ca35",
+      "size_bytes": 13417712,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "ES"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_es.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378367,
+      "number_of_tracks": 6009,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_es.csv",
+      "provider": "MGD",
+      "row_count": 378367,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "04da6820cf379416b02d0264a9e070ca2c4dfd71f989b810a91b7d1adc01b144",
+      "size_bytes": 38241684,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "FI"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_fi.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 9677,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_fi.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "324af5ba6b42394dbe970d5a1c04736bad2702ec6f544364a4604e80f228fe44",
+      "size_bytes": 36577415,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "FR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_fr.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379200,
+      "number_of_tracks": 9470,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_fr.csv",
+      "provider": "MGD",
+      "row_count": 379200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "7fa73e5e6b2093477827edfd0591dddd0d8e5a4b8cb9352f321b763108aa5c94",
+      "size_bytes": 34804658,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "GB"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_gb.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379200,
+      "number_of_tracks": 9058,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_gb.csv",
+      "provider": "MGD",
+      "row_count": 379200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "e7dfdbb66fb86cdbd01defe46adff1ce94cdac1bca64de6a59b0ba5e9ff2127c",
+      "size_bytes": 37093106,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "GLOBAL"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_global.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 379000,
+      "number_of_tracks": 7799,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_global.csv",
+      "provider": "MGD",
+      "row_count": 379000,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "722462bf84d89c5fb78fdf7f5bced8b9c5987542e31b4467e7a011f22941889a",
+      "size_bytes": 39404258,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "GR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_gr.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 301498,
+      "number_of_tracks": 6085,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_gr.csv",
+      "provider": "MGD",
+      "row_count": 301498,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "1abc3570422d0c6ef076764cbcccd1059a04428a100cd23657125227023ca717",
+      "size_bytes": 28104468,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "GT"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_gt.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 372985,
+      "number_of_tracks": 3869,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_gt.csv",
+      "provider": "MGD",
+      "row_count": 372985,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "5c99f0b2b1208e77dec65d42b79fd3c83ef83eff6734f6183c56345e322b4366",
+      "size_bytes": 37562164,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "HK"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_hk.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378466,
+      "number_of_tracks": 6120,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_hk.csv",
+      "provider": "MGD",
+      "row_count": 378466,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "1fb5ca446ddb9497d7e09338a4029a84aec9314bf9c7df542c2e7ed02bdd6340",
+      "size_bytes": 35819344,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "HN"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_hn.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 306485,
+      "number_of_tracks": 3416,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_hn.csv",
+      "provider": "MGD",
+      "row_count": 306485,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "0adbc9795e146a395e679465cb9cf583b6de4b256c3a1e6df8d64b18a233bd03",
+      "size_bytes": 30729269,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "HU"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_hu.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 364382,
+      "number_of_tracks": 7185,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_hu.csv",
+      "provider": "MGD",
+      "row_count": 364382,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "ac8092f632b312de7ec302ab11665394c1a490dc2e779e966cca3c1c7d20c1dd",
+      "size_bytes": 35518288,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "ID"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_id.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 377800,
+      "number_of_tracks": 4182,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_id.csv",
+      "provider": "MGD",
+      "row_count": 377800,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "61bc4754afcfff784486b57e53d00528ad5db133de92233f228a812d4ef71b9d",
+      "size_bytes": 35913216,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "IE"
+      ],
+      "earliest_date": "2017-01-02",
+      "filename": "charts\\regional\\spotify_charts_regional_ie.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 7508,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ie.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "c08c0e44f9fb56af9f0b0b622c0248e489fcc33421c2995e6e76002ed33d8fbc",
+      "size_bytes": 36638056,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "IL"
+      ],
+      "earliest_date": "2018-03-14",
+      "filename": "charts\\regional\\spotify_charts_regional_il.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 281612,
+      "number_of_tracks": 4121,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_il.csv",
+      "provider": "MGD",
+      "row_count": 281612,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "50bddf8fe4c0f8d928a0f3d062edb3e21037b917142480cfa3bbd452e3555b94",
+      "size_bytes": 27495008,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "IN"
+      ],
+      "earliest_date": "2019-02-27",
+      "filename": "charts\\regional\\spotify_charts_regional_in.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 221800,
+      "number_of_tracks": 2669,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_in.csv",
+      "provider": "MGD",
+      "row_count": 221800,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "cd1e85ccc7bffaa1ef52569b04d72d45c5451ab344223f0aae7cbdbf31495cf9",
+      "size_bytes": 23975001,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "IS"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_is.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 222759,
+      "number_of_tracks": 5626,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_is.csv",
+      "provider": "MGD",
+      "row_count": 222759,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "1f8ccb21b41d2158568bc76646c2e83158ba902d3853506cb3506084267a2cf2",
+      "size_bytes": 21462117,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "IT"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_it.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 7642,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_it.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "8e5671926afd8904aa0582d2d249ce3cd165092dea1e74b27994168b73e37548",
+      "size_bytes": 37172648,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "JP"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_jp.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 377399,
+      "number_of_tracks": 5316,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_jp.csv",
+      "provider": "MGD",
+      "row_count": 377399,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "7b870b19cd56930c5db53597deee6d57a62ac211d2e101c4cdda76cf9bf683cc",
+      "size_bytes": 35061354,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "KR"
+      ],
+      "earliest_date": "2021-02-01",
+      "filename": "charts\\regional\\spotify_charts_regional_kr.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 80176,
+      "number_of_tracks": 2007,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_kr.csv",
+      "provider": "MGD",
+      "row_count": 80176,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "abe7b7a4e5a89cb75cc52194497974cd3daa9a513ec9187bc8d4d725e87065a2",
+      "size_bytes": 7330853,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "LT"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_lt.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 172520,
+      "number_of_tracks": 5129,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_lt.csv",
+      "provider": "MGD",
+      "row_count": 172520,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "26026b6db4e34b084c34c724f2b44b06e0b5d2930a4a4ac55f9da9ac8da98720",
+      "size_bytes": 16474587,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "LU"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_lu.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 16188,
+      "number_of_tracks": 1684,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_lu.csv",
+      "provider": "MGD",
+      "row_count": 16188,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "926aad04ff846e15a262971b899605c168dc32adf891f717e9a741268f69e3fc",
+      "size_bytes": 1584577,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "LV"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_lv.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 166814,
+      "number_of_tracks": 5146,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_lv.csv",
+      "provider": "MGD",
+      "row_count": 166814,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "8a0716596eb326e08801b1c015d45d0f1588b3e4a120f7cc8a0e005609233f63",
+      "size_bytes": 16036782,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "MA"
+      ],
+      "earliest_date": "2019-07-08",
+      "filename": "charts\\regional\\spotify_charts_regional_ma.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 155237,
+      "number_of_tracks": 3087,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ma.csv",
+      "provider": "MGD",
+      "row_count": 155237,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "b0e9f8d5a5507992b87968ab836c0c58a7ca4786bb3b0d021dd87dd777eef749",
+      "size_bytes": 13841750,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "MX"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_mx.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 3928,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_mx.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "59a87be92871295e6aac87e304f6b69011651c4df53ab344fd9e1111ac3a28d1",
+      "size_bytes": 38168438,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "MY"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_my.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378200,
+      "number_of_tracks": 5605,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_my.csv",
+      "provider": "MGD",
+      "row_count": 378200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "bae421c3711cd3836e581eecc104bbf1e946bef4b8423416632fbd15b77f8a3f",
+      "size_bytes": 35809688,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "NI"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ni.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 130283,
+      "number_of_tracks": 2254,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ni.csv",
+      "provider": "MGD",
+      "row_count": 130283,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "715f49cb264064de6d804f7072951b9192326f27cddd23911c349bbc7324092a",
+      "size_bytes": 12923400,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "NL"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_nl.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378850,
+      "number_of_tracks": 9524,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_nl.csv",
+      "provider": "MGD",
+      "row_count": 378850,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "c988a4b9b05d8037e615e92c8190fb9c72fe149d696094175c4d155eccef8873",
+      "size_bytes": 36923854,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "NO"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_no.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 8995,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_no.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "b40bd5bf6e5d27abb018f14760c041373ddb8962de94719441361d3a00f3a9a4",
+      "size_bytes": 36806887,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "NZ"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_nz.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 5167,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_nz.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "09df032407b375dce5c173a010661ebb128c34e788cc8781986520b9f50797e8",
+      "size_bytes": 36132545,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PA"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_pa.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 348025,
+      "number_of_tracks": 4479,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_pa.csv",
+      "provider": "MGD",
+      "row_count": 348025,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "dc546f610834f1bda1d90098016567b1f85d5ae9cd159b2785e27891f8523435",
+      "size_bytes": 34831799,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PE"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_pe.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 3712,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_pe.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "6842f5fd6c03af87089d91ce4fb44670143a4d74a495544413695d0e77507247",
+      "size_bytes": 38196703,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PH"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_ph.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 4151,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ph.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "5a8dde2259b5539112b7101dbd3b63639184a8fdbc037b6ae515e8387ae758c8",
+      "size_bytes": 36251839,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PL"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_pl.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378400,
+      "number_of_tracks": 7341,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_pl.csv",
+      "provider": "MGD",
+      "row_count": 378400,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "63a7f5bb113bcd8f3b12accd0e39a5a9917469648c795d0afd41bfca5656fbd6",
+      "size_bytes": 36850691,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PT"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_pt.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 6323,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_pt.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "7382c45429699d5761de47d609910dcb9955ea50b6cdf2b60e7f3ec9f5e02889",
+      "size_bytes": 36415971,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "PY"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_py.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 357560,
+      "number_of_tracks": 3550,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_py.csv",
+      "provider": "MGD",
+      "row_count": 357560,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "3f9cad6a09946738ff5019e693cca977f30a156815c57b0988e8445a41d25ce3",
+      "size_bytes": 36393003,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "RO"
+      ],
+      "earliest_date": "2018-03-14",
+      "filename": "charts\\regional\\spotify_charts_regional_ro.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 268084,
+      "number_of_tracks": 5527,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ro.csv",
+      "provider": "MGD",
+      "row_count": 268084,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "0ada1f374af6f83ad7d6761a259ae8c48b5ff1c9453b655e3cfe35e05eec4c76",
+      "size_bytes": 25390729,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "RU"
+      ],
+      "earliest_date": "2020-07-15",
+      "filename": "charts\\regional\\spotify_charts_regional_ru.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 121200,
+      "number_of_tracks": 3198,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ru.csv",
+      "provider": "MGD",
+      "row_count": 121200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "7f300dd8f6aee43902f2611f330b10e27701188208aae42742bf147f1e298b03",
+      "size_bytes": 11734291,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "SA"
+      ],
+      "earliest_date": "2019-04-12",
+      "filename": "charts\\regional\\spotify_charts_regional_sa.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 195366,
+      "number_of_tracks": 3157,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_sa.csv",
+      "provider": "MGD",
+      "row_count": 195366,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "231136aeb1f5857ccefc6931855caae96c4507e0740a9372a105d6f10a1ad8d0",
+      "size_bytes": 18659910,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "SE"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_se.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378399,
+      "number_of_tracks": 9999,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_se.csv",
+      "provider": "MGD",
+      "row_count": 378399,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "64f800f8248d0eb0a66b26710f2ebf11b09d8ef7b5971c83b703c2477ebd2bd0",
+      "size_bytes": 36388558,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "SG"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_sg.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378488,
+      "number_of_tracks": 5271,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_sg.csv",
+      "provider": "MGD",
+      "row_count": 378488,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "0bbaced363ee211b23b4d8229ce7ebfd22505faaed35831844c3b14d875ff91a",
+      "size_bytes": 36078699,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "SK"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_sk.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 287743,
+      "number_of_tracks": 6307,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_sk.csv",
+      "provider": "MGD",
+      "row_count": 287743,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "c65e98371a3e1526dc6f9b2126b8dd7f76b022d213631928e266b2983442436e",
+      "size_bytes": 27360114,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "SV"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_sv.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 322325,
+      "number_of_tracks": 3316,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_sv.csv",
+      "provider": "MGD",
+      "row_count": 322325,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "56c30683740822e1c8dc0fc47db8d6e653bfda6e7328efc90e6889312e72fec8",
+      "size_bytes": 32353842,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "TH"
+      ],
+      "earliest_date": "2017-08-23",
+      "filename": "charts\\regional\\spotify_charts_regional_th.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 328159,
+      "number_of_tracks": 5504,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_th.csv",
+      "provider": "MGD",
+      "row_count": 328159,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "729e919cec0406e7875460a91aeb6324846771db121becbb64e59386d1acf2ca",
+      "size_bytes": 33729351,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "TR"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_tr.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 4879,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_tr.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "218af58f78d6ca225972a92511c0fdb20c298426accb60b51d76727b07317549",
+      "size_bytes": 35389400,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "TW"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_tw.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378600,
+      "number_of_tracks": 9496,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_tw.csv",
+      "provider": "MGD",
+      "row_count": 378600,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "d009ba8e13dcc539b01bbe0de8c0bad6da08d3492cccfc74965e5f920d8f0a4c",
+      "size_bytes": 36375484,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "UA"
+      ],
+      "earliest_date": "2020-07-15",
+      "filename": "charts\\regional\\spotify_charts_regional_ua.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 121200,
+      "number_of_tracks": 2901,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_ua.csv",
+      "provider": "MGD",
+      "row_count": 121200,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "b53d5914211d41fa47327418a2af9562c695696b50968ace69af71ff9c1ef03f",
+      "size_bytes": 11583288,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "US"
+      ],
+      "earliest_date": "2017-01-01",
+      "filename": "charts\\regional\\spotify_charts_regional_us.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 378800,
+      "number_of_tracks": 9589,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_us.csv",
+      "provider": "MGD",
+      "row_count": 378800,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "21743e57a4fba71bd9799815ebfedb9352328e727d05e9118872e081d299c8d8",
+      "size_bytes": 37174438,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "VN"
+      ],
+      "earliest_date": "2018-03-14",
+      "filename": "charts\\regional\\spotify_charts_regional_vn.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 264723,
+      "number_of_tracks": 4015,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_vn.csv",
+      "provider": "MGD",
+      "row_count": 264723,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "f7063bd66695e4e43c20827597a1958428fe08799975e9c4e2f12a7b0d87bbad",
+      "size_bytes": 25589021,
+      "status": "AVAILABLE"
+    },
+    {
+      "chart_types": [
+        "Top 200"
+      ],
+      "countries": [
+        "ZA"
+      ],
+      "earliest_date": "2018-04-20",
+      "filename": "charts\\regional\\spotify_charts_regional_za.csv",
+      "latest_date": "2022-03-13",
+      "missing_periods": null,
+      "number_of_observations": 250607,
+      "number_of_tracks": 6044,
+      "origin_platform": "SPOTIFY",
+      "parser_version": "mgd-v1",
+      "path": "mgd\\charts\\regional\\spotify_charts_regional_za.csv",
+      "provider": "MGD",
+      "row_count": 250607,
+      "schema_version": "mgd-tab-v1",
+      "sha256": "8222ed2c5c8dac02de0cb40c46bffcc4be1a074a1ac05d348136566177127995",
+      "size_bytes": 24611190,
+      "status": "AVAILABLE"
+    }
+  ],
+  "origin_platform": "SPOTIFY",
+  "provider": "MGD"
+}

@@ -1,0 +1,4 @@
+ID	Track	Artist	Position	Streams	Trend	Date	Chart	market
+track-1	Song One	Artist A	1	1,000	#84bd00	2022-01-01	Top 200	br
+track-2	Song Two	Artist B	2		#84bd00	2022-01-01	Top 200	br
+track-1	Song One	Artist A	1	900	#84bd00	2022-01-02	Top 200	br

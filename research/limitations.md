@@ -11,3 +11,13 @@ Unresolved identity reduces canonical-track sample sizes. ISRC claims may confli
 YouTube Data API `mostPopular` is a current video ranking, not a historical YouTube Music song chart. The nine-country fixtures prove mapping and comparison behavior only; they do not establish real territorial availability, historical completeness, collection frequency, or permission to retain production responses.
 
 Standard network execution remains disabled. A live run still requires a source-specific approved rights profile, API credentials, retention/refresh handling, derived-metric permission, quota controls, and an explicit activation decision. Quota exhaustion is reported separately from ordinary authorization failures. Deleted/private videos and missing statistics remain visible as unavailable/null rather than being converted to zero.
+
+## Global multi-source extraction limitations
+
+The local MGD corpus is the only source currently materialized as a multi-year
+all-market archive. Chartmetric capability discovery proves current access, not
+historical availability. Pro-Música is Brazilian and aggregate by design. The
+YouTube region inventory is not a music-chart archive. Kaggle is adapter-ready
+but not locally acquired in this environment. Do not compare provider counts as
+if they were independent musical events until canonical track and source
+precedence review is complete.

@@ -1,0 +1,960 @@
+artist_id	name	genres	num_hits	num_collab_hits
+0Dvx6p8JDyzeOPGmaCIH1L	RAF Camora	['german hip hop']	61	38
+1aS5tqEs9ci5P9KD9tZWa6	Bonez MC	['german hip hop', 'hamburg hip hop']	52	51
+4WZGDpNwrC0vNQyl9QzF7d	Capital Bra	['german hip hop']	41	23
+0b62itBWBdLgiecXjXCqKC	Maxwell	['german hip hop']	36	28
+5p7mWeX4RlvqBCxylfiXdE	KC Rebell	['german drill', 'german hip hop']	35	32
+5eioJDe26lOqkAMbuhzZYs	Gzuz	['deep german hip hop', 'german hip hop', 'hamburg hip hop']	35	34
+6XyY86QOPPrYVGvF9ch6wz	Linkin Park	['alternative metal', 'nu metal', 'post-grunge', 'rap metal', 'rock']	35	4
+5pVRwX5ZQR7hfJ18w8ZYkl	Ufo361	['german cloud rap', 'german hip hop']	35	16
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	34	17
+1XKjtpH5P81gpOXDB91IEB	Miami Yacine	['albanian hip hop', 'german hip hop']	33	12
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	31	14
+1a71mkqZC54WhePSbnq7RK	Majoe	['german drill', 'german hip hop']	30	23
+3drqpTL4sQOckmAfF9i1wg	Summer Cem	['german hip hop']	29	29
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	29	6
+3ZuBEj9ppJe8GSdKaMTfMN	Nimo	['german hip hop', 'swedish hip hop']	28	16
+4Yttlv9ndGjCDCVLqM7ACq	Sido	['german hip hop', 'german pop']	27	26
+3CJKkU0XuElRT1z8rEtIYg	Luciano	['german drill', 'german hip hop']	27	9
+5y9wg9qkGBl0n9v9RzaPKu	Capo	['german hip hop']	25	15
+5qZLYtTL3ldN6Uw7OXHESR	Sa4	['german hip hop']	24	19
+0LyfQWJT6nXafLPZqxe9Of	Various Artists	[]	23	0
+6gto7HVNhu4ARE3P3g8Y5Y	Kollegah	['german hip hop']	22	14
+18ISxWwWjV6rPLoVCXf1dz	RIN	['german cloud rap', 'german hip hop']	21	1
+4lDiJcOJ2GLCK6p9q5BgfK	Kontra K	['christlicher rap', 'german hip hop']	21	9
+4lAjitjrUJgjJgEVj2CwFc	SpongeBOZZ	['deep german hip hop', 'german hip hop']	21	2
+2otUckChxWf2cp6UP2cD6e	Zuna	['albanian hip hop', 'german hip hop']	20	11
+4VuARVJiWGsH2msKTdsKdQ	Veysel	['albanian hip hop', 'german drill', 'german hip hop']	19	5
+2j2rh3oQh4QEUnNTDKYSJD	187 Strassenbande	['german hip hop', 'hamburg hip hop']	19	17
+10XY9PZCJKzUFzZOdtlQLU	LX	['german hip hop', 'hamburg hip hop']	19	19
+3utZ2yeQk0Z3BCOBWP7Vlu	CRO	['german hip hop']	18	3
+1yIifIA91WgmfzBcjbQB8i	Kurdo	['german hip hop', 'kurdish hip hop']	18	17
+3c96G4d2lUOxhomM2mby5S	Bushido	['german hip hop']	18	8
+75ctWsRuGXmxMxnFPkuEwA	Fler	['german hip hop', 'german trap']	17	16
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	17	5
+0wwDZj4zgZORjTGhTujAKx	Mert	['deep german hip hop', 'german hip hop']	17	7
+3nDNDLcZuSto4k9u4AbcLB	Marteria	['german hip hop', 'german pop']	17	6
+1GxkXlMwML1oSg5eLPiAz3	Michael Bublé	['adult standards', 'canadian pop', 'jazz pop', 'lounge']	16	3
+69GGBxA162lTqCwzJG5jLp	The Chainsmokers	['electropop', 'pop']	16	10
+1eeWVOCazGzGQXOGhnDHTB	Trailerpark	[]	16	0
+5C5hEZzr3BmvYcIPfWMnnC	Savas	[]	15	15
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	14	14
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	14	1
+6pBDI6JuD02u2ZpynOYhRg	Jalil	['german hip hop']	13	13
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	13	6
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	13	0
+6UDhlW8uEVBBrqHS3RrKuv	Casper	['german alternative rap', 'german pop']	13	4
+2JwyRtuXf2l6sTnSnGVIa1	Farid Bang	['german hip hop']	13	13
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	12	10
+6QzzeKV0VcnT2vJMYDPuL4	Trettmann	['german cloud rap', 'german hip hop', 'hamburg hip hop']	12	7
+13bDjug9N0pyv3ZUINjkDV	Bausa	['german hip hop']	12	8
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	12	12
+6S2OmqARrzebs0tKUEyXyp	Demi Lovato	['pop', 'post-teen pop']	11	5
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	11	9
+3OYM3jjPVR60kOqmamRRgk	Prinz Pi	['german alternative rap']	11	5
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	11	8
+39KEQQAG9JhIt71g9NEVhh	Azet	['albanian hip hop', 'german hip hop']	11	7
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	11	8
+2NJWI8byqTSqDaJRnqJY2z	KALIM	['german hip hop', 'hamburg hip hop']	11	9
+1HBjj22wzbscIZ9sEb5dyf	Jonas Blue	['pop', 'pop dance', 'tropical house', 'uk dance']	10	10
+3iOvXCl6edW5Um0fXEBRXy	The xx	['downtempo', 'dream pop', 'indietronica']	10	0
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	10	9
+6vXTefBL93Dj5IqAWq6OTv	French Montana	['hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	10	10
+3t5xRXzsuZmMDkQzgOX35S	Robin Schulz	['deep euro house', 'deep house', 'edm', 'german dance', 'pop dance', 'tropical house']	10	10
+0MZ55DwuMQ1B2TXq9lcrE4	Kraftklub	['german indie', 'german pop']	10	0
+64M6ah0SkkRsnPGtGiRAbb	Bebe Rexha	['dance pop', 'pop']	10	8
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	10	8
+03bmDyr8klGV17DKQnPZVA	Joshi Mizu	['german hip hop']	10	10
+07SFzTMeYf5P8Rd32a9Zzw	AK AUSSERKONTROLLE	['german hip hop']	10	8
+04gDigrS5kc9YWfZHwBETP	Maroon 5	['pop']	10	10
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	10	1
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	9	6
+6jJ0s89eD6GaHleKKya26X	Katy Perry	['pop']	9	8
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	9	8
+2HdP7fpDiLWAvElYGg75gd	Hanybal	['german hip hop']	9	9
+7qXzy6c5RWT0XlVQcOBIDG	Mark Forster	['german pop']	9	2
+6c0mTNAxJxlp9HpKTUZwA8	ALMA	[]	9	7
+26VFTg2z8YR0cCuwLzESi2	Halsey	['electropop', 'etherpop', 'indie poptimism', 'pop']	9	4
+1Xylc3o4UrD53lo9CvFvVg	Zara Larsson	['pop', 'scandipop', 'swedish electropop', 'swedish pop']	9	5
+3JhNCzhSMTxs9WLGJJxWOY	Macklemore	['pop rap', 'seattle hip hop']	9	9
+6oMuImdp5ZcFhWP0ESe6mG	Migos	['atl hip hop', 'hip hop', 'rap', 'trap']	9	8
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	9	6
+5pKCCKE2ajJHZ9KAiaK11H	Rihanna	['barbadian pop', 'pop', 'urban contemporary']	9	7
+738wLrAtLtCtFOLvQBXOXp	Major Lazer	['dance pop', 'edm', 'electro house', 'moombahton', 'pop', 'pop dance']	9	9
+7tYKF4w9nC0nq9CsPZTHyP	SZA	['pop', 'r&b', 'rap']	9	9
+4Q6nIcaBED8qUel8bBx6Cr	Jax Jones	['dance pop', 'edm', 'house', 'pop dance', 'uk dance', 'uk pop']	8	8
+1Cs0zKBU1kc0i8ypK3B9ai	David Guetta	['big room', 'dance pop', 'edm', 'pop', 'pop dance']	8	7
+2XnBwblw31dfGnspMIwgWz	Axwell /\ Ingrosso	['edm', 'pop dance', 'progressive electro house']	8	3
+48Fq6GV3S6on56TxSBu5NO	Celo & Abdi	['german hip hop']	8	7
+4sTQVOfp9vEMCemLw50sbu	Galantis	['dance pop', 'edm', 'pop', 'pop dance']	8	4
+7vk5e3vY1uw9plTHJAMwjN	Alan Walker	['electro house']	8	4
+13y7CgLHjMVRMDqxdx0Xdo	Gucci Mane	['atl hip hop', 'dirty south rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	8	8
+3GBBxBdoolb0B5YizZq9bF	Eno	['german drill', 'german hip hop']	8	5
+5p7f24Rk5HkUZsaS3BLG5F	Hailee Steinfeld	['pop']	8	7
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	8	7
+7DMveApC7UnC2NPfPvlHSU	Cheat Codes	['edm', 'pop', 'pop dance']	8	8
+2Z9KL8Zmqx5Sg3cd7Fldhl	Olexesh	['german drill', 'german hip hop']	8	6
+0ZED1XzwlLHW4ZaG4lOT6m	Julia Michaels	['pop']	8	2
+23fqKkggKUBHNkbKtXEls4	Kygo	['edm', 'pop', 'pop dance', 'tropical house']	7	7
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	7	6
+7LQLsKs1Qulq0BxYdhRnBU	AZAD	['german drill', 'german hip hop', 'kurdish hip hop']	7	5
+4gzpq5DPGxSnKTe4SA8HAU	Coldplay	['permanent wave', 'pop']	7	3
+477D3WI5iTnEmCOe7QFU5G	Azzi Memo	['german hip hop']	7	7
+0tMFcqLXhtm1Gep20iuIR3	SXTN	['deep german hip hop', 'frauenrap', 'german hip hop']	7	1
+55Aa2cqylxrFIXC767Z865	Lil Wayne	['hip hop', 'new orleans rap', 'pop rap', 'rap', 'trap']	7	7
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	7	0
+163tK9Wjr9P9DmM0AVK7lm	Lorde	['art pop', 'metropopolis', 'nz pop', 'pop']	7	3
+02kJSzxNuaWGqwubyUba0Z	G-Eazy	['indie pop rap', 'oakland hip hop', 'pop rap', 'rap']	7	7
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	7	7
+13ubrt8QOOCPljQ2FL1Kca	A$AP Rocky	['east coast hip hop', 'hip hop', 'rap', 'trap']	7	7
+28gHcaI0rBIqOYmDRx5AnP	DAT ADAM	['deep german hip hop', 'german cloud rap']	7	0
+4YXycRbyyAE0wozTk7QMEq	Matoma	['pop dance', 'tropical house']	7	7
+1EfwyuCzDQpCslZc8C9gkG	SDP	['german pop', 'german reggae']	7	2
+0c173mlxpT3dSFRgMO8XPh	Big Sean	['detroit hip hop', 'hip hop', 'pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	6	4
+2F8GvYuY0lfZNYu45dY6gJ	Die Toten Hosen	['german alternative rock', 'german pop', 'german punk', 'german rock']	6	0
+61fZH5SxVJDnFnocMMPwCF	Play69	['german hip hop']	6	5
+5Pwc4xIPtQLFEnJriah9YJ	OneRepublic	['piano rock', 'pop']	6	3
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	6	6
+60d24wfXkVzDSfLS6hyCjZ	Martin Garrix	['dutch edm', 'edm', 'pop', 'pop dance', 'progressive house']	6	6
+6TIYQ3jFPwQSRmorSezPxX	Machine Gun Kelly	['ohio hip hop', 'pop rap']	6	6
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	6	6
+4PvnP3yCzrT289cX3wCdOx	Yung Hurn	['cloud rap', 'german cloud rap', 'german hip hop', 'phonk']	6	3
+1URnnhqYAYcrqrcwql10ft	21 Savage	['atl hip hop', 'hip hop', 'rap', 'trap']	6	4
+7f5Zgnp2spUuuzKplmRkt7	Lost Frequencies	['belgian edm', 'edm', 'pop dance', 'tropical house']	6	4
+6icQOAFXDZKsumw3YXyusw	Lil Yachty	['atl hip hop', 'melodic rap', 'rap', 'trap']	6	6
+3pjq2pDV9RR6VY55wBjVnp	Dardan	['albanian hip hop', 'german hip hop']	6	5
+2qMezKrAKRh2Z2uR3fCqHt	PA Sports	['german hip hop']	6	6
+0bdfiayQAKewqEvaU6rXCv	MØ	['danish pop', 'electropop', 'pop', 'pop dance']	6	4
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	6	4
+1vyhD5VmyZ7KMfW5gqLgo5	J Balvin	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	6	6
+1KCSPY1glIKqW2TotWuXOR	P!nk	['dance pop', 'pop']	6	2
+0jnsk9HBra6NMjO2oANoPY	Flo Rida	['dance pop', 'miami hip hop', 'pop', 'pop rap']	5	4
+61ipISvUVa5LkJlKZnm3Oo	Alle Farben	['deep euro house', 'german dance']	5	4
+4A0TivfinfALCAMJqqjZIk	Funk Wav	[]	5	5
+7l8dcABCTyZKrkskt53Z2u	TJ_beastboy	[]	5	5
+7qoFHNsphmiCV4QrxuxYVd	Mary Man	[]	5	5
+1r4hJ1h58CWwUQe3MxPuau	Maluma	['latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	5	4
+3Isy6kedDrgPYoTS1dazA9	Sean Paul	['dance pop', 'dancehall', 'pop', 'pop rap']	5	5
+3Vnl7pKDxagUgRJ3NMtEcE	Soufian	['german hip hop']	5	5
+0cGUm45nv7Z6M6qdXYQGTX	Kehlani	['pop', 'r&b']	5	4
+2P7AfQW941UU324qq2ggZf	METRICKZ	['deep german hip hop', 'german alternative rap', 'german hip hop']	5	0
+4u5smJBskI6Adzv08PuiUP	Kiiara	['alt z', 'electropop']	5	5
+6extd4B6hl8VTmnlhpl2bY	Huncho Jack	['melodic rap', 'trap']	5	5
+5iNrZmtVMtYev5M9yoWpEq	Seeb	['pop dance']	5	5
+7bXgB6jMjp9ATFy66eO08Z	Chris Brown	['r&b', 'rap']	5	3
+1hzfo8twXdOegF3xireCYs	Milky Chance	['german pop', 'modern rock']	5	1
+1vCWHaC5f2uS3yhpwWbIA6	Avicii	['edm', 'pop', 'pop dance']	5	5
+6LqNN22kT3074XbTVUrhzX	Kesha	['dance pop', 'pop']	5	1
+5JZ7CnR6gTvEMKX4g70Amv	Lauv	['pop']	5	1
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	5	4
+2wUjUUtkb5lvLKcGKsKqsR	Alessia Cara	['canadian contemporary r&b', 'canadian pop', 'pop']	5	3
+4bL2B6hmLlMWnUEZnorEtG	Felix Jaehn	['edm', 'german dance', 'pop dance', 'tropical house']	5	5
+0t9IVyFGzH79wIFfhEXddQ	Kianush	['german hip hop']	5	5
+7hOGhpa8RMSuDOWntGIAJt	A R I Z O N A	['electropop', 'indie poptimism']	5	3
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	5	3
+1Hsdzj7Dlq2I7tHP7501T4	Niall Horan	['pop']	5	0
+5Sjj30aHCmKcM9SdVX7PBK	GRiNGO	['german hip hop']	5	5
+5tlNJfV9UIpgnbWmvUEFu7	Gentleman	['cologne hip hop', 'german hip hop', 'german reggae', 'reggae fusion']	5	5
+5Yo5iU2nf4H41waPl4ZnS1	LEA	['german pop']	4	2
+5exS0bytCYdixgv02DaCm3	William Singe	[]	4	4
+7jy3rLJdDQY21OgRLCZ9sD	Foo Fighters	['alternative metal', 'alternative rock', 'modern rock', 'permanent wave', 'post-grunge', 'rock']	4	0
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	4	0
+2RdwBSPQiwcmiDo9kixcl8	Pharrell Williams	['dance pop', 'pop']	4	3
+2o5jDhtHVPhrJdv3cEQ99Z	Tiësto	['big room', 'brostep', 'dutch edm', 'edm', 'house', 'pop dance', 'slap house', 'trance']	4	4
+5uRfU4LuGDkxzZ86uCXQY8	Brings	['german rock', 'karneval', 'kolsche karneval']	4	0
+7MzHPIXAqIOCnvK0sVY72W	Helene Fischer	['schlager']	4	0
+4ehtJnVumNf6xzSCDk8aLB	Martin Jensen	['danish electronic', 'edm', 'pop dance']	4	3
+55fhWPvDiMpLnE4ZzNXZyW	Noah Cyrus	['alt z', 'pop']	4	3
+25tMQOrIU4LlUo6Sv8v5SE	Gavin James	['irish pop']	4	3
+00FQb4jTyendYWaN8pK0wa	Lana Del Rey	['art pop', 'pop']	4	2
+7f0OLhGgBMX9fUjm1dcPip	Alice Merton	[]	4	0
+25uiPmTg16RbhZWAqwLBy5	Charli XCX	['art pop', 'candy pop', 'metropopolis', 'pop', 'uk pop']	4	3
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	4	0
+4VMYDCV2IEDYJArk749S6m	Daddy Yankee	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	4	4
+6VuMaDnrHyPL1p4EHjYLi7	Charlie Puth	['pop', 'viral pop']	4	2
+08ao8gzTHBtNf5Laf9jjwR	King Khalil	['german hip hop']	4	4
+3NPpFNZtSTHheNBaWC82rB	X Ambassadors	['modern alternative rock', 'modern rock', 'stomp pop']	4	4
+7pFeBzX627ff0VnN6bxPR4	Desiigner	['pop rap', 'rap', 'southern hip hop', 'trap', 'viral trap']	4	1
+7keGfmQR4X5w0two1xKZ7d	Kungs	['edm', 'pop dance']	4	4
+5Q81rlcTFh3k6DQJXPdsot	Mura Masa	['channel islands indie', 'hyperpop', 'indie soul', 'vapor soul']	4	4
+4IWBUUAFIplrNtaOHcJPRM	James Arthur	['pop', 'talent show', 'uk pop']	4	2
+6VjbeCqoayiHYnefrisskv	Kay One	[]	4	2
+7gAppWoH7pcYmphCVTXkzs	The Vamps	['boy band', 'pop']	4	4
+4DdkRBBYG6Yk9Ka8tdJ9BW	Offset	['atl hip hop', 'rap', 'trap']	4	4
+5KKpBU5eC2tJDzf0wmlRp2	RAYE	['uk contemporary r&b', 'uk pop']	4	4
+4xRYI6VqpkE3UwrDrAZL8L	Logic	['conscious hip hop', 'hip hop', 'pop rap', 'rap']	4	4
+49e4v89VmlDcFCMyDv9wQ9	Dean Martin	['adult standards', 'easy listening', 'lounge', 'vocal jazz']	4	0
+6ihLfpY3cmdGyWEnItn30w	257ers	['antideutsche']	4	0
+1SUu1Bi7ev9HbOzyVC77qD	Kool Savas	['german hip hop', 'turkish hip hop']	4	4
+5pUo3fmmHT8bhCyHE52hA6	Liam Payne	['pop']	4	3
+57WHJIHrjOE3iAxpihhMnp	Louis Tomlinson	['pop']	4	2
+3fMbdgg4jU18AjLCKBhRSm	Michael Jackson	['r&b', 'soul']	4	0
+1bj5GrcLom5gZFF5t949Xl	Martin Solveig	['disco house', 'edm', 'electro house', 'filter house', 'house', 'pop dance', 'vocal house']	4	4
+1zNqDE7qDGCsyzJwohVaoX	Anne-Marie	['pop']	4	2
+5JSXWmQO8csVUy6hSRu8TA	Maty Noyes	['alt z']	3	2
+2ExGrw6XpbtUAJHTLtUXUD	Stefflon Don	['dancehall', 'dancehall queen', 'uk dancehall', 'uk hip hop']	3	3
+6KZDXtSj0SzGOV705nNeh3	Kid Ink	['pop rap', 'rap', 'southern hip hop', 'trap']	3	3
+0fN3Kd9aGNr9lTzRFqih4S	Kasalla	['kolsche karneval']	3	0
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	3	1
+6d47Z08T4snK50HgTEHo5Z	Sage The Gemini	['hyphy', 'pop rap', 'southern hip hop', 'trap']	3	1
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	3	3
+5gs4Sm2WQUkcGeikMcVHbh	Hamza	['belgian hip hop', 'cloud rap francais', 'french hip hop', 'pop urbaine', 'rap belge', 'rap francais']	3	3
+2TL8gYTNgD6nXkyuUdDrMg	Jasmine Thompson	['viral pop']	3	3
+4tZwfgrHOc3mvqYlEYSvVi	Daft Punk	['electro', 'filter house', 'rock']	3	3
+3YQKmKGau1PzlVlkL1iodx	Twenty One Pilots	['modern rock', 'pop', 'pov: indie', 'rock']	3	0
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	3	3
+3MyFDtqB80WZvbtCZRsekM	Bakermat	['minimal tech house', 'tropical house']	3	2
+1xKrH6GSh9CJh8nYwbqW7B	Welshly Arms	['modern alternative rock', 'modern hard rock']	3	0
+50JJSqHUf2RQ9xsHs0KMHg	Jon Bellion	['indie pop rap']	3	2
+5fyDppLDl1juIu1BcUT5zh	Digital Farm Animals	['uk dance']	3	3
+7KMqksf0UMdyA0UCf4R3ux	James Blunt	['neo mellow', 'pop rock']	3	2
+2kCcBybjl3SAtIcwdWpUe3	Lil Peep	['cloud rap', 'emo rap', 'lgbtq+ hip hop']	3	0
+474Q0FLKeKJZpGZgvo8QdD	CALO	['german hip hop']	3	3
+0EmeFodog0BfCgMzAIvKQp	Shakira	['colombian pop', 'dance pop', 'latin pop', 'pop']	3	3
+17lzZA2AlOHwCwFALHttmp	2 Chainz	['atl hip hop', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	3	3
+3nFkdlSjzX9mRTtwJOzDYB	JAY-Z	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'rap']	3	3
+5y2Xq6xcjJb2jVM54GHK3t	John Legend	['neo soul', 'pop', 'pop soul', 'urban contemporary']	3	0
+4utLUGcTvOJFr6aqIJtYWV	Skylar Grey	['piano rock', 'viral pop']	3	3
+5v8jlSmAQfrkTjAlpUfWtu	Perry Como	['adult standards', 'easy listening']	3	1
+4V8Sr092TqfHkfAA5fXXqG	Luis Fonsi	['latin pop', 'puerto rican pop']	3	3
+41LLNWUptvfbQ9Q7oCefmg	Genetikk	['christlicher rap', 'german hip hop']	3	1
+73jBynjsVtofjRpdpRAJGk	Dimitri Vegas & Like Mike	['belgian dance', 'belgian edm', 'big room', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house']	3	3
+5fMUXHkw8R8eOP2RNVYEZX	Diplo	['edm', 'electro house', 'moombahton', 'pop dance']	3	3
+540vIaP2JwjQb9dm3aArA4	DJ Snake	['edm', 'electronic trap', 'pop', 'pop dance']	3	3
+6XFQvBHGEr3mRfOHcqPXv8	XATAR	['german hip hop', 'hamburg hip hop', 'kurdish hip hop']	3	2
+7v4imS0moSyGdXyLgVTIV7	Nat King Cole	['adult standards', 'lounge', 'soul', 'swing', 'vocal jazz']	3	0
+0q4NrXqJnc367PieejuROJ	Vice	['chicano rap']	3	3
+3BmGtnKgCSGYIUhmivXKWX	Kelly Clarkson	['dance pop', 'pop', 'talent show']	3	0
+3Gm5F95VdRxW3mqCn8RPBJ	Aminé	['pop rap', 'portland hip hop', 'rap', 'underground hip hop']	3	0
+0uGk2czvcpWQA383Im6ajf	Maggie Lindemann	['alt z', 'dark pop', 'pop']	3	2
+4ryoUS0W8qXokfMxrlJt6O	Skip Marley	['modern reggae']	3	3
+7EQ0qTo7fWT7DPxmxtSYEc	Bastille	['metropopolis', 'modern rock', 'pop']	3	1
+0id62QV2SZZfvBn9xpmuCl	Aloe Blacc	['pop soul', 'r&b']	3	2
+4AKwRarlmsUlLjIwt38NLw	Ofenbach	['pop dance']	3	2
+2qxJFvFYMEDqd7ui6kSAcq	Zedd	['complextro', 'edm', 'german techno', 'pop', 'pop dance']	3	3
+6dXL3SnQlCGX9LCUAyin6a	Stereoact	['german dance', 'german pop', 'schlager']	3	2
+4f9iBmdUOhQWeP7dcAn1pf	Rag'n'Bone Man	['neo soul']	3	1
+5slpk6nu2IwwKx0EHe3GcL	Lena	['german pop', 'indie viet']	3	1
+5CCwRZC6euC8Odo6y9X8jr	Rita Ora	['dance pop', 'pop', 'uk pop']	3	1
+1vkYQMWQrfBzvXrMCwe50Y	AMANDA	['german pop']	3	2
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	3	3
+1Mxqyy3pSjf8kZZL4QVxS0	Frank Sinatra	['adult standards', 'easy listening', 'lounge']	3	1
+3A9B6c1CrSPauiOblw7pWz	Nico Santos	['german pop']	3	2
+7KAGJwWQQui8b0uqwXRkSr	Gestört aber GeiL	['german dance', 'german pop']	3	3
+4kYGAK2zu9EAomwj3hXkXy	JP Cooper	['uk pop']	3	2
+3b8QkneNDz4JHKKKlLgYZg	Florida Georgia Line	['contemporary country', 'country', 'country pop', 'country road', 'modern country rock']	3	3
+6PmrGMfZoTIEHchnfMVmQK	Celo	[]	3	3
+5bLgBb8gYjBHljdW8I8Cir	Abdi	[]	3	3
+0o0PoOOyXcmqcyVz8aSdYu	Moe Phoenix	['german hip hop']	3	3
+7KUri7klyLaIFXLcuuOMCd	Stargate	['norwegian pop']	3	3
+4Rxn7Im3LGfyRkY2FlHhWi	Nick Jonas	['dance pop', 'pop']	3	2
+5M0lbkGluOPXLeFjApw8r8	DRAM	['pop rap', 'trap', 'underground hip hop', 'viral trap', 'virginia hip hop']	3	3
+7hssUdpvtY5oiARaUDgFZ3	Ina Wroldsen	['norwegian pop']	3	3
+5iBlCs0WwiMbr5zO6vPt5G	Ali As	['antideutsche', 'bayerischer rap', 'deep german hip hop', 'german cloud rap', 'german hip hop']	3	3
+6cEuCEZu7PAE9ZSzLLc2oQ	R3HAB	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'slap house']	3	3
+2POj5DK9ZiqcLkeTeTjH7b	Paramocro	['dutch hip hop']	3	3
+1oKdM70mJD8VvDOTKeS8t1	Emily Warren	['alt z', 'nyc pop']	3	3
+20gsENnposVs2I4rQ5kvrf	Sam Feldt	['edm', 'pop dance', 'tropical house']	3	3
+1IueXOQyABrMOprrzwQJWN	Sigala	['dance pop', 'edm', 'pop dance', 'uk dance', 'uk pop']	3	3
+0du5cEVh5yTK9QJze8zA0C	Bruno Mars	['dance pop', 'pop']	3	1
+69u5rPwWBKP7pJHpCGB9O5	MoTrip	['german alternative rap', 'german hip hop', 'german pop']	3	3
+7MSwVATA5fRIxRA6Z0BmTe	Eunique	['frauenrap', 'german cloud rap', 'german hip hop']	3	3
+5rSXSAkZ67PYJSvpUpkOr7	Backstreet Boys	['boy band', 'dance pop', 'pop']	3	0
+3bUA5ltyxKcuYe5G2U0GA4	Querbeat	['kolsche karneval']	3	0
+6ynopZPMBXcIGBI9M02Un5	Haftbefehl	['german hip hop']	3	3
+02A3cEvlLLCbIMVDrK2GHV	Starley	['aussietronica']	3	2
+6lB8vOoI4DRrrVxXwuV19c	Mike Perry	['pop dance', 'swedish tropical house']	3	3
+12xme1fwd3iGEW7rF9b6tp	Wincent Weiss	['german pop']	3	0
+3e7awlrlDSwF3iM0WBjGMp	Little Mix	['girl group', 'pop', 'talent show', 'uk pop']	3	1
+6MDME20pz9RveH9rEXvrOM	Clean Bandit	['pop', 'uk dance', 'uk funky']	3	3
+2HPaUgqeutzr3jx5a9WyDV	PARTYNEXTDOOR	['r&b', 'rap', 'toronto rap', 'urban contemporary']	3	3
+5oWFxbBrbk2Mw86PLUg3OZ	18 Karat	['german hip hop']	3	3
+64NNRZT3lIEnaavebMacBw	Jasko	['german hip hop']	3	3
+3AA28KZvwAUcZuOKwyblJQ	Gorillaz	['alternative hip hop', 'modern rock', 'rock']	3	3
+3rZBkgoRHG8M9jQL0QPNMi	Adel Tawil	['german pop']	3	2
+77AiFEVeAVj2ORpC85QVJs	Steve Aoki	['edm', 'electro house', 'pop dance']	3	3
+0p3fH8Uj2v6UcTXRU3GN9b	Nash	[]	3	3
+3tVQdUvClmAT7URs9V3rsp	Wizkid	['afrobeats', 'afropop', 'azonto', 'azontobeats', 'nigerian hip hop', 'nigerian pop']	3	3
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	3	2
+3y5BWIDbsZ0YLv6fq0VrbR	Nash	[]	2	2
+6s22t5Y3prQHyaHWUN1R1C	AJR	['pov: indie']	2	0
+5PC7uk8MpcC0x1Pf0U6cJV	Soni	['albanian pop']	2	2
+0NGAZxHanS9e0iNHpR8f2W	Alok	['electro house', 'pop nacional', 'sertanejo universitario', 'slap house']	2	2
+6gbN4juxWWpssWMLYOyZVu	Patrick Bang	['deep german hip hop']	2	2
+00TKPo9MxwZ0j4ooveIxWZ	Loote	['alt z', 'nyc pop']	2	2
+7guDJrEfX3qb6FEbdPA5qi	Stevie Wonder	['motown', 'soul']	2	0
+2e4uIDIIBXR0MmZe0AJGhR	Bosse	['german pop']	2	2
+4X8QFzZ1HqwPfwDfyjtwXC	Mel Tormé	['adult standards', 'easy listening', 'lounge', 'swing', 'vocal jazz']	2	1
+4kI8Ie27vjvonwaB2ePh8T	Portugal. The Man	['indie rock', 'indietronica', 'modern alternative rock', 'modern rock']	2	1
+46lnlnlU0dXTDpoAUmH6Qx	Lou Bega	['latin pop']	2	0
+3wjsrpfO6odEphTZWx45RQ	Hearts & Colors	[]	2	2
+224CDJhbm230iSo9ZomTWe	Max Giesinger	['german pop', 'german pop rock']	2	0
+6ZjFtWeHP9XN7FeKSUe80S	Bing Crosby	['adult standards', 'easy listening', 'lounge']	2	1
+4TrraAsitQKl821DQY42cZ	Sigrid	['norwegian pop']	2	0
+15N4o2rfEABILEVPXZIlo1	Mortel	['german drill', 'german hip hop']	2	2
+2DlGxzQSjYe5N6G9nkYghR	Jennifer Lopez	['dance pop', 'pop', 'urban contemporary']	2	1
+1qskAseW7apRxJBpYAO9Yk	Felix Snow	[]	2	2
+0lM8pgLaP7dAfY5E4jLNuj	Deb’s Daughter	[]	2	2
+2ZRQcIgzPCVaT9XKhXZIzh	Gryffin	['edm', 'pop dance']	2	2
+0CjWKoS55T7DOt0HJuwF1H	Bipolar Sunshine	['gauze pop']	2	1
+4cPHsZM98sKzmV26wlwD2W	Brenda Lee	['adult standards', 'easy listening', 'lounge', 'rockabilly']	2	0
+6hMNiBKUQFKpnZ7GTvLVZf	Ali Bumaye	['german hip hop']	2	2
+5j21TGkrNEAJe3gG9VlS34	Shindy	['german hip hop']	2	2
+7ptddrxOpfsiwkwqb91Fuz	Nikky Santoro	['german underground rap']	2	2
+77tT1kLj6mCWtFNqiOmP9H	Daryl Hall & John Oates	['album rock', 'classic rock', 'heartland rock', 'mellow gold', 'rock', 'singer-songwriter', 'soft rock', 'yacht rock']	2	0
+374sWpAJsbZckf98df2jJJ	Fuse ODG	['afrobeats', 'azonto']	2	2
+3whuHq0yGx60atvA2RCVRW	Olly Murs	['dance pop', 'pop', 'talent show']	2	1
+5KPJMJR9PCfMWSfco8i4W4	Alex Aiono	['teen pop']	2	2
+6PXS4YHDkKvl1wkIl4V8DL	Fetty Wap	['new jersey rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	2	2
+6jsjhAEteAlY0vCiLvMLBA	ROZES	['alt z', 'indie poptimism']	2	2
+387fj6TuPJ3y2H8ViAm6r0	Pietro Lombardi	['german pop']	2	2
+2jPZMiD3iOuqGD9VLVapNv	Tommy	['german hip hop']	2	2
+4VZY0nxYMSNotbS7WjNVQy	Nyla	[]	2	2
+5TgQ66WuWkoQ2xYxaSTnVP	Netsky	['belgian edm', 'dancefloor dnb', 'drum and bass']	2	2
+787bCXOIvGeBw0Bc4kEjhD	Luke Christopher	['indie pop rap']	2	0
+15UsOTVnJzReFVN1VCnxy4	XXXTENTACION	['emo rap', 'miami hip hop']	2	1
+7aBzpmFXB4WWpPl2F7RjBe	Wyclef Jean	['rap kreyol']	2	2
+3xDVmZmDpaF1uuez2N7mKl	Tim Bendzko	['german pop']	2	0
+1l8Fu6IkuTP0U5QetQJ5Xt	Fifth Harmony	['girl group', 'pop', 'talent show']	2	2
+3dRfiJ2650SZu6GbydcHNb	John Williams	['orchestral soundtrack', 'soundtrack']	2	2
+5nztAKyqbXsa6jTtmzkN2C	Stefanie Kloß	[]	2	2
+7z2avKuuiMAT4XZJFv8Rvh	Tom Walker	['indie anthem-folk', 'uk pop']	2	0
+2h93pZq0e7k5yf4dywlkpM	Frank Ocean	['lgbtq+ hip hop', 'neo soul']	2	2
+6ydoSd3N2mwgwBHtF6K7eX	Calum Scott	['pop']	2	1
+137W8MRPWKqSmrBGDBFSop	Wiz Khalifa	['hip hop', 'pittsburgh rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	2	2
+5H1nN1SzW0qNeUEZvuXjAj	Danny Ocean	['pop venezolano', 'reggaeton', 'trap latino', 'urbano latino']	2	0
+0iEtIxbK0KxaSlF7G42ZOp	Metro Boomin	['rap']	2	2
+77ehFS1P2bU6Bfcs1qu6Jd	Regi	['belgian dance', 'belgian edm']	2	0
+4AVFqumd2ogHFlRbKIjp1t	Alesso	['dance pop', 'edm', 'electro house', 'pop', 'pop dance', 'progressive electro house']	2	2
+4olE3I5QU0dvSR7LIpqTXc	WATT	['modern alternative rock']	2	2
+31oskUgmqCnxk6jfx8yqzR	Lakmann	['german boom bap', 'oldschool deutschrap']	2	2
+6fOMl44jA4Sp5b9PpYCkzz	NF	['hip hop', 'pop rap']	2	0
+2ErWLckuGFl84nGmg5fwyG	Bilderbuch	['austrian indie', 'austrian pop', 'austropop']	2	0
+79QO0Xmn1dZhvaLicS2Yrs	The Night Game	['modern alternative rock']	2	2
+5NW2uPFatEKjZQ5gpWD8HO	Filatov & Karas	['russian dance', 'russian edm', 'russian pop']	2	2
+5PlfkPxwCpRRWQJBxCa0By	HUGEL	['deep house']	2	2
+0GgY7hjMoGDsX8ZDe2mwds	Soolking	['french hip hop', 'pop urbaine', 'r&b francais', 'rap algerien']	2	2
+4ON1ruy5ijE7ZPQthbrkgI	Burak Yeter	['electro house']	2	2
+7Dz9goFmVZZqvJxZoKg7pF	Danelle Sandoval	['nyc pop']	2	2
+2RkmcEisSOpC7f41BUXssE	Teutilla	[]	2	2
+7HkIxdAV13bOrkOhh6H3Dg	Philipp Poisel	['german pop']	2	0
+2LZDXcxJWgsJfKXZv9a5eG	Cashmere Cat	['downtempo', 'electropop', 'shiver pop']	2	2
+2Q570lQPWiuP2dCOP69jO3	Remoe	['german hip hop', 'german r&b']	2	2
+1bZDq4po4dMIpN74Zendm0	Janieck	['dutch pop']	2	2
+1LRpAVWq5z6VZMG3tTdZKU	Mike Singer	['german pop']	2	0
+0z4gvV4rjIZ9wHck67ucSV	Akon	['dance pop']	2	2
+60df5JBRRPcnSpsIMxxwQm	Otis Redding	['classic soul', 'memphis soul', 'soul', 'soul blues', 'southern soul', 'vocal jazz']	2	0
+16rfiZrUbpoIJKqvJjbOk1	Drangsal	['german indie', 'neue neue deutsche welle']	2	2
+0X2BH1fck6amBIoJhDVmmJ	Ellie Goulding	['indietronica', 'metropopolis', 'pop', 'uk pop']	2	1
+2KsP6tYLJlTBvSUxnwlVWa	Mike Posner	['dance pop', 'pop', 'pop rap']	2	2
+5iJuniDT0LFzXnMoLI1YFV	Seyed	['deep german hip hop', 'german hip hop']	2	1
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	2	0
+5nkYRuiIHg2xXHFC8bfosJ	ItaloBrothers	['hands up', 'italo dance']	2	0
+0HSc7yUdNSosxRb2UJnXlz	Namika	['german pop']	2	2
+0NIIxcxNHmOoyBx03SfTCD	Tinashe	['alternative r&b', 'dance pop', 'metropopolis', 'pop', 'r&b', 'urban contemporary']	2	1
+6JL8zeS1NmiOftqZTRgdTz	Meghan Trainor	['hip pop', 'pop']	2	0
+0SdiiPkr02EUdekHZJkt58	Hanson	['boy band']	2	0
+33JQK4UoS2aMPYBfdB5Ftt	Ryan Riback	['melbourne bounce']	2	2
+0CEK8AzyeD5ZUdUloB6yQV	CADE	['pop edm']	2	2
+4RSyJzf7ef6Iu2rnLdabNq	Willy William	[]	2	2
+1W3FSF1BLpY3hlVIgvenLz	The-Dream	['dirty south rap', 'hip pop', 'r&b', 'southern hip hop', 'trap', 'urban contemporary']	2	2
+0FTrIsp2Mg7Bkf8eXQrISa	PHresher	['nyc rap']	2	2
+1okJ4NC308qbtY9LyHn6DO	BloodPop®	['electropop']	2	2
+5MspMQqdVbdwP6ax3GXqum	Annie Lennox	['new romantic', 'new wave', 'new wave pop', 'singer-songwriter', 'soft rock', 'synthpop']	2	1
+6b5YOgXIliAozdo49vUCJQ	Izzy Bizu	['british soul']	2	1
+74XFHRwlV6OrjEM0A2NCMF	Paramore	['candy pop', 'modern rock', 'pixie', 'pop', 'pop emo', 'pop punk', 'rock']	2	0
+7e52Ytzjj1q71DUj2cSlch	Sarah Connor	['german pop']	2	0
+4yiQZ8tQPux8cPriYMWUFP	Gwen Stefani	['dance pop', 'pop']	2	2
+1UTPBmNbXNTittyMJrNkvw	Blake Shelton	['classic oklahoma country', 'contemporary country', 'country', 'country road']	2	2
+3oDbviiivRWhXwIE8hxkVV	The Beach Boys	['baroque pop', 'classic rock', 'folk rock', 'mellow gold', 'psychedelic rock', 'rock', 'sunshine pop']	2	0
+4OGiMt96TFUKkKWf7Imlno	Michael Patrick Kelly	['german pop']	2	2
+3c55dzx6W0ZFs0frtEgIsm	Sunstroke Project	['moldovan pop']	2	0
+7blkMNJv8n9ceP9zlA4W2U	Shawn Hook	['canadian pop']	2	2
+6G9bygHlCyPgNGxK2l3YdE	Vanessa Hudgens	['dance pop', 'pop', 'post-teen pop']	2	2
+66TrUkUZ3RM29dqeDQRgyA	Ella Eyre	['dance pop', 'talent show', 'uk dance', 'uk pop']	2	2
+0u6GtibW46tFX7koQ6uNJZ	Topic	['german dance', 'pop dance', 'pop edm', 'uk dance']	2	1
+3S0tlB4fE7ChxI2pWz8Xip	Giggs	['grime', 'london rap', 'uk hip hop']	2	2
+4XkhEirR2JZT4fncyOxxtf	Beginner	['german jazz rap', 'german pop', 'hamburg hip hop', 'oldschool deutschrap']	2	2
+4NHQUGzhtTLFvgF5SZesLK	Tove Lo	['metropopolis', 'pop', 'swedish electropop', 'swedish pop', 'swedish synthpop']	2	1
+3AVfmawzu83sp94QW7CEGm	Astrid S	['alt z', 'norwegian pop', 'pop', 'uk pop']	2	0
+1LKo6ZA3RNvKtLa6zDu32S	Kranium	['basshall', 'dancehall']	2	2
+4AcHt3JxKy59IX7JNNlZn4	Fitz and The Tantrums	['la indie', 'modern alternative rock', 'modern rock', 'pop rock', 'pov: indie']	2	0
+0tB1eRtIYK7QFbKFdfJoza	Rico	[]	2	2
+51Blml2LZPmy7TTiAg47vQ	U2	['irish rock', 'permanent wave', 'rock']	2	1
+5H6xmHXjsq98NLbEjuE29f	NEIKED	['scandipop']	2	2
+23xqmJEN3oVxwzqtNIyR5m	AnnenMayKantereit	['cologne indie', 'german singer-songwriter']	2	0
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	2	2
+0r0R5nIjDY04TfxRM10Bcb	Alligatoah	['german pop']	2	0
+5yNlFmp5vESd61p6Ob3Qzo	Lary	['german pop']	2	2
+0TnOYISbd1XYRBk9myaseg	Pitbull	['dance pop', 'miami hip hop', 'pop']	2	2
+6YxtMx8c5tjVRRHsqjEERp	M.O.030	['german hip hop']	2	2
+7H3TyvM3dpW78cru0Oaui9	YONII	['german hip hop']	2	1
+3KV3p5EY4AvKxOlhGHORLg	Jeremih	['chicago rap', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'urban contemporary']	2	2
+2jku7tDXc6XoB6MO2hFuqg	Tory Lanez	['canadian hip hop', 'canadian trap', 'melodic rap', 'r&b', 'rap', 'toronto rap', 'trap']	2	2
+3J0BpFVUc9LeOIVeN5uNhU	Lauren Jauregui	['r&b']	2	2
+1osZFzamKEXNoYk7HzWbDe	Sunrise Avenue	['finnish pop', 'german pop']	2	0
+6Dd3NScHWwnW6obMFbl1BH	Daya	['pop']	2	2
+3iN9k8uvm4WrgdlOigOH8D	Hook N Sling	['australian dance', 'progressive electro house']	2	2
+3xUqeSgtn2cUtOf9MZrhud	Fux Ausserkontrolle	['german underground rap']	2	2
+5K4W6rqBFWDnAN6FQUkS6x	Kanye West	['chicago rap', 'hip hop', 'rap']	2	1
+14Tg9FvbNismPR1PJHxRau	Sultan + Shepard	['canadian electronic', 'progressive house']	2	2
+1C60viSZv6BoYtrnkZ44g5	Nadia Ali	['vocal trance']	2	2
+3TNpNnN7Y8QhtJJnQ08YeF	iRO	[]	2	2
+736HGQRGr9rjG4VmmSpkz8	Naaz	['dutch pop']	2	0
+2PzqiEyRzlQW0ZAVr1cuQM	Laruzo	[]	2	0
+5P4P6G0pubLi65R3zRnSCf	Kush Kush	['german dance']	2	0
+7EWemnOZ5SxADQ1z8bf0r9	Adesse	['german pop']	2	2
+2O96kas7AXED9RLiOWvrpY	FOURS	['uk pop']	1	0
+0GOx72r5AAEKRGQFn3xqXK	GIMS	['french hip hop', 'french pop', 'r&b francais', 'rap conscient']	1	1
+2zTuJejwDNORTLRCkQPbHy	Dany Synthé	[]	1	1
+09M7zqUroSleD8V1Yifl4a	SoFLY & Nius	[]	1	1
+3hPPNy5OBzCU1icQO7Nrok	99 Percent	[]	1	1
+67ghKnycRX6VM1xfqJSMlH	YouNotUs	['german dance']	1	1
+1hJuGCUpefX24GFmss9bjH	Amy Macdonald	['scottish singer-songwriter']	1	0
+1Oa0bMld0A3u5OTYfMzp5h	Nate Dogg	['g funk', 'gangster rap', 'hardcore hip hop', 'hip hop', 'west coast rap']	1	1
+2LY0E3xg8svCVYXVNTze5T	Vanic	['bass trap', 'pop edm']	1	1
+3gMaNLQm7D9MornNILzdSl	Lionel Richie	['soft rock']	1	0
+4HVjlOXb3ZMpjkEHheQkwI	DJ Apres Ski	['deep discofox', 'discofox', 'partyschlager']	1	0
+7wjeXCtRND2ZdKfMJFu6JC	Louane	['french pop']	1	1
+6kT18gnkVrCz8xJQcrib7L	Bhaskar	['brazilian bass', 'brazilian edm', 'brazilian house']	1	1
+1Dn88PoQjnQgLTOaokePFz	Bright Sparks	[]	1	1
+0U7ti3mwGrBNlKNE4YlbfT	Sierra Kidd	['german cloud rap', 'german hip hop']	1	1
+2nvKpWcP8etYTq4JrRiUiy	Cliff Richard	['adult standards', 'rock-and-roll']	1	0
+15DtxS7TcOYPplKUl5re5C	Jonas Monar	['german pop']	1	0
+31Eea8xaK1xAMyJy2iWE0z	Eden Prince	['dance pop', 'deep groove house', 'uk dance']	1	1
+65AzRSW0jKSs0WtttEXrOw	ELIF	['frauenrap', 'german hip hop', 'german pop', 'german singer-songwriter']	1	0
+1B0Rp4SWGnFgGCPU5Pju6E	Nego do Borel	['funk carioca', 'funk das antigas', 'funk ostentacao', 'funk pop', 'sertanejo universitario']	1	1
+31TPClRtHm23RisEBtV3X7	Justin Timberlake	['dance pop', 'pop']	1	0
+28j8lBWDdDSHSSt5oPlsX2	ZHU	['edm', 'electro house']	1	0
+3kc5AFnL1TQQdNaMdSW2UO	Wayne Wonder	['dancehall', 'reggae fusion']	1	1
+5X4LWwbUFNzPkEas04uU82	DVBBS	['canadian electronic', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'slap house']	1	1
+78DWNk8gFHU30TGITAgbM7	CMC$	['pop edm', 'vapor twitch']	1	1
+71WExccCBN2mw0klSzfYzz	Gia Koka	[]	1	1
+5bKy7Tu2BNmfoFnDC5mncZ	Yvonne Catterfeld	['german pop']	1	1
+0gfGtWOKV78OjwmQ0iGcE3	Bengio	['german pop']	1	1
+1l6d0RIxTL3JytlLGvWzYe	Benjamin Blümchen	['hoerspiel']	1	0
+4zxvC7CRGvggq9EWXOpwAo	Kiesza	['electropop', 'pop edm']	1	1
+0JOxt5QOwq0czoJxvSc5hS	GASHI	[]	1	0
+2urF8dgLVfDjunO0pcHUEe	Alvaro Soler	['latin pop']	1	0
+4n5HR9kS4Dhl1t685XlDhW	Hugh Martin	[]	1	1
+72luDUYRlE8N8lPSgyhiwo	John Gibbons	['uk dance']	1	0
+74ASZWbe4lXaubB36ztrGX	Bob Dylan	['classic rock', 'country rock', 'folk', 'folk rock', 'rock', 'roots rock', 'singer-songwriter']	1	0
+4gvkdged3Xw3ImXFm3jiay	Juliander	['swedish pop']	1	1
+7b7fZRv3EYhFgWYJR3yjXn	Mark McCabe	['irish pop']	1	1
+6VxCmtR7S3yz4vnzsJqhSV	Sheppard	['australian indie', 'folk-pop']	1	0
+5M2y5A6d5QZjw9JeKClagC	Andrelli	['swedish pop']	1	1
+0aZu9zUfF2EgTHyBbZlW1C	LGoony	['cologne hip hop', 'german cloud rap', 'german hip hop']	1	1
+1RzvREvTenKGPYk6laaGdD	Crack Ignaz	['austrian hip hop', 'german cloud rap']	1	1
+1JjIKP5IOuEDXQVZsbUiB2	Kristian Kostov	[]	1	0
+3koiLjNrgRTNbOwViDipeA	Marvin Gaye	['classic soul', 'motown', 'neo soul', 'northern soul', 'quiet storm', 'soul']	1	1
+75jNCko3SnEMI5gwGqrbb8	Tammi Terrell	['classic soul', 'motown', 'soul', 'southern soul']	1	1
+5EvFsr3kj42KNv97ZEnqij	Shaggy	['dance pop', 'pop rap', 'reggae fusion']	1	1
+67wCYxOq4A1ohAs7jWYaOJ	Rik Rok	['reggae fusion']	1	1
+0hEurMDQu99nJRq8pTxO14	John Mayer	['neo mellow', 'singer-songwriter']	1	0
+6fpcc1YopVYoJIXKIfvY4w	Joey Bargeld	['german cloud rap']	1	1
+3NjbpG6MmFGVLXwbcPXH90	Haiyti	['frauenrap', 'german cloud rap', 'german drill', 'german hip hop', 'german hyperpop']	1	1
+3RuKMixE6jnuXqEx1Jy1om	Steve Kroeger	['canadian electronic', 'slap house', 'tropical house']	1	1
+2v7q6g8FLhc74i4gBBdruy	Skye Holland	['tropical house']	1	1
+4STHEaNw4mPZ2tzheohgXB	Paul McCartney	['beatlesque', 'classic rock', 'rock']	1	0
+1QDrz3DMMaz3TB1cm0PGDu	Justin Jesso	['singer-songwriter pop']	1	1
+0QaSiI5TLA4N7mcsdxShDO	Sub Focus	['dancefloor dnb', 'drum and bass', 'uk dance']	1	1
+0MHgLfmQdutffmvWe5XBTN	Burl Ives	['adult standards', 'american folk revival']	1	0
+7o95ZoZt5ZYn31e9z1Hc0a	Natasha Bedingfield	['dance pop', 'pop', 'post-teen pop']	1	0
+4D75GcNG95ebPtNvoNVXhz	AFROJACK	['big room', 'dance pop', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house']	1	1
+5psTfOBPmc8UquYcnS22KE	Pink	[]	1	1
+6J4wZLR2j3dMkURj2QRxId	gibbon don	[]	1	1
+2QSPrJfYeRXaltEEiriXN9	Tove Styrke	['electropop', 'swedish electropop', 'swedish pop', 'swedish synthpop']	1	0
+1CQUPR60ihhBANxqwTZv8O	Macloud	[]	1	1
+2ysnwxxNtSgbb9t1m2Ur4j	George Ezra	['folk-pop', 'neo-singer-songwriter']	1	0
+46SHBwWsqBkxI7EeeBEQG7	Kodak Black	['florida drill', 'florida rap', 'melodic rap', 'miami hip hop', 'rap', 'trap', 'trap latino']	1	0
+5cBeFQv3kBVP8o15CmPTKb	Tez Cadey	['deep tropical house']	1	0
+3FUY2gzHeIiaesXtOAdB7A	Train	['dance pop', 'neo mellow', 'pop', 'pop rock']	1	0
+5KEG7G8LDYlHgFDqZyEEs2	Chris Rea	['soft rock', 'sophisti-pop']	1	0
+7nVba98WXTSM3YKhwhqRdU	Oliver Moldan	[]	1	1
+13laFS0Vj74fi08IbseWv8	Jasmine Ash	['deep indie singer-songwriter']	1	1
+3tLYpanVDomWAZqF82NPds	Vigiland	['deep pop edm', 'electronic trap']	1	0
+7Kk52c4QPzzgXzsrce4rSF	Fatal	['german underground rap']	1	1
+1FYROXtncTSxUtbfZeNojk	Skepsis	[]	1	1
+29QbBR0oTzA7A0kiOzrbbr	Jamie Scott	['uk pop']	1	1
+5gWzmnHTLNXz5CjOc0wAuK	Romy Dya	['dutch pop']	1	1
+2wzMOQwNT6ZvVB4amvhFAH	The Pogues	['celtic punk', 'celtic rock', 'folk punk', 'punk']	1	1
+6UlNIFEuWlBqb4TvlVCekq	Kirsty MacColl	['new wave pop']	1	1
+7e1NggdGJdbnTn5wWodA8B	Kärneväl	['deep discofox']	1	0
+3EW0kQ1skZiK1NHg3Spt9J	Takeoff	['atl hip hop', 'rap', 'trap']	1	1
+24UmQq4ccfSLpXXurb40ig	Honk!	['partyschlager']	1	0
+7qG3b048QCHVRO5Pv1T5lw	Enrique Iglesias	['dance pop', 'latin pop', 'mexican pop']	1	1
+5luyt0SUvGkDMY4ILP6Qhl	Descemer Bueno	['cubaton']	1	1
+21451j1KhjAiaYKflxBjr1	Zion & Lennox	['reggaeton', 'urbano latino']	1	1
+4R0FKprdEeUIbzAwhrYTv2	Elias	['german hip hop']	1	1
+6kXm2YCtdUOpRYNKeKhfue	Ryan Gosling	['hollywood']	1	1
+68Uwx1d3EbjDJhYsLjqvIq	Emma Stone	['hollywood']	1	1
+3qc6vEFEqCxZxeausJojY1	BSMG	[]	1	0
+2U3FuHYvL3vhkbDAXm24Ep	Dan Caplen	['neo soul', 'uk contemporary r&b']	1	1
+7AzihkjJH5ZRRHdrdkg1Nu	Lakman	[]	1	1
+726MxZBpkxnnoKl6aN7mmj	Cookin' On 3 Burners	['bboy', 'instrumental funk']	1	1
+4xnihxcoXWK3UqryOSnbw5	Sasha Alex Sloan	['alt z']	1	0
+5ZDBkifba6O2TRqyzxGuoq	LAAS	['oldschool deutschrap']	1	1
+0ecGioDyIR2QiyujHeiwHw	Blixa Bargeld	[]	1	1
+6Y8LcJTiUldMWi8QxmWbCc	Dagobert	[]	1	1
+50C86uojThm4vE2gsFqhxI	Sizarr	['german indie']	1	1
+2xU6IU13MYie8RcM54Ovt0	Mugeez	['ghanaian pop']	1	1
+3t8WiyalpvnB9AObcMufiE	Mahmut Orhan	['turkish deep house', 'turkish edm']	1	1
+7CW2eGwAuElNq09rVtZYsM	Sena Şener	['turkish alt pop', 'turkish modern jazz', 'turkish rock']	1	1
+4Q8D2hUwpyFwSy87NB2CUQ	Nash	[]	1	1
+69UfPJgUmFFAVT740qGVZi	Ken Darby Singers	[]	1	1
+735L650pvygCZZlPMyHqsN	John Scott Trotter & His Orchestra	['light music']	1	1
+2gsggkzM5R49q6jpPvazou	Jessie J	['dance pop', 'pop']	1	0
+79qRD2IfSr3pmuYUficMWX	Beatsteaks	['german pop', 'german punk', 'german punk rock', 'german rock']	1	1
+49eo9xE4yGzJLWkOndiODs	Deichkind	['german pop', 'hamburg hip hop']	1	1
+4wP1kxjUsc9IR4Iy2smL7o	Trinidad Cardona	['sped up']	1	1
+5lXfVoQxVgC5fpjkVqvNYn	Isaiah Firebrace	['australian pop']	1	0
+5veVxxPm1vzgi6pO2iVA8L	Bruno Martini	['pop nacional']	1	1
+7qPLO2XOUaRrRxkvLZ3AEK	Zeeba	[]	1	1
+6e71OI9Q7CL0sZ4bfzFv5G	Kay Ay	[]	1	1
+0cTVeFU3vyknX03l8FrpQE	Dudi	[]	1	1
+5ZS223C6JyBfXasXxrRqOk	Jhené Aiko	['r&b']	1	1
+2fVW2ix4ANKiofDZIsy1XR	Vargas & Lagola	['swedish pop']	1	1
+0YJ8GGZvu6iapnuscFmdZx	Torro West	[]	1	1
+5EPcmJO7af1UYtCcICYLA6	Tay Schmedtmann	['talentschau']	1	0
+15NtJjjHRFybdNSMyM9smT	Nevada	[]	1	1
+6V3F8MZrOKdT9fU686ybE9	Mark Morrison	['british soul']	1	1
+0EgUow5z0SXVA9lunNSB1q	Verse Simmonds	['pop r&b']	1	1
+4hKkEHkaqCsyxNxXEsszVH	John Travolta	['hollywood']	1	1
+4BoRxUdrcgbbq1rxJvvhg9	Olivia Newton-John	['adult standards', 'australian dance', 'disco', 'mellow gold', 'soft rock']	1	1
+5ITI6SEoUZMIXXkzCfr4oE	Aluna	['dance pop']	1	1
+7eaxqxEmahFdNNNBslMCTr	Stik	[]	1	1
+6M0cPjKNRCTRgH0A4HKoeK	Fullife	['deep tropical house']	1	0
+0lzV2CiahHRiGd6qpADtPS	James Hersey	[]	1	0
+4lDBihdpMlOalxy1jkUbPl	Grey	[]	1	1
+1F30RWETubxDmbyfxeVPg7	Kerstin Ott	['schlager']	1	1
+7nwUJBm0HE4ZxD3f5cy5ok	Aretha Franklin	['classic soul', 'jazz blues', 'memphis soul', 'soul', 'southern soul', 'vocal jazz']	1	0
+3QqlKdJRY4IqUry390xfvJ	MICAR	['german dance']	1	0
+3DiDSECUqqY1AuBP8qtaIa	Alicia Keys	['neo soul', 'pop', 'r&b']	1	1
+2cFrymmkijnjDg9SS92EPM	blackbear	['pop']	1	1
+3alW3LYQS8K29z8C8NSLIX	Barry Manilow	['adult standards', 'mellow gold', 'soft rock', 'yacht rock']	1	1
+0MMNJf1JrxeSFE2pcpX50b	K.T. Oslin	['classic country pop', 'country', 'country rock']	1	1
+01e2lCvLZ4fLUIRy68nptH	Wankelmut	['deep euro house']	1	1
+7ySHyUSqpKzGnDqOxLiCFH	Charlotte OC	['modern alternative pop', 'uk pop', 'vapor pop']	1	1
+2y8Jo9CKhJvtfeKOsYzRdT	Rod Stewart	['mellow gold', 'soft rock']	1	0
+17aoRCzkZM3IFEbFqVCuX5	Nash	['german hip hop']	1	0
+10n5lhNDoSMUHWLlnST1yw	Slade	['glam rock']	1	0
+5lKZWd6HiSCLfnDGrq9RAm	Leona Lewis	['british soul', 'dance pop', 'pop', 'talent show']	1	0
+391oLRVmoTkumiN79HkTWu	Darlene Love	[]	1	0
+3meJIgRw7YleJrmbpbJK6S	Die drei ???	['hoerspiel']	1	0
+4H5tKZTXuVPxynMaaaBbWs	Nosoyo	['german indie']	1	0
+02U68BQCUSYgr9eTBWRHLK	Fake Pictures	['german dance']	1	0
+3tSvlEzeDnVbQJBTkIA6nO	Christian Löffler	['electronica', 'hamburg electronic', 'organic electronic', 'pop ambient']	1	1
+3azqDB8c8zEOTBscxif1gU	Mohna	[]	1	1
+6dKYo2aegt1Cpez6tyd2ai	Lorenz Büffel	['discofox', 'partyschlager']	1	0
+4sW5R5XKTge9Vwv44p9p18	Sam Gray	['uk dance']	1	1
+4WN5naL3ofxrVBgFpguzKo	Rudimental	['pop dance', 'uk dance', 'uk funky']	1	1
+6XZYAWJLL8UIbxAqjKj3cg	SOHN	['indietronica', 'shimmer pop']	1	0
+6XpaIBNiVzIetEPCWDvAFP	Whitney Houston	['dance pop']	1	0
+2iReGc3ItZlbaaSWymMJve	Manuellsen	['german drill', 'german hip hop']	1	1
+3WOOglGBDGvr6c2WBeMAWn	Urban Cone	['swedish indie pop']	1	0
+7q6ozanpOpFUoe6jPQ0jVK	Kate Winslet	[]	1	0
+3nohf4qILMr5aUSOsolwxB	Jona Lewie	['new wave pop']	1	0
+1rSGNXhhYuWoq9BEz5DZGO	ARTY	['big room', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'progressive house', 'russian edm']	1	1
+7isTm27jVXz6QlAAt8WeXh	Neele Ternes	[]	1	0
+7rkW85dBwwrJtlHRDkJDAC	NAV	['canadian hip hop', 'canadian trap', 'melodic rap', 'rap', 'toronto rap', 'trap']	1	1
+7f35VZGDpomj11PXdNn5D9	Max B	[]	1	1
+0V7uVrIYr4FwFvUN9S4kYr	Nick Waterhouse	['chicago indie', 'funk']	1	1
+6lBN3Tzt61u8i9AJoAhKzF	Mykola Dmytrovych Leontovych	['post-romantic era', 'ukrainian classical']	1	1
+0JXiS2FrAg3wQYJHcmZdrc	B. Swanson Quartet	[]	1	1
+6Rmg5JiRphFMlhkwGNl9Fu	Tom Gregory	['uk pop']	1	0
+6O9WquDfQTxGRZqZUXVEQx	RedOne	['moroccan pop']	1	1
+59KQTERLpPa7M0F25fRH6V	Dinah Jane	['post-teen pop']	1	1
+07FfkbljNIdl45Ijlh1aXS	RHODES	['indie anthem-folk', 'uk pop']	1	1
+0MDfMKBf1cV65pnQ1ZRm9O	Iggy	[]	1	0
+6kACVPfCOnqzgfEF5ryl0x	Johnny Cash	['arkansas country', 'outlaw country', 'rock']	1	0
+5Tf4EH8tDvznnjULcFxkIl	Alex Clare	['modern alternative rock']	1	1
+21WS9wngs9AqFckK7yYJPM	PnB Rock	['melodic rap', 'rap', 'trap']	1	1
+7vHAcPVlEDksRsCfkez2CD	SRTW	['chill house', 'pop edm']	1	1
+0i5oKqsPL21cwL7acxZfNI	Charity Children	['german indie']	1	1
+2yDY3r3GJAxtK5xhndIhVI	Little Rose	[]	1	1
+6I80dm7Ux4Cna1JTbSroQv	Tom Bleasby	[]	1	0
+5NDMothbpdpq2xHqSjrrWn	Faith Evans	['contemporary r&b', 'hip pop', 'r&b', 'urban contemporary']	1	1
+5me0Irg2ANcsgc93uaYrpb	The Notorious B.I.G.	['east coast hip hop', 'gangster rap', 'hardcore hip hop', 'hip hop', 'rap']	1	1
+7hJcb9fa4alzcOq3EaNPoG	Snoop Dogg	['g funk', 'gangster rap', 'hip hop', 'pop rap', 'rap', 'west coast rap']	1	1
+3MYThwi25FgjmKbZFlC8dP	Xmas Classics	[]	1	0
+0Tob4H0FLtEONHU1MjpUEp	Tinie Tempah	['dance pop', 'grime', 'pop rap']	1	1
+0uGApGjjFXKwUOAqYBeX7B	Deepend	['deep house', 'deep tropical house', 'tropical house']	1	1
+71KlQX0q5wz5f9iytwPfou	Graham Candy	['nz pop']	1	1
+2FsZnS8gQ8jG1HGnPYNlm9	Jamie N Commons	['modern blues rock']	1	1
+5sWHDYs0csV6RS48xBl0tH	Two Feet	['indie poptimism', 'modern rock']	1	0
+0pOruKWwgyqSLZhn4Xovs9	Ardian Bujupi	['albanian hip hop', 'albanian pop', 'german hip hop', 'kosovan pop', 'turbo folk']	1	1
+4dpARuHxo51G3z768sgnrY	Adele	['british soul', 'pop', 'pop soul', 'uk pop']	1	0
+6fXEqmGQEt6ONuqVmwrN46	Bag Raiders	['alternative dance', 'australian dance', 'indietronica']	1	0
+2WzaAvm2bBCf4pEhyuDgCY	Ruth B.	['alt z', 'canadian contemporary r&b', 'canadian pop', 'pop']	1	0
+3trsSEaKM3UM2R9RBJwdtJ	Charles Brown	['jazz blues', 'piano blues']	1	0
+4qBgvVog0wzW75IQ48mU7v	KYLE	['deep underground hip hop', 'indie pop rap', 'pop rap', 'viral trap']	1	1
+43BxCL6t4c73BQnIJtry5v	James Hype	['deep groove house', 'pop dance', 'uk dance']	1	1
+0m6f0nNS9GEq41eIJ288ff	Kelli-Leigh	['uk pop']	1	1
+38EmEgXkgK51MT2tPY0EoC	Bobby Helms	[]	1	0
+5y3G1B8cpCTaoq0uDgjwzH	Danny Avila	[]	1	1
+7823Dim2TzjiQQ9wRQxyi9	Wizzard	['glam rock']	1	0
+20tOyD2If72ZVRb9FcYn3Y	Shaun Bate	[]	1	1
+318Hgipp6taFiCWfOcNOq2	Ahsha	[]	1	1
+74eY8wbrhhVD7pACbBHwHw	Imany	['french indie pop']	1	1
+3836OTICMPjhTMMcpPw4EC	Broiler	['nordic house', 'norwegian pop', 'russelater']	1	1
+5RdqZVi36tpDPYNPw8jJbO	Julie Andrews	['hollywood', 'movie tunes', 'show tunes']	1	0
+4GNC7GD6oZMSxPGyXy4MNB	Lewis Capaldi	['pop', 'uk pop']	1	0
+34SBu2kvAUh84umN8Pi0iI	Hight	['uk dance']	1	1
+43ZHCT0cAZBISjO8DG9PnE	Elvis Presley	['rock-and-roll', 'rockabilly']	1	0
+3Z02hBLubJxuFJfhacLSDc	Bryan Adams	['canadian pop', 'canadian singer-songwriter', 'classic canadian rock', 'heartland rock', 'mellow gold', 'soft rock']	1	0
+6fOdKmVyyI5KuTP8IkoieP	Apres Ski Allstars	[]	1	0
+4Wjf8diP59VmPG7fi4y724	Cedric Gervais	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+2qSEpijpT3YSXgxcXac1ly	Chris Willis	[]	1	1
+27mFvqQj8KpjmdKIqcw1mG	Ayo & Teo	['trap', 'viral trap']	1	0
+00DSCauOVv9bIKe8bGWSTG	Moses Pelham	['german pop']	1	1
+2okNRxoA7uWwwM0QJpyUxe	Gary Washington	['deep german hip hop']	1	1
+0t84CBqmvihsUVFme33TLd	GReeeN	[]	1	1
+4tvKz56Tr39bkhcQUTO0Xr	Angus & Julia Stone	['australian indie folk', 'indie folk']	1	0
+2zzpznMuhKlKlqh1ma7Sms	Dakota	[]	1	1
+6roDXEmZ6AARdOUv6x5U2v	Felix Cartal	['canadian electronic', 'electro house', 'pop dance', 'pop edm']	1	1
+3DzvldYcKG83XYhYC0wfLn	dePresno	['norwegian indie', 'norwegian pop']	1	0
+4NcMrSi3B8eUVy6e1Ni3wu	Ivy Sole	['alternative r&b', 'north carolina hip hop']	1	1
+22tB2wbnB3pexB04xtncrG	Mimoza	[]	1	0
+1LOB7jTeEV14pHai6EXSzF	Cash Cash	['dance pop', 'edm', 'electro house', 'electropowerpop', 'pop dance']	1	1
+6mU8ucezzms5I2kNH6HNlu	Conor Maynard	['post-teen pop', 'uk pop', 'viral pop']	1	1
+6q94KewnCnut4Ta36dCoaB	Jake Isaac	['folk-pop', 'indie anthem-folk']	1	0
+2IjiuEObrCKyZvSb8xLxG9	filous	['deep tropical house', 'tropical house']	1	1
+6aAestjbtEbALwyIYPg8Na	LissA	['indie electropop']	1	1
+6mctsJBrfcWvWH7S8h716D	Moelogo	['afrobeats', 'nigerian pop']	1	1
+23wEWD21D4TPYiJugoXmYb	Thalia	['latin pop', 'mexican pop']	1	1
+7FNnA9vBm6EKceENgCGRMb	Anitta	['funk pop', 'funk rj', 'pagode baiano', 'pop', 'pop nacional']	1	1
+0C0XlULifJtAgn6ZNCW2eu	The Killers	['alternative rock', 'dance rock', 'modern rock', 'permanent wave', 'rock']	1	0
+6Xgp2XMz1fhVYe7i6yNAax	Trippie Redd	['melodic rap', 'rap', 'trap']	1	1
+2iE18Oxc8YSumAU232n4rW	The Jackson 5	['motown', 'soul']	1	0
+73sIBHcqh3Z3NyqHKZ7FOL	Childish Gambino	['atl hip hop', 'hip hop', 'rap']	1	0
+0DxeaLnv6SyYk2DOqkLO8c	MAGIC!	['pop', 'reggae fusion']	1	1
+6nXmnBpdFvzImqLQb3HBa9	Adam Trigger	[]	1	1
+1udruffum7CorOphFUMB9A	Kato	['danish electronic', 'danish pop']	1	1
+0YrsnwziXGqxOD8qq1CYsp	mokuba	['german cloud rap']	1	1
+49AeDrw69nrWEGy6pwOBHU	Young Kira	['german cloud rap']	1	1
+5CUXWZ485yE6im34MWIvoj	Sol Calor	['beach house']	1	0
+6T5tfhQCknKG4UnH90qGnz	DNCE	['dance pop', 'pop']	1	0
+7fMcxMZbWWyqy7scdeT5tx	Die Schwarzwälder Kirschtorten	[]	1	0
+3iri9nBFs9e4wN7PLIetAw	gnash	['alt z', 'pop']	1	1
+1QRj3hoop9Mv5VvHQkwPEp	Olivia O'Brien	['alt z', 'pop']	1	1
+33W1pnW9zScZtYTnAoWnOT	Mr. Probz	[]	1	0
+5R8zS6ofKclznKk3ffudoO	Anstandslos & Durchgeknallt	['german pop', 'partyschlager']	1	1
+2SxLNXXcBhIYkH8EkSfJm5	Laurenz	['german pop']	1	1
+5X1JzPIIonP3u9lA580pPT	Francesco Yates	['canadian pop']	1	1
+6Sh3owUrsFjZ4qCjtpPV7G	Jennifer Rostock	['german alternative rock', 'german pop', 'german punk', 'german rock']	1	0
+1Ml4OuStDoympbREURAM15	The Fontane Sisters	['deep adult standards', 'vocal harmony group']	1	1
+0HS96tPggl2nwiz3gNWWI5	Mitchell Ayres & His Orchestra	"[""man's orchestra""]"	1	1
+4PVn1b2WnnXdq80C7uaZLZ	Nause	[]	1	1
+4bvWFV51SAEocM22uiDOza	Pretty Sister	['la pop']	1	1
+0lFLP59V4TY3XgnrkFIwxK	Katja Krasavice	['frauenrap', 'german pop', 'german viral rap']	1	1
+06PAmgIjWsh7qNnmikUYl0	Stard Ova	[]	1	1
+7GMot9WvBYqhhJz92vhBp6	EDX	['dutch house', 'edm', 'electro house', 'house', 'pop dance', 'progressive electro house', 'progressive house', 'swiss pop']	1	0
+10exVja0key0uqUkk6LJRT	Vance Joy	['folk-pop', 'modern rock']	1	0
+3hyEbRtp617pNCuuQjyOmc	Lost Kings	['pop dance', 'pop edm']	1	1
+2DaxqgrOhkeH0fpeiQq2f4	Oasis	['beatlesque', 'britpop', 'madchester', 'permanent wave', 'rock']	1	0
+1g0fXhQMHAxlRyIBkCbuE7	Matt Simons	['neo-singer-songwriter']	1	0
+4zGH6gaO4NohcfCXZ31bQG	Eric Saade	['swedish idol pop', 'swedish pop']	1	1
+1zR67M6RSKhUxeHfjZ1TWf	Gustaf Norén	[]	1	1
+762310PdDnwsDxAQxzQkfX	Depeche Mode	['dance rock', 'new romantic', 'new wave', 'permanent wave', 'rock', 'synthpop']	1	0
+4EPJlUEBy49EX1wuFOvtjK	Becky Hill	['pop dance', 'pop house', 'uk dance', 'uk pop']	1	1
+3glG6M6Sm7Zgvms4dFZKbN	Casso	[]	1	1
+5he5w2lnU9x7JFhnwcekXX	Skrillex	['brostep', 'complextro', 'edm', 'electro', 'pop dance']	1	1
+3JXpwnHbLvXxY99EuXqFPX	Poo Bear	['pop r&b']	1	1
+7F7vWRGRoB2xaJAtQ22TXV	Hasan.K	['german hip hop', 'german underground rap']	1	1
+6JLwyyc3LBwRXEODjugQ4D	TAL	['french pop']	1	0
+3sqdh5sW8Cc1j1jdbmRJRm	ACE TEE	['frauenrap', 'hamburg hip hop']	1	1
+0vbEs3DgphJ2RGZqh4qFLT	Anita Kerr Singers	['easy listening']	1	0
+6kEsKkXuE4olX7m3mNLZkS	Art Garfunkel	['folk', 'folk rock', 'mellow gold', 'soft rock']	1	0
+4T2k9bgIoC8bbqjqiEl9vZ	Rhys Lewis	['uk pop']	1	0
+1jhdZdzOd4TJLAHqQdkUND	Jamie Lawson	['devon indie', 'indie anthem-folk']	1	0
+0NKDgy9j66h3DLnN8qu1bB	Eurythmics	['dance rock', 'new romantic', 'new wave', 'new wave pop', 'soft rock', 'sophisti-pop', 'synthpop']	1	1
+7gcCQIlkkfbul5Mt0jBQkg	Dave Stewart	['new wave pop', 'rock keyboard']	1	1
+3eii93RK8M9F3wEJDe7YJG	Decco	[]	1	1
+7xEFii6utZmQ61kX59HmLH	FRENSHIP	['electropop', 'indie poptimism', 'la pop']	1	1
+0kyE7fHW9SrqZj7VkUq7zi	Tommy Reilly	['scottish singer-songwriter']	1	1
+1LZEQNv7sE11VDY3SdxQeN	Bee Gees	['disco', 'mellow gold', 'soft rock']	1	0
+0eecdvMrqBftK0M1VKhaF4	CNCO	['boy band', 'latin pop', 'reggaeton', 'urbano latino']	1	1
+2FwJwEswyIUAljqgjNSHgP	Snakehips	['electropop']	1	1
+3WUe8ADT5d65WeByR3ubl7	Vanessa Mai	['german pop', 'schlager']	1	0
+35S20clEkkSNUo23ViaslZ	Band Aid	['musical advocacy']	1	0
+64rxQRJsLgZwHHyWKB8fiF	Eiffel 65	['eurodance', 'europop', 'italian adult pop', 'italo dance']	1	1
+5ENS85nZShljwNgg4wFD7D	Gabry Ponte	['eurodance', 'italo dance', 'slap house']	1	1
+1xHQO9GJIW9OXHxGBISYc5	Marian Hill	['electropop']	1	0
+6wMr4zKPrrR0UVz08WtUWc	Black Coffee	['south african house', 'south african pop', 'south african pop dance']	1	1
+1CoZyIx7UvdxT5c8UkMzHd	Jorja Smith	['r&b', 'uk contemporary r&b']	1	1
+4Ui2kfOqGujY81UcPrb5KE	HAIM	['indietronica', 'metropopolis']	1	0
+6Tz0QRoe083BcOo2YbG9lV	Nena	['german pop', 'new wave pop']	1	1
+3zrUX1hQrUB9aXcOiyQLmN	Stanaj	[]	1	1
+5jAMCwdNHWr7JThxtMuEyy	NOTD	['electropop', 'pop dance', 'pop edm']	1	1
+0A0FS04o6zMoto8OKPsDwY	YG	['cali rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+25u4wHJWxCA9vO0CzxAbK7	Lukas Graham	['danish pop', 'scandipop']	1	0
+7c0YaC1zF0Wdz93UeKfEFw	Chinook	[]	1	1
+3Il8nRZ80Wbjs2UGkysK5F	Dandy Lion	[]	1	1
+4NZvixzsSefsNiIqXn0NDe	Maggie Rogers	['indie pop']	1	0
+5dGsIOepO9ufQlXjW8KrPL	Neptunica	['german dance']	1	0
+1zwtew8BGPk66RKGQqtPCX	Leoniden	['german indie']	1	0
+0ZRBa9pTfhhCsJW95F1ugg	Yall	[]	1	0
+7K78lVZ8XzkjfRSI7570FF	José Feliciano	['latin pop', 'puerto rican pop']	1	0
+1l2ekx5skC4gJH8djERwh1	Don Diablo	['dutch house', 'edm', 'electro house', 'future house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+0vLsqW05dyLvjuKKftAEGA	Die drei ??? Kids	['hoerspiel']	1	0
+05o1zW8b6PV6rEquXr74sB	State of Sound	['swedish tropical house']	1	0
+0PhLCUFEU30lqntUbYZjSt	Mosh36	['german hip hop']	1	1
+3SxrBNpBsKhqOA4WX7HSV5	Haze	['german hip hop']	1	1
+6ioOEWNNGK40H8xrGj6XPW	XYLØ	['alt z', 'indie poptimism', 'la pop']	1	1
+6LLkR5gUCfKpHT1BTgGQ55	Jim Pandzko	[]	1	1
+3HY022EuyZPU1hwRQG592k	Jan Böhmermann	[]	1	1
+3GtCKJA4SkOxN65MWjm82R	Hot Shade	[]	1	1
+0eBOZ74PcpQb3SisNPgaRQ	Jake Reese	['dutch pop']	1	1
+4poL7YCSkG7kMnWjAdDU91	Era Istrefi	['albanian hip hop', 'albanian pop', 'kosovan pop']	1	1
+64Agvz8sfVYGFmX7yCwj32	Ahzumjot	['german alternative rap', 'german cloud rap', 'german hip hop']	1	1
+6aGmKxXoKrSdovRUn8MBhZ	Margaret	['polish pop']	1	0
+0uq5PttqEjj3IH1bzwcrXF	Spice Girls	['dance pop', 'girl group', 'pop']	1	0
+0pt7PX4Hftlg8mV1ySU84Q	CVBZ	['dark r&b']	1	1
+3qMyym6ov558YgVuOOscEm	Blanche	[]	1	0
+6d5CGj93XLaqmyt10XgL8O	Cat Ballou	['cologne hip hop', 'german rock', 'kolsche karneval']	1	0
+7FOb8fwCcjHjKlIlEZk6go	LCAW	['deep tropical house']	1	1
+6Paz0vXJJ9bCPf0fEm3qzg	Dagny	['norwegian pop']	1	1
+7iZ5x5fwRwROoX3iRWpVgN	Fard	['german hip hop']	1	0
+7eCmccnRwPmRnWPw61x6jM	shy martin	['alt z', 'swedish electropop']	1	1
+2UFKXTZgKtOTHSqMSyAcLO	Glasperlenspiel	['german pop', 'metropopolis']	1	1
+3KCO1VWpmHG0T2zYJjXVgj	Madizin	[]	1	1
+1SupJlEpv7RS2tPNRaHViT	Nicky Jam	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	1	0
+3iaVXonnnlGLW3BHz1BDER	Karel Svoboda	[]	1	1
+1pHWsOvhOqZn9zwP7v8VbA	František Pavlíček	[]	1	1
+1NsvDKaOjM0M0kxvZvVisU	Václav Vorlíček	[]	1	1
+7KzDocnBwkQXPEqIIDivkV	Film Symphony Orchestra	[]	1	1
+6hanC5m590BGQMCsmJZJBN	Stepan Konicek	['detske pisnicky']	1	1
+5RwRoCyyMD8TpyPaRAa0yr	Miwata	['german reggae']	1	0
+0RqtSIYZmd4fiBKVFqyIqD	Thirty Seconds To Mars	['modern rock', 'post-grunge']	1	0
+3jVMgT4X7YeuYE4aludcmE	Phil Spector	['brill building pop']	1	0
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+6gK1Uct5FEdaUWRWpU4Cl2	Petit Biscuit	['new french touch']	1	0
+3eqjTLE0HfPfh78zjh6TqT	Bruce Springsteen	['heartland rock', 'mellow gold', 'permanent wave', 'rock', 'singer-songwriter']	1	0
+3kdU3J8t1HUPZqFyScP8SF	Alex Vargas	['danish pop']	1	0
+7J207fU1tty4DWCIhJSzh0	Samy Deluxe	['german alternative rap', 'german pop', 'hamburg hip hop', 'oldschool deutschrap']	1	1
+2HkAI0YrEcgoR8QdaURqhO	Dimitri Vegas	['belgian edm']	1	1
+5JYo7gm2dkyLLlWHjxS7Dy	Sandro Cavazza	['swedish pop']	1	1
+7mnAzEmgquhrVtGob81SmO	Big Shaq	['london rap']	1	0
+1mZu3rO7qSD09GdDpePHhY	Frankie Goes To Hollywood	['dance rock', 'hi-nrg', 'new romantic', 'new wave', 'new wave pop', 'synthpop']	1	0
+6A9b0JlSJF0KxCddzOTGiA	Höhner	['karneval', 'kolsche karneval']	1	0
+7jdFEYD2LTYjfwxOdlVjmc	KALEO	['icelandic indie', 'icelandic rock', 'modern alternative rock']	1	0
+3LjhVl7GzYsza1biQjTpaN	Hayley Kiyoko	['alt z', 'indie poptimism', 'pop']	1	0
+6ltzsmQQbmdoHHbLZ4ZN25	Lord Huron	['indie folk', 'modern rock', 'stomp and holler']	1	0
+2JyWXPbkqI5ZJa3gwqVa0c	Craig David	['british soul']	1	1
+0ONHkAv9pCAFxb0zJwDNTy	Pusha T	['gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap', 'virginia hip hop']	1	1
+2SrSdSvpminqmStGELCSNd	Stormzy	['grime', 'uk hip hop']	1	1
+4H1PNuHElBLVok0lnYMrRb	Dyo	['alte']	1	1
+34v5MVKeQnIo0CWYMbbrPf	John Newman	['dance pop']	1	1
+5cIc3SBFuBLVxJz58W2tU9	Oh Wonder	['electropop', 'indie poptimism', 'pov: indie']	1	1
+5hW4L92KnC6dX9t7tYM4Ve	Joni Mitchell	['canadian singer-songwriter', 'folk', 'folk rock', 'singer-songwriter']	1	0
+26AHtbjWKiwYzsoGoUZq53	Pentatonix	['a cappella', 'viral pop']	1	0
+0B3N0ZINFWvizfa8bKiz4v	James TW	['british singer-songwriter']	1	0
+3y24n3XhZ96wgwRXjvS17T	Coolio	['g funk', 'gangster rap', 'hip hop', 'west coast rap']	1	1
+2LhsePRtgCo4THVKULQBL7	L.V.	[]	1	1
+5EehXjjMktLuJmbRsM7YfB	Disciples	['house', 'pop dance', 'uk dance']	1	0
+2QMCcKIPHnjQaPPgoEst88	Matisse & Sadko	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'progressive house', 'russian edm', 'sky room']	1	1
+0AepkoQhYvkjEzzwIcGxdV	Jacob Banks	['uk contemporary r&b']	1	1
+3tmjMu5zfLOTVJ8YX5FDpU	Yasha	[]	1	1
+30SUIQhGDLj1pP0yg4fSMu	Miss Platnum	['german pop']	1	1
+3IpvVrP3VLhruTmnququq7	Mike Williams	['big room', 'dutch house', 'edm', 'electro house', 'future house', 'pop dance', 'progressive electro house']	1	1
+2NbYIb2nZ2Z8YORBCbugPq	Alex Christensen	['german pop']	1	1
+6cM5S5JAR9qY9GdYyLAuUY	The Berlin Orchestra	[]	1	1
+62DmErcU7dqZbJaDqwsqzR	Popcaan	['dancehall', 'jamaican hip hop', 'reggae fusion', 'traphall']	1	1
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	1	0
+0GByy3DcfbQwDvXGCWmzv9	Pretenders	['album rock', 'classic rock', 'mellow gold', 'new romantic', 'new wave', 'new wave pop', 'permanent wave', 'rock', 'soft rock']	1	0
+5keDbKEPwrbe36cPzRpzsK	Jane XØ	['pop edm']	1	0
+5ixB75BQR3ADoWQkcHQJTs	Gene Autry	['classic oklahoma country', 'cowboy western', 'traditional country', 'western swing', 'yodeling']	1	0
+0bMt8SJlp0gFRUufzifS05	K.I.Z	['german hip hop']	1	1
+1cH0i2n6YLrWFDDemqztay	Henning May	[]	1	1
+5PIdjtNMwJgYituTP77U3X	Nate57	['german drill', 'german hip hop', 'hamburg hip hop']	1	1
+4eC5xJOgbYjEVsNQuCuzGO	Telly Tellz	['german underground rap']	1	1
+5wPoxI5si3eJsYYwyXV4Wi	N.E.R.D	['hip hop', 'virginia hip hop']	1	1
+7CyeXFnOrfC1N6z4naIpgo	The Ronettes	['brill building pop', 'classic girl group', 'motown', 'rock-and-roll']	1	0
+3qBKjEOanahMxlRojwCzhI	Zacari	[]	1	1
+4B5rYujqJxWucM0JyYsaFn	On June	['deep tropical house']	1	1
+7aR3zmi1EnR2Ltbz3u3mv8	Kevi	[]	1	1
+3Bd1cgCjtCI32PYvDC3ynO	London Grammar	['metropopolis', 'nottingham indie']	1	0
+5BcAKTbp20cv7tC5VqPFoC	Macklemore & Ryan Lewis	['pop rap', 'seattle hip hop']	1	1
+4myTppRgh0rojLxx8RycOp	Ryan Lewis	['pop rap']	1	1
+4e0nWw2r4BoQSKPQ2zpU13	Ray Dalton	[]	1	1
+63aFY9yQyFDJtGkInMUris	Little Daylight	['brooklyn indie', 'metropopolis', 'shimmer pop']	1	1
+1HcAkAeL4xf02wzAnl7mIV	Michaël Brun	['raboday']	1	1
+2SabhGDiBSyaM6QSuBUVqB	Noizy	['albanian hip hop', 'albanian pop', 'greek trap']	1	1
+3JtuxOs4xRaE4r0S50WcSI	Olson	['german cloud rap']	1	1
+4VD7b3DaDHGO9vE6VXfasd	Voyce	['german pop', 'german singer-songwriter']	1	1
+0ECwFtbIWEVNwjlrfc6xoL	Eagles	['album rock', 'classic rock', 'heartland rock', 'mellow gold', 'rock', 'soft rock', 'yacht rock']	1	0
+7lXp4ROmwdbOD7Q3P8sHLE	Ingo ohne Flamingo	['partyschlager']	1	0
+6C1X5Uh3DPIkC2gaVq00BL	Jala Brat	['balkan hip hop', 'turbo folk']	1	1
+3ekwV8Mt8DgZvmuK2futxG	Buba Corelli	['turbo folk']	1	1
+4RVnAU35WRWra6OZ3CbbMA	Kylie Minogue	['australian dance', 'australian pop', 'dance pop', 'eurodance', 'new wave pop']	1	0
+1vo8zHmO1KzkuU9Xxh6J7W	MOTi	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+2m0y0cDl1US03sYgxv9r6s	JOWST	['norwegian pop']	1	0
+4sj6D0zlMOl25nprDJBiU9	Andy Williams	['adult standards', 'easy listening']	1	0
+4CHiVarfTsFhkFOk5vHS77	Marc Scibilia	['indiecoustica']	1	1
+6RqG6OjPJVHi1RAcXTxglq	Stereotypes	[]	1	1
+3crnzLy8R4lVwaigKEOz7V	E-40	['cali rap', 'gangster rap', 'hyphy', 'oakland hip hop', 'west coast rap']	1	1
+2bxxlINUlcMQQb39K7IopR	Abraham Mateo	['latin arena pop', 'latin pop', 'latin viral pop', 'reggaeton', 'spanish pop']	1	1
+1kCC5slv2AdQ6MxcKP2fEQ	Lily & Madeleine	['indy indie']	1	1
+3PhoLpVuITZKcymswpck5b	Elton John	['glam rock', 'mellow gold', 'piano rock', 'rock']	1	0
+7gP3bB2nilZXLfPHJhMdvc	Foster The People	['indietronica', 'modern alternative rock', 'modern rock', 'rock']	1	0
+4x1nvY2FN8jxqAFA0DA02H	John Lennon	['beatlesque', 'classic rock', 'rock']	1	1
+0vneleczrRRNPF1vj0x0vy	The Harlem Community Choir	[]	1	1
+4m2kfAHEnK7Z7qLGxeWtro	The Plastic Ono Band	['beatlesque', 'experimental rock']	1	1
+2s4tjL6W3qrblOe0raIzwJ	Yoko Ono	['experimental', 'experimental pop']	1	1
+0vqJkZ0RpLZixt3lTmD8vP	Whethan	['electropop', 'hyperpop', 'rage rap']	1	1
+7muzHifhMdnfN1xncRLOqk	Flux Pavilion	['brostep', 'classic dubstep', 'complextro', 'edm', 'electro house']	1	1
+1bqxdqvUtPWZri43cKHac8	MAX	['viral pop']	1	1
+6BrvowZBreEkXzJQMpL174	Hardwell	['big room', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+04abdnqPQe2N4fjztDea6z	Austin Mahone	['pop', 'post-teen pop']	1	1
+5gw5ANPCVcxU0maLiGRzzP	Billy Raffoul	['canadian pop']	1	1
+3q7HBObVc0L8jNeTe5Gofh	50 Cent	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'queens hip hop', 'rap']	1	0
+3nVeK8gQChVtVCCjGreal2	Tim Halperin	['indiecoustica']	1	0
+3gqabzO7zvHVzAIT0Nxqa3	LOTTE	['german pop']	1	0
+2Tg0aF5cbZktYFzgR1iAKv	Julie Bergan	['norwegian pop']	1	0
+5aIqB5nVVvmFsvSdExz408	Johann Sebastian Bach	['baroque', 'classical', 'early music', 'german baroque']	1	1
+0AeOzXbHJu8q2xqILEOLEO	Nikolaus Harnoncourt	['classical performance', 'orchestral performance']	1	1
+6ujr1NkqbZpYOhquczUUfl	The Strumbellas	['canadian indie', 'folk-pop', 'stomp and holler']	1	0
+3QSQFmccmX81fWCUSPTS7y	Dean Lewis	['australian pop', 'singer-songwriter pop']	1	0
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	1	0
+3nlHsNqwCSvT988ZfSW1Yh	Ronan Keating	['europop']	1	0
+6Ru8py9irbdGieRuLbImPp	Ekbi	[]	1	1
+1kMPdZQVdUhMDKDWOJM5iK	Tkay Maidza	['alternative r&b', 'australian hip hop']	1	1
+7nKeLE1toRtW4M279iS26h	Zay Hilfigerrr	['viral trap']	1	1
+5AsWcQXw4RJFRWBbwa0ti0	Zayion McCall	[]	1	1
+2qn4hIXsvRUyFoboMi31XB	Rolf Zuckowski	['kindermusik']	1	0
+3a5gYWQUgFrIEXqnE1tgD4	Carnie And Wendy Wilson	[]	1	0
+0QJIPDAEDILuo8AIq3pMuU	M.I.A.	['escape room', 'indietronica', 'new rave']	1	0
+6c4sUNBgdonFJz8Kx2VsGz	Madcon	['norwegian hip hop']	1	0
+3hv9jJF3adDNsBSIQDqcjp	Mark Ronson	['pop soul']	1	1
+4Ww02MqPOCYw0CufxePGkC	Neev	['portuguese rock']	1	1
+3AMWkkeLQXQdNw4cNwgtBB	Levina	[]	1	0
+3iKatcdLBE1YxiAyvcow4w	Ephemerals	[]	1	1
+6FB9Zw1TSMrw3LIzIvlNGG	Nathaniel Alford	[]	1	1
+1WdM0BAEXN9RpUdPOzEZdx	Twice As Nice	[]	1	1
+45eNHdiiabvmbp4erw26rg	ILLENIUM	['edm', 'melodic dubstep', 'pop dance']	1	1
+1Fr6agZ6iSM5Ynn2k4C8sc	VÉRITÉ	['alt z', 'brooklyn indie', 'dark pop', 'electropop', 'indie poptimism', 'metropopolis', 'nyc pop', 'vapor pop']	1	1
+2EMAnMvWE2eb56ToJVfCWs	Bryson Tiller	['kentucky hip hop', 'r&b', 'rap']	1	1
+0NyzfcGDZZ6GM25EBG9BYK	Ray Parker Jr.	[]	1	0
+3oKRxpszQKUjjaHz388fVA	Parcels	['aussietronica', 'indie soul']	1	0
+2UZMlIwnkgAEDBsw1Rejkn	Tom Petty	['album rock', 'classic rock', 'hard rock', 'heartland rock', 'mellow gold', 'rock', 'singer-songwriter', 'soft rock']	1	0
+0cmWgDlu9CwTgxPhf403hb	Bonobo	['downtempo', 'electronica', 'indietronica', 'instrumental hip hop', 'jazztronica', 'nu jazz', 'trip hop']	1	1
+2AcUPzkVWo81vumdzeLLRN	Rhye	['art pop', 'downtempo', 'indie soul', 'indietronica', 'shimmer pop']	1	1
+2WBJQGf1bT1kxuoqziH5g4	Purple Disco Machine	['deep house', 'house']	1	1
+0QvtEuDIDAsKpfuOe2a237	Joe Killington	[]	1	1
+6t8VAB5OTHKxi4p1I5aqn0	Duane Harden	[]	1	1
+4RddZ3iHvSpGV4dvATac9X	Papa Roach	['alternative metal', 'nu metal', 'rap metal', 'rap rock', 'rock']	1	0
+0GfYO21pue5u0sVEYk9HZO	Salvador Sobral	['portuguese pop']	1	0
+0F3lC4Bfyf7mKrkCiXPAaO	Paveier	['karneval', 'kolsche karneval']	1	0
+0DdDnziut7wOo6cAYWVZC5	KREAM	['pop dance']	1	1
+6RHKEd9dpzQ4c09x8Zdaxu	Clara Mae	['alt z', 'swedish pop']	1	1
+64PgkSM1uDD9BJEg0UkMMM	Ilinca	[]	1	1
+7LCXh4MTN5bnfptYe17e66	Alex Florea	[]	1	1
+3RGLhK1IP9jnYFH4BRFJBS	The Clash	['alternative rock', 'permanent wave', 'punk', 'rock']	1	0
+4WUGQykLBGFfsl0Qjl6TDM	The Magician	['belgian edm', 'house', 'nu disco']	1	1
+2JLl6rSFWx9YuSPLcLhkAG	Julian Perretta	['uk pop']	1	1
+3MKCzCnpzw3TjUYs2v7vDA	Pyotr Ilyich Tchaikovsky	['classical', 'classical drill', 'late romantic era', 'russian romanticism']	1	1
+6HclTVD03WSY6GUpN16BkP	Claudio Abbado	['classical', 'classical performance', 'orchestral performance']	1	1
+6TD08jYeuN128P2MZTbc8E	Chicago Symphony Orchestra	['american orchestra', 'classical performance', 'orchestra']	1	1
+1svaANJTE5KrG16fTGDqOs	The Puppini Sisters	['easy listening', 'swing', 'swing revival']	1	1
+188VINPQh5dyNfLUkevKqf	Olivia Holt	['alt z', 'post-teen pop']	1	0
+3v6Ji4uoWtKRkhuDUaxi9n	Dynoro	['edm']	1	0
+2feDdbD5araYcm6JhFHHw7	Labrinth	['indie poptimism', 'pop']	1	1
+3QLIkT4rD2FMusaqmkepbq	Rachel Platten	['post-teen pop', 'viral pop']	1	0
+00Z3UDoAQwzvGu13HoAM7J	Skizzy Mars	['indie pop rap']	1	1
+0jRC2uXx4hEpqNrBDJdY7l	Conni	['kindermusik']	1	0
+3PP4drc6wQuyKstnJfXpu1	JAZN	['german hip hop']	1	0
+2fyuHXew1I5FJDAQdbCYXP	MOTSA	['austrian pop']	1	1
+72JNIw4iLUxnCjPfdhRRfL	David Österle	[]	1	1
+1HORQCHE3Q4m0tAKiRsIAB	Antilopen Gang	['antideutsche', 'german alternative rap']	1	0
+4QQgXkCYTt3BlENzhyNETg	Earth, Wind & Fire	['disco', 'funk', 'jazz funk', 'soul']	1	0
+7iZtZyCzp3LItcw1wtPI3D	Rae Sremmurd	['melodic rap', 'mississippi hip hop', 'rap', 'trap']	1	1
+1fBcQOi8yEfWN7fknMoqIE	Patrice	['german reggae']	1	1
+3NoeRIxHApi6qe4yan2Vnn	Eric Nally	[]	1	1
+0bMKf3lIYR9GaNTdFKkTOr	Zonderling	['dutch house', 'electro house', 'progressive house']	1	1
+0wi4yTYlGtEnbGo4ltZTib	Shakin' Stevens	['classic uk pop', 'rockabilly']	1	0
+3AlRiyjMywTVNzTcHbf9QT	Lil Kleine	['dutch hip hop', 'dutch rap pop']	1	1
+5eir5zFJpES4j7gsymbVyl	Ronnie Flex	['dutch hip hop', 'dutch rap pop']	1	1
+0iFq8SzyZaaQ2Fn6CLDxqW	Clueso	['german pop', 'german singer-songwriter']	1	0
+0jNDKefhfSbLR9sFvcPLHo	San Holo	['brostep', 'edm', 'electro house', 'electronic trap', 'future bass', 'pop dance']	1	0
+6KfzyefHYuqfWaI5taICaN	Band Aid 30	['musical advocacy']	1	0
+69VkQLf4DH7GJ68BCDOPKL	Campsite Dream	['deep tropical house']	1	0
+3kUndmEJC3u6IqruHVvipn	Joka	['deep german hip hop']	1	1
+6deZN1bslXzeGvOLaLMOIF	Nickelback	['alternative metal', 'canadian rock', 'post-grunge']	1	0
+1uKR3ihZmv8a93heLPYKQ8	Janice	['scandinavian r&b']	1	0
+4tX2TplrkIP4v05BNC903e	Tom Petty and the Heartbreakers	['album rock', 'classic rock', 'hard rock', 'heartland rock', 'mellow gold', 'rock', 'singer-songwriter', 'soft rock']	1	0
+1AAfkmCFRTSDg18GQ3itgl	DJ Katch	['basshall']	1	1
+4yX6mpMyBGf9UfvBB8JJrc	Hayla	[]	1	1
+2zd9YxlsQvA5mkZ1NarYVQ	Miriam Bryant	['classic swedish pop', 'swedish idol pop', 'swedish pop', 'swedish pop rap']	1	1
+0zju6OFZzVKiqI21znLbp9	Oster	[]	1	1
+6Ff53KvcvAj5U7Z1vojB5o	*NSYNC	['boy band', 'dance pop', 'pop']	1	0
+3TOqt5oJwL9BE2NG9MEwDa	Disturbed	['alternative metal', 'nu metal', 'rap metal', 'rock']	1	0
+4rp8rIXbwp93MnStnqDGQD	Andreas Gabalier	['schlager']	1	0
+2WoVwexZuODvclzULjPQtm	Sampha	['alternative r&b', 'indie soul']	1	1
+2xbXnTwuqB30prYnCDFrFy	DCVDNS	['deep german hip hop', 'german cloud rap']	1	0
+0QPfdFGUGhEOrYAzdUw1Xx	Lukas Rieger	[]	1	0
+3amwMyDd1uxTBoUZlazZ9m	Brooke Candy	['escape room', 'lgbtq+ hip hop', 'pink noise', 'trap queen']	1	1
+1b4DN8Vj0dnj5cceMFsRYN	Dante Klein	['deep tropical house', 'dutch house', 'pop edm']	1	1
+3wyVrVrFCkukjdVIdirGVY	Lil Pump	['emo rap', 'miami hip hop', 'pop rap', 'rap', 'trap']	1	0
+2apYMRrg5FxN4go0pfsCvf	Melanie Thornton	[]	1	0
+2oX42qP5ineK3hrhBECLmj	Andy Grammer	['neo mellow', 'post-teen pop']	1	0
+360IAlyVv4PCEVjgyMZrxK	Miguel	['r&b']	1	1
+5e4Dhzv426EvQe3aDb64jL	Shania Twain	['canadian country', 'canadian pop', 'contemporary country', 'country', 'country dawn']	1	1
+71VUVLmoTKKYfIugkavMeS	Adolphe Adam	['early romantic era', 'french opera', 'french romanticism']	1	1
+2ctUnxn4qlNB9rYMyKJuMf	Ikke Hüftgold	['oktoberfest', 'partyschlager']	1	1
+4qTG4MZtW89MeRuLkBzbbB	VFL Eschhofen	[]	1	1
+4gH1d6uZiIbhiUUJoHsd8f	Kreisligalegende	['partyschlager']	1	1
+1FqqOl9itIUpXr4jZPIVoT	The Drifters	['adult standards', 'doo-wop', 'rock-and-roll', 'rockabilly', 'soul']	1	1
+4WL6MC4jDW7w7K9hfc4MVS	Clyde McPhatter	['doo-wop', 'rhythm and blues']	1	1
+7nZLD9PxbyVBQ97XX5R2Vg	Bill Pinkney	['beach music']	1	1
+2txHhyCwHjUEpJjWrEyqyX	Tom Odell	['chill pop']	1	0
+1bT7m67vi78r2oqvxrP3X5	Naughty Boy	['uk contemporary r&b']	1	1
+7gbmX8SsfjEjxDMzBi1ZOL	Joe Jonas	['pop', 'post-teen pop']	1	1
+3GnhoYcYZYxCgIHEkRf6va	Alphonso Williams	[]	1	0
+2DzbXUAn0DiYqcgu2wDfaf	Coely	['belgian hip hop', 'belgian rock']	1	1
+4N874uPqBka1QiCvnCVOtr	Phoebe Ryan	['alt z', 'indie poptimism']	1	1
+6zVFRTB0Y1whWyH7ZNmywf	Tash Sultana	['australian reggae fusion']	1	0
+2dMO34aTE4wTRQZkgDehMF	Hitimpulse	['german dance']	1	0
+2IQDM5URYGYfSMmwhTCmyy	Rationale	['uk contemporary r&b']	1	0
+78CiW0UJbHspFaVuVexOK6	Charlie Cunningham	['british singer-songwriter', 'indie anthem-folk', 'indie folk']	1	0
+5pCzC0BOLY2MpqYr1qksg2	Nick Talos	['german dance']	1	1
+5YMqwPmb7ViNXM63g1MUH5	BullySongs	[]	1	1
+5lzqFxifzjxYHGJxuwQqtR	Francesco Gabbani	['italian adult pop', 'italian pop']	1	0
+7uMh23xWiuR7zsNkuNcm2G	MNEK	['house', 'pop dance', 'uk contemporary r&b', 'uk dance', 'uk pop']	1	1
+3tQx1LPXbsYjE9VwN1Peaa	Marc E. Bassy	['indie pop rap']	1	1
+5dHt1vcEm9qb8fCyLcB3HL	A$AP Ferg	['hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	0
+7xONmSoH7id3oESqTyHut8	Chris Cronauer	[]	1	1
+5IFCkqu9J6xdWeYMk5I889	Gloria Estefan	['new wave pop']	1	0
+2cy1zPcrFcXAJTP0APWewL	Gente De Zona	['cubaton', 'electro latino', 'latin hip hop', 'latin pop']	1	1
+2sRQFLs62KkM8UTW3DjDFM	Axel Ehnström	[]	1	1
+68kEuyFKyqrdQQLLsmiatm	Vince Staples	['conscious hip hop', 'hip hop', 'rap', 'underground hip hop']	1	1
+5DRdnyaEaD47Pfs7GWSy81	Bibi H.	['german viral rap']	1	0
+1CQLPgGkfHrxNMqrXt5oWS	Robin Bengtsson	['swedish idol pop', 'swedish pop']	1	0
+1G9G7WwrXka3Z1r7aIDjI7	Outkast	['atl hip hop', 'dirty south rap', 'hip hop', 'old school atlanta hip hop', 'rap', 'southern hip hop']	1	0
+1AwO9pWEBSBoWdEZu28XDC	Eartha Kitt	['torch song', 'vocal jazz']	1	1
+0oK8UXKZbQezeRhE0KeBAV	Henri René and His Orchestra	"[""man's orchestra""]"	1	1
+5tTsrGPwQRWUsHR2Xf7Ke9	Natalie Cole	['adult standards', 'disco', 'quiet storm', 'soul', 'vocal jazz']	1	0
+711MCceyCBcFnzjGY4Q7Un	AC/DC	['australian rock', 'hard rock', 'rock']	1	0
+33ScadVnbm2X8kkUqOkC6Z	Don Omar	['latin hip hop', 'puerto rican pop', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+5bv5RplEOwdCvhq0EILh9E	Lucenzo	['reggaeton']	1	1
+3WGpXCj9YhhfX11TToZcXP	Troye Sivan	['australian pop', 'pop', 'viral pop']	1	1
+26dSoYclwsYLMAKD3tpOr4	Britney Spears	['dance pop', 'pop']	1	0
+4q3ewBCX7sLwd24euuV69X	Bad Bunny	['reggaeton', 'trap latino', 'urbano latino']	1	1
+3MHaV05u0io8fQbZ2XPtlC	Prince Royce	['bachata', 'latin hip hop', 'latin pop', 'urbano latino']	1	1
+2T1aUibqR2QC2sINIDQOAK	Mambo Kingz	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+64aJYyrXljOodnUG6jvhRD	DJ Luian	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+0rvjqX7ttXeg3mTy8Xscbt	Journey	['album rock', 'classic rock', 'hard rock', 'heartland rock', 'mellow gold', 'rock', 'soft rock']	1	0
+54R6Y0I7jGUCveDTtI21nb	Boney M.	['europop']	1	0
+6cEgg5LusRPDempyGkrOBH	BTNG	['deep german hip hop']	1	1
+6yTYR09WCvsgdnurDW4WQo	DJ Antoine	['nordic house', 'pop house']	1	1
+5cz9SGgcixTFqiLELesb6N	Dizkodude	[]	1	1
+3gVBmtsjplHs4r4C9J9Olk	Sibbyl	[]	1	1
+67nwj3Y5sZQLl72VNUHEYE	Wale	['pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	1	1
+6veh5zbFpm31XsPdjBgPER	BIA	['rap latina', 'trap queen']	1	1
+51XrH5fQP2oIQynuKxSWcW	Sky Rompiendo	['urbano latino']	1	1
+3w4VAlllkAWI6m0AV0Gn6a	Hurts	['metropopolis', 'neo-synthpop']	1	0
+4DMzvwya65eu1LsYZ3BLV6	Estikay	['german cloud rap', 'german hip hop', 'german jazz rap', 'hamburg hip hop']	1	1
+5yMkHmsdRZA4OVeCylF4xU	Rhys	['swedish pop']	1	0
+77DAFfvm3O9zT5dIoG0eIO	Kyla	['uk funky']	1	1
+0nwid3SFCGyXxnllTHzHPd	Nicolas Haelg	['deep tropical house', 'swiss pop']	1	1
+3xwLNvmLpu3mDKzCoht2lp	Treetalk	[]	1	1
+4LcUpNlXFEleaLlelmkv2R	Kris Kross Amsterdam	['dutch house', 'dutch pop']	1	1

@@ -1,0 +1,665 @@
+artist_id	name	genres	num_hits	num_collab_hits
+1yR65psqiazQpeM79CcGh8	Marília Mendonça	['arrocha', 'sertanejo', 'sertanejo universitario']	53	28
+3p7PcrEHaaKLJnPUGOtRlT	Henrique & Juliano	['agronejo', 'arrocha', 'sertanejo', 'sertanejo universitario']	50	5
+5Lv2GUVwqmQBPwrTrxucE5	Os Barões Da Pisadinha	['agronejo', 'arrocha', 'forro', 'piseiro', 'sertanejo universitario']	45	14
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	36	4
+7cjh6y0V9SsyCrWSXTzwOs	RBD	['latin pop']	33	33
+0TeVa4xdLB8vdzjsvKH6Ri	Anahí	['latin pop']	33	33
+6ModsWtBph2rE6zCTVxvZt	Maite Perroni	['latin pop', 'mexican pop']	33	33
+0aMqt2uGLuHj4eI8oXgVzN	Christian Chávez	['mexican pop']	33	33
+5O8cudluftNZ6PCwRzvYxo	Christopher von Uckermann	['mexican pop']	33	33
+6kaefrHSdAvxhhCVDFTCEL	Dulce María	['latin arena pop']	32	32
+0veZkZPeWoJQ9gt6VAXlkN	Alfonso Herrera	[]	32	32
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	27	2
+1elUiq4X7pxej6FRlrEzjM	Jorge & Mateus	['agronejo', 'arrocha', 'sertanejo', 'sertanejo universitario']	26	4
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	23	8
+6tzRZ39aZlNqlUzQlkuhDV	Pabllo Vittar	['dance pop', 'funk carioca', 'funk pop', 'pop lgbtq+ brasileira', 'pop nacional']	22	16
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	22	7
+487N2T9nIPEHrlTZLL3SQs	Zé Neto & Cristiano	['agronejo', 'arrocha', 'sertanejo', 'sertanejo universitario']	22	5
+59jlthNnbmim5l9tmNA7se	Maiara & Maraisa	['sertanejo', 'sertanejo universitario']	21	17
+06lnOkY99sXVW44Y0M4BDP	Vitão	['pop nacional']	20	15
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	20	5
+5YwzDz4RJfTiMHS4tdR5Lf	Xamã	['brazilian hip hop', 'trap brasileiro']	20	20
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	20	6
+7MiDcPa6UiV3In7lIM71IN	Gusttavo Lima	['agronejo', 'arrocha', 'sertanejo', 'sertanejo universitario']	19	5
+2Z0lRIqr997lIUiPtrpKCr	Matheus & Kauan	['agronejo', 'arrocha', 'pop nacional', 'sertanejo', 'sertanejo universitario']	19	7
+3CDoRporvSjdzTrm99a3gi	LUDMILLA	['funk carioca', 'funk pop', 'funk rj', 'pagode baiano', 'pop nacional']	19	12
+1AL2GKpmRrKXkYIcASuRFa	Wesley Safadão	['arrocha', 'forro', 'sertanejo universitario']	18	10
+7FNnA9vBm6EKceENgCGRMb	Anitta	['funk pop', 'funk rj', 'pagode baiano', 'pop', 'pop nacional']	18	18
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	17	5
+0NGAZxHanS9e0iNHpR8f2W	Alok	['electro house', 'pop nacional', 'sertanejo universitario', 'slap house']	17	16
+2UMj7NCbuqy1yUZmiSYGjJ	MC Kevin o Chris	['funk 150 bpm', 'funk carioca', 'funk rj']	16	14
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	16	11
+5nP8x4uEFjAAmDzwOEc9b8	Matuê	['r&b brasileiro', 'rap cearense', 'trap brasileiro']	15	4
+6jJ0s89eD6GaHleKKya26X	Katy Perry	['pop']	15	0
+2450WxbFxHjnttFAv31zGk	Bagua Records	['pop rap brasileiro']	14	14
+4PzYKhC14sTJNEr0dzoo0d	Luísa Sonza	['pop nacional']	14	12
+204IwDdaHE4ymGk9Kya2pY	Djonga	['afrofuturismo brasileiro', 'brazilian hip hop', 'rap mineiro']	13	12
+41MozSoPIsD1dJM0CLPjZF	BLACKPINK	['k-pop', 'k-pop girl group', 'pop']	13	5
+6vTqEFbTtTRJsuIpzZgjxi	Grupo Menos É Mais	['pagode', 'pagode novo']	13	8
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	13	4
+1YOVBTvznjiDvtAj4ExHeo	BK	['brazilian hip hop']	12	12
+4AK6F7OLvEQ5QYCBNiQWHq	One Direction	['boy band', 'pop', 'post-teen pop', 'talent show']	12	0
+3rfM2cGqF6DB0kUyytMkXx	Orochi	['brazilian hip hop', 'trap brasileiro']	11	11
+5ZfBThYiIIhL7jHMG8gDB2	Ferrugem	['pagode', 'pagode novo', 'sertanejo universitario']	11	8
+1mXAhKnZEdF6rotyyd4GBi	MC Kevinho	['arrocha', 'funk carioca', 'funk ostentacao', 'funk pop', 'sertanejo universitario']	10	6
+2eYGPD8O1chWmQ92TvdtCW	JXNV$	['trap brasileiro']	10	10
+5GqnSMX8p2hxqsM6LqDty3	MC JottaPê	['agronejo', 'arrochadeira', 'funk carioca', 'funk paulista']	10	10
+2uSwBbWqsXgoMYQjynmwQ7	Di Propósito	['pagode', 'pagode novo']	10	8
+09U6hmCerKcIJrixubiBjm	Pineapple StormTv	['rap baiano', 'trap baiano']	10	10
+4NUePmzDvCYqilXBFa91Hg	Dilsinho	['pagode', 'pagode novo', 'sertanejo universitario']	10	6
+1X6ORK7IekgmyjV6IFPszP	Gustavo Mioto	['arrocha', 'sertanejo', 'sertanejo universitario']	9	4
+2PhFsxtwCQLS3e9SJwDN3j	Coyote Beatz	['rap mineiro']	9	9
+6PERJZF7wohA034PAxDK0b	Neo Beats	['trap brasileiro']	9	9
+28uJnu5EsrGml2tBd7y8ts	Vintage Culture	['brazilian edm']	9	8
+5wbf52LA6kcaboHSN6NEF1	PEDRO SAMPAIO	['funk carioca', 'funk rj']	9	7
+3r3YJUzNBJc9y703QG8zkr	Lil Whind	[]	9	3
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	9	4
+7KVJCU4z5L4EUHILL8aMxR	Leo Santana	['arrocha', 'pagode baiano', 'pop nacional']	8	8
+43DRDu6nLSeIedZ7T1A616	Xand Avião	['arrocha', 'forro de favela', 'funk carioca']	8	8
+3k68C6mNMJL6OaAdWeW2ZF	Diego & Victor Hugo	['arrocha', 'sertanejo', 'sertanejo universitario']	8	4
+47uyFQHOD02S0lj9ptRpoB	Felipe Araújo	['arrocha', 'sertanejo', 'sertanejo universitario']	8	3
+0cjkWe9VXcECGiOEHFuTfc	Mc Lipi	['funk consciente', 'funk paulista']	8	6
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	8	3
+5K8Rmjmf4RZFffz94EmBRt	Zé Vaqueiro	['arrocha', 'forro de favela']	8	0
+48HORs6F9P7IgdyKrk4MZC	Tarcísio do Acordeon	['arrocha']	8	3
+2QjS2N6sORI7H4qbf6xitS	WC no Beat	['brazilian hip hop', 'funk carioca', 'no beat', 'trap funk']	7	7
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	7	5
+6m6e7D2TnV0aYMllFFwMxu	Guilherme & Benuto	['agronejo', 'arrocha', 'sertanejo universitario']	7	2
+6qqNVTkY8uBg9cP3Jd7DAH	Billie Eilish	['art pop', 'electropop', 'pop']	7	1
+7zxFc10N9BP2lg73b8cwZ0	Salve Malak	['pop rap brasileiro']	7	7
+11iQCRz636WFdHj42qxAF6	POCAH	['funk carioca', 'funk rj', 'pagode baiano']	7	6
+3qvcCP2J0fWi0m0uQDUf6r	Luan Santana	['arrocha', 'sertanejo', 'sertanejo universitario']	7	2
+5RmQ8k4l3HZ8JoPb4mNsML	Agust D	['k-rap']	7	3
+0jTDeBJQr3unrK29LklnAv	Lexa	['funk carioca', 'funk pop', 'funk rj', 'pop nacional', 'sertanejo universitario']	7	5
+6uYrXgVHctAJtIdSODcyLJ	Melim	['mpb', 'nova mpb', 'pop nacional']	6	0
+5JXhkyafynxCvxtov7C1PV	Bruno & Marrone	['sertanejo', 'sertanejo universitario']	6	3
+597XBqZtaiZC7laCNx3nVz	Yasmin Santos	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	6	4
+6xlRSRMLgZbsSNd0BMobwy	DENNIS	['funk carioca', 'funk das antigas', 'sertanejo universitario']	6	6
+0UbJJayomun8CvZKCPH9j3	Luíza & Maurílio	['arrocha', 'sertanejo pop', 'sertanejo universitario']	6	1
+5x2zeeLVXEDaMHRaRmH3FD	Vou Zuar	['pagode novo', 'roda de samba']	6	6
+4FUMTycjZlEY6ZxMgqNjC8	Tierry	['arrocha']	6	1
+14D0I0RYqvIorkPL2EWoQh	MC WM	['funk carioca']	6	5
+0vLuOi2k62sHujIfplInlK	Hungria Hip Hop	['brazilian hip hop', 'rap df']	6	3
+5xYkM2vMrE23taj6tl7qkm	Pk	['funk carioca', 'trap funk']	6	6
+592JnViQ2tot63c1SbtgK2	MC Paulin da Capital	['funk consciente', 'funk paulista']	6	5
+0NsJZ5PMjqghGDuMzY7CuT	Marcos & Belutti	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	6	5
+6TYimByryGphZCtwYopH0y	Lauana Prado	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	5	2
+6OpOg5HVCc8xVf7OVrd5Fk	Jerry Smith	['brega funk', 'funk carioca']	5	5
+4d175LvxCzxt5vHbJyv49q	Mc Dricka	['funk bh', 'funk carioca', 'funk mtg']	5	4
+5D56dZmhE9DgT01XixdHiD	Lagum	['belo horizonte indie', 'nova mpb']	5	2
+3e7awlrlDSwF3iM0WBjGMp	Little Mix	['girl group', 'pop', 'talent show', 'uk pop']	5	0
+3zgnrYIltMkgeejmvMCnes	IZA	['afrofuturismo brasileiro', 'pop nacional', 'r&b brasileiro']	5	2
+1MzXJ8AaHdidMAnjgcahS4	Delacruz	['pop nacional']	5	5
+1WXbiUMl1AT9Inb619xPUg	BIN	['rap baixada fluminense', 'trap brasileiro', 'trap carioca']	5	5
+5WFFFHVqeVk5tLuYh2KjQy	Luccas Carlos	['brazilian hip hop', 'pop nacional', 'pop rap brasileiro', 'r&b brasileiro']	5	5
+7me0S5Z40qVWj3gzyK8aC3	Mc Livinho	['funk carioca', 'funk paulista', 'funk rj', 'sertanejo universitario']	5	5
+0iZz25uH5PLaShpqq84uYv	Papatinho	['brazilian hip hop', 'funk carioca']	5	5
+0NiaKn55OzJswiYevvlKfz	Raí Saia Rodada	['arrocha', 'forro']	5	3
+0CrGLmfVKzk9rAyiNb91ft	Diego & Arnaldo	['agronejo', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	5	0
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	5	2
+03PnQHlbH5nDDVX3hNg628	Dj GM	['funk consciente']	5	5
+0obu7Om4zu9ahul5DI4JtY	Chris MC	['brazilian hip hop', 'rap mineiro']	5	5
+1sPg5EHuQXTMElpZ4iUgXe	ANAVITÓRIA	['folk brasileiro', 'nova mpb', 'pop lgbtq+ brasileira', 'pop nacional']	5	4
+7Lmrb6KcIzfkmgbtokjsAL	Mc Don Juan	['arrocha', 'batidao romantico', 'funk carioca', 'funk paulista']	4	4
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	4	4
+76Xa625geVw0Q7BdyxNjA2	ZAAC	['funk carioca', 'funk ostentacao', 'funk pop']	4	4
+0oNOkdVXXFaWC9tPb7Ol10	Dfideliz	['brazilian hip hop', 'trap brasileiro']	4	4
+0kjGPGtoyKwKVOZAKmv5K6	GIULIA BE	['pop nacional']	4	1
+6xerOqBLmelL3xZNZkVbGl	João Gustavo e Murilo	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	4	2
+1tGLEVy901arulIovZtdLc	Luan Estilizado	['forro']	4	3
+5cj0lLjcoR7YOSnhnX0Po5	Doja Cat	['dance pop', 'pop']	4	2
+0MInKJqZscEeNc5K3K0mkE	Simone & Simaria	['pop nacional', 'sertanejo', 'sertanejo universitario']	4	1
+5JG9GISYjRLQUJMH2C6iJ5	Turma do Pagode	['pagode', 'pagode novo', 'sertanejo universitario']	4	2
+1vp5pm1DluN0sNXx4tMZzo	Atitude 67	['pop nacional', 'sertanejo universitario']	4	1
+6S2OmqARrzebs0tKUEyXyp	Demi Lovato	['pop', 'post-teen pop']	4	2
+0H39MdGGX6dbnnQPt6NQkZ	SAINt JHN	['melodic rap', 'slap house']	4	4
+5rGrDvrLOV2VV8SCFVGWlj	Imanbek	['electro house', 'pop dance', 'slap house']	4	4
+1mV9h1AwhRXSjBFcYpajgY	Mc Lele JP	['funk paulista']	4	4
+2iK1rsbYstkSVn57M4s8ut	Gaab	['funk carioca', 'r&b brasileiro']	4	4
+1cNPXWhKfjI0fT5EMCnamR	Dj Guuga	['arrocha', 'arrochadeira', 'funk paulista', 'rave funk']	4	4
+7rXMvXRnWHaSwnVvPeUUfw	Gloria Groove	['funk carioca', 'pop lgbtq+ brasileira']	4	2
+19JY4BpaJkAlSR4iDxB1MX	Cesar Mc	['musica capixaba', 'rap capixaba']	4	4
+1vyhD5VmyZ7KMfW5gqLgo5	J Balvin	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	4	4
+7n2Ycct7Beij7Dj7meI4X0	TWICE	['k-pop', 'k-pop girl group', 'pop']	4	0
+4FGcERJWMg8ENOLixwF71U	Vitor Kley	[]	4	3
+5veVxxPm1vzgi6pO2iVA8L	Bruno Martini	['pop nacional']	4	4
+7qPLO2XOUaRrRxkvLZ3AEK	Zeeba	[]	4	4
+5uYe4bcAXlMP7d4mrOYkML	Niack	['funk carioca', 'funk mtg']	4	2
+0nzfP49X2nrzmmkwZf180L	Gustah	[]	4	4
+5hPHLE5ssifxHX5bhK8iXR	FP do Trem Bala	['funk carioca', 'funk rj']	4	4
+0JjPiLQNgAFaEkwoy56B1C	L7NNON	['funk rj', 'pop rap brasileiro', 'trap brasileiro']	4	2
+7ecRwFks8F2vYad383BkKf	Rennan da Penha	['funk 150 bpm', 'funk carioca', 'funk rj']	4	4
+75i9GaW2MJUgt4BkdUnuUY	MC Ryan SP	['funk paulista']	4	4
+1LGh5vyaoQP9bgTwLSMTyW	Thiago Brava	['arrocha', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	4	4
+1XLWox9w1Yvbodui0SRhUQ	StaySolidRocky	['melodic rap']	4	2
+3hq7WoPJsrRP0KMSLhUgRz	Murilo Huff	['arrocha', 'sertanejo universitario']	4	4
+7C7NNCiIFavKH6oDarjp0v	JS o Mão de Ouro	['arrocha', 'brega funk']	4	4
+4r63FhuTkUYltbVAg5TQnk	DaBaby	['hip hop', 'north carolina hip hop', 'rap', 'trap']	4	4
+1mvpEXClANunyiHFtAXCxt	MC Rick	['funk bh', 'funk carioca', 'funk mtg']	4	4
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	4	4
+7uaIm6Pw7xplS8Dy06V6pT	Trevor Daniel	['melodic rap']	3	1
+181bsRPaVXVlUKXrxwZfHK	Megan Thee Stallion	['houston rap', 'pop', 'rap', 'trap queen']	3	2
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	3	2
+20L3gYREq24KddkFreyiNv	Psirico	['axe', 'pagode', 'pagode baiano']	3	3
+4AUugyBbC7wnwh6zF2kg5B	Rapaz do Dread	[]	3	3
+41QLxRXlc2NwfJZkHGHKid	Israel & Rodolffo	['agronejo', 'arrocha', 'sertanejo', 'sertanejo universitario']	3	2
+0pcoadNMmvrUyab1RxWBoV	MC Hariel	['funk carioca', 'funk consciente', 'funk paulista']	3	2
+3tkq9ZnBaejLPLRpg8kGET	DJ 2F	['brega funk', 'funk consciente']	3	3
+0LyfQWJT6nXafLPZqxe9Of	Various Artists	[]	3	0
+0QHGCPmM4UgeNvrNPntSlu	Cynthia Luz	['brazilian hip hop', 'r&b brasileiro', 'rap feminino nacional']	3	3
+1WQBwwssN6r8DSjUlkyUGW	MC Cabelinho	['funk consciente', 'trap brasileiro', 'trap funk']	3	3
+1yxSLGMDHlW21z4YXirZDS	Black Eyed Peas	['dance pop', 'pop', 'pop rap']	3	3
+6ZiGAU6TJQEyidFQ22eIOS	Mc Rennan	['deboxe', 'funk mtg', 'rave funk']	3	3
+25XJqeReVV38w0tR04GGBd	Mainstreet	['trap carioca', 'trap funk']	3	3
+1vppDmG3i5sXf3DJzrK4T1	Thiaguinho	['pagode', 'pagode novo', 'sertanejo universitario']	3	0
+606eWexxNhc6Mj0RuCxMA9	Mila	['arrochadeira', 'brega funk']	3	3
+4Gso3d4CscCijv0lmajZWs	Don Toliver	['rap', 'trap']	3	2
+6HJiLhKqnOh32p3LSNWsR3	Dj Gabriel do Borel	['funk carioca', 'funk rj']	3	3
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	3	3
+1zEo6Fk1iaaOYFlFPBHCFn	Humberto & Ronaldo	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	3	2
+35YkpX0zYwHG8vOIhObvxP	Mano Walter	['forro', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	3	1
+6gEzJZrbm0F4ihvE9iXR9z	Péricles	['pagode', 'pagode novo']	3	0
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	3	2
+7tcFzUKSICkJWCZzWs4htq	Luan Otten	['r&b brasileiro']	3	3
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	3	0
+6xF3XdxG7VHRmQmTJxRqX8	Manu Gavassi	['pop nacional']	3	2
+3TjDKq8HEiL9RlLfeZYtOh	MC WS	[]	3	2
+757aE44tKEUQEqRuT6GnEB	Roddy Ricch	['melodic rap', 'rap', 'trap']	3	1
+7gJN8W0589FisSYJS17K54	Filipe Ret	['pop rap brasileiro']	3	2
+4LAFtDzlQM89xov636hMVv	Dallass	['trap brasileiro']	3	3
+6v4PBIzRAGaLp43LVureQc	MC Du Black	['funk carioca']	3	3
+2AdUWxNm17kkGZiPGuorth	MC Mari	['arrochadeira', 'brega funk']	3	3
+0xRXCcSX89eobfrshSVdyu	MEDUZA	['pop dance', 'pop house', 'uk dance']	3	3
+2nm38smINjms1LtczR0Cei	Goodboys	['pop dance', 'uk dance']	3	3
+0yApzRdrUqTGqX9MULdnmV	Thiaguinho MT	['brega funk', 'funk carioca']	3	3
+2poCUrtJvVVgfA2hgri1IS	Roupa Nova	['mpb', 'sertanejo']	3	0
+0jhNzTzC1CZaf2FFgBVCMT	Os Parazim	['sertanejo pop']	3	0
+2NMYOlZHIEsSq7pp5jBjic	Kizzy	['trap brasileiro']	3	3
+06cd30Cv9US973Ika84gDw	Lucas Lucco	['funk carioca', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	3	2
+0awYrHoDgY7bTDlAb3wGuF	Ventura	['rave funk']	3	3
+2Y3kRJYYun9lDcRMM7ulQg	MC Bruna Alves	['brega funk', 'funk carioca']	3	3
+4q3ewBCX7sLwd24euuV69X	Bad Bunny	['reggaeton', 'trap latino', 'urbano latino']	3	3
+7dzq55YG3wjViqexDwiycQ	Ivete Sangalo	['arrocha', 'axe', 'mpb', 'pop nacional', 'samba reggae', 'sertanejo universitario']	3	2
+5JbQpbeFaKfuZVFzKwaawP	MC Rogerinho	['arrocha', 'batidao romantico']	2	1
+1r4hJ1h58CWwUQe3MxPuau	Maluma	['latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	2	1
+2pV4eqEWsHrgwSbuAg2fmi	MC Teteu	['funk mtg']	2	0
+5MS6HieNmKxzkAM8amE8sr	Rebecca	['funk 150 bpm', 'funk carioca', 'pop lgbtq+ brasileira']	2	2
+1QBWA6tuiZ0JuDluPqbe71	Recayd Mob	['trap brasileiro']	2	2
+4Y0VwRwAOyJutxoVpPX4td	Derek	['detroit trap brasileiro']	2	2
+4xKfNBUXa00go8RU9TwwkI	Jé Santiago	['r&b brasileiro', 'trap brasileiro']	2	2
+5K854sjdzabwOy9KltU3Po	MC Igu	['brazilian hip hop', 'plug brasileiro']	2	2
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	2	2
+738wLrAtLtCtFOLvQBXOXp	Major Lazer	['dance pop', 'edm', 'electro house', 'moombahton', 'pop', 'pop dance']	2	2
+0ciLF0bOuu2BhqzCEZgHoB	Pixote	['pagode', 'pagode novo', 'sertanejo universitario']	2	0
+0OVOH98bZTn0lsdL7MclGw	Agnes Nunes	['nova mpb', 'r&b brasileiro']	2	2
+1D6vAeVUcgMbSx80IA3Zun	Henrique & Diego	['arrocha', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	2	1
+1LIuN7ov1IBQDdLsU83ojl	Hugo & Guilherme	['agronejo', 'arrocha', 'sertanejo universitario']	2	0
+7IlBcKrGUBJ0NKdnbDde89	Sant	['brazilian hip hop']	2	2
+1fcS44jH4wr0qwxSVdxWyX	Maria	['pop nacional']	2	2
+4LEiUm1SRbFMgfqnQTwUbQ	Bon Iver	['chamber pop', 'eau claire indie', 'indie folk', 'melancholia', 'modern rock']	2	2
+2kMDiFDvjMOoLfcZbLgA6s	MC M10	['rave funk']	2	2
+0tvACMjTDrW7HCo4F2wiIb	DJ RD	[]	2	2
+007FXgr0jLBJxhPJjacXQH	Eric Land	['forro']	2	2
+7nsXkCzq2603Kc9SrJx1q0	Deekapz	['chill baile', 'musica eletronica brasileira']	2	2
+4MCBfE4596Uoi2O4DtmEMz	Juice WRLD	['chicago rap', 'melodic rap', 'rap']	2	2
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	2	2
+6GRG2j3z9S1Lsa47YgPjkH	Kayuá	['brazilian hip hop']	2	2
+45Yz90pqjzEdJzpEQg1eII	Froid	['brazilian hip hop', 'rap df']	2	2
+4DITWCDQL8b3VZTBYpNDR9	Bob do Contra	['brazilian hip hop']	2	2
+2zGf6lwQ9PxXdoeo5XXP2K	Projota	['brazilian hip hop', 'funk carioca', 'pop nacional', 'sertanejo universitario']	2	2
+4G3B4Z3ipxgw6DIrdFd04n	Japinha Conde	[]	2	1
+23wEWD21D4TPYiJugoXmYb	Thalia	['latin pop', 'mexican pop']	2	2
+72aE07MxpePfCELo4vGZcK	Mãolee	['brazilian hip hop']	2	2
+04QHNiih9ZesPvals6II1h	MC Marks	['funk consciente', 'funk paulista']	2	0
+6MPCFvOQv5cIGfw3jODMF0	Internet Money	['pop rap']	2	2
+2hlmm7s2ICUX0LVIhVFlZQ	Gunna	['atl hip hop', 'melodic rap', 'rap', 'trap']	2	2
+7rkW85dBwwrJtlHRDkJDAC	NAV	['canadian hip hop', 'canadian trap', 'melodic rap', 'rap', 'toronto rap', 'trap']	2	2
+57FU7zh1oXdQMT4XhjSsHL	MC Mirella	['funk carioca']	2	1
+56mfhUDKa1vec6rSLZV5Eg	Jawsh 685	['nz pop']	2	2
+1TYJOhNSxMOODWiDVhuyZb	Kawe	['brazilian hip hop', 'trap brasileiro']	2	2
+5ZTnWo7IY6rdIxm6aTSR84	Original Quality	[]	2	2
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	2	0
+07qgzS86XBNsyrY6MAVDAc	Sodré	['funk carioca']	2	1
+1dXQpSjXcTO288b5D5IIE6	Now United	[]	2	0
+7zIRO89G0FBAQtGMHO1Wa0	João Bosco & Vinicius	['agronejo', 'arrocha', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	2	2
+3drLodjKeTMvZMvx07Q3Ku	Matheus	['deep breakcore']	2	2
+2emd6h8cx0U8QUAxDddXPF	Whindersson Nunes	['arrocha', 'viral pop brasileiro']	2	2
+4m5LghDfOKFZNEBZ0GO1OQ	Jovem Dionisio	['indie curitibano']	2	2
+2jFK9ZXWDd7auJvfNfBcuC	Future Class	['brazilian edm', 'brazilian house']	2	2
+1oSgjdbgLYULVmEBojPRw8	Fernando & Sorocaba	['agronejo', 'arrocha', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	2	1
+0eDvMgVFoNV3TpwtrVCoTj	Pop Smoke	['brooklyn drill', 'rap']	2	1
+0fA0VVWsXO9YnASrzqfmYu	Kid Cudi	['hip hop', 'ohio hip hop', 'pop rap', 'rap']	2	2
+0PMk31f9Log4ixwUUY40p6	Malibu	['pagode novo', 'pop nacional']	2	2
+1fUSLFr4WUBx7joEcGwpvG	Sorriso Maroto	['pagode', 'pagode novo', 'sertanejo universitario']	2	2
+3TNpNnN7Y8QhtJJnQ08YeF	iRO	[]	2	2
+3jLj1sAQaEpLpktyJmyGIh	Lourena	['brazilian hip hop', 'r&b brasileiro']	2	2
+4fdCGYM7dtJLa3LvR1ccto	Gabriela Rocha	['adoracao', 'brazilian gospel']	2	1
+7M83IzPXGA4ClZJ5reW2Ro	Douglas & Vinicius	['arrocha', 'sertanejo pop']	2	1
+4gOc8TsQed9eqnqJct2c5v	K/DA	['k-pop girl group']	2	2
+2AfmfGFbe0A0WsTYm0SDTx	(G)I-DLE	['k-pop', 'k-pop girl group']	2	2
+47mIJdHORyRerp4os813jD	League of Legends	['speedrun', 'video game music']	2	2
+18RtsuKFWko5JfeMsIi0YP	Mad Dogz	['arrocha', 'funk pop']	2	2
+3TJGVUkSJzk5ZPixMFczZX	Vitor Fernandes	['arrocha']	2	2
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	2	2
+36SRwzRkX5zW3ABjJrevqX	Dadá Boladão	['brega funk']	2	2
+1B5n6jsxvFldc6Nq8Wx8VJ	OIK	[]	2	2
+22jNvLBrXGKr4CcV2tw8Ag	Jonas Esticado	['arrocha']	2	1
+2zWqENF4cnsd1nLmraG9IE	DJ Lucas Beat	['agronejo']	2	0
+0xTWPVQfXgaj6Je1inSRKw	Menor Nico	[]	2	2
+1rIc4yTieeRq25NA3T8RQ5	DJ Matt D	['funk consciente']	2	2
+4c4seBofkiiONBxLBd4CUa	MC Lemos	['funk consciente', 'funk paulista']	2	2
+78Y1NpgD0yMKoBetaYlUzS	Menor MC	['funk paulista']	2	2
+0dNyaMJp0r9zBYG86JgRDI	MC Vinny	['funk carioca', 'funk consciente', 'funk paulista']	2	2
+1honjfWrOeLAymPLT3gZEV	MC Julio D.E.R.	[]	2	2
+2Cra8I2P4OnMkVguqZRVwi	Felipe Original	['arrochadeira', 'brega funk']	2	2
+63yrD80RY3RNEM2YDpUpO8	Melanie Martinez	['alt z', 'electropop', 'pop']	2	0
+4KDxYlnGZEiS60pAnfZf4W	Avine Vinny	['arrocha']	2	2
+04gDigrS5kc9YWfZHwBETP	Maroon 5	['pop']	2	1
+09EYYUcfEDOvj3D5f45L99	MC Ingryd	['funk 150 bpm']	2	2
+7cmuxPnXRJxwuYDHfbD8Eu	Zé Felipe	['agronejo', 'arrocha', 'arrochadeira', 'sertanejo universitario']	2	1
+4iWkwAVzssjb8XgxdoOL6M	TIAGO IORC	['folk brasileiro', 'mpb', 'nova mpb']	2	1
+5eAWCfyUhZtHHtBdNk56l1	System Of A Down	['alternative metal', 'nu metal', 'rap metal', 'rock']	2	0
+3OxZ4asD88P1lJJmLcXz4K	Márcia Fellipe	[]	2	2
+1359cXd992MwCyGCgbPDcS	Dj W-Beatz	['funk mtg', 'rave funk']	2	2
+1JYiyu6QtmtwjdFz3TEFTe	MC BN	['funk mandelao', 'funk mtg', 'phonk brasileiro', 'rave funk']	2	2
+26VFTg2z8YR0cCuwLzESi2	Halsey	['electropop', 'etherpop', 'indie poptimism', 'pop']	2	1
+0guw2RGoUqaWKpoCY5DzWY	MC Levin	['funk carioca', 'funk mtg']	2	2
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	2	2
+0y7B2G0jNMGWyQJsOoRMUt	Ajaxx	['trap brasileiro']	2	2
+5ZHFfmxPiRYohYVeUnOogj	Ducon	['pop rap brasileiro']	2	2
+3zUcyANWSbo98ikca4ugrV	Salvador Da Rima	[]	2	2
+5pBMkZNIlbGTH3hrsQJqAa	Mc Kevin	['funk carioca', 'funk ostentacao', 'funk paulista']	2	2
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	2	2
+6nVcHLIgY5pE2YCl8ubca1	Jhayco	['reggaeton', 'trap latino', 'urbano latino']	2	2
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	2	2
+7ltDVBr6mKbRvohxheJ9h1	ROSALÍA	['pop', 'r&b en espanol']	2	2
+0Pl4c5YACE9Hwq4l48d9kv	Biu do Piseiro	['arrochadeira', 'forro', 'piseiro']	2	2
+7Ceg1mJmu4lAzuhQU9hQFJ	Knust	['brazilian hip hop', 'pop rap brasileiro']	2	2
+1cYhx7ZOhYoVmnDPb9KMwo	Mc Davi	['funk carioca', 'funk paulista']	2	2
+4GNC7GD6oZMSxPGyXy4MNB	Lewis Capaldi	['pop', 'uk pop']	2	0
+1GEoj0CGGUFSqnDepUa3o9	Israell Muniz	['arrocha']	2	0
+2ZXnTEyYopSLCDiz5Z0XIf	MC Kekel	['funk carioca', 'funk consciente', 'funk ostentacao', 'funk paulista']	2	2
+2TWBei99x2tV70bdYbWdAf	Dayvi	['circuit', 'guaracha']	2	2
+00CMSJdbf36zOzKB3z8JrR	Victor Cardenas	[]	2	2
+0cCNT5RyWndpS7Zx7ISEDw	Kelly Ruíz	['guaracha']	2	2
+7KO08sObbX1IHeiIR9b5NB	Dk 47	['pop rap brasileiro']	2	2
+6qrqAYlS6lUj2BVXax7SZW	Mc Jacaré	['arrochadeira', 'deboxe', 'funk 150 bpm', 'funk mtg', 'funk rj', 'trap funk']	2	0
+2FDaBZt51fOXh2rbHL8Afr	Mc Magal	['funk mtg', 'funk paulista']	2	2
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	2	2
+0GWNKI3VPEcJsOIEhUjmxd	Rael	['brazilian hip hop', 'brazilian reggae']	1	1
+4IVAbR2w4JJNJDDRFP3E83	6LACK	['atl hip hop', 'melodic rap', 'r&b', 'rap', 'trap']	1	1
+1RnHJ07H3jcpay9PrUPjnt	Raça Negra	['pagode', 'sertanejo', 'sertanejo universitario']	1	0
+5GHeXsPtAVd0KLe1oMikxm	Kemuel	['adoracao', 'brazilian gospel', 'coral gospel', 'groove gospel']	1	1
+14IQ7niDNXIIrOSjr32E7O	Lukas Agustinho	['brazilian gospel']	1	1
+2q04a37NLffQ003EhtOjwx	NGC Borges	[]	1	1
+29QKtXMaVczUBDiI3aPBWS	FBC	['boom bap brasileiro', 'brazilian hip hop', 'rap mineiro']	1	1
+3HqSLMAZ3g3d5poNaI7GOU	IU	['k-pop', 'pop']	1	1
+0ebNdVaOfp6N0oZ1guIxM8	SUGA	['k-pop']	1	1
+6ODCVWBfGNFUf1bpo0c2Ge	Karol Conká	['afrofuturismo brasileiro', 'brazilian hip hop', 'funk carioca', 'indie curitibano', 'pop lgbtq+ brasileira', 'r&b brasileiro', 'rap feminino nacional', 'rap latina']	1	1
+4YlvKlWWHJl1TuXvrk94OW	Preto Show	['hip hop tuga', 'kizomba', 'musica angolana', 'rap angolano']	1	1
+4W7msxIdip7RH18eBaToND	N.A.N.A.	['detroit trap brasileiro']	1	1
+3YZaqF0u6XGhg6MoZBWN58	BONE	['trap brasileiro']	1	1
+2RDrgRouTQ289ET075WYuC	The Boy	['trap pesado']	1	1
+4mb1xtQVGSK5dh8AbtwBiR	MC Lan	['funk carioca']	1	1
+46MWeeHNVMYRIIofQBEX98	BEAM	['trap soul']	1	1
+0eG7BXt40ztpJQ7nUOYvg3	Cantini	['pop nacional']	1	1
+7uskxjQtkzfiqHCNIIv3gD	jess beats	['trap brasileiro']	1	1
+4SWOPPVmBsxVY8MZxXkk2S	DJ Felipe Único	['funk mtg', 'rave funk']	1	1
+6bmZfABIjvLMAMYwujdjFy	Mc Topre	['deboxe', 'funk 150 bpm', 'funk mtg']	1	1
+3JlDzWcj1jl5fVSJ7YyHgK	Boyzinho o Rei da Bregadeira	['arrochadeira', 'tecnobrega']	1	0
+5zA07XrRPmMYEAdwtfRtSD	Carol & Vitoria	['folk brasileiro']	1	0
+4SsVbpTthjScTS7U2hmr1X	Arcángel	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+3EiLUeyEcA6fbRPSHkG5kb	De La Ghetto	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+1OnaDJeU2PxDBZZFkzkvZl	Anderson & Vei da Pisadinha	['arrochadeira', 'piseiro']	1	0
+5WgRuO0mhM36NFoapzpWBH	Rashid	['brazilian hip hop', 'brazilian reggae', 'pop rap brasileiro', 'r&b brasileiro']	1	1
+0vsOB7tW4ItHtdZBzKQZxp	Lukinhas	['pop nacional']	1	1
+2d9LRvQJnAXRijqIJDDs2K	Emicida	['afrofuturismo brasileiro', 'brazilian hip hop', 'funk ostentacao', 'hip hop tuga', 'manguebeat', 'pop lgbtq+ brasileira']	1	1
+27mVhYvJa7apj1zCoZ9TF2	MC Neguinho do Kaxeta	['funk carioca', 'funk consciente', 'funk ostentacao', 'funk paulista']	1	1
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	1	1
+3GM0VyM1n1qvk0v2PfXX4n	Tiago Mac	['brazilian hip hop']	1	1
+7phpDFUX97M0DTGIcjXKRk	Lord ADL	['brazilian hip hop', 'pop rap brasileiro']	1	1
+4kqedTxyE5EDJWLLplYXpu	Choice	['brazilian hip hop']	1	1
+08GQAI4eElDnROBrJRGE0X	Fleetwood Mac	['album rock', 'classic rock', 'rock', 'soft rock', 'yacht rock']	1	0
+4LTPxLxjiT5pzYd5WZAR3v	Analaga	[]	1	1
+0o8C0JTcwCUwBqhZIWKZWJ	Vitor Canetinha	[]	1	1
+2iNFFCEAFdfAV5hPdpMk6x	NGC Daddy	['trap carioca', 'trap pesado']	1	0
+39up0DYNwId5U9CaUtgVCy	Mc Talibã,MC 3L	[]	1	0
+4o81gV1CcJK6gge4ZhWd9r	Mc Pierre	['brega funk']	1	1
+1BjUnGUvkdXUi1ULgcgZvQ	Mc Anônimo	['brega funk']	1	0
+4T47gOchMUCmHFoVBE28NH	Dj Juninho 22	['trap funk']	1	1
+1bhqpMFFgoa0NTz82BprgL	Chiclete Com Banana	['axe', 'pagode']	1	0
+0u6GtibW46tFX7koQ6uNJZ	Topic	['german dance', 'pop dance', 'pop edm', 'uk dance']	1	1
+5Wg2b4Mp42gicxEeDNawf7	A7S	['pop dance', 'scandipop', 'uk dance']	1	1
+34IKMjXZ3Qy0vjG82n97r6	Bruno Cardoso	[]	1	1
+3v6Ji4uoWtKRkhuDUaxi9n	Dynoro	['edm']	1	1
+584RKJOLzbEflvpk6qFPS1	MC Ysa	['brega funk', 'funk rj']	1	1
+2PUFM2gNHDytcWNwsJkpN3	DJ Anderson França	['funk 150 bpm', 'funk carioca']	1	1
+7HJI3KV7QYdzMHYM9WC1LC	MK no Beat	['no beat']	1	1
+6USMTwO0MNDnKte5a5h0xx	Y2K	['pop rap', 'viral rap']	1	1
+41X1TR6hrK8Q2ZCpp2EqCz	bbno$	['canadian hip hop', 'dark trap', 'meme rap']	1	1
+6dS9sxlp4vf34zzi6TtQ8C	Jey	[]	1	0
+3lMQtpA4i6FrIe6DmDfDVa	Predella	['boom bap brasileiro']	1	1
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	1	1
+4wh03gpwWgB5koOyZr8XxB	Elana Dara	['musica paranaense', 'pop nacional']	1	1
+4oE4ASN8auDhoW9vsXp3VJ	MV Bill	['brazilian hip hop', 'rap nacional antigo']	1	1
+4oxFgud0qa3A1tE6JFpFVp	JayA Luuck	['trap baiano']	1	1
+2UzbrOSDiSjcLFN8wZ4bz2	Black	['trap carioca']	1	1
+3bMxoALDz4DJM8pJG0bnvs	Gabi Martins	['sertanejo pop']	1	0
+45dkTj5sMRSjrmBSBeiHym	Tate McRae	['alt z', 'pop']	1	0
+2DMQ1LeygTDGeyErwBwaeG	Mc Talibã	['deboxe', 'funk mtg', 'funk paulista']	1	1
+1THj0JI7zld7YDsWERcSUz	Isaias Saad	['adoracao', 'brazilian gospel']	1	0
+2auC28zjQyVTsiZKNgPRGs	RM	['k-rap']	1	1
+1rdXEdH8SRIqbuTbzQzd93	Jaloo	['musica popular paraense', 'pop lgbtq+ brasileira', 'tecnobrega']	1	1
+3Nipsl6GVwwGyeAk0J29C6	MC G15	['funk carioca', 'funk mtg', 'funk ostentacao', 'funk paulista', 'sertanejo universitario']	1	1
+7q1aEytv83jXNECmyaMhgn	Costa Gold	['brazilian hip hop', 'trap brasileiro']	1	1
+5cc7XCY3YdVmFDYw9LklMq	André Nine	['trap brasileiro']	1	1
+0gASHVPuYPoOjYvnSSrUnx	veronicat	[]	1	1
+6a0FqgWigKdF7FsjHYMspg	Boombeat	['pop lgbtq+ brasileira']	1	1
+6CDebPALpa0iwJyx0IgnaC	Agir	['portuguese pop']	1	1
+0lHB0Qc4pmD5RkTLlHeESo	MC L da Vinte	['funk bh', 'funk carioca', 'funk mtg', 'funk rj']	1	1
+6fOyYqdh6p0ZWLs9zUDoyt	MC Gury	['funk carioca', 'funk mtg', 'funk paulista']	1	1
+3yWtLbJMXNarBl4CQRA1go	Renno	['forro']	1	1
+21WAvVROZ83oUvJwFTG2dH	João Bosco e Gabriel	['sertanejo pop']	1	1
+7hLjkyL9Pz9xtQNahzJZki	Belo	['pagode']	1	1
+4jkOEd7kQE6UyiXnuQy9pa	Priscilla Alcantara	['adoracao']	1	1
+5bzWtCkjIAMgN93gLt56SO	Tropkillaz	['afrofuturismo brasileiro', 'bass trap', 'funk carioca', 'pop nacional']	1	1
+7hJcb9fa4alzcOq3EaNPoG	Snoop Dogg	['g funk', 'gangster rap', 'hip hop', 'pop rap', 'rap', 'west coast rap']	1	1
+7gZfnEnfiaHzxARJ2LeXrf	6ix9ine	['emo rap']	1	0
+3QJUFtGBGL05vo0kCJZsmT	salem ilese	['alt z', 'modern indie pop']	1	0
+3wVXTWabe3viT0jF7DfjOL	Vedo	['pop r&b']	1	0
+7A7wnJp6eGBNV5Foax2kYg	Teto Mc	[]	1	1
+6OviQMT0o5K1fzKYvUNbRS	Lucas Corleone	['rap paraense']	1	1
+1WsYCXdezMjn0KoIrLvMmC	Ed Sheeran & Justin Bieber	[]	1	1
+0A8ej3hXTozbQAMhcU8RNb	Adam K	['canadian electronic']	1	1
+57Vnemieu10x71jR2UWc4o	MKLA	[]	1	1
+3Jwzin3ekPemfhs79RrsOf	DJ Erick Jay	[]	1	1
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	1	1
+7EyzyrMNgqiK8bMrbkOT9l	Sidoka	['rap mineiro']	1	0
+13A9x5VINTOaVnYxK4rbNQ	Clau	['funk carioca', 'pop nacional', 'pop rap brasileiro']	1	1
+3IMEatbnQs6Sumu77hmtOr	Keviin	[]	1	1
+0vsVZPe7ziQLQ3eqwUTc4H	Day e Lara	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	1	0
+5UOOgRWguRmVZo1voJuQpf	Orgânico	['pop rap brasileiro']	1	1
+5FEcNzwbLj2pvhgZFojYAp	Rap Box	['brazilian hip hop']	1	1
+3PkzH3nruSQEb164tyPPJT	Sodré	[]	1	1
+6Olch7A7o6ihZVv5BgGJGj	Hugo Matta	[]	1	0
+7n1XMwvxPf10t4OX6h6Ufy	Nando Reis	['brazilian rock', 'mpb', 'pop rock brasileiro']	1	1
+4v1mao101nIWvxzotCSKyz	Ana Cañas	['mpb', 'nova mpb']	1	1
+4VIvfOurcf0vuLRxLkGnIG	Bradley Cooper	['hollywood']	1	1
+4A1cX2TiUVTIaJMdWgpm4j	Rapadura	['brazilian hip hop', 'rap df']	1	1
+49T8i1paijMAK9rYtjO4lu	FAULHABER	[]	1	1
+1uf8uSErmKc3JVtmjVBZ83	Azzy	['brazilian hip hop', 'funk rj']	1	1
+5Ynf8bbQV9ICbK3vZoPxGF	Dudu	['musica capixaba', 'rap capixaba', 'trap brasileiro']	1	1
+0ixIqccVXNU45qPhq3kWex	Maquiny	['brazilian hip hop']	1	1
+6bwp9ObI8FWvMPCIWVBmhl	Red Velvet - IRENE & SEULGI	['k-pop']	1	0
+7qbMZFoPRwWU9m3Xi1KV83	Tainá Costa	['funk carioca']	1	1
+6bxqwbU9pD8GXcuSmNSSHU	Ministério Zoe	['adoracao', 'brazilian gospel', 'rock gospel brasileiro']	1	0
+6wPhSqRtPu1UhRCDX5yaDJ	The Pussycat Dolls	['dance pop', 'girl group', 'pop']	1	0
+4ETSs924pXMzjIeD6E9b4u	Surfaces	['bedroom soul']	1	0
+2cnMpRsOVqtPMfq7YiFE6K	Van Halen	['album rock', 'classic rock', 'hard rock', 'rock']	1	0
+1NNT7LXreEsY7C0bHlCWDp	Daniel Caon	[]	1	0
+0UkgR9OaNIythB9LMU6ND1	Shevchenko e Elloco	['brega funk']	1	1
+7GlAYFuTPHWxfieITHslOU	MC 10G	[]	1	1
+6DgP9otnZw5z6daOntINxp	Joel Corry	['dance pop', 'pop dance', 'uk dance']	1	1
+7uMh23xWiuR7zsNkuNcm2G	MNEK	['house', 'pop dance', 'uk contemporary r&b', 'uk dance', 'uk pop']	1	1
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	1	1
+3shPgAzHMyRwWOkXeoWKeB	MC Bruninho	['batidao romantico', 'brega funk', 'brega romantico', 'funk carioca', 'pop teen brasileiro']	1	1
+7qd6KGoABHifvXKeFNe2Yb	Wolftyla	['trap queen']	1	1
+1o2NpYGqHiCq7FoiYdyd1x	Bea Miller	['alt z', 'pop', 'talent show']	1	1
+3PyJHH2wyfQK3WZrk9rpmP	Ashnikko	['alt z', 'escape room']	1	0
+6jYkuWzgw8pGto1JFI0RNT	Lara Silva	['funk carioca']	1	1
+4ehtJnVumNf6xzSCDk8aLB	Martin Jensen	['danish electronic', 'edm', 'pop dance']	1	1
+4Eoddnw0pOewmCHQYofuwh	Fancy Inc	['brazilian bass', 'brazilian edm']	1	1
+7iK8PXO48WeuP03g8YR51W	Myke Towers	['reggaeton', 'trap latino', 'urbano latino']	1	1
+6fWVd57NKTalqvmjRd2t8Z	24kGoldn	['cali rap']	1	1
+6ASri4ePR7RlsvIQgWPJpS	iann dior	['melodic rap']	1	1
+5NGO30tJxFlKixkPSgXcFE	The Police	['album rock', 'classic rock', 'permanent wave', 'rock']	1	0
+42q0rYXtR561ypg1Fcw1PI	Shatta Wale	['afrobeats', 'ghanaian pop']	1	1
+6Rj6eIFt6tvOUyxtVWe0AD	Matheus Gadelha	[]	1	1
+3tJ9PkBOrG7hFkHeNM2tbw	Olodum	['axe', 'brazilian percussion', 'pagode', 'samba reggae']	1	1
+38EmEgXkgK51MT2tPY0EoC	Bobby Helms	[]	1	0
+71LRKKvAjoc6LyNmob269Q	Portugal No Beat	['no beat']	1	1
+25tgREAprB1fhDEfRtwa14	Xavi	[]	1	1
+6mKwmTMzDrye9elc8JWiw3	Mc Leozin	['funk bh', 'funk mtg']	1	0
+7bmYpVgQub656uNTu6qGNQ	Hwa Sa	['k-pop', 'korean talent show']	1	1
+4QZjx3AfLqJhGYkmWAEUm7	Rooftime	[]	1	1
+4cdyqaBREB68H77QKCrKP1	Dubdogz	['brazilian bass', 'brazilian edm']	1	1
+790FomKkXshlbRYZFtlgla	KAROL G	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	1	1
+4ofCBoyEiGSePFAG500xev	Regard	['pop dance', 'pop edm', 'slap house', 'uk dance']	1	0
+6q8bYMpk9cp2EeaXPVBHVj	DJ Anne Louise	[]	1	1
+54MgQYO6n89kYyykYpYwzJ	Lorena Simpson	['circuit']	1	1
+0e68cnJyUTJu1nEuxxMSLm	Tati Zaqui	['funk carioca']	1	1
+14jVHWj9dqpLhs8hHEMnyJ	MC 2jhow	['funk carioca', 'funk rj']	1	1
+0GVW2S0kS9yOIEo93ZCNLW	Juan Marcus & Vinícius	['sertanejo pop']	1	1
+1OY65G9NJJHsSt1lGLZU6q	NiiHWA	[]	1	1
+2o5jDhtHVPhrJdv3cEQ99Z	Tiësto	['big room', 'brostep', 'dutch edm', 'edm', 'house', 'pop dance', 'slap house', 'trance']	1	1
+4Uc8Dsxct0oMqx0P6i60ea	Conan Gray	['bedroom pop', 'pop', 'pov: indie']	1	0
+0JC6R3kbXUHe5QrxqzFwom	Preto no Branco	['adoracao', 'brazilian gospel', 'groove gospel', 'pagode baiano', 'pop nacional', 'rap cristao', 'reggae cristao', 'rock gospel brasileiro']	1	1
+7GaxyUddsPok8BuhxN6OUW	James Brown	['funk', 'soul']	1	0
+4TShXxXZjnjd1nnEw9R5Hs	O Boy da Seresta	['arrochadeira']	1	1
+1zB84fp3Bg3FCHcz0eGc5s	Makalo	[]	1	1
+6VyttZwyEMGBl90oGdKCB8	MC Leozinho ZS	['funk paulista']	1	1
+6gGJH7joTDx9M3xREiAq9U	Petter Ferraz	[]	1	1
+0f1IECbrVV952unZkzrsg2	Mc Gw	['funk carioca', 'funk mtg', 'funk paulista', 'funk rj']	1	1
+1boMFBiRXiba4RCcPs5DMm	MC Theuzyn	['funk mtg']	1	1
+1pJmGoAf22z9Yrp35lRFzI	DJ Piu	['funk mtg']	1	1
+3L285hpRgG73AycGrb7Pve	Renan Samam	['boom bap brasileiro']	1	1
+7hD5x2RknluqTntIyuxzSa	Danny	['rave funk']	1	1
+1WA2YgK6RudLFgrIIPfUeR	Matheus Alves	['funk 150 bpm']	1	1
+3WQ1s2QFvL6crxBvrVhwzj	Gabriel Diniz	['forro', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	1	0
+0bm790gMtTnJ9RWUijkC24	Gabriel Boni	['brazilian edm', 'brazilian house']	1	1
+3zhKxZr516VdNDa8v3oft2	UM44K	['funk carioca', 'nova mpb', 'pop rap brasileiro']	1	1
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	1	1
+0QJIPDAEDILuo8AIq3pMuU	M.I.A.	['escape room', 'indietronica', 'new rave']	1	1
+04O00MEN0lHEKWTwRjb1nS	THRDL!FE	['uk dance']	1	1
+6bM5REqN0So8716K9JGTfd	Leozinho ZS	[]	1	1
+0aLzQHdUrOIrpwqQIGyLW5	Drika	[]	1	1
+08KQfADhvzZNtQnplCAIyS	Mc Diouro	[]	1	1
+3DnNQH13SfSOjZDsVEa0ht	Liu	['brazilian edm']	1	1
+5qQdzyIlYfzICKOVdb7XvY	Samantha Machado	['trap brasileiro']	1	1
+05mFGgWzooDQMWGNcNsM05	Sandy e Junior	['pop teen brasileiro']	1	0
+3hcs9uc56yIGFCSy9leWe7	Lil Durk	['chicago drill', 'chicago rap', 'drill', 'hip hop', 'rap', 'trap']	1	1
+1bqxdqvUtPWZri43cKHac8	MAX	['viral pop']	1	1
+2Q4r4Epfaaho06ONTHx7OS	MC's Jhowzinho & Kadinho	['brega funk', 'funk carioca']	1	1
+6ac253D3NynjiNAjkkR2TJ	DJ Henrique da VK	['funk 150 bpm']	1	1
+0pC5o5Jo4P8uNn2SSNmpXz	Marvvila	['pagode novo']	1	1
+73sIBHcqh3Z3NyqHKZ7FOL	Childish Gambino	['atl hip hop', 'hip hop', 'rap']	1	0
+3Hew3AuvrbKxCbehT4Rorq	Solange Almeida	['forro', 'sertanejo', 'sertanejo universitario']	1	1
+0A1oy7PC7fdzURgaLaWkL1	Lulu Santos	['brazilian rock', 'mpb', 'pop nacional']	1	0
+2OUgs5INWK2UEvZ6amWiJr	Eduardo Costa	['sertanejo', 'sertanejo universitario']	1	0
+6cuYN8aZLQ1ZSKkJJwi2eY	João Gabriel	[]	1	1
+6Wlvsn3IPHiZwAv02lB5eC	Ícaro e Gilmar	['agronejo']	1	1
+7hMFtszM1RGcIy5HVg643H	Jully	[]	1	1
+6i4nbGTS2gSP0e6emkTqdX	Cristal	['rap gaucho']	1	1
+5f7VJjfbwm532GiveGC0ZK	Lil Baby	['atl hip hop', 'atl trap', 'rap', 'trap']	1	1
+4wwEIIZHZG4WFy0PfZnKTn	Mc Brunyn	['rave funk']	1	1
+6mvvdYsewi0vnz6JYfE9D9	ELLY	['funk 150 bpm']	1	1
+1Mxqyy3pSjf8kZZL4QVxS0	Frank Sinatra	['adult standards', 'easy listening', 'lounge']	1	1
+0JXiS2FrAg3wQYJHcmZdrc	B. Swanson Quartet	[]	1	1
+0sgV4klGs1Y1dgbBi28JlD	Simone	['bossa nova', 'mpb', 'samba']	1	0
+6gLW5LlLEXdtWaS0EWfzaJ	Jorge	['sertanejo universitario']	1	1
+6LWehyU6oi1UVgwp2PhVEZ	Vou pro Sereno	['pagode', 'pagode novo', 'samba moderno']	1	1
+4hvKwCPgk7IGVynYX8bQqc	MC Juninho da VD	[]	1	1
+00Jb0oU8RUPJgKTWKsNCxw	A Travestis	['pop lgbtq+ brasileira']	1	1
+6WPObl7LHD8pWAPPi3yPoP	MC Luuh	[]	1	1
+4bL2B6hmLlMWnUEZnorEtG	Felix Jaehn	['edm', 'german dance', 'pop dance', 'tropical house']	1	1
+7gAppWoH7pcYmphCVTXkzs	The Vamps	['boy band', 'pop']	1	1
+7lzordPuZEXxwt9aoVZYmG	Billy Idol	['album rock', 'classic rock', 'dance rock', 'hard rock', 'new romantic', 'new wave', 'new wave pop', 'rock', 'soft rock']	1	1
+1tKrZaph4cLsnEdqC5BNEQ	Clayton & Romário	['agronejo', 'arrocha']	1	0
+3Yaa2NJiGdT82KIJMnHUZ7	Forró do HF	['piseiro']	1	0
+0ukgrNYk51TkMQr0f2Br4Q	Maverick Sabre	['irish hip hop']	1	1
+1CoZyIx7UvdxT5c8UkMzHd	Jorja Smith	['r&b', 'uk contemporary r&b']	1	1
+6jmHuLfbWlq34KedQ7mA5I	Slow Motion	['relaxative']	1	1
+0trHMgCbRohjsr2uzM6scS	Bárbara Labres	[]	1	1
+7AXotYu8CBTlsmFeTCe905	Laryssa Dias	[]	1	0
+3fJhU7uVbc7ofhDXfBXJnS	DJ Ery	['funk mtg', 'rave funk']	1	1
+6eFUq7prmmI6EO5joM4n8R	Mc Drika	[]	1	1
+0KelBuBLAY4mPbrEdNtzlP	MC Murilo MT	['rave funk']	1	1
+1An26e0sz6wDS4NvEgWB6W	Mr Bim	[]	1	1
+0Vxqvpm9tpZcz6d4egDtjX	MC PR	['brega funk', 'funk mtg', 'funk viral']	1	1
+05Rcl45SwOsXoiMMrV0wH7	MC Zeus	[]	1	1
+2sQHo73pQF1OTq3lDuQhlO	Mc Pogba	[]	1	1
+2KRdUulmRWVp5uwzoydI91	MC Nathan	[]	1	1
+2cFrymmkijnjDg9SS92EPM	blackbear	['pop']	1	0
+0NbfKEOTQCcwd6o7wSDOHI	The Game	['gangster rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+1sBkRIssrMs1AbVkOJbc7a	Rick Ross	['dirty south rap', 'gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap']	1	1
+17lzZA2AlOHwCwFALHttmp	2 Chainz	['atl hip hop', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+59wfkuBoNyhDMQGCljbUbA	Diddy	['dance pop', 'east coast hip hop', 'hip hop', 'hip pop', 'pop rap', 'rap']	1	1
+0YWxKQj2Go9CGHCp77UOyy	Fabolous	['gangster rap', 'hip hop', 'pop rap', 'rap', 'trap', 'urban contemporary']	1	1
+67nwj3Y5sZQLl72VNUHEYE	Wale	['pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	1	1
+2cADQgiLMjNhbsfeN52Bf3	Swizz Beatz	['battle rap', 'dirty south rap', 'southern hip hop', 'trap']	1	1
+6Ha4aES39QiVjR0L2lwuwq	Yo Gotti	['dirty south rap', 'gangster rap', 'memphis hip hop', 'rap', 'southern hip hop', 'tennessee hip hop', 'trap']	1	1
+6X8WdFjrNhXATMDSs26aCc	Curren$y	['dirty south rap', 'new orleans rap', 'rap', 'southern hip hop']	1	1
+0399oiMcmbOzzsYQDNYqxn	Problem	['hyphy', 'trap', 'west coast trap']	1	1
+34nVLWMJTjaMh2aSMOQHei	King Pharaoh	[]	1	1
+1lEXbUjKjHQ7uc9jFfEViJ	TGT	['pop r&b']	1	1
+7MPGCB854Qo4alYMOPkBka	Ritt Momney	['bedroom pop']	1	0
+7jVv8c5Fj3E9VhNjxT4snq	Lil Nas X	['lgbtq+ hip hop']	1	1
+60rpJ9SgigSd16DOAG7GSa	Billy Ray Cyrus	['country rock']	1	1
+7EQ0qTo7fWT7DPxmxtSYEc	Bastille	['metropopolis', 'modern rock', 'pop']	1	1
+4q3N2WZiTq26rLMdpIGRgP	Markim WF	[]	1	1
+6bmlMHgSheBauioMgKv2tn	Powfu	['sad lo-fi', 'sad rap']	1	1
+35l9BRT7MXmM8bv2WDQiyB	beabadoobee	['bedroom pop', 'bubblegrunge', 'indie pop', 'pov: indie']	1	1
+6jBww4kwlSrjaNYP7AQPtX	Borges	['trap brasileiro', 'trap carioca']	1	1
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+3PhoLpVuITZKcymswpck5b	Elton John	['glam rock', 'mellow gold', 'piano rock', 'rock']	1	1
+2kRfqPViCqYdSGhYSM9R0Q	Madison Beer	['pop']	1	1
+6fs2or0cKLEM2xohWq8SoX	Lexie Liu	['chinese electropop']	1	1
+0tRFWXqKBBQcu5oFVOgVzX	Jaira Burns	['alt z']	1	1
+4TqlcgMFDryY96KWcvrhTv	Seraphine	[]	1	1
+1lmU3giNF3CSbkVSQmLpHQ	Surf Mesa	[]	1	1
+4ArPQ1Opcksbbf3CPwEjWE	Emilee	['social media pop']	1	1
+0cGUm45nv7Z6M6qdXYQGTX	Kehlani	['pop', 'r&b']	1	1
+3OIgEjtDz65hK92WaMH2g4	Camila Loures	['funk bh']	1	1
+1BrFcFtIp3ZqvuI5C0VcK3	MC Luan da BS	['funk bh', 'funk mtg']	1	1
+4NYa9HEvARX9LXU4LRoGny	Mc Vitin do LJ	['funk bh', 'funk mtg']	1	1
+0f6Q3bpuXN7TfNxeJJBd3m	MC Marley	['funk viral']	1	1
+0hWRVPGWjaXcEvg8l65Tx0	Luiz Lins	['brazilian hip hop', 'nova musica pernambucana', 'rap pernambucano']	1	1
+6DDTbUgrNrVcAJFVrOjmVK	Diomedes Chinaski	['brazilian hip hop', 'rap pernambucano']	1	1
+7mOHrerbDSX5PbvTbuFAS9	MC Lya	['brega funk']	1	1
+3lT6gKD7eGb3dZRutZ3Jol	Mc Henny	['funk paulista']	1	1
+77SW9BnxLY8rJ0RciFqkHh	The Neighbourhood	['modern alternative rock', 'modern rock', 'pop', 'pov: indie']	1	0
+1QAoT8rjnSPy5pXpu3yiHS	NOG	['trap brasileiro']	1	1
+5yy76ufVriyvidNSvXlRU1	Clever	['alabama rap']	1	1
+06KW64mW1lFahvaJVV0TRe	Mc Mayara	[]	1	1
+5LHRHt1k9lMyONurDHEdrp	Tyga	['hip hop', 'pop rap', 'rap', 'trap']	1	1
+2ZteSwWooU45Mec1C2EdA0	CHAMELEO	['pop lgbtq+ brasileira', 'rap paranaense']	1	1
+0bg3fNpRQgZTCAg3Bseyly	Mc Th	['deboxe', 'funk carioca', 'funk mtg', 'funk ostentacao', 'funk rj']	1	1
+06zC1Z0YDLeWPBLIEAkswh	Medellin	['funk rj']	1	1
+2OKT3UlyCvDefb14iq4E71	Pep Starling	['chill baile']	1	1
+2feDdbD5araYcm6JhFHHw7	Labrinth	['indie poptimism', 'pop']	1	0
+1x1qM3ZqHhJOn11m42svnc	DAY LIMNS	['pop nacional']	1	1
+00FQb4jTyendYWaN8pK0wa	Lana Del Rey	['art pop', 'pop']	1	0
+47YlquMeiiivuQ9ur7Dmly	Mc Juninho FSF	['funk 150 bpm']	1	1
+36V63IoCi6vVgdhy05bm6f	Mc Ká de Paris	[]	1	1
+6WDvBbzQlAZMNDn3WwJ0kt	DJ Novinho do Jaca	[]	1	1
+22KLAPQqpoIJDbFA6cmfOM	DJ Lula do Jaca	[]	1	1
+1BRkfP0amngMbqJ4aV3KKp	Dynho Alves	['brega funk', 'funk carioca']	1	0
+0EmeFodog0BfCgMzAIvKQp	Shakira	['colombian pop', 'dance pop', 'latin pop', 'pop']	1	1
+2tZe8UE30z0LZQrxSk38qm	Weber	[]	1	1
+6tw6EpC9RgmSRZiZg0n22t	Legião Urbana	['brazilian rock', 'mpb', 'rock brasiliense', 'rock nacional brasileiro']	1	0
+3W3JovBaRZsYyIWY2FslWq	Anne	[]	1	0
+3wcj11K77LjEY1PkEazffa	Burna Boy	['afrobeats', 'dancehall', 'nigerian hip hop', 'nigerian pop']	1	1
+21Z6OxfrB1jTI53TaDMm67	HODARI	['r&b brasileiro']	1	1
+5nkzLizeD93QtabjeK4oyl	Djay W	['funk consciente', 'funk paulista']	1	1
+0IVBT8qQNwvHLzOJL6kGpE	Oriente	['brazilian hip hop']	1	1
+0jLROJ4FhMIKMF9XzlR5IZ	Bruno & Denner	['agronejo', 'sertanejo pop']	1	1
+09hfYBymHrOKB1grAuZ7mT	Mc Jefinho	['deep funk ostentacao']	1	1
+6CAOElXrWvhb594GKitCch	Trunks	['trap brasileiro']	1	1
+5qvphJwi72TG198xn5VVYH	CJota	['pop rap brasileiro']	1	1
+3MrDVzg7ZXaYMyQmbDInr7	WIU	['trap brasileiro']	1	1
+6tbjWDEIzxoDsBA1FuhfPW	Madonna	['dance pop', 'pop']	1	1
+2wIVse2owClT7go1WT98tk	Missy Elliott	['dance pop', 'hip hop', 'hip pop', 'neo soul', 'pop rap', 'r&b', 'rap', 'urban contemporary', 'virginia hip hop']	1	1
+4TvhRzxIL1le2PWCeUqxQw	The Blessed Madonna	[]	1	1
+6R7sYePCn27YnyKI61lBPz	Caverinha	['funk pop']	1	1
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	1	0
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	1	0
+0GM7qgcRCORpGnfcN2tCiB	Tainy	['pop reggaeton', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+5zctI4wO9XSKS8XwcnqEHk	Lil Mosey	['melodic rap', 'rap conscient']	1	0
+6i6NHBSzvzzqesHxEpyQqm	Jorge e Mateus	[]	1	1
+1XggRlhdW70SWvKflaZUEI	Didá Banda Feminina	['musica baiana', 'samba reggae']	1	1
+2cCUtGK9sDU2EoElnk0GNB	The National	['chamber pop', 'indie folk', 'indie rock', 'indietronica', 'modern rock', 'stomp and holler']	1	1
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	1	1
+2N4EYkIlG1kv25g6Wv8LGI	Killer Mike	['alternative hip hop', 'atl hip hop', 'conscious hip hop', 'hip hop', 'old school atlanta hip hop', 'political hip hop', 'southern hip hop']	1	0
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	1	0
+7yQrcdkLdBAkV7yY9fF2Hw	Grupo Revelação	['pagode', 'pagode novo']	1	0
+2HPaUgqeutzr3jx5a9WyDV	PARTYNEXTDOOR	['r&b', 'rap', 'toronto rap', 'urban contemporary']	1	1
+5pKCCKE2ajJHZ9KAiaK11H	Rihanna	['barbadian pop', 'pop', 'urban contemporary']	1	1
+03fLoIOO015incUitpfkad	Michele Morrone	[]	1	0
+4bqKmu3kRUl6X7pTl1CuVs	Casa Worship	['brazilian gospel']	1	1
+0d71FlLkqZzdpEQifcngQq	Julliany Souza	['brazilian gospel']	1	1
+7Hy3BcTukq6HpDzVFrnJ8L	Léo Brandão	[]	1	1
+2s15DSwmxDsXglZOEoIHSn	Mariana Pimenta	[]	1	0
+5g9XiEkkceEjmAGXfWHpt5	Vytinho NG	['brega funk']	1	1
+7Jb6GR4PIxHSkDJK8MWuVg	Bianca	['pop nacional']	1	1
+2OjoIDVPQKT9B7loZbPEfp	Claudia Leitte	['axe', 'pagode', 'pop nacional', 'sertanejo', 'sertanejo universitario']	1	0
+5uHitEEE2fhf1Xdw4uR73P	Danilo Dubaiano	[]	1	1
+0jD7VeE1m2SdHbOWeCtB9l	Naiara Azevedo	['funk carioca', 'sertanejo', 'sertanejo pop', 'sertanejo universitario']	1	1
+3vL5YvNXI8BDr7foh27rzv	Pedrinho Pisadinha	['forro']	1	1
+6gqBZ0kAjgVLsZQKkHcaB3	PK Delas	['funk 150 bpm', 'funk carioca']	1	1
+0XQgE2Ae0pemGE2zAh9ljV	DJ Pernambuco	['brega funk', 'funk carioca']	1	1
+1CFhifYnc1SnQc4ilM6aWe	Mc Elvis	['batidao romantico', 'brega funk']	1	1
+5y2Xq6xcjJb2jVM54GHK3t	John Legend	['neo soul', 'pop', 'pop soul', 'urban contemporary']	1	0
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	1	1
+2UiLeUnwb6HIGBjyp6BK8J	Pezão	['batidao romantico']	1	1
+2NjfBq1NflQcKSeiDooVjY	Tones And I	['australian pop']	1	0
+1usT5Rtr5iz4gWLdkxIUhV	Tony Guerra & Forró Sacode	['vaqueiro']	1	1
+5Y5TRrQiqgUO4S36tzjIRZ	Timbaland	['dance pop', 'pop', 'pop rap']	1	1
+6E2st8OqIaS7PU5gj95FSE	1Kilo	['pop rap brasileiro']	1	1
+6cUTkFvlPW27lYc3qcoOgy	Baviera	['pop rap brasileiro']	1	1
+337gunwEwXj6BjKbSo3Uo6	Bia Nogueira	['belo horizonte indie']	1	1
+1E4r5qziZja6v8jA7iTqjn	Negra Li	['pop nacional']	1	1
+0Cp8WN4V8Tu4QJQwCN5Md4	BENEE	['alt z', 'nz pop']	1	1
+6sHCvZe1PHrOAuYlwTLNH4	Gus Dapperton	['bedroom pop', 'indie poptimism', 'pov: indie']	1	1
+5deLgmgAEgy8UHOfJ9Dj8w	Ilkay Sencan	['turkish deep house', 'turkish edm']	1	1
+4NHQUGzhtTLFvgF5SZesLK	Tove Lo	['metropopolis', 'pop', 'swedish electropop', 'swedish pop', 'swedish synthpop']	1	1
+3bc5LOOhGbLvDUcybl3LY8	DJ Dollynho Da Lapa	[]	1	1
+4EPJlUEBy49EX1wuFOvtjK	Becky Hill	['pop dance', 'pop house', 'uk dance', 'uk pop']	1	1
+0QrUbsrL5imqntAfDl8i7q	Fred De Palma	['italian adult pop', 'italian pop']	1	1
+1cFrkBniD1fh6m5UHmmOBC	MC Doni	['funk consciente']	1	0
+4ulY4o7oEoqJlqc0V6R3Bc	Mc Bola	['funk carioca', 'funk consciente', 'funk ostentacao', 'funk paulista']	1	1
+2yeneyYRzEtwarcFfYdrEo	Dj Digo Beat	['funk mandelao', 'funk mtg']	1	1
+4agEoWIGGjlbMRlUmUOszR	Conde do Forró	['forro', 'forro de favela']	1	1
+28ie4NNTa2VW2QV4Zray8M	Mc Poze do Rodo	['funk carioca']	1	1
+6ulkDr2Bnu7Qlbrs5iDOF1	MC Teteu	['funk mtg', 'rave funk']	1	1
+1sUkDjXjPTILSBKDO7x2kW	MC Ks	['funk mandelao']	1	1
+17CbKzT0I4256iVuPvrZXr	Dj Serpinha	['funk mandelao']	1	1
+2q9wk5fkeU2C9CgCKdh4AN	Mc IG	['funk carioca', 'funk consciente', 'funk mtg', 'funk paulista']	1	1
+2civFPMAiigAwTEUKkeRW2	Mc Brisola	['funk carioca', 'funk ostentacao']	1	1
+0QHeVlSNj20H73pBvefBNZ	Mc Vk	[]	1	1
+1SZXYhJz4sqEss888VmWLP	Mc Brinquedo	['funk carioca', 'funk mtg', 'funk paulista']	1	1
+2563ILWHSx52eOxOoi5rJW	7 Minutoz	['nerdcore brasileiro', 'rap geek']	1	0
+2eKpDydKIHp3fkST2ZDB8s	Nansy Silvvz	[]	1	1
+4Ui2kfOqGujY81UcPrb5KE	HAIM	['indietronica', 'metropopolis']	1	1
+25uiPmTg16RbhZWAqwLBy5	Charli XCX	['art pop', 'candy pop', 'metropopolis', 'pop', 'uk pop']	1	1
+3YQKmKGau1PzlVlkL1iodx	Twenty One Pilots	['modern rock', 'pop', 'pov: indie', 'rock']	1	0
+4ZUahcHoVxr4lsrfdmhjhV	Zé Ricardo & Thiago	['sertanejo', 'sertanejo pop', 'sertanejo universitario']	1	1
+6Vxu4TDCN5TMlRpdu6a2Ag	MC K9	['funk carioca', 'funk ostentacao']	1	1
+1UNm54Ts7vBGKcWjbjEmMw	Midian Lima	['brazilian gospel']	1	0
+1Fmb52lZ6Jv7FMWXXTPO3K	Joan Jett & the Blackhearts	['glam punk', 'rock']	1	1
+2LRoIwlKmHjgvigdNGBHNo	Feid	['colombian pop', 'pop reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	1	1
+4BXrJLagIbiwWnfJMd1sKQ	Meca	['brazilian edm']	1	1
+4WrL8YBVkibeodZIhBLjsn	DJ Will22	[]	1	1
+5CiGnKThu5ctn9pBxv7DGa	benny blanco	['pop']	1	1
+2QLSJqqGIstNbO6nYRR16o	DUDA BEAT	['nova mpb', 'nova musica pernambucana']	1	1
+6a9WLQ5NsIV7U2qB16uFWD	Ana Gabriela	['nova mpb']	1	1
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	1	0
+6fTuuqOYCnU7oleecp16zB	Mc Vittin PV	['brega funk', 'funk mtg']	1	1
+3JrsRa8z1Pngkkf4pDrokD	DJ Swat	['funk mtg']	1	1
+3kgQWNZNpp8d8JQZhuKbPP	Topo La Maskara	['dominican pop']	1	1
+3yJLZoq3Ra2VmSW5teVgih	Walshy Fire	['instrumental funk']	1	1
+6Kk3DH8cxWFrTq9ajqck22	Nandx710	[]	1	1
+2gx1zKYcIAUboisufcHkjB	Choji	[]	1	1
+16hlg6k7mG0fnOOWxVBmuV	David Gomes	[]	1	1
+2PaZWGu5T5nHjY2xxAkFsT	THE SCOTTS	['viral rap']	1	1
+6TxINSxeDX9C70nAiJZoVA	Mc Neguinho do ITR	['funk carioca', 'funk ostentacao']	1	1
+5b7N6Le7TXrNRdoTcqOLMF	Mc Barone	[]	1	1
+2I6tDfWEkn4Ozfb6ePjRX4	Mc CL	['funk carioca', 'funk paulista']	1	1
+2FHS70d0Slskx7fTNkGRzF	MC Yuri	[]	1	1
+4fBAsjJmj6lwaOuWS15stg	Mc Piedro	['funk consciente']	1	1
+0vRvGUQVUjytro0xpb26bs	Arizona Zervas	['pop rap', 'rhode island rap']	1	0
+1TAiyn19RP753HNE1cUbq8	Diego & Ray	['sertanejo pop']	1	0
+7bNqXqIrIfwJnipx7oGeU4	Sevenn	['brazilian edm']	1	1
+1etNnR2SdlelBQAICa2Q5m	Mc Pedrinho	['funk carioca', 'funk mtg', 'funk paulista']	1	1
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	1	0
+3VZXmYrB3MxMfTZKIVZA1J	XANDDY HARMONIA	['axe', 'pagode', 'pagode baiano']	1	1

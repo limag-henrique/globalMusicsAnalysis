@@ -13,3 +13,16 @@ Persistence reports appearances, distinct native periods, peak, mean and median 
 Every fixture snapshot records the selected video category, quota units, optional public statistics, and exact raw response pages. Multiple pages retain deterministic rank order. Multiple videos may resolve to one canonical recording, but remain distinct charted items and their views are not silently summed.
 
 The methodology version `2025-03-31_SHORTS_STARTS_OR_REPLAYS` marks the documented change in how Shorts `viewCount` is counted. Results spanning that boundary must expose it rather than treating the metric as methodologically unchanged.
+
+## Global multi-source corpus
+
+Source observations retain `provider`, `origin_platform`, market, chart, native
+period, rank, metric and raw provenance. `CanonicalTrack` remains the research
+identity; provider-native IDs are claims or evidence, never the central key.
+Equivalent MGD, Kaggle and Chartmetric observations are not deleted. A later
+canonical chart-entry layer must apply an explicit precedence rule and emit a
+`SOURCE_CONFLICT` review record when values disagree.
+
+Markets are discovered per source. The global corpus is the union of legitimate
+source capabilities; comparable and balanced corpora are derived subsets with
+documented thresholds, not hardcoded country lists.

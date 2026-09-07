@@ -1,0 +1,4 @@
+title,rank,date,artist,url,region,chart,streams
+Song One,1,2022-01-01,Artist A,https://open.spotify.com/track/one,br,top200,1000
+Song Two,2,2022-01-01,Artist B,https://open.spotify.com/track/two,br,viral50,
+Song Three,1,2022-01-01,Artist C,https://open.spotify.com/track/three,ng,viral50,

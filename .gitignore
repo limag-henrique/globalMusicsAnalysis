@@ -21,6 +21,7 @@ build/
 # Tool & AI Artifacts
 graphify-out/
 .graphify-out/
+.firecrawl/
 
 # IDE & Editors
 .vscode/
@@ -45,6 +46,7 @@ data/raw/*
 data/interim/*
 data/processed/*
 data/exports/*
+data/normalized/*
 !data/**/.gitkeep
 
 # Personal Notes / Scratch

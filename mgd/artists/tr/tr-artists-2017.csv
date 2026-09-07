@@ -1,0 +1,653 @@
+artist_id	name	genres	num_hits	num_collab_hits
+2yMN0IP20GOaN6q0p0zL5k	Tarkan	['turkish pop']	31	1
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	29	15
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	26	3
+6LnJKrtFnTEGdbWQ2riWCL	Ezhel	['turkish hip hop', 'turkish trap']	26	3
+64d1rUxfizSAOE9UbMnUZd	Sezen Aksu	['turkish pop']	20	2
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	19	8
+00FQb4jTyendYWaN8pK0wa	Lana Del Rey	['art pop', 'pop']	17	8
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	15	6
+6XyY86QOPPrYVGvF9ch6wz	Linkin Park	['alternative metal', 'nu metal', 'post-grunge', 'rap metal', 'rock']	15	3
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	14	7
+25FdziPY37yQIRXSk7ZUmS	Allame	['turkish hip hop', 'turkish trap']	14	5
+65DHllTFchsixkxABusOcR	Harun Kolçak	['turkish pop', 'turkish singer-songwriter']	13	12
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	12	1
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	12	1
+5KrXBHAY7uhALwg4SPz9F8	Vega	['turkish alternative', 'turkish rock']	12	0
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	11	5
+6jJ0s89eD6GaHleKKya26X	Katy Perry	['pop']	11	9
+26VFTg2z8YR0cCuwLzESi2	Halsey	['electropop', 'etherpop', 'indie poptimism', 'pop']	11	6
+04gDigrS5kc9YWfZHwBETP	Maroon 5	['pop']	11	9
+4fR3W8XFXsqHB8f8IqEr1y	No.1	['turkish hip hop']	10	1
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	10	9
+6S2OmqARrzebs0tKUEyXyp	Demi Lovato	['pop', 'post-teen pop']	10	3
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	10	8
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	10	5
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	10	1
+6p4UYgBKfV1XMDvD9KrtTv	Manuş Baba	['turkish pop', 'turkish rock']	10	0
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	9	6
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	9	9
+69GGBxA162lTqCwzJG5jLp	The Chainsmokers	['electropop', 'pop']	9	6
+3vJJGsSAF5zQegZo5sJEh6	Can Bonomo	['turkish pop', 'turkish rock']	9	1
+3S6gaE89XewFAvZqsMuJDJ	Norm Ender	['turkish hip hop', 'turkish trap']	9	0
+5pKCCKE2ajJHZ9KAiaK11H	Rihanna	['barbadian pop', 'pop', 'urban contemporary']	9	7
+40KlwpvpKEQtZTJgbml8lT	Teoman	['turkish rock']	8	0
+02kJSzxNuaWGqwubyUba0Z	G-Eazy	['indie pop rap', 'oakland hip hop', 'pop rap', 'rap']	8	8
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	8	6
+0dLWSYE7my9AbpQYNJ0ABV	Oscar and the Wolf	['belgian indie', 'belgian pop']	8	1
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	7	7
+6hxb4rGrYXtrAZbUK7uzt9	Sansar Salvo	['turkish hip hop']	7	2
+1HBjj22wzbscIZ9sEb5dyf	Jonas Blue	['pop', 'pop dance', 'tropical house', 'uk dance']	7	7
+1Cs0zKBU1kc0i8ypK3B9ai	David Guetta	['big room', 'dance pop', 'edm', 'pop', 'pop dance']	7	6
+2crPPfVdmrxn5yUHLQVqOI	Ceylan Ertem	['turkish alt pop', 'turkish pop', 'turkish rock', 'turkish singer-songwriter']	7	0
+6RTC1abMgBC7Krg6qJQHJh	Duman	['anadolu rock', 'karadeniz turkuleri', 'turkish alternative', 'turkish alternative rock', 'turkish rock']	7	0
+1KXTegXtnCPKXjRaX1llcD	Sagopa Kajmer	['turkish hip hop', 'turkish trap']	7	0
+4gzpq5DPGxSnKTe4SA8HAU	Coldplay	['permanent wave', 'pop']	7	3
+13ubrt8QOOCPljQ2FL1Kca	A$AP Rocky	['east coast hip hop', 'hip hop', 'rap', 'trap']	7	7
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	7	5
+6oMuImdp5ZcFhWP0ESe6mG	Migos	['atl hip hop', 'hip hop', 'rap', 'trap']	7	6
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	7	3
+7pUjWNH0hKYpRzWDdNLzAi	Büyük Ev Ablukada	['turkish alternative rock', 'turkish rock']	7	0
+64M6ah0SkkRsnPGtGiRAbb	Bebe Rexha	['dance pop', 'pop']	7	5
+7DMveApC7UnC2NPfPvlHSU	Cheat Codes	['edm', 'pop', 'pop dance']	7	7
+1Xylc3o4UrD53lo9CvFvVg	Zara Larsson	['pop', 'scandipop', 'swedish electropop', 'swedish pop']	7	3
+08mjMUUjyTchMHCW7evc3R	Hande Yener	['turkish pop']	7	0
+5gFPi3KWXEwA9bLEO47Ow0	Sıla	['turkish pop']	6	1
+4cMwyqmHCwJjRZ3frIVHTr	Müslüm Gürses	['arabesk']	6	0
+4uGB0nZ5d1iCXS3sHR3pzm	Gökhan Türkmen	['turkish pop']	6	2
+163tK9Wjr9P9DmM0AVK7lm	Lorde	['art pop', 'metropopolis', 'nz pop', 'pop']	6	0
+2cJHtXWQuFgxQ0GkpE7dNR	Bahadır Tatlıöz	['turkish pop']	6	5
+28Qbi9jTj2eej21P2mImZI	Ceza	['azeri rap', 'turkish hip hop']	6	3
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	6	0
+1URnnhqYAYcrqrcwql10ft	21 Savage	['atl hip hop', 'hip hop', 'rap', 'trap']	6	4
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	6	5
+7tYKF4w9nC0nq9CsPZTHyP	SZA	['pop', 'r&b', 'rap']	6	6
+2w9zwq3AktTeYYMuhMjju8	INNA	['dance pop', 'romanian house', 'romanian pop']	6	1
+2wUjUUtkb5lvLKcGKsKqsR	Alessia Cara	['canadian contemporary r&b', 'canadian pop', 'pop']	6	4
+0bdfiayQAKewqEvaU6rXCv	MØ	['danish pop', 'electropop', 'pop', 'pop dance']	6	3
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	5	3
+1g4J8P1JWwanNyyXckRX5W	Adamlar	['turkish rock']	5	0
+4A0TivfinfALCAMJqqjZIk	Funk Wav	[]	5	5
+1U449OOb70EZlElNjLMwCM	Demet Akalın	['turkish pop']	5	1
+6xLv41SHPrVVfvyGd1M7ut	Ozan Doğulu	['karadeniz pop', 'turkish pop']	5	5
+55Aa2cqylxrFIXC767Z865	Lil Wayne	['hip hop', 'new orleans rap', 'pop rap', 'rap', 'trap']	5	5
+1qZ684TB9E1BjH58btdtYd	Buray	['turkish deep house', 'turkish pop']	5	0
+53oeVgECSa18dkHBQ9X6Eh	Murat Boz	['turkish pop']	5	1
+4TdvNk4wmn5DgBFiLDeCj0	Deniz Tekin	['turkish alt pop', 'turkish rock']	5	1
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	5	0
+6h5P3J0j1x2lhiDk9w4deZ	Eypio	['turkish hip hop', 'turkish pop']	5	3
+60d24wfXkVzDSfLS6hyCjZ	Martin Garrix	['dutch edm', 'edm', 'pop', 'pop dance', 'progressive house']	5	5
+6VuMaDnrHyPL1p4EHjYLi7	Charlie Puth	['pop', 'viral pop']	5	3
+3t8WiyalpvnB9AObcMufiE	Mahmut Orhan	['turkish deep house', 'turkish edm']	5	5
+5h2jTdwf4p0dM34aBykPzZ	İrem Derici	['turkish pop']	5	2
+738wLrAtLtCtFOLvQBXOXp	Major Lazer	['dance pop', 'edm', 'electro house', 'moombahton', 'pop', 'pop dance']	5	5
+2boacFGRX1WIo7NFS8B0F2	Gazapizm	['turkish hip hop']	5	1
+6LqNN22kT3074XbTVUrhzX	Kesha	['dance pop', 'pop']	5	1
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	5	4
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	5	5
+4Q6nIcaBED8qUel8bBx6Cr	Jax Jones	['dance pop', 'edm', 'house', 'pop dance', 'uk dance', 'uk pop']	5	5
+4q2SZIdLq6YTc9cZLCclWc	Son Feci Bisiklet	['turkish rock']	5	0
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	5	4
+1KCSPY1glIKqW2TotWuXOR	P!nk	['dance pop', 'pop']	5	2
+23fqKkggKUBHNkbKtXEls4	Kygo	['edm', 'pop', 'pop dance', 'tropical house']	4	4
+1lfD2lvoDctsMr6grjYOb5	Ece Seçkin	['turkish pop']	4	2
+0c173mlxpT3dSFRgMO8XPh	Big Sean	['detroit hip hop', 'hip hop', 'pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	4	3
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	4	3
+1nFJWl30l3PAHei86OxN0i	Oğuzhan Koç	['turkish pop']	4	1
+6vXTefBL93Dj5IqAWq6OTv	French Montana	['hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	4	4
+66vIaZFb8okZH0npc4eQ5q	emre aydın	['turkish pop', 'turkish rock', 'turkish singer-songwriter']	4	1
+46zuW8tHxwahYn7VNMgYTa	Yalın	['turkish pop']	4	0
+3t5xRXzsuZmMDkQzgOX35S	Robin Schulz	['deep euro house', 'deep house', 'edm', 'german dance', 'pop dance', 'tropical house']	4	4
+3eVuump9qyK0YCQQo4mKbc	Barış Manço	['anadolu rock', 'turkish instrumental', 'turkish psych', 'turkish rock']	4	0
+540vIaP2JwjQb9dm3aArA4	DJ Snake	['edm', 'electronic trap', 'pop', 'pop dance']	4	4
+4ON1ruy5ijE7ZPQthbrkgI	Burak Yeter	['electro house']	4	4
+7CW2eGwAuElNq09rVtZYsM	Sena Şener	['turkish alt pop', 'turkish modern jazz', 'turkish rock']	4	2
+5p7f24Rk5HkUZsaS3BLG5F	Hailee Steinfeld	['pop']	4	3
+586uxXMyD5ObPuzjtrzO1Q	Sofi Tukker	['edm']	4	1
+0LyfQWJT6nXafLPZqxe9Of	Various Artists	[]	4	0
+3Z814BstLaKbLqKHXsht8O	Gripin	['turkish alternative', 'turkish pop', 'turkish rock']	4	0
+27XMnTLvCO7t3qGlQyTMkF	Ajda Pekkan	['turkish pop', 'turkish psych']	4	2
+4525TiJDbBD4mZJ7EZArT0	Yıldız Tilbe	['turkish pop']	4	3
+2qxJFvFYMEDqd7ui6kSAcq	Zedd	['complextro', 'edm', 'german techno', 'pop', 'pop dance']	4	4
+5juVQV1lGuA4o5IrLwpZar	Berkay	['turkish pop']	4	0
+1l8Fu6IkuTP0U5QetQJ5Xt	Fifth Harmony	['girl group', 'pop', 'talent show']	4	2
+3Isy6kedDrgPYoTS1dazA9	Sean Paul	['dance pop', 'dancehall', 'pop', 'pop rap']	4	4
+5KKpBU5eC2tJDzf0wmlRp2	RAYE	['uk contemporary r&b', 'uk pop']	4	4
+5rBUMBV7L6zPsEKnlgiOm9	Yener Çevik	['turkish hip hop', 'turkish trap']	4	1
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	4	3
+4kYGAK2zu9EAomwj3hXkXy	JP Cooper	['uk pop']	4	2
+4dpARuHxo51G3z768sgnrY	Adele	['british soul', 'pop', 'pop soul', 'uk pop']	4	0
+5pUo3fmmHT8bhCyHE52hA6	Liam Payne	['pop']	4	3
+57WHJIHrjOE3iAxpihhMnp	Louis Tomlinson	['pop']	4	2
+1zNqDE7qDGCsyzJwohVaoX	Anne-Marie	['pop']	4	1
+2ekGsQEkeMtYFA16Jjes2M	İlyas Yalçıntaş	['persian pop', 'turkish pop']	4	0
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	4	4
+1Hsdzj7Dlq2I7tHP7501T4	Niall Horan	['pop']	4	0
+4sldxVDeyb0J8OMoYApqfV	Kalben	['turkish rock', 'turkish singer-songwriter']	4	0
+5exS0bytCYdixgv02DaCm3	William Singe	[]	3	3
+4aCS0WLLZ3070ZDBOFJlHB	Erdem Kınay	['turkish pop']	3	3
+2RdwBSPQiwcmiDo9kixcl8	Pharrell Williams	['dance pop', 'pop']	3	2
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	3	3
+0ZRQKFaYGEtbLc8NbyICoe	Deeperise	['turkish deep house', 'turkish pop']	3	3
+7JrZbwBSIfKcc2gn1Xa4Bd	Jabbar	['turkish pop']	3	3
+4tZwfgrHOc3mvqYlEYSvVi	Daft Punk	['electro', 'filter house', 'rock']	3	3
+3YQKmKGau1PzlVlkL1iodx	Twenty One Pilots	['modern rock', 'pop', 'pov: indie', 'rock']	3	0
+7vk5e3vY1uw9plTHJAMwjN	Alan Walker	['electro house']	3	1
+7A6T0nTpXnPXDUGM1yEjEj	Derya Uluğ	['turkish pop']	3	0
+50AOA3aPd6tc928KEYaljF	Yaşar	['turkish pop']	3	1
+7gobcoscOfsY0nOeqqFzvU	Yüzyüzeyken Konuşuruz	['turkish alternative rock', 'turkish rock']	3	0
+0EmeFodog0BfCgMzAIvKQp	Shakira	['colombian pop', 'dance pop', 'latin pop', 'pop']	3	2
+1F2v33FQTavJyaD7ZsyhdA	Gülşen	['turkish pop']	3	1
+4StjyzjcmZ7a9QncHVf0pu	Simge	['deep turkish pop', 'persian pop', 'turkish pop']	3	0
+4utLUGcTvOJFr6aqIJtYWV	Skylar Grey	['piano rock', 'viral pop']	3	3
+3J0BpFVUc9LeOIVeN5uNhU	Lauren Jauregui	['r&b']	3	3
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	3	0
+4V8Sr092TqfHkfAA5fXXqG	Luis Fonsi	['latin pop', 'puerto rican pop']	3	3
+7BJjzi0JHyDHAsmVe21dGa	Serdar Ortaç	['turkish pop']	3	2
+2h93pZq0e7k5yf4dywlkpM	Frank Ocean	['lgbtq+ hip hop', 'neo soul']	3	2
+33JQK4UoS2aMPYBfdB5Ftt	Ryan Riback	['melbourne bounce']	3	3
+7pFeBzX627ff0VnN6bxPR4	Desiigner	['pop rap', 'rap', 'southern hip hop', 'trap', 'viral trap']	3	1
+6kXm2YCtdUOpRYNKeKhfue	Ryan Gosling	['hollywood']	3	2
+68Uwx1d3EbjDJhYsLjqvIq	Emma Stone	['hollywood']	3	3
+5iNrZmtVMtYev5M9yoWpEq	Seeb	['pop dance']	3	3
+3IiSjfHNSsynS08uC6w9u3	Sancak	['turkish hip hop', 'turkish pop']	3	0
+5y2Xq6xcjJb2jVM54GHK3t	John Legend	['neo soul', 'pop', 'pop soul', 'urban contemporary']	3	1
+4ryoUS0W8qXokfMxrlJt6O	Skip Marley	['modern reggae']	3	3
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	3	3
+6XJtmq30U5RDBwnLbcN33E	Çağatay Akman	['turkish pop']	3	0
+3NPpFNZtSTHheNBaWC82rB	X Ambassadors	['modern alternative rock', 'modern rock', 'stomp pop']	3	3
+699OTQXzgjhIYAHMy9RyPD	Playboi Carti	['atl hip hop', 'plugg', 'pluggnb', 'rage rap', 'rap']	3	3
+7f0OLhGgBMX9fUjm1dcPip	Alice Merton	[]	3	0
+5JZ7CnR6gTvEMKX4g70Amv	Lauv	['pop']	3	1
+4ckLjJztj53Ifid7WHweBn	Aleyna Tilki	['turkish pop']	3	1
+0wCKNMsqYasJBFVagjay49	Hadise	['turkish deep house', 'turkish pop']	3	0
+23xJQJM7peht77DF6YNEoq	Model	['turkish rock']	3	1
+4B744cRUGT2IOu9Uuh7Ad7	Ayben	['turkce kadin rap', 'turkish hip hop', 'turkish trap']	3	1
+6rxgxAlUPT4sDElRZeVec6	Evrencan Gündüz	['turkish alternative', 'turkish rock']	3	0
+5Z0rUIkdvlnx6JYqcC4aU0	Can Gox	['turkish rock']	3	0
+5CCwRZC6euC8Odo6y9X8jr	Rita Ora	['dance pop', 'pop', 'uk pop']	3	1
+13y7CgLHjMVRMDqxdx0Xdo	Gucci Mane	['atl hip hop', 'dirty south rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	3	3
+4xRYI6VqpkE3UwrDrAZL8L	Logic	['conscious hip hop', 'hip hop', 'pop rap', 'rap']	3	3
+5ixQSDvAMa5O758xG8MWXT	mor ve ötesi	['turkish alternative', 'turkish alternative rock', 'turkish rock']	3	0
+7IgzsWd4tWIn70uh6dAq8d	Seksendört	['turkish pop', 'turkish rock']	3	0
+5KPJMJR9PCfMWSfco8i4W4	Alex Aiono	['teen pop']	3	3
+6wxh9aTFgTS4OiyYlnQBq6	Bengü	['turkish pop']	3	1
+1dpqJqIuNqideTvmxBsSku	Mabel Matiz	['turkish pop']	3	0
+6dDaXbE1caD65TONToYXYx	Murat Dalkılıç	['turkish pop']	3	1
+1063YgLGlWU0JM26pOnrnv	Tuğba Yurt	['turkish pop']	3	1
+0J7U24vlOOIeMpuaO6Q85A	LP	"['la pop', ""women's music""]"	3	0
+7Dz9goFmVZZqvJxZoKg7pF	Danelle Sandoval	['nyc pop']	3	3
+799GDxXgsUDuGSbh5HJ3Kv	Tuna Kiremitçi	['turkish alternative', 'turkish modern jazz', 'turkish pop', 'turkish rock']	3	3
+2XnBwblw31dfGnspMIwgWz	Axwell /\ Ingrosso	['edm', 'pop dance', 'progressive electro house']	3	0
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	3	1
+1Hy8tdpH9ygqoohumHZqVl	Athena	['turkish punk', 'turkish rock']	3	0
+1vyhD5VmyZ7KMfW5gqLgo5	J Balvin	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	3	3
+3JhNCzhSMTxs9WLGJJxWOY	Macklemore	['pop rap', 'seattle hip hop']	3	3
+0du5cEVh5yTK9QJze8zA0C	Bruno Mars	['dance pop', 'pop']	3	1
+18hpynG63scJYxOSDYHUVN	Burak King	['turkish hip hop', 'turkish pop']	3	1
+25yeRs08qswXKKtq0HYTMS	Ayse Hatun Onal	['turkish pop']	3	0
+0CEK8AzyeD5ZUdUloB6yQV	CADE	['pop edm']	3	3
+6MDME20pz9RveH9rEXvrOM	Clean Bandit	['pop', 'uk dance', 'uk funky']	3	3
+0ZED1XzwlLHW4ZaG4lOT6m	Julia Michaels	['pop']	3	1
+4NHQUGzhtTLFvgF5SZesLK	Tove Lo	['metropopolis', 'pop', 'swedish electropop', 'swedish pop', 'swedish synthpop']	3	0
+0KOSzgkMlkeowt1tgIg6ca	Heijan	['turkish hip hop']	3	2
+0Qbd0AGWuzggX61s306wZN	Ebru Yaşar	['arabesk', 'deep turkish pop', 'turkish pop']	3	0
+3SrFQDUN5DXQDZc3kygriW	Yüksek Sadakat	['turkish pop', 'turkish rock']	2	0
+6d47Z08T4snK50HgTEHo5Z	Sage The Gemini	['hyphy', 'pop rap', 'southern hip hop', 'trap']	2	0
+4o3Nv2BAyoZkyGaRXv4rT3	Erkin Koray	['anadolu rock']	2	0
+7zVYyYhGZxvPHPuhzReYHP	Ziynet Sali	['turkish pop']	2	1
+2W6kbe0nm96COrHzNmfLLd	MC Fioti	['funk carioca', 'funk ostentacao', 'funk paulista']	2	0
+6kf7koRM31Dgsj2WbByZpB	Ersay Üner	['turkish pop']	2	0
+2AWUCT9xtcvkjpFq1ZgpPj	Cem Adrian	['turkish rock', 'turkish singer-songwriter']	2	2
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	2	2
+55fhWPvDiMpLnE4ZzNXZyW	Noah Cyrus	['alt z', 'pop']	2	2
+5fyDppLDl1juIu1BcUT5zh	Digital Farm Animals	['uk dance']	2	2
+2r8iLFeSTuOiZualHmSXxS	Patron	['turkish hip hop', 'turkish trap']	2	1
+3AA28KZvwAUcZuOKwyblJQ	Gorillaz	['alternative hip hop', 'modern rock', 'rock']	2	2
+4f9iBmdUOhQWeP7dcAn1pf	Rag'n'Bone Man	['neo soul']	2	1
+5Pwc4xIPtQLFEnJriah9YJ	OneRepublic	['piano rock', 'pop']	2	1
+1Xz8iP9Dvl5uI88iraOhs7	Pentagram	['oriental metal', 'turkish metal', 'turkish rock']	2	1
+1r4hJ1h58CWwUQe3MxPuau	Maluma	['latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	2	2
+6I65kFgfXDWx56jwnip3TU	Hayki	['turkish hip hop', 'turkish trap']	2	1
+25uiPmTg16RbhZWAqwLBy5	Charli XCX	['art pop', 'candy pop', 'metropopolis', 'pop', 'uk pop']	2	1
+48CUA59SDed3IdCctKndud	Volkan Konak	['karadeniz pop', 'karadeniz turkuleri', 'turkish folk', 'turkish pop']	2	0
+4VMYDCV2IEDYJArk749S6m	Daddy Yankee	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	2	2
+4YLcK0MEyqFkdyyzbPTWrs	Can Kazaz	['turkish alt pop', 'turkish rock']	2	0
+0cGUm45nv7Z6M6qdXYQGTX	Kehlani	['pop', 'r&b']	2	2
+1Fg19vpUJpAAPFjnKaVYVW	Reynmen	['turkish hip hop', 'turkish pop']	2	2
+1vAJpM2vpDaNYWg0e96CB2	No Method	[]	2	0
+0cmWgDlu9CwTgxPhf403hb	Bonobo	['downtempo', 'electronica', 'indietronica', 'instrumental hip hop', 'jazztronica', 'nu jazz', 'trip hop']	2	1
+7hJcb9fa4alzcOq3EaNPoG	Snoop Dogg	['g funk', 'gangster rap', 'hip hop', 'pop rap', 'rap', 'west coast rap']	2	2
+6TIYQ3jFPwQSRmorSezPxX	Machine Gun Kelly	['ohio hip hop', 'pop rap']	2	2
+4IWBUUAFIplrNtaOHcJPRM	James Arthur	['pop', 'talent show', 'uk pop']	2	0
+1AM52XHXnWAEqnQwpxTLWm	EDIS	['turkish pop']	2	0
+77xr1BNiH6bg7sV7ufnFhe	Eneli	['romanian pop']	2	2
+7gAppWoH7pcYmphCVTXkzs	The Vamps	['boy band', 'pop']	2	2
+4YXycRbyyAE0wozTk7QMEq	Matoma	['pop dance', 'tropical house']	2	2
+4Bdqzh78prwuqwInMb555P	Pinhani	['oyun havasi', 'turkish rock']	2	0
+4AKwRarlmsUlLjIwt38NLw	Ofenbach	['pop dance']	2	1
+4lDBihdpMlOalxy1jkUbPl	Grey	[]	2	2
+7EJB9F3fv0x2ezht730D7F	Burcu Güneş	['turkish pop', 'turkish singer-songwriter']	2	0
+787bCXOIvGeBw0Bc4kEjhD	Luke Christopher	['indie pop rap']	2	0
+2QU0UNvQvEZ2fuRUhkUNq4	Artz	['turkish hip hop', 'turkish trap']	2	2
+0FUsrstJwmg4WVHQMTYuUA	Şehinşah	['turkish hip hop', 'turkish trap']	2	1
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	2	0
+6cBRNsetPDbFYEYfd62XMc	Ferman Akgül	['turkish rock']	2	0
+1vCWHaC5f2uS3yhpwWbIA6	Avicii	['edm', 'pop', 'pop dance']	2	2
+5KnoVkIUGmK0PiDKMjz2LM	Feder	['new french touch']	2	2
+7bXgB6jMjp9ATFy66eO08Z	Chris Brown	['r&b', 'rap']	2	1
+3e7awlrlDSwF3iM0WBjGMp	Little Mix	['girl group', 'pop', 'talent show', 'uk pop']	2	0
+3sV7ijrP5xMHgWRlOnPTCi	Koray Avcı	['karadeniz turkuleri', 'turkish pop']	2	1
+6r5Vj3DJwRNxYPjclpq4am	Emel	[]	2	2
+137W8MRPWKqSmrBGDBFSop	Wiz Khalifa	['hip hop', 'pittsburgh rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	2	2
+4DdkRBBYG6Yk9Ka8tdJ9BW	Offset	['atl hip hop', 'rap', 'trap']	2	2
+0iEtIxbK0KxaSlF7G42ZOp	Metro Boomin	['rap']	2	2
+1ZkT2Cz1W9zTNPfCmA1ruU	Yok Öyle Kararlı Şeyler	['turkish alternative rock', 'turkish rock']	2	0
+74xBVPWYoSf5pvo5IkePRO	Şebnem Ferah	['turkish pop', 'turkish rock']	2	1
+6fOMl44jA4Sp5b9PpYCkzz	NF	['hip hop', 'pop rap']	2	0
+6icQOAFXDZKsumw3YXyusw	Lil Yachty	['atl hip hop', 'melodic rap', 'rap', 'trap']	2	2
+4Rxn7Im3LGfyRkY2FlHhWi	Nick Jonas	['dance pop', 'pop']	2	1
+0iKWCp8QXDXAD3wzFrExYr	Işın Karaca	['turkish pop']	2	2
+2Cusk8DpjH8r3BDvuN3ufo	Ümit Besen	['arabesk', 'turkish folk']	2	2
+2RQ8NtUmg5y6tfbvCwX8jI	Kenan Doğulu	['turkish pop']	2	1
+2LZDXcxJWgsJfKXZv9a5eG	Cashmere Cat	['downtempo', 'electropop', 'shiver pop']	2	2
+4T83el9VQDI0zOyU9zcYNq	Soner Sarıkabadayı	['turkish pop']	2	0
+2dLBhX7dIdWL6Fsk9l0n1n	Feride Hilal Akın	['turkish pop']	2	2
+1oKdM70mJD8VvDOTKeS8t1	Emily Warren	['alt z', 'nyc pop']	2	2
+1lIbZfJvMQRqzhtCQsg5EI	Cem Karaca	['anadolu rock', 'karadeniz turkuleri', 'turkish psych', 'turkish rock']	2	1
+2snm3HmsnDUDxbIChdl2Oj	Justin Hurwitz	['hollywood', 'movie tunes', 'soundtrack']	2	0
+7gP3bB2nilZXLfPHJhMdvc	Foster The People	['indietronica', 'modern alternative rock', 'modern rock', 'rock']	2	0
+5he5w2lnU9x7JFhnwcekXX	Skrillex	['brostep', 'complextro', 'edm', 'electro', 'pop dance']	2	2
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	2	0
+4W31XN2JH8mC54NkHdh04s	Sertab Erener	['turkish jazz', 'turkish pop', 'turkish singer-songwriter']	2	0
+02A3cEvlLLCbIMVDrK2GHV	Starley	['aussietronica']	2	2
+1PpRPZXSS5ka7m5NW2TO7q	Nil Karaibrahimgil	['turkish folk', 'turkish pop', 'turkish singer-songwriter']	2	0
+0uGk2czvcpWQA383Im6ajf	Maggie Lindemann	['alt z', 'dark pop', 'pop']	2	2
+3iOvXCl6edW5Um0fXEBRXy	The xx	['downtempo', 'dream pop', 'indietronica']	2	0
+4RSyJzf7ef6Iu2rnLdabNq	Willy William	[]	2	2
+0FTrIsp2Mg7Bkf8eXQrISa	PHresher	['nyc rap']	2	2
+1okJ4NC308qbtY9LyHn6DO	BloodPop®	['electropop']	2	2
+7hOGhpa8RMSuDOWntGIAJt	A R I Z O N A	['electropop', 'indie poptimism']	2	1
+2HPaUgqeutzr3jx5a9WyDV	PARTYNEXTDOOR	['r&b', 'rap', 'toronto rap', 'urban contemporary']	2	2
+3cNwyF5SboOs9icz2XyotE	Mustafa Ceceli	['karadeniz pop', 'turkish pop']	2	1
+56g1u3Bu0S5072aksxyBei	Atiye	['turkish pop']	2	0
+2IcI0EyzGYzrqOYdJCWge6	Furkan Özsan	['turkish hip hop']	2	0
+4i4ALRtQQmFxn3BCIB6iC0	Göksel	['turkce slow sarkilar', 'turkish pop']	2	0
+7rEIUw67hRTgievwuKQGSj	maNga	['turkish rock']	2	0
+3NPQ2qMGXAR0g1COJxuZ8r	Muti	['turkce drill']	2	2
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	2	2
+77AiFEVeAVj2ORpC85QVJs	Steve Aoki	['edm', 'electro house', 'pop dance']	2	2
+2ZMnWI3oIHyj7MyuZ99gvu	Super Sako	['armenian hip hop', 'armenian pop']	2	2
+6qphxvmoZkBRhPV3Ohb6j2	Cihan Mürtezaoğlu	['turkish alt pop', 'turkish rock']	2	0
+6zVFRTB0Y1whWyH7ZNmywf	Tash Sultana	['australian reggae fusion']	2	0
+6Dd3NScHWwnW6obMFbl1BH	Daya	['pop']	2	1
+6aMuEI7xrBQvb2z0lXWwCR	Betül Demir	['turkish pop']	1	0
+0jnsk9HBra6NMjO2oANoPY	Flo Rida	['dance pop', 'miami hip hop', 'pop', 'pop rap']	1	1
+3hPPNy5OBzCU1icQO7Nrok	99 Percent	[]	1	1
+1Oa0bMld0A3u5OTYfMzp5h	Nate Dogg	['g funk', 'gangster rap', 'hardcore hip hop', 'hip hop', 'west coast rap']	1	1
+4Z8W4fKeB5YxbusRsdQVPb	Radiohead	['alternative rock', 'art rock', 'melancholia', 'oxford indie', 'permanent wave', 'rock']	1	0
+57XiYpbW6314BFXc93gI8i	Orkun Işıtmak	[]	1	0
+052U3i0lM0CeCkJRrES8XK	Emir	['turkish pop']	1	0
+6z2YjzKarTmNsYjkUS81aC	Ikizler	[]	1	1
+5xUf6j4upBrXZPg6AI4MRK	Soundgarden	['alternative metal', 'alternative rock', 'classic rock', 'grunge', 'hard rock', 'nu metal', 'rock']	1	0
+6s22t5Y3prQHyaHWUN1R1C	AJR	['pov: indie']	1	0
+6iBdV6h17D1kOnK9lFyWo3	Bilal Sonses	['turkish pop']	1	0
+3WrFJ7ztbogyGnTHbHJFl2	The Beatles	['beatlesque', 'british invasion', 'classic rock', 'merseybeat', 'psychedelic rock', 'rock']	1	0
+1Ff0dxz94grKP7s4p3ANlp	Bedük	['turkish pop']	1	1
+47mIJdHORyRerp4os813jD	League of Legends	['speedrun', 'video game music']	1	1
+6yhD1KjhLxIETFF7vIRf8B	Against The Current	['neon pop punk', 'pixie', 'pop punk']	1	1
+31TPClRtHm23RisEBtV3X7	Justin Timberlake	['dance pop', 'pop']	1	0
+15NSFL63oPhmpXLcZHny2N	Fazıl Say	['classical piano', 'turkish classical performance', 'turkish jazz']	1	1
+2s71N4gp7Ybok1jP2TV6fr	Guvenc Dagustun	['turkish jazz']	1	1
+16fEBDsX5HU0deiykRIyJP	Burcu Uyar	[]	1	1
+1IKW9Yfrlm7ADQrPx4mqkQ	Selva Erdener	['turkish jazz', 'turkish modern jazz']	1	1
+29WzbAQtDnBJF09es0uddn	Corinne Bailey Rae	['british soul', 'neo soul', 'pop soul', 'soul']	1	0
+5X4LWwbUFNzPkEas04uU82	DVBBS	['canadian electronic', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'slap house']	1	1
+78DWNk8gFHU30TGITAgbM7	CMC$	['pop edm', 'vapor twitch']	1	1
+71WExccCBN2mw0klSzfYzz	Gia Koka	[]	1	1
+4jtv7mIerRdHNQOkFtKyDW	Ados	['turkish hip hop']	1	1
+5338fdSzGNOFD4cxAxDTeq	Aaron Carter	['post-teen pop']	1	0
+2fYdUIUPS7aDdWCzb8Aw2k	Aşkın Nur Yengi	['turkish pop']	1	1
+50JJSqHUf2RQ9xsHs0KMHg	Jon Bellion	['indie pop rap']	1	0
+7licaqhcEBQUzz9FownRaJ	Miquela	['ai', 'la pop']	1	0
+4kI8Ie27vjvonwaB2ePh8T	Portugal. The Man	['indie rock', 'indietronica', 'modern alternative rock', 'modern rock']	1	0
+4gvkdged3Xw3ImXFm3jiay	Juliander	['swedish pop']	1	1
+0UyDbmVHKEREbUyFTNc9mf	Suat Ateşdağlı	[]	1	1
+4ByD5ORLo9bbAzCJA8PnSd	Gökçe Kırgız Taner	['deep turkish pop']	1	1
+3wjsrpfO6odEphTZWx45RQ	Hearts & Colors	[]	1	1
+5M2y5A6d5QZjw9JeKClagC	Andrelli	['swedish pop']	1	1
+2wswrLV1o19frClh3pHxws	Bilal Hancı	['karadeniz pop', 'turkish pop']	1	0
+5Tz4zMiRWqiQVAymWZz99a	Zebra Katz	['escape room', 'lgbtq+ hip hop', 'vogue']	1	1
+0CkbPVBpOwwz9NPPglFKyq	RAY BLK	['alternative r&b', 'electra', 'uk contemporary r&b']	1	1
+3koiLjNrgRTNbOwViDipeA	Marvin Gaye	['classic soul', 'motown', 'neo soul', 'northern soul', 'quiet storm', 'soul']	1	1
+75jNCko3SnEMI5gwGqrbb8	Tammi Terrell	['classic soul', 'motown', 'soul', 'southern soul']	1	1
+38uZn1mtkujAvteNv4SkU0	Banu Parlak	['turkish pop', 'uzbek pop']	1	0
+7KMqksf0UMdyA0UCf4R3ux	James Blunt	['neo mellow', 'pop rock']	1	1
+2DlGxzQSjYe5N6G9nkYghR	Jennifer Lopez	['dance pop', 'pop', 'urban contemporary']	1	0
+3nFkdlSjzX9mRTtwJOzDYB	JAY-Z	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'rap']	1	1
+2rNgr1pkSDfxQTYhqCT45D	Tan Taşçı	['turkish pop']	1	1
+1QDrz3DMMaz3TB1cm0PGDu	Justin Jesso	['singer-songwriter pop']	1	1
+78XamUAUXTbaM3ytY9aBJu	Yaşar Gaga	[]	1	1
+5yG7ZAZafVaAlMTeBybKAL	Iggy Azalea	['australian hip hop', 'dance pop', 'pop']	1	0
+4D75GcNG95ebPtNvoNVXhz	AFROJACK	['big room', 'dance pop', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house']	1	1
+75qHhz1dcbPw1jNllzGsT9	Ebru Polat	['deep turkish pop', 'turkish pop']	1	0
+5gs9qloTR5m6dM0ScMty3H	Rafet El Roman	['turkish pop']	1	1
+5ZQ2xzMSMon0UUnulwsPiO	Hulya Avsar	['arabesk', 'deep turkish pop', 'turkish pop']	1	1
+0sDJfnuudhMaEmFPvALK2e	Kutiman	['israeli indie']	1	1
+4mYf44fxwi3Kgnbj1qoCuv	Adam Scheflan	[]	1	1
+00sazWvoTLOqg5MFwC68Um	Yann Tiersen	['bow pop', 'compositional ambient', 'french soundtrack']	1	0
+29QbBR0oTzA7A0kiOzrbbr	Jamie Scott	['uk pop']	1	1
+5gWzmnHTLNXz5CjOc0wAuK	Romy Dya	['dutch pop']	1	1
+1XLjkBxFokuDTlHt0mQkRe	Thomas Gold	['big room', 'dutch house', 'edm', 'electro house', 'german techno', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+6ctgu4FFlnNhMgrKiIzCxp	Jillian Edwards	['acoustic pop', 'indiecoustica']	1	1
+3ScdCahXjzw08np6FULdmA	Gülden Mutlu	[]	1	1
+4KonFbiSZXcrs9ZLe2A1mX	Güler Özince	['turkish singer-songwriter']	1	0
+2DUGcD1NEw0zIBSjYFCoig	Veysel Zaloğlu	[]	1	1
+0WtTGUjbur1R1cNzBvbsMU	Broadcast	['art pop', 'chamber pop', 'dream pop', 'experimental rock', 'hauntology', 'indietronica', 'nu gaze', 'slowcore']	1	0
+1EVpn7mXyF07LuJqgUk6RX	Tom Novy	['disco house', 'vocal house']	1	1
+3q2dSq7VZnj8TmoJUyRm40	Cat Dealers	['brazilian edm']	1	1
+2FT75iYuWmycqYrXbVD9cn	Michael Marshall	[]	1	1
+7qG3b048QCHVRO5Pv1T5lw	Enrique Iglesias	['dance pop', 'latin pop', 'mexican pop']	1	1
+5luyt0SUvGkDMY4ILP6Qhl	Descemer Bueno	['cubaton']	1	1
+21451j1KhjAiaYKflxBjr1	Zion & Lennox	['reggaeton', 'urbano latino']	1	1
+29TtKR0RUKu66QjYwtycd9	Kaan Tangöze	['turkish rock', 'turkish singer-songwriter']	1	0
+5yhN4qXpv9cghmJglovvmg	Cem Belevi	['turkish pop']	1	0
+7k6KVFItaU7pcBvL6poIi9	Mark Eliyahu	['turkish instrumental']	1	1
+1k7amZcOwJHIJks7xrXO3E	Lil Bege	[]	1	1
+3Gm5F95VdRxW3mqCn8RPBJ	Aminé	['pop rap', 'portland hip hop', 'rap', 'underground hip hop']	1	0
+7keGfmQR4X5w0two1xKZ7d	Kungs	['edm', 'pop dance']	1	1
+726MxZBpkxnnoKl6aN7mmj	Cookin' On 3 Burners	['bboy', 'instrumental funk']	1	1
+4u5smJBskI6Adzv08PuiUP	Kiiara	['alt z', 'electropop']	1	1
+3EW0kQ1skZiK1NHg3Spt9J	Takeoff	['atl hip hop', 'rap', 'trap']	1	1
+5piE2MZ1wGpBjpDud8kTOS	Defkhan	['turkish hip hop']	1	1
+5lXfVoQxVgC5fpjkVqvNYn	Isaiah Firebrace	['australian pop']	1	0
+0NGAZxHanS9e0iNHpR8f2W	Alok	['electro house', 'pop nacional', 'sertanejo universitario', 'slap house']	1	1
+5veVxxPm1vzgi6pO2iVA8L	Bruno Martini	['pop nacional']	1	1
+7qPLO2XOUaRrRxkvLZ3AEK	Zeeba	[]	1	1
+15NtJjjHRFybdNSMyM9smT	Nevada	[]	1	1
+6V3F8MZrOKdT9fU686ybE9	Mark Morrison	['british soul']	1	1
+6PXS4YHDkKvl1wkIl4V8DL	Fetty Wap	['new jersey rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+7FvMAbdiffitFmbuJN3Vsk	Emrah Karaduman	['turkish deep house', 'turkish pop']	1	1
+7yiJcbeab3PFoFhxtNDujs	Güliz Ayla	['turkish pop']	1	0
+5v6CgRyYharxumHzMpzctL	Midi Culture	['slap house']	1	1
+5QERdsBJhGnPU3rfYE1RIA	Birol Giray (BeeGee)	[]	1	1
+18zB3rLs4ngdtnlOAcvcvD	Hale Yıldırım	[]	1	1
+4VZY0nxYMSNotbS7WjNVQy	Nyla	[]	1	1
+374sWpAJsbZckf98df2jJJ	Fuse ODG	['afrobeats', 'azonto']	1	1
+3DiDSECUqqY1AuBP8qtaIa	Alicia Keys	['neo soul', 'pop', 'r&b']	1	1
+4VHZmbhfsbLpwg1rTYGp17	Lil Bege	[]	1	1
+36qldvyTDq5idfJmNJ5B3t	Efesavage	[]	1	1
+1CTvStsvYcGi6FfDHzNg0t	Mazhar Alanson	['turkish pop', 'turkish rock']	1	0
+295s7rUdwD6adgPiYMRUAM	Musa Eroğlu	['arabesk', 'baglama', 'turkish folk']	1	0
+6zzBsqAEDo53s2dSeZzWvo	Erol Evgin	['turkish pop']	1	1
+4HayvIldCq8J4MEpyQ1Rcm	Turac Berkay	[]	1	1
+7Bcd1EfpbCeiW6aCJpRDQs	Belma Şahin	[]	1	1
+4LFgxG38Y0l4Fo1gdQelay	The Dap-Kings Horns	[]	1	1
+4TrraAsitQKl821DQY42cZ	Sigrid	['norwegian pop']	1	0
+1d0FteV32q1ue4jDMwIMH4	Replikas	['anadolu rock', 'turkish alternative', 'turkish alternative rock', 'turkish experimental', 'turkish jazz', 'turkish metal', 'turkish psych', 'turkish rock']	1	0
+1YmVpQw07GNZBW1M6tbNHt	Cegıd	[]	1	1
+0Tob4H0FLtEONHU1MjpUEp	Tinie Tempah	['dance pop', 'grime', 'pop rap']	1	1
+0CjWKoS55T7DOt0HJuwF1H	Bipolar Sunshine	['gauze pop']	1	1
+15UsOTVnJzReFVN1VCnxy4	XXXTENTACION	['emo rap', 'miami hip hop']	1	0
+3EK3opK9Hp93HJjBPupzfg	KDA	['house', 'uk house']	1	1
+0NIIxcxNHmOoyBx03SfTCD	Tinashe	['alternative r&b', 'dance pop', 'metropopolis', 'pop', 'r&b', 'urban contemporary']	1	1
+6zNQTrKQrzfHgPGVvtasBp	Bilge Nihan	['deep turkish pop', 'turkish pop']	1	1
+16GyR4WfCnIT2XST4ZLl2B	Melike Şahin	['turkish alt pop', 'turkish pop', 'turkish singer-songwriter']	1	0
+5NtIOfNyPNLgha0FwPCvKV	Güven Yüreyi	['turkish pop']	1	0
+0V7uVrIYr4FwFvUN9S4kYr	Nick Waterhouse	['chicago indie', 'funk']	1	1
+5nxcBdJcaohXiCIMuQd200	Gülçin Ergül	[]	1	1
+0k17h0D3J5VfsdmQ1iZtE9	Pink Floyd	['album rock', 'art rock', 'classic rock', 'progressive rock', 'psychedelic rock', 'rock', 'symphonic rock']	1	0
+7z2avKuuiMAT4XZJFv8Rvh	Tom Walker	['indie anthem-folk', 'uk pop']	1	0
+17lzZA2AlOHwCwFALHttmp	2 Chainz	['atl hip hop', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+21WS9wngs9AqFckK7yYJPM	PnB Rock	['melodic rap', 'rap', 'trap']	1	1
+5sWHDYs0csV6RS48xBl0tH	Two Feet	['indie poptimism', 'modern rock']	1	0
+2wJ4vsxWd7df7dRU4KcoDe	Sharon Van Etten	['art pop', 'chamber pop', 'indie rock', 'melancholia', 'new jersey indie', 'singer-songwriter']	1	0
+0gadJ2b9A4SKsB1RFkBb66	Passenger	['folk-pop', 'neo mellow']	1	0
+4qBgvVog0wzW75IQ48mU7v	KYLE	['deep underground hip hop', 'indie pop rap', 'pop rap', 'viral trap']	1	1
+0UOrkpzPED604dKzxgfJqg	Rodrigo Amarante	['nova mpb']	1	0
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	1	0
+74eY8wbrhhVD7pACbBHwHw	Imany	['french indie pop']	1	1
+5NW2uPFatEKjZQ5gpWD8HO	Filatov & Karas	['russian dance', 'russian edm', 'russian pop']	1	1
+3r17AfJCCUqC9Lf0OAc73G	Fergie	['dance pop', 'pop']	1	1
+7crPfGd2k81ekOoSqQKWWz	Stevie Nicks	['heartland rock']	1	1
+5M0lbkGluOPXLeFjApw8r8	DRAM	['pop rap', 'trap', 'underground hip hop', 'viral trap', 'virginia hip hop']	1	1
+4bL2B6hmLlMWnUEZnorEtG	Felix Jaehn	['edm', 'german dance', 'pop dance', 'tropical house']	1	1
+34SBu2kvAUh84umN8Pi0iI	Hight	['uk dance']	1	1
+0kRnT8iVzua6p3Lg2l7qfw	Sefa Cheshmberah	[]	1	1
+2WEI5FlFf3Zc5rOKTTLOJe	Bağzıları	['turkish alternative rock', 'turkish rock']	1	0
+5PlfkPxwCpRRWQJBxCa0By	HUGEL	['deep house']	1	1
+26EC7tAx17ojaMTykrS44u	Pamela Spence	[]	1	1
+0bdJZl7TDeiymDYzMJnVh2	Preme	['canadian hip hop', 'canadian trap', 'toronto rap']	1	0
+2QslFlDyZVpLYwfqyRDkNs	Onur Can Özcan	['turkce slow sarkilar', 'turkish pop', 'turkish rock']	1	0
+3aYxHPDvu8SETLVJBEUqld	Rober Hatemo	['turkish pop']	1	0
+6r514fXAl2fe5cHF6HKOHW	JRY	[]	1	1
+31rVRoX5ZG9ZyRbHvlEwjA	RuthAnne	[]	1	1
+59uWH4ed0TG4WVOYKetMJC	Emir Ersoy	[]	1	1
+3jviwAPHk5muprkV7igylB	Cem Yilmaz	[]	1	1
+1cozKvV0ZICd4V3RGTgaFA	Mümin Sarıkaya	[]	1	0
+2rnjLv6ri9SS9hbNsco2nT	Onur Baytan	[]	1	1
+2zzpznMuhKlKlqh1ma7Sms	Dakota	[]	1	1
+6IFL211nZF4xuxG0u8G6HH	Kezzo	['turkish hip hop']	1	1
+2OWh9iyVeIqJm04kwcaArP	İdo Tatlıses	['turkish pop']	1	0
+31czVneIywpUwJTNOVviJx	Sinan Akçıl	['turkish pop']	1	1
+03ApzEyHHRpivqgZ676gXK	anna RF	['israeli folk']	1	0
+2ziB7fzrXBoh1HUPS6sVFn	Audioslave	['alternative metal', 'alternative rock', 'grunge', 'hard rock', 'nu metal', 'permanent wave', 'post-grunge', 'rock', 'supergroup']	1	0
+6cEuCEZu7PAE9ZSzLLc2oQ	R3HAB	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house', 'slap house']	1	1
+6roDXEmZ6AARdOUv6x5U2v	Felix Cartal	['canadian electronic', 'electro house', 'pop dance', 'pop edm']	1	1
+43JlwunhXm1oqdKyOa2Z9Y	Hiatus Kaiyote	['alternative r&b', 'australian r&b', 'indie soul', 'shiver pop']	1	0
+7r8xR0LmnaAM623MmRDn1V	Max Frost	['austindie']	1	1
+6ZXQDIxZd9Udk63gMkSSJL	Elif Turan	['deep turkish pop']	1	0
+2jbrqAuwSdvwcMTbtvncND	MFÖ	['anadolu rock', 'turkish pop', 'turkish rock']	1	0
+7FNnA9vBm6EKceENgCGRMb	Anitta	['funk pop', 'funk rj', 'pagode baiano', 'pop', 'pop nacional']	1	1
+3FFPhZmOPdsIhmCRg8brsh	Dervişan	['anadolu rock']	1	1
+2iE18Oxc8YSumAU232n4rW	The Jackson 5	['motown', 'soul']	1	0
+73sIBHcqh3Z3NyqHKZ7FOL	Childish Gambino	['atl hip hop', 'hip hop', 'rap']	1	0
+7HPVAGjCVDzP7xcNrkwgxL	CUT_	['indie electropop']	1	0
+2FXC3k01G6Gw61bmprjgqS	Hozier	['irish singer-songwriter', 'modern rock', 'pop', 'pov: indie']	1	0
+6T5tfhQCknKG4UnH90qGnz	DNCE	['dance pop', 'pop']	1	0
+3iri9nBFs9e4wN7PLIetAw	gnash	['alt z', 'pop']	1	1
+1QRj3hoop9Mv5VvHQkwPEp	Olivia O'Brien	['alt z', 'pop']	1	1
+1bqxdqvUtPWZri43cKHac8	MAX	['viral pop']	1	0
+5X1JzPIIonP3u9lA580pPT	Francesco Yates	['canadian pop']	1	1
+2mn602IBi2DIgqVl2vnam6	Raving George	['belgian techno']	1	1
+2KsP6tYLJlTBvSUxnwlVWa	Mike Posner	['dance pop', 'pop', 'pop rap']	1	1
+1bzmtVU7jf2rRZJALkZA3j	Pera	['turkish rock']	1	0
+7hQmAXAzWI6D350VTgkKTG	Arash	['persian pop']	1	1
+3ABivHBm6ULD624ig1lgOg	Ayten Alpman	['classic turkish pop', 'turkish jazz', 'turkish modern jazz']	1	0
+3vGz6dcagQ2geGkGYY185H	Can Yüce	['turkish pop']	1	1
+12u3lf8CvN2tuYopM7GfMq	Umut Kumaş	[]	1	1
+56x1jJZ4DrXu3NXMfHpolC	Serkan Kaya	['german show tunes']	1	0
+0cJTMh5Hf6Z2iK6kBHYsC4	Dicle Olcay	[]	1	0
+4ehtJnVumNf6xzSCDk8aLB	Martin Jensen	['danish electronic', 'edm', 'pop dance']	1	0
+1sBkRIssrMs1AbVkOJbc7a	Rick Ross	['dirty south rap', 'gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap']	1	1
+4PVn1b2WnnXdq80C7uaZLZ	Nause	[]	1	1
+4bvWFV51SAEocM22uiDOza	Pretty Sister	['la pop']	1	1
+6JE0moFq3V6sH9coS8BwYz	Yılmaz Taner	[]	1	1
+0mkH5jj3goQ51JtPKVodTo	Mustafa Sandal	['turkish pop']	1	0
+6qwg1pVSlfXGev5cKGkD7V	Erik	[]	1	1
+3JXpwnHbLvXxY99EuXqFPX	Poo Bear	['pop r&b']	1	1
+5j4HeCoUlzhfWtjAfM1acR	Stromae	['belgian pop', 'g-house']	1	0
+0Xk15jHKly4c3AhPr5vjoA	Alan Silvestri	['orchestral soundtrack', 'soundtrack']	1	0
+13kKxNPnxPeeWQaAaZwvCP	Callie Hernandez	[]	1	1
+4FFGJ9ERSX06Sl8hD7GRVv	Sonoya Mizuno	[]	1	1
+21yiGQIpkiP8edfxDipQaW	Jessica Rothe	[]	1	1
+4j5KBTO4tk7up54ZirNGvK	NERVO	['australian dance', 'dutch house', 'edm', 'electra', 'electro house', 'house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+2x7EATekOPhFGRx3syMGEC	The Knocks	['alternative dance', 'indie poptimism', 'nu disco']	1	1
+0WuYfDB2hAYzybfAd75fvb	ALISA UENO	[]	1	1
+691svprNZf0oJTi1L0eYy6	Özdemir Erdoğan	['anadolu rock']	1	0
+7xEFii6utZmQ61kX59HmLH	FRENSHIP	['electropop', 'indie poptimism', 'la pop']	1	1
+3XHO7cRUPCLOr6jwp8vsx5	alt-J	['indie rock', 'indietronica', 'modern alternative rock', 'modern rock', 'rock']	1	0
+2FwJwEswyIUAljqgjNSHgP	Snakehips	['electropop']	1	1
+3fMbdgg4jU18AjLCKBhRSm	Michael Jackson	['r&b', 'soul']	1	0
+3IpQziA6YwD53PQ5xbwgLF	Jóhann Jóhannsson	['compositional ambient', 'experimental classical', 'icelandic classical', 'icelandic experimental', 'nordic soundtrack', 'soundtrack']	1	0
+1xHQO9GJIW9OXHxGBISYc5	Marian Hill	['electropop']	1	0
+6wMr4zKPrrR0UVz08WtUWc	Black Coffee	['south african house', 'south african pop', 'south african pop dance']	1	1
+1CoZyIx7UvdxT5c8UkMzHd	Jorja Smith	['r&b', 'uk contemporary r&b']	1	1
+4AVFqumd2ogHFlRbKIjp1t	Alesso	['dance pop', 'edm', 'electro house', 'pop', 'pop dance', 'progressive electro house']	1	1
+3b8QkneNDz4JHKKKlLgYZg	Florida Georgia Line	['contemporary country', 'country', 'country pop', 'country road', 'modern country rock']	1	1
+4olE3I5QU0dvSR7LIpqTXc	WATT	['modern alternative rock']	1	1
+4Ui2kfOqGujY81UcPrb5KE	HAIM	['indietronica', 'metropopolis']	1	0
+3zrUX1hQrUB9aXcOiyQLmN	Stanaj	[]	1	1
+5jAMCwdNHWr7JThxtMuEyy	NOTD	['electropop', 'pop dance', 'pop edm']	1	1
+25u4wHJWxCA9vO0CzxAbK7	Lukas Graham	['danish pop', 'scandipop']	1	0
+3tJELJoPZ4VTKmL0vppqLj	Contra	['turkish hip hop', 'turkish trap']	1	0
+7yUbh3chDbtC5mvpkWSqy0	9 Canlı	['turkish hip hop']	1	1
+0mRJgEwf2UpEc98ja9Kbth	Ersan Er	['turkce remix', 'turkish pop']	1	0
+3cjEqqelV9zb4BYE3qDQ4O	EXO	['k-pop', 'k-pop boy group']	1	0
+2u4xMsh0M2B7R8Wb3pEWae	Anıl Piyancı	['turkce drill', 'turkish hip hop', 'turkish trap']	1	0
+1l2ekx5skC4gJH8djERwh1	Don Diablo	['dutch house', 'edm', 'electro house', 'future house', 'pop dance', 'progressive electro house', 'progressive house']	1	1
+6ioOEWNNGK40H8xrGj6XPW	XYLØ	['alt z', 'indie poptimism', 'la pop']	1	1
+7J7IAR4rkzo4FcZTDid3Jk	Cash Flow	['turkish hip hop']	1	1
+0BveztSEpa980ImsnzgdmN	Boykot	[]	1	1
+13ZSDoW7YXmwyDpPDgtuCi	ZEZE	[]	1	1
+3OVWvBHwlq5w8iRJEBoCp2	Levent Yüksel	['turkish pop']	1	0
+5LUxu287CsPM7jy3yS3l86	Şanışer	['turkish hip hop']	1	1
+7ouCgJkxRBIJljUiQVJK65	Sokrat St	['turkish hip hop']	1	1
+0XLlUhAXhextrZheC0ocHK	Mithat Can Özer	[]	1	0
+6lB8vOoI4DRrrVxXwuV19c	Mike Perry	['pop dance', 'swedish tropical house']	1	1
+7eCmccnRwPmRnWPw61x6jM	shy martin	['alt z', 'swedish electropop']	1	1
+3lwSL9zmmc35p8CSrwTLmx	Berkcan Güven	[]	1	0
+5KnLt0VENhwsfmQL3y2nsY	Michel Fugain & Le Big Bazar	[]	1	0
+0mNxtGmbl3R6xfgb4JjdrK	Elvan Günaydın	['turkish pop']	1	0
+1aQhhnH3sUteqgE1EbmPec	Gülden	[]	1	1
+0PhqM7UAxtvWYi5j4MwxSl	Dolu Kadehi Ters Tut	['turkish alt pop', 'turkish rock']	1	1
+4MUb8ilmrxyePXwSkG31lC	Canozan	['turkish alt pop', 'turkish alternative rock', 'turkish rock']	1	1
+2Uxd5x92nW0Q06DoHcpSBJ	Enbe Orkestrası	[]	1	1
+41MozSoPIsD1dJM0CLPjZF	BLACKPINK	['k-pop', 'k-pop girl group', 'pop']	1	0
+0j0azdrmaf1ryrBsB3M1DG	Fatih Bogalar	[]	1	1
+1vjuwmi1StdAFvPzOStUaF	DJ Wirtual	[]	1	1
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+6gK1Uct5FEdaUWRWpU4Cl2	Petit Biscuit	['new french touch']	1	0
+5JYo7gm2dkyLLlWHjxS7Dy	Sandro Cavazza	['swedish pop']	1	1
+7mnAzEmgquhrVtGob81SmO	Big Shaq	['london rap']	1	0
+7jdFEYD2LTYjfwxOdlVjmc	KALEO	['icelandic indie', 'icelandic rock', 'modern alternative rock']	1	0
+6ltzsmQQbmdoHHbLZ4ZN25	Lord Huron	['indie folk', 'modern rock', 'stomp and holler']	1	0
+51Blml2LZPmy7TTiAg47vQ	U2	['irish rock', 'permanent wave', 'rock']	1	1
+2Y7fKAw6qx4hES4vuaPijc	Dogus Cabakcor	['turkish edm']	1	1
+0ONHkAv9pCAFxb0zJwDNTy	Pusha T	['gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap', 'virginia hip hop']	1	1
+2SrSdSvpminqmStGELCSNd	Stormzy	['grime', 'uk hip hop']	1	1
+3G0XxE8TxeByKXgwtmVE8n	Heja	['turkish hip hop']	1	1
+4rqFgP6VA72Q6NYTXKBSY0	Yankı Alper	[]	1	0
+0AJUYWKztkg5dnrHDIBv47	MiC LOWRY	[]	1	0
+62DmErcU7dqZbJaDqwsqzR	Popcaan	['dancehall', 'jamaican hip hop', 'reggae fusion', 'traphall']	1	1
+74IYRdqa9EFKMMXUIjGyxM	Merve Özbey	['turkish pop']	1	1
+1G2uUovCzQzQTxT5YM7zPN	Can Güngör	['turkish alternative', 'turkish alternative rock', 'turkish rock']	1	0
+5wPoxI5si3eJsYYwyXV4Wi	N.E.R.D	['hip hop', 'virginia hip hop']	1	1
+1tmpv57VTq9XG346FRsgqW	Colonel Bagshot	[]	1	1
+3qBKjEOanahMxlRojwCzhI	Zacari	[]	1	1
+1OLLBdj6zsFJ2GUMpk8trl	Çelik	['turkish pop']	1	0
+5TQsb2nnlnmvq0OMfwUmvE	Spitakci Hyko	[]	1	1
+6olE6TJLqED3rqDCT0FyPh	Nirvana	['grunge', 'permanent wave', 'rock']	1	0
+5FK1YzcREfjBuxM8i7UtBe	Ece Mumay	['turkish pop']	1	0
+5BcAKTbp20cv7tC5VqPFoC	Macklemore & Ryan Lewis	['pop rap', 'seattle hip hop']	1	1
+4myTppRgh0rojLxx8RycOp	Ryan Lewis	['pop rap']	1	1
+4e0nWw2r4BoQSKPQ2zpU13	Ray Dalton	[]	1	1
+2gJiBZCUPgMDAqtqYtgJwA	Iyeoka	[]	1	0
+65l8s1yyb4imsrrDUNHbj0	BÖ	['arab trap', 'turkish hip hop']	1	0
+3ZV2kReDeCXgw0RJaPV5wX	Zülfü Livaneli	['rumeli turkuleri', 'turkish folk', 'turkish rock']	1	0
+0X2BH1fck6amBIoJhDVmmJ	Ellie Goulding	['indietronica', 'metropopolis', 'pop', 'uk pop']	1	1
+6dsovaQel9LvTdY8wpWCoO	Mehmet Güreli	['turkish jazz', 'turkish rock']	1	0
+12Chz98pHFMPJEknJQMWvI	Muse	['modern rock', 'permanent wave', 'rock']	1	0
+7hssUdpvtY5oiARaUDgFZ3	Ina Wroldsen	['norwegian pop']	1	1
+2jku7tDXc6XoB6MO2hFuqg	Tory Lanez	['canadian hip hop', 'canadian trap', 'melodic rap', 'r&b', 'rap', 'toronto rap', 'trap']	1	1
+1G6vOMAmvp8zog2GhG6avm	Hayko	['armenian pop']	1	1
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	1	1
+1Fr6agZ6iSM5Ynn2k4C8sc	VÉRITÉ	['alt z', 'brooklyn indie', 'dark pop', 'electropop', 'indie poptimism', 'metropopolis', 'nyc pop', 'vapor pop']	1	0
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	1	0
+4NDYXzRT6LGbZHLeb87L5O	Sinan Ceceli	['turkish pop']	1	1
+5isqImG0rLfAgBJSPMEVXF	Blonde Redhead	['dream pop', 'indie rock', 'nu gaze', 'shoegaze']	1	0
+1hWfWJvstJQPgjZ2vDFY0P	Sufle	['turkish alt pop', 'turkish rock']	1	0
+0fs8oBR1rx7JIXZi75h7Uu	Bahari	['alt z', 'la pop']	1	1
+2iUVQjheBnvOt8vaBrxXJz	Cass McCombs	['baroque pop', 'chamber pop', 'indie rock', 'neo-psychedelic', 'singer-songwriter']	1	0
+7KUri7klyLaIFXLcuuOMCd	Stargate	['norwegian pop']	1	1
+7pYjYiy9GRdpM79rb25gjJ	The Secret Trio	['qanun', 'turkish instrumental']	1	1
+6T70tWxqyIpdVbsFvPzqM3	La La Land Cast	[]	1	0
+4bzEbwcMO2mGvLJT3Pm8hP	Çağatay Ulusoy	['turkish pop']	1	0
+2EMAnMvWE2eb56ToJVfCWs	Bryson Tiller	['kentucky hip hop', 'r&b', 'rap']	1	1
+0ylYRIvKTpv9uvTfKbYjM0	Mehmet Erdem	['turkish pop', 'turkish rock']	1	0
+19ra5tSw0tWufvUp8GotLo	George Michael	['new wave pop']	1	0
+3S0tlB4fE7ChxI2pWz8Xip	Giggs	['grime', 'london rap', 'uk hip hop']	1	1
+3oKRxpszQKUjjaHz388fVA	Parcels	['aussietronica', 'indie soul']	1	0
+6qg3g0aneq4tOJgpzIuEmT	Nigar Muharrem	['turkish pop']	1	0
+2AcUPzkVWo81vumdzeLLRN	Rhye	['art pop', 'downtempo', 'indie soul', 'indietronica', 'shimmer pop']	1	1
+0xrtgBLakrtSP3467Uodot	Raviş	[]	1	0
+1vnJ4IgK3BOqkGQ38RqAvs	yirmi7	['turkish pop', 'turkish rock']	1	1
+3IzmGNYeQnx285Npwt1Zvh	Birol Namoğlu	[]	1	1
+1pHd2SEhBRbA7RmMlaxT6v	Ayşegül Aldinç	['turkish modern jazz', 'turkish pop']	1	1
+0DdDnziut7wOo6cAYWVZC5	KREAM	['pop dance']	1	1
+6RHKEd9dpzQ4c09x8Zdaxu	Clara Mae	['alt z', 'swedish pop']	1	1
+61lyPtntblHJvA7FMMhi7E	Duke Dumont	['edm', 'house', 'pop dance', 'progressive house', 'uk dance']	1	0
+5mFKYdmiYwNJTDtSzgFyQx	Andy Shauf	['canadian indie folk', 'chamber pop', 'saskatchewan indie']	1	0
+1nbkdlGLMmM7rVNAkfoDu0	Deniz Gürzumar	['turkish hip hop']	1	1
+63f9vjw52BL5c3f5TSlg72	Beta Berk Bayındır	['turkish hip hop']	1	1
+2kucQ9jQwuD8jWdtR9Ef38	Sam Hunt	['contemporary country', 'country', 'country pop']	1	0
+48i1aKgMChNYloMbB1uJEH	Rengin	['deep turkish pop']	1	0
+188VINPQh5dyNfLUkevKqf	Olivia Holt	['alt z', 'post-teen pop']	1	0
+1fnUaXqw1G6PKF9eoyjxXR	Beşiktaş Taraftar Korosu	[]	1	1
+2SSqlSvolXwe5aCpjPUdnd	Birol Can	[]	1	1
+2feDdbD5araYcm6JhFHHw7	Labrinth	['indie poptimism', 'pop']	1	1
+4hdeFgoe7zQEJWXVIAm2yj	Melis Kar	['turkish pop']	1	0
+0q4NrXqJnc367PieejuROJ	Vice	['chicano rap']	1	1
+00Z3UDoAQwzvGu13HoAM7J	Skizzy Mars	['indie pop rap']	1	1
+2TL8gYTNgD6nXkyuUdDrMg	Jasmine Thompson	['viral pop']	1	1
+1B4KdcJA6Dh1MlAiezqc08	Zara	['arabesk', 'turkish folk', 'turkish pop']	1	1
+7iZtZyCzp3LItcw1wtPI3D	Rae Sremmurd	['melodic rap', 'mississippi hip hop', 'rap', 'trap']	1	1
+0DtXHIvJ8NWBg5pGvsgWnR	Leikeli47	['alternative r&b', 'escape room', 'trap queen']	1	0
+4KWTAlx2RvbpseOGMEmROg	R.E.M.	['alternative rock', 'athens indie', 'permanent wave', 'rock']	1	0
+5gCRApTajqwbnHHPbr2Fpi	Juicy J	['crunk', 'memphis hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+50QQNUIpoQtQSigqMpY6Cw	Lo Air	[]	1	0
+5UNzYWTYkESx4sHCbVJRvG	Gönül Akkor	['classic turkish pop', 'turk sanat muzigi']	1	0
+5EehXjjMktLuJmbRsM7YfB	Disciples	['house', 'pop dance', 'uk dance']	1	1
+6ZAqshVbKxeUR6R3F8Nb7h	Can Oflaz	[]	1	0
+79QO0Xmn1dZhvaLicS2Yrs	The Night Game	['modern alternative rock']	1	1
+2ExGrw6XpbtUAJHTLtUXUD	Stefflon Don	['dancehall', 'dancehall queen', 'uk dancehall', 'uk hip hop']	1	1
+1Xb1BccDF2oroI5r8MT5ne	Sagi Abitbul	[]	1	1
+514BZzOmPVnTcfvti7ZF2z	Guy Haliva	[]	1	1
+0jNDKefhfSbLR9sFvcPLHo	San Holo	['brostep', 'edm', 'electro house', 'electronic trap', 'future bass', 'pop dance']	1	0
+24gLJANAKvytHDVboMg7N2	Ahmet Şafak	['arabesk', 'ulkucu sarkilar']	1	0
+6kACVPfCOnqzgfEF5ryl0x	Johnny Cash	['arkansas country', 'outlaw country', 'rock']	1	0
+1UV3ii5FWWXF3jkZVeA2bb	Haluk Levent	['anadolu rock', 'turkish pop', 'turkish rock']	1	0
+1b4DN8Vj0dnj5cceMFsRYN	Dante Klein	['deep tropical house', 'dutch house', 'pop edm']	1	1
+65NscqgsoMPqBtoLbkP3jD	Bolier	['deep tropical house']	1	1
+5JJc8is4VzgOz8ZanDj18J	Arem Ozguc	['turkish edm']	1	1
+4xklx5DAtVru5uf3vSXTgf	Arman Aydin	['turkish edm']	1	1
+3y03cacOqPS9hc4UN2U9rc	NBLM	[]	1	1
+3wyVrVrFCkukjdVIdirGVY	Lil Pump	['emo rap', 'miami hip hop', 'pop rap', 'rap', 'trap']	1	0
+72OZeQyKCAebfnRJAIEpnx	Berksan	['turkish pop']	1	0
+2vVNxGBvKRQMWwI5c8KmYh	Tujamo	['dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house']	1	1
+1PnnRNGfichOAfPOn5mVyx	Sorana	['romanian pop']	1	1
+0197pmztGFKQv25xxYvsdC	Ömer Faruk Bostan	['oyun havasi']	1	0
+360IAlyVv4PCEVjgyMZrxK	Miguel	['r&b']	1	1
+74KM79TiuVKeVCqs8QtB0B	Sabrina Carpenter	['pop']	1	0
+3qm84nBOXUEQ2vnTfUTTFC	Guns N' Roses	['glam metal', 'hard rock', 'rock']	1	0
+3igRNd6ybREmpQOjHnWZyU	Gizem	['deep turkish pop']	1	0
+1eQzZsJAtBVhN9WP62oXM2	Xir	['turkish hip hop', 'turkish trap']	1	0
+14obHIpcXd2SsTyR9VBsLL	Server Uraz	['turkish hip hop', 'turkish trap']	1	0
+1QAJqy2dA3ihHBFIHRphZj	Cigarettes After Sex	['ambient pop', 'dream pop', 'el paso indie', 'shoegaze']	1	0
+4N874uPqBka1QiCvnCVOtr	Phoebe Ryan	['alt z', 'indie poptimism']	1	1
+28bHkFlKKHHudmgvnfYpiJ	Deniz Seki	['turkish pop']	1	0
+6fxyWrfmjcbj5d12gXeiNV	Denzel Curry	['dark trap', 'drill', 'hip hop', 'miami hip hop', 'rap', 'trap', 'underground hip hop']	1	0
+7ymCV8co6nSwmYFEyGmVvJ	Aydın Kurtoğlu	['turkish pop']	1	0
+0ONcicRZwAgDDZyeWrLia3	Demir Demirkan	['turkish rock']	1	0
+7uMh23xWiuR7zsNkuNcm2G	MNEK	['house', 'pop dance', 'uk contemporary r&b', 'uk dance', 'uk pop']	1	1
+7lAMAZizRgc9vwXHQOULe4	Doğan Canku	['turkish jazz']	1	0
+3tQx1LPXbsYjE9VwN1Peaa	Marc E. Bassy	['indie pop rap']	1	1
+5dHt1vcEm9qb8fCyLcB3HL	A$AP Ferg	['hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	0
+3i5LEBNq1A00tgvcmB97vV	Birsen Tezer	['turkish jazz', 'turkish modern jazz', 'turkish rock']	1	1
+2AhmWHekrahJri4f5e08Tf	Hakan Altun	['arabesk', 'karadeniz pop', 'turkish pop']	1	1
+0ou1EkRCAJcfRv2P1qKVPo	Flört	['turkish alternative rock', 'turkish psych', 'turkish rock']	1	0
+6zkX5fhrSD4tdVOmimR9wB	Oscar Peterson	['bebop', 'contemporary post-bop', 'jazz', 'jazz piano', 'stride', 'vocal jazz']	1	0
+3WGpXCj9YhhfX11TToZcXP	Troye Sivan	['australian pop', 'pop', 'viral pop']	1	1
+293zczrfYafIItmnmM3coR	Chuck Berry	['blues', 'blues rock', 'classic rock', 'rock', 'rock-and-roll', 'rockabilly', 'soul']	1	0
+21ppfKgGToa81HQE0kET5P	Gece Yolcuları	['turkish pop', 'turkish rock']	1	0
+4poL7YCSkG7kMnWjAdDU91	Era Istrefi	['albanian hip hop', 'albanian pop', 'kosovan pop']	1	0
+0Jzbm3ifxDNLxxS8M4BS51	Massari	['canadian pop', 'lebanese pop']	1	0
+3JAjt6oAXVTMvCYHsc0tIC	Pamela	['turkish rock']	1	0
+3tVQdUvClmAT7URs9V3rsp	Wizkid	['afrobeats', 'afropop', 'azonto', 'azontobeats', 'nigerian hip hop', 'nigerian pop']	1	1
+77DAFfvm3O9zT5dIoG0eIO	Kyla	['uk funky']	1	1
+5K4W6rqBFWDnAN6FQUkS6x	Kanye West	['chicago rap', 'hip hop', 'rap']	1	0
+4LcUpNlXFEleaLlelmkv2R	Kris Kross Amsterdam	['dutch house', 'dutch pop']	1	1
+7Ln80lUS6He07XvHI8qqHH	Arctic Monkeys	['garage rock', 'modern rock', 'permanent wave', 'rock', 'sheffield indie']	1	0
+1m4zBvdnlrleyq7JJ6A6Bi	Kubat	['arabesk', 'oyun havasi', 'turkish folk']	1	1
+6rVs4DcTHKUVdFFNq4CEYo	Umut Kuzey	['turkish alternative', 'turkish rock']	1	1
+0vAw8AfCObQgZlXRSRILOq	Orange Blossom	['electro dub']	1	0

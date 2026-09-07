@@ -12,17 +12,7 @@ def test_research_window_is_loaded_from_configuration() -> None:
     assert settings.research.end_date is None
 
 
-def test_initial_country_codes_are_exact() -> None:
+def test_market_universe_is_not_a_static_country_whitelist() -> None:
     settings = Settings.load(PROJECT_ROOT)
 
-    assert {country.code for country in settings.countries} == {
-        "BR",
-        "US",
-        "GB",
-        "FR",
-        "DE",
-        "ES",
-        "PT",
-        "IT",
-        "SE",
-    }
+    assert settings.countries == ()

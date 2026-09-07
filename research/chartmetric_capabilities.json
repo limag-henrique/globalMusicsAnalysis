@@ -1,0 +1,1388 @@
+[
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "AE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "AR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "AT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "AU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "BE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "BG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "BO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "BR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "BY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "CZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "DE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "DK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "DO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "EC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "EE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "EG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "ES",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "FI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "FR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "GB",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "GR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "GT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "HK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "HN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "HU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "ID",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "IE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "IL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "IN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "IS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "IT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "JP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "KR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "KZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "LT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "LU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "LV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "MA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "MX",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "MY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "NG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "NI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "NL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "NO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "NZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "PY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "RO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "SA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "SE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "SG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "SK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "SV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "TH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "TR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "TW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "UA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "US",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "UY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "VE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "VN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "SPOTIFY",
+    "country_code": "ZA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "APPLEMUSIC",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": false,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "HTTP_400"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "DEEZER",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": false,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "HTTP_400"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "QQ",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": false,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "HTTP_400"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "AMAZON",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": false,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "HTTP_400"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  }
+]

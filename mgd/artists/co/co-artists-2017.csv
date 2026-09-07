@@ -1,0 +1,521 @@
+artist_id	name	genres	num_hits	num_collab_hits
+1i8SpTcr7yvPOmcqrbnVXY	Ozuna	['puerto rican pop', 'reggaeton', 'trap latino', 'urbano latino']	48	35
+4q3ewBCX7sLwd24euuV69X	Bad Bunny	['reggaeton', 'trap latino', 'urbano latino']	44	41
+1SupJlEpv7RS2tPNRaHViT	Nicky Jam	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	41	34
+1vyhD5VmyZ7KMfW5gqLgo5	J Balvin	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	36	30
+329e4yvIujISKGKz1BZZbO	Farruko	['reggaeton', 'trap latino', 'urbano latino']	29	27
+0eHQ9o50hj6ZDNBt6Ys1sD	Yandel	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	28	24
+1r4hJ1h58CWwUQe3MxPuau	Maluma	['latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	27	23
+4vhNDa5ycK0ST968ek7kRr	Carlos Vives	['colombian pop', 'latin pop', 'vallenato']	27	11
+6XyY86QOPPrYVGvF9ch6wz	Linkin Park	['alternative metal', 'nu metal', 'post-grunge', 'rap metal', 'rock']	24	3
+3E6xrwgnVfYCrCs0ePERDz	Wisin	['reggaeton', 'urbano latino']	23	21
+4SsVbpTthjScTS7U2hmr1X	Arcángel	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	23	23
+0EmeFodog0BfCgMzAIvKQp	Shakira	['colombian pop', 'dance pop', 'latin pop', 'pop']	22	13
+0UWZUmn7sybxMCqrw9tGa7	Juanes	['colombian pop', 'latin pop', 'mexican pop', 'rock en espanol']	22	7
+4VMYDCV2IEDYJArk749S6m	Daddy Yankee	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	22	20
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	22	4
+3OcvS8PzSGYMBvLdzY6g3e	Silvestre Dangond	['colombian pop', 'vallenato', 'vallenato moderno']	20	6
+15g2N69hNuvVjSUqa9Entz	El Gran Martín Elías	['vallenato', 'vallenato moderno']	20	4
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	16	6
+0du5cEVh5yTK9QJze8zA0C	Bruno Mars	['dance pop', 'pop']	16	3
+07YUOmWljBTXwIseAUd9TW	Sebastian Yatra	['colombian pop', 'latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	15	9
+04gDigrS5kc9YWfZHwBETP	Maroon 5	['pop']	15	12
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	14	10
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	13	13
+3EiLUeyEcA6fbRPSHkG5kb	De La Ghetto	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	13	13
+00me4Ke1LsvMxt5kydlMyU	Cosculluela	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	13	12
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	12	8
+790FomKkXshlbRYZFtlgla	KAROL G	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	12	9
+3IUAZiICL3J7GlHYPgT414	Rodolfo Aicardi	['cumbia', 'musica popular colombiana']	12	1
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	11	9
+5C4PDR4LnhZTbVnKWXuDKD	Morat	['colombian pop']	11	5
+21451j1KhjAiaYKflxBjr1	Zion & Lennox	['reggaeton', 'urbano latino']	11	10
+6jJ0s89eD6GaHleKKya26X	Katy Perry	['pop']	10	8
+738wLrAtLtCtFOLvQBXOXp	Major Lazer	['dance pop', 'edm', 'electro house', 'moombahton', 'pop', 'pop dance']	10	10
+3Isy6kedDrgPYoTS1dazA9	Sean Paul	['dance pop', 'dancehall', 'pop', 'pop rap']	10	10
+5lwmRuXgjX8xIwlnauTZIP	Romeo Santos	['bachata', 'latin hip hop', 'latin pop', 'urbano latino']	10	2
+1RBzGO6Nm3uyhUSxP7EDWO	KEVIN ROLDAN	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	10	5
+6w9ToX5slZ4uIdmD17hJ3c	Bryant Myers	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	9	9
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	9	0
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	9	1
+4bw2Am3p9ji3mYsXNXtQcd	Piso 21	['colombian pop', 'latin pop', 'reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	9	6
+2ayNSoKPCRAfjp6hQ76hRu	Nacho	['latin pop', 'pop venezolano', 'reggaeton', 'trap latino', 'urbano latino']	9	8
+4gzpq5DPGxSnKTe4SA8HAU	Coldplay	['permanent wave', 'pop']	9	3
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	9	1
+64aJYyrXljOodnUG6jvhRD	DJ Luian	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	9	9
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	8	6
+1HBjj22wzbscIZ9sEb5dyf	Jonas Blue	['pop', 'pop dance', 'tropical house', 'uk dance']	8	8
+1Cs0zKBU1kc0i8ypK3B9ai	David Guetta	['big room', 'dance pop', 'edm', 'pop', 'pop dance']	8	5
+3RtNN1VnooWEn3KQk03DUL	Noriel	['reggaeton', 'trap latino', 'urbano latino']	8	8
+3AA28KZvwAUcZuOKwyblJQ	Gorillaz	['alternative hip hop', 'modern rock', 'rock']	8	5
+23fqKkggKUBHNkbKtXEls4	Kygo	['edm', 'pop', 'pop dance', 'tropical house']	8	8
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	8	1
+6Ud6RjvNXVe39mKiGUb7zE	Pastor Lopez	['cumbia', 'musica popular colombiana', 'tropical']	8	1
+53KTldaJ8tHSkYU3nigfwP	Fonseca	['colombian pop', 'latin pop']	8	5
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	8	5
+02OR1V0L1ODy7dDlBLTOvx	Kraken	['colombian rock', 'latin metal', 'metal colombiano']	8	0
+1l8Fu6IkuTP0U5QetQJ5Xt	Fifth Harmony	['girl group', 'pop', 'talent show']	8	6
+66NweiA3nU84k1S3SZdTSG	Diomedes Diaz	['cumbia', 'vallenato']	8	8
+6S2OmqARrzebs0tKUEyXyp	Demi Lovato	['pop', 'post-teen pop']	8	2
+2T1aUibqR2QC2sINIDQOAK	Mambo Kingz	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	8	8
+2R21vXR83lH98kGeO99Y66	Anuel AA	['reggaeton', 'reggaeton flow', 'trap boricua', 'trap latino', 'urbano latino']	8	8
+0i5iO6icb7kxg48thi9gBM	Manuel Medrano	['colombian pop']	7	2
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	7	4
+69GGBxA162lTqCwzJG5jLp	The Chainsmokers	['electropop', 'pop']	7	4
+1phfTBIocBW3UwqcYjaEN6	Mike Bahía	['colombian pop', 'latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	7	2
+33ScadVnbm2X8kkUqOkC6Z	Don Omar	['latin hip hop', 'puerto rican pop', 'reggaeton', 'trap latino', 'urbano latino']	7	7
+4wLXwxDeWQ8mtUIRPxGiD6	Marc Anthony	['latin pop', 'modern salsa', 'salsa', 'tropical']	7	3
+5DUlefCLzVRzNWaNURTFpK	Cali Y El Dandee	['colombian pop', 'electro latino', 'latin pop', 'reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	7	6
+26VFTg2z8YR0cCuwLzESi2	Halsey	['electropop', 'etherpop', 'indie poptimism', 'pop']	7	4
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	7	6
+5pKCCKE2ajJHZ9KAiaK11H	Rihanna	['barbadian pop', 'pop', 'urban contemporary']	7	6
+0tmwSHipWxN12fsoLcFU3B	Manuel Turizo	['colombian pop', 'reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	7	4
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	6	6
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	6	5
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	6	4
+6vXTefBL93Dj5IqAWq6OTv	French Montana	['hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	6	6
+5Pwc4xIPtQLFEnJriah9YJ	OneRepublic	['piano rock', 'pop']	6	4
+7BFnoFhJjLWcsqmN3Hizqg	Joe Arroyo	['salsa', 'salsa colombiana', 'tropical']	6	3
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	6	0
+5dbaLmK5SHLLg8Z4CcTJpX	Greeicy	['colombian pop', 'latin pop', 'r&b en espanol', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	6	3
+2jyCUmtPh36YRwhuhxzUZ3	Juancho De La Espriella	['vallenato', 'vallenato moderno']	6	6
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	6	4
+0LyfQWJT6nXafLPZqxe9Of	Various Artists	[]	6	0
+5n9bMYfz9qss2VOW89EVs2	Bomba Estéreo	['cumbia', 'latin alternative', 'latin rock', 'pop electronico', 'tropical alternativo']	6	0
+1fctva4kpRbg2k3v7kwRuS	Rvssian	['reggaeton', 'trap latino', 'urbano latino']	6	6
+7tYKF4w9nC0nq9CsPZTHyP	SZA	['pop', 'r&b', 'rap']	6	6
+0bdfiayQAKewqEvaU6rXCv	MØ	['danish pop', 'electropop', 'pop', 'pop dance']	6	4
+2cy1zPcrFcXAJTP0APWewL	Gente De Zona	['cubaton', 'electro latino', 'latin hip hop', 'latin pop']	6	5
+2ziB7fzrXBoh1HUPS6sVFn	Audioslave	['alternative metal', 'alternative rock', 'grunge', 'hard rock', 'nu metal', 'permanent wave', 'post-grunge', 'rock', 'supergroup']	6	0
+1JzCCMAjM3FCr9eM3jp0uH	Kaleth Morales	['vallenato']	5	3
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	5	3
+2RdwBSPQiwcmiDo9kixcl8	Pharrell Williams	['dance pop', 'pop']	5	4
+4A0TivfinfALCAMJqqjZIk	Funk Wav	[]	5	5
+12vb80Km0Ew53ABfJOepVz	Ñengo Flow	['reggaeton', 'trap latino', 'urbano latino']	5	5
+7tU1VKOuxiNZwBZC6RHidA	Alexis y Fido	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	5	3
+49Z1AvGeUaBSanPaOmplK6	Andrés Cepeda	['colombian pop']	5	1
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	5	0
+682qzOnGxexrwH41Cy51Hu	Alzate	['colombian pop', 'musica popular colombiana']	5	0
+60d24wfXkVzDSfLS6hyCjZ	Martin Garrix	['dutch edm', 'edm', 'pop', 'pop dance', 'progressive house']	5	5
+6VuMaDnrHyPL1p4EHjYLi7	Charlie Puth	['pop', 'viral pop']	5	3
+7qG3b048QCHVRO5Pv1T5lw	Enrique Iglesias	['dance pop', 'latin pop', 'mexican pop']	5	5
+7FNnA9vBm6EKceENgCGRMb	Anitta	['funk pop', 'funk rj', 'pagode baiano', 'pop', 'pop nacional']	5	5
+0TnOYISbd1XYRBk9myaseg	Pitbull	['dance pop', 'miami hip hop', 'pop']	5	5
+6oMuImdp5ZcFhWP0ESe6mG	Migos	['atl hip hop', 'hip hop', 'rap', 'trap']	5	5
+4dpARuHxo51G3z768sgnrY	Adele	['british soul', 'pop', 'pop soul', 'uk pop']	5	0
+14zUHaJZo1mnYtn6IBRaRP	Justin Quiles	['reggaeton', 'trap latino', 'urbano latino']	5	4
+0ZDAU5BLvLXTYqlrjW6KF1	Juancho Rois	['vallenato']	5	5
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	5	4
+0eecdvMrqBftK0M1VKhaF4	CNCO	['boy band', 'latin pop', 'reggaeton', 'urbano latino']	5	3
+1jSjfSgDjedJdi5MoyRu78	Lary Over	['reggaeton', 'trap latino', 'urbano latino']	4	4
+00XhexlJEXQstHimpZN910	Brytiago	['reggaeton', 'trap latino', 'urbano latino']	4	4
+2DP9xStkVVv753RBiEHXQB	Alkilados	['colombian pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	4	3
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	4	4
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	4	4
+4xYpn9uFxh8aFPM08Zf5IK	Martin Elías	['vallenato', 'vallenato moderno']	4	4
+540vIaP2JwjQb9dm3aArA4	DJ Snake	['edm', 'electronic trap', 'pop', 'pop dance']	4	4
+4gUlOT8yUtjFDWKlkEpLI4	Los Corraleros De Majagual	['cumbia', 'folclor afrocolombiano', 'musica popular colombiana']	4	0
+6P6GTRTigHBp8ZesNtpCKH	Almighty	['reggaeton flow', 'trap latino', 'urbano latino']	4	4
+0VWoer2RDTKY4Sr9U93QTJ	Rolando Ochoa	['vallenato moderno']	4	4
+1ackd5XprZEkH3McKbQD51	Juan Magán	['electro latino', 'spanish pop']	4	4
+1zng9JZpblpk48IPceRWs8	Grupo Niche	['salsa', 'salsa colombiana', 'tropical']	4	0
+7DMveApC7UnC2NPfPvlHSU	Cheat Codes	['edm', 'pop', 'pop dance']	4	4
+13y7CgLHjMVRMDqxdx0Xdo	Gucci Mane	['atl hip hop', 'dirty south rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	4	4
+2wUjUUtkb5lvLKcGKsKqsR	Alessia Cara	['canadian contemporary r&b', 'canadian pop', 'pop']	4	2
+3MHaV05u0io8fQbZ2XPtlC	Prince Royce	['bachata', 'latin hip hop', 'latin pop', 'urbano latino']	4	3
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	4	3
+5H1nN1SzW0qNeUEZvuXjAj	Danny Ocean	['pop venezolano', 'reggaeton', 'trap latino', 'urbano latino']	4	0
+00FQb4jTyendYWaN8pK0wa	Lana Del Rey	['art pop', 'pop']	4	2
+0FTkvpgQfrCz3ku0oSbrYU	Los 50 De Joselito	['cumbia', 'musica popular colombiana', 'tropical']	4	0
+3PAwspMN27PDm81WwXDsMf	Reykon	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	4	2
+1Hsdzj7Dlq2I7tHP7501T4	Niall Horan	['pop']	4	0
+1KCSPY1glIKqW2TotWuXOR	P!nk	['dance pop', 'pop']	4	2
+0ZED1XzwlLHW4ZaG4lOT6m	Julia Michaels	['pop']	4	2
+5aAlzehdUM14I4ppq24Xob	Fruko Y Sus Tesos	['salsa', 'salsa colombiana']	3	0
+5exS0bytCYdixgv02DaCm3	William Singe	[]	3	3
+0GgyFUpOyzWDRDqx8FCTDN	Baby Rasta	['reggaeton', 'trap latino', 'urbano latino']	3	3
+0epOFNiUfyON9EYx7Tpr6V	The Strokes	['alternative rock', 'garage rock', 'modern rock', 'permanent wave', 'rock']	3	0
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	3	3
+1TtXnWcUs0FCkaZDPGYHdf	Darell	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	3	3
+4tZwfgrHOc3mvqYlEYSvVi	Daft Punk	['electro', 'filter house', 'rock']	3	3
+3YQKmKGau1PzlVlkL1iodx	Twenty One Pilots	['modern rock', 'pop', 'pov: indie', 'rock']	3	0
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	3	3
+4gL0wUwZLxSxMi1rL9q84p	Guillermo Buitrago	['classic colombian pop', 'cumbia', 'musica popular colombiana']	3	0
+4IMAo2UQchVFyPH24PAjUs	Jowell & Randy	['reggaeton', 'urbano latino']	3	3
+0vR2qb8m9WHeZ5ByCbimq2	Reik	['latin arena pop', 'latin pop', 'mexican pop', 'reggaeton']	3	2
+6XFITTl7cFTdopDY3lUdlY	J Alvarez	['reggaeton', 'urbano latino']	3	2
+5y2Xq6xcjJb2jVM54GHK3t	John Legend	['neo soul', 'pop', 'pop soul', 'urban contemporary']	3	0
+3t5xRXzsuZmMDkQzgOX35S	Robin Schulz	['deep euro house', 'deep house', 'edm', 'german dance', 'pop dance', 'tropical house']	3	3
+5EvFsr3kj42KNv97ZEnqij	Shaggy	['dance pop', 'pop rap', 'reggae fusion']	3	3
+163tK9Wjr9P9DmM0AVK7lm	Lorde	['art pop', 'metropopolis', 'nz pop', 'pop']	3	0
+5M9Bb4adKAgrOFOhc05Y50	Pablo Alborán	['latin arena pop', 'latin pop', 'spanish pop']	3	0
+4V8Sr092TqfHkfAA5fXXqG	Luis Fonsi	['latin pop', 'puerto rican pop']	3	3
+02kJSzxNuaWGqwubyUba0Z	G-Eazy	['indie pop rap', 'oakland hip hop', 'pop rap', 'rap']	3	3
+1GDbiv3spRmZ1XdM1jQbT7	NATTI NATASHA	['latin pop', 'rap latina', 'reggaeton', 'urbano latino']	3	3
+2LRoIwlKmHjgvigdNGBHNo	Feid	['colombian pop', 'pop reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	3	3
+5iNrZmtVMtYev5M9yoWpEq	Seeb	['pop dance']	3	3
+4ryoUS0W8qXokfMxrlJt6O	Skip Marley	['modern reggae']	3	3
+1URnnhqYAYcrqrcwql10ft	21 Savage	['atl hip hop', 'hip hop', 'rap', 'trap']	3	3
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	3	3
+3nwYsifpwrKmCIpw4i0HDW	Konshens	['dancehall', 'traphall']	3	3
+2qxJFvFYMEDqd7ui6kSAcq	Zedd	['complextro', 'edm', 'german techno', 'pop', 'pop dance']	3	3
+2AiZXMqpVlCDnz3trZbWaK	The Latin Brothers	['salsa', 'salsa colombiana']	3	0
+3HPOnbuwLP2qlwWQ7cgxYW	Xantos	['reggaeton']	3	3
+7oCLjINIMWifuknBBsg3CO	Dynell	[]	3	3
+64M6ah0SkkRsnPGtGiRAbb	Bebe Rexha	['dance pop', 'pop']	3	2
+38zyliF0xdJKS7k1BIEuL6	Billo's	['cumbia', 'jazz venezolano', 'salsa', 'tropical']	3	1
+1vCWHaC5f2uS3yhpwWbIA6	Avicii	['edm', 'pop', 'pop dance']	3	2
+5CCwRZC6euC8Odo6y9X8jr	Rita Ora	['dance pop', 'pop', 'uk pop']	3	1
+6tkyhGe9hGI3Lcfo4gVh6Z	ChocQuibTown	['colombian hip hop', 'colombian pop', 'latin alternative', 'reggaeton colombiano', 'salsa choke']	3	2
+4kYGAK2zu9EAomwj3hXkXy	JP Cooper	['uk pop']	3	2
+137W8MRPWKqSmrBGDBFSop	Wiz Khalifa	['hip hop', 'pittsburgh rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	3	3
+2XnBwblw31dfGnspMIwgWz	Axwell /\ Ingrosso	['edm', 'pop dance', 'progressive electro house']	3	0
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	3	1
+5KKpBU5eC2tJDzf0wmlRp2	RAYE	['uk contemporary r&b', 'uk pop']	3	3
+1Xylc3o4UrD53lo9CvFvVg	Zara Larsson	['pop', 'scandipop', 'swedish electropop', 'swedish pop']	3	1
+5pUo3fmmHT8bhCyHE52hA6	Liam Payne	['pop']	3	3
+6MDME20pz9RveH9rEXvrOM	Clean Bandit	['pop', 'uk dance', 'uk funky']	3	3
+2HPaUgqeutzr3jx5a9WyDV	PARTYNEXTDOOR	['r&b', 'rap', 'toronto rap', 'urban contemporary']	3	3
+55Aa2cqylxrFIXC767Z865	Lil Wayne	['hip hop', 'new orleans rap', 'pop rap', 'rap', 'trap']	3	3
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	3	3
+1zNqDE7qDGCsyzJwohVaoX	Anne-Marie	['pop']	3	3
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	3	3
+77AiFEVeAVj2ORpC85QVJs	Steve Aoki	['edm', 'electro house', 'pop dance']	3	3
+4pndENcUE4a4i27yDe7coJ	Juank Ricardo	[]	2	2
+6kq4GHwUcUojGIu0ziSNXf	Amenazzy	['rap dominicano', 'reggaeton', 'trap latino', 'urbano latino']	2	2
+0ONHkAv9pCAFxb0zJwDNTy	Pusha T	['gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap', 'virginia hip hop']	2	2
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	2	0
+5he5w2lnU9x7JFhnwcekXX	Skrillex	['brostep', 'complextro', 'edm', 'electro', 'pop dance']	2	2
+5fMUXHkw8R8eOP2RNVYEZX	Diplo	['edm', 'electro house', 'moombahton', 'pop dance']	2	2
+0c173mlxpT3dSFRgMO8XPh	Big Sean	['detroit hip hop', 'hip hop', 'pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	2	2
+7slfeZO9LsJbWgpkIoXBUJ	Ricky Martin	['latin pop', 'mexican pop', 'puerto rican pop']	2	2
+5NS0854TqZQVoRmJKSWtFZ	Chino & Nacho	['electro latino', 'latin hip hop', 'latin pop', 'urbano latino']	2	2
+6sq1yF0OZEWA4xoXVKW1L9	Alejandro Fernández	['latin arena pop', 'latin pop', 'mariachi', 'mexican pop', 'musica mexicana', 'ranchera']	2	1
+54h3j85gGrqCsfK8D0RuUM	La Verdad	[]	2	2
+5yG7ZAZafVaAlMTeBybKAL	Iggy Azalea	['australian hip hop', 'dance pop', 'pop']	2	1
+3dRWpmlPfc18U3up8MYCKX	Mueka	['reggaeton flow']	2	2
+1G89WXRVVAEjU4VIwgg6XD	Ventino	['colombian pop', 'latin viral pop']	2	0
+5luyt0SUvGkDMY4ILP6Qhl	Descemer Bueno	['cubaton']	2	2
+6kXm2YCtdUOpRYNKeKhfue	Ryan Gosling	['hollywood']	2	1
+2pQAUIesBqfT87PaM1ijtk	Trap Capos	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	2	2
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	2	2
+4IWBUUAFIplrNtaOHcJPRM	James Arthur	['pop', 'talent show', 'uk pop']	2	1
+7x5Slu7yTE5icZjNsc3OzW	Willie Colón	['salsa', 'tropical']	2	0
+4sTQVOfp9vEMCemLw50sbu	Galantis	['dance pop', 'edm', 'pop', 'pop dance']	2	1
+5p7f24Rk5HkUZsaS3BLG5F	Hailee Steinfeld	['pop']	2	2
+2OnKRchqP7tT0FzTvWIFI7	Wolfine	['colombian pop', 'reggaeton', 'urbano latino']	2	0
+1c84wItoiAe1pEbpJMqUmQ	Oscar D'León	['salsa', 'salsa venezolana', 'tropical']	2	1
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	2	0
+2iewjNvcxTxH8Pyi7S0KF3	Lisandro Meza	['cumbia', 'folclor colombiano', 'musica andina colombiana', 'musica popular colombiana']	2	0
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	2	1
+4xRYI6VqpkE3UwrDrAZL8L	Logic	['conscious hip hop', 'hip hop', 'pop rap', 'rap']	2	2
+5JZ7CnR6gTvEMKX4g70Amv	Lauv	['pop']	2	1
+7lCRuW6BSXGAsxuQV9lR0i	Gigolo Y La Exce	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	2	2
+2h93pZq0e7k5yf4dywlkpM	Frank Ocean	['lgbtq+ hip hop', 'neo soul']	2	2
+2DlGxzQSjYe5N6G9nkYghR	Jennifer Lopez	['dance pop', 'pop', 'urban contemporary']	2	2
+6veh5zbFpm31XsPdjBgPER	BIA	['rap latina', 'trap queen']	2	2
+51XrH5fQP2oIQynuKxSWcW	Sky Rompiendo	['urbano latino']	2	2
+7hIqJfRYGBWWT1Qxu6Cpd2	Andy Rivera	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	2	1
+5X2f5xZkE0nn1b3gjKQH88	Gabriel Romero	['classic colombian pop', 'cumbia']	2	0
+1U1el3k54VvEUzo3ybLPlM	Kali Uchis	['colombian pop']	2	2
+4ON1ruy5ijE7ZPQthbrkgI	Burak Yeter	['electro house']	2	2
+7Dz9goFmVZZqvJxZoKg7pF	Danelle Sandoval	['nyc pop']	2	2
+0DxeaLnv6SyYk2DOqkLO8c	MAGIC!	['pop', 'reggae fusion']	2	1
+0XHiH53dHrvbwfjYM7en7I	Chris Cornell	['alternative metal', 'alternative rock', 'grunge', 'hard rock', 'nu metal', 'post-grunge', 'rock']	2	0
+1mX1TWKpNxDSAH16LgDfiR	Jesse & Joy	['latin arena pop', 'latin pop', 'mexican pop']	2	1
+4Esb8jfP35nF3O85C0jgKC	Gadiel	['reggaeton']	2	2
+23wEWD21D4TPYiJugoXmYb	Thalia	['latin pop', 'mexican pop']	2	2
+3JhNCzhSMTxs9WLGJJxWOY	Macklemore	['pop rap', 'seattle hip hop']	2	2
+4utLUGcTvOJFr6aqIJtYWV	Skylar Grey	['piano rock', 'viral pop']	2	2
+5p1D7KgsRRcS9gpQyRARrL	Peter Manjarrés	['vallenato', 'vallenato moderno']	2	2
+6dexNK5MjEL8UvmA5MjSgg	Felipe Peláez	['colombian pop', 'vallenato', 'vallenato moderno']	2	2
+1mux8L6xg2Cmrc7k0wQczl	Bacilos	['colombian pop', 'latin alternative', 'latin pop', 'rock en espanol']	2	0
+2KsP6tYLJlTBvSUxnwlVWa	Mike Posner	['dance pop', 'pop', 'pop rap']	2	2
+3t6M0vALIHegaQcuJPjYbM	Los de Yolombó	[]	2	0
+2wYOpkTJZGByNEOjEnSmoW	Revol	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	2	2
+02A3cEvlLLCbIMVDrK2GHV	Starley	['aussietronica']	2	2
+33JQK4UoS2aMPYBfdB5Ftt	Ryan Riback	['melbourne bounce']	2	2
+0uGk2czvcpWQA383Im6ajf	Maggie Lindemann	['alt z', 'dark pop', 'pop']	2	2
+0CEK8AzyeD5ZUdUloB6yQV	CADE	['pop edm']	2	2
+4RSyJzf7ef6Iu2rnLdabNq	Willy William	[]	2	2
+1okJ4NC308qbtY9LyHn6DO	BloodPop®	['electropop']	2	2
+5lFhCi03HDneWzvCxGctrT	Jory Boy	['reggaeton', 'trap latino', 'urbano latino']	2	2
+3e7awlrlDSwF3iM0WBjGMp	Little Mix	['girl group', 'pop', 'talent show', 'uk pop']	2	1
+5sK8BsvyDl4TFA6KaBf8or	Charly Black	['dancehall', 'jamaican dancehall']	2	1
+4AVFqumd2ogHFlRbKIjp1t	Alesso	['dance pop', 'edm', 'electro house', 'pop', 'pop dance', 'progressive electro house']	2	2
+51Blml2LZPmy7TTiAg47vQ	U2	['irish rock', 'permanent wave', 'rock']	2	0
+4Q6nIcaBED8qUel8bBx6Cr	Jax Jones	['dance pop', 'edm', 'house', 'pop dance', 'uk dance', 'uk pop']	2	2
+0JIMhbNg4VwToE3unSL3C4	Bobby Cruz	['boogaloo', 'salsa']	2	2
+5M0lbkGluOPXLeFjApw8r8	DRAM	['pop rap', 'trap', 'underground hip hop', 'viral trap', 'virginia hip hop']	2	2
+7vk5e3vY1uw9plTHJAMwjN	Alan Walker	['electro house']	2	0
+7pFeBzX627ff0VnN6bxPR4	Desiigner	['pop rap', 'rap', 'southern hip hop', 'trap', 'viral trap']	2	1
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	2	2
+1XTGADISSMRf8B4TcVGYUC	Ky-Mani Marley	['reggae', 'reggae fusion']	2	2
+1pgDilWYDWLoOgGjf1iHNu	Zion	['reggaeton', 'urbano latino']	2	2
+7An4yvF7hDYDolN4m5zKBp	Soda Stereo	['argentine rock', 'latin alternative', 'latin rock', 'post-punk argentina', 'rock en espanol', 'ska argentino']	2	0
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	2	1
+3f4OfcNtgL9MLgiyOdIHC7	JENCARLOS	['latin pop', 'pop reggaeton']	2	2
+4Rxn7Im3LGfyRkY2FlHhWi	Nick Jonas	['dance pop', 'pop']	2	1
+2pZ81eCkqxemIjqqfE1fhE	Guayacán Orquesta	['salsa', 'salsa colombiana']	2	0
+3J0BpFVUc9LeOIVeN5uNhU	Lauren Jauregui	['r&b']	2	2
+57WHJIHrjOE3iAxpihhMnp	Louis Tomlinson	['pop']	2	2
+3smfreCkyJt7bShaTYpG77	Carlos Baute	['latin pop', 'spanish pop']	2	2
+5ClJtuiNlr83ua45Dvpcf7	Santiago Cruz	['colombian pop', 'latin pop']	2	0
+0qTZZWLzuD59Un5r1speHm	Chris Jedi	['reggaeton', 'trap latino', 'urbano latino']	2	2
+5xUf6j4upBrXZPg6AI4MRK	Soundgarden	['alternative metal', 'alternative rock', 'classic rock', 'grunge', 'hard rock', 'nu metal', 'rock']	1	0
+5bWUlnPx9OYKsLiUJrhCA1	Jon Z	['reggaeton', 'trap latino', 'urbano latino']	1	1
+4z19QMyPVRwbd4Fs2LisBa	Darkiel	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+2GzKA5uPf3Nef6JjkUNk4H	Lyan	['reggaeton flow']	1	1
+0tR60pwxQ5WKjPxQcKoCQ7	Messiah	['trap dominicano', 'trap latino']	1	1
+0cTSCsVx04SSht9V6cpKN0	Mavis Staples	['black americana', 'soul', 'southern soul', 'spirituals']	1	1
+1HxJeLhIuegM3KgvPn8sTa	Jack Ü	['edm', 'electro house', 'pop dance']	1	1
+6s22t5Y3prQHyaHWUN1R1C	AJR	['pov: indie']	1	0
+1rw8ZTLnDHd74TWDDukjVi	Conrad Sewell	['australian pop']	1	1
+5RyWXf5wVWQa9UOnnsjpY2	Enzo Ortiz	[]	1	1
+6d47Z08T4snK50HgTEHo5Z	Sage The Gemini	['hyphy', 'pop rap', 'southern hip hop', 'trap']	1	0
+2o5jDhtHVPhrJdv3cEQ99Z	Tiësto	['big room', 'brostep', 'dutch edm', 'edm', 'house', 'pop dance', 'slap house', 'trance']	1	1
+1Dn88PoQjnQgLTOaokePFz	Bright Sparks	[]	1	1
+4Z8W4fKeB5YxbusRsdQVPb	Radiohead	['alternative rock', 'art rock', 'melancholia', 'oxford indie', 'permanent wave', 'rock']	1	0
+1B0Rp4SWGnFgGCPU5Pju6E	Nego do Borel	['funk carioca', 'funk das antigas', 'funk ostentacao', 'funk pop', 'sertanejo universitario']	1	1
+31TPClRtHm23RisEBtV3X7	Justin Timberlake	['dance pop', 'pop']	1	0
+0t64OqoqDgnfJee9Z6IBOP	Jona Camacho	['bachata', 'colombian pop']	1	0
+6ejQ8vRKDUNBT2UyG3OaAM	Klasico	['reggaeton flow']	1	1
+50JJSqHUf2RQ9xsHs0KMHg	Jon Bellion	['indie pop rap']	1	0
+4kI8Ie27vjvonwaB2ePh8T	Portugal. The Man	['indie rock', 'indietronica', 'modern alternative rock', 'modern rock']	1	0
+2OHKEe204spO7G7NcbeO2o	Ñejo	['reggaeton', 'urbano latino']	1	1
+56eTRCwZ13vVWAmrG0dMnq	Richie Ray & Bobby Cruz	['mambo', 'salsa']	1	0
+3mOd9j63D2DAPnOzQBJhQJ	CD9	['latin arena pop', 'latin viral pop', 'mexican pop']	1	0
+4f9iBmdUOhQWeP7dcAn1pf	Rag'n'Bone Man	['neo soul']	1	1
+5Tz4zMiRWqiQVAymWZz99a	Zebra Katz	['escape room', 'lgbtq+ hip hop', 'vogue']	1	1
+0CkbPVBpOwwz9NPPglFKyq	RAY BLK	['alternative r&b', 'electra', 'uk contemporary r&b']	1	1
+0h1zs4CTlU9D2QtgPxptUD	Ricardo Arjona	['cantautor', 'latin arena pop', 'latin pop']	1	0
+55fhWPvDiMpLnE4ZzNXZyW	Noah Cyrus	['alt z', 'pop']	1	0
+3nFkdlSjzX9mRTtwJOzDYB	JAY-Z	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'rap']	1	1
+50OApTJurDusIo9dGTqSU4	Lilly Wood and The Prick	['french indie pop', 'french rock']	1	1
+1QDrz3DMMaz3TB1cm0PGDu	Justin Jesso	['singer-songwriter pop']	1	1
+4ssUf5gLb1GBLxi1BhPrVt	Jorge Drexler	['cantautor', 'latin afrobeat', 'latin alternative', 'latin rock', 'nueva cancion', 'trova']	1	0
+6lca9phTiMCNjObnwuCFi1	Kenai	['reggaeton flow']	1	1
+4D75GcNG95ebPtNvoNVXhz	AFROJACK	['big room', 'dance pop', 'dutch house', 'edm', 'electro house', 'pop dance', 'progressive electro house']	1	1
+25uiPmTg16RbhZWAqwLBy5	Charli XCX	['art pop', 'candy pop', 'metropopolis', 'pop', 'uk pop']	1	1
+1GeMs8oYWyxJDR6T8MstO7	Sharlene Taule	[]	1	1
+2FS22haX3FYbyOsUAkuYqZ	Los Fabulosos Cadillacs	['argentine rock', 'latin alternative', 'latin rock', 'rock en espanol', 'ska', 'ska argentino']	1	0
+1EXjXQpDx2pROygh8zvHs4	Melendi	['spanish pop', 'spanish pop rock']	1	1
+5xd2Tg7Zo8755eCy8Gxkp8	Ha*Ash	['latin arena pop', 'latin pop', 'mexican pop']	1	1
+4RXxwBtdt6k1YNyyAyiOng	Pipe Bueno	['colombian pop', 'musica popular colombiana', 'reggaeton']	1	1
+6tYuW96NhiYI3sAxEDsqK4	Pasabordo	['colombian pop', 'reggaeton']	1	1
+2jSGzJw0ebJLu7OLVSOcBP	Plan B	['reggaeton', 'trap latino', 'urbano latino']	1	1
+0cGUm45nv7Z6M6qdXYQGTX	Kehlani	['pop', 'r&b']	1	1
+29QbBR0oTzA7A0kiOzrbbr	Jamie Scott	['uk pop']	1	1
+5gWzmnHTLNXz5CjOc0wAuK	Romy Dya	['dutch pop']	1	1
+6nnspeopmJAG07xOxHmqTu	El Gran Combo De Puerto Rico	['salsa', 'salsa puertorriquena', 'tropical']	1	0
+2b7FVYTLTkP4YTT0VokeJU	Andres Herrera	[]	1	1
+2NEwLjbrw5RA4KWYhUIM9r	Jaycob Duque	['reggaeton colombiano', 'reggaeton flow']	1	0
+5B6H1Dq77AV1LZWrbNsuH5	Jarabe De Palo	['latin alternative', 'latin rock', 'rock en espanol', 'spanish pop', 'spanish rock']	1	0
+4obzFoKoKRHIphyHzJ35G3	Becky G	['latin pop', 'latin viral pop', 'rap latina', 'reggaeton', 'urbano latino']	1	1
+5f5z4wggh1hbr6Dg0BnoCe	Armando Hernandez	['chicha', 'cumbia', 'porro']	1	1
+1uiEaU2CF0ypsPwXXYrm7V	El Combo Caribe	[]	1	1
+1SlOoqOjkHRVmiB9o6ov3b	Carlos Roman	[]	1	0
+68Uwx1d3EbjDJhYsLjqvIq	Emma Stone	['hollywood']	1	1
+7keGfmQR4X5w0two1xKZ7d	Kungs	['edm', 'pop dance']	1	1
+726MxZBpkxnnoKl6aN7mmj	Cookin' On 3 Burners	['bboy', 'instrumental funk']	1	1
+4u5smJBskI6Adzv08PuiUP	Kiiara	['alt z', 'electropop']	1	1
+1hcdI2N1023RvSwLzTtdsp	Natalia Lafourcade	['latin alternative', 'latin pop', 'mexican pop', 'rock en espanol', 'veracruz indie']	1	1
+1ldFRYgmjxDrX27bIe3dWx	Los Macorinos	[]	1	1
+27vNK840zYq6IfDijHPsv1	Gilberto Santa Rosa	['salsa', 'salsa puertorriquena', 'tropical']	1	0
+0NGAZxHanS9e0iNHpR8f2W	Alok	['electro house', 'pop nacional', 'sertanejo universitario', 'slap house']	1	1
+5veVxxPm1vzgi6pO2iVA8L	Bruno Martini	['pop nacional']	1	1
+7qPLO2XOUaRrRxkvLZ3AEK	Zeeba	[]	1	1
+15NtJjjHRFybdNSMyM9smT	Nevada	[]	1	1
+6V3F8MZrOKdT9fU686ybE9	Mark Morrison	['british soul']	1	1
+6PXS4YHDkKvl1wkIl4V8DL	Fetty Wap	['new jersey rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+6jsjhAEteAlY0vCiLvMLBA	ROZES	['alt z', 'indie poptimism']	1	1
+7lMgpN1tEBQKpRoUMKB8iw	Black M	['french pop', 'pop urbaine', 'rap conscient']	1	1
+7gAppWoH7pcYmphCVTXkzs	The Vamps	['boy band', 'pop']	1	1
+4YXycRbyyAE0wozTk7QMEq	Matoma	['pop dance', 'tropical house']	1	1
+4lDBihdpMlOalxy1jkUbPl	Grey	[]	1	1
+4VZY0nxYMSNotbS7WjNVQy	Nyla	[]	1	1
+374sWpAJsbZckf98df2jJJ	Fuse ODG	['afrobeats', 'azonto']	1	1
+5EaL3CfK7WVRU5pCzUt35B	Ivan Zuleta	['vallenato']	1	1
+1WoYfDQf78hGBPBn9vA4zQ	Mambo Kings	['slovenian pop']	1	1
+6TIYQ3jFPwQSRmorSezPxX	Machine Gun Kelly	['ohio hip hop', 'pop rap']	1	1
+4ugGMtXC28CVR5hlYJy9wV	Luciana	['dance pop']	1	1
+2ixSzFmACsZSsx40fXTNYk	Dimension Latina	['salsa', 'salsa venezolana']	1	1
+15UsOTVnJzReFVN1VCnxy4	XXXTENTACION	['emo rap', 'miami hip hop']	1	0
+6tTSvc4MExzu7yxgwiNlnL	Los Exitos	['classic colombian pop', 'cumbia']	1	0
+4WN5naL3ofxrVBgFpguzKo	Rudimental	['pop dance', 'uk dance', 'uk funky']	1	1
+1hFDDJCrbjhSUOPP5EiJoK	Luis Felipe Gonzalez	['classic colombian pop']	1	0
+4boI7bJtmB1L3b1cuL75Zr	Mon Laferte	['latin alternative', 'latin pop']	1	1
+0XwVARXT135rw8lyw1EeWP	Christian Nodal	['mariachi', 'musica mexicana', 'nueva musica mexicana', 'ranchera']	1	0
+2UBLJyUgCq6XMiSVV7oGv8	Egbert Rosa aka Haze	[]	1	1
+68Yelg8HOZqYn4EjOnXsZy	Zion	[]	1	1
+3zPWcnruZBNnrd22uS8UBy	Jorge Villamizar	['colombian pop']	1	0
+3a1bkJS7AQnJ8KGvf9hFiN	El Combo De Las Estrellas	['classic colombian pop', 'cumbia']	1	0
+2qbEtwBVyobgpNP5KcHE9J	Pusho	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+5RSYz1KaYXbHfKdlaxAI8O	DJ Jonathan	[]	1	0
+0gadJ2b9A4SKsB1RFkBb66	Passenger	['folk-pop', 'neo mellow']	1	0
+4qBgvVog0wzW75IQ48mU7v	KYLE	['deep underground hip hop', 'indie pop rap', 'pop rap', 'viral trap']	1	1
+6icQOAFXDZKsumw3YXyusw	Lil Yachty	['atl hip hop', 'melodic rap', 'rap', 'trap']	1	1
+2JLqTvFXmC87BksiCsBezV	Matt Terry	['talent show']	1	1
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	1	0
+5LeiVcEnsZcwc133TUhJNW	Belinda	['latin arena pop', 'latin pop', 'mexican pop']	1	1
+5oOyEfGd8NxAKA41zGQhoj	Snova	[]	1	1
+1o9x7ez0NvhDb7gBqrYnUj	B-Case	['pop edm']	1	1
+4GAS1OgXh8D5pEA6s6eBNW	Valentino	['reggaeton']	1	1
+6osZmjgq0xc7VroWgQoRcD	Cali Flow Latino	['salsa choke']	1	0
+3b2zi4PtiILG4Iyswyk4LW	Sanluis	['pop reggaeton']	1	1
+6fOMl44jA4Sp5b9PpYCkzz	NF	['hip hop', 'pop rap']	1	0
+3iekLDuN7jHoZh3t5dxfpx	Twister el Rey	['champeta', 'vallenato moderno']	1	1
+0TgEaSmA1DuHClb6dblt3Z	Mr Steve	['dancehall colombiano']	1	1
+2LZDXcxJWgsJfKXZv9a5eG	Cashmere Cat	['downtempo', 'electropop', 'shiver pop']	1	1
+5eJtlvB9Qga52zsu4GzDNA	Alex Gargola	[]	1	1
+3mGBnso9JtXG8OeNT7fqMs	El Cocha Molina	[]	1	1
+7hJcb9fa4alzcOq3EaNPoG	Snoop Dogg	['g funk', 'gangster rap', 'hip hop', 'pop rap', 'rap', 'west coast rap']	1	1
+2zzpznMuhKlKlqh1ma7Sms	Dakota	[]	1	1
+3j2xUU9GSvJLBKhp7maKaO	Willie Colon Y Ruben Blades	[]	1	0
+5TYxZTjIPqKM8K8NuP9woO	C. Tangana	['urbano espanol']	1	0
+6mctsJBrfcWvWH7S8h716D	Moelogo	['afrobeats', 'nigerian pop']	1	1
+0C0XlULifJtAgn6ZNCW2eu	The Killers	['alternative rock', 'dance rock', 'modern rock', 'permanent wave', 'rock']	1	0
+73sIBHcqh3Z3NyqHKZ7FOL	Childish Gambino	['atl hip hop', 'hip hop', 'rap']	1	0
+0KuSKX95imv2ymBDqrixLv	LosPetitFellas	['colombian hip hop', 'colombian rock']	1	0
+0deIjoDjl9g9Zpw0sCIOHh	Valentino Khan	['brostep', 'edm', 'electro house', 'electronic trap', 'moombahton']	1	1
+0jnsk9HBra6NMjO2oANoPY	Flo Rida	['dance pop', 'miami hip hop', 'pop', 'pop rap']	1	1
+2FXC3k01G6Gw61bmprjgqS	Hozier	['irish singer-songwriter', 'modern rock', 'pop', 'pov: indie']	1	0
+6T5tfhQCknKG4UnH90qGnz	DNCE	['dance pop', 'pop']	1	0
+5X1JzPIIonP3u9lA580pPT	Francesco Yates	['canadian pop']	1	1
+4ehtJnVumNf6xzSCDk8aLB	Martin Jensen	['danish electronic', 'edm', 'pop dance']	1	0
+64OlwPCoVudxb3laVVxqvV	Bovea Y Sus Vallenatos	['classic colombian pop']	1	0
+4de5H6yG1hXqYXsL4YHRon	Nelson Henriquez	['classic colombian pop', 'cumbia', 'musica popular colombiana']	1	1
+2oQX8QiMXOyuqbcZEFsZfm	El Alfa	['dembow', 'rap dominicano', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+4N5fp4zhTsVITZTVfsXpc2	Víctor Manuelle	['latin pop', 'modern salsa', 'salsa', 'salsa peruana', 'salsa puertorriquena', 'tropical']	1	1
+48sLioddyaXkuhyHXSkpsB	Parson James	['pop soul']	1	1
+2DaxqgrOhkeH0fpeiQq2f4	Oasis	['beatlesque', 'britpop', 'madchester', 'permanent wave', 'rock']	1	0
+3dYaCiqOtNra5arw7sfEmF	Alma Africana	[]	1	0
+3JXpwnHbLvXxY99EuXqFPX	Poo Bear	['pop r&b']	1	1
+234WpokzuaWmbfhdocebBU	Zabaleta	[]	1	1
+01RWu7yf1vE3eZvtxcRxkf	Kevin Florez	['champeta']	1	0
+3jGlU8UMMo44I2xeLQ6FD3	Dalmata	['reggaeton', 'urbano latino']	1	1
+7LXdYckhvHWU4ejXbkHa3N	Pepe Quintana	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+3iOvXCl6edW5Um0fXEBRXy	The xx	['downtempo', 'dream pop', 'indietronica']	1	0
+0lNg9YtW8USxeZZnEqz3RQ	Dasoul	['electro latino']	1	1
+7okwEbXzyT2VffBmyQBWLz	Maná	['latin arena pop', 'latin pop', 'latin rock', 'mexican pop', 'mexican rock', 'rock en espanol']	1	1
+2FwJwEswyIUAljqgjNSHgP	Snakehips	['electropop']	1	1
+2LCcy9CZWwZ7Vvykt8IVVq	Carlos Sadness	['spanish indie pop']	1	0
+6wMr4zKPrrR0UVz08WtUWc	Black Coffee	['south african house', 'south african pop', 'south african pop dance']	1	1
+1CoZyIx7UvdxT5c8UkMzHd	Jorja Smith	['r&b', 'uk contemporary r&b']	1	1
+3b8QkneNDz4JHKKKlLgYZg	Florida Georgia Line	['contemporary country', 'country', 'country pop', 'country road', 'modern country rock']	1	1
+4olE3I5QU0dvSR7LIpqTXc	WATT	['modern alternative rock']	1	1
+13ubrt8QOOCPljQ2FL1Kca	A$AP Rocky	['east coast hip hop', 'hip hop', 'rap', 'trap']	1	1
+699OTQXzgjhIYAHMy9RyPD	Playboi Carti	['atl hip hop', 'plugg', 'pluggnb', 'rage rap', 'rap']	1	1
+4TH4BHy0LdBi3dpBW4P2UX	R. City	['reggae fusion', 'virgin islands reggae']	1	1
+4bYPcJP5jwMhSivRcqie2n	Adam Levine	['deep talent show']	1	1
+3zrUX1hQrUB9aXcOiyQLmN	Stanaj	[]	1	1
+5jAMCwdNHWr7JThxtMuEyy	NOTD	['electropop', 'pop dance', 'pop edm']	1	1
+25u4wHJWxCA9vO0CzxAbK7	Lukas Graham	['danish pop', 'scandipop']	1	0
+6zk8WqI12buD0B67tteQ5h	Los Hispanos	['classic colombian pop', 'cumbia', 'musica popular colombiana']	1	1
+1VrWc8r4AjrR8YfT0vlsc7	Chyno Miranda	['latin pop', 'reggaeton', 'urbano latino']	1	1
+7K78lVZ8XzkjfRSI7570FF	José Feliciano	['latin pop', 'puerto rican pop']	1	0
+54LZrrClgVEeAQcFrk3BJj	Colacho Mendoza	['cumbia', 'vallenato moderno']	1	1
+5sUrlPAHlS9NEirDB8SEbF	Alejandro Sanz	['cantautor', 'latin arena pop', 'latin pop', 'mexican pop']	1	1
+5Y5TRrQiqgUO4S36tzjIRZ	Timbaland	['dance pop', 'pop', 'pop rap']	1	1
+3NPpFNZtSTHheNBaWC82rB	X Ambassadors	['modern alternative rock', 'modern rock', 'stomp pop']	1	1
+2W6kbe0nm96COrHzNmfLLd	MC Fioti	['funk carioca', 'funk ostentacao', 'funk paulista']	1	1
+2ExGrw6XpbtUAJHTLtUXUD	Stefflon Don	['dancehall', 'dancehall queen', 'uk dancehall', 'uk hip hop']	1	1
+0j8QSBQZ9MNSGjHr1Vll1R	Natalia Jiménez	['latin arena pop', 'latin pop', 'spanish pop rock']	1	1
+1mXAhKnZEdF6rotyyd4GBi	MC Kevinho	['arrocha', 'funk carioca', 'funk ostentacao', 'funk pop', 'sertanejo universitario']	1	0
+3ATyg4fGC9F8trfb0GRWmX	Joey Montana	['latin pop', 'reggaeton', 'urbano latino']	1	1
+6LqNN22kT3074XbTVUrhzX	Kesha	['dance pop', 'pop']	1	0
+4mSjsAYIPvfiRHmNmNH8a2	La Gran Banda Caleña	['cumbia', 'porro']	1	0
+1OaJc4r2SBZ7Iokg2Gkwde	Pastor Lopez Y Su Combo	['classic colombian pop', 'cumbia', 'musica popular colombiana', 'porro']	1	0
+33nZie2hFLgUG9gUfjTRoq	Ricardo Ray	['boogaloo', 'mambo', 'salsa', 'salsa international']	1	1
+5IcR3N7QB1j6KBL8eImZ8m	ScHoolboy Q	['gangster rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+76Xa625geVw0Q7BdyxNjA2	ZAAC	['funk carioca', 'funk ostentacao', 'funk pop']	1	1
+3XcCT5MPlQPWFTJyzXbfuX	Maejor	['detroit hip hop', 'pop r&b']	1	1
+5bzWtCkjIAMgN93gLt56SO	Tropkillaz	['afrofuturismo brasileiro', 'bass trap', 'funk carioca', 'pop nacional']	1	1
+0xA8Rmfl9di0sVaPl9AyR9	DJ Yuri Martins	['funk carioca']	1	1
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+74XFHRwlV6OrjEM0A2NCMF	Paramore	['candy pop', 'modern rock', 'pixie', 'pop', 'pop emo', 'pop punk', 'rock']	1	0
+5JYo7gm2dkyLLlWHjxS7Dy	Sandro Cavazza	['swedish pop']	1	1
+6ltzsmQQbmdoHHbLZ4ZN25	Lord Huron	['indie folk', 'modern rock', 'stomp and holler']	1	0
+2SrSdSvpminqmStGELCSNd	Stormzy	['grime', 'uk hip hop']	1	1
+0CjWKoS55T7DOt0HJuwF1H	Bipolar Sunshine	['gauze pop']	1	1
+7rNbdH4pgrnwguvzxhA2Ek	Jorge Celedón	['vallenato', 'vallenato moderno']	1	1
+3tAICgiSR5PfYY4B8qsoAU	Andrés Calamaro	['argentine rock', 'cantautor', 'latin alternative', 'latin rock', 'pop argentino', 'rock en espanol']	1	0
+2wkoKEfS6dXwThbyTnZWFU	Mau y Ricky	['latin pop', 'pop venezolano', 'reggaeton', 'urbano latino']	1	1
+7jy3rLJdDQY21OgRLCZ9sD	Foo Fighters	['alternative metal', 'alternative rock', 'modern rock', 'permanent wave', 'post-grunge', 'rock']	1	0
+4yNdrUaF54csrLixVTnqzC	Eddy Herrera	['latin pop', 'tropical']	1	0
+62DmErcU7dqZbJaDqwsqzR	Popcaan	['dancehall', 'jamaican hip hop', 'reggae fusion', 'traphall']	1	1
+6UZezb7gF04w8dMlTEzbYm	Los Cantores De Chipuco	[]	1	0
+5GcWBUX00IPuWVGMIRK1sS	Residente	['venezuelan hip hop']	1	0
+5ty08GXpCMviM7BKWNrdXi	Tony Camargo	[]	1	0
+5NGO30tJxFlKixkPSgXcFE	The Police	['album rock', 'classic rock', 'permanent wave', 'rock']	1	0
+15siq5yPjIUocpME8lz02m	Arbise González	[]	1	1
+5kSJMVPcTITrSZxTrHllVN	Vanesa Martín	['latin arena pop', 'pop flamenco', 'spanish pop', 'spanish pop rock']	1	1
+2jBa39W2cucJozDpEBtCXu	Lennox	[]	1	1
+0X2BH1fck6amBIoJhDVmmJ	Ellie Goulding	['indietronica', 'metropopolis', 'pop', 'uk pop']	1	1
+4j2ttDkyLZNpyM2RS9hCf5	Emiliano Zuleta	[]	1	1
+6IA0c7ljnyM14XsePnrFpw	Sergio Luis Rodríguez	['vallenato moderno']	1	1
+2weA6hhVqTIN2gSn9PUB9U	Celia Cruz	['cha-cha-cha', 'cuban rumba', 'mambo', 'musica tradicional cubana', 'salsa']	1	0
+4fCRFHEQgjqakvFgQCliMp	Jacob Forever	['cubaton']	1	1
+7fKNYbN8RoEoPyi6FoGMLf	Los Embajadores Vallenatos	['vallenato']	1	0
+6ModsWtBph2rE6zCTVxvZt	Maite Perroni	['latin pop', 'mexican pop']	1	1
+2snm3HmsnDUDxbIChdl2Oj	Justin Hurwitz	['hollywood', 'movie tunes', 'soundtrack']	1	0
+0CIwCGmQMqHqiblnZlFia1	Stephen Marley	['reggae', 'roots reggae']	1	1
+2dlJdFaPxHy9C3bOKS1ZKl	Los Teen Agers	['cumbia', 'porro']	1	0
+4phGZZrJZRo4ElhRtViYdl	Jason Mraz	['acoustic pop', 'dance pop', 'neo mellow', 'pop']	1	0
+7gP3bB2nilZXLfPHJhMdvc	Foster The People	['indietronica', 'modern alternative rock', 'modern rock', 'rock']	1	0
+2mUI4K6csTQd3jieswcmiI	Luis Enrique	['cuatro venezolano', 'latin pop', 'modern salsa', 'musica nicaraguense', 'salsa', 'tropical']	1	0
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	1	0
+2urF8dgLVfDjunO0pcHUEe	Alvaro Soler	['latin pop']	1	1
+6tzRZ39aZlNqlUzQlkuhDV	Pabllo Vittar	['dance pop', 'funk carioca', 'funk pop', 'pop lgbtq+ brasileira', 'pop nacional']	1	1
+3hv9jJF3adDNsBSIQDqcjp	Mark Ronson	['pop soul']	1	1
+7KUri7klyLaIFXLcuuOMCd	Stargate	['norwegian pop']	1	1
+0haZhu4fFKt0Ag94kZDiz2	Sofía Reyes	['latin pop', 'latin viral pop', 'mexican pop', 'reggaeton']	1	1
+6T70tWxqyIpdVbsFvPzqM3	La La Land Cast	[]	1	0
+2EMAnMvWE2eb56ToJVfCWs	Bryson Tiller	['kentucky hip hop', 'r&b', 'rap']	1	1
+3S0tlB4fE7ChxI2pWz8Xip	Giggs	['grime', 'london rap', 'uk hip hop']	1	1
+2Otnykd696YidQYfEGVmNq	Vicente Garcia	['bachata', 'dominican pop', 'reggae en espanol']	1	0
+5fyDppLDl1juIu1BcUT5zh	Digital Farm Animals	['uk dance']	1	1
+3msRUQeJsvGGEmaZOfrtFh	Adolfo Echeverria	['cumbia']	1	0
+7iZtZyCzp3LItcw1wtPI3D	Rae Sremmurd	['melodic rap', 'mississippi hip hop', 'rap', 'trap']	1	1
+4pADjHPWyrlAF0FA7joK2H	Jay Sean	['dance pop', 'pop', 'pop rap']	1	1
+0b2GL7Y02vu50qieoQmw1w	IAmChino	['cubaton', 'reggaeton']	1	1
+1xFn1xod58AGaSZjrxdiXA	El Chacal	['cubaton']	1	1
+5EehXjjMktLuJmbRsM7YfB	Disciples	['house', 'pop dance', 'uk dance']	1	1
+79QO0Xmn1dZhvaLicS2Yrs	The Night Game	['modern alternative rock']	1	1
+3sc8HnadkPW5YaIGbCljw4	El Roockie	['panamanian pop']	1	1
+0k17h0D3J5VfsdmQ1iZtE9	Pink Floyd	['album rock', 'art rock', 'classic rock', 'progressive rock', 'psychedelic rock', 'rock', 'symphonic rock']	1	0
+5JSXWmQO8csVUy6hSRu8TA	Maty Noyes	['alt z']	1	1
+2ydZrTy8U3kOMOzx20s3dg	DJ Nelson	['reggaeton', 'urbano latino']	1	1
+2aSbTnwgEMnlXQRN4aZ5qW	Elena Vives	[]	1	1
+6xx9qZgvt1b1X2D0fohJAn	Río Grande Music School Chorus	[]	1	1
+3wyVrVrFCkukjdVIdirGVY	Lil Pump	['emo rap', 'miami hip hop', 'pop rap', 'rap', 'trap']	1	0
+54gCRV0IGOEsK5iZFjdKXo	Los Tupamaros	['classic colombian pop', 'cumbia', 'tropical']	1	0
+360IAlyVv4PCEVjgyMZrxK	Miguel	['r&b']	1	1
+0OROVBEZCocg0FcgJpyBse	Alex Sensation	['reggaeton']	1	1
+13or1Wf6ipcvSIiurZATvw	La Sonora Dinamita	['cumbia', 'ranchera', 'salsa colombiana', 'tropical']	1	0
+3qm84nBOXUEQ2vnTfUTTFC	Guns N' Roses	['glam metal', 'hard rock', 'rock']	1	0
+1JbemQ1fPt2YmSLjAFhPBv	Chayanne	['latin pop', 'puerto rican pop']	1	1
+40hVyUyiL8MHh9BhvxI6Gr	Néstor Zavarce	[]	1	0
+4gwpcMTbLWtBUlOijbVpuu	Capital Cities	['metropopolis', 'modern rock']	1	0
+4N874uPqBka1QiCvnCVOtr	Phoebe Ryan	['alt z', 'indie poptimism']	1	1
+1hzfo8twXdOegF3xireCYs	Milky Chance	['german pop', 'modern rock']	1	0
+2DR7MOGAwxMZUA7U4N5X6t	Kosa	[]	1	1
+1mX1TP27ndNVthqdB95bMf	Richie Ray	['salsa', 'salsa international', 'salsa puertorriquena']	1	1
+5y0ZLRwDe4OTd1t6BKSjWi	Edwin Gomez	[]	1	1
+68kEuyFKyqrdQQLLsmiatm	Vince Staples	['conscious hip hop', 'hip hop', 'rap', 'underground hip hop']	1	1
+2bxxlINUlcMQQb39K7IopR	Abraham Mateo	['latin arena pop', 'latin pop', 'latin viral pop', 'reggaeton', 'spanish pop']	1	1
+2fC8dVxeS2bsfIDvFj1M4V	Christian Daniel	['latin arena pop', 'puerto rican pop']	1	1
+5bv5RplEOwdCvhq0EILh9E	Lucenzo	['reggaeton']	1	1
+3WGpXCj9YhhfX11TToZcXP	Troye Sivan	['australian pop', 'pop', 'viral pop']	1	1
+2S2bhVlax53VYIfmW0uNWM	Dj Towa	['pop peruano', 'trap peruano']	1	0
+3yHLsTJ9OZ19qwY1Q5BEQJ	Binomio de Oro de América	['vallenato']	1	0
+2LmcxBak1alK1bf7d1beTr	Juhn	['reggaeton', 'reggaeton flow', 'trap latino', 'urbano latino']	1	1
+06phV7fzCjfgTxdJ9MQeSQ	Los Warahuaco	['classic colombian pop', 'cumbia']	1	0
+5MouCg6ta7zAxsfMEbc1uh	OMI	['reggae fusion']	1	1
+4bL2B6hmLlMWnUEZnorEtG	Felix Jaehn	['edm', 'german dance', 'pop dance', 'tropical house']	1	1
+226KQHhYMB4ss3DyK17zk9	Fredy Montoya	['musica popular colombiana']	1	1
+0ajy8rupiCOgvmsOtaG83P	Luisito Muñoz	['musica popular colombiana']	1	1
+3tVQdUvClmAT7URs9V3rsp	Wizkid	['afrobeats', 'afropop', 'azonto', 'azontobeats', 'nigerian hip hop', 'nigerian pop']	1	1
+77DAFfvm3O9zT5dIoG0eIO	Kyla	['uk funky']	1	1
+7Ln80lUS6He07XvHI8qqHH	Arctic Monkeys	['garage rock', 'modern rock', 'permanent wave', 'rock', 'sheffield indie']	1	0
+6Dd3NScHWwnW6obMFbl1BH	Daya	['pop']	1	1

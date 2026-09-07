@@ -1,0 +1,660 @@
+artist_id	name	genres	num_hits	num_collab_hits
+4MCBfE4596Uoi2O4DtmEMz	Juice WRLD	['chicago rap', 'melodic rap', 'rap']	35	17
+1IAEef07H0fd9aA8aUHUlL	Omer Adam	['israeli mediterranean', 'israeli pop', 'mizrahi']	35	10
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	25	7
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	25	10
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	24	15
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	22	3
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	22	11
+4r63FhuTkUYltbVAg5TQnk	DaBaby	['hip hop', 'north carolina hip hop', 'rap', 'trap']	22	14
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	21	8
+5CXvT1JutlWVLJN8YEOf1h	Nathan Goshen	['israeli pop']	20	4
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	20	7
+54jZWpivOTllo1afYNSx5U	Eyal Golan	['israeli mediterranean', 'israeli pop', 'mizrahi', 'persian pop']	19	4
+6uQl3gu1AIXyvqCAxnc2q4	Eden Hason	['israeli mediterranean']	19	2
+6VdxGMRiiFQhI8F0FkuQZg	Itay Levi	['israeli mediterranean', 'mizrahi']	19	3
+3VTm1513t2LL1mSKzzyQuj	Ishay Ribo	['israeli pop']	18	7
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	17	11
+2JQK9mzxqKz16lSgICHDTx	Ravid Plotnik	['israeli hip hop', 'israeli trap']	16	6
+0xHa28taiElkcQf9o3z76g	Static & Ben El	['israeli pop', 'jewish pop']	14	11
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	14	12
+17pbOSPIn3lmY0vHhOlKGL	Tuna	['israeli hip hop', 'israeli pop']	14	8
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	14	6
+6qqNVTkY8uBg9cP3Jd7DAH	Billie Eilish	['art pop', 'electropop', 'pop']	13	1
+2wp6i8BxLF3UrF1J3LY4WC	Berry Sakharof	['classic israeli pop', 'israeli rock']	12	10
+57PnQxsNvOvG2ZDElDEUjW	Idan Rafael Haviv	['israeli singer-songwriter']	12	2
+5EBnQEKoaiAk37Q7cfGrE1	Idan Raichel	['israeli mediterranean', 'israeli pop', 'israeli singer-songwriter']	12	5
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	12	1
+1oTaLSazZlqH2azlemNZOm	Atar Mayner	['israeli hip hop', 'israeli trap']	12	3
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	12	3
+1URnnhqYAYcrqrcwql10ft	21 Savage	['atl hip hop', 'hip hop', 'rap', 'trap']	11	10
+3AoetF4LFZLRJjfuy071mz	Dudu Tassa	['israeli pop', 'israeli rock', 'israeli singer-songwriter']	10	10
+7hzAtM9sug5TCxGUIR7by3	Doli & Penn	['israeli pop']	10	10
+1wak0ZG1LUrZPYx8RDTQoD	Noa Kirel	['israeli pop']	10	4
+4LLpKhyESsyAXpc4laK94U	Mac Miller	['hip hop', 'pittsburgh rap', 'rap']	10	0
+3EOEK57CV77D4ovYVcmiyt	Dennis Lloyd	['israeli pop']	9	1
+2eUKkTNZsIuZzV95DM0cbt	Eden Ben Zaken	['israeli mediterranean', 'israeli pop']	9	5
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	9	9
+0iEtIxbK0KxaSlF7G42ZOp	Metro Boomin	['rap']	9	9
+6Kwkb16geAot0de45IW9Ox	Idan Amedi	['israeli pop']	9	0
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	9	6
+26VFTg2z8YR0cCuwLzESi2	Halsey	['electropop', 'etherpop', 'indie poptimism', 'pop']	9	4
+3Zf054e19tFcFHyfXqo7gx	SFATAYIM	[]	8	0
+0WjQnf1rQ0tY84gGgjrQQ9	Benaia Barabi	['israeli mediterranean']	8	2
+757aE44tKEUQEqRuT6GnEB	Roddy Ricch	['melodic rap', 'rap', 'trap']	8	7
+4Gso3d4CscCijv0lmajZWs	Don Toliver	['rap', 'trap']	8	4
+6kKweapGufuHSv5CXVURim	Nasrin Kadri	['israeli mediterranean']	8	7
+343YYaA5MSjiZZ5cGyTr4u	Hanan Ben Ari	['israeli pop']	8	0
+5MI4TaVcQsok77Uc5QBCQu	DollarxMason	[]	7	0
+41MozSoPIsD1dJM0CLPjZF	BLACKPINK	['k-pop', 'k-pop girl group', 'pop']	7	5
+7mLyg5tvgd7savloN5saY3	Emelton	[]	7	0
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	7	7
+0eDvMgVFoNV3TpwtrVCoTj	Pop Smoke	['brooklyn drill', 'rap']	7	5
+1yxSLGMDHlW21z4YXirZDS	Black Eyed Peas	['dance pop', 'pop', 'pop rap']	7	7
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	7	3
+2kOE3Jm5tMqLh65EiDkHJi	Moshe Peretz	['israeli mediterranean', 'mizrahi']	7	4
+15UsOTVnJzReFVN1VCnxy4	XXXTENTACION	['emo rap', 'miami hip hop']	7	0
+6KskOtymSG2RrswMdNC2zC	Moshiko Mor	['israeli mediterranean']	7	0
+4qJ4PtITSkwi3Z5311xSE2	Timelock	['full on', 'progressive psytrance', 'psychedelic trance']	7	5
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	7	7
+2LIk90788K0zvyj2JJVwkJ	Jack Harlow	['deep underground hip hop', 'kentucky hip hop', 'pop rap', 'rap']	7	3
+398u4UqbG8yzv4H08Mc1Eq	Amir Dadon	['israeli pop', 'israeli rock']	6	2
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	6	2
+524rbl9t4PcNkv2PjItZw0	Rotem Cohen	['israeli mediterranean']	6	4
+2oTKVerbNO0kejs87fV4jA	Michael Swissa	['israeli hip hop', 'israeli trap']	6	4
+5cj0lLjcoR7YOSnhnX0Po5	Doja Cat	['dance pop', 'pop']	6	4
+1T4wAIwQNLsOLQRkPVurY9	Keren Peles	['israeli singer-songwriter']	6	6
+0PySgANpMEPjZkO1cfcFEe	GoldeJeeff	[]	6	0
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	6	5
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	6	3
+1DuDDXSYBMLr55q9lYmDEk	Liran Danino	['israeli pop']	6	2
+4qXTQzszopFkaczDBQCowt	Eden Meiri	['israeli pop']	6	1
+23fqKkggKUBHNkbKtXEls4	Kygo	['edm', 'pop', 'pop dance', 'tropical house']	6	6
+2hlmm7s2ICUX0LVIhVFlZQ	Gunna	['atl hip hop', 'melodic rap', 'rap', 'trap']	6	6
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	6	3
+2LUB7PhWK2j2obgSTeD3GN	Osher Cohen	['israeli mediterranean']	6	0
+699OTQXzgjhIYAHMy9RyPD	Playboi Carti	['atl hip hop', 'plugg', 'pluggnb', 'rage rap', 'rap']	6	3
+0fA0VVWsXO9YnASrzqfmYu	Kid Cudi	['hip hop', 'ohio hip hop', 'pop rap', 'rap']	6	4
+3cDi1D2FHMVgljfdB1QVgr	Jasmin Moallem	['israeli pop']	6	5
+3ObnkOSF8KZ9405ZPJtwbB	Eviatar Banai	['classic israeli pop', 'israeli rock']	6	1
+4iWsyISSQEYGxdqBNVwqtA	Yuval Dayan	['israeli pop', 'israeli singer-songwriter']	5	0
+7xxj0cCKZehEmC8rKr4GUi	Krusty200Traps	[]	5	0
+0o1mlyLH14JZysadNBri36	ToXiCC MuLiSHa	[]	5	0
+7pULtDQgiNyqYgnLSMgjTM	Void	[]	5	0
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	5	5
+0cAP3wA7ENERVAYXFE7eTg	BR43SKO	[]	5	0
+4q3ewBCX7sLwd24euuV69X	Bad Bunny	['reggaeton', 'trap latino', 'urbano latino']	5	4
+0MGUXM1urhmX05MHj5oVsM	Dudu Aharon	['israeli mediterranean', 'israeli pop', 'mizrahi']	5	3
+64kv7Q1r7dbtxG2P5WYFMu	O.G	[]	5	0
+6l3HvQ5sa6mXTsMTB19rO5	J. Cole	['conscious hip hop', 'hip hop', 'north carolina hip hop', 'rap']	5	1
+1UpRHyPDQSJ3qKmRb45d1L	Tamir Bar	[]	5	4
+6U98uTYOfUby5MmAxYUWX6	Mers871	[]	5	0
+3E7T8t0FwjEVxg9jufWZQG	Eden Alene	[]	5	1
+1i8SpTcr7yvPOmcqrbnVXY	Ozuna	['puerto rican pop', 'reggaeton', 'trap latino', 'urbano latino']	5	5
+2pQd850SlcQYxzmSwsQYHS	Beit Habubot	['israeli pop']	5	2
+0yM9wS9SX170Txs7mcSl4t	Nelonie	[]	5	0
+7Fmu1wTZGOG9b2w5qvM9XR	Freedom Fighters	['progressive psytrance', 'psychedelic trance', 'zenonesque']	5	5
+64Y1mA9G0W4863uInqr9DZ	BeatBuilders	[]	5	0
+5f7VJjfbwm532GiveGC0ZK	Lil Baby	['atl hip hop', 'atl trap', 'rap', 'trap']	5	4
+2kJLtfErMIVzrJ0vt3rDnf	Samuel Deturo	[]	5	0
+2tIP7SsRs7vjIcLrU85W8J	The Kid LAROI	['australian hip hop']	5	3
+6grXi1oBW9ayoP4FTt4r2Z	Mergui	['israeli pop']	5	1
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	5	1
+3F78m0H4Y4a1Dvd79TKVvw	Eliad	['israeli pop']	5	1
+6qUhXeLcCv2NONIvJ3sfhG	Kiran Seymoury	[]	5	0
+0tmKZAoV2svoFG9kukAh89	Can Yildiz	[]	5	5
+0qY73hWmpwLHoYTxONlCUS	C4NR0S	[]	5	5
+4VFtBffxanXW7fbw1xH7at	Noy Fadlon	['israeli mediterranean']	5	0
+5mamihymD0u361IeW96iug	Jakie Selected	[]	5	0
+0m3QQip2hImw0tfiDJnCEU	Skyler Ridzer	[]	5	0
+4npEfmQ6YuiwW1GpUmaq3F	Ava Max	['pop']	4	0
+5sbVEFMCfdQ0T3vCqXax1K	Gal Adam	['israeli mediterranean']	4	1
+04Fw5CSccXGqPqSLL6zsgt	Ahmad Shamali	[]	4	3
+0H39MdGGX6dbnnQPt6NQkZ	SAINt JHN	['melodic rap', 'slap house']	4	4
+5rGrDvrLOV2VV8SCFVGWlj	Imanbek	['electro house', 'pop dance', 'slap house']	4	4
+1OB278sOZVSFx5vXqYha83	J. Rey Soul	[]	4	4
+6fWVd57NKTalqvmjRd2t8Z	24kGoldn	['cali rap']	4	3
+2a76fsDcTl6A43zwaFNPr4	Jane Bordeaux	['israeli indie', 'israeli pop']	4	2
+1vCWHaC5f2uS3yhpwWbIA6	Avicii	['edm', 'pop', 'pop dance']	4	2
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	4	3
+1vyhD5VmyZ7KMfW5gqLgo5	J Balvin	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	4	4
+6iqyqDFoO2sIyAJfA7goTk	Yehoram Gaon	['classic israeli pop', 'sefardi']	4	2
+0dGKw8iwOZyLXwkFepnQfd	Kaveret	['classic israeli pop', 'israeli rock']	4	0
+0xYY2tRJGTvQC6rPjk758w	Kobi Aflalo	['israeli singer-songwriter']	4	3
+6MPCFvOQv5cIGfw3jODMF0	Internet Money	['pop rap']	4	4
+7rkW85dBwwrJtlHRDkJDAC	NAV	['canadian hip hop', 'canadian trap', 'melodic rap', 'rap', 'toronto rap', 'trap']	4	4
+5yNAOYLW2i8Hy1x2CpqV87	Gigolo	[]	4	0
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	4	3
+327IOCuRXd6Sj6pL2q1E0k	Fluteybeats	[]	4	0
+0oI0Dm98K3jmtSbfTLiChX	Mor	['israeli pop']	4	0
+4Th1EZJZzL5rKUB4oPIcLW	Zetec	[]	4	0
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	4	0
+6kzEO8SiWJlbaMoGnnih7R	Lehakat Sfataim	[]	4	0
+4og9lYRD6weUueMRu8lbP4	Gali Atari	['classic israeli pop']	4	2
+5Pwc4xIPtQLFEnJriah9YJ	OneRepublic	['piano rock', 'pop']	4	2
+1XLWox9w1Yvbodui0SRhUQ	StaySolidRocky	['melodic rap']	4	2
+1CD5WWtF6AFUq6BTY20I4k	Full Trunk	['israeli rock']	4	2
+1L8QE7iUTf9330wcKxnieK	Ivri Lider	['israeli pop', 'israeli rock', 'israeli singer-songwriter']	4	1
+5SlQDGsmXtYV0tkmmhnkRx	Psyfiction	['german trance']	4	1
+1Eks6sKVw6yepoeTbWv0YD	Shalom Hanoch	['classic israeli pop', 'israeli rock', 'israeli singer-songwriter']	4	2
+5eqZ0thqANZTXbAXqt0MY2	שם טוב האבי	['israeli hip hop']	4	4
+4Z4afeDmHFxPmJorIwupbZ	Netta	['israeli pop']	4	2
+3wO0Xx6t3drOX7CaHsBBSY	Elin Lynze	[]	4	0
+2DxmCWjxp23k4yBr2MvGd8	Monotone 813	[]	4	0
+1r4hJ1h58CWwUQe3MxPuau	Maluma	['latin pop', 'reggaeton', 'reggaeton colombiano', 'urbano latino']	3	2
+181bsRPaVXVlUKXrxwZfHK	Megan Thee Stallion	['houston rap', 'pop', 'rap', 'trap queen']	3	2
+5jPfVWcLzappQ4m3G2U6Ll	Alon Eder	['israeli rock']	3	1
+7qtLQT8SCAiRk15CuR2Mi6	Hertbeer	[]	3	0
+2ZRiDEplNEZDgPBziiFEmk	Stephane Legar	['israeli hip hop', 'israeli pop']	3	2
+3lVXtKsFTJM8ecY8gqdoCo	Anna Zak	['israeli pop']	3	2
+0mFHr7lwZmiRqsuy6JCS2K	Ron Buhnik	['israeli pop']	3	3
+6ltKIf1bortd0DQbpgKdQu	Jimbo J	['israeli hip hop']	3	3
+6trIghKwHRUyxwvm66HLHH	Fousheé	['indie r&b']	3	2
+2QZYh3YAFWqpJHf01j0DbN	Roni Alter	['israeli singer-songwriter']	3	3
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	3	3
+5K4W6rqBFWDnAN6FQUkS6x	Kanye West	['chicago rap', 'hip hop', 'rap']	3	3
+02XPYZHiiXvgdluCi3Esxg	Dikla	['israeli pop']	3	3
+2W0dQPsEPd0tz7cj95gUse	Shlomo Artzi	['classic israeli pop', 'israeli rock', 'israeli singer-songwriter']	3	1
+31W5EY0aAly4Qieq6OFu6I	A Boogie Wit da Hoodie	['melodic rap', 'rap', 'trap']	3	3
+6kO1d5Ht9hz9dbTgR1vF3W	Daniela Spector	['israeli pop']	3	2
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	3	3
+3KwmxIhSe9UTSEF37kwngR	SHAED	['electropop']	3	3
+5CiGnKThu5ctn9pBxv7DGa	benny blanco	['pop']	3	3
+5UbgVjyCkpIMOzQuOI4DOW	Chava Alberstein	['classic israeli pop', 'israeli singer-songwriter']	3	0
+4wIMqGM5IPTDNFLUGxvWkK	Amir Benayoun	['classic israeli pop', 'israeli mediterranean']	3	3
+2l41Sv3AnIRnHYefzJHeY1	Shlomi Shabat	['israeli mediterranean', 'mizrahi']	3	3
+7gOdHgIoIKoe4i9Tta6qdD	Jonas Brothers	['boy band', 'pop']	3	0
+5funL6ZIE05LpWRnPlMxGJ	Marvelicious Music	[]	3	0
+5p205uKfxztlzI3oD15AKf	Raviv Kaner	['israeli pop']	3	0
+6S2OmqARrzebs0tKUEyXyp	Demi Lovato	['pop', 'post-teen pop']	3	2
+5LHRHt1k9lMyONurDHEdrp	Tyga	['hip hop', 'pop rap', 'rap', 'trap']	3	2
+02bFE19EZ1hxEYCic1foqS	ליאור נרקיס	['israeli mediterranean', 'mizrahi']	3	3
+6Xgp2XMz1fhVYe7i6yNAax	Trippie Redd	['melodic rap', 'rap', 'trap']	3	3
+2RMH8nqc3YmaUEikglXlXm	Mooki	['israeli pop']	3	2
+6T1zPwkNslEt3YD1SckRd9	Choir	['french movie tunes']	3	2
+0VWxCUPjwYC1haUA2kCrp6	Yam Refaeli	['israeli pop']	3	0
+39jFFncu6W0phhYK16Dp9g	Sarit Hadad	['festigal', 'israeli mediterranean', 'israeli pop', 'mizrahi']	3	1
+4iZXZxiD3ZWOqaD4s1IHI3	Dalia Amihud	[]	3	3
+2rj7Su1MsQ6zRbSHnYqcJb	Kids Choir	['vbs']	3	3
+3umXlcgiDTcCRkvPVobeJc	Hatikva 6	['israeli hip hop', 'israeli pop']	3	0
+0xRXCcSX89eobfrshSVdyu	MEDUZA	['pop dance', 'pop house', 'uk dance']	3	3
+4ejLVLFQUlsBRYVMcfpzNp	Marina Maximilian	['israeli pop']	3	2
+3u8toIYNbUIHmhGjEZRuQU	Meir Banai	['classic israeli pop', 'israeli rock']	3	0
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	3	3
+5XmuuM2C6t4HSPa3FSuU3h	WanMor	[]	3	3
+04gDigrS5kc9YWfZHwBETP	Maroon 5	['pop']	3	1
+7r0p93QxLT8kfsZsiTWnIW	Ahmed Shamali	[]	3	3
+5INjqkS1o8h1imAzPqGZBb	Tame Impala	['australian psych', 'modern rock', 'neo-psychedelic', 'rock']	3	0
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	3	3
+4XRymSxqMfKCkA6njs39lM	Shekel	['israeli hip hop', 'israeli trap']	3	3
+2jku7tDXc6XoB6MO2hFuqg	Tory Lanez	['canadian hip hop', 'canadian trap', 'melodic rap', 'r&b', 'rap', 'toronto rap', 'trap']	3	2
+7xNYY1Zkb1vks5m9ATlJok	Naza	['french hip hop', 'pop urbaine', 'r&b francais', 'rap francais']	3	2
+7ltDVBr6mKbRvohxheJ9h1	ROSALÍA	['pop', 'r&b en espanol']	3	3
+0c173mlxpT3dSFRgMO8XPh	Big Sean	['detroit hip hop', 'hip hop', 'pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	3	3
+6DVipHzYsPlIoA0DW8Gmns	"Royce Da 5'9"""	['detroit hip hop', 'gangster rap', 'hardcore hip hop', 'hip hop']	3	3
+7CgBEyXbjOjFX3HiysHtXN	Shuli Rand	['classic israeli pop', 'israeli singer-songwriter']	2	1
+0TnOYISbd1XYRBk9myaseg	Pitbull	['dance pop', 'miami hip hop', 'pop']	2	2
+2xUDx9SBC0huIMC2ekMSvd	Mosh Ben Ari	['mizrahi']	2	1
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	2	1
+7sG6GYc2AsX0HNOkVdGCO4	Eden Derso	['israeli hip hop', 'israeli trap']	2	2
+5154ZBwxQjkB2KqLUT07qy	Sergio	[]	2	0
+2NjfBq1NflQcKSeiDooVjY	Tones And I	['australian pop']	2	0
+0T0COcAFHD9oZ704HbZr2A	Shai Tsabari	['classic israeli pop', 'israeli pop']	2	1
+1KEtCbyKRdK3yGj7t9EfB2	Mindbenderz	['german trance', 'progressive psytrance', 'psychedelic trance']	2	0
+6EPlBSH2RSiettczlz7ihV	Sleepy Hallow	['brooklyn drill', 'nyc rap']	2	2
+02IVE5m9cj7FrFLsX7PBmv	Static Movement	['progressive psytrance', 'psychedelic trance']	2	2
+0rj0bYZWazgyJ3hZTDKQHD	NOROZ	['israeli hip hop', 'israeli trap']	2	2
+1ThoqLcyIYvZn7iWbj8fsj	Bill Withers	['funk', 'quiet storm', 'soul']	2	0
+4utLUGcTvOJFr6aqIJtYWV	Skylar Grey	['piano rock', 'viral pop']	2	2
+6Rs5PyjfGBoAYfsA0Kocsj	Ilanit	['classic israeli pop']	2	0
+0wVxjQGYkyNh5qQsVCZWlo	Ella Lee	['israeli pop']	2	0
+4AK6F7OLvEQ5QYCBNiQWHq	One Direction	['boy band', 'pop', 'post-teen pop', 'talent show']	2	0
+0u6GtibW46tFX7koQ6uNJZ	Topic	['german dance', 'pop dance', 'pop edm', 'uk dance']	2	2
+0z60F8toAJCUuhnUdbtFD6	Narkis	['israeli pop']	2	1
+7k6KVFItaU7pcBvL6poIi9	Mark Eliyahu	['turkish instrumental']	2	2
+6Odeor35vCn3mr7VIiqIiq	ותן חלקנו	['israeli pop']	2	0
+3DsvjLwGTdkVQZwGH6dqlc	Meir Ariel	['classic israeli pop', 'israeli rock']	2	0
+64M6ah0SkkRsnPGtGiRAbb	Bebe Rexha	['dance pop', 'pop']	2	2
+6E1teCjsYmOlunh0OoPPA0	Elai Botner	['israeli pop']	2	2
+0GOx72r5AAEKRGQFn3xqXK	GIMS	['french hip hop', 'french pop', 'r&b francais', 'rap conscient']	2	1
+7LYtqxi8Le9d8KvQhzpcjj	Gil Vain	['israeli mediterranean']	2	2
+1zNqDE7qDGCsyzJwohVaoX	Anne-Marie	['pop']	2	0
+56oDRnqbIiwx4mymNEv7dS	Lizzo	['escape room', 'minnesota hip hop', 'pop', 'trap queen']	2	2
+0f38k6IM0q7Je0QihLXpD8	Weekend Heroes	['progressive house']	2	2
+7CW7QdOgRStOg7JktRuZ3E	Imen Es	['pop urbaine', 'r&b francais']	2	2
+6ASri4ePR7RlsvIQgWPJpS	iann dior	['melodic rap']	2	2
+3O5HD95HTEPgoPFOjAb7yV	DripReport	['viral rap']	2	0
+5zctI4wO9XSKS8XwcnqEHk	Lil Mosey	['melodic rap', 'rap conscient']	2	0
+7gZfnEnfiaHzxARJ2LeXrf	6ix9ine	['emo rap']	2	1
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	2	1
+53Grztcwkrym9UiT61lxPK	Paryente	[]	2	0
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	2	2
+540vIaP2JwjQb9dm3aArA4	DJ Snake	['edm', 'electronic trap', 'pop', 'pop dance']	2	2
+3ELOubnH7PInJmLhjlwK7n	Dudu Elharar	"['classic israeli pop', ""muzika l'yeladim""]"	2	0
+6wh7qbHmPS4XzavzRkQUpF	Yağmur Yaman	[]	2	0
+7uaIm6Pw7xplS8Dy06V6pT	Trevor Daniel	['melodic rap']	2	0
+1ouewr2N4LvWNoMxl38Nv0	Pacosp	[]	2	2
+3furG2qEvmH3TKcPQ7UL5L	Pasquale Finiello	[]	2	2
+6C1ohJrd5VydigQtaGy5Wa	Joyner Lucas	['boston hip hop', 'hip hop', 'pop rap', 'rap']	2	0
+5VwCIS8jdx9ZHjApLFNrTZ	Noga Erez	['israeli hip hop', 'israeli indie']	2	2
+0B0XXiGxIzdpQAvf3otjUb	ROUSSO	[]	2	2
+5Rl15oVamLq7FbSb0NNBNy	5 Seconds of Summer	['boy band', 'pop']	2	0
+3JPKPnzWJGjccn8SnjwA5i	Agam Buhbut	['israeli mediterranean']	2	2
+5yjmxaLSoZEnkIWJRAmhQe	Roni Dalumi	['festigal', 'israeli pop']	2	1
+16XberediOtO5CaMrx85cR	Arik Einstein	['classic israeli pop', 'israeli rock', 'israeli singer-songwriter']	2	2
+6m6sG9LbCntHv6lZ4nAubC	Shem-Tov Levy Ensemble	['classic israeli pop']	2	2
+6h7LtkzHunGiOPhnv3HHVd	Avraham Tal	['israeli pop']	2	0
+6uDohVoY075exRPPZhEDN2	מרקש אקספרס	[]	2	0
+73ieysHN7XpJYEnEAYsO3K	Aviv Geffen	['israeli rock']	2	1
+7bXgB6jMjp9ATFy66eO08Z	Chris Brown	['r&b', 'rap']	2	2
+2nm38smINjms1LtczR0Cei	Goodboys	['pop dance', 'uk dance']	2	2
+1Ba4dhPqLWmwj3Fwf9oWDs	Red Band	['israeli rock']	2	2
+1cNDP5yjU5vjeR8qMf4grg	YNW Melly	['melodic rap', 'rap']	2	1
+5jtRu6uXgHfjMGXswmOnYm	Emanuele Vernarelli	[]	2	0
+68xUgHzqV4k0UpaxvAM2YP	Futurwhite	[]	2	0
+3PhoLpVuITZKcymswpck5b	Elton John	['glam rock', 'mellow gold', 'piano rock', 'rock']	2	1
+7CUFPNi1TU8RowpnFRSsZV	Niska	['french hip hop', 'pop urbaine', 'r&b francais']	2	2
+7GaxyUddsPok8BuhxN6OUW	James Brown	['funk', 'soul']	2	0
+308QpS53hDcYGZseJlXtma	Akiva	['israeli pop']	2	0
+7t6kb9BaKLBDnii5rDGm4V	Major7	['progressive psytrance', 'psychedelic trance', 'trance brasileiro']	2	1
+4OC6SUCb9dVS0D0AAn3f2V	Joe The Smokeman	[]	2	0
+0PBsyq5j60zvPXYUzt9VCQ	Base Trap	[]	2	0
+5nFs4FcGSYufpaoEVpNbEW	Yishay Swissa	['israeli trap']	2	2
+4mrcT7anOENGBUO989RDe2	Roy Kafri	['israeli rock']	2	2
+6jJ0s89eD6GaHleKKya26X	Katy Perry	['pop']	2	0
+7wlFDEWiM5OoIAt8RSli8b	YoungBoy Never Broke Again	['baton rouge rap', 'rap']	2	2
+3SPahqpoQoSxuXOrS3rvKr	Modus	['psychedelic trance']	2	2
+4rQnQQusV2VVuGmDTLlybe	Yehuda Poliker	['classic israeli pop', 'israeli rock']	2	0
+1FjxiLVy20IOcg4ngcVoaQ	Graham	[]	2	0
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	2	1
+4nubbILepws9uxjDCpQFfz	דקל וקנין	[]	2	0
+20JZFwl6HVl6yg8a4H3ZqK	Panic! At The Disco	['pop']	2	1
+1sBkRIssrMs1AbVkOJbc7a	Rick Ross	['dirty south rap', 'gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap']	2	2
+7jVv8c5Fj3E9VhNjxT4snq	Lil Nas X	['lgbtq+ hip hop']	2	1
+7Ln80lUS6He07XvHI8qqHH	Arctic Monkeys	['garage rock', 'modern rock', 'permanent wave', 'rock', 'sheffield indie']	2	0
+6nVcHLIgY5pE2YCl8ubca1	Jhayco	['reggaeton', 'trap latino', 'urbano latino']	2	2
+69GGBxA162lTqCwzJG5jLp	The Chainsmokers	['electropop', 'pop']	2	2
+7arQA31aZVS8yS6zUveWzb	CJ	['nyc rap']	2	0
+0mnNM5o7vtxo3ivC7Tmoah	Chily	['french hip hop', 'pop urbaine', 'rap congolais', 'rap francais']	2	2
+55Aa2cqylxrFIXC767Z865	Lil Wayne	['hip hop', 'new orleans rap', 'pop rap', 'rap', 'trap']	2	2
+4GNC7GD6oZMSxPGyXy4MNB	Lewis Capaldi	['pop', 'uk pop']	2	0
+0GmwRPHVAU8zOdTOujIDUa	Miri Mesika	['israeli pop']	2	2
+26lUUiDmS9zj1LOOCkZUiS	Peled	['israeli hip hop', 'israeli trap']	2	1
+0qdbc8V1HlLub2jB2UJCPk	Ehud Banai	['classic israeli pop', 'israeli rock']	2	1
+5Nf5yishRW9Ye174sJISkg	London On Da Track	['atl hip hop']	2	2
+0vRvGUQVUjytro0xpb26bs	Arizona Zervas	['pop rap', 'rhode island rap']	2	0
+6M5fqYa8YL9DKP1sqS3Kzd	SUN (GR)	[]	1	0
+0iJF1SR5EbHAtVFgAz5tWH	Maor Edri	['israeli mediterranean']	1	0
+2MOEM2cDGyOzUf7LrBFuIG	Adir Getz	['israeli mediterranean']	1	0
+673KZxlEWb9J1kbctzONhW	D_Maniac	['deep full on', 'full on']	1	0
+53GAU5tdHVL97frliC5HuG	Wolvo	[]	1	0
+65H66xkYcvFusLywrmZ0lh	Anomalia	[]	1	0
+7bGFveEmXbQqtxGaLazy9z	Tophoo	['german trance']	1	0
+08F3Y3SctIlsOEmKd6dnH8	Yusuf / Cat Stevens	['british folk', 'classic rock', 'folk', 'folk rock', 'mellow gold', 'singer-songwriter']	1	0
+5YVmpiMiirV1lMezl9SDpD	Triple Aidan	[]	1	0
+2R21vXR83lH98kGeO99Y66	Anuel AA	['reggaeton', 'reggaeton flow', 'trap boricua', 'trap latino', 'urbano latino']	1	1
+1h40NvcAHSbG4O2r3932kB	Karolina	['israeli pop']	1	1
+0ErzCpIMyLcjPiwT4elrtZ	NLE Choppa	['memphis hip hop', 'rap']	1	1
+6nB0iY1cjSY1KyhYyuIIKH	FKA twigs	['afrofuturism', 'alternative r&b', 'art pop', 'escape room', 'experimental r&b', 'trip hop']	1	1
+5he5w2lnU9x7JFhnwcekXX	Skrillex	['brostep', 'complextro', 'edm', 'electro', 'pop dance']	1	1
+1ZiRuouid1bUvYXpEVaouj	Zehava Ben	['israeli mediterranean', 'mizrahi']	1	1
+5WCWKVOVoAEY3l3AHAiDql	Kalki	['progressive psytrance']	1	1
+67Bzv6daJXNCcX2xvv5d11	"Cast of ""Hag Li"""	[]	1	1
+3tjoGZmGJVn69uCacptnWh	Oshik Levy	['classic israeli pop', 'israeli rock']	1	1
+5j4s3NQ1MYuJbswcZs6ncH	Malaika Terry	[]	1	0
+5njXkyrt2MXhAI6Y18yHsw	Chaz Marcus	[]	1	0
+1MHczo5JkQ5S4pEpDPhYPS	ERNEST LARA	[]	1	0
+0rrtZVV7Gxfs6jsUQARBwy	Aaronrosemusic	[]	1	0
+36NHD4I3zQZPom0DcfGSWF	Akisan	[]	1	0
+74eDbuHo0vzUvayOnck5eh	The High Windows	['classic israeli pop', 'israeli rock']	1	0
+4fxd5Ee7UefO4CUXgwJ7IP	Giveon	['r&b']	1	1
+3q7HBObVc0L8jNeTe5Gofh	50 Cent	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'queens hip hop', 'rap']	1	1
+31rjcnxNmi1OZHp6Ld7LLA	Efrat Gosh	['classic israeli pop', 'israeli pop', 'israeli rock']	1	0
+6MDME20pz9RveH9rEXvrOM	Clean Bandit	['pop', 'uk dance', 'uk funky']	1	1
+1MIVXf74SZHmTIp4V4paH4	Mabel	['pop', 'uk pop']	1	1
+5Y60ANuxrG9yKpoigf1k53	Chani Livne	[]	1	1
+2ZNxs5PldhSTcyNgrGEEM2	Effi Ben Israel	"[""muzika l'yeladim""]"	1	1
+08GQAI4eElDnROBrJRGE0X	Fleetwood Mac	['album rock', 'classic rock', 'rock', 'soft rock', 'yacht rock']	1	0
+3MnR60ldjXYo42lHIZEPvo	Aramide	['alte']	1	0
+4xnihxcoXWK3UqryOSnbw5	Sasha Alex Sloan	['alt z']	1	1
+0b3ofB6Ca8xhzTkQGlGOIT	Føx & the Hound	[]	1	1
+4NKGNQJTBixqNXmozAhXxm	Derek Chilvers	[]	1	1
+7LvoDJUNGnOrPdGRzVtOJ9	Young M.A	['alternative r&b', 'lgbtq+ hip hop', 'nyc rap', 'rap', 'trap']	1	1
+5Wg2b4Mp42gicxEeDNawf7	A7S	['pop dance', 'scandipop', 'uk dance']	1	1
+0X2BH1fck6amBIoJhDVmmJ	Ellie Goulding	['indietronica', 'metropopolis', 'pop', 'uk pop']	1	1
+1p2zeVXXIZxM90dbmK6Vfx	Riterika	[]	1	0
+1Bl6wpkWCQ4KVgnASpvzzA	BROCKHAMPTON	['boy band', 'rap']	1	0
+0wKJOX7Ey4jay0X8V4Cpkh	Ben Spector	[]	1	1
+6USMTwO0MNDnKte5a5h0xx	Y2K	['pop rap', 'viral rap']	1	1
+41X1TR6hrK8Q2ZCpp2EqCz	bbno$	['canadian hip hop', 'dark trap', 'meme rap']	1	1
+2VdxcRZenJ5qgyMjZv5wOI	One Function	['progressive psytrance', 'psychedelic trance']	1	1
+4imrvVSzPZeMJ8RLvVRqTK	Ikon	[]	1	1
+45dkTj5sMRSjrmBSBeiHym	Tate McRae	['alt z', 'pop']	1	0
+0D664A8XpnX8j7kXjRWvuM	אחשתיים	[]	1	1
+6S2tas4z6DyIklBajDqJxI	Infected Mushroom	['psychedelic trance']	1	1
+5JJclMMPi2YgEKjJY9AjbB	Mr. Bill	['deep psytrance', 'glitch hop']	1	1
+3PyaGuMA7L7ipm3bYirgsC	X NILO VIRUS	[]	1	1
+50tAgTpmBnYekhXfeK0Qho	Kevv	['canadian trap']	1	0
+7hEYcTJuBYjhekQukXWBWu	Carakukly	['israeli pop']	1	0
+58mf4oi8A6QRteZvdlpq2n	Dor3	['israeli hip hop', 'israeli trap']	1	1
+2eh8cEKZk4VeruUrGq748D	Rim'K	['arabic hip hop', 'french hip hop', 'pop urbaine', 'rap algerien', 'rap francais']	1	0
+7DUTsWY3RBd64vh8UtgtYA	Lacrim	['arabic hip hop', 'french hip hop', 'pop urbaine', 'rap francais']	1	1
+0oeiA5U9u1U45Gos5cywUU	Soso Maness	['french hip hop', 'pop urbaine', 'rap francais', 'rap marseille']	1	1
+1IXlA6j1aVI8C75kwOERRR	Masticate	['grisly death metal']	1	1
+4WQ48TveTdBILkxxmYyd4a	Painkiller	['deep full on', 'full on']	1	1
+4xUgzJI1vWQpM97VQJKNwf	Impact	[]	1	1
+3WrFJ7ztbogyGnTHbHJFl2	The Beatles	['beatlesque', 'british invasion', 'classic rock', 'merseybeat', 'psychedelic rock', 'rock']	1	0
+1pZcigV84ihZL3erh8v0gY	Motty Steinmetz	['chasidic pop', 'jewish pop']	1	1
+14CHVeJGrR5xgUGQFV5BVM	Fivio Foreign	['brooklyn drill', 'new york drill', 'trap']	1	1
+2UyyBkpzN5w3hzZBZGvRZb	Sosa Geek	['brooklyn drill']	1	1
+4cPHsZM98sKzmV26wlwD2W	Brenda Lee	['adult standards', 'easy listening', 'lounge', 'rockabilly']	1	0
+2HUwZ0kumzCSlhFcjFZfpp	Flipp Dinero	['melodic rap', 'trap']	1	1
+1D8g0sSx3lKf9qZeFhYBku	WADD	[]	1	1
+2a4ydxjvafsc3XuuRrg2aI	jotabee	[]	1	1
+0Yj3N31EWXHc6e3eDyJPLP	Lyna Mahyem	['pop urbaine', 'r&b francais']	1	1
+22RN9Ixv1BY5QPoZDavGMs	GramJams	[]	1	0
+02lzslgWuwHAt9319f49Tc	Aviva Avidan	['classic israeli pop', 'mizrahi']	1	0
+0fwGtEcJ4v3H0btcbM0KWc	Richie Loop	['basshall']	1	1
+4LEiUm1SRbFMgfqnQTwUbQ	Bon Iver	['chamber pop', 'eau claire indie', 'indie folk', 'melancholia', 'modern rock']	1	1
+5IH6FPUwQTxPSXurCrcIov	Alec Benjamin	['alt z', 'pop', 'pov: indie']	1	0
+4lOr9n0uCBbn8vQ0j7slfY	Dennis Kramer	[]	1	0
+7h8ghNerldwugUeDtarLgN	Vida Abundante	[]	1	0
+32wex4hBuWlr13lLASfSjm	Shotei Hanevuah	['classic israeli pop', 'israeli pop']	1	0
+3QJUFtGBGL05vo0kCJZsmT	salem ilese	['alt z', 'modern indie pop']	1	0
+05YXDJuviChki9rwRNWq55	Matti Caspi	['classic israeli pop', 'israeli rock']	1	0
+2XWF57XN5l9VRXAiKaqk8K	NoxBe	[]	1	0
+1YfEcTuGvBQ8xSD1f53UnK	Busta Rhymes	['east coast hip hop', 'hardcore hip hop', 'hip hop', 'pop rap', 'rap']	1	1
+0rgY7fuV4ZwWQ94B4zl2WY	SARA	[]	1	0
+1WsYCXdezMjn0KoIrLvMmC	Ed Sheeran & Justin Bieber	[]	1	1
+2o5jDhtHVPhrJdv3cEQ99Z	Tiësto	['big room', 'brostep', 'dutch edm', 'edm', 'house', 'pop dance', 'slap house', 'trance']	1	0
+2r7sssoF6zZbPOG0U0YOem	Berg	['progressive psytrance', 'psychedelic trance']	1	1
+6AgTAQt8XS6jRWi4sX7w49	Polo G	['chicago rap', 'rap']	1	1
+5QjwI21mbWUU3uiWtjM6Lc	Dekel	['psychedelic trance']	1	1
+6EMXsJEdrX9vLI7DWSjG5l	TERRA	['psychedelic trance']	1	0
+4eFbq5PZgW7YbtA65PP4wS	Alignment	['acid techno', 'hard techno']	1	0
+4AJdOTtmWuYYElSe07eejR	Memento Mori	[]	1	0
+5bv5RplEOwdCvhq0EILh9E	Lucenzo	['reggaeton']	1	0
+3vOaGVqHAJ9ZSBIhbPaciM	Quarter to Africa	['israeli jazz']	1	1
+4VIvfOurcf0vuLRxLkGnIG	Bradley Cooper	['hollywood']	1	1
+5Aw431uxuPIJWiPuiEpIWr	Sapir Saban	['israeli mediterranean']	1	0
+62RbeMoLEsmfhTrsG2qUA1	Carmen	['italian pop']	1	0
+62XEdvZxnD1EPPar24GleF	רמי קלינשטיין	[]	1	1
+6CF0RU54VmcIrHPtYCtN3C	אלה לי	[]	1	1
+5Ll17fpbJ28m3W0D29hYWh	אליעד	[]	1	1
+7vTpS4Jb7ptnDazNCRwt3E	אנה זק	[]	1	1
+0RNFCu4ChoQ1FDBKcGhnoi	Gidi Gov	['classic israeli pop', 'israeli rock']	1	1
+0fAl22XeIC207exWeYJ6SG	מרגי	[]	1	1
+5tHvjw07aaiv3mZ6qJdKzb	Subliminal	['israeli hip hop']	1	1
+5yAepKlzchyip6NqJkvHTv	סטפן לגר	[]	1	1
+3BUM2SOB2W1NpnOqbOPpG1	עדן אלנה	[]	1	1
+0gE0oNSkOYxmocw3btSRcw	Osnat Paz	"[""muzika l'yeladim""]"	1	0
+6dzlX0oEZE1n72oqOkEW9z	Lehakat Pikud Merkaz	['classic israeli pop']	1	0
+6dsrc9AXrtgtgQb4qb4nfQ	Osher	['progressive psytrance']	1	0
+0gadJ2b9A4SKsB1RFkBb66	Passenger	['folk-pop', 'neo mellow']	1	0
+2sqbWZ55HvLMOXM9N9D5xX	The Ultras	['israeli mediterranean']	1	1
+3tld5eVjgH1HTKj7BLP1yy	DJ Elon Matana	[]	1	1
+4ETSs924pXMzjIeD6E9b4u	Surfaces	['bedroom soul']	1	0
+6cp8bVNeuwo43R1Z0eyn7y	Hana Laszlo	"[""muzika l'yeladim""]"	1	0
+6ZCOPlJFV8e8bqkFTLIGIO	Children Choir	[]	1	0
+6DgP9otnZw5z6daOntINxp	Joel Corry	['dance pop', 'pop dance', 'uk dance']	1	1
+7uMh23xWiuR7zsNkuNcm2G	MNEK	['house', 'pop dance', 'uk contemporary r&b', 'uk dance', 'uk pop']	1	1
+6Gk5hoM7eW8NSCYhICMDHw	Zak Abel	['uk contemporary r&b']	1	1
+5FnQzzhgbMptpNeItpdzGH	Slackjoint	[]	1	1
+6yCGdZHId0vWEO5NxS4g8d	Omer Netzer	['israeli pop']	1	0
+24HI9hevLjIQtj7xp2CeHs	Peer Tasi	['israeli mediterranean']	1	0
+6yzC1teD8qTNP5gsLqqmqR	Reign	[]	1	0
+5Jg33Cqh2I5g7HiwOZkmH7	Nox	[]	1	0
+7rgGwIfnzk9wVSw7SNzB4X	FutuReason	[]	1	0
+3PyJHH2wyfQK3WZrk9rpmP	Ashnikko	['alt z', 'escape room']	1	0
+0kxMDgFDfRYyqs91HfrXIk	Ruchama Raz	['classic israeli pop', 'sefardi']	1	0
+2Qt4xtpk4ZGbBEYWV0Y2II	Hinap	['german trance', 'progressive psytrance', 'psychedelic trance']	1	0
+4qnJoY6Ujqp1f2urV0z82I	Gabriel Hess	[]	1	0
+7tYKF4w9nC0nq9CsPZTHyP	SZA	['pop', 'r&b', 'rap']	1	1
+31TPClRtHm23RisEBtV3X7	Justin Timberlake	['dance pop', 'pop']	1	1
+7z5WFjZAIYejWy0NI5lv4T	Dan + Shay	['contemporary country', 'country', 'country road']	1	1
+38EmEgXkgK51MT2tPY0EoC	Bobby Helms	[]	1	0
+2GtZdRXCzWTILnpTZjcRm0	TDOCAK	[]	1	0
+0id62QV2SZZfvBn9xpmuCl	Aloe Blacc	['pop soul', 'r&b']	1	1
+7bmYpVgQub656uNTu6qGNQ	Hwa Sa	['k-pop', 'korean talent show']	1	1
+790FomKkXshlbRYZFtlgla	KAROL G	['reggaeton', 'reggaeton colombiano', 'trap latino', 'urbano latino']	1	1
+01ytcP8EiFFxcyfaO9W7U9	Ori Ben Ari	['israeli mediterranean']	1	0
+4ofCBoyEiGSePFAG500xev	Regard	['pop dance', 'pop edm', 'slap house', 'uk dance']	1	0
+7eulqmNCJyk7FPbKCFG68B	Yoav Itzhak	['mizrahi']	1	0
+2EFpb61Lpi0l5ldOiqbZkK	Landy	['french hip hop', 'pop urbaine', 'rap francais']	1	1
+4Uc8Dsxct0oMqx0P6i60ea	Conan Gray	['bedroom pop', 'pop', 'pov: indie']	1	0
+0olJZVM2Rk5vE47NkaNmub	Solarix	[]	1	1
+6Bt0LvFLkpYwuixcfYkv1b	Terry Lex	[]	1	1
+1Vo3jD8HCbXTGAJRgl07s3	Matt Caseli	[]	1	1
+7dP3IojeOt5MB17uDRVaUP	Shem-Tov Levi	['classic israeli pop']	1	0
+6icQOAFXDZKsumw3YXyusw	Lil Yachty	['atl hip hop', 'melodic rap', 'rap', 'trap']	1	1
+6P5NO5hzJbuOqSdyPB7SJM	Ashe	['alt z']	1	0
+6QXNQ8OQ9hbHzg88culdya	Rexalted	['psychedelic trance']	1	1
+2f32tgtqy30LUzrrghGrzn	שבט אחים ואחיות	['israeli mediterranean']	1	0
+10exVja0key0uqUkk6LJRT	Vance Joy	['folk-pop', 'modern rock']	1	0
+7KLSx8HrgJJR3DmrT38sRS	Duane MCClure	[]	1	0
+0QJIPDAEDILuo8AIq3pMuU	M.I.A.	['escape room', 'indietronica', 'new rave']	1	1
+63yrD80RY3RNEM2YDpUpO8	Melanie Martinez	['alt z', 'electropop', 'pop']	1	0
+3wEOTP32nLxZcXuGJPA1Vl	Shula Chen	['classic israeli pop']	1	0
+3hcs9uc56yIGFCSy9leWe7	Lil Durk	['chicago drill', 'chicago rap', 'drill', 'hip hop', 'rap', 'trap']	1	1
+1czB7ak5HgzWC5a3MppcmP	M0B	['brazilian house']	1	1
+3hkisIEQ07NKV6rr0qiq1R	Tschavek	[]	1	1
+3rzVtsul7Jt3BFcy0UhWgs	Tzlil Danin	['israeli pop']	1	1
+5gf4XgAoGBJgguBo9sbyzj	Yehudit Ravitz	['classic israeli pop', 'israeli rock']	1	0
+3tJoFztHeIJkJWMrx0td2f	Moneybagg Yo	['memphis hip hop', 'rap', 'southern hip hop', 'tennessee hip hop', 'trap']	1	1
+4vH9G6Sah9CmkDMDy4jUwe	Sphera	['progressive psytrance']	1	1
+045CNprh7gdLSnJP6oOryU	Domestic	['full on', 'progressive psytrance', 'psychedelic trance']	1	1
+6UnWRPNYGj5wOxst3Uy06v	Raveheart	[]	1	0
+73sIBHcqh3Z3NyqHKZ7FOL	Childish Gambino	['atl hip hop', 'hip hop', 'rap']	1	0
+34gCWollNqYlcodydhFabx	Mercedes Band	['israeli rock']	1	0
+6LMTWg6NqLvOUikg3i6RQB	Mineonxx	[]	1	0
+1MXZ0hsGic96dWRDKwAwdr	Tyla Yaweh	['cali rap', 'melodic rap']	1	1
+0PWRQodP2EvmBFpgyKUNc6	Dudu Faruk	['israeli hip hop', 'israeli trap']	1	0
+6mWi9MJp1bhwRCGSm1fEX8	Lama Lo	['israeli pop']	1	0
+4u07BYy4XMvytGO33GYKrQ	Uzi Hitman	['classic israeli pop']	1	1
+7wKPys2YaMuZqdQu0g15Pt	Hanny Nahmias	['festigal']	1	1
+6UCQYrcJ6wab6gnQ89OJFh	Headie One	['uk hip hop']	1	1
+3jK9MiCrA42lLAdMGUZpwa	Anderson .Paak	['escape room', 'hip hop', 'indie soul', 'neo soul']	1	1
+1NSAtWtV4khW2eHvxgiIuy	Glen Dean	[]	1	0
+00FQb4jTyendYWaN8pK0wa	Lana Del Rey	['art pop', 'pop']	1	1
+6nS5roXSAGhTGr34W6n7Et	Disclosure	['edm', 'house', 'indietronica', 'uk dance']	1	1
+78u2puZeKJRYIfNHkx2Jdh	Hadag Nahash	['israeli hip hop', 'jewish hip hop']	1	0
+14cLJUbPP9feODRBB72VFA	Gian u Gian	[]	1	1
+7cZykd9jo7N7z0L74mCsrg	Hxmanity Race OG	[]	1	0
+56mfhUDKa1vec6rSLZV5Eg	Jawsh 685	['nz pop']	1	1
+5fMUXHkw8R8eOP2RNVYEZX	Diplo	['edm', 'electro house', 'moombahton', 'pop dance']	1	1
+5yPzzu25VzEk8qrGTLIrE1	Young Nudy	['pluggnb', 'rap', 'trap']	1	1
+4moIrr6CFQSWiglLx5q9SS	Noifeld's Glasses	[]	1	1
+7A8S43ryYdbWpJKeHRZRcq	JACKBOYS	['pop rap']	1	1
+6eYFryfcEu3QSq59D62wZQ	Brendon Urie	[]	1	1
+4AG1ojyUSY1HWyDPaLxkvZ	Mimit	[]	1	1
+5QD6p1DWImYyoyoh5RXWWe	Malij	[]	1	1
+3RUaBohZGA9vusdMDJBD1V	Zohar Argov	['classic israeli pop', 'mizrahi']	1	0
+31uiC5OjmBi1NUgblvZLei	Lehakat Heyl Ha'avir	['classic israeli pop']	1	0
+1RJmMbI0trb4clfHsOiwfj	Meital Trabelsi	[]	1	0
+2cFrymmkijnjDg9SS92EPM	blackbear	['pop']	1	0
+0NbfKEOTQCcwd6o7wSDOHI	The Game	['gangster rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+17lzZA2AlOHwCwFALHttmp	2 Chainz	['atl hip hop', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+59wfkuBoNyhDMQGCljbUbA	Diddy	['dance pop', 'east coast hip hop', 'hip hop', 'hip pop', 'pop rap', 'rap']	1	1
+0YWxKQj2Go9CGHCp77UOyy	Fabolous	['gangster rap', 'hip hop', 'pop rap', 'rap', 'trap', 'urban contemporary']	1	1
+67nwj3Y5sZQLl72VNUHEYE	Wale	['pop rap', 'r&b', 'rap', 'southern hip hop', 'trap']	1	1
+2cADQgiLMjNhbsfeN52Bf3	Swizz Beatz	['battle rap', 'dirty south rap', 'southern hip hop', 'trap']	1	1
+6Ha4aES39QiVjR0L2lwuwq	Yo Gotti	['dirty south rap', 'gangster rap', 'memphis hip hop', 'rap', 'southern hip hop', 'tennessee hip hop', 'trap']	1	1
+6X8WdFjrNhXATMDSs26aCc	Curren$y	['dirty south rap', 'new orleans rap', 'rap', 'southern hip hop']	1	1
+0399oiMcmbOzzsYQDNYqxn	Problem	['hyphy', 'trap', 'west coast trap']	1	1
+34nVLWMJTjaMh2aSMOQHei	King Pharaoh	[]	1	1
+1lEXbUjKjHQ7uc9jFfEViJ	TGT	['pop r&b']	1	1
+7MPGCB854Qo4alYMOPkBka	Ritt Momney	['bedroom pop']	1	0
+77TAa7OmcUGPStSSeXG5py	Hanan Yovel	['classic israeli pop', 'israeli singer-songwriter']	1	0
+60rpJ9SgigSd16DOAG7GSa	Billy Ray Cyrus	['country rock']	1	1
+7EQ0qTo7fWT7DPxmxtSYEc	Bastille	['metropopolis', 'modern rock', 'pop']	1	1
+6bmlMHgSheBauioMgKv2tn	Powfu	['sad lo-fi', 'sad rap']	1	1
+35l9BRT7MXmM8bv2WDQiyB	beabadoobee	['bedroom pop', 'bubblegrunge', 'indie pop', 'pov: indie']	1	1
+50tOi6fzLx6WWyl4Oe226k	Dudi Bar David	['israeli pop']	1	0
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+6UReeaqNcjIfzIH13kTHKE	Amir Ve Ben	['israeli pop']	1	1
+5keFhnqLaQXXUPV1R9jWmc	Yorik Ben David	"[""muzika l'yeladim""]"	1	0
+1lmU3giNF3CSbkVSQmLpHQ	Surf Mesa	[]	1	1
+4ArPQ1Opcksbbf3CPwEjWE	Emilee	['social media pop']	1	1
+0cGUm45nv7Z6M6qdXYQGTX	Kehlani	['pop', 'r&b']	1	1
+4kxNQBJCEFmAawHBbEvv70	Stav Beger	[]	1	1
+5esEFjGx46DlbbiaxASYd0	Prod Rabbit	[]	1	0
+6ACVgp7YNEXXJP1teWXmkK	Paulius Jurgaitis	[]	1	0
+6NrkoLRp6RHwYmRziL2jP9	Ey Lawa Gulakem	[]	1	1
+77SW9BnxLY8rJ0RciFqkHh	The Neighbourhood	['modern alternative rock', 'modern rock', 'pop', 'pov: indie']	1	0
+0XfCgx3ePED141a3TsQbVz	David D'Or	['israeli singer-songwriter']	1	1
+5yy76ufVriyvidNSvXlRU1	Clever	['alabama rap']	1	1
+04yB9kBsaEQgT8hFfcsQik	Mustard	[]	1	1
+3El6ZDjytVLp8zNRcd5quU	Jevo	[]	1	0
+3giniJpo19Md4V5Plataq2	Shiri Maimon	['festigal', 'israeli pop']	1	1
+1Yk3A7cwqCkruY0cn497AU	Pako Ramirez	[]	1	0
+21eflLotziZovnNBFhlMy7	DonC	[]	1	0
+4CasmBhR2XUiyOB3juN7oE	Brunettedoc	[]	1	0
+72r4ZyFcHnsPLCnppSF7q8	Zeev Nehama	[]	1	1
+4DCkkGXzzYmyz4C7RM08bX	MC Dukevi	[]	1	0
+7IrDf7kmuauOb6594lG59V	Kal Taf Band	[]	1	0
+0UcXjTpzt0DmIwPSNwlJfF	jetsonmade	[]	1	1
+5JZ7CnR6gTvEMKX4g70Amv	Lauv	['pop']	1	1
+49tQo2QULno7gxHutgccqF	LANY	['la pop']	1	1
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	1	1
+1Xylc3o4UrD53lo9CvFvVg	Zara Larsson	['pop', 'scandipop', 'swedish electropop', 'swedish pop']	1	1
+46KxKVpK7XNqlkdi5oiMxE	שחר סאול	['israeli hip hop']	1	1
+06nvjg4wBANK6DCHjqtPNd	Mahmood	['italian adult pop', 'italian pop']	1	0
+06Fk5pMYFuS14rc10G7Ph1	Rob Dymez	[]	1	0
+05YG290otZjn1UMHXjEqxh	Yoni Rechter	['classic israeli pop', 'israeli rock']	1	0
+2pQUmDH69CIhPIC9ZjJ4tX	Chardon Rabbit	[]	1	0
+5EoUq01vZF7cGf1YxKNuHu	Kram	[]	1	0
+3wcj11K77LjEY1PkEazffa	Burna Boy	['afrobeats', 'dancehall', 'nigerian hip hop', 'nigerian pop']	1	1
+3O2qgIUDvVtm7iXuzV7BTN	Mister Ruiz	[]	1	0
+0ECwFtbIWEVNwjlrfc6xoL	Eagles	['album rock', 'classic rock', 'heartland rock', 'mellow gold', 'rock', 'soft rock', 'yacht rock']	1	0
+0qrJgevjXorpFIC1pV0Lmj	Rami Kleinstein	['classic israeli pop']	1	0
+5erhFyQeO8a4q9oGmCvzFE	Helmgrn Langar Langar	[]	1	1
+66W9LaWS0DPdL7Sz8iYGYe	JP Saxe	['alt z', 'canadian contemporary r&b', 'singer-songwriter pop']	1	1
+0ZED1XzwlLHW4ZaG4lOT6m	Julia Michaels	['pop']	1	1
+1q7T9rFQ2a2ukA1PU51fo3	Koba LaD	['french hip hop', 'pop urbaine', 'rap francais']	1	1
+0oslLqFFiQGt023MVrPyhd	Tomer Yosef	['classic israeli pop', 'israeli hip hop']	1	0
+6tbjWDEIzxoDsBA1FuhfPW	Madonna	['dance pop', 'pop']	1	1
+2wIVse2owClT7go1WT98tk	Missy Elliott	['dance pop', 'hip hop', 'hip pop', 'neo soul', 'pop rap', 'r&b', 'rap', 'urban contemporary', 'virginia hip hop']	1	1
+4TvhRzxIL1le2PWCeUqxQw	The Blessed Madonna	[]	1	1
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	1	0
+0yuzd9F7msg9MS8MTzQOmy	הגר יפת	['israeli mediterranean']	1	0
+6tElujnqj1XntPgsnfPx7K	Nurit Galron	['classic israeli pop', 'israeli rock']	1	0
+1Z9w8pPKaCtdz4q8NJPUR9	JayTSeven	[]	1	1
+6RG0amrKHbK931ln6bkq2y	Zues Ya Tu Sabes	[]	1	1
+0GM7qgcRCORpGnfcN2tCiB	Tainy	['pop reggaeton', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+3MZsBdqDrRTJihTHQrO6Dq	Joji	['viral pop']	1	0
+6tSDo5FQMCvTmAq75QK4Ki	Psyfonic	[]	1	0
+45eNHdiiabvmbp4erw26rg	ILLENIUM	['edm', 'melodic dubstep', 'pop dance']	1	1
+1cZQSpDsxgKIX2yW5OR9Ot	Lennon Stella	['alt z', 'canadian pop', 'uk pop']	1	1
+60UBI2MjxFYYMSjp7AYdzj	2facedBandits	[]	1	1
+6t0LYwelvYvy3PnBrydOCP	Insaf	[]	1	1
+2YHuWGXNWLmpBTKo1rQ3me	E-Z	['israeli hip hop']	1	1
+3sqSqplccWYKRs7zEztPm3	Benny Esterkin	['israeli hip hop']	1	1
+0zaM690YAtisdp82OI4ukt	אברהם לגסה	['israeli hip hop']	1	1
+6NsAYf2GPGeHVSezRthCkD	Amit Ulman	[]	1	1
+3HYTxfNzy0leOJ0nMJr61b	Lukach	['israeli hip hop', 'israeli trap']	1	1
+0HhxIvayxFuvosCf4jVHds	דורון גוברמן	[]	1	1
+2Ky0L9EAz66AEhFfeak23R	Guy Mazig	['israeli hip hop']	1	1
+77eDggSxjTCYZseu4fey1x	Gal De Paz	[]	1	1
+2CzKRJPoPZmRDAfTh8Hh1J	Shlomo Gronich	['classic israeli pop', 'israeli rock']	1	1
+0urEonXMEzc3F5BX7PXTuk	Shlomo Ydov	['classic israeli pop', 'israeli rock']	1	1
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	1	1
+2XyVj5qsjy87RPXk1O5if3	Alrima	['french hip hop', 'pop urbaine']	1	0
+2N4EYkIlG1kv25g6Wv8LGI	Killer Mike	['alternative hip hop', 'atl hip hop', 'conscious hip hop', 'hip hop', 'old school atlanta hip hop', 'political hip hop', 'southern hip hop']	1	0
+0fdJoov5KY8fDtgufXKCi3	Elia Rosilio	[]	1	1
+6guOD3hH4q0Jf1ldgfLAUS	Bell Size Park	[]	1	1
+31rGCjl3AF2GI4AFuWELJq	Vimana Shastra	[]	1	1
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	1	0
+2HPaUgqeutzr3jx5a9WyDV	PARTYNEXTDOOR	['r&b', 'rap', 'toronto rap', 'urban contemporary']	1	1
+5pKCCKE2ajJHZ9KAiaK11H	Rihanna	['barbadian pop', 'pop', 'urban contemporary']	1	1
+4V6wf2ynZAUYlG8WnyQrIz	Naomi Shemer	['classic israeli pop']	1	0
+6W1YDSxykCcYNvuViqUlBv	Guy & Yahel	['israeli pop']	1	0
+00dCKQMsWDA42hbt396Hwu	Bubble	[]	1	0
+2o08sCWF5yyo2G4DCiT7T9	HVME	['slap house']	1	0
+79KQgTCu4wV38ECYKn62DZ	White Gold	[]	1	1
+3lDTgudSVNR05wyiJ1RptF	Bar Tzabary	['israeli pop']	1	0
+739rCrkSZaqcSWfOELSpd7	Don Meskobar	[]	1	0
+3NZ0N5Xq4rdHSWJujEwsqJ	The Brothers & The Sisters	['classic israeli pop']	1	0
+7ktkh3ndKjPUQSMlwNGz2x	Denixxination	[]	1	0
+24xjRvhjqJSKqhVbfiHEHz	ALLAN ROBLES	[]	1	0
+110wHDAsaXDaKKdUztwGlE	Lehakat Heyl Hayam	['classic israeli pop']	1	0
+0A0FS04o6zMoto8OKPsDwY	YG	['cali rap', 'hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	0
+5y2Xq6xcjJb2jVM54GHK3t	John Legend	['neo soul', 'pop', 'pop soul', 'urban contemporary']	1	0
+0xd6DVkSrfCs0C01t85gbj	Monica Sex	['israeli rock']	1	0
+2p1fiYHYiXz9qi0JJyxBzN	Skepta	['birmingham grime', 'grime', 'instrumental grime', 'uk hip hop']	1	1
+6oMuImdp5ZcFhWP0ESe6mG	Migos	['atl hip hop', 'hip hop', 'rap', 'trap']	1	1
+3oSJ7TBVCWMDMiYjXNiCKE	Kane Brown	['black americana', 'contemporary country', 'country', 'country road']	1	1
+5JYo7gm2dkyLLlWHjxS7Dy	Sandro Cavazza	['swedish pop']	1	1
+74wq2nbbYaG4JLksZSwJ0K	Francis Duran	[]	1	0
+1kW6jqgrymK0l58M3OqVMz	Geva Alon	['israeli rock']	1	0
+7vWXeC2uGRhLAx2eWmTrlS	Arutz Hakibud	['israeli hip hop']	1	1
+5EgEUxXi9uTYYN4cQwmLPy	Girafot	['israeli pop', 'israeli rock']	1	1
+2gOP5NE2e7HmeVRy8EKPx8	DMZL	[]	1	1
+57As5Ou4VN0tvy9OToSDub	Israel Gurion	[]	1	1
+4xRYI6VqpkE3UwrDrAZL8L	Logic	['conscious hip hop', 'hip hop', 'pop rap', 'rap']	1	0
+1uwYAGpJ6NkzZogcsXRRt8	Ruma Amar	[]	1	1
+4Ga1P7PMIsmqEZqhYZQgDo	Lil Tecca	['melodic rap', 'pluggnb', 'rap']	1	0
+3ztkEwzA7r2OE3MXYbkU2b	Miper	[]	1	1
+0Cp8WN4V8Tu4QJQwCN5Md4	BENEE	['alt z', 'nz pop']	1	1
+6sHCvZe1PHrOAuYlwTLNH4	Gus Dapperton	['bedroom pop', 'indie poptimism', 'pov: indie']	1	1
+6NxJhQxcEAxCdfxXt4ScMt	Unité	[]	1	1
+4sbXXFzEWJY2zsZjelerjX	Dadju	['french hip hop', 'pop urbaine', 'r&b francais']	1	1
+05hirnMeVIzCrcUxbrysZU	Hatik	['french hip hop', 'pop urbaine', 'r&b francais']	1	1
+0GgY7hjMoGDsX8ZDe2mwds	Soolking	['french hip hop', 'pop urbaine', 'r&b francais', 'rap algerien']	1	1
+4q5k69mieggvWRdsxYmlO1	Elai Botner and Yaldei Hachutz	['israeli rock']	1	1
+4wngxtsP87ozrQh05D90dO	Trois Cafés Gourmands	['chanson', 'french pop']	1	0
+4EPJlUEBy49EX1wuFOvtjK	Becky Hill	['pop dance', 'pop house', 'uk dance', 'uk pop']	1	1
+2WtAMWvLiN2sOlIH9cjNvE	Dudu Elarar	[]	1	0
+6jGMq4yGs7aQzuGsMgVgZR	Lil Tjay	['brooklyn drill', 'melodic rap', 'nyc rap', 'rap']	1	1
+6DJEUXZm0e2rAohdoZ5Voo	Black Thought	['alternative hip hop', 'east coast hip hop']	1	1
+3ZotbHeyVQKxQCPDJuQ4SU	Q-Tip	['east coast hip hop', 'queens hip hop']	1	1
+1WjexdTcXHgvlVIPCE8D1Q	Denaun	[]	1	1
+2InjHjsMuTMX8mOfZbrCrE	Kobi Maman	['israeli pop']	1	0
+018HTJ9Cu6WXLAHEbUpU6r	Shay Gabso	[]	1	0
+0L8ExT028jH3ddEcZwqJJ5	Red Hot Chili Peppers	['alternative rock', 'funk metal', 'funk rock', 'permanent wave', 'rock']	1	0
+4Ui2kfOqGujY81UcPrb5KE	HAIM	['indietronica', 'metropopolis']	1	1
+43UrtVsXBpG7lMVM5iWFUA	ISAAC MCGOWAN	[]	1	0
+7nAL6HRisO90oRTDWIF2IC	100 First Songs' Participants	"[""muzika l'yeladim""]"	1	0
+1bURkyYn1lal6o67U11pC7	Rigormortiz	[]	1	0
+1HYW6iopmjRwGHVI6MqNne	Chani Lindenboim	[]	1	0
+1SOCXWLgBvXDqNobiSnGM7	Teddy Neguse	['israeli hip hop', 'israeli trap']	1	1
+3YQKmKGau1PzlVlkL1iodx	Twenty One Pilots	['modern rock', 'pop', 'pov: indie', 'rock']	1	0
+4VMYDCV2IEDYJArk749S6m	Daddy Yankee	['latin hip hop', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+3uZFBSsMiooimnprFL9jD1	Snow	['canadian old school hip hop', 'reggae fusion']	1	1
+4dpARuHxo51G3z768sgnrY	Adele	['british soul', 'pop', 'pop soul', 'uk pop']	1	0
+67jjcbs5MF7FDjidu2grjM	Roee Sendler	['israeli mediterranean']	1	0
+0BatFhnuo1dJ632u37igwo	Barry	['gulf hip hop']	1	0
+0ytNoXYE3P3AAZ8vRjBQzQ	Liron Amram	['israeli pop']	1	1
+4iMzpoygw38Q0AzsMyEpnV	Miriam Avigal	"[""muzika l'yeladim""]"	1	0
+2kRfqPViCqYdSGhYSM9R0Q	Madison Beer	['pop']	1	0
+41ggHbtYARi4S4JtbeRrYY	Claudinho Brasil	['trance brasileiro']	1	0
+3YKMdXzuN9erMXmHCGi2Ah	San Troki	[]	1	0
+0OfuapV80g1NlUKppYoArt	Danny Sanderson	['classic israeli pop', 'israeli rock', 'israeli singer-songwriter']	1	1
+4TUhMI7U0icPSUhrhX5uWf	Mazi Cohen	['classic israeli pop', 'israeli singer-songwriter']	1	1
+5KNNVgR6LBIABRIomyCwKJ	Dermot Kennedy	['folk-pop', 'irish pop', 'uk pop']	1	1
+72UMGUwvrkXSesefytfLWy	Danny Robas	['classic israeli pop']	1	0
+4mUzpVljKwyZJLoXrJnQzy	Boi Ecchi	[]	1	1
+0bqfJUtnA2DQtHy6C4BYf2	Red Sun	[]	1	1
+6jUAxR5KFMX2hcKKFebeL4	Shaylee Atary	[]	1	0
+41BvcoyjJWRYdZ9dojoHcP	Limp	[]	1	0
+4fEvmZa0SYpKxIk9DXyQUJ	Guy Mentesh	[]	1	1
+016qAGoYFJxTfSCdRANyLV	Russ Nonz	[]	1	0
+2BXgz17FVSKfMin4uJDtYM	Arkadi Duchin	['classic israeli pop', 'israeli rock']	1	0
+7EcwGchXSW45d1De8A8xN8	Amyr	[]	1	0
+69PzkUAGtjCSsDshK2Sde9	Cruesa	[]	1	0
+0YinUQ50QDB7ZxSCLyQ40k	Mustard	['cali rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+2FVdUWkBpItriUqpM7mLHX	Lehakat Chinuch Meyuchad	[]	1	0
+1pEEMMLzKhOOxrungHK86W	Broski Musiq	[]	1	0
+2FXC3k01G6Gw61bmprjgqS	Hozier	['irish singer-songwriter', 'modern rock', 'pop', 'pov: indie']	1	0
+5pkJj3IFFJBgzNYJsGR57Y	Chucho Flash	[]	1	1
+6H1Mb5PE6EoxF6ghwzNShe	Juan Miguel	[]	1	1
+4OuNFhB4UqOVluGG75fiWd	Sivan Talmor	['israeli indie', 'israeli pop']	1	1
+6MSjMu195xaocuWVxiFDMW	Young Wavee	[]	1	0
+2PaZWGu5T5nHjY2xxAkFsT	THE SCOTTS	['viral rap']	1	1
+6fFfnKGVI6X3lkCr8Qw1g1	KXNG Crooked	['cali rap', 'detroit hip hop']	1	1
+1q13yHC6Syg5Y8iPLrRnCq	Joell Ortiz	['battle rap']	1	1
+0lFLP59V4TY3XgnrkFIwxK	Katja Krasavice	['frauenrap', 'german pop', 'german viral rap']	1	0
+4rTv3Ejc7hKMtmoBOK1B4T	Ali Gatie	['canadian hip hop']	1	0
+05R6aq3wevHpu2ScIPjPZR	Rotem Bar Or	['israeli folk']	1	1
+4uzogBU4WpVdzUMRmNn6A9	Oshri Cohen	['israeli techno']	1	1
+3mXIUkedzK2kAen1gCt9E9	HUKAS	[]	1	1
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	1	0

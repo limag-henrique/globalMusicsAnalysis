@@ -1,0 +1,640 @@
+artist_id	name	genres	num_hits	num_collab_hits
+5K4W6rqBFWDnAN6FQUkS6x	Kanye West	['chicago rap', 'hip hop', 'rap']	38	3
+6AgTAQt8XS6jRWi4sX7w49	Polo G	['chicago rap', 'rap']	38	22
+1uNFoZAHBGtllmzznpCI3s	Justin Bieber	['canadian pop', 'pop']	34	21
+0eDvMgVFoNV3TpwtrVCoTj	Pop Smoke	['brooklyn drill', 'rap']	34	22
+3TVXtAsR1Inumwj472S9r4	Drake	['canadian hip hop', 'canadian pop', 'hip hop', 'rap', 'toronto rap']	29	19
+6qqNVTkY8uBg9cP3Jd7DAH	Billie Eilish	['art pop', 'electropop', 'pop']	26	1
+0MtTfq27LQu7CmE5t308Up	Bubbi Morthens	['classic icelandic pop', 'icelandic pop', 'icelandic rock', 'icelandic singer-songwriter']	24	5
+4MCBfE4596Uoi2O4DtmEMz	Juice WRLD	['chicago rap', 'melodic rap', 'rap']	24	10
+0zGt5wXkvlORfIk5tnFxAD	Baggalútur	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	23	2
+50co4Is1HCEo8bhOyUWKpn	Young Thug	['atl hip hop', 'atl trap', 'gangster rap', 'melodic rap', 'rap', 'trap']	22	20
+6opz1Ax3VqCmeQBGax1erx	BRÍET	['icelandic pop', 'icelandic singer-songwriter']	22	5
+4dpARuHxo51G3z768sgnrY	Adele	['british soul', 'pop', 'pop soul', 'uk pop']	22	0
+7FRQP6Ivwv3DQCLxpR3I6Z	Birnir	['icelandic hip hop']	21	9
+1nzgtKYFckznkcVMR3Gg4z	KSI	['uk hip hop']	19	13
+2mgonCuv2QEZZbPOatCbyu	Jón Jónsson	['icelandic pop']	19	6
+7jVv8c5Fj3E9VhNjxT4snq	Lil Nas X	['lgbtq+ hip hop']	19	6
+5f7VJjfbwm532GiveGC0ZK	Lil Baby	['atl hip hop', 'atl trap', 'rap', 'trap']	18	17
+4jfe3cL8wzjPxD9CViP2dW	Aron Can	['icelandic hip hop', 'icelandic indie', 'icelandic pop']	18	7
+6eUKZXaKkcviH0Ku9w2n3V	Ed Sheeran	['pop', 'singer-songwriter pop', 'uk pop']	17	2
+4V8LLVI7PbaPR0K2TGSxFF	Tyler, The Creator	['hip hop', 'rap']	17	9
+6MBiPjSFsYijvVDtKDwVs4	Herra Hnetusmjör	['icelandic hip hop', 'icelandic pop']	17	10
+1GxkXlMwML1oSg5eLPiAz3	Michael Bublé	['adult standards', 'canadian pop', 'jazz pop', 'lounge']	17	3
+6l3HvQ5sa6mXTsMTB19rO5	J. Cole	['conscious hip hop', 'hip hop', 'north carolina hip hop', 'rap']	17	7
+3hcs9uc56yIGFCSy9leWe7	Lil Durk	['chicago drill', 'chicago rap', 'drill', 'hip hop', 'rap', 'trap']	16	16
+1Xyo4u8uXC1ZmMpatF05PJ	The Weeknd	['canadian contemporary r&b', 'canadian pop', 'pop']	15	9
+4ynaUZA4BVF6d2XaNuflVz	Ingi Bauer	['icelandic pop']	15	11
+7jdFEYD2LTYjfwxOdlVjmc	KALEO	['icelandic indie', 'icelandic rock', 'modern alternative rock']	15	0
+0LcJLqbBmaGUft1e9Mm8HV	ABBA	['europop', 'swedish pop']	15	0
+1McMsnEElThX1knmY4oliG	Olivia Rodrigo	['pop']	15	1
+1tNJibl39hvCIVSnGaiwx5	Hafdís Huld	['icelandic folk', 'icelandic pop', 'icelandic singer-songwriter']	15	0
+6Z8ft9FEbj1ECFHEWfR9Ku	kef LAVÍK	['icelandic hip hop']	15	8
+0GgsByUesLksV7nP8Zlomi	Haki	['icelandic hip hop']	14	7
+5cj0lLjcoR7YOSnhnX0Po5	Doja Cat	['dance pop', 'pop']	13	8
+0j0YjzQLf57Dc9tpehBDdU	Sigurður Guðmundsson	['classic icelandic pop', 'icelandic folk', 'icelandic pop', 'icelandic rock']	13	13
+6oMuImdp5ZcFhWP0ESe6mG	Migos	['atl hip hop', 'hip hop', 'rap', 'trap']	13	7
+0hHSuSCpKFLU5twpJNTO3t	Friðrik Dór	['icelandic pop']	12	8
+46VwdSiSccsgzNhJP9sGhQ	Emmsjé Gauti	['icelandic hip hop', 'icelandic pop']	11	11
+0Y5tJX1MQlPlqiwlOH1tJY	Travis Scott	['hip hop', 'rap', 'slap house']	11	8
+4WYUozUi0ap1WyOyIsOAJ7	Memfismafían	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	11	11
+2hlmm7s2ICUX0LVIhVFlZQ	Gunna	['atl hip hop', 'melodic rap', 'rap', 'trap']	11	11
+6Xgp2XMz1fhVYe7i6yNAax	Trippie Redd	['melodic rap', 'rap', 'trap']	11	9
+2tIP7SsRs7vjIcLrU85W8J	The Kid LAROI	['australian hip hop']	11	7
+0bPOOMpOPbgBrsOrt1Sfvi	Björgvin Halldórsson	['classic icelandic pop']	11	8
+1xr2G8Hlx4QWmT9HaUbmoO	Young Stoner Life	['pop rap']	10	10
+6jGMq4yGs7aQzuGsMgVgZR	Lil Tjay	['brooklyn drill', 'melodic rap', 'nyc rap', 'rap']	10	8
+3hvKmeo12OU7ai8Mpgraf7	Floni	['icelandic electronic', 'icelandic hip hop']	10	4
+2RaL5kU2qa3wQXB8JewLVz	Helgi Sæmundur	[]	9	9
+0du5cEVh5yTK9QJze8zA0C	Bruno Mars	['dance pop', 'pop']	9	8
+4Gso3d4CscCijv0lmajZWs	Don Toliver	['rap', 'trap']	9	5
+0lAWpj5szCSwM4rUMHYmrr	Måneskin	['indie rock italiano', 'italian pop', 'pop']	9	0
+1FvIWbYLm8dBezbdjucrZb	GDRN	['icelandic pop']	9	7
+06HL4z0CvFAxyc27GXpf02	Taylor Swift	['pop']	9	1
+3jK9MiCrA42lLAdMGUZpwa	Anderson .Paak	['escape room', 'hip hop', 'indie soul', 'neo soul']	8	8
+6PvvGcCY2XtUcSRld1Wilr	Silk Sonic	['neo soul']	8	8
+21SqAOtuXFpwygK1GNxjTm	Auður	['icelandic pop']	8	1
+3Hb64DQZIhDCgyHKrzBXOL	Daði Freyr	['icelandic pop', 'sunnlensk tonlist']	7	2
+3PhoLpVuITZKcymswpck5b	Elton John	['glam rock', 'mellow gold', 'piano rock', 'rock']	7	4
+6M2wZ9GZgrQXHCFfjv46we	Dua Lipa	['dance pop', 'pop', 'uk pop']	7	5
+3Nrfpe0tUJi4K4DXYWgMUX	BTS	['k-pop', 'k-pop boy group', 'pop']	7	3
+6cC3KmZOI4EG7a94PtKEYb	JóiPé	['icelandic hip hop', 'icelandic pop']	7	7
+734Ea35ORu5chErtoqMMtU	Daniil	['icelandic hip hop']	7	2
+13ubrt8QOOCPljQ2FL1Kca	A$AP Rocky	['east coast hip hop', 'hip hop', 'rap', 'trap']	7	2
+66CXWjxzNUsdJxJ2JdwvnR	Ariana Grande	['pop']	7	3
+59htr4yXXXa644Rbl4Ckuw	Ingó Veðurguð	['classic icelandic pop', 'icelandic pop', 'icelandic singer-songwriter', 'sunnlensk tonlist']	7	5
+1RyvyyTE3xzB2ZywiAwp0i	Future	['atl hip hop', 'hip hop', 'rap', 'southern hip hop', 'trap']	7	7
+14CHVeJGrR5xgUGQFV5BVM	Fivio Foreign	['brooklyn drill', 'new york drill', 'trap']	6	6
+6ZjFtWeHP9XN7FeKSUe80S	Bing Crosby	['adult standards', 'easy listening', 'lounge']	6	2
+181bsRPaVXVlUKXrxwZfHK	Megan Thee Stallion	['houston rap', 'pop', 'rap', 'trap queen']	6	4
+55Aa2cqylxrFIXC767Z865	Lil Wayne	['hip hop', 'new orleans rap', 'pop rap', 'rap', 'trap']	6	6
+246dkjvS1zLTtiykXe5h60	Post Malone	['dfw rap', 'melodic rap', 'pop', 'rap']	6	4
+5YGY8feqx7naU7z4HrwZM6	Miley Cyrus	['pop']	6	3
+1URnnhqYAYcrqrcwql10ft	21 Savage	['atl hip hop', 'hip hop', 'rap', 'trap']	6	6
+1Mxqyy3pSjf8kZZL4QVxS0	Frank Sinatra	['adult standards', 'easy listening', 'lounge']	6	2
+4tZwfgrHOc3mvqYlEYSvVi	Daft Punk	['electro', 'filter house', 'rock']	5	3
+7a0EHDYu3wAgR3qiC87Mm0	Helgi Björnsson	['classic icelandic pop', 'icelandic pop']	5	1
+4gzpq5DPGxSnKTe4SA8HAU	Coldplay	['permanent wave', 'pop']	5	3
+4KsGMNzBc29HS8e4QrVvDu	Jóhanna Guðrún	['classic icelandic pop', 'icelandic pop']	5	3
+1HwM5zlC5qNWhJtM00yXzG	DMX	['east coast hip hop', 'gangster rap', 'hardcore hip hop', 'hip hop', 'rap']	5	0
+757aE44tKEUQEqRuT6GnEB	Roddy Ricch	['melodic rap', 'rap', 'trap']	5	3
+4O15NlyKLIASxsJ0PrXPfz	Lil Uzi Vert	['melodic rap', 'philly rap', 'rage rap', 'rap', 'trap']	5	5
+4kYSro6naA4h99UJvo89HB	Cardi B	['pop', 'rap']	5	3
+4ljaFYAgLBet2a5qtgGrsG	Vilhjálmur Vilhjálmsson	['classic icelandic pop']	5	3
+7m0BsF0t3K9WQFgKoPejfk	ArrDee	['uk hip hop']	5	3
+0fA0VVWsXO9YnASrzqfmYu	Kid Cudi	['hip hop', 'ohio hip hop', 'pop rap', 'rap']	5	4
+4r63FhuTkUYltbVAg5TQnk	DaBaby	['hip hop', 'north carolina hip hop', 'rap', 'trap']	5	5
+7tYKF4w9nC0nq9CsPZTHyP	SZA	['pop', 'r&b', 'rap']	5	2
+0PpNdAPMwg8OJTiNDYBDFp	Laddi	['classic icelandic pop', 'icelandic pop']	4	1
+5H4yInM5zmHqpKIoMNAx4r	Central Cee	['melodic drill']	4	0
+3gXJ7TV8KMtWQQvOv20mRh	FM95BLÖ	['icelandic pop']	4	3
+6vZQqLEETz3r5dQFKnatlp	Sverrir Bergmann	['classic icelandic pop', 'icelandic pop']	4	4
+5SXuuuRpukkTvsLuUknva1	Baby Keem	['hip hop', 'rap']	4	4
+7cCl5Y8YSCS9WQPD6kVTpI	HÚGÓ	['icelandic pop']	4	2
+7n2wHs1TKAczGzO7Dd2rGr	Shawn Mendes	['canadian pop', 'pop', 'viral pop']	4	2
+5A5hVxY3BogJUch1IUcuw7	ClubDub	['icelandic electronic', 'icelandic pop']	4	2
+2kNbyqVjeXtsSXcXB3iaL9	Doctor Victor	['icelandic electronic']	4	4
+2xMtkvUkg47LBC1oAxj6MF	Gummi Tóta	['icelandic pop', 'sunnlensk tonlist']	4	3
+1f7wM1C5AsxzBjp7biVd7j	Stefán Hilmarsson	['classic icelandic pop', 'icelandic pop']	4	3
+49e4v89VmlDcFCMyDv9wQ9	Dean Martin	['adult standards', 'easy listening', 'lounge', 'vocal jazz']	4	0
+77uegHgrSqU3H84aK4H8lU	Elly Vilhjálms	['classic icelandic pop']	4	4
+7b79bQFziJFedJb75k6hFt	Tion Wayne	['london rap', 'uk hip hop']	4	4
+3ObYhqbnVWAb1afotoMJTu	THØR	[]	4	4
+2qBmRYZEpcimAWrk1rDanU	Bjørn	[]	4	4
+2Gnn51iidR6UIRSFc8vkHF	Séra Bjössi	['icelandic hip hop']	4	2
+6sSuXem86IOpEGNsDqJSSg	SZK	['icelandic hip hop']	4	1
+2Irligkck4dss52iaG1cXL	ISSI	['icelandic hip hop']	4	0
+5sL9uDMwceYHPknnCLAAwJ	GusGus	['electronica', 'icelandic electronic', 'icelandic pop', 'trip hop']	4	2
+2OsysEFABxUiubXfbfmrWF	Unnsteinn	['icelandic pop']	3	0
+32NO7A47yiL6am7Dc8Z8AK	Ruth Reginalds	['barnalog', 'classic icelandic pop']	3	1
+5CiGnKThu5ctn9pBxv7DGa	benny blanco	['pop']	3	3
+4Ga1P7PMIsmqEZqhYZQgDo	Lil Tecca	['melodic rap', 'pluggnb', 'rap']	3	2
+2Waw2sSbqvAwK8NwACNjVo	Bo Burnham	['comic', 'pov: indie']	3	0
+5iooaVMwxfp6s6DxiXwUfo	Selma Björnsdóttir	['classic icelandic pop', 'icelandic pop']	3	1
+28FtvCIh12VQL6ggWDS1ps	Valdimar Guðmundsson	['classic icelandic pop', 'icelandic folk', 'icelandic pop']	3	3
+0lgsuFM2HtfiRaF64Dyq5L	Salka Sól	[]	3	3
+6cK3NBO6uP7hh0oyuVELFl	Saweetie	['cali rap', 'trap queen']	3	3
+2tGETO39QXKpmeQMSzr5I6	Pálmi Gunnarsson	['classic icelandic pop', 'icelandic rock']	3	1
+0Hc3yVWeBOkwf4jCW79BLh	Hipsumhaps	['icelandic pop']	3	0
+70gP6Ry4Uo0Yx6uzPIdaiJ	Bas	['queens hip hop', 'rap', 'sudanese hip hop', 'sudanese pop', 'underground hip hop']	3	3
+1sBkRIssrMs1AbVkOJbc7a	Rick Ross	['dirty south rap', 'gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap']	3	3
+2TddX5FDRRqOXn5RuEyCq2	Þrjú á palli	['classic icelandic pop', 'icelandic traditional']	3	0
+2YZyLoL8N0Wb9xBt1NhZWg	Kendrick Lamar	['conscious hip hop', 'hip hop', 'rap', 'west coast rap']	3	3
+2XApGxjVWsmAD9FkkuFaMP	Dúmbó og Steini	['classic icelandic pop']	3	3
+0c46uuHrE1yR98PxWWikFA	Steini	['classic icelandic pop']	3	3
+4IVAbR2w4JJNJDDRFP3E83	6LACK	['atl hip hop', 'melodic rap', 'r&b', 'rap', 'trap']	3	3
+2rd4gPVTRgvoI6H4xZiNZH	Svala	['icelandic pop']	3	2
+0xDprXJm0c2N6J90T2zr3f	DJ Muscleboy	['icelandic electronic', 'icelandic pop']	3	3
+7v4imS0moSyGdXyLgVTIV7	Nat King Cole	['adult standards', 'lounge', 'soul', 'swing', 'vocal jazz']	3	0
+2l19aqbqP2H5aKEUYCVM9h	Sálin hans Jóns míns	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	3	0
+29G2YTqyNXysziWEYJMh8K	Birgir Hákon	['icelandic hip hop']	3	2
+25ekuoCP29jHKzH4PEGun6	Stuðmenn	['classic icelandic pop', 'icelandic rock']	3	0
+46MWeeHNVMYRIIofQBEX98	BEAM	['trap soul']	3	3
+3nFkdlSjzX9mRTtwJOzDYB	JAY-Z	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'rap']	3	3
+4fxd5Ee7UefO4CUXgwJ7IP	Giveon	['r&b']	3	2
+2ot1BrqrtRXWOgvlv4PxLl	Bassi Maraj	['icelandic hip hop']	3	0
+3W0VHY2IROjn7Yw6NmGg1o	Ellen Kristjánsdóttir	['classic icelandic pop', 'icelandic pop']	3	1
+3FoFW2AoUGRHBacC6i4x4p	Russ Millions	['melodic drill', 'uk drill']	3	3
+4Dokdwa3WB7ilQ2c2qvIBL	Bugzy Malone	['grime', 'manchester hip hop', 'uk hip hop']	3	3
+5GyDameGSyVaZgUEv20UyC	Ragnhildur Gísladóttir	['classic icelandic pop', 'icelandic pop']	3	1
+6DgP9otnZw5z6daOntINxp	Joel Corry	['dance pop', 'pop dance', 'uk dance']	3	3
+1Cs0zKBU1kc0i8ypK3B9ai	David Guetta	['big room', 'dance pop', 'edm', 'pop', 'pop dance']	3	3
+0GXv8V3wQr3qE2PCGJfQCL	Eyjólfur Kristjánsson	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	3	2
+4sj6D0zlMOl25nprDJBiU9	Andy Williams	['adult standards', 'easy listening']	3	0
+5WUlDfRSoLAfcVSX1WnrxN	Sia	['australian dance', 'australian pop', 'pop']	3	0
+1aGU3AHmLXWR7JcAXiG3t3	Yohanna	['icelandic pop']	3	2
+699OTQXzgjhIYAHMy9RyPD	Playboi Carti	['atl hip hop', 'plugg', 'pluggnb', 'rage rap', 'rap']	3	2
+6fWVd57NKTalqvmjRd2t8Z	24kGoldn	['cali rap']	3	2
+4EYftd8N7pujRjEkIxAZbE	Egill Ólafsson	['classic icelandic pop', 'icelandic rock']	3	2
+07YZf4WDAMNwqr4jfgOZ8y	Jason Derulo	['dance pop', 'pop']	3	2
+1dfeR4HaWDbWqFHLkxsg1d	Queen	['classic rock', 'glam rock', 'rock']	3	0
+6yI1aFdfAnjSHaDnHBFAD9	Króli	['icelandic hip hop']	3	3
+7699UdGcD8ESAKxTcrwKvj	Huginn	['icelandic pop']	3	2
+2p1fiYHYiXz9qi0JJyxBzN	Skepta	['birmingham grime', 'grime', 'instrumental grime', 'uk hip hop']	3	3
+0T04PagPKSdhG73hgOMgy1	Sigríður Thorlacius	['barnalog', 'classic icelandic pop', 'icelandic pop']	3	3
+0QHgL1lAIqAw0HtD7YldmP	DJ Khaled	['hip hop', 'miami hip hop', 'pop rap', 'rap']	3	3
+5Gw4NRkDUSoaYPCsSZ7yq3	Gústi B	[]	2	1
+7guDJrEfX3qb6FEbdPA5qi	Stevie Wonder	['motown', 'soul']	2	0
+6LuN9FCkKOj5PcnpouEgny	Khalid	['pop', 'pop r&b']	2	2
+7rjcERw1K9oR9vtik3YSJN	Luigi	['icelandic hip hop']	2	1
+6n28c9qs9hNGriNa72b26u	PNAU	['alternative dance', 'aussietronica', 'australian dance', 'australian electropop']	2	2
+4dwCgfFmz6RaWOxYyPWQBl	Frostrósir	[]	2	0
+7xF6Psrf6yNOBkB9jpMRa0	Will Ferrell	[]	2	2
+26a4tbq9f4QZCHArsoQkWn	My Marianne	[]	2	2
+7IVgc1Yvk8TWI4zTHvpiNt	Á Móti Sól	['icelandic pop', 'icelandic rock', 'sunnlensk tonlist']	2	0
+0yGLmAg3Q8H8yEqWr8TFNy	Skítamórall	['sunnlensk tonlist']	2	0
+1gPhS1zisyXr5dHTYZyiMe	Kevin Gates	['baton rouge rap', 'rap', 'trap']	2	0
+3lbu1tOdvW1dibRp3dyf3x	La Melo	[]	2	2
+3L58J6a7f0jyy2p6f3MSAs	Blind Channel	['oulu metal', 'trancecore']	2	0
+2RdwBSPQiwcmiDo9kixcl8	Pharrell Williams	['dance pop', 'pop']	2	2
+1WO1hFAkFbeo9tV3uVX7Dy	A1 x J1	['chill drill', 'melodic drill']	2	1
+4XDBGHRPftnFVN98aR9hVZ	Jülevenner	[]	2	2
+4YnmlfVdziLiqFQtQ4zTcq	Páll Óskar	['classic icelandic pop', 'icelandic pop']	2	2
+7BbTAP29jeeO2PZsxm5kXP	Sigga Beinteins	['classic icelandic pop', 'icelandic pop']	2	2
+4YXcE4pT7k4CLJ4SI9mtwE	Steindi Jr.	['icelandic pop']	2	2
+1anyVhU62p31KFi8MEzkbf	Chance the Rapper	['chicago rap', 'conscious hip hop', 'hip hop', 'pop rap', 'rap']	2	2
+0u6GtibW46tFX7koQ6uNJZ	Topic	['german dance', 'pop dance', 'pop edm', 'uk dance']	2	2
+5Wg2b4Mp42gicxEeDNawf7	A7S	['pop dance', 'scandipop', 'uk dance']	2	2
+4ytkhMSAnrDP8XzRNlw9FS	Vince Guaraldi Trio	['jazz trio']	2	0
+6uym9GH8q6rqaGk25zellX	Ragga Gröndal	['icelandic folk', 'icelandic pop', 'icelandic singer-songwriter']	2	0
+45dkTj5sMRSjrmBSBeiHym	Tate McRae	['alt z', 'pop']	2	0
+4npEfmQ6YuiwW1GpUmaq3F	Ava Max	['pop']	2	1
+6zFRX6yBd9y8WMe5ttkSIY	Ra:tio	['icelandic hip hop']	2	2
+1TwnyOTSWJl910xTFZwJUk	Gunnar Ólason	[]	2	1
+0e0yLUXN79Op2NJY8ePeQF	Mambakid	[]	2	2
+7c0XG5cIJTrrAgEC3ULPiq	Ty Dolla $ign	['hip hop', 'pop rap', 'r&b', 'southern hip hop', 'trap', 'trap soul']	2	2
+2o1giMbJ0BMwB2O0zU3aDo	Hjálmar	['classic icelandic pop', 'icelandic folk', 'icelandic pop']	2	1
+6MPCFvOQv5cIGfw3jODMF0	Internet Money	['pop rap']	2	2
+1LW7ttDBH4FjnPxvrF2OgX	Hafdís Ýr	[]	2	2
+26dSoYclwsYLMAKD3tpOr4	Britney Spears	['dance pop', 'pop']	2	0
+2NjfBq1NflQcKSeiDooVjY	Tones And I	['australian pop']	2	0
+6USv9qhCn6zfxlBQIYJ9qs	Dominic Fike	['alternative pop rock', 'pov: indie']	2	2
+3KNYn0ah22HXySPgPkMsrS	Eirikur Hauksson	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	2	1
+46SHBwWsqBkxI7EeeBEQG7	Kodak Black	['florida drill', 'florida rap', 'melodic rap', 'miami hip hop', 'rap', 'trap', 'trap latino']	2	1
+391oLRVmoTkumiN79HkTWu	Darlene Love	[]	2	0
+4TgsxeFPNtkZ5lneq9AceU	Elena Tsagrinou	['greek pop']	2	0
+64KEffDW9EtZ1y2vBYgq8T	Marshmello	['brostep', 'edm', 'pop', 'progressive electro house']	2	2
+048LktY5zMnakWq7PTtFrz	CKay	['afro r&b', 'afrobeats']	2	1
+6KImCVD70vtIoJWnq6nGn3	Harry Styles	['pop']	2	0
+0ONHkAv9pCAFxb0zJwDNTy	Pusha T	['gangster rap', 'hip hop', 'rap', 'southern hip hop', 'trap', 'virginia hip hop']	2	2
+329e4yvIujISKGKz1BZZbO	Farruko	['reggaeton', 'trap latino', 'urbano latino']	2	0
+2o5jDhtHVPhrJdv3cEQ99Z	Tiësto	['big room', 'brostep', 'dutch edm', 'edm', 'house', 'pop dance', 'slap house', 'trance']	2	1
+0Mdm2CCxStFoJr3GQGHf5V	Joe Frazier	[]	2	2
+1uU7g3DNSbsu0QjSEqZtEd	Masked Wolf	['australian hip hop']	2	0
+5V0MlUE1Bft0mbLlND7FJz	Ella Fitzgerald	['adult standards', 'jazz', 'jazz blues', 'soul', 'swing', 'vocal jazz']	2	0
+63ebc5zUpJ36aoTDQJHa9B	E1 (3x3)	[]	2	2
+2uIRmVaCVpHQjaVgph5clS	ZT (3x3)	[]	2	2
+5AiY4bxeXerLXx03JADdQv	Buni	['uk drill']	2	2
+4QSTyDpxsKmv3UfavVUImR	Darkoo	['afrobeats', 'afroswing', 'london rap', 'uk hip hop']	2	2
+5bVYCGx4rp5lqCMIQsykDH	Nýdönsk	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	2	0
+2YJAktxfmSVrAOnNr24EgP	HLH flokkurinn	['classic icelandic pop', 'icelandic rock']	2	0
+49aaHxvAJ0tCh0F15OnwIl	Loreen	['europop', 'swedish pop']	2	0
+33C3v8OjRBUad51Vbb4YzR	Reynir	['icelandic pop']	2	2
+2o08sCWF5yyo2G4DCiT7T9	HVME	['slap house']	2	1
+3BmGtnKgCSGYIUhmivXKWX	Kelly Clarkson	['dance pop', 'pop', 'talent show']	2	1
+6ASri4ePR7RlsvIQgWPJpS	iann dior	['melodic rap']	2	2
+2iE18Oxc8YSumAU232n4rW	The Jackson 5	['motown', 'soul']	2	0
+5tqcGCzAJeX4ysqiegDC37	Diddú	['classic icelandic pop', 'icelandic pop']	2	0
+6XpaIBNiVzIetEPCWDvAFP	Whitney Houston	['dance pop']	2	1
+6Ad91Jof8Niiw0lGLLi3NW	YUNGBLUD	['british indie rock', 'modern rock', 'pov: indie', 'rock']	2	2
+5viGHhUi0l9iemcUI3nE57	Úlfur Úlfur	['icelandic hip hop', 'icelandic pop']	2	2
+5QdEbQJ3ylBnc3gsIASAT5	G Herbo	['chicago drill', 'chicago rap', 'drill', 'rap', 'trap']	2	2
+6Ip8FS7vWT1uKkJSweANQK	Dave	['uk hip hop']	2	2
+2SrSdSvpminqmStGELCSNd	Stormzy	['grime', 'uk hip hop']	2	2
+0C8ZW7ezQVs4URX5aX7Kqx	Selena Gomez	['pop', 'post-teen pop']	2	2
+7arQA31aZVS8yS6zUveWzb	CJ	['nyc rap']	2	0
+3JqhkiwnK1tNP7CZj4vAKQ	Hreimur	['classic icelandic pop', 'icelandic pop', 'sunnlensk tonlist']	2	2
+4TtHWUNqH65KPY075VxsmD	Magni	['classic icelandic pop', 'icelandic pop']	2	2
+0FOWNUFHPnMy0vOw1siGqi	Belly	['canadian hip hop', 'canadian trap']	2	2
+54R6Y0I7jGUCveDTtI21nb	Boney M.	['europop']	2	1
+4iHNK0tOyZPYnBU7nGAgpQ	Mariah Carey	['dance pop', 'pop', 'urban contemporary']	2	0
+7wEKXvipNQLX3moiynhxXq	Ragnar Bjarnason	['classic icelandic pop']	2	1
+6dHnoL2eDy2jdtEPmDf8w5	Þú og ég	['classic icelandic pop']	2	2
+7K2jFqHFUKjYTH8rKyZK8s	Ég	[]	2	2
+71QnyKIYMVYSmFEzIEoWMs	Helga Möller	['barnalog', 'classic icelandic pop']	2	0
+2wY79sveU1sp5g7SokKOiI	Sam Smith	['pop', 'uk pop']	2	0
+08Ld63UgKrJ0nZnCkzHtzc	Project Pat	['crunk', 'dirty south rap', 'gangster rap', 'memphis hip hop', 'trap']	2	2
+0ksX396B3t2Gt8kwr0BJZk	Fumez The Engineer	['melodic drill', 'uk drill', 'uk hip hop', 'uk melodic rap']	2	2
+20sxb77xiYeusSH8cVdatc	Meek Mill	['hip hop', 'philly rap', 'pop rap', 'rap', 'southern hip hop', 'trap']	2	2
+0BKx4UjPvXVGY15u0xFbbi	JAY1	['uk hip hop']	2	2
+2WInxWtfee6mRhUQUmIRAH	Strick	['atl trap']	2	2
+4GNC7GD6oZMSxPGyXy4MNB	Lewis Capaldi	['pop', 'uk pop']	2	0
+7oDTyDfeA2JE2jUZztkBj8	Vök	['icelandic electronic', 'icelandic pop']	2	2
+2dB4ya2W1Gvng8gjWSPu2H	Eivør	['faroese indie', 'faroese pop', 'melancholia', 'rune folk', 'viking folk']	2	1
+43ZHCT0cAZBISjO8DG9PnE	Elvis Presley	['rock-and-roll', 'rockabilly']	2	0
+2LIk90788K0zvyj2JJVwkJ	Jack Harlow	['deep underground hip hop', 'kentucky hip hop', 'pop rap', 'rap']	2	2
+45gHcnDnMC15sgx3VL7ROG	42 Dugg	['detroit trap', 'trap']	2	2
+2TcGJdSOiOvITBzhvfX8XB	Shouse	['aussietronica']	2	1
+7EuzcvdfScUqksgKfyN7J0	Fyr Og Flamme	['danish pop']	1	0
+2HcwFjNelS49kFbfvMxQYw	Robbie Williams	['dance rock', 'europop']	1	1
+3XxxEq6BREC57nCWXbQZ7o	Jamie Cullum	['contemporary vocal jazz', 'jazz pop', 'neo mellow']	1	1
+26cMerAxjx9GedFt0lMDjm	Bella Poarch	['modern alternative pop']	1	0
+5he5w2lnU9x7JFhnwcekXX	Skrillex	['brostep', 'complextro', 'edm', 'electro', 'pop dance']	1	1
+4DOZfbCzNlQH0XkNhL1h2R	gugusar	['icelandic pop']	1	1
+6vHBuUxrcpn1do5UaEJ7g6	Domo Genesis	['alternative hip hop', 'underground hip hop']	1	1
+5slpk6nu2IwwKx0EHe3GcL	Lena	['german pop', 'indie viet']	1	0
+22wbnEMDvgVIAGdFeek6ET	Benson Boone	['singer-songwriter pop']	1	0
+6TLwD7HPWuiOzvXEa3oCNe	Oliver Tree	['alternative hip hop']	1	0
+1Xiaa1RDkRCqI6o2kGJmD3	Ásbjörn	[]	1	1
+31vC7mWuTz0IROeOQLIKBc	Hermann Gunnarsson	[]	1	1
+7tAl324l7Bhucx7XJheKMp	Dengsi	[]	1	1
+5ZsFI1h6hIdQRw2ti0hz81	ZAYN	['pop', 'uk pop']	1	0
+4FlG0V0jhLO4qGpayFOphj	EST Gee	['kentucky hip hop', 'memphis hip hop']	1	1
+7K78lVZ8XzkjfRSI7570FF	José Feliciano	['latin pop', 'puerto rican pop']	1	0
+1IxP1g9VrPzJqXFCsuyHKe	Måns Zelmerlöw	['swedish idol pop', 'swedish pop']	1	0
+2S8dTX55EwE0amSn7NmbMO	Glámur og Skrámur	['barnalog', 'barnasogur', 'classic icelandic pop']	1	0
+4pjWFrTPhj0Rwv3g35lcBM	Haukur Morthens	['classic icelandic pop']	1	0
+38FL3FUb6bkr2SHqI0EWjD	Bussines	[]	1	1
+1D6ueetjwqW491iboMI3NT	Destiny	['maltese pop']	1	0
+57G9I7jAcDTkgRjVuwsQfi	Young Karin	[]	1	1
+2pIBLhhqkxDdbhZt0u9yMm	Hipsumhaps	[]	1	1
+2HHQphX5mznC7M4Ejkbe1f	Jakob Frímann Magnússon	[]	1	1
+3mW1tGoa3Hg8Y2f0JodEld	Gissur Páll Gissurarson	[]	1	1
+5kvHlHzYaWJ3QPAFxAOBPj	Siggi Pálma	[]	1	1
+31W5EY0aAly4Qieq6OFu6I	A Boogie Wit da Hoodie	['melodic rap', 'rap', 'trap']	1	1
+3wQcURnqzPGHE0gzY5nE6G	Emmelie de Forest	['melodipop']	1	0
+3q7HBObVc0L8jNeTe5Gofh	50 Cent	['east coast hip hop', 'gangster rap', 'hip hop', 'pop rap', 'queens hip hop', 'rap']	1	1
+6BYSxGkmmGuIPiVz4EGeOE	Sigurður Björnsson	[]	1	0
+08GQAI4eElDnROBrJRGE0X	Fleetwood Mac	['album rock', 'classic rock', 'rock', 'soft rock', 'yacht rock']	1	0
+4zGH6gaO4NohcfCXZ31bQG	Eric Saade	['swedish idol pop', 'swedish pop']	1	0
+1zNqDE7qDGCsyzJwohVaoX	Anne-Marie	['pop']	1	1
+5fyDppLDl1juIu1BcUT5zh	Digital Farm Animals	['uk dance']	1	1
+3Fe3yv5ZGCwcaMnlBltuT2	Unge Ferrari	['norwegian hip hop', 'norwegian pop', 'norwegian pop rap', 'scandinavian r&b']	1	1
+2VSHKHBTiXWplO8lxcnUC9	GAYLE	['modern alternative pop']	1	0
+6UBA15slIuadJ8h2lPRPos	Tech N9ne	['kansas city hip hop']	1	1
+1A8NEJYo3VW9aIZ6l55Dgu	Joey Cool	['kansas city hip hop']	1	1
+7vTyZmNA6LC0WRDg7V6yle	King Iso	[]	1	1
+1T8S48bD91THNKBByWBDyn	Dwayne Johnson	['meme']	1	1
+3rUSk3kcpl4Nseu1DqFNpJ	KK	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	1	0
+6sCQ85Le0w2axWGZjiGsyK	Klara Sif	[]	1	1
+3tlXnStJ1fFhdScmQeLpuG	Brent Faiyaz	['r&b', 'rap']	1	1
+4yJHrytMK7mqtKsXVGaBNg	Fana Hues	['alternative r&b', 'indie r&b']	1	1
+2lolQgalUvZDfp5vvVtTYV	Tony Bennett	['adult standards', 'easy listening', 'lounge', 'vocal jazz']	1	0
+2NCGI6dLTxLdI9XHdv7QfM	The Andrews Sisters	['adult standards', 'swing', 'torch song', 'vocal harmony group']	1	1
+4lCNVlc7c5rZSqJZ9A8UTn	Albatross	['classic icelandic pop', 'icelandic pop']	1	1
+5TTXO1acO5ZuuUCsZ0MXJl	RAKEL	['icelandic pop']	1	1
+2FfS4tGbyODPI92Baw7Ys8	CeaseTone	['icelandic indie']	1	1
+2wzMOQwNT6ZvVB4amvhFAH	The Pogues	['celtic punk', 'celtic rock', 'folk punk', 'punk']	1	1
+6UlNIFEuWlBqb4TvlVCekq	Kirsty MacColl	['new wave pop']	1	1
+2WgfkM8S11vg4kxLgDY3F5	StarBoi3	['viral rap']	1	1
+5F1aAS1duwlzExnPs3l2Xe	Pooh Shiesty	['memphis hip hop', 'tennessee hip hop', 'trap']	1	1
+4VvkncSfFc9IA2vT7qIFo1	Einar Ágúst	['classic icelandic pop']	1	1
+2BXEG2yarazI9hY5ZsHJaQ	Hljómar	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	1	0
+1OjcrzJpR5p38qPTskMPU5	Hera Björk	['icelandic pop', 'sunnlensk tonlist']	1	0
+7jZM5w05mGhw6wTB1okhD9	ATB	['german dance', 'german techno', 'german trance', 'trance']	1	1
+018uWpgRorfxlunNy9uxd2	Kári Stefánsson	[]	1	1
+2SJhf6rTOU53g8yBdAjPby	SoFaygo	['glitchcore', 'plugg', 'rage rap']	1	1
+7rkW85dBwwrJtlHRDkJDAC	NAV	['canadian hip hop', 'canadian trap', 'melodic rap', 'rap', 'toronto rap', 'trap']	1	1
+687cZJR45JO7jhk1LHIbgq	Tems	['afro r&b', 'afrobeats', 'alte', 'nigerian pop']	1	1
+77tT1kLj6mCWtFNqiOmP9H	Daryl Hall & John Oates	['album rock', 'classic rock', 'heartland rock', 'mellow gold', 'rock', 'singer-songwriter', 'soft rock', 'yacht rock']	1	0
+69UfPJgUmFFAVT740qGVZi	Ken Darby Singers	[]	1	1
+735L650pvygCZZlPMyHqsN	John Scott Trotter & His Orchestra	['light music']	1	1
+3au8MzMJzltG3Y9srytjXl	Högna	[]	1	1
+21jaoQCbCde4YKWZCettbP	Ísidór	[]	1	1
+6BCYZkEDNTeYUzvTKZfkba	Muni	[]	1	1
+21rgoGGMOSvl9RD6zeuOnq	VICTORIA	[]	1	0
+3PvEhkL4pgu9glR6yOlYKK	Sanna Nielsen	['classic swedish pop', 'swedish pop']	1	0
+4cPHsZM98sKzmV26wlwD2W	Brenda Lee	['adult standards', 'easy listening', 'lounge', 'rockabilly']	1	0
+6atVWG5ePpBFFaDmV5LaaE	Flosi V	['icelandic hip hop']	1	1
+4COSsEVMsaxH9XC1mI8aQY	ELVAR	['icelandic hip hop']	1	1
+5L1lO4eRHmJ7a0Q6csE5cT	LISA	['k-pop']	1	0
+7kCgo900pQKCYI7eNw6yJ8	Kór Öldutúnsskóla	['classic icelandic pop']	1	1
+16wuk79V8hVmB6zUmcmUfF	Halla Margret Arnadottir	[]	1	1
+3ZCQVTHTAg68IJ5hWRgh9X	Manswess	[]	1	1
+4fwuXg6XQHfdlOdmw36OHa	Paloma Faith	['british soul', 'talent show']	1	0
+1pkRaEsDK0f573GZFTDW7O	Benny Cristo	[]	1	0
+44vREmJC0OlVZjZaGLqVEd	Morray	['pop rap']	1	1
+7nwUJBm0HE4ZxD3f5cy5ok	Aretha Franklin	['classic soul', 'jazz blues', 'memphis soul', 'soul', 'southern soul', 'vocal jazz']	1	0
+7J0hrNYCO5DgAx0XaRJqkh	Yung Kayo	['rage rap']	1	1
+35S20clEkkSNUo23ViaslZ	Band Aid	['musical advocacy']	1	0
+0QTRoLzdxFIseCfq9djuSX	Edda Heiðrún Backman	['barnalog', 'classic icelandic pop']	1	0
+6CawoDDP1IZUSGl4wSJGC9	TIX	['norwegian pop', 'russelater']	1	0
+4nDoRrQiYLoBzwC5BhVJzF	Camila Cabello	['dance pop', 'pop']	1	0
+7gOdHgIoIKoe4i9Tta6qdD	Jonas Brothers	['boy band', 'pop']	1	1
+7iTLGcddv1bOPirdYJjKVy	Dj Yo!	[]	1	1
+5fUXK5m3BNwoRgTyKq8tnz	AX'EL	[]	1	1
+64H8UqGLbJFHwKtGxiV8OP	THE ANXIETY	['modern alternative pop']	1	1
+3rWZHrfrsPBxVy692yAIxF	WILLOW	['afrofuturism', 'pop', 'post-teen pop', 'pov: indie']	1	1
+1xoxekeb8jUVHKJB7m6bfg	Tyler Cole	['bedroom soul']	1	1
+11ac1inTstB27cZTJKSF3P	JE$Ú	[]	1	1
+0KuF7reCTOZwV7YJnHQqgr	The Neptunes	[]	1	1
+4np9Zzw0SEYQLcGv28P51q	TRAVI	[]	1	1
+5fxRKBJNkss9n22ePnifL6	Izleifur	['icelandic hip hop']	1	1
+6vWDO969PvNqNYHIOW5v0m	Beyoncé	['pop', 'r&b']	1	1
+06Qf6vq8AVIpE9XIw8LAsY	Lil Duke	['atl trap']	1	1
+0dvFTsuG02c4cRbcSQ8zE6	Yak Gotti	['atl trap']	1	1
+46HzS7yz0c9udVwtbHk1sx	Cochise	['plugg', 'pluggnb', 'rage rap']	1	1
+5IbEL2xjRtKsunfmsahLuO	$NOT	['aesthetic rap', 'cloud rap', 'florida rap', 'underground hip hop']	1	1
+0i3aiTo9KQY0hvNME4VHuh	Aleksandar Vidakovic	[]	1	1
+3XxDRDfDWOE0jGCMyqZCuf	Phil Phauler	[]	1	1
+4utLUGcTvOJFr6aqIJtYWV	Skylar Grey	['piano rock', 'viral pop']	1	1
+4AA474G2hRfrHyGrfyDseO	Mozzy	['cali rap', 'sacramento hip hop']	1	1
+7dGJo4pcD2V6oG8kP0tJRR	Eminem	['detroit hip hop', 'hip hop', 'rap']	1	1
+4kvCU3MzggM2piZCqvxj0x	Go_A	['ukrainian viral pop']	1	0
+5lTjv8Ag00qHSGhvK4JbeF	Justin Wellington	['melanesian pop', 'pacific islands pop', 'png pop']	1	1
+6c8akjSeJQw2NYemV6qVT8	Small Jam	['solomon islands pop']	1	1
+34G31kGbSQmemVlI0G784o	THE ROOP	['lithuanian rock']	1	0
+4vdAAzZBUKbsrvHi6UR7B7	Jessica Darrow	['movie tunes']	1	0
+10exVja0key0uqUkk6LJRT	Vance Joy	['folk-pop', 'modern rock']	1	1
+53rBi3LpNcMJUTSANS6uYT	DAISY WORLD	[]	1	1
+0tcAr5iQkX49C7AjuhAtC2	Mugison	['classic icelandic pop', 'icelandic folk', 'icelandic indie', 'icelandic pop', 'icelandic rock', 'icelandic singer-songwriter']	1	0
+6zFavULMOcUxwk2zPoAYEc	Valdimar	['classic icelandic pop', 'icelandic folk', 'icelandic indie', 'icelandic pop', 'icelandic rock']	1	0
+78rUTD7y6Cy67W1RVzYs7t	PinkPantheress	['bedroom pop']	1	0
+6lBN3Tzt61u8i9AJoAhKzF	Mykola Dmytrovych Leontovych	['post-romantic era', 'ukrainian classical']	1	1
+3dRfiJ2650SZu6GbydcHNb	John Williams	['orchestral soundtrack', 'soundtrack']	1	1
+0ECwFtbIWEVNwjlrfc6xoL	Eagles	['album rock', 'classic rock', 'heartland rock', 'mellow gold', 'rock', 'soft rock', 'yacht rock']	1	0
+0X3nsc84A9qlFilmlWNwQb	Scorey	['upstate ny rap']	1	1
+0fGcIStdT1OpFFhOC7Wp36	Teezo Touchdown	['chill abstract hip hop', 'indie hip hop']	1	1
+3EW0kQ1skZiK1NHg3Spt9J	Takeoff	['atl hip hop', 'rap', 'trap']	1	1
+48ns1CjUKyV4Xfw6Tpro9M	Jeffheffi	[]	1	0
+3y24n3XhZ96wgwRXjvS17T	Coolio	['g funk', 'gangster rap', 'hip hop', 'west coast rap']	1	1
+2LhsePRtgCo4THVKULQBL7	L.V.	[]	1	1
+6NYXgTPaAAfFeJGzcX0htM	Katrin Myrra	['icelandic pop']	1	0
+1HY2Jd0NmPuamShAr6KMms	Lady Gaga	['art pop', 'dance pop', 'pop']	1	1
+4VIvfOurcf0vuLRxLkGnIG	Bradley Cooper	['hollywood']	1	1
+4HH1mWwB2TwqdqBdStHy2X	M Can	['icelandic hip hop']	1	1
+5GMZVEJOgKu6FesmjSAgcG	Tommyonthetrack	[]	1	1
+3TScZ6zJkavDy0tqoGqiCf	John Grant	['chamber pop', 'chamber psych']	1	1
+2Q94VIGMp0vhZetkOae27U	Natalia Gordienko	['moldovan pop']	1	0
+7yuLFZmY5CuPf81al33Ot2	Sturla Atlas	['icelandic pop']	1	1
+2gfpXS8sdFGXOjePp0m6HA	Þjóðleikhúsið	[]	1	1
+5KKpBU5eC2tJDzf0wmlRp2	RAYE	['uk contemporary r&b', 'uk pop']	1	1
+20wkVLutqVOYrc0kxFs7rA	Daniel Caesar	['canadian contemporary r&b']	1	1
+5PmaT9dkr6wbSB59eUwlLn	Ana Soklič	[]	1	0
+4STHEaNw4mPZ2tzheohgXB	Paul McCartney	['beatlesque', 'classic rock', 'rock']	1	0
+5P2rwRBgIN450RaJxdjYdA	Kardinal Offishall	['canadian old school hip hop', 'toronto rap']	1	1
+0z4gvV4rjIZ9wHck67ucSV	Akon	['dance pop']	1	1
+7823Dim2TzjiQQ9wRQxyi9	Wizzard	['glam rock']	1	0
+0phbMOwzsXMMqqw0anMsib	Dalia	[]	1	0
+7uMh23xWiuR7zsNkuNcm2G	MNEK	['house', 'pop dance', 'uk contemporary r&b', 'uk dance', 'uk pop']	1	1
+3rqjQbxuk8Jpw0SxdUTt5I	Bítlavinafélagið	['classic icelandic pop', 'icelandic rock']	1	0
+2AMeiDbfU2vonrTkpXDKUu	Kay Flock	['bronx drill', 'melodic drill', 'new york drill']	1	1
+0NyzfcGDZZ6GM25EBG9BYK	Ray Parker Jr.	[]	1	0
+1Cd373x8qzC7SNUg5IToqp	BoyWithUke	['sad rap']	1	0
+5KDiGaXlk6lxzpXoynx6e4	Svanhildur Jakobsdóttir	['barnalog', 'classic icelandic pop']	1	0
+6pDJ3aqasd6r4D9ofV4XMG	Erna Gunnarsdóttir	[]	1	0
+1Y53ZUhXBydAzILo4Qa0s1	Manizha	['russian alt pop', 'russian synthpop']	1	0
+2f6hqWBFjqS1EUHMS1JOFB	Unfoonk	['atl trap']	1	1
+2UGze5HoSKodY9Lr2PV9zh	Krabba Mane	['icelandic hip hop']	1	1
+7CajNmpbOovFoOoasH2HaY	Calvin Harris	['dance pop', 'edm', 'electro house', 'house', 'pop', 'progressive house', 'uk dance']	1	1
+5SHxzwjek1Pipl1Yk11UHv	Tom Grennan	['uk pop']	1	1
+7wlFDEWiM5OoIAt8RSli8b	YoungBoy Never Broke Again	['baton rouge rap', 'rap']	1	1
+4rOaQg3fasbihPVR4Qft1M	GCD	['classic icelandic pop', 'icelandic rock']	1	0
+4Q6nIcaBED8qUel8bBx6Cr	Jax Jones	['dance pop', 'edm', 'house', 'pop dance', 'uk dance', 'uk pop']	1	1
+25uiPmTg16RbhZWAqwLBy5	Charli XCX	['art pop', 'candy pop', 'metropopolis', 'pop', 'uk pop']	1	1
+38EmEgXkgK51MT2tPY0EoC	Bobby Helms	[]	1	0
+1ga5PpNASlqWvEPJZW3r7N	Rafał Brzozowski	['polish pop']	1	0
+3L4wiBOSDLkJ18OISXZDA8	Barbara Pravi	['french pop', 'nouvelle chanson francaise']	1	0
+1W3FSF1BLpY3hlVIgvenLz	The-Dream	['dirty south rap', 'hip pop', 'r&b', 'southern hip hop', 'trap', 'urban contemporary']	1	1
+2kreKea2n96dXjcyAU9j5N	The Pointer Sisters	['disco', 'girl group', 'hi-nrg', 'motown', 'new wave pop', 'soft rock']	1	0
+2PYZfmLYwqFYdAssElnldL	BLAFFI	['icelandic hip hop']	1	1
+3klZnJvYGIbWritVwQD434	Duncan Laurence	['dutch pop']	1	0
+4Uc8Dsxct0oMqx0P6i60ea	Conan Gray	['bedroom pop', 'pop', 'pov: indie']	1	0
+23fqKkggKUBHNkbKtXEls4	Kygo	['edm', 'pop', 'pop dance', 'tropical house']	1	1
+5H6xmHXjsq98NLbEjuE29f	NEIKED	['scandipop']	1	1
+1BEUkE2CSUgHTLSBMZdnFB	Mae Muller	['uk contemporary r&b', 'uk pop']	1	1
+3HAGb8WLuYRre506Dr8oJm	Högni	['icelandic electronic']	1	1
+22hWz22JAmIhIEp0u1X01L	DUSTY LOCANE	['new york drill']	1	0
+0VRj0yCOv2FXJNP47XQnx5	Quavo	['atl hip hop', 'melodic rap', 'rap', 'trap']	1	1
+1yxSLGMDHlW21z4YXirZDS	Black Eyed Peas	['dance pop', 'pop', 'pop rap']	1	0
+3yX8kCojnUAJJ1eWGZT38j	Hatari	['icelandic electronic', 'icelandic post-punk', 'icelandic punk', 'icelandic rock']	1	0
+15mE2JovaBOHOVgd2rkLC2	Halldór Gunnar	['classic icelandic pop', 'icelandic pop']	1	1
+0H39MdGGX6dbnnQPt6NQkZ	SAINt JHN	['melodic rap', 'slap house']	1	1
+5rGrDvrLOV2VV8SCFVGWlj	Imanbek	['electro house', 'pop dance', 'slap house']	1	1
+1dLzNWHBWoyjhyRah4rh0x	12:00	['icelandic hip hop']	1	0
+14qypx78D3Jd1mm7c2BqQb	T-Shyne	['atl trap']	1	1
+6rIaHuCIUu32uj2CjlEBN3	Mike Dimes	[]	1	0
+3Oim8XBPbznAa8Jj8QzNc8	Cults	['experimental pop', 'indie surf']	1	1
+4vpGVGgxSDcCTmqYbsOnsn	Amber Coffman	['art pop']	1	1
+1U1el3k54VvEUzo3ybLPlM	Kali Uchis	['colombian pop']	1	0
+4Z4afeDmHFxPmJorIwupbZ	Netta	['israeli pop']	1	0
+2olr4xM2nA4Sj2yhJnCoO6	Tornike Kipiani	[]	1	0
+5iEFWLCNEw5GP6DCTLtdPc	Land og synir	['classic icelandic pop', 'icelandic pop', 'icelandic rock', 'sunnlensk tonlist']	1	0
+45TgXXqMDdF8BkjA83OM7z	Rod Wave	['florida rap']	1	1
+2txHhyCwHjUEpJjWrEyqyX	Tom Odell	['chill pop']	1	0
+3VaqNaW0VYmWS2wosFgySB	Pétur Jóhann	[]	1	1
+2XmN30tPAqhCHFb8pKl1wU	Ríó tríó	['classic icelandic pop']	1	0
+0Njy6yR9LykNKYg9yE23QN	Nardo Wick	['florida drill', 'florida rap']	1	1
+3E7T8t0FwjEVxg9jufWZQG	Eden Alene	[]	1	0
+3LLNDXrxL4uxXtnUJS5XWM	Alexander Rybak	[]	1	0
+77mqZne7HX9GRXx5m5d9yM	Katrín Halldóra	['icelandic jazz', 'icelandic pop']	1	1
+68F8J8hIEdL7evUNDqIH2N	Í svörtum fötum	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	1	0
+1TGdxJ3UvFq055SVjwx49v	Conchita Wurst	[]	1	0
+2TeRdWkJBuuPHsEfG5ll0k	Friðrikl Ómar	[]	1	0
+0hCNtLu0JehylgoiP8L4Gh	Nicki Minaj	['hip pop', 'pop', 'queens hip hop', 'rap']	1	1
+0e86yPdC41PGRkLp2Q1Bph	Mother Mother	['pov: indie', 'vancouver indie']	1	0
+540vIaP2JwjQb9dm3aArA4	DJ Snake	['edm', 'electronic trap', 'pop', 'pop dance']	1	1
+5LegYV7UAdAyvmgDXyQy0h	Embla	[]	1	1
+1ZcnsSFqWusWlRK01vKE6b	Montaigne	['australian indie', 'australian pop']	1	0
+2KsP6tYLJlTBvSUxnwlVWa	Mike Posner	['dance pop', 'pop', 'pop rap']	1	0
+4lNKuwI9g57KEyjOMjqRxL	Euroband Feat Fridrik Omar & Regina	[]	1	0
+20qISvAhX20dpIbOOzGK3q	Nas	['conscious hip hop', 'east coast hip hop', 'gangster rap', 'hardcore hip hop', 'hip hop', 'queens hip hop', 'rap']	1	1
+2k3Tw1SAga4F4RfrkIDtx5	Aga's Gonzales	[]	1	0
+0JXiS2FrAg3wQYJHcmZdrc	B. Swanson Quartet	[]	1	1
+6Xz6ZnGZZ1KKct4jTyKKZv	SwitchOTR	['chill drill', 'melodic drill']	1	1
+7p1rrHdKESuF36QaqDSAtd	Albina	[]	1	0
+1hKEBSwDGhKmshGFWiWm7S	Lesley Roy	['candy pop']	1	0
+1BLAGKPN4MiBIaSVQLvZaD	Sigríður Beinteinsdóttir	[]	1	0
+56mfhUDKa1vec6rSLZV5Eg	Jawsh 685	['nz pop']	1	1
+1O3sO8IS9U6jkX4AdEza4A	Birgitta Haukdal	['classic icelandic pop', 'icelandic pop']	1	0
+4pnp4w9g30yLfVIAFnZMRd	ACRAZE	['pop dance', 'tech house']	1	1
+1c70yCa8sRgIiQxl3HOEFo	Cherish	['atl hip hop', 'girl group', 'hip pop', 'r&b', 'southern hip hop', 'urban contemporary']	1	1
+7f5Zgnp2spUuuzKplmRkt7	Lost Frequencies	['belgian edm', 'edm', 'pop dance', 'tropical house']	1	1
+6ydoSd3N2mwgwBHtF6K7eX	Calum Scott	['pop']	1	1
+39Waq6UmqYCBEuyv8M8kjl	Charlotte Perrelli	['classic swedish pop', 'swedish pop']	1	0
+1ooV8YZC1KbpEcrmI8WH0F	Yebba	['pop soul']	1	1
+6QMABvTzixnxzsLYyhqRxI	Majestic	['uk dance']	1	1
+3SCvYjD7RLGzPh0ZtUqw66	Prins Póló	['icelandic indie', 'icelandic pop', 'icelandic singer-songwriter']	1	0
+3wcj11K77LjEY1PkEazffa	Burna Boy	['afrobeats', 'dancehall', 'nigerian hip hop', 'nigerian pop']	1	1
+33tFkBLsl6f8TjKkV0uF0C	Lovejoy	['pixel', 'pov: indie']	1	0
+7MPGCB854Qo4alYMOPkBka	Ritt Momney	['bedroom pop']	1	0
+5oNgAs7j5XcBMzWv3HAnHG	DJ Drama	['dirty south rap', 'philly rap', 'southern hip hop', 'trap']	1	1
+163tK9Wjr9P9DmM0AVK7lm	Lorde	['art pop', 'metropopolis', 'nz pop', 'pop']	1	0
+2K6TG5infEmpxAGJa0ni8O	Andrea Gylfadóttir	['classic icelandic pop']	1	0
+7s3eCGNZMrwUQraXlocCBv	Bizzy Banks	['brooklyn drill', 'new york drill']	1	1
+2FkpmF9oMg8wqjTfhzkTHg	Katla María	['barnalog', 'classic icelandic pop']	1	0
+5lpH0xAS4fVfLkACg9DAuM	Wham!	['new romantic', 'new wave', 'new wave pop', 'soft rock']	1	0
+3eqjTLE0HfPfh78zjh6TqT	Bruce Springsteen	['heartland rock', 'mellow gold', 'permanent wave', 'rock', 'singer-songwriter']	1	0
+7xBGi7Eign0fX7jGQj5KlJ	GRACEY	['uk pop']	1	1
+6vVztIuqdDHvYWxOEXCzjN	SALES	['indie pop', 'orlando indie']	1	0
+28y5ZcfpdZAfeEE5ftCfUg	ÁSDÍS	[]	1	1
+7kg2IelllVmw7WcnSFtlXR	Jessy Matador	[]	1	0
+4FeLiFUPdxVfFo8oOfA4BH	Rah Swish	['brooklyn drill', 'new york drill', 'nyc rap']	1	1
+56ynet85nDQxWPCH553GWB	Villi Neto	['icelandic hip hop']	1	0
+58E6TLHwF0cHdkrLd5iNRh	Jendrik	[]	1	0
+5EP020iZcwBqHRnJftibXX	Hooverphonic	['downtempo', 'electronica', 'trip hop']	1	0
+3YGM4VIDzK3XhMfd9acCXC	Stuðkompaníið	['classic icelandic pop', 'icelandic rock']	1	0
+0BxJxQGxDHxJaeybpCoV9I	PÁLMAR	[]	1	0
+77SW9BnxLY8rJ0RciFqkHh	The Neighbourhood	['modern alternative rock', 'modern rock', 'pop', 'pov: indie']	1	0
+769D3IwCDrdPospAd3Hlpi	Naturally 7	['a cappella']	1	1
+6jeg7JBX9J9097esK752iR	Smiley	['canadian hip hop', 'toronto rap']	1	1
+3LtYMPncqtiugGwOuuLq3h	Baddiel, Skinner & Lightning Seeds	['football']	1	0
+1PKErrAhYFdfrDymGHRQRo	Nathan Evans	[]	1	1
+4Euia7UzdRshy1DJOSMTcs	220 KID	['uk dance']	1	1
+5ixB75BQR3ADoWQkcHQJTs	Gene Autry	['classic oklahoma country', 'cowboy western', 'traditional country', 'western swing', 'yodeling']	1	0
+1h6Cn3P4NGzXbaXidqURXs	Swedish House Mafia	['edm', 'pop dance', 'progressive electro house']	1	1
+5NPCfx9lZOTGTaYg6FSWV2	Vincent Bueno	[]	1	0
+2huzXUiBGRUJ8iRFD4NHc7	The Black Mamba	['portuguese rock']	1	0
+0HZUhj5PZHzHMWSI4s8rOQ	Stefania	['greek pop']	1	0
+3xvaSlT4xsyk6lY1ESOspO	Disney	"[""children's music"", 'movie tunes']"	1	1
+46UMQ0cW8ToR8egkBRwAxZ	Cynthia Erivo	['pop soul']	1	0
+5gCRApTajqwbnHHPbr2Fpi	Juicy J	['crunk', 'memphis hip hop', 'pop rap', 'rap', 'southern hip hop', 'trap']	1	1
+0UsHYPNY4YP0zlbyJ10tj1	Þorgeir Ástvaldsson	['classic icelandic pop']	1	0
+06nvjg4wBANK6DCHjqtPNd	Mahmood	['italian adult pop', 'italian pop']	1	0
+4wP1kxjUsc9IR4Iy2smL7o	Trinidad Cardona	['sped up']	1	0
+19XMKPAxNlkw7aASyD3XCa	Klara Elias	['icelandic pop', 'icelandic singer-songwriter']	1	0
+0gP6vgESY587c2wOtaEWme	August & Telma	[]	1	0
+5yy76ufVriyvidNSvXlRU1	Clever	['alabama rap']	1	1
+4RVnAU35WRWra6OZ3CbbMA	Kylie Minogue	['australian dance', 'australian pop', 'dance pop', 'eurodance', 'new wave pop']	1	0
+4yvcSjfu4PC0CYQyLy4wSq	Glass Animals	['gauze pop', 'indietronica', 'modern rock', 'pov: indie', 'shiver pop']	1	0
+25A5LqeSK0yH4ks5fGxbI2	Sava	[]	1	1
+3AFt30387waHIjjDL63XeI	OTP	['melodic drill']	1	1
+6xNUn9epduXbZmCgsxutSx	BM X MINI	['uk drill']	1	1
+1BwDWgdDJe3TJXLZkBkpsI	Tusse	['swedish pop']	1	0
+4IWBUUAFIplrNtaOHcJPRM	James Arthur	['pop', 'talent show', 'uk pop']	1	0
+76opBXONSKD8khOtg0rTsq	Barnakór Öldutúnsskóla	[]	1	0
+7i9j813KFoSBMldGqlh2Z1	Riton	['house', 'pop dance', 'uk dance']	1	1
+1gALaWbNDnwS2ECV09sn2A	Nightcrawlers	['disco house', 'hip house', 'uk dance', 'vocal house']	1	1
+4L2dV3zY7RmkeiNO035Fi0	Mufasa & Hypeman	[]	1	1
+3Edve4VIATi0OZngclQlkN	Dopamine	[]	1	1
+58ICshZ0AgBMNJiLHK3U8l	Deno	['uk hip hop']	1	1
+1x3tBry2dcmx8bMKtDJGpC	Karen Ósk	['icelandic pop']	1	1
+4DdkRBBYG6Yk9Ka8tdJ9BW	Offset	['atl hip hop', 'rap', 'trap']	1	1
+3tJoFztHeIJkJWMrx0td2f	Moneybagg Yo	['memphis hip hop', 'rap', 'southern hip hop', 'tennessee hip hop', 'trap']	1	1
+76FwN3u5L3LhNTqpF2gdh9	Uku Suviste	['estonian pop']	1	0
+74V3dE1a51skRkdII8y2C6	André 3000	['atl hip hop', 'dirty south rap', 'hip hop', 'southern hip hop']	1	1
+1vhshb6p5AJSSgAj2LLnpA	Hurricane	['turbo folk']	1	0
+4O5HHYv9E8fXpNbXqadbKi	Birkir	[]	1	0
+0GM7qgcRCORpGnfcN2tCiB	Tainy	['pop reggaeton', 'reggaeton', 'trap latino', 'urbano latino']	1	1
+4pM3DAhLOqMQT5z4pl0Sri	Brødrene Olsen	['classic danish pop', 'dansktop']	1	0
+4iaTgZRy5aVnImDyRJn61n	James Newman	[]	1	0
+6LXRvV2OAtXF7685fzh3mj	Rowdy Rebel	['nyc rap']	1	1
+3KBONi330rJyUVTWrWI7xg	Kór Bústaðarkirkju	[]	1	1
+5k4oB6Nikwqv82xSqqIqPn	SviMA	['icelandic hip hop']	1	1
+4frXpPxQQZwbCu3eTGnZEw	Thundercat	['afrofuturism', 'indie soul']	1	1
+5K0rbdBrs2tNXe5LeWMATT	Bootsy Collins	['funk', 'p funk', 'soul']	1	1
+26bcq2nyj5GB7uRr558iQg	Survivor	['album rock', 'glam metal', 'hard rock', 'soft rock']	1	0
+2mV8aJphiSHYJf43DxL7Gt	Chromeo	['alternative dance', 'dance rock', 'filter house', 'indietronica', 'neo-synthpop', 'nu disco']	1	1
+4oe1qp9xGSFxMYH4X9AXtl	Efendi	[]	1	0
+0VItUwSmAQ1d05ktT1S2gp	Kalli	['icelandic hip hop']	1	0
+39E15l8zeCDYpSZwFNX4G2	Eleni Foureira	['greek pop', 'laiko']	1	0
+1svaANJTE5KrG16fTGDqOs	The Puppini Sisters	['easy listening', 'swing', 'swing revival']	1	1
+7bXgB6jMjp9ATFy66eO08Z	Chris Brown	['r&b', 'rap']	1	1
+34Y0ldeyUv7jBvukWOGASO	Bobby Shmurda	['nyc rap', 'rap', 'trap']	1	0
+15UsOTVnJzReFVN1VCnxy4	XXXTENTACION	['emo rap', 'miami hip hop']	1	1
+5nkB6GEbHINTSqmi5XMSoa	Ruslana	['russian pop', 'ukrainian pop', 'ukrainian rock']	1	0
+15HbvIdepk65boBKdA1qkq	Danssveit Dósa	[]	1	0
+1DBMeLdSpnCWz8dbDMk8ea	Birkir Blær	['icelandic singer-songwriter']	1	0
+1p1N9BGhaSQTspDjrV0xEL	FLUGFÉLAGIÐ	['icelandic hip hop']	1	1
+4Sdxz1flOuRiXXi77nGzhG	Gísli Pálmi	['icelandic hip hop']	1	1
+6I8ljltXh3l5H8hgKMSeAG	Yung Nigo Drippin'	['icelandic hip hop']	1	1
+4b19vuzlDcNdU4quI7L6sW	ElyOtto	['hyperpop', 'weirdcore']	1	0
+5PHYg0IcnpyZJ1y9euAx4i	YTB Trench	[]	1	1
+6utdPEv71mR0DnGp74cJIz	Disney Characters	['movie tunes']	1	0
+4Uz0pHuaABFuqkkErrSMha	Sniglabandið	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	1	0
+57vWImR43h4CaDao012Ofp	Steve Lacy	['afrofuturism']	1	0
+2cLyfftkFZB4gx8xb25Nnk	Rurik	[]	1	1
+7gW0r5CkdEUMm42w9XpyZO	Laufey	['gen z singer-songwriter']	1	0
+5CizCtfww3srtVFOMPlZGS	Big Hamka	['icelandic hip hop']	1	1
+1KCSPY1glIKqW2TotWuXOR	P!nk	['dance pop', 'pop']	1	1
+0gAILSEru1PKMwP0tAqNLS	Willow Sage Hart	['show tunes']	1	1
+5uWT1NONby2BqNCu42fdDc	A92	['irish drill']	1	1
+3z9G13I73VCCZgf2j7i8q2	Offica	['anime drill', 'irish drill', 'irish hip hop']	1	1
+5iZQPGKEVJj1aEBbYxpAKX	Bergsveinn	[]	1	1
+1sBsS0m5sZyZNur46MQw36	Grettiskórinn	['icelandic pop']	1	1
+53XhwfbYqKCa1cC15pYq2q	Imagine Dragons	['modern rock', 'pop', 'rock']	1	1
+6U3ybJ9UHNKEdsH7ktGBZ7	JID	['hip hop', 'rap', 'underground hip hop']	1	1
+57nPqD7z62gDdq37US9XJR	Arcane	[]	1	1
+47mIJdHORyRerp4os813jD	League of Legends	['speedrun', 'video game music']	1	1
+1WgXqy2Dd70QQOU7Ay074N	AURORA	['art pop', 'norwegian pop']	1	0
+0MHgLfmQdutffmvWe5XBTN	Burl Ives	['adult standards', 'american folk revival']	1	0
+4sFpLVLUs2JUcRucrWxnVE	Háski	['icelandic pop']	1	0
+293zczrfYafIItmnmM3coR	Chuck Berry	['blues', 'blues rock', 'classic rock', 'rock', 'rock-and-roll', 'rockabilly', 'soul']	1	0
+7D7k550IB6EszWmzVVCJSK	Helena Paparizou	['greek pop', 'laiko']	1	0
+3oDbviiivRWhXwIE8hxkVV	The Beach Boys	['baroque pop', 'classic rock', 'folk rock', 'mellow gold', 'psychedelic rock', 'rock', 'sunshine pop']	1	0
+69fBMmYs9SDJ5cUmikwrWQ	Egó	['classic icelandic pop', 'icelandic pop', 'icelandic rock']	1	0
+01LmUEaQDYW2okh9P1Kc8m	Whyrun	['icelandic electronic']	1	1
+4x1nvY2FN8jxqAFA0DA02H	John Lennon	['beatlesque', 'classic rock', 'rock']	1	1
+2s4tjL6W3qrblOe0raIzwJ	Yoko Ono	['experimental', 'experimental pop']	1	1
+2hZoJ9EKrV6YLfUKebCZCo	Kristmundur Axel	['icelandic hip hop']	1	1
+6KCxe5mJlHDJlKEXbNFLsP	Roxen	['romanian pop']	1	0
+67Yu4MHEInu8E6IsxCHlAM	Lori.Litli	[]	1	0
+4dwnaNjzJyz5K9S2vD1IGD	Bomarz	['icelandic pop']	1	1
+1rAv1GhTQ2rmG94p9lU3rB	Julian Casablancas	['indie rock']	1	1
+5e4Dhzv426EvQe3aDb64jL	Shania Twain	['canadian country', 'canadian pop', 'contemporary country', 'country', 'country dawn']	1	1
+1XynjLPAyPi8SZAx8LHN0Z	Nuka	[]	1	1
+6Dmi92a5cnv8DcFoUhK56Y	Spooky Halloween Sounds	['halloween']	1	1
+4PhTHcrcuHr6kihYKkYzxe	Horror Music Collection	[]	1	1
+29PgYEggDV3cDP9QYTogwv	Carolina Gaitán - La Gaita	['movie tunes']	1	1
+36CUTsdtNgCwMq6zKD1l8I	Mauro Castillo	['modern salsa', 'movie tunes', 'salsa colombiana']	1	1
+72kqSqk124Vnl1wtT6q9Fh	Adassa	['movie tunes']	1	1
+2as15AH2BTrPk8v4gyElmr	Rhenzy Feliz	[]	1	1
+18MFcGBHtyW0mU3ufcm0X1	Diane Guerrero	['movie tunes']	1	1
+5PYToRCsrnvikZg3yl2JMr	Stephanie Beatriz	['hollywood', 'movie tunes']	1	1
+3xLU748QxpTmIVaiNXXg0P	Encanto - Cast	['movie tunes']	1	1
+4jNIrx3QUJuUcarfj4YINz	Bobby Tucker Singers	[]	1	1
+6EPlBSH2RSiettczlz7ihV	Sleepy Hallow	['brooklyn drill', 'nyc rap']	1	0
+0jhE3Qa31oY3hroTyEuvUG	SUNCITY	['icelandic pop']	1	1
+15ZjD8Gus20Miqw3fdOaXX	Stunna Gambino	['nyc rap']	1	1
+1hV3gbtU77osxNgFEuKq9h	Anxhela Peristeri	['albanian pop']	1	0
+2arQ0lfcNGLrJOHoJksWOw	Ivi Adamou	['cypriot pop', 'greek pop', 'laiko']	1	0
+5KEG7G8LDYlHgFDqZyEEs2	Chris Rea	['soft rock', 'sophisti-pop']	1	0
+4yiQZ8tQPux8cPriYMWUFP	Gwen Stefani	['dance pop', 'pop']	1	1
+1UTPBmNbXNTittyMJrNkvw	Blake Shelton	['classic oklahoma country', 'contemporary country', 'country', 'country road']	1	1
+0wi4yTYlGtEnbGo4ltZTib	Shakin' Stevens	['classic uk pop', 'rockabilly']	1	0
+0kgOnYSaZeTf3ZnErgwkGT	Senhit	[]	1	1
+0jnsk9HBra6NMjO2oANoPY	Flo Rida	['dance pop', 'miami hip hop', 'pop', 'pop rap']	1	1
+3IJtdFn9IKbFvNvZqOJA46	Blas Cantó	['spanish pop']	1	0
+0ebNdVaOfp6N0oZ1guIxM8	SUGA	['k-pop']	1	1
+0xRXCcSX89eobfrshSVdyu	MEDUZA	['pop dance', 'pop house', 'uk dance']	1	1
+5KNNVgR6LBIABRIomyCwKJ	Dermot Kennedy	['folk-pop', 'irish pop', 'uk pop']	1	1
+4eYnorQRhVHT2KBl2UyHHd	Vegedream	['french hip hop', 'pop urbaine', 'r&b francais']	1	0
+4B4fWEH9GNOMMkoxJGuPtL	Sælan	['icelandic pop']	1	1
+3t9HafA5eFHM992s4GZ0Gr	Jeangu Macrooy	['dutch indie', 'dutch pop']	1	0
+5fmvGUlMVgmnCn45f1he7d	Andrew Gold	['underground power pop']	1	0
+7CyeXFnOrfC1N6z4naIpgo	The Ronettes	['brill building pop', 'classic girl group', 'motown', 'rock-and-roll']	1	0
+1AwO9pWEBSBoWdEZu28XDC	Eartha Kitt	['torch song', 'vocal jazz']	1	1
+0oK8UXKZbQezeRhE0KeBAV	Henri René and His Orchestra	"[""man's orchestra""]"	1	1
+36ZGVTt3SWI2xSlrgcAKL8	Bragi Valdimar Skúlason	['classic icelandic pop', 'icelandic pop']	1	1
+2GEcMpeGIad5O23WxDRFMn	Rico Love	['pop r&b']	1	1
+3hteYQFiMFbJY7wS0xDymP	Gesaffelstein	['dark clubbing']	1	1
+0qSX3s5pJnAlSsgsCne8Cz	Brett Eldredge	['contemporary country', 'country', 'country road', 'modern country rock']	1	1
+6JL8zeS1NmiOftqZTRgdTz	Meghan Trainor	['hip pop', 'pop']	1	1
+1zNqQNIdeOUZHb8zbZRFMX	Swae Lee	['melodic rap', 'rap', 'trap']	1	1
+5v8jlSmAQfrkTjAlpUfWtu	Perry Como	['adult standards', 'easy listening']	1	1
+1Ml4OuStDoympbREURAM15	The Fontane Sisters	['deep adult standards', 'vocal harmony group']	1	1
+0HS96tPggl2nwiz3gNWWI5	Mitchell Ayres & His Orchestra	"[""man's orchestra""]"	1	1
+7ltDVBr6mKbRvohxheJ9h1	ROSALÍA	['pop', 'r&b en espanol']	1	1
+3oIlnrpqNbO5euxhl3LBai	Bent	['icelandic hip hop']	1	1
+5zqziLdx0l2RY7sOdCrAsR	Slaemi	[]	1	1
+2NZN0JDhWXmMmhSXTbhm1h	SR	['uk drill']	1	0
+0n0WJa2PTpZyrjXRcu4wxZ	Vasil Garvanliev	['macedonian pop']	1	0
+0rvjqX7ttXeg3mTy8Xscbt	Journey	['album rock', 'classic rock', 'hard rock', 'heartland rock', 'mellow gold', 'rock', 'soft rock']	1	0
+0RIwEP1SaALlxn9jOVqHfA	Gjon's Tears	[]	1	0
+7pivhgzLZSku2ixQRxQ5BK	Samanta Tina	['latvian pop']	1	0
+0JYmighF3zbuA81Di54CZN	S-X	['instrumental grime']	1	1
+3fMbdgg4jU18AjLCKBhRSm	Michael Jackson	['r&b', 'soul']	1	0
+56oDRnqbIiwx4mymNEv7dS	Lizzo	['escape room', 'minnesota hip hop', 'pop', 'trap queen']	1	1
+1OIHUiOCvCiP9H8jI6yEIj	Veðurguðirnir	['classic icelandic pop', 'icelandic pop', 'sunnlensk tonlist']	1	1
+4S9EykWXhStSc15wEx8QFK	Céline Dion	['canadian pop']	1	0
+2n9QtvjcxOaCWLCNngdL4G	Páll Óskar	[]	1	1
