@@ -7,7 +7,6 @@ from chart_observatory.db.models.reference import Country, DataSource, Platform
 from chart_observatory.domain.enums import PlatformCode, SourceCode
 
 PLATFORM_NAMES = {
-    PlatformCode.APPLE_MUSIC: "Apple Music",
     PlatformCode.SPOTIFY: "Spotify",
     PlatformCode.YOUTUBE_VIDEO: "YouTube Video",
     PlatformCode.YOUTUBE_MUSIC: "YouTube Music",
@@ -15,7 +14,6 @@ PLATFORM_NAMES = {
 }
 
 SOURCE_NAMES = {
-    SourceCode.APPLE_MUSIC_API: ("Apple Music API", True),
     SourceCode.YOUTUBE_DATA_API: ("YouTube Data API", True),
     SourceCode.YOUTUBE_MUSIC_CHARTS: ("YouTube Music Charts", True),
     SourceCode.SPOTIFY_CHARTS: ("Spotify Charts", True),

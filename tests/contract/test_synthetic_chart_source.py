@@ -9,7 +9,7 @@ from chart_observatory.charts.dto import ChartEntryDTO, ChartPayload
 def test_payload_preserves_raw_and_deterministic_rank_order() -> None:
     payload = ChartPayload(
         source_code="SYNTHETIC",
-        platform_code="APPLE_MUSIC",
+        platform_code="SPOTIFY",
         country_code="BR",
         chart_name="most-played",
         native_frequency="DAILY",

@@ -16,7 +16,7 @@ def test_orm_rejects_snapshot_updates_and_entry_deletes() -> None:
     with Session(engine) as session:
         charts = ChartRepository(session)
         definition = charts.create_definition(
-            "APPLE_MUSIC", "APPLE_MUSIC_API", "BR", "most-played", "DAILY", 100
+            "SPOTIFY", "SPOTIFY_CHARTS", "BR", "top", "DAILY", 100
         )
         snapshot = charts.create_snapshot(
             definition.id,
@@ -26,7 +26,7 @@ def test_orm_rejects_snapshot_updates_and_entry_deletes() -> None:
             "immutable",
         )
         item = TrackRepository(session).create_platform_item(
-            "APPLE_MUSIC", "immutable-item", "CATALOG_TRACK"
+            "SPOTIFY", "immutable-item", "CATALOG_TRACK"
         )
         entry = charts.add_entry(snapshot.id, item.id, 1, None)
         session.commit()

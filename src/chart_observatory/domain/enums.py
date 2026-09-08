@@ -2,7 +2,6 @@ from enum import StrEnum
 
 
 class PlatformCode(StrEnum):
-    APPLE_MUSIC = "APPLE_MUSIC"
     SPOTIFY = "SPOTIFY"
     YOUTUBE_VIDEO = "YOUTUBE_VIDEO"
     YOUTUBE_MUSIC = "YOUTUBE_MUSIC"
@@ -10,7 +9,6 @@ class PlatformCode(StrEnum):
 
 
 class SourceCode(StrEnum):
-    APPLE_MUSIC_API = "APPLE_MUSIC_API"
     YOUTUBE_DATA_API = "YOUTUBE_DATA_API"
     YOUTUBE_MUSIC_CHARTS = "YOUTUBE_MUSIC_CHARTS"
     SPOTIFY_CHARTS = "SPOTIFY_CHARTS"

@@ -223,15 +223,18 @@ def test_collect_chart_pages_resumes_from_a_checkpoint(tmp_path) -> None:
     assert [row.track_title for row in rows] == ["First"]
     assert [request.params["offset"] for request in transport.requests[1:]] == [0, 1]
     assert json.loads(checkpoint.read_text(encoding="utf-8"))["status"] == "COMPLETE"
-    assert client.collect_chart_pages(
-        platform="spotify",
-        country_code="BR",
-        interval="daily",
-        chart_type="regional",
-        period=date(2022, 1, 1),
-        page_size=1,
-        checkpoint_path=checkpoint,
-    ) == ()
+    assert (
+        client.collect_chart_pages(
+            platform="spotify",
+            country_code="BR",
+            interval="daily",
+            chart_type="regional",
+            period=date(2022, 1, 1),
+            page_size=1,
+            checkpoint_path=checkpoint,
+        )
+        == ()
+    )
     assert len(transport.requests) == 3
 
 

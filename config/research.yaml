@@ -3,3 +3,11 @@ research:
   end_date: null
   default_temporal_alignment: SAME_NATIVE_FREQUENCY
 
+comparable_corpus:
+  minimum_coverage: 0.95
+  minimum_years: 3
+  minimum_chart_depth: 100
+  minimum_source_quality: 0.0
+  primary_provider: MGD
+  primary_platform: SPOTIFY
+  primary_chart_family: TOP_200

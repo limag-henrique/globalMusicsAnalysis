@@ -103,7 +103,7 @@ class ChartmetricClient:
         raise ChartmetricAuthError("Chartmetric access token rejected after one refresh", 401)
 
     def discover_capabilities(
-        self, platforms: tuple[str, ...] = ("spotify", "applemusic", "deezer", "qq", "amazon")
+        self, platforms: tuple[str, ...] = ("spotify", "deezer", "qq", "amazon")
     ) -> tuple[MarketCapability, ...]:
         capabilities: list[MarketCapability] = []
         for platform in platforms:
@@ -228,8 +228,7 @@ class ChartmetricClient:
         page_size: int = 200,
         checkpoint_path: Path | None = None,
         max_pages: int | None = None,
-        on_page: Callable[[int, dict[str, Any], tuple[SourceObservation, ...]], None]
-        | None = None,
+        on_page: Callable[[int, dict[str, Any], tuple[SourceObservation, ...]], None] | None = None,
     ) -> tuple[SourceObservation, ...]:
         """Collect a bounded chart with an on-disk offset checkpoint.
 
@@ -349,7 +348,7 @@ def _probe_for(platform: str) -> tuple[str, dict[str, object]]:
             "latest": "true",
             "limit": 1,
         }
-    if platform in {"applemusic", "amazon"}:
+    if platform == "amazon":
         return f"/api/charts/{platform}/tracks", {
             "country_code": "GLOBAL",
             "date": today,
@@ -366,13 +365,10 @@ def _observation_from_row(
     rank: int,
     row: dict[str, Any],
 ) -> SourceObservation:
-    artists = row.get(
-        "artists", row.get("spotify_artist_names", row.get("artist_names", []))
-    )
+    artists = row.get("artists", row.get("spotify_artist_names", row.get("artist_names", [])))
     if isinstance(artists, list):
         artist_names = [
-            str(item.get("name", "")) if isinstance(item, dict) else str(item)
-            for item in artists
+            str(item.get("name", "")) if isinstance(item, dict) else str(item) for item in artists
         ]
         artist = ", ".join(name for name in artist_names if name)
     else:

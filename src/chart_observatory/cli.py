@@ -7,11 +7,21 @@ from pathlib import Path
 
 import typer
 
-from chart_observatory.application import LocalResearchApplication
+from chart_observatory.application import ResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
 from chart_observatory.config import Settings
+from chart_observatory.corpus.eligibility import EligibilityRules
+from chart_observatory.corpus.freeze import freeze_source_artifacts
+from chart_observatory.corpus.repository import (
+    CorpusFreezeRequest,
+    freeze_corpus,
+    reconcile_entries,
+)
+from chart_observatory.db.models.charts import ChartSnapshot
 from chart_observatory.domain.enums import RightsOperation
 from chart_observatory.domain.errors import SourceDisabled
+from chart_observatory.exports.analytical import write_mgd_analytical_datasets
+from chart_observatory.ingestion.corpus import ingest_mgd_parquet, write_mgd_coverage
 from chart_observatory.procurement.schema_profiler import profile_sample
 from chart_observatory.sources.chartmetric import ChartmetricClient, ChartmetricError
 from chart_observatory.sources.chartmetric_backfill import (
@@ -43,6 +53,7 @@ kaggle_app = typer.Typer(help="Kaggle Spotify Charts source.")
 chartmetric_app = typer.Typer(help="Chartmetric authenticated source.")
 promusica_app = typer.Typer(help="Pro-Música Brasil public source.")
 youtube_app = typer.Typer(help="YouTube Data API market discovery.")
+corpus_app = typer.Typer(help="Canonical corpus, eligibility, and scientific freeze operations.")
 app.add_typer(collect_app, name="collect")
 app.add_typer(import_app, name="import-chart")
 app.add_typer(coverage_app, name="coverage")
@@ -55,10 +66,238 @@ sources_app.add_typer(kaggle_app, name="kaggle")
 sources_app.add_typer(chartmetric_app, name="chartmetric")
 sources_app.add_typer(promusica_app, name="promusica")
 sources_app.add_typer(youtube_app, name="youtube")
+app.add_typer(corpus_app, name="corpus")
 
 
-def _service(authorized: bool = False) -> LocalResearchApplication:
-    return LocalResearchApplication(Path("data/runtime"), manual_authorized=authorized)
+def _service(authorized: bool = False) -> ResearchApplication:
+    settings = Settings.load(Path.cwd())
+    return ResearchApplication(
+        Path("data/runtime"), database_url=settings.database_url, manual_authorized=authorized
+    )
+
+
+@corpus_app.command("coverage")
+def corpus_coverage(
+    input_path: Path = typer.Option(Path("data/normalized/mgd_observations.parquet"), "--input"),
+    output: Path = typer.Option(Path("data/derived/mgd_coverage.parquet")),
+    minimum_coverage: float = typer.Option(0.95),
+    minimum_years: int = typer.Option(3),
+    minimum_chart_depth: int = typer.Option(100),
+) -> None:
+    """Profile provider/platform/market/chart-family cells and select comparability."""
+    frame = write_mgd_coverage(
+        input_path,
+        output,
+        EligibilityRules(
+            minimum_coverage=minimum_coverage,
+            minimum_years=minimum_years,
+            minimum_chart_depth=minimum_chart_depth,
+        ),
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "status": "PROFILED",
+                "cells": frame.height,
+                "eligible_cells": int(frame.filter(frame["eligible"] == True).height),  # noqa: E712
+                "output": str(output),
+            }
+        )
+    )
+
+
+@corpus_app.command("ingest-mgd")
+def corpus_ingest_mgd(
+    input_path: Path = typer.Option(Path("data/normalized/mgd_observations.parquet"), "--input"),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    limit: int | None = typer.Option(None, min=1),
+    batch_size: int = typer.Option(50_000, min=100),
+) -> None:
+    """Import the local MGD Parquet into the operational database."""
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"),
+        database_url=database_url or settings.database_url,
+        manual_authorized=True,
+    )
+    summary = ingest_mgd_parquet(
+        service.session,
+        input_path,
+        limit=limit,
+        batch_size=batch_size,
+        rules=EligibilityRules(
+            minimum_coverage=settings.comparable_corpus.minimum_coverage,
+            minimum_years=settings.comparable_corpus.minimum_years,
+            minimum_chart_depth=settings.comparable_corpus.minimum_chart_depth,
+            minimum_source_quality=settings.comparable_corpus.minimum_source_quality,
+        ),
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "status": "IMPORTED",
+                "rows_seen": summary.rows_seen,
+                "rows_written": summary.rows_written,
+                "markets": summary.markets,
+                "snapshots": summary.snapshots,
+                "tracks": summary.tracks,
+                "eligible_cells": sum(result.eligible for result in summary.profiles),
+            }
+        )
+    )
+
+
+@corpus_app.command("reconcile")
+def corpus_reconcile(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    """Build canonical chart entries without deleting source entries."""
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    summary = reconcile_entries(service.session)
+    service.session.commit()
+    typer.echo(
+        json.dumps(
+            {
+                "status": "RECONCILED",
+                "canonical_entries": summary.canonical_entries,
+                "conflicts": summary.conflicts,
+                "unresolved_source_entries": summary.skipped_unresolved,
+            }
+        )
+    )
+
+
+@corpus_app.command("export-analytical")
+def corpus_export_analytical(
+    input_path: Path = typer.Option(Path("data/normalized/mgd_observations.parquet"), "--input"),
+    output_dir: Path = typer.Option(Path("data/derived"), "--output-dir"),
+    top_n: int = typer.Option(50, min=1),
+    artist_metadata: Path = typer.Option(
+        Path("mgd/artists/spotify_artists_info_complete.csv"), "--artist-metadata"
+    ),
+) -> None:
+    """Materialize track, turnover, genre, and diversity datasets."""
+    paths = write_mgd_analytical_datasets(
+        input_path,
+        output_dir,
+        top_n=top_n,
+        artist_metadata_path=artist_metadata if artist_metadata.is_file() else None,
+    )
+    typer.echo(
+        json.dumps(
+            {"status": "EXPORTED", "datasets": {name: str(path) for name, path in paths.items()}}
+        )
+    )
+
+
+@corpus_app.command("freeze")
+def corpus_freeze(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    coverage_path: Path = typer.Option(Path("data/derived/mgd_coverage.parquet"), "--coverage"),
+    name: str = typer.Option("CANONICAL_CORPUS"),
+    version: str = typer.Option("v1"),
+) -> None:
+    """Freeze the observed database inputs and eligible chart cells as a manifest."""
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    coverage = __import__("polars").read_parquet(coverage_path)
+    eligible = coverage.filter(__import__("polars").col("eligible"))
+    if eligible.height == 0:
+        raise typer.BadParameter("coverage file contains no eligible cells")
+    start = min(value for value in eligible["first_date"].to_list() if value is not None)
+    end = max(value for value in eligible["last_date"].to_list() if value is not None)
+    memberships = tuple(
+        {
+            "member_type": "CHART_CELL",
+            "member_key": (
+                f"{row['provider']}/{row['platform_code']}/"
+                f"{row['country_code']}/{row['chart_family']}"
+            ),
+            "provider": row["provider"],
+            "platform_code": row["platform_code"],
+            "country_code": row["country_code"],
+            "chart_family": row["chart_family"],
+            "period_start": row["first_date"],
+            "period_end": row["last_date"],
+            "eligible": bool(row["eligible"]),
+            "reason": row["reasons"] or None,
+        }
+        for row in eligible.iter_rows(named=True)
+    )
+    snapshot_ids = tuple(str(value) for (value,) in service.session.query(ChartSnapshot.id).all())
+    frozen = freeze_corpus(
+        service.session,
+        CorpusFreezeRequest(
+            name,
+            version,
+            {
+                "minimum_coverage": settings.comparable_corpus.minimum_coverage,
+                "minimum_years": settings.comparable_corpus.minimum_years,
+                "minimum_chart_depth": settings.comparable_corpus.minimum_chart_depth,
+            },
+            snapshot_ids,
+            start,
+            end,
+            memberships,
+        ),
+    )
+    service.session.commit()
+    typer.echo(
+        json.dumps(
+            {
+                "status": "FROZEN",
+                "corpus_version_id": str(frozen.id),
+                "manifest_sha256": frozen.manifest_sha256,
+            }
+        )
+    )
+
+
+@corpus_app.command("freeze-source")
+def corpus_freeze_source(
+    input_path: Path = typer.Option(Path("data/normalized/mgd_observations.parquet"), "--input"),
+    coverage_path: Path = typer.Option(Path("data/derived/mgd_coverage.parquet"), "--coverage"),
+    output: Path = typer.Option(Path("data/derived/corpus_v1_source_manifest.json")),
+    datasets_dir: Path = typer.Option(Path("data/derived"), "--datasets-dir"),
+) -> None:
+    """Freeze source files and analytical artifacts before PostgreSQL membership freeze."""
+    settings = Settings.load(Path.cwd())
+    dataset_names = (
+        "track_master.parquet",
+        "turnover_by_market_period.parquet",
+        "genre_claims.parquet",
+        "genre_diversity_by_market_period.parquet",
+    )
+    datasets = tuple(
+        datasets_dir / name for name in dataset_names if (datasets_dir / name).is_file()
+    )
+    manifest = freeze_source_artifacts(
+        input_path,
+        coverage_path,
+        output,
+        analytical_datasets=datasets,
+        rules=EligibilityRules(
+            minimum_coverage=settings.comparable_corpus.minimum_coverage,
+            minimum_years=settings.comparable_corpus.minimum_years,
+            minimum_chart_depth=settings.comparable_corpus.minimum_chart_depth,
+            minimum_source_quality=settings.comparable_corpus.minimum_source_quality,
+        ),
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "status": manifest["status"],
+                "manifest_sha256": manifest["manifest_sha256"],
+                "eligible_cells": manifest["eligible_cells"],
+                "output": str(output),
+            }
+        )
+    )
 
 
 @collect_app.command("current")
@@ -465,11 +704,7 @@ def sources_chartmetric_collect(
         output.parent.mkdir(parents=True, exist_ok=True)
         pl.DataFrame(
             [
-                {
-                    key: value
-                    for key, value in asdict(row).items()
-                    if key != "raw_fields"
-                }
+                {key: value for key, value in asdict(row).items() if key != "raw_fields"}
                 for row in rows
             ]
         ).write_parquet(output)
@@ -530,9 +765,7 @@ def sources_chartmetric_backfill(
         end = date.fromisoformat(to_date)
     except ValueError as error:
         typer.echo(
-            json.dumps(
-                {"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)}
-            )
+            json.dumps({"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)})
         )
         return
     transport = HttpxTransport("https://api.chartmetric.com")
@@ -545,8 +778,7 @@ def sources_chartmetric_backfill(
                     {
                         capability.country_code
                         for capability in capabilities
-                        if capability.available
-                        and capability.origin_platform == platform.upper()
+                        if capability.available and capability.origin_platform == platform.upper()
                     }
                 )
             )

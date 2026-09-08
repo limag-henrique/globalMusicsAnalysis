@@ -38,6 +38,18 @@ class ResearchWindow(BaseModel):
         return self
 
 
+class ComparableCorpusConfig(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    minimum_coverage: float = Field(0.95, gt=0, le=1)
+    minimum_years: int = Field(3, ge=1)
+    minimum_chart_depth: int = Field(100, ge=1)
+    minimum_source_quality: float = Field(0.0, ge=0, le=1)
+    primary_provider: str = "MGD"
+    primary_platform: str = "SPOTIFY"
+    primary_chart_family: str = "TOP_200"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="CHART_OBSERVATORY_",
@@ -47,6 +59,15 @@ class Settings(BaseSettings):
 
     countries: tuple[CountryConfig, ...]
     research: ResearchWindow
+    comparable_corpus: ComparableCorpusConfig = ComparableCorpusConfig(
+        minimum_coverage=0.95,
+        minimum_years=3,
+        minimum_chart_depth=100,
+        minimum_source_quality=0.0,
+        primary_provider="MGD",
+        primary_platform="SPOTIFY",
+        primary_chart_family="TOP_200",
+    )
     database_url: str = (
         "postgresql+psycopg://chart_observatory:local_development_only"
         "@localhost:5432/chart_observatory"
@@ -74,6 +95,7 @@ class Settings(BaseSettings):
         return cls(
             countries=tuple(country_data.get("countries", [])),
             research=research_data["research"],
+            comparable_corpus=research_data.get("comparable_corpus", {}),
         )
 
 

@@ -14,7 +14,7 @@ def test_unresolved_entry_and_missing_metric_are_preserved() -> None:
     with Session(engine) as session:
         charts = ChartRepository(session)
         definition = charts.create_definition(
-            "APPLE_MUSIC", "APPLE_MUSIC_API", "BR", "most-played", "DAILY", 100
+            "SPOTIFY", "SPOTIFY_CHARTS", "BR", "top", "DAILY", 100
         )
         snapshot = charts.create_snapshot(
             definition.id,
@@ -23,9 +23,7 @@ def test_unresolved_entry_and_missing_metric_are_preserved() -> None:
             datetime(2026, 9, 3, tzinfo=UTC),
             "abc",
         )
-        item = TrackRepository(session).create_platform_item(
-            "APPLE_MUSIC", "song-1", "CATALOG_TRACK"
-        )
+        item = TrackRepository(session).create_platform_item("SPOTIFY", "song-1", "CATALOG_TRACK")
         entry = charts.add_entry(snapshot.id, item.id, position=1, metric_value=None)
         assert entry.canonical_track_id is None
         assert entry.metric_value is None

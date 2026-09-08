@@ -14,7 +14,7 @@ def test_outage_attempt_does_not_erase_prior_available_coverage() -> None:
     Base.metadata.create_all(engine)
     with Session(engine) as session:
         definition = ChartRepository(session).create_definition(
-            "APPLE_MUSIC", "APPLE_MUSIC_API", "BR", "most-played", "DAILY", 100
+            "SPOTIFY", "SPOTIFY_CHARTS", "BR", "top", "DAILY", 100
         )
         repository = CollectionRunRepository(session)
         available = repository.record_attempt(

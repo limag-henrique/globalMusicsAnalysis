@@ -37,12 +37,17 @@ class KaggleSpotifyChartsSource:
             ) from error
         path = Path(kagglehub.dataset_download(self.dataset_ref))
         self.root.mkdir(parents=True, exist_ok=True)
+        (self.root / "kagglehub_path.txt").write_text(str(path) + "\n", encoding="utf-8")
         return path
 
     def files(self) -> tuple[Path, ...]:
-        if not self.root.exists():
-            return ()
-        return tuple(sorted(self.root.rglob("*.csv")))
+        local_files = tuple(sorted(self.root.rglob("*.csv"))) if self.root.exists() else ()
+        marker = self.root / "kagglehub_path.txt"
+        if marker.exists():
+            cached_root = Path(marker.read_text(encoding="utf-8").strip())
+            cached_files = tuple(sorted(cached_root.rglob("*.csv"))) if cached_root.exists() else ()
+            return tuple(dict.fromkeys((*local_files, *cached_files)))
+        return local_files
 
     def _charts_file(self) -> Path:
         candidates = [path for path in self.files() if path.name.casefold() == "charts.csv"]
@@ -80,9 +85,7 @@ class KaggleSpotifyChartsSource:
                 .collect(engine="streaming")
             )
             row: dict[str, Any] = (
-                frame.row(0, named=True)
-                if frame.height
-                else {"rows": 0, "regions": []}
+                frame.row(0, named=True) if frame.height else {"rows": 0, "regions": []}
             )
             regions = (
                 pl.scan_csv(path, infer_schema_length=1000)

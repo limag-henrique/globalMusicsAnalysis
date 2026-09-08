@@ -1,19 +1,10 @@
 # MGD × Kaggle overlap
 
-Status: `NOT_COMPUTED`.
+Status: `COMPUTED`.
 
-MGD was fully imported from the local `./mgd` directory. The Kaggle adapter for
-`dhruvildave/spotify-charts` is implemented and fixture-tested, but the current
-environment has no `kagglehub` installation and no local Kaggle `charts.csv`.
-Therefore this report intentionally contains no fabricated overlap percentage.
+- MGD rows: 21,257,472
+- Kaggle rows: 26,173,514
+- Exact Spotify native-ID equivalences: 19942141
+- Title/artist/date/rank equivalences: 19867209
 
-Once the dataset is acquired, run:
-
-```text
-chart-observatory sources kaggle download
-chart-observatory sources kaggle import
-```
-
-Then compare observations using origin platform, market, chart, date, rank and
-resolved track identity. Preserve both source observations; use the explicit
-equivalence key only for deduplication in a later canonical analysis table.
+Both source observations remain preserved; these counts are validation evidence, not additive corpus rows. Reconciliation applies source precedence and emits conflicts.

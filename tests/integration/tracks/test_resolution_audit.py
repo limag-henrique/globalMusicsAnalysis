@@ -14,7 +14,7 @@ def test_resolution_attempt_persists_rule_evidence_and_candidates() -> None:
         repository = TrackRepository(session)
         repository.create_track("Synthetic Song")
         item = repository.create_platform_item(
-            "APPLE_MUSIC", "candidate", "CATALOG_TRACK", "Synthetik Song"
+            "SPOTIFY", "candidate", "CATALOG_TRACK", "Synthetik Song"
         )
         TrackResolutionService(session).resolve(item.id)
         record = session.scalar(select(ResolutionRecord))

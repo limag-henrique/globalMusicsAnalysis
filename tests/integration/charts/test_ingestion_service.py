@@ -12,7 +12,7 @@ class SyntheticSource:
     def fetch_current(self, request: CurrentChartRequest) -> ChartPayload:
         return ChartPayload(
             "SYNTHETIC",
-            "APPLE_MUSIC",
+            "SPOTIFY",
             request.country_code,
             request.chart_name,
             "DAILY",
