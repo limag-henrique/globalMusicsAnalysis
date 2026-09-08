@@ -4,7 +4,7 @@ import json
 from dataclasses import asdict
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import typer
 
@@ -23,8 +23,18 @@ from chart_observatory.db.models.charts import ChartSnapshot
 from chart_observatory.domain.enums import RightsOperation, RightsProfileStatus
 from chart_observatory.domain.errors import SourceDisabled
 from chart_observatory.exports.analytical import write_mgd_analytical_datasets
-from chart_observatory.ingestion.corpus import ingest_mgd_parquet, write_mgd_coverage
+from chart_observatory.ingestion.corpus import (
+    ingest_mgd_parquet,
+    write_mgd_balanced_panel,
+    write_mgd_coverage,
+)
 from chart_observatory.ingestion.youtube import collect_youtube_current
+from chart_observatory.lyrics.repository import (
+    LyricDocumentInput,
+    annotate_document,
+    annotation_input_from_dict,
+    ingest_lyric_document,
+)
 from chart_observatory.procurement.schema_profiler import profile_sample
 from chart_observatory.rights.gate import RightsGate
 from chart_observatory.rights.models import RightsGrant, RightsProfile
@@ -97,11 +107,21 @@ def corpus_coverage(
     minimum_coverage: float = typer.Option(0.95),
     minimum_years: int = typer.Option(3),
     minimum_chart_depth: int = typer.Option(100),
+    balanced_output: Path = typer.Option(Path("data/derived/mgd_balanced_panel.parquet")),
 ) -> None:
     """Profile provider/platform/market/chart-family cells and select comparability."""
     frame = write_mgd_coverage(
         input_path,
         output,
+        EligibilityRules(
+            minimum_coverage=minimum_coverage,
+            minimum_years=minimum_years,
+            minimum_chart_depth=minimum_chart_depth,
+        ),
+    )
+    balanced = write_mgd_balanced_panel(
+        input_path,
+        balanced_output,
         EligibilityRules(
             minimum_coverage=minimum_coverage,
             minimum_years=minimum_years,
@@ -115,6 +135,8 @@ def corpus_coverage(
                 "cells": frame.height,
                 "eligible_cells": int(frame.filter(frame["eligible"] == True).height),  # noqa: E712
                 "output": str(output),
+                "balanced_panel_rows": balanced.height,
+                "balanced_panel_output": str(balanced_output),
             }
         )
     )
@@ -155,6 +177,7 @@ def corpus_ingest_mgd(
                 "markets": summary.markets,
                 "snapshots": summary.snapshots,
                 "tracks": summary.tracks,
+                "duplicate_rows_skipped": summary.duplicate_rows_skipped,
                 "eligible_cells": sum(result.eligible for result in summary.profiles),
             }
         )
@@ -281,14 +304,10 @@ def corpus_freeze_source(
 ) -> None:
     """Freeze source files and analytical artifacts before PostgreSQL membership freeze."""
     settings = Settings.load(Path.cwd())
-    dataset_names = (
-        "track_master.parquet",
-        "turnover_by_market_period.parquet",
-        "genre_claims.parquet",
-        "genre_diversity_by_market_period.parquet",
-    )
     datasets = tuple(
-        datasets_dir / name for name in dataset_names if (datasets_dir / name).is_file()
+        path
+        for path in sorted(datasets_dir.glob("*.parquet"))
+        if path.name not in {coverage_path.name, "mgd_balanced_panel.parquet"}
     )
     manifest = freeze_source_artifacts(
         input_path,
@@ -311,6 +330,60 @@ def corpus_freeze_source(
                 "output": str(output),
             }
         )
+    )
+
+
+@corpus_app.command("ingest-lyrics")
+def corpus_ingest_lyrics(
+    input_path: Path,
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    """Import authorized lyric documents and review/LLM annotation JSONL."""
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    documents = annotations = 0
+    for line_number, line in enumerate(
+        input_path.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        if not line.strip():
+            continue
+        try:
+            payload = json.loads(line)
+            retrieved_at = payload.get("retrieved_at")
+            document = ingest_lyric_document(
+                service.session,
+                LyricDocumentInput(
+                    canonical_track_id=UUID(str(payload["canonical_track_id"])),
+                    source=str(payload["source"]),
+                    source_version=str(payload["source_version"]),
+                    rights_status=str(payload["rights_status"]),
+                    language_code=payload.get("language_code"),
+                    text=payload.get("text"),
+                    retrieved_at=(
+                        datetime.fromisoformat(str(retrieved_at))
+                        if retrieved_at
+                        else datetime.now(UTC)
+                    ),
+                    metadata=dict(payload.get("metadata", {})),
+                ),
+            )
+            new_annotations = annotate_document(
+                service.session,
+                document.id,
+                [annotation_input_from_dict(value) for value in payload.get("annotations", [])],
+            )
+            documents += 1
+            annotations += len(new_annotations)
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
+            service.session.rollback()
+            raise typer.BadParameter(
+                f"invalid lyric JSONL at line {line_number}: {error}"
+            ) from error
+    service.session.commit()
+    typer.echo(
+        json.dumps({"status": "IMPORTED", "documents": documents, "annotations": annotations})
     )
 
 

@@ -88,4 +88,16 @@ def category_exposure(rows: Iterable[ContentObservation]) -> pl.DataFrame:
                 "exposure": weighted_count / denominator if denominator else None,
             }
         )
-    return pl.DataFrame(output) if output else pl.DataFrame()
+    return (
+        pl.DataFrame(output)
+        if output
+        else pl.DataFrame(
+            schema={
+                "country_code": pl.String,
+                "category": pl.String,
+                "weighted_exposure": pl.Float64,
+                "observation_weight_denominator": pl.Float64,
+                "exposure": pl.Float64,
+            }
+        )
+    )

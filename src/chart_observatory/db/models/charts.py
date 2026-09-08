@@ -27,7 +27,7 @@ class ChartDefinition(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     )
     platform_code: Mapped[str] = mapped_column(String(50), nullable=False)
     source_code: Mapped[str] = mapped_column(String(80), nullable=False)
-    country_code: Mapped[str] = mapped_column(String(2), nullable=False)
+    country_code: Mapped[str] = mapped_column(String(20), nullable=False)
     chart_name: Mapped[str] = mapped_column(String(200), nullable=False)
     native_frequency: Mapped[str] = mapped_column(String(20), nullable=False)
     nominal_depth: Mapped[int | None] = mapped_column(Integer)

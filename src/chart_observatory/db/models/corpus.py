@@ -12,7 +12,7 @@ class MarketGeography(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     __tablename__ = "market_geography"
     __table_args__ = (UniqueConstraint("country_code", "source_version"),)
 
-    country_code: Mapped[str] = mapped_column(String(2), nullable=False, index=True)
+    country_code: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     iso3: Mapped[str] = mapped_column(String(3), nullable=False)
     country_name: Mapped[str] = mapped_column(String(160), nullable=False)
     m49: Mapped[str] = mapped_column(String(3), nullable=False)
@@ -31,7 +31,7 @@ class ChartCellProfile(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
 
     provider: Mapped[str] = mapped_column(String(80), nullable=False, index=True)
     platform_code: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
-    country_code: Mapped[str] = mapped_column(String(2), nullable=False, index=True)
+    country_code: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     chart_family: Mapped[str] = mapped_column(String(100), nullable=False)
     frequency: Mapped[str] = mapped_column(String(20), nullable=False)
     first_date: Mapped[date | None] = mapped_column(Date)
@@ -60,7 +60,7 @@ class CanonicalChartEntry(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     )
 
     origin_platform: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
-    country_code: Mapped[str] = mapped_column(String(2), nullable=False, index=True)
+    country_code: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     chart_family: Mapped[str] = mapped_column(String(100), nullable=False)
     period_start: Mapped[date] = mapped_column(Date, nullable=False)
     period_end: Mapped[date] = mapped_column(Date, nullable=False)
@@ -118,7 +118,7 @@ class CorpusMembership(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     member_key: Mapped[str] = mapped_column(String(500), nullable=False)
     provider: Mapped[str | None] = mapped_column(String(80))
     platform_code: Mapped[str | None] = mapped_column(String(50))
-    country_code: Mapped[str | None] = mapped_column(String(2))
+    country_code: Mapped[str | None] = mapped_column(String(20))
     chart_family: Mapped[str | None] = mapped_column(String(100))
     period_start: Mapped[date | None] = mapped_column(Date)
     period_end: Mapped[date | None] = mapped_column(Date)

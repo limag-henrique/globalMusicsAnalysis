@@ -1,28 +1,70 @@
 {
   "analytical_datasets": [
     {
-      "path": "data\\derived\\track_master.parquet",
+      "path": "data\\derived\\analytical\\category_exposure_by_country.parquet",
+      "rows": 0,
+      "sha256": "e76b23853cadea6a18abcaaea3f79525e3adfed8694268e32bb0cfcd6dcbb3f2",
+      "size_bytes": 681
+    },
+    {
+      "path": "data\\derived\\analytical\\category_prevalence_by_country.parquet",
+      "rows": 0,
+      "sha256": "b6ffe2da41d0168dcfc2f70278b36991af531c3655890b171cd894287f4750d8",
+      "size_bytes": 842
+    },
+    {
+      "path": "data\\derived\\analytical\\genre_claims.parquet",
+      "rows": 85144,
+      "sha256": "228dde4bbdcb34630c17024a094d7e24601176d6780e706a967f588c3765492c",
+      "size_bytes": 1671109
+    },
+    {
+      "path": "data\\derived\\analytical\\genre_diversity_by_market_period.parquet",
+      "rows": 384,
+      "sha256": "c7d264bb31de85c17a99fc1d035a7bda18c5ba7d6062aea977d0d5dee81eab51",
+      "size_bytes": 11207
+    },
+    {
+      "path": "data\\derived\\analytical\\rq2_content_country.parquet",
+      "rows": 0,
+      "sha256": "c27a4f77273bdb1b3c5dab0eeb53a0cf13ee815945ce0adc78c135f57ea157a0",
+      "size_bytes": 491
+    },
+    {
+      "path": "data\\derived\\analytical\\rq3_content_country_genre.parquet",
+      "rows": 0,
+      "sha256": "c27a4f77273bdb1b3c5dab0eeb53a0cf13ee815945ce0adc78c135f57ea157a0",
+      "size_bytes": 491
+    },
+    {
+      "path": "data\\derived\\analytical\\rq4_content_success.parquet",
+      "rows": 0,
+      "sha256": "6209232761fcc1d63b5c25016cd8a0ac2f4e22794a902d5fe6cc2f87e674a630",
+      "size_bytes": 578
+    },
+    {
+      "path": "data\\derived\\analytical\\survival_by_track.parquet",
+      "rows": 126213,
+      "sha256": "97e9b99d14589ea3fa73b3381bc47e78dc4e0ed467aac0f42749aa6af3150158",
+      "size_bytes": 2313086
+    },
+    {
+      "path": "data\\derived\\analytical\\survival_model_summary.parquet",
+      "rows": 0,
+      "sha256": "b54eba8311c1d38ce5f6dca8f3468e24173507ca6f7d57dd9620d558ac38e821",
+      "size_bytes": 499
+    },
+    {
+      "path": "data\\derived\\analytical\\track_master.parquet",
       "rows": 126213,
       "sha256": "f14772d7fba80d99ec13106d47d5ed14690c0d2fda94ffce64c49ba1edf3e815",
       "size_bytes": 4226826
     },
     {
-      "path": "data\\derived\\turnover_by_market_period.parquet",
+      "path": "data\\derived\\analytical\\turnover_by_market_period.parquet",
       "rows": 114828,
       "sha256": "0f65f7f9989b3e68bbebee802545ad4fe5c2ad44d4c49856cc3f68e4c0543137",
       "size_bytes": 649579
-    },
-    {
-      "path": "data\\derived\\genre_claims.parquet",
-      "rows": 85144,
-      "sha256": "c0559ac322357c52e049b05b6e1708a55f6823e6839bdbbce33b7a71d94683fd",
-      "size_bytes": 1673607
-    },
-    {
-      "path": "data\\derived\\genre_diversity_by_market_period.parquet",
-      "rows": 384,
-      "sha256": "73d5436a3d01b667c9f361b0ce22d73fd8f7f2b7d672cd4269c4139d36ba3721",
-      "size_bytes": 11208
     }
   ],
   "coverage": {
@@ -92,8 +134,8 @@
     "ZA"
   ],
   "freeze_kind": "SOURCE_ARTIFACTS_ONLY",
-  "frozen_at": "2026-09-08T02:09:06.431934+00:00",
-  "manifest_sha256": "68326cded57bcdd2d2101064a689ea281b31c830127fb66c163daa7ca39f234d",
+  "frozen_at": "2026-09-08T17:33:36.426008+00:00",
+  "manifest_sha256": "04939c3074143d822b50fe2c1e1932be393f43ada907c6efc11a4f87c2c4a59b",
   "name": "CANONICAL_CORPUS",
   "observations": {
     "path": "data\\normalized\\mgd_observations.parquet",

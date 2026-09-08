@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
 from chart_observatory.corpus.eligibility import EligibilityResult
@@ -183,6 +183,8 @@ def reconcile_entries(
     precedence: dict[str, int] | None = None,
     version: str = "reconciliation-v1",
 ) -> ReconciliationSummary:
+    if session.bind is not None and session.bind.dialect.name == "postgresql":
+        return _reconcile_postgresql(session, precedence or SOURCE_PRECEDENCE, version)
     ranking = precedence or SOURCE_PRECEDENCE
     rows = session.execute(
         select(
@@ -276,6 +278,129 @@ def reconcile_entries(
     return ReconciliationSummary(created, conflicts, 1 if unresolved is not None else 0)
 
 
+def _reconcile_postgresql(
+    session: Session, precedence: dict[str, int], version: str
+) -> ReconciliationSummary:
+    """Reconcile at database speed without loading millions of ORM rows."""
+    session.execute(text("CREATE EXTENSION IF NOT EXISTS pgcrypto"))
+    source_count = int(
+        session.scalar(text("SELECT count(DISTINCT source_code) FROM chart_definitions")) or 0
+    )
+    if source_count <= 1:
+        return _reconcile_postgresql_single_source(session, version)
+    precedence_sql = " ".join(
+        f"WHEN '{provider}' THEN {rank}" for provider, rank in precedence.items()
+    )
+    query = text(
+        f"""
+        WITH candidates AS (
+            SELECT
+                ce.id AS entry_id,
+                ce.position,
+                ce.metric_type,
+                ce.metric_value,
+                ce.canonical_track_id,
+                cs.period_start,
+                cs.period_end,
+                cd.platform_code AS origin_platform,
+                cd.country_code,
+                replace(upper(cd.chart_name), ' ', '_') AS chart_family,
+                cd.source_code,
+                CASE cd.source_code {precedence_sql} ELSE 999 END AS source_rank
+            FROM chart_entries ce
+            JOIN chart_snapshots cs ON cs.id = ce.snapshot_id
+            JOIN chart_definitions cd ON cd.id = cs.chart_definition_id
+            WHERE ce.canonical_track_id IS NOT NULL
+        ), ranked AS (
+            SELECT candidates.*,
+                row_number() OVER (
+                    PARTITION BY origin_platform, country_code, chart_family,
+                        period_start, period_end, canonical_track_id
+                    ORDER BY source_rank, entry_id
+                ) AS selected_rank
+            FROM candidates
+        ), grouped AS (
+            SELECT origin_platform, country_code, chart_family, period_start,
+                period_end, canonical_track_id,
+                json_agg(entry_id::text ORDER BY entry_id) AS source_entry_ids,
+                count(DISTINCT position) > 1 OR
+                    count(DISTINCT coalesce(metric_value::text, 'NULL')) > 1 AS has_conflict
+            FROM ranked
+            GROUP BY origin_platform, country_code, chart_family, period_start,
+                period_end, canonical_track_id
+        )
+        INSERT INTO canonical_chart_entries (
+            id, created_at, origin_platform, country_code, chart_family,
+            period_start, period_end, canonical_track_id, rank, metric_type,
+            metric_value, selected_provider, selected_chart_entry_id,
+            source_entry_ids, conflict_status, reconciliation_version
+        )
+        SELECT gen_random_uuid(), now(), r.origin_platform, r.country_code,
+            r.chart_family, r.period_start, r.period_end, r.canonical_track_id,
+            r.position, r.metric_type, r.metric_value, r.source_code, r.entry_id,
+            g.source_entry_ids,
+            CASE WHEN g.has_conflict THEN 'SOURCE_CONFLICT' ELSE 'NONE' END,
+            :version
+        FROM ranked r
+        JOIN grouped g USING (
+            origin_platform, country_code, chart_family, period_start,
+            period_end, canonical_track_id
+        )
+        WHERE r.selected_rank = 1
+        ON CONFLICT (
+            origin_platform, country_code, chart_family, period_start,
+            period_end, canonical_track_id
+        ) DO NOTHING
+        """
+    )
+    result = session.execute(query, {"version": version})
+    unresolved = session.scalar(
+        text(
+            "SELECT CASE WHEN EXISTS "
+            "(SELECT 1 FROM chart_entries WHERE canonical_track_id IS NULL) "
+            "THEN 1 ELSE 0 END"
+        )
+    )
+    session.commit()
+    return ReconciliationSummary(int(getattr(result, "rowcount", 0) or 0), 0, int(unresolved or 0))
+
+
+def _reconcile_postgresql_single_source(
+    session: Session, version: str
+) -> ReconciliationSummary:
+    """Materialize a single-provider corpus without a needless window/group sort."""
+    session.execute(text("SET LOCAL synchronous_commit = off"))
+    query = text(
+        """
+        INSERT INTO canonical_chart_entries (
+            id, created_at, origin_platform, country_code, chart_family,
+            period_start, period_end, canonical_track_id, rank, metric_type,
+            metric_value, selected_provider, selected_chart_entry_id,
+            source_entry_ids, conflict_status, reconciliation_version
+        )
+        SELECT gen_random_uuid(), now(), cd.platform_code, cd.country_code,
+            replace(upper(cd.chart_name), ' ', '_'), cs.period_start,
+            cs.period_end, ce.canonical_track_id, ce.position, ce.metric_type,
+            ce.metric_value, cd.source_code, ce.id,
+            json_build_array(ce.id::text), 'NONE', :version
+        FROM chart_entries ce
+        JOIN chart_snapshots cs ON cs.id = ce.snapshot_id
+        JOIN chart_definitions cd ON cd.id = cs.chart_definition_id
+        WHERE ce.canonical_track_id IS NOT NULL
+        """
+    )
+    result = session.execute(query, {"version": version})
+    unresolved = session.scalar(
+        text(
+            "SELECT CASE WHEN EXISTS "
+            "(SELECT 1 FROM chart_entries WHERE canonical_track_id IS NULL) "
+            "THEN 1 ELSE 0 END"
+        )
+    )
+    session.commit()
+    return ReconciliationSummary(int(getattr(result, "rowcount", 0) or 0), 0, int(unresolved or 0))
+
+
 def freeze_corpus(session: Session, request: CorpusFreezeRequest) -> CorpusVersion:
     payload = {
         "name": request.name,
@@ -287,7 +412,7 @@ def freeze_corpus(session: Session, request: CorpusFreezeRequest) -> CorpusVersi
         "memberships": list(request.memberships),
     }
     manifest_sha256 = hashlib.sha256(
-        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
     version = CorpusVersion(
         name=request.name,

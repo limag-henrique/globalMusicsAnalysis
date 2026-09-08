@@ -89,6 +89,33 @@ def build_content_datasets(rows: list[ContentObservation]) -> dict[str, pl.DataF
     }
 
 
+def build_survival_dataset(path: Path) -> pl.DataFrame:
+    """Build chart-entry-to-exit spells, censoring tracks at the corpus end."""
+    last_observed = pl.scan_parquet(path).select(pl.col("period_start").max()).collect(
+        engine="streaming"
+    ).item()
+    if last_observed is None:
+        return pl.DataFrame(
+            schema={"track_id": pl.String, "duration": pl.Int64, "event": pl.Int8}
+        )
+    return (
+        pl.scan_parquet(path)
+        .filter(pl.col("native_id").is_not_null())
+        .group_by("native_id")
+        .agg(
+            pl.col("period_start").min().alias("entry_date"),
+            pl.col("period_start").max().alias("exit_date"),
+        )
+        .with_columns(
+            pl.col("native_id").alias("track_id"),
+            (pl.col("exit_date") - pl.col("entry_date")).dt.total_days().add(1).alias("duration"),
+            (pl.col("exit_date") < pl.lit(last_observed)).cast(pl.Int8).alias("event"),
+        )
+        .select("track_id", "duration", "event")
+        .collect(engine="streaming")
+    )
+
+
 def build_mgd_genre_claims(path: Path, artist_metadata_path: Path) -> pl.DataFrame:
     tracks = (
         pl.scan_parquet(path)
@@ -174,9 +201,46 @@ def write_mgd_analytical_datasets(
     artist_metadata_path: Path | None = None,
 ) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
+    empty_content = build_content_datasets([])
     datasets = {
         "track_master": build_mgd_track_master(path),
         "turnover_by_market_period": build_turnover_dataset(path, top_n=top_n),
+        "category_prevalence_by_country": empty_content["category_prevalence_by_country"],
+        "category_exposure_by_country": empty_content["category_exposure_by_country"],
+        "rq2_content_country": pl.DataFrame(
+            schema={
+                "term": pl.String,
+                "estimate": pl.Float64,
+                "ci_low": pl.Float64,
+                "ci_high": pl.Float64,
+            }
+        ),
+        "rq3_content_country_genre": pl.DataFrame(
+            schema={
+                "term": pl.String,
+                "estimate": pl.Float64,
+                "ci_low": pl.Float64,
+                "ci_high": pl.Float64,
+            }
+        ),
+        "rq4_content_success": pl.DataFrame(
+            schema={
+                "outcome": pl.String,
+                "term": pl.String,
+                "estimate": pl.Float64,
+                "ci_low": pl.Float64,
+                "ci_high": pl.Float64,
+            }
+        ),
+        "survival_by_track": build_survival_dataset(path),
+        "survival_model_summary": pl.DataFrame(
+            schema={
+                "term": pl.String,
+                "hazard_ratio": pl.Float64,
+                "ci_low": pl.Float64,
+                "ci_high": pl.Float64,
+            }
+        ),
     }
     if artist_metadata_path is not None and artist_metadata_path.is_file():
         genre_claims = build_mgd_genre_claims(path, artist_metadata_path)

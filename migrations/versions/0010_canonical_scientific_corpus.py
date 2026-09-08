@@ -19,6 +19,7 @@ def _audit() -> list[sa.Column]:
 
 
 def upgrade() -> None:
+    op.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto")
     op.create_table(
         "market_geography",
         sa.Column("country_code", sa.String(2), nullable=False),
