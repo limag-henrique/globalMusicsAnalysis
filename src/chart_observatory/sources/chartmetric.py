@@ -228,6 +228,8 @@ class ChartmetricClient:
         page_size: int = 200,
         checkpoint_path: Path | None = None,
         max_pages: int | None = None,
+        on_page: Callable[[int, dict[str, Any], tuple[SourceObservation, ...]], None]
+        | None = None,
     ) -> tuple[SourceObservation, ...]:
         """Collect a bounded chart with an on-disk offset checkpoint.
 
@@ -259,18 +261,21 @@ class ChartmetricClient:
                 },
             )
             page_rows = _rows(payload)[:page_size]
-            rows.extend(
+            page_observations = tuple(
                 _observation_from_row(platform, country_code, chart_type, period, index, row)
                 for index, row in enumerate(page_rows, start=offset + 1)
             )
+            if on_page is not None:
+                on_page(offset, payload, page_observations)
+            rows.extend(page_observations)
             pages += 1
             next_offset = _next_offset(payload, offset, len(page_rows), page_size)
             if next_offset is None:
                 _save_checkpoint(checkpoint_path, fingerprint, "COMPLETE", None)
                 return tuple(rows)
             offset = next_offset
+            _save_checkpoint(checkpoint_path, fingerprint, "PAUSED", offset)
             if max_pages is not None and pages >= max_pages:
-                _save_checkpoint(checkpoint_path, fingerprint, "PAUSED", offset)
                 return tuple(rows)
 
     def _send_raw(self, request: ChartmetricRequest, *, authenticate: bool) -> Any:

@@ -269,6 +269,47 @@ def test_collect_chart_pages_keeps_checkpoint_when_page_budget_is_reached(tmp_pa
     assert saved["next_offset"] == 1
 
 
+def test_collect_chart_pages_checkpoints_after_a_page_before_a_later_failure(tmp_path) -> None:
+    from chart_observatory.sources.chartmetric import ChartmetricError
+
+    transport = Transport(
+        [
+            response(200, {"token": "access", "expires_in": 3600}),
+            response(
+                200,
+                {
+                    "obj": {
+                        "data": [{"rank": 1, "trackName": "First", "trackId": 1}],
+                        "next_offset": 1,
+                    }
+                },
+            ),
+            response(403, {}),
+        ]
+    )
+    checkpoint = tmp_path / "chartmetric-checkpoint.json"
+    client = ChartmetricClient("refresh", transport=transport, clock=lambda: 1000)
+
+    try:
+        client.collect_chart_pages(
+            platform="spotify",
+            country_code="BR",
+            interval="daily",
+            chart_type="regional",
+            period=date(2022, 1, 1),
+            page_size=1,
+            checkpoint_path=checkpoint,
+        )
+    except ChartmetricError:
+        pass
+    else:
+        raise AssertionError("expected the second page to fail")
+
+    saved = json.loads(checkpoint.read_text(encoding="utf-8"))
+    assert saved["status"] == "PAUSED"
+    assert saved["next_offset"] == 1
+
+
 def test_collect_command_is_bounded_and_requires_network_opt_in() -> None:
     result = CliRunner().invoke(
         app,

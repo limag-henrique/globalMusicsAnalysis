@@ -14,6 +14,10 @@ from chart_observatory.domain.enums import RightsOperation
 from chart_observatory.domain.errors import SourceDisabled
 from chart_observatory.procurement.schema_profiler import profile_sample
 from chart_observatory.sources.chartmetric import ChartmetricClient, ChartmetricError
+from chart_observatory.sources.chartmetric_backfill import (
+    BackfillRequest,
+    ChartmetricBackfillRunner,
+)
 from chart_observatory.sources.http import HttpxTransport
 from chart_observatory.sources.kaggle import KaggleSpotifyChartsSource
 from chart_observatory.sources.mgd import MGDSource
@@ -486,6 +490,109 @@ def sources_chartmetric_collect(
                 {
                     "provider": "CHARTMETRIC",
                     "status": "FAILED",
+                    "status_code": error.status_code,
+                }
+            )
+        )
+    finally:
+        transport.close()
+
+
+@chartmetric_app.command("backfill")
+def sources_chartmetric_backfill(
+    platform: str = typer.Option(..., help="Origin platform, for example spotify."),
+    countries: str = typer.Option(
+        "discovered",
+        help="Comma-separated ISO codes, or 'discovered' for available provider markets.",
+    ),
+    interval: str = typer.Option(..., help="Provider interval, for example daily."),
+    chart_type: str = typer.Option(..., help="Provider chart type."),
+    from_date: str = typer.Option(..., "--from", help="Inclusive period in YYYY-MM-DD format."),
+    to_date: str = typer.Option(..., "--to", help="Inclusive period in YYYY-MM-DD format."),
+    output_dir: Path = typer.Option(Path("data/normalized/chartmetric-backfill")),
+    state_dir: Path = typer.Option(Path("data/interim/chartmetric-backfill")),
+    page_size: int = typer.Option(200, min=1, max=200),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to bounded collection for every planned market and period.",
+    ),
+) -> None:
+    """Collect every selected Chartmetric market/period with resumable task state."""
+    settings = Settings.load(Path.cwd())
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
+        typer.echo(json.dumps({"provider": "CHARTMETRIC", "status": "NOT_CONFIGURED"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"provider": "CHARTMETRIC", "status": "NETWORK_DISABLED"}))
+        return
+    try:
+        start = date.fromisoformat(from_date)
+        end = date.fromisoformat(to_date)
+    except ValueError as error:
+        typer.echo(
+            json.dumps(
+                {"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)}
+            )
+        )
+        return
+    transport = HttpxTransport("https://api.chartmetric.com")
+    try:
+        client = ChartmetricClient(settings.chartmetric_refresh_token, transport=transport)
+        if countries.casefold() == "discovered":
+            capabilities = client.discover_capabilities(platforms=(platform,))
+            selected_countries = tuple(
+                sorted(
+                    {
+                        capability.country_code
+                        for capability in capabilities
+                        if capability.available
+                        and capability.origin_platform == platform.upper()
+                    }
+                )
+            )
+        else:
+            selected_countries = tuple(
+                sorted({value.strip().upper() for value in countries.split(",") if value.strip()})
+            )
+        if not selected_countries:
+            typer.echo(
+                json.dumps(
+                    {
+                        "status": "NO_MARKETS",
+                        "provider": "CHARTMETRIC",
+                        "platform": platform.upper(),
+                    }
+                )
+            )
+            return
+        summary = ChartmetricBackfillRunner(client, output_dir, state_dir).run(
+            BackfillRequest(
+                platform=platform,
+                countries=selected_countries,
+                interval=interval,
+                chart_type=chart_type,
+                start_date=start,
+                end_date=end,
+                page_size=page_size,
+            )
+        )
+        typer.echo(
+            json.dumps(
+                {
+                    "status": "PARTIAL" if summary.failed_tasks else "COMPLETED",
+                    "provider": "CHARTMETRIC",
+                    "countries": len(selected_countries),
+                    **asdict(summary),
+                },
+                default=str,
+            )
+        )
+    except ChartmetricError as error:
+        typer.echo(
+            json.dumps(
+                {
+                    "status": "FAILED",
+                    "provider": "CHARTMETRIC",
                     "status_code": error.status_code,
                 }
             )
