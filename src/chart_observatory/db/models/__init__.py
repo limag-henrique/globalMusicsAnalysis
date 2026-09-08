@@ -4,6 +4,7 @@ from chart_observatory.db.models.charts import ChartDefinition, ChartEntry, Char
 from chart_observatory.db.models.collection import CollectionRun, CoverageCell
 from chart_observatory.db.models.provenance import SourceArtifact
 from chart_observatory.db.models.reference import Country, DataSource, Platform
+from chart_observatory.db.models.sources import SourceCapability, SourceCoverage, SourceInventory
 
 __all__ = ["Country", "DataSource", "Platform"]
 from chart_observatory.db.models.resolution import ResolutionRecord
@@ -36,4 +37,7 @@ __all__ = [
     "RightsProfileRow",
     "ResolutionRecord",
     "SourceArtifact",
+    "SourceCapability",
+    "SourceCoverage",
+    "SourceInventory",
 ]

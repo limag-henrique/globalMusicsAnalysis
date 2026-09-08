@@ -1,15 +1,16 @@
-import csv
 from pathlib import Path
 
 import streamlit as st
 
+from chart_observatory.ui.source_inventory import load_capabilities, load_manifests
+
 
 def _market_inventory() -> list[dict[str, str]]:
-    path = Path("research/market_capabilities.csv")
-    if not path.exists():
-        return []
-    with path.open(encoding="utf-8", newline="") as handle:
-        return list(csv.DictReader(handle))
+    return load_capabilities(Path("research/market_capabilities.csv"))
+
+
+def _source_inventory() -> list[dict[str, str]]:
+    return load_manifests(Path("research/mgd_source_manifest.json"))
 
 
 def main() -> None:
@@ -29,11 +30,22 @@ def main() -> None:
     st.date_input("Date Range", value=[])
     st.number_input("Top N", min_value=1, max_value=200, value=100)
     st.selectbox("Resolution State", ["All", "UNRESOLVED", "NEEDS_REVIEW", "MATCHED_EXACT"])
-    if inventory:
-        st.metric("Discovered source capabilities", len(inventory))
-        st.dataframe(inventory, use_container_width=True, hide_index=True)
-    else:
-        st.info("Run `chart-observatory sources coverage` to build the dynamic market inventory.")
+    capabilities_tab, sources_tab = st.tabs(["Market capabilities", "Data Sources"])
+    with capabilities_tab:
+        if inventory:
+            st.metric("Discovered source capabilities", len(inventory))
+            st.dataframe(inventory, use_container_width=True, hide_index=True)
+        else:
+            st.info(
+                "Run `chart-observatory sources coverage` to build the dynamic market inventory."
+            )
+    with sources_tab:
+        sources = _source_inventory()
+        if sources:
+            st.metric("Inventoried source artifacts", len(sources))
+            st.dataframe(sources, use_container_width=True, hide_index=True)
+        else:
+            st.info("Run `chart-observatory sources mgd inspect` to build the source inventory.")
 
 
 if __name__ == "__main__":

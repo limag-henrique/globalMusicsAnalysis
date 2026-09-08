@@ -250,7 +250,14 @@ def sources_coverage(
 @kaggle_app.command("download")
 def sources_kaggle_download(
     root: Path = typer.Option(Path("data/raw/kaggle/spotify-charts")),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to the external Kaggle download; cached local imports need no network.",
+    ),
 ) -> None:
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "KAGGLE_DHRUVILDAVE"}))
+        return
     path = KaggleSpotifyChartsSource(root).download()
     typer.echo(json.dumps({"status": "DOWNLOADED", "path": str(path)}))
 
@@ -490,7 +497,14 @@ def sources_chartmetric_collect(
 @promusica_app.command("discover")
 def sources_promusica_discover(
     output: Path = typer.Option(Path("research/pro_musica_inventory.csv")),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to public-domain discovery on the Pro-Música Brasil website.",
+    ),
 ) -> None:
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "PRO_MUSICA_BRASIL"}))
+        return
     import httpx
 
     source = ProMusicaBrasilSource()
@@ -516,11 +530,18 @@ def sources_youtube_discover(
     region: str | None = typer.Option(
         None, help="Also inspect assignable video categories for one region."
     ),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to bounded official region/category discovery.",
+    ),
 ) -> None:
     """Discover official YouTube regions; optionally inspect one region's categories."""
     settings = Settings.load(Path.cwd())
     if not settings.youtube_data_api_key:
         typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "YOUTUBE_DATA_API"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "YOUTUBE_DATA_API"}))
         return
     transport = HttpxTransport("https://www.googleapis.com")
     try:
@@ -562,7 +583,14 @@ def sources_youtube_discover(
 def sources_promusica_collect_current(
     output: Path = typer.Option(Path("research/promusica_top50_current.csv")),
     raw_root: Path = typer.Option(Path("data/raw/pro_musica")),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to one bounded public current-chart request.",
+    ),
 ) -> None:
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "PRO_MUSICA_BRASIL"}))
+        return
     import csv
     from datetime import date
 

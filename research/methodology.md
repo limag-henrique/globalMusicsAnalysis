@@ -16,6 +16,11 @@ The methodology version `2025-03-31_SHORTS_STARTS_OR_REPLAYS` marks the document
 
 ## Global multi-source corpus
 
+Milestone 1D rights activation covers all providers listed in the project. The source
+inventory still reports technical capability and collection status separately, so an
+approved source with no credential or unsupported endpoint remains explicitly absent
+from observed coverage rather than being treated as complete.
+
 Source observations retain `provider`, `origin_platform`, market, chart, native
 period, rank, metric and raw provenance. `CanonicalTrack` remains the research
 identity; provider-native IDs are claims or evidence, never the central key.

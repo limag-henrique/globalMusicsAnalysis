@@ -2,6 +2,9 @@
 
 ## Accepted
 
+- Milestone 1D source-rights activation was approved by the project owner. Technical
+  availability and credential state remain recorded independently per source.
+
 - MGD discovery found 69 files and automatically imported all non-empty markets.
 - MGD normalized Parquet import wrote 21,257,472 rows with no skipped rows.
 - MGD artist/year aggregation produced 187,728 rows for the latest five observed years per market, currently 2018–2022 in the report.

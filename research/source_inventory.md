@@ -3,6 +3,11 @@
 Generated on 2026-09-07. The machine-readable files in this directory are the
 authoritative inventory outputs; this page explains their scope and status.
 
+Milestone 1D rights activation was approved by the project owner and is recorded in
+`milestone_1d_activation_record.md`. “Approved” means the source may be used through
+its configured rights profile; it does not turn an unavailable endpoint or missing
+credential into observed coverage.
+
 | Provider | Origin platform | Status | Coverage currently materialized |
 | --- | --- | --- | --- |
 | `MGD` | `SPOTIFY` | Imported | 69 local CSV files, 68 markets including `GLOBAL`, 21,257,472 observations, `Top 200`, 2017-01-01 to 2022-03-13 |
@@ -10,6 +15,11 @@ authoritative inventory outputs; this page explains their scope and status.
 | `YOUTUBE_DATA_API` | `YOUTUBE_VIDEO` | Region/category discovery completed | 111 official regions; 14 assignable video categories inspected for `BR` |
 | `PRO_MUSICA_BRASIL` | `MULTI_PLATFORM_AGGREGATE` | Current public chart imported | Official `TOP_50_STREAMING`, `BR`, 50 rows for the page's displayed period 2026-08 |
 | `KAGGLE_DHRUVILDAVE` | `SPOTIFY` | Pending local dependency/data acquisition | Dataset adapter and schema contract exist; no download was silently assumed and no overlap estimate is reported yet |
+
+The PostgreSQL migration `0009_source_inventory` persists these manifests together
+with per-market capabilities and native-period coverage claims. The repository keeps
+provider and origin platform as independent query fields and deduplicates repeated
+imports by artifact SHA-256.
 
 ## Main outputs
 

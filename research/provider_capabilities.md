@@ -9,6 +9,11 @@ chart-observatory sources coverage
 
 ## Interpretation
 
+The project owner approved rights activation for every source listed in the project;
+the activation record is [milestone_1d_activation_record.md](milestone_1d_activation_record.md).
+Capability rows below still describe observed or explicitly failed technical probes,
+not legal status. A missing capability remains missing.
+
 - `provider` identifies who supplied or derived the observation.
 - `origin_platform` identifies the platform whose ranking semantics are being represented.
 - `available` means the capability was observed in the current inventory or API response; it does not imply historical completeness or redistribution rights.

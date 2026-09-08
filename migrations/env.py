@@ -4,7 +4,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from chart_observatory.db.base import Base
-from chart_observatory.db.models import reference  # noqa: F401
+from chart_observatory.db import models  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:
