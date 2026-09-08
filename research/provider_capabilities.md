@@ -21,9 +21,13 @@ unavailable records. Those records are retained to prevent an undocumented
 assumption that all platforms have identical coverage.
 
 Authenticated Chartmetric commands are fail-closed by default. Run `sources
-chartmetric auth-test --allow-network` or `discover --allow-network` only after
-the operator has approved a bounded request; collection additionally requires its
-own `--allow-network` flag and an explicit chart window.
+chartmetric auth-test --allow-network`, `discover --allow-network`, or the
+bounded `dates --allow-network` command only after the operator has approved a
+request; collection additionally requires its own `--allow-network` flag and an
+explicit chart window. The current API accepts the Spotify chart's `offset` but
+rejects `limit`; the adapter therefore applies the requested page size locally
+after one server page, preserving the page checkpoint without assuming an
+undocumented server parameter.
 
 Geographic classification is intentionally not invented in the extraction
 layer. ISO country/territory codes are preserved as returned by each source;

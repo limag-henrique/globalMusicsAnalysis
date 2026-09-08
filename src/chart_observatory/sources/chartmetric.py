@@ -5,7 +5,7 @@ import json
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -147,6 +147,50 @@ class ChartmetricClient:
             capabilities.extend(_capabilities_from_payload(platform, payload))
         return tuple(capabilities)
 
+    def chart_dates(
+        self,
+        streaming_type: str,
+        *,
+        from_days_ago: int,
+        chart_entity: str | None = None,
+        chart_type: str | None = None,
+        duration: str | None = None,
+        country: str | None = None,
+        genre: str | None = None,
+    ) -> tuple[date, ...]:
+        """Return provider-supported chart dates for a bounded look-back window."""
+        if from_days_ago < 1:
+            raise ValueError("from_days_ago must be positive")
+        params: dict[str, object] = {"fromDaysAgo": from_days_ago}
+        optional = {
+            "chartEntity": chart_entity,
+            "chartType": chart_type,
+            "duration": duration,
+            "country": country,
+            "genre": genre,
+        }
+        params.update({key: value for key, value in optional.items() if value is not None})
+        payload = self.get(f"/api/charts/{streaming_type}/dates", params)
+        obj = payload.get("obj", [])
+        if not isinstance(obj, list):
+            return ()
+        dates: list[date] = []
+        seen: set[date] = set()
+        for row in obj:
+            if not isinstance(row, dict):
+                continue
+            timestamp = row.get("timestp")
+            if not isinstance(timestamp, str):
+                continue
+            try:
+                value = datetime.fromisoformat(timestamp.replace("Z", "+00:00")).date()
+            except ValueError:
+                continue
+            if value not in seen:
+                dates.append(value)
+                seen.add(value)
+        return tuple(dates)
+
     def collect_chart(
         self,
         *,
@@ -165,13 +209,12 @@ class ChartmetricClient:
                 "interval": interval,
                 "type": chart_type,
                 "date": period.isoformat(),
-                "limit": limit,
                 "offset": offset,
             },
         )
         return tuple(
             _observation_from_row(platform, country_code, chart_type, period, index, row)
-            for index, row in enumerate(_rows(payload), start=offset + 1)
+            for index, row in enumerate(_rows(payload)[:limit], start=offset + 1)
         )
 
     def collect_chart_pages(
@@ -212,11 +255,10 @@ class ChartmetricClient:
                     "interval": interval,
                     "type": chart_type,
                     "date": period.isoformat(),
-                    "limit": page_size,
                     "offset": offset,
                 },
             )
-            page_rows = _rows(payload)
+            page_rows = _rows(payload)[:page_size]
             rows.extend(
                 _observation_from_row(platform, country_code, chart_type, period, index, row)
                 for index, row in enumerate(page_rows, start=offset + 1)
@@ -319,9 +361,14 @@ def _observation_from_row(
     rank: int,
     row: dict[str, Any],
 ) -> SourceObservation:
-    artists = row.get("artists", row.get("spotify_artist_names", []))
+    artists = row.get(
+        "artists", row.get("spotify_artist_names", row.get("artist_names", []))
+    )
     if isinstance(artists, list):
-        artist_names = [str(item.get("name", "")) for item in artists if isinstance(item, dict)]
+        artist_names = [
+            str(item.get("name", "")) if isinstance(item, dict) else str(item)
+            for item in artists
+        ]
         artist = ", ".join(name for name in artist_names if name)
     else:
         artist = str(row.get("artist", ""))

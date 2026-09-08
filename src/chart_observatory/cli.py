@@ -349,6 +349,66 @@ def sources_chartmetric_discover(
         transport.close()
 
 
+@chartmetric_app.command("dates")
+def sources_chartmetric_dates(
+    streaming_type: str = typer.Option(
+        ..., help="Chartmetric streaming type, for example spotify_tracks."
+    ),
+    from_days_ago: int = typer.Option(
+        28, min=1, max=28, help="Bounded look-back window in days (API maximum: 28)."
+    ),
+    chart_entity: str | None = typer.Option(None),
+    chart_type: str | None = typer.Option(None),
+    duration: str | None = typer.Option(None),
+    country: str | None = typer.Option(None),
+    genre: str | None = typer.Option(None),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to one bounded authenticated dates request.",
+    ),
+) -> None:
+    """List provider-supported dates without collecting chart rows."""
+    settings = Settings.load(Path.cwd())
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
+        typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "CHARTMETRIC"}))
+        return
+    transport = HttpxTransport("https://api.chartmetric.com")
+    try:
+        dates = ChartmetricClient(
+            settings.chartmetric_refresh_token, transport=transport
+        ).chart_dates(
+            streaming_type,
+            from_days_ago=from_days_ago,
+            chart_entity=chart_entity,
+            chart_type=chart_type,
+            duration=duration,
+            country=country,
+            genre=genre,
+        )
+        typer.echo(
+            json.dumps(
+                {
+                    "status": "DATES_DISCOVERED",
+                    "provider": "CHARTMETRIC",
+                    "streaming_type": streaming_type,
+                    "count": len(dates),
+                    "dates": [value.isoformat() for value in dates],
+                }
+            )
+        )
+    except ChartmetricError as error:
+        typer.echo(
+            json.dumps(
+                {"status": "FAILED", "provider": "CHARTMETRIC", "status_code": error.status_code}
+            )
+        )
+    finally:
+        transport.close()
+
+
 @chartmetric_app.command("collect")
 def sources_chartmetric_collect(
     platform: str = typer.Option(..., help="Origin platform, for example spotify."),
