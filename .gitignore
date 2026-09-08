@@ -53,3 +53,5 @@ data/normalized/*
 scratch/
 *.tmp
 *.bak
+*.zip
+.ipynb_checkpoints/
