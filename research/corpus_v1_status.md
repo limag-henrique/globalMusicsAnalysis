@@ -12,6 +12,7 @@ Atualizado em 2026-09-07.
 - Kaggle Spotify Charts importado para validação: **26.173.514 observações**, 70 regiões, 2017-01-01 a 2021-12-31.
 - Sobreposição MGD × Kaggle: **19.942.141 equivalências exatas por ID Spotify** e **19.867.209 por título/artista/data/rank**. As fontes permanecem preservadas separadamente; a reconciliação usa precedência de fonte.
 - Pro-Música Brasil: inventário descoberto com 6 itens e captura pública atual de 50 linhas.
+- YouTube Data API: coleta atual completa para 111 regiões, categoria solicitada Music (`10`), com 3.037 observações de vídeos, 1.678 vídeos distintos e artefatos brutos por região/página. O resultado é um corpus de vídeo/viralidade, não YouTube Music Top Songs.
 - Apple Music removido da camada ativa de adapters, testes, fixtures, enums e referências operacionais.
 
 ## Artefatos

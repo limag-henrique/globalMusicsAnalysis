@@ -12,6 +12,7 @@
 - Chartmetric authentication succeeded and Spotify market capability discovery returned 77 records, of which 73 are available.
 - A bounded Chartmetric smoke collection succeeded for Spotify/BR (`2025-04-23`, one row, `type=plays`) using the configured `.env` refresh token; the temporary artifact was not added to the corpus.
 - YouTube official region discovery returned 111 regions; Brazil category discovery returned 14 assignable categories.
+- YouTube current video collection returned 3,037 observations across all 111 discovered regions for requested Music category `10`; raw pages were retained by region and the normalized artifact is explicitly labeled `YOUTUBE_VIDEO_MOST_POPULAR`, not YouTube Music Top Songs.
 - Pro-Música official Top 50 HTML produced 50 rows, retaining `PRO_MUSICA_BRASIL` as provider and `MULTI_PLATFORM_AGGREGATE` as origin platform.
 - All source unit/contract tests pass together with the pre-existing test suite: 120 passed.
 - Chartmetric `auth-test`, `discover`, `dates`, and `collect` require an explicit
@@ -21,6 +22,6 @@
 ## Deliberately incomplete
 
 - Chartmetric historical chart collection was not run in bulk; only authentication and bounded capability/smoke discovery were performed.
-- YouTube historical chart extraction was not inferred from current `mostPopular`; the adapter records the semantic boundary explicitly.
-- Kaggle download/import and MGD × Kaggle overlap remain pending a local data acquisition dependency.
-- Canonical-track resolution and source precedence are modeled at the observation boundary but require a reviewable production mapping before cross-source probability calculations.
+- YouTube historical chart extraction was not inferred from current `mostPopular`; no historical `mostPopular` archive exists through this API route, and the adapter records the semantic boundary explicitly.
+- Kaggle download/import and MGD × Kaggle overlap are complete as validation artifacts; Kaggle is not added to the primary MGD longitudinal denominator.
+- Canonical-track resolution and source precedence are implemented at the observation boundary; unresolved mappings remain excluded from resolved-track numerators and are preserved for review.

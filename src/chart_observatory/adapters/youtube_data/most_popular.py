@@ -39,6 +39,7 @@ class YouTubeRequest:
     params: dict[str, object]
     correlation_id: str
     api_key: str | None = field(default=None, repr=False)
+    method: str = "GET"
 
 
 class YouTubeMostPopularSource:

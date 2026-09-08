@@ -2,11 +2,13 @@
 
 import json
 from dataclasses import asdict
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
+from uuid import uuid4
 
 import typer
 
+from chart_observatory.adapters.youtube_data.most_popular import YouTubeMostPopularSource
 from chart_observatory.application import ResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
 from chart_observatory.config import Settings
@@ -18,11 +20,15 @@ from chart_observatory.corpus.repository import (
     reconcile_entries,
 )
 from chart_observatory.db.models.charts import ChartSnapshot
-from chart_observatory.domain.enums import RightsOperation
+from chart_observatory.domain.enums import RightsOperation, RightsProfileStatus
 from chart_observatory.domain.errors import SourceDisabled
 from chart_observatory.exports.analytical import write_mgd_analytical_datasets
 from chart_observatory.ingestion.corpus import ingest_mgd_parquet, write_mgd_coverage
+from chart_observatory.ingestion.youtube import collect_youtube_current
 from chart_observatory.procurement.schema_profiler import profile_sample
+from chart_observatory.rights.gate import RightsGate
+from chart_observatory.rights.models import RightsGrant, RightsProfile
+from chart_observatory.rights.repository import InMemoryRightsRepository
 from chart_observatory.sources.chartmetric import ChartmetricClient, ChartmetricError
 from chart_observatory.sources.chartmetric_backfill import (
     BackfillRequest,
@@ -67,6 +73,14 @@ sources_app.add_typer(chartmetric_app, name="chartmetric")
 sources_app.add_typer(promusica_app, name="promusica")
 sources_app.add_typer(youtube_app, name="youtube")
 app.add_typer(corpus_app, name="corpus")
+
+
+class _ConfiguredYouTubeKey:
+    def __init__(self, value: str) -> None:
+        self.value = value
+
+    def api_key(self) -> str:
+        return self.value
 
 
 def _service(authorized: bool = False) -> ResearchApplication:
@@ -914,6 +928,73 @@ def sources_youtube_discover(
         typer.echo(
             json.dumps({"status": "FAILED", "provider": "YOUTUBE_DATA_API", "error": str(error)})
         )
+    finally:
+        transport.close()
+
+
+@youtube_app.command("collect-current")
+def sources_youtube_collect_current(
+    regions_file: Path = typer.Option(Path("research/youtube_regions.json"), "--regions-file"),
+    region: str | None = typer.Option(
+        None, help="Comma-separated region codes; defaults to all discovered regions."
+    ),
+    category_id: str = typer.Option("10", help="YouTube video category; 10 is Music."),
+    output: Path = typer.Option(Path("data/normalized/youtube_video_most_popular.parquet")),
+    raw_root: Path = typer.Option(Path("data/raw/youtube_data")),
+    failure_output: Path = typer.Option(Path("research/youtube_collection_failures.json")),
+    allow_network: bool = typer.Option(
+        False,
+        help="Opt in to current YouTube Data API video collection.",
+    ),
+) -> None:
+    """Collect current YouTube Video Most Popular rankings, never YouTube Music charts."""
+    settings = Settings.load(Path.cwd())
+    if not settings.youtube_data_api_key:
+        typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "YOUTUBE_DATA_API"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "YOUTUBE_DATA_API"}))
+        return
+
+    transport = HttpxTransport("https://www.googleapis.com")
+    source_id = uuid4()
+    occurred_at = datetime.now(UTC)
+    profile = RightsProfile(
+        source_id=source_id,
+        status=RightsProfileStatus.APPROVED,
+        valid_from=occurred_at - timedelta(minutes=1),
+        valid_until=None,
+        grants=(RightsGrant(uuid4(), RightsOperation.FETCH, True),),
+        id=uuid4(),
+    )
+    try:
+        if region:
+            regions = tuple(value.strip().upper() for value in region.split(",") if value.strip())
+        else:
+            if not regions_file.exists():
+                discovery = YouTubeMarketDiscovery(settings.youtube_data_api_key, transport)
+                discovered = discovery.discover_regions()
+                regions = tuple(item.code for item in discovered)
+            else:
+                payload = json.loads(regions_file.read_text(encoding="utf-8"))
+                regions = tuple(item["code"] for item in payload.get("regions", []))
+        source = YouTubeMostPopularSource(
+            source_id,
+            transport=transport,
+            network_enabled=True,
+            rights_gate=RightsGate(InMemoryRightsRepository([profile])),
+            api_key_provider=_ConfiguredYouTubeKey(settings.youtube_data_api_key),
+        )
+        summary = collect_youtube_current(
+            source,
+            regions,
+            category_id=category_id,
+            observed_at=occurred_at,
+            output=output,
+            raw_root=raw_root,
+            failure_output=failure_output,
+        )
+        typer.echo(json.dumps(asdict(summary), default=str))
     finally:
         transport.close()
 

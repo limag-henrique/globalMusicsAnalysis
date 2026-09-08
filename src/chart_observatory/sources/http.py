@@ -12,10 +12,14 @@ class HttpxTransport:
         self.client = httpx.Client(base_url=base_url, timeout=timeout)
 
     def send(self, request: Any) -> httpx.Response:
+        params = dict(request.params)
+        api_key = getattr(request, "api_key", None)
+        if api_key:
+            params["key"] = api_key
         return self.client.request(
             request.method,
             request.path,
-            params=request.params,
+            params=params,
             json=getattr(request, "body", None),
             headers=getattr(request, "headers", None),
         )
