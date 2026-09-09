@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from chart_observatory.db.models.resolution import ResolutionRecord
 from chart_observatory.db.models.tracks import CanonicalTrack, ExternalIdClaim, PlatformItem
 from chart_observatory.domain.enums import ResolutionStatus
+from chart_observatory.tracks.normalization import normalize_artist, normalize_text
 from chart_observatory.tracks.similarity import title_similarity
 
 
@@ -64,25 +65,74 @@ class TrackResolutionService:
                 ResolutionOutcome(ResolutionStatus.NEEDS_REVIEW, None, exact_candidates),
                 "CONFLICTING_ISRC",
             )
-        candidates: tuple[ResolutionCandidate, ...] = ()
-        if item.title:
-            scored = [
-                ResolutionCandidate(
-                    track.id, title_similarity(item.title, track.title), "FUZZY_TITLE_CANDIDATE"
-                )
-                for track in self.session.scalars(select(CanonicalTrack))
-            ]
-            candidates = tuple(
-                sorted(
-                    (c for c in scored if c.score >= 0.6),
-                    key=lambda c: (-c.score, str(c.canonical_track_id)),
-                )
+        candidates = self._metadata_candidates(item)
+        if len(candidates) == 1 and candidates[0].evidence.startswith("ARTIST_TITLE_EXACT"):
+            outcome = ResolutionOutcome(
+                ResolutionStatus.MATCHED_HIGH_CONFIDENCE,
+                candidates[0].canonical_track_id,
+                candidates,
             )
+            return self._record(item_id, outcome, candidates[0].evidence)
         status = ResolutionStatus.NEEDS_REVIEW if candidates else ResolutionStatus.UNRESOLVED
         return self._record(
             item_id,
             ResolutionOutcome(status, None, candidates),
             "FUZZY_CANDIDATE_ONLY" if candidates else "NO_EVIDENCE",
+        )
+
+    def _metadata_candidates(self, item: PlatformItem) -> tuple[ResolutionCandidate, ...]:
+        if not item.title:
+            return ()
+        title_key = normalize_text(item.title)
+        artist_key = normalize_artist(item.artist) if item.artist else None
+        tracks = list(self.session.scalars(select(CanonicalTrack)))
+        exact: list[ResolutionCandidate] = []
+        for track in tracks:
+            track_artists = {normalize_artist(artist.name) for artist in track.artists}
+            if (
+                normalize_text(track.title) != title_key
+                or not artist_key
+                or artist_key not in track_artists
+            ):
+                continue
+            score = 0.98
+            evidence = "ARTIST_TITLE_EXACT"
+            if item.duration_ms is not None and track.duration_ms == item.duration_ms:
+                score = 0.995
+                evidence += "_DURATION"
+            if item.release_date is not None and track.release_date == item.release_date:
+                score = min(0.999, score + 0.003)
+                evidence += "_RELEASE_DATE"
+            exact.append(ResolutionCandidate(track.id, score, evidence))
+        if exact:
+            return tuple(
+                sorted(
+                    exact,
+                    key=lambda candidate: (-candidate.score, str(candidate.canonical_track_id)),
+                )
+            )
+
+        scored: list[ResolutionCandidate] = []
+        for track in tracks:
+            title_score = title_similarity(item.title, track.title)
+            artist_score = 0.0
+            if artist_key:
+                artist_score = max(
+                    (title_similarity(item.artist or "", artist.name) for artist in track.artists),
+                    default=0.0,
+                )
+                score = title_score * 0.7 + artist_score * 0.3
+                evidence = "FUZZY_TITLE_ARTIST_CANDIDATE"
+            else:
+                score = title_score
+                evidence = "FUZZY_TITLE_CANDIDATE"
+            if score >= 0.6:
+                scored.append(ResolutionCandidate(track.id, score, evidence))
+        return tuple(
+            sorted(
+                scored,
+                key=lambda candidate: (-candidate.score, str(candidate.canonical_track_id)),
+            )
         )
 
     def _record(

@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import cast
 
 import polars as pl
 import streamlit as st
+from sqlalchemy.exc import SQLAlchemyError
 
+from chart_observatory.application import ResearchApplication
+from chart_observatory.config import Settings
 from chart_observatory.ui.data import (
     ManifestSummary,
     load_manifest_summary,
@@ -132,7 +136,33 @@ def _render_source_inventory() -> None:
         if sources:
             st.dataframe(sources, use_container_width=True, hide_index=True)
         else:
-            st.info("Execute `chart-observatory sources mgd inspect` para criar o inventário.")
+                st.info("Execute `chart-observatory sources mgd inspect` para criar o inventário.")
+
+
+def _render_operational_database() -> None:
+    st.subheader("Banco operacional PostgreSQL")
+    try:
+        settings = Settings.load(Path.cwd())
+        application = ResearchApplication(Path("data/runtime"), database_url=settings.database_url)
+        rankings = cast(list[dict[str, object]], application.rankings(limit=200)["rows"])
+        coverage = cast(list[dict[str, object]], application.coverage()["cells"])
+        resolution = application.resolution_status()
+        application.session.close()
+        application.engine.dispose()
+    except SQLAlchemyError as error:
+        st.error(f"PostgreSQL indisponível ou não migrado: {error}")
+        return
+    metrics = st.columns(3)
+    metrics[0].metric("Linhas exibidas", len(rankings))
+    metrics[1].metric("Células de cobertura", len(coverage))
+    metrics[2].metric("Resolução", cast(str, resolution["status"]))
+    if rankings:
+        st.caption(
+            "A interface exibe as primeiras 200 linhas; use a API/CLI para exportações completas."
+        )
+        st.dataframe(rankings, use_container_width=True, hide_index=True)
+    else:
+        st.info("O banco está operacional, mas ainda não contém observações importadas.")
 
 
 def main() -> None:
@@ -158,6 +188,7 @@ def main() -> None:
     _render_youtube()
     _render_freeze(summary, labels)
     _render_source_inventory()
+    _render_operational_database()
 
 
 if __name__ == "__main__":

@@ -1,9 +1,11 @@
+from datetime import date
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from chart_observatory.db.models.tracks import (
+    Artist,
     CanonicalTrack,
     ExternalIdClaim,
     PlatformItem,
@@ -16,17 +18,41 @@ class TrackRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def create_track(self, title: str) -> CanonicalTrack:
-        row = CanonicalTrack(title=title)
+    def create_track(
+        self,
+        title: str,
+        *,
+        artist: str | None = None,
+        duration_ms: int | None = None,
+        release_date: date | None = None,
+    ) -> CanonicalTrack:
+        row = CanonicalTrack(title=title, duration_ms=duration_ms, release_date=release_date)
         self.session.add(row)
         self.session.flush()
+        if artist:
+            row.artists.append(Artist(name=artist))
+            self.session.flush()
         return row
 
     def create_platform_item(
-        self, platform_code: str, native_id: str, item_kind: str, title: str | None = None
+        self,
+        platform_code: str,
+        native_id: str,
+        item_kind: str,
+        title: str | None = None,
+        *,
+        artist: str | None = None,
+        duration_ms: int | None = None,
+        release_date: date | None = None,
     ) -> PlatformItem:
         row = PlatformItem(
-            platform_code=platform_code, native_id=native_id, item_kind=item_kind, title=title
+            platform_code=platform_code,
+            native_id=native_id,
+            item_kind=item_kind,
+            title=title,
+            artist=artist,
+            duration_ms=duration_ms,
+            release_date=release_date,
         )
         self.session.add(row)
         self.session.flush()

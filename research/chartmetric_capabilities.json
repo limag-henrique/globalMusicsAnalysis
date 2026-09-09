@@ -1323,7 +1323,7 @@
     "earliest_date": null,
     "latest_date": null,
     "chart_types": [
-      "HTTP_400"
+      "HTTP_404"
     ],
     "native_frequency": null,
     "ranking_depth": null,
@@ -1333,15 +1333,15 @@
   },
   {
     "provider": "CHARTMETRIC",
-    "origin_platform": "DEEZER",
-    "country_code": "GLOBAL",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AD",
     "country_name": null,
-    "territory_type": "GLOBAL",
-    "available": false,
+    "territory_type": "COUNTRY",
+    "available": true,
     "earliest_date": null,
     "latest_date": null,
     "chart_types": [
-      "HTTP_400"
+      "tracks"
     ],
     "native_frequency": null,
     "ranking_depth": null,
@@ -1351,15 +1351,4227 @@
   },
   {
     "provider": "CHARTMETRIC",
-    "origin_platform": "QQ",
-    "country_code": "GLOBAL",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AE",
     "country_name": null,
-    "territory_type": "GLOBAL",
-    "available": false,
+    "territory_type": "COUNTRY",
+    "available": true,
     "earliest_date": null,
     "latest_date": null,
     "chart_types": [
-      "HTTP_400"
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AQ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "AZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BB",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BJ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "BZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CX",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "CZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DJ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "DZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "EC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "EE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "EG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "EH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ER",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ES",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ET",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FJ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "FR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GB",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GLOBAL",
+    "country_name": null,
+    "territory_type": "GLOBAL",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GQ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "GY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "HK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "HN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "HR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "HT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "HU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ID",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IQ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "IT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "JM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "JO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "JP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "KZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LB",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "LY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ME",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ML",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MQ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MX",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "MZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NP",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "NZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "OM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "PY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "QA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "RO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "RS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "RU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "RW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SB",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SJ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ST",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SX",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "SZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TD",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TH",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TJ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TL",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TO",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TR",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TV",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "TZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "UA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "UG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "US",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "UY",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "UZ",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VC",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VG",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VI",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VN",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "VU",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "WF",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "WS",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "XK",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "YE",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "YT",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ZA",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ZM",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
+    ],
+    "native_frequency": null,
+    "ranking_depth": null,
+    "number_of_tracks": null,
+    "number_of_observations": null,
+    "coverage_ratio": null
+  },
+  {
+    "provider": "CHARTMETRIC",
+    "origin_platform": "YOUTUBE",
+    "country_code": "ZW",
+    "country_name": null,
+    "territory_type": "COUNTRY",
+    "available": true,
+    "earliest_date": null,
+    "latest_date": null,
+    "chart_types": [
+      "tracks"
     ],
     "native_frequency": null,
     "ranking_depth": null,

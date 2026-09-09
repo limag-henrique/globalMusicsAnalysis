@@ -6,12 +6,15 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from decimal import Decimal
+from functools import lru_cache
 from pathlib import Path
+from typing import Any
 from uuid import UUID, uuid4
 
 import polars as pl
 import psycopg
 import pyarrow.parquet as pq  # type: ignore[import-untyped]
+import pycountry
 from psycopg.types.json import Jsonb
 from sqlalchemy import select
 from sqlalchemy.engine import Engine, make_url
@@ -45,6 +48,17 @@ class MgdIngestionSummary:
     tracks: int
     profiles: tuple[EligibilityResult, ...]
     duplicate_rows_skipped: int = 0
+
+
+@dataclass(frozen=True)
+class NormalizedIngestionSummary:
+    source_path: Path
+    source_sha256: str
+    rows_seen: int
+    rows_written: int
+    cells: int
+    snapshots: int
+    tracks: int
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -176,6 +190,9 @@ def ingest_mgd_parquet(
         profiles = tuple(
             evaluate_cell(cell, rules or EligibilityRules()) for cell in build_mgd_cell_inputs(path)
         )
+        for result in profiles:
+            profile_chart_cell(session, result)
+        session.commit()
         return MgdIngestionSummary(path, source_hash, 0, 0, len(profiles), 0, 0, profiles)
 
     definitions: dict[tuple[str, str], ChartDefinition] = {}
@@ -342,6 +359,407 @@ def ingest_mgd_parquet(
     )
 
 
+def ingest_normalized_parquet(
+    session: Session,
+    path: Path,
+    *,
+    batch_size: int = 50_000,
+    rules: EligibilityRules | None = None,
+) -> NormalizedIngestionSummary:
+    """Load any normalized source artifact into the PostgreSQL chart store.
+
+    Normalized source files intentionally share a small interchange contract while
+    retaining provider-specific metadata.  The PostgreSQL implementation uses a
+    temporary COPY staging table so multi-million-row artifacts do not go through
+    the ORM one row at a time.
+    """
+    del batch_size
+    if session.bind is None or session.bind.dialect.name != "postgresql":
+        raise RuntimeError("normalized bulk ingestion requires PostgreSQL")
+    source_hash = sha256_file(path)
+    existing_snapshot = session.scalar(
+        select(ChartSnapshot).where(
+            ChartSnapshot.provider_metadata["source_sha256"].as_string() == source_hash
+        )
+    )
+    if existing_snapshot is not None:
+        cells = build_normalized_cell_inputs(path)
+        profiles = tuple(evaluate_cell(cell, rules or EligibilityRules()) for cell in cells)
+        for result in profiles:
+            profile_chart_cell(session, result)
+        session.commit()
+        return NormalizedIngestionSummary(path, source_hash, 0, 0, len(cells), 0, 0)
+    # The hash lookup opens a SQLAlchemy transaction.  Release it before the
+    # independent psycopg COPY connection so interrupted imports do not leave
+    # an idle transaction holding an old snapshot.
+    session.rollback()
+
+    bind = session.get_bind()
+    engine = bind if isinstance(bind, Engine) else bind.engine
+    url = make_url(str(engine.url)).set(drivername="postgresql")
+    connection = psycopg.connect(url.render_as_string(hide_password=False))
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_stage (
+                    provider text NOT NULL,
+                    platform_code text NOT NULL,
+                    country_code text NOT NULL,
+                    chart_name text NOT NULL,
+                    period_start date NOT NULL,
+                    period_end date NOT NULL,
+                    rank integer NOT NULL,
+                    native_id text NOT NULL,
+                    title text NOT NULL,
+                    artist text,
+                    metric_type text NOT NULL,
+                    metric_value text,
+                    item_kind text NOT NULL,
+                    observed_at timestamptz,
+                    source_artifact text
+                ) ON COMMIT DROP
+                """
+            )
+            _copy_rows(
+                cursor,
+                "normalized_import_stage",
+                (
+                    "provider",
+                    "platform_code",
+                    "country_code",
+                    "chart_name",
+                    "period_start",
+                    "period_end",
+                    "rank",
+                    "native_id",
+                    "title",
+                    "artist",
+                    "metric_type",
+                    "metric_value",
+                    "item_kind",
+                    "observed_at",
+                    "source_artifact",
+                ),
+                _normalized_stage_rows(path),
+            )
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_cells ON COMMIT DROP AS
+                SELECT DISTINCT provider, platform_code, country_code, chart_name,
+                       period_start, period_end, rank
+                FROM normalized_import_stage
+                """
+            )
+            _insert_normalized_geographies(cursor, path)
+            cursor.execute(
+                """
+                INSERT INTO chart_definitions (
+                    id, platform_code, source_code, country_code, chart_name,
+                    native_frequency, nominal_depth, methodology_version
+                )
+                SELECT gen_random_uuid(), platform_code, provider, country_code, chart_name,
+                       CASE WHEN platform_code = 'YOUTUBE_VIDEO' THEN 'SNAPSHOT' ELSE 'DAILY' END,
+                       max(rank), 'normalized-v1'
+                FROM normalized_import_stage
+                GROUP BY platform_code, provider, country_code, chart_name
+                ON CONFLICT (platform_code, source_code, country_code, chart_name) DO NOTHING
+                """
+            )
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_items ON COMMIT DROP AS
+                SELECT platform_code, native_id, max(item_kind) AS item_kind,
+                       max(left(title, 1000)) AS title, max(left(artist, 1000)) AS artist
+                FROM normalized_import_stage
+                GROUP BY platform_code, native_id
+                """
+            )
+            cursor.execute(
+                """
+                INSERT INTO platform_items (
+                    id, platform_code, native_id, item_kind, title, artist
+                )
+                SELECT gen_random_uuid(), platform_code, native_id, item_kind, title, artist
+                FROM normalized_import_items
+                ON CONFLICT (platform_code, native_id) DO UPDATE
+                    SET title = COALESCE(platform_items.title, EXCLUDED.title),
+                        artist = COALESCE(platform_items.artist, EXCLUDED.artist)
+                """
+            )
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_links ON COMMIT DROP AS
+                SELECT i.id AS platform_item_id,
+                       COALESCE(l.canonical_track_id, gen_random_uuid()) AS canonical_track_id,
+                       i.title, i.artist,
+                       (l.canonical_track_id IS NULL) AS is_new
+                FROM platform_items i
+                JOIN normalized_import_items ni
+                  ON ni.platform_code = i.platform_code AND ni.native_id = i.native_id
+                LEFT JOIN platform_item_track_links l ON l.platform_item_id = i.id
+                """
+            )
+            cursor.execute(
+                """
+                INSERT INTO canonical_tracks (id, title)
+                SELECT canonical_track_id, title
+                FROM normalized_import_links
+                WHERE is_new
+                ON CONFLICT (id) DO NOTHING
+                """
+            )
+            cursor.execute(
+                """
+                INSERT INTO platform_item_track_links (
+                    id, canonical_track_id, platform_item_id, evidence
+                )
+                SELECT gen_random_uuid(), canonical_track_id, platform_item_id,
+                       CASE WHEN artist IS NULL OR artist = ''
+                            THEN 'NATIVE_ID' ELSE 'NATIVE_ID_ARTIST_METADATA' END
+                FROM normalized_import_links
+                ON CONFLICT (canonical_track_id, platform_item_id) DO NOTHING
+                """
+            )
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_snapshots ON COMMIT DROP AS
+                SELECT gen_random_uuid() AS id, d.id AS chart_definition_id,
+                       s.period_start, s.period_end,
+                       max(s.observed_at) AS observed_at,
+                       encode(digest(%s::text || ':' || s.platform_code || ':' || s.provider ||
+                                     ':' ||
+                                     s.country_code || ':' || s.chart_name || ':' ||
+                                     s.period_start::text || ':' || s.period_end::text,
+                                     'sha256'), 'hex') AS checksum,
+                       s.provider, s.platform_code, s.country_code, s.chart_name,
+                       count(*)::integer AS entry_count
+                FROM normalized_import_stage s
+                JOIN chart_definitions d
+                  ON d.platform_code = s.platform_code
+                 AND d.source_code = s.provider
+                 AND d.country_code = s.country_code
+                 AND d.chart_name = s.chart_name
+                GROUP BY d.id, s.period_start, s.period_end, s.provider,
+                         s.platform_code, s.country_code, s.chart_name
+                """,
+                (source_hash,),
+            )
+            cursor.execute(
+                """
+                INSERT INTO chart_snapshots (
+                    id, chart_definition_id, period_start, period_end, observed_at,
+                    checksum, schema_version, collector_version, entry_count, provider_metadata
+                )
+                SELECT id, chart_definition_id, period_start, period_end,
+                       COALESCE(observed_at, now()), checksum, 'normalized-v1',
+                       'normalized-copy-v1', entry_count,
+                       jsonb_build_object('source_file', %s::text, 'source_sha256', %s::text,
+                                          'provider', provider, 'platform_code', platform_code)
+                FROM normalized_import_snapshots
+                """,
+                (str(path), source_hash),
+            )
+            cursor.execute(
+                """
+                INSERT INTO chart_entries (
+                    id, snapshot_id, platform_item_id, canonical_track_id, position,
+                    metric_type, metric_value, raw_fields
+                )
+                SELECT gen_random_uuid(), si.id, pi.id, il.canonical_track_id, s.rank,
+                       COALESCE(NULLIF(s.metric_type, ''), 'NONE'),
+                       CASE WHEN s.metric_value ~ '^-?[0-9]+(\\.[0-9]+)?$'
+                            THEN s.metric_value::numeric ELSE NULL END,
+                       jsonb_build_object('artist', COALESCE(s.artist, ''),
+                                          'source_artifact', COALESCE(s.source_artifact, ''),
+                                          'source_sha256', %s::text, 'provider', s.provider)
+                FROM normalized_import_stage s
+                JOIN normalized_import_snapshots si
+                  ON si.platform_code = s.platform_code AND si.provider = s.provider
+                 AND si.country_code = s.country_code AND si.chart_name = s.chart_name
+                 AND si.period_start = s.period_start AND si.period_end = s.period_end
+                JOIN platform_items pi
+                  ON pi.platform_code = s.platform_code AND pi.native_id = s.native_id
+                JOIN normalized_import_links il ON il.platform_item_id = pi.id
+                ON CONFLICT (snapshot_id, position) DO NOTHING
+                """,
+                (source_hash,),
+            )
+            written = cursor.rowcount
+            snapshot_row = cursor.execute(
+                "SELECT count(*) FROM normalized_import_snapshots"
+            ).fetchone()
+            track_row = cursor.execute(
+                "SELECT count(*) FROM normalized_import_links WHERE is_new"
+            ).fetchone()
+            input_row = cursor.execute("SELECT count(*) FROM normalized_import_stage").fetchone()
+            snapshots = int(snapshot_row[0] if snapshot_row else 0)
+            tracks = int(track_row[0] if track_row else 0)
+            rows_seen = int(input_row[0] if input_row else 0)
+        connection.commit()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+    cells = build_normalized_cell_inputs(path)
+    profiles = tuple(evaluate_cell(cell, rules or EligibilityRules()) for cell in cells)
+    for result in profiles:
+        profile_chart_cell(session, result)
+    session.commit()
+    return NormalizedIngestionSummary(
+        path, source_hash, rows_seen, written, len(cells), snapshots, tracks
+    )
+
+
+def build_normalized_cell_inputs(path: Path) -> tuple[ChartCellInput, ...]:
+    scan = pl.scan_parquet(path)
+    schema = scan.collect_schema()
+    platform_column = "origin_platform" if "origin_platform" in schema else "platform_code"
+    chart_column = "chart_name" if "chart_name" in schema else "chart_family"
+    frame = (
+        scan.with_columns(
+            pl.col(platform_column).alias("_platform"),
+            pl.col(chart_column).alias("_chart"),
+        )
+        .group_by("provider", "_platform", "country_code", "_chart", "period_start")
+        .agg(pl.col("rank").max().alias("depth"))
+        .collect(engine="streaming")
+    )
+    grouped: dict[tuple[str, str, str, str], list[tuple[date, int]]] = defaultdict(list)
+    for row in frame.iter_rows(named=True):
+        grouped[
+            (
+                str(row["provider"]),
+                str(row["_platform"]),
+                str(row["country_code"]).upper(),
+                str(row["_chart"]),
+            )
+        ].append((row["period_start"], int(row["depth"] or 0)))
+    return tuple(
+        ChartCellInput(
+            provider,
+            platform,
+            country,
+            chart.upper().replace(" ", "_"),
+            "SNAPSHOT" if platform == "YOUTUBE_VIDEO" else "DAILY",
+            tuple(period for period, _ in values),
+            tuple(depth for _, depth in values),
+        )
+        for (provider, platform, country, chart), values in sorted(grouped.items())
+    )
+
+
+def _normalized_stage_rows(path: Path) -> Iterator[tuple[object, ...]]:
+    for raw in iter_parquet_rows(path):
+        provider = str(raw.get("provider") or "UNKNOWN").strip()
+        platform = str(raw.get("origin_platform") or raw.get("platform_code") or "UNKNOWN").strip()
+        country = _normalize_country_code(raw.get("country_code"))
+        chart = str(raw.get("chart_name") or raw.get("chart_family") or "UNKNOWN").strip()
+        period_start = _as_date(raw.get("period_start"))
+        period_end = _as_date(raw.get("period_end")) if raw.get("period_end") else period_start
+        title = str(raw.get("track_title") or raw.get("title") or "").strip()
+        native_id = _normalize_native_id(platform, raw.get("native_id"), title, raw.get("artist"))
+        observed_at = raw.get("observed_at")
+        yield (
+            provider,
+            platform,
+            country,
+            chart,
+            period_start,
+            period_end,
+            int(str(raw.get("rank") or 0)),
+            native_id,
+            title,
+            str(raw.get("artist") or "").strip() or None,
+            str(raw.get("metric_type") or "NONE").strip() or "NONE",
+            None if raw.get("metric_value") is None else str(raw.get("metric_value")),
+            str(raw.get("item_kind") or ("VIDEO" if platform == "YOUTUBE_VIDEO" else "TRACK")),
+            observed_at,
+            str(raw.get("source_artifact") or raw.get("raw_artifact_path") or "") or None,
+        )
+
+
+def _as_date(value: object) -> date:
+    if isinstance(value, date):
+        return value
+    return date.fromisoformat(str(value))
+
+
+@lru_cache(maxsize=256)
+def _normalize_country_code(value: object) -> str:
+    raw = str(value or "GLOBAL").strip().upper()
+    if raw == "GLOBAL":
+        return raw
+    if len(raw) == 2 and pycountry.countries.get(alpha_2=raw) is not None:
+        return raw
+    aliases = {
+        "CZECH REPUBLIC": "CZ",
+        "SOUTH KOREA": "KR",
+        "TAIWAN": "TW",
+        "TURKEY": "TR",
+        "UNITED KINGDOM": "GB",
+        "UNITED STATES": "US",
+        "VIETNAM": "VN",
+    }
+    if raw in aliases:
+        return aliases[raw]
+    matches = pycountry.countries.search_fuzzy(raw)
+    if not matches:
+        raise ValueError(f"unknown ISO-3166 market: {value}")
+    return str(matches[0].alpha_2)  # type: ignore[attr-defined]
+
+
+def _normalize_native_id(platform: str, value: object, title: object, artist: object) -> str:
+    raw = str(value or "").strip()
+    if platform == "SPOTIFY" and "/track/" in raw:
+        raw = raw.split("/track/", 1)[1].split("?", 1)[0].split("/", 1)[0]
+    if raw:
+        return raw
+    digest = hashlib.sha256(
+        f"{platform}|{str(artist or '').casefold()}|{str(title or '').casefold()}".encode()
+    ).hexdigest()
+    return f"derived:{digest}"
+
+
+def _insert_normalized_geographies(cursor: Any, path: Path) -> None:
+    countries = (
+        pl.scan_parquet(path)
+        .select(pl.col("country_code").cast(pl.String).alias("country"))
+        .unique()
+        .collect(engine="streaming")
+        .get_column("country")
+        .to_list()
+    )
+    for country_value in countries:
+        country = _normalize_country_code(country_value)
+        if country == "GLOBAL":
+            continue
+        record = geography_for_market(country)
+        cursor.execute(
+            """
+            INSERT INTO market_geography (
+                id, country_code, iso3, country_name, m49, region, subregion,
+                intermediate_region, source, source_version
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (country_code, source_version) DO NOTHING
+            """,
+            (
+                uuid4(),
+                record.country_code,
+                record.iso3,
+                record.country_name,
+                record.m49,
+                record.region,
+                record.subregion,
+                record.intermediate_region,
+                record.source,
+                record.source_version,
+            ),
+        )
+
+
 def ingest_mgd_postgres_copy(
     session: Session,
     path: Path,
@@ -352,7 +770,19 @@ def ingest_mgd_postgres_copy(
     """Bulk-load MGD dimensions and entries through PostgreSQL COPY."""
     del batch_size
     source_hash = sha256_file(path)
-    duplicate_keys = _mgd_duplicate_keys(path)
+    existing_snapshot = session.scalar(
+        select(ChartSnapshot).where(
+            ChartSnapshot.provider_metadata["source_sha256"].as_string() == source_hash
+        )
+    )
+    if existing_snapshot is not None:
+        profiles = tuple(
+            evaluate_cell(cell, rules or EligibilityRules()) for cell in build_mgd_cell_inputs(path)
+        )
+        for result in profiles:
+            profile_chart_cell(session, result)
+        session.commit()
+        return MgdIngestionSummary(path, source_hash, 0, 0, len(profiles), 0, 0, profiles)
     now = datetime.now(UTC)
     definitions: dict[tuple[str, str], UUID] = {}
     snapshots: dict[tuple[str, str, date], UUID] = {}
@@ -366,17 +796,16 @@ def ingest_mgd_postgres_copy(
     cell_depths: dict[tuple[str, str, date], int] = {}
     rows_seen = 0
     duplicate_rows_skipped = 0
-    seen_duplicate_keys: set[tuple[str, str, date, int]] = set()
+    seen_input_keys: set[tuple[str, str, date, int]] = set()
 
     for raw in iter_parquet_rows(path):
         rows_seen += 1
         country, chart_name, period, rank = _mgd_row_key(raw)
         duplicate_key = (country, chart_name, period, rank)
-        if duplicate_key in duplicate_keys:
-            if duplicate_key in seen_duplicate_keys:
-                duplicate_rows_skipped += 1
-                continue
-            seen_duplicate_keys.add(duplicate_key)
+        if duplicate_key in seen_input_keys:
+            duplicate_rows_skipped += 1
+            continue
+        seen_input_keys.add(duplicate_key)
         cell_periods[(country, chart_name)].add(period)
         cell_depths[(country, chart_name, period)] = max(
             rank, cell_depths.get((country, chart_name, period), 0)
@@ -534,7 +963,6 @@ def ingest_mgd_postgres_copy(
                     snapshots,
                     tracks,
                     items,
-                    duplicate_keys,
                 ),
             )
         connection.commit()
@@ -582,25 +1010,6 @@ def _mgd_row_key(raw: dict[str, object]) -> tuple[str, str, date, int]:
     return country, chart_name, period, int(str(raw["rank"]))
 
 
-def _mgd_duplicate_keys(path: Path) -> set[tuple[str, str, date, int]]:
-    duplicates = (
-        pl.scan_parquet(path)
-        .group_by("country_code", "chart_name", "period_start", "rank")
-        .len()
-        .filter(pl.col("len") > 1)
-        .collect(engine="streaming")
-    )
-    return {
-        (
-            str(row["country_code"]).upper(),
-            str(row["chart_name"]),
-            row["period_start"],
-            int(row["rank"]),
-        )
-        for row in duplicates.iter_rows(named=True)
-    }
-
-
 def _geography_rows(cell_periods: dict[tuple[str, str], set[date]]) -> Iterator[tuple[object, ...]]:
     for country in sorted({country for country, _ in cell_periods if country != "GLOBAL"}):
         record = geography_for_market(country)
@@ -624,16 +1033,14 @@ def _entry_rows(
     snapshots: dict[tuple[str, str, date], UUID],
     tracks: dict[str, UUID],
     items: dict[str, UUID],
-    duplicate_keys: set[tuple[str, str, date, int]],
 ) -> Iterator[tuple[object, ...]]:
-    seen_duplicates: set[tuple[str, str, date, int]] = set()
+    seen_keys: set[tuple[str, str, date, int]] = set()
     for raw in iter_parquet_rows(path):
         country, chart_name, period, rank = _mgd_row_key(raw)
         key = (country, chart_name, period, rank)
-        if key in duplicate_keys:
-            if key in seen_duplicates:
-                continue
-            seen_duplicates.add(key)
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
         native_id = str(raw.get("native_id") or "").strip()
         title = str(raw.get("track_title") or "").strip()
         track_key = native_id or f"{title.casefold()}|{str(raw.get('artist') or '').casefold()}"

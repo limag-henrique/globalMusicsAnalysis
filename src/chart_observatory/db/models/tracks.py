@@ -1,6 +1,7 @@
+from datetime import date
 from uuid import UUID
 
-from sqlalchemy import Column, ForeignKey, String, Table, UniqueConstraint
+from sqlalchemy import Column, Date, ForeignKey, Integer, String, Table, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from chart_observatory.db.base import Base, CreatedAtMixin, UuidPrimaryKeyMixin
@@ -21,6 +22,8 @@ class Artist(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
 class CanonicalTrack(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     __tablename__ = "canonical_tracks"
     title: Mapped[str] = mapped_column(String(1000), nullable=False)
+    duration_ms: Mapped[int | None] = mapped_column(Integer)
+    release_date: Mapped[date | None] = mapped_column(Date)
     artists: Mapped[list[Artist]] = relationship(secondary=track_artists)
 
 
@@ -31,6 +34,9 @@ class PlatformItem(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     native_id: Mapped[str] = mapped_column(String(500), nullable=False)
     item_kind: Mapped[str] = mapped_column(String(40), nullable=False)
     title: Mapped[str | None] = mapped_column(String(1000))
+    artist: Mapped[str | None] = mapped_column(String(1000))
+    duration_ms: Mapped[int | None] = mapped_column(Integer)
+    release_date: Mapped[date | None] = mapped_column(Date)
 
 
 class ExternalIdClaim(UuidPrimaryKeyMixin, CreatedAtMixin, Base):

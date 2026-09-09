@@ -9,7 +9,10 @@ from uuid import UUID, uuid4
 
 import polars as pl
 import typer
+from alembic import command as alembic_command
+from alembic.config import Config as AlembicConfig
 
+from chart_observatory.adapters.files.manual import ImportMetadata
 from chart_observatory.adapters.youtube_data.most_popular import YouTubeMostPopularSource
 from chart_observatory.application import ResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
@@ -32,6 +35,7 @@ from chart_observatory.exports.analytical import write_mgd_analytical_datasets
 from chart_observatory.exports.article_analytics import write_article_datasets
 from chart_observatory.ingestion.corpus import (
     ingest_mgd_parquet,
+    ingest_normalized_parquet,
     write_mgd_balanced_panel,
     write_mgd_coverage,
 )
@@ -57,6 +61,7 @@ from chart_observatory.sources.chartmetric import ChartmetricClient, Chartmetric
 from chart_observatory.sources.chartmetric_backfill import (
     BackfillRequest,
     ChartmetricBackfillRunner,
+    consolidate_backfill_observations,
 )
 from chart_observatory.sources.http import HttpxTransport
 from chart_observatory.sources.kaggle import KaggleSpotifyChartsSource
@@ -86,6 +91,7 @@ chartmetric_app = typer.Typer(help="Chartmetric authenticated source.")
 promusica_app = typer.Typer(help="Pro-Música Brasil public source.")
 youtube_app = typer.Typer(help="YouTube Data API market discovery.")
 corpus_app = typer.Typer(help="Canonical corpus, eligibility, and scientific freeze operations.")
+db_app = typer.Typer(help="Operational PostgreSQL schema management.")
 app.add_typer(collect_app, name="collect")
 app.add_typer(import_app, name="import-chart")
 app.add_typer(coverage_app, name="coverage")
@@ -99,6 +105,21 @@ sources_app.add_typer(chartmetric_app, name="chartmetric")
 sources_app.add_typer(promusica_app, name="promusica")
 sources_app.add_typer(youtube_app, name="youtube")
 app.add_typer(corpus_app, name="corpus")
+app.add_typer(db_app, name="db")
+
+
+@db_app.command("upgrade")
+def database_upgrade(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    revision: str = typer.Option("head", help="Alembic revision to apply."),
+) -> None:
+    """Apply database migrations before starting API or Streamlit."""
+    settings = Settings.load(Path.cwd())
+    url = database_url or settings.database_url
+    config = AlembicConfig(str(Path("alembic.ini").resolve()))
+    config.set_main_option("sqlalchemy.url", url.replace("%", "%%"))
+    alembic_command.upgrade(config, revision)
+    typer.echo(json.dumps({"status": "UPGRADED", "revision": revision}))
 
 
 class _ConfiguredYouTubeKey:
@@ -195,6 +216,45 @@ def corpus_ingest_mgd(
                 "tracks": summary.tracks,
                 "duplicate_rows_skipped": summary.duplicate_rows_skipped,
                 "eligible_cells": sum(result.eligible for result in summary.profiles),
+            }
+        )
+    )
+
+
+@corpus_app.command("ingest-normalized")
+def corpus_ingest_normalized(
+    input_path: Path = typer.Argument(..., exists=True, readable=True),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    batch_size: int = typer.Option(50_000, min=100),
+) -> None:
+    """Import a normalized Kaggle, Chartmetric, or YouTube Parquet artifact."""
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"),
+        database_url=database_url or settings.database_url,
+        manual_authorized=True,
+    )
+    summary = ingest_normalized_parquet(
+        service.session,
+        input_path,
+        batch_size=batch_size,
+        rules=EligibilityRules(
+            minimum_coverage=settings.comparable_corpus.minimum_coverage,
+            minimum_years=settings.comparable_corpus.minimum_years,
+            minimum_chart_depth=settings.comparable_corpus.minimum_chart_depth,
+            minimum_source_quality=settings.comparable_corpus.minimum_source_quality,
+        ),
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "status": "IMPORTED",
+                "source": str(summary.source_path),
+                "rows_seen": summary.rows_seen,
+                "rows_written": summary.rows_written,
+                "cells": summary.cells,
+                "snapshots": summary.snapshots,
+                "tracks": summary.tracks,
             }
         )
     )
@@ -636,19 +696,71 @@ def collect_current(
 
 
 @import_app.command("preview")
-def import_preview(path: Path, schema: str = "manual_generic_v1") -> None:
-    typer.echo(json.dumps(_service().preview_import(path, schema), default=str))
+def import_preview(
+    path: Path,
+    schema: str = "manual_generic_v2",
+    provider: str | None = typer.Option(None),
+    origin_platform: str | None = typer.Option(None, "--platform"),
+    chart_family: str | None = typer.Option(None, "--chart-family"),
+    native_frequency: str | None = typer.Option(None, "--frequency"),
+    metric_type: str | None = typer.Option(None, "--metric-type"),
+) -> None:
+    metadata = _import_metadata(
+        provider, origin_platform, chart_family, native_frequency, metric_type
+    )
+    typer.echo(json.dumps(_service().preview_import(path, schema, metadata), default=str))
 
 
 @import_app.command("apply")
 def import_apply(
     path: Path,
-    schema: str = "manual_generic_v1",
+    schema: str = "manual_generic_v2",
     authorize_local_file: bool = typer.Option(False, help="Explicitly authorize this local run"),
+    provider: str | None = typer.Option(None),
+    origin_platform: str | None = typer.Option(None, "--platform"),
+    chart_family: str | None = typer.Option(None, "--chart-family"),
+    native_frequency: str | None = typer.Option(None, "--frequency"),
+    metric_type: str | None = typer.Option(None, "--metric-type"),
 ) -> None:
     service = _service(authorize_local_file)
-    preview = service.preview_import(path, schema)
+    metadata = _import_metadata(
+        provider, origin_platform, chart_family, native_frequency, metric_type
+    )
+    preview = service.preview_import(path, schema, metadata)
     typer.echo(json.dumps(service.apply_import(str(preview["token"])), default=str))
+
+
+def _import_metadata(
+    provider: str | None,
+    origin_platform: str | None,
+    chart_family: str | None,
+    native_frequency: str | None,
+    metric_type: str | None,
+) -> ImportMetadata | None:
+    values = (provider, origin_platform, chart_family, native_frequency, metric_type)
+    if all(value is None for value in values):
+        return None
+    if any(value is None for value in values):
+        raise typer.BadParameter(
+            "provider, --platform, --chart-family, --frequency, and --metric-type "
+            "are required together"
+        )
+    return ImportMetadata(
+        provider=provider or "",
+        origin_platform=origin_platform or "",
+        chart_family=chart_family or "",
+        native_frequency=native_frequency or "",
+        metric_type=metric_type or "",
+    )
+
+
+def _chartmetric_streaming_type(platform: str) -> str:
+    return {
+        "spotify": "spotify_track",
+        "applemusic": "apple_music_track",
+        "youtube": "youtube",
+        "amazon": "amazon",
+    }.get(platform.casefold(), platform.casefold())
 
 
 @coverage_app.command("show")
@@ -913,10 +1025,13 @@ def sources_chartmetric_discover(
 @chartmetric_app.command("dates")
 def sources_chartmetric_dates(
     streaming_type: str = typer.Option(
-        ..., help="Chartmetric streaming type, for example spotify_tracks."
+        ..., help="Chartmetric streaming type, for example spotify_track."
     ),
     from_days_ago: int = typer.Option(
-        28, min=1, max=28, help="Bounded look-back window in days (API maximum: 28)."
+        28, min=1, max=9999, help="Provider look-back window in days; 9999 means all history."
+    ),
+    all_history: bool = typer.Option(
+        False, "--all-history", help="Request all provider-supported dates (fromDaysAgo=9999)."
     ),
     chart_entity: str | None = typer.Option(None),
     chart_type: str | None = typer.Option(None),
@@ -942,7 +1057,7 @@ def sources_chartmetric_dates(
             settings.chartmetric_refresh_token, transport=transport
         ).chart_dates(
             streaming_type,
-            from_days_ago=from_days_ago,
+            from_days_ago=9999 if all_history else from_days_ago,
             chart_entity=chart_entity,
             chart_type=chart_type,
             duration=duration,
@@ -957,6 +1072,96 @@ def sources_chartmetric_dates(
                     "streaming_type": streaming_type,
                     "count": len(dates),
                     "dates": [value.isoformat() for value in dates],
+                }
+            )
+        )
+    except ChartmetricError as error:
+        typer.echo(
+            json.dumps(
+                {"status": "FAILED", "provider": "CHARTMETRIC", "status_code": error.status_code}
+            )
+        )
+    finally:
+        transport.close()
+
+
+@chartmetric_app.command("platforms")
+def sources_chartmetric_platforms(
+    allow_network: bool = typer.Option(
+        False, help="Opt in to authenticated platform and market discovery."
+    ),
+) -> None:
+    """Discover platforms with chart capabilities available to this account."""
+    settings = Settings.load(Path.cwd())
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
+        typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "CHARTMETRIC"}))
+        return
+    transport = HttpxTransport("https://api.chartmetric.com")
+    try:
+        capabilities = ChartmetricClient(
+            settings.chartmetric_refresh_token, transport=transport
+        ).discover_capabilities(
+            platforms=("spotify", "applemusic", "youtube", "amazon")
+        )
+        platforms = sorted(
+            {
+                capability.origin_platform
+                for capability in capabilities
+                if capability.available
+            }
+        )
+        typer.echo(
+            json.dumps(
+                {"status": "DISCOVERED", "provider": "CHARTMETRIC", "platforms": platforms}
+            )
+        )
+    except ChartmetricError as error:
+        typer.echo(
+            json.dumps(
+                {"status": "FAILED", "provider": "CHARTMETRIC", "status_code": error.status_code}
+            )
+        )
+    finally:
+        transport.close()
+
+
+@chartmetric_app.command("markets")
+def sources_chartmetric_markets(
+    platform: str = typer.Option(..., help="Chartmetric origin platform."),
+    allow_network: bool = typer.Option(
+        False, help="Opt in to authenticated market discovery."
+    ),
+) -> None:
+    """List markets available for one Chartmetric origin platform."""
+    settings = Settings.load(Path.cwd())
+    if not settings.chartmetric_refresh_token or not settings.chartmetric_refresh_token.strip():
+        typer.echo(json.dumps({"status": "NOT_CONFIGURED", "provider": "CHARTMETRIC"}))
+        return
+    if not allow_network:
+        typer.echo(json.dumps({"status": "NETWORK_DISABLED", "provider": "CHARTMETRIC"}))
+        return
+    transport = HttpxTransport("https://api.chartmetric.com")
+    try:
+        capabilities = ChartmetricClient(
+            settings.chartmetric_refresh_token, transport=transport
+        ).discover_capabilities(platforms=(platform,))
+        markets = sorted(
+            {
+                capability.country_code
+                for capability in capabilities
+                if capability.available and capability.origin_platform == platform.upper()
+            }
+        )
+        typer.echo(
+            json.dumps(
+                {
+                    "status": "DISCOVERED",
+                    "provider": "CHARTMETRIC",
+                    "platform": platform.upper(),
+                    "markets": markets,
                 }
             )
         )
@@ -1051,13 +1256,29 @@ def sources_chartmetric_backfill(
         "discovered",
         help="Comma-separated ISO codes, or 'discovered' for available provider markets.",
     ),
+    all_markets: bool = typer.Option(
+        False, "--all-markets", help="Discover and collect every available market."
+    ),
     interval: str = typer.Option(..., help="Provider interval, for example daily."),
     chart_type: str = typer.Option(..., help="Provider chart type."),
-    from_date: str = typer.Option(..., "--from", help="Inclusive period in YYYY-MM-DD format."),
-    to_date: str = typer.Option(..., "--to", help="Inclusive period in YYYY-MM-DD format."),
+    from_date: str | None = typer.Option(
+        None, "--from", help="Inclusive period in YYYY-MM-DD format."
+    ),
+    to_date: str | None = typer.Option(
+        None, "--to", help="Inclusive period in YYYY-MM-DD format."
+    ),
+    all_dates: bool = typer.Option(
+        False, "--all-dates", help="Discover provider-supported dates per market."
+    ),
+    streaming_type: str | None = typer.Option(
+        None, help="Dates endpoint type; defaults to '<platform>_tracks'."
+    ),
+    from_days_ago: int = typer.Option(9999, min=1, max=9999),
     output_dir: Path = typer.Option(Path("data/normalized/chartmetric-backfill")),
     state_dir: Path = typer.Option(Path("data/interim/chartmetric-backfill")),
+    output: Path = typer.Option(Path("data/normalized/chartmetric_observations.parquet")),
     page_size: int = typer.Option(200, min=1, max=200),
+    resume: bool = typer.Option(True, "--resume/--no-resume"),
     allow_network: bool = typer.Option(
         False,
         help="Opt in to bounded collection for every planned market and period.",
@@ -1071,18 +1292,10 @@ def sources_chartmetric_backfill(
     if not allow_network:
         typer.echo(json.dumps({"provider": "CHARTMETRIC", "status": "NETWORK_DISABLED"}))
         return
-    try:
-        start = date.fromisoformat(from_date)
-        end = date.fromisoformat(to_date)
-    except ValueError as error:
-        typer.echo(
-            json.dumps({"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)})
-        )
-        return
     transport = HttpxTransport("https://api.chartmetric.com")
     try:
         client = ChartmetricClient(settings.chartmetric_refresh_token, transport=transport)
-        if countries.casefold() == "discovered":
+        if all_markets or countries.casefold() == "discovered":
             capabilities = client.discover_capabilities(platforms=(platform,))
             selected_countries = tuple(
                 sorted(
@@ -1108,6 +1321,66 @@ def sources_chartmetric_backfill(
                 )
             )
             return
+        if (from_date is None) != (to_date is None):
+            raise ValueError("--from and --to must be supplied together")
+        if from_date is None or to_date is None:
+            if not all_dates:
+                raise ValueError("--from/--to are required unless --all-dates is used")
+            start, end = date.min, date.max
+        else:
+            start = date.fromisoformat(from_date)
+            end = date.fromisoformat(to_date)
+        available_dates_by_country = None
+        if all_dates:
+            dates_type = streaming_type or _chartmetric_streaming_type(platform)
+            try:
+                available_dates_by_country = {
+                    country: client.chart_dates(
+                        dates_type,
+                        from_days_ago=from_days_ago,
+                        country=country,
+                    )
+                    for country in selected_countries
+                }
+            except ChartmetricError as error:
+                typer.echo(
+                    json.dumps(
+                        {
+                            "status": "DATES_UNAVAILABLE",
+                            "provider": "CHARTMETRIC",
+                            "platform": platform.upper(),
+                            "streaming_type": dates_type,
+                            "from_days_ago": from_days_ago,
+                            "countries": len(selected_countries),
+                            "status_code": error.status_code,
+                            "hint": (
+                                "The credential or account does not expose the provider date "
+                                "catalog; use an explicit --from/--to window."
+                            ),
+                        }
+                    )
+                )
+                return
+            discovered_dates = [
+                value
+                for values in available_dates_by_country.values()
+                for value in values
+            ]
+            if not discovered_dates:
+                typer.echo(
+                    json.dumps(
+                        {
+                            "status": "NO_DATES",
+                            "provider": "CHARTMETRIC",
+                            "platform": platform.upper(),
+                        }
+                    )
+                )
+                return
+            if start == date.min:
+                start = min(discovered_dates)
+            if end == date.max:
+                end = max(discovered_dates)
         summary = ChartmetricBackfillRunner(client, output_dir, state_dir).run(
             BackfillRequest(
                 platform=platform,
@@ -1117,17 +1390,28 @@ def sources_chartmetric_backfill(
                 start_date=start,
                 end_date=end,
                 page_size=page_size,
-            )
+                available_dates_by_country=available_dates_by_country,
+            ),
+            resume=resume,
         )
+        catalog_rows = consolidate_backfill_observations(output_dir, output)
         typer.echo(
             json.dumps(
                 {
                     "status": "PARTIAL" if summary.failed_tasks else "COMPLETED",
                     "provider": "CHARTMETRIC",
                     "countries": len(selected_countries),
+                    "output": str(output),
+                    "catalog_rows": catalog_rows,
                     **asdict(summary),
                 },
                 default=str,
+            )
+        )
+    except ValueError as error:
+        typer.echo(
+            json.dumps(
+                {"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)}
             )
         )
     except ChartmetricError as error:

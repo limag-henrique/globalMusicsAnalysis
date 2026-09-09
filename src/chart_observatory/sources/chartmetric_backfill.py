@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
@@ -19,6 +19,7 @@ class BackfillRequest:
     start_date: date
     end_date: date
     page_size: int = 200
+    available_dates_by_country: Mapping[str, tuple[date, ...]] | None = None
 
 
 @dataclass(frozen=True)
@@ -70,19 +71,29 @@ class ChartmetricPageCollector(Protocol):
 
 class ChartmetricBackfillPlanner:
     def plan(self, request: BackfillRequest) -> tuple[BackfillTask, ...]:
-        periods = _periods(request.start_date, request.end_date, request.interval)
-        return tuple(
-            BackfillTask(
-                platform=request.platform,
-                country_code=country,
-                interval=request.interval,
-                chart_type=request.chart_type,
-                period=period,
-                page_size=request.page_size,
+        requested_periods = _periods(request.start_date, request.end_date, request.interval)
+        tasks: list[BackfillTask] = []
+        for country in sorted({value.upper() for value in request.countries}):
+            periods = requested_periods
+            if request.available_dates_by_country is not None:
+                available = {
+                    value
+                    for value in request.available_dates_by_country.get(country, ())
+                    if request.start_date <= value <= request.end_date
+                }
+                periods = tuple(period for period in requested_periods if period in available)
+            tasks.extend(
+                BackfillTask(
+                    platform=request.platform,
+                    country_code=country,
+                    interval=request.interval,
+                    chart_type=request.chart_type,
+                    period=period,
+                    page_size=request.page_size,
+                )
+                for period in periods
             )
-            for country in sorted({value.upper() for value in request.countries})
-            for period in periods
-        )
+        return tuple(tasks)
 
 
 class ChartmetricBackfillRunner:
@@ -99,15 +110,15 @@ class ChartmetricBackfillRunner:
         self.state_dir = Path(state_dir)
         self.checkpoint_dir = self.state_dir / "checkpoints"
 
-    def run(self, request: BackfillRequest) -> BackfillSummary:
+    def run(self, request: BackfillRequest, *, resume: bool = True) -> BackfillSummary:
         tasks = ChartmetricBackfillPlanner().plan(request)
         completed = skipped = failed = rows_written = 0
         failures: list[str] = []
         for task in tasks:
             state_path = self.state_dir / f"{task.task_id}.json"
             output_path = self.output_dir / f"{task.task_id}.parquet"
-            state = _read_json(state_path)
-            if state.get("status") == "COMPLETE" and output_path.exists():
+            state = _read_json(state_path) if resume else {}
+            if resume and state.get("status") == "COMPLETE" and output_path.exists():
                 skipped += 1
                 continue
             _write_json(state_path, {"status": "RUNNING", "task_id": task.task_id})
@@ -169,6 +180,8 @@ class ChartmetricBackfillRunner:
 
 
 def _write_observations(path: Path, observations: tuple[Any, ...]) -> None:
+    if not observations:
+        return
     records = [
         {
             "provider": row.provider,
@@ -224,6 +237,18 @@ def _consolidate_observations(path: Path, part_paths: list[Path]) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
     frame.write_parquet(temporary, compression="zstd")
     temporary.replace(path)
+
+
+def consolidate_backfill_observations(output_dir: Path, output_path: Path) -> int:
+    paths = sorted(Path(output_dir).glob("*.parquet"))
+    if not paths:
+        return 0
+    frame = pl.concat([pl.read_parquet(path) for path in paths], how="vertical_relaxed")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = output_path.with_suffix(output_path.suffix + ".tmp")
+    frame.write_parquet(temporary, compression="zstd")
+    temporary.replace(output_path)
+    return frame.height
 
 
 def _read_json(path: Path) -> dict[str, object]:

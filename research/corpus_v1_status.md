@@ -1,6 +1,6 @@
 # Corpus científico canônico — status do Corpus v1
 
-Atualizado em 2026-09-08.
+Atualizado em 2026-09-09.
 
 ## Entregue
 
@@ -29,19 +29,29 @@ Atualizado em 2026-09-08.
 - [Catálogo unificado de fontes](../data/normalized/source_catalog.parquet)
 - [Analytics do artigo](../data/derived/article/manifest.json) — manifesto com hashes e os Parquet de permanência, ansiedade, gênero e dispersão.
 
-O manifesto registra hashes SHA-256, contagens, intervalo temporal, regras e os 55 mercados elegíveis. Ele é um congelamento de artefatos de fonte; a associação de memberships no PostgreSQL fica explicitamente marcada como pendente.
+O manifesto registra hashes SHA-256, contagens, intervalo temporal, regras e os 55 mercados elegíveis. Ele é um congelamento de artefatos de fonte; a associação operacional está carregada no PostgreSQL.
 
 ## Estado operacional
 
-O `ResearchApplication` agora usa repositórios SQL reais, a ingestão é idempotente por hash da fonte, a reconciliação preserva todas as observações de origem e a CLI expõe cobertura, ingestão, reconciliação, exportação, congelamento e consulta/materialização do catálogo unificado.
+O `ResearchApplication` agora usa repositórios SQL reais, a ingestão é idempotente por hash da fonte, a reconciliação preserva todas as observações de origem e a CLI expõe cobertura, ingestão, reconciliação, exportação, congelamento e consulta/materialização do catálogo unificado. CLI, FastAPI e Streamlit usam a mesma URL configurada; SQLite permanece somente para testes/offline.
 
-O carregamento completo no PostgreSQL não foi executado porque não há serviço PostgreSQL local disponível e o Docker Desktop não está com o engine ativo. Foi executado somente um smoke test SQLite de 10.000 linhas; ele não é o Corpus v1 e não deve ser usado para inferência. O congelamento operacional deve ser rodado após subir PostgreSQL:
+O carregamento completo do MGD foi executado no PostgreSQL local e validado após reinício de processo:
+
+- PostgreSQL 18 local em `data/runtime/postgres`, base `chart_observatory`.
+- Alembic em `0012_track_metadata`.
+- 21.255.472 entradas persistidas, 114.896 snapshots, 126.213 tracks/items e 68 perfis de célula.
+- 21.255.472 entradas resolvidas, sem pendências de resolução no corpus carregado.
+- `ResearchApplication`, CLI, FastAPI e Streamlit usam a mesma URL configurada em `.env`.
+
+O caminho operacional continua sendo:
 
 ```text
 python -m chart_observatory.cli corpus ingest-mgd --database-url postgresql+psycopg://...
 python -m chart_observatory.cli corpus reconcile --database-url postgresql+psycopg://...
 python -m chart_observatory.cli corpus freeze --database-url postgresql+psycopg://...
 ```
+
+Para preparar uma instância nova, execute primeiro `python -m chart_observatory.cli db upgrade`.
 
 ## Lacunas deliberadas
 

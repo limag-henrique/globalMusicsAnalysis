@@ -11,7 +11,9 @@ FIXTURE = Path(__file__).parents[1] / "fixtures" / "manual" / "valid_daily.csv"
 def test_milestone_1a_without_spotify(tmp_path) -> None:
     service = LocalResearchApplication(tmp_path, manual_authorized=True)
     client = TestClient(create_app(service))
-    preview = client.post("/imports/preview", json={"path": str(FIXTURE)}).json()
+    preview = client.post(
+        "/imports/preview", json={"path": str(FIXTURE), "schema_version": "manual_generic_v1"}
+    ).json()
     assert preview["valid_rows"] == 3
     result = client.post("/imports/apply", json={"token": preview["token"]}).json()
     assert result["entry_count"] == 3

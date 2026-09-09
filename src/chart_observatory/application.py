@@ -9,6 +9,7 @@ from sqlalchemy import create_engine, func, select
 from sqlalchemy.orm import Session, sessionmaker
 
 from chart_observatory.adapters.files.manual import (
+    ImportMetadata,
     ImportRequest,
     ManualChartImporter,
     SqlManualImportSink,
@@ -44,8 +45,10 @@ class ResearchApplication:
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
         url = database_url or f"sqlite+pysqlite:///{(self.root / 'research.sqlite3').as_posix()}"
-        self.engine = create_engine(url, pool_pre_ping=True)
-        Base.metadata.create_all(self.engine)
+        connect_args = {"connect_timeout": 3} if url.startswith("postgresql") else {}
+        self.engine = create_engine(url, pool_pre_ping=True, connect_args=connect_args)
+        if url.startswith("sqlite"):
+            Base.metadata.create_all(self.engine)
         self.session_factory = sessionmaker(
             bind=self.engine, class_=Session, expire_on_commit=False
         )
@@ -73,13 +76,16 @@ class ResearchApplication:
             artifact_store=self.artifact_store,
             sink=self.sink,
         )
-        self.previews: dict[str, tuple[Path, str]] = {}
+        self.previews: dict[str, tuple[Path, str, ImportMetadata | None]] = {}
 
     def preview_import(
-        self, path: Path, schema_version: str = "manual_generic_v1"
+        self,
+        path: Path,
+        schema_version: str = "manual_generic_v2",
+        metadata: ImportMetadata | None = None,
     ) -> dict[str, object]:
         preview = self.importer.preview(path, schema_version)
-        self.previews[preview.token] = (Path(path), schema_version)
+        self.previews[preview.token] = (Path(path), schema_version, metadata)
         return {
             "token": preview.token,
             "valid_rows": preview.valid_rows,
@@ -88,9 +94,11 @@ class ResearchApplication:
         }
 
     def apply_import(self, token: str) -> dict[str, object]:
-        path, schema = self.previews[token]
+        path, schema, metadata = self.previews[token]
         try:
-            result = self.importer.import_file(ImportRequest(path, schema, datetime.now(UTC)))
+            result = self.importer.import_file(
+                ImportRequest(path, schema, datetime.now(UTC), metadata=metadata)
+            )
             self.session.commit()
         except Exception:
             self.session.rollback()
@@ -101,7 +109,7 @@ class ResearchApplication:
             "checksum": result.checksum,
         }
 
-    def rankings(self, country: str | None = None) -> dict[str, object]:
+    def rankings(self, country: str | None = None, limit: int | None = 200) -> dict[str, object]:
         statement = (
             select(
                 ChartDefinition.country_code,
@@ -118,6 +126,8 @@ class ResearchApplication:
         )
         if country:
             statement = statement.where(ChartDefinition.country_code == country.upper())
+        if limit is not None:
+            statement = statement.limit(limit)
         rows = self.session.execute(statement).all()
         return {
             "rows": [
@@ -180,6 +190,16 @@ class ResearchApplication:
             "status": "UNRESOLVED"
             if total and resolved < total
             else ("RESOLVED" if total else "EMPTY"),
+        }
+
+    def resolution_status(self) -> dict[str, object]:
+        """Return a fast operational status without counting millions of rows."""
+        unresolved_id = self.session.scalar(
+            select(ChartEntry.id).where(ChartEntry.canonical_track_id.is_(None)).limit(1)
+        )
+        return {
+            "unresolved": unresolved_id is not None,
+            "status": "UNRESOLVED" if unresolved_id is not None else "RESOLVED",
         }
 
     def rights(self) -> dict[str, object]:

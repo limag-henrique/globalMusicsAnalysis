@@ -16,9 +16,29 @@ from chart_observatory.artifacts.models import ArtifactContext
 from chart_observatory.artifacts.repository import ArtifactCatalog
 from chart_observatory.artifacts.store import ArtifactStore
 from chart_observatory.db.models.charts import ChartDefinition, ChartEntry, ChartSnapshot
-from chart_observatory.db.models.tracks import PlatformItem
+from chart_observatory.db.models.tracks import ExternalIdClaim, PlatformItem
 from chart_observatory.domain.enums import RightsOperation
 from chart_observatory.rights.gate import RightsGate
+
+
+@dataclass(frozen=True)
+class ImportMetadata:
+    provider: str
+    origin_platform: str
+    chart_family: str
+    native_frequency: str
+    metric_type: str
+    item_kind: str = "CATALOG_TRACK"
+
+    def as_defaults(self) -> dict[str, str]:
+        return {
+            "source_code": self.provider.upper(),
+            "platform_code": self.origin_platform.upper(),
+            "chart_name": self.chart_family,
+            "native_frequency": self.native_frequency.upper(),
+            "metric_type": self.metric_type.upper(),
+            "item_kind": self.item_kind.upper(),
+        }
 
 
 @dataclass(frozen=True)
@@ -31,6 +51,10 @@ class ManualRow:
     title: str
     metric_value: Decimal | None
     raw_fields: dict[str, object]
+    artist: str | None = None
+    isrc: str | None = None
+    duration_ms: int | None = None
+    release_date: date | None = None
 
 
 @dataclass(frozen=True)
@@ -47,6 +71,7 @@ class ImportRequest:
     path: Path
     schema_version: str
     occurred_at: datetime
+    metadata: ImportMetadata | None = None
 
 
 @dataclass(frozen=True)
@@ -142,9 +167,12 @@ class SqlManualImportSink:
                 item = PlatformItem(
                     platform_code=defaults["platform_code"],
                     native_id=row.native_id,
-                    item_kind=defaults["item_kind"],
-                    title=row.title,
-                )
+                item_kind=defaults["item_kind"],
+                title=row.title,
+                artist=row.artist,
+                duration_ms=row.duration_ms,
+                release_date=row.release_date,
+            )
                 self.session.add(item)
                 self.session.flush()
             self.session.add(
@@ -158,6 +186,16 @@ class SqlManualImportSink:
                     raw_fields=row.raw_fields,
                 )
             )
+            if row.isrc:
+                self.session.add(
+                    ExternalIdClaim(
+                        namespace="ISRC",
+                        raw_value=row.isrc,
+                        normalized_value=row.isrc.replace("-", "").replace(" ", "").upper(),
+                        source_code=defaults["source_code"],
+                        platform_item_id=item.id,
+                    )
+                )
         self.session.flush()
         return ImportResult(snapshot.id, len(preview.rows), preview.checksum)
 
@@ -192,7 +230,8 @@ class ManualChartImporter:
         checksum = sha256(content).hexdigest()
         schema = load_schema(schema_version, self.config_root)
         frame = pl.read_csv(content, infer_schema_length=0, null_values=[""])
-        missing = set(schema.columns.values()) - set(frame.columns)
+        required_columns = set(schema.columns.values()) - set(schema.optional_columns)
+        missing = required_columns - set(frame.columns)
         if missing:
             missing_errors = tuple(
                 ImportErrorDetail(0, column, "missing required column")
@@ -230,6 +269,9 @@ class ManualChartImporter:
             RightsOperation.STORE_NORMALIZED,
         ):
             rights_gate.require(source_id, operation, request.occurred_at)
+        schema = load_schema(request.schema_version, self.config_root).with_metadata(
+            request.metadata
+        )
         preview = self.preview(request.path, request.schema_version)
         if preview.errors:
             raise ValueError(preview.errors)
@@ -251,7 +293,7 @@ class ManualChartImporter:
         decision = rights_gate.authorize(source_id, RightsOperation.STORE_RAW, request.occurred_at)
         if self.artifact_catalog is not None and decision.profile_id is not None:
             self.artifact_catalog.record_artifact(stored, decision.profile_id)
-        result = sink.persist(preview, load_schema(request.schema_version, self.config_root))
+        result = sink.persist(preview, schema)
         if self.artifact_catalog is not None:
             self.artifact_catalog.record_event(
                 "IMPORT",
@@ -301,6 +343,12 @@ class ManualChartImporter:
             return None, errors
         mapped_columns = set(col.values())
         provider_fields = {key: value for key, value in raw.items() if key not in mapped_columns}
+        artist = _optional_text(raw.get(col["artist"])) if "artist" in col else None
+        isrc = _optional_text(raw.get(col["isrc"])) if "isrc" in col else None
+        duration_ms = _optional_int(raw.get(col["duration_ms"])) if "duration_ms" in col else None
+        release_date = (
+            _optional_date(raw.get(col["release_date"])) if "release_date" in col else None
+        )
         return ManualRow(
             country,
             start,
@@ -310,4 +358,28 @@ class ManualChartImporter:
             str(raw[col["title"]]),
             metric,
             provider_fields,
+            artist,
+            isrc,
+            duration_ms,
+            release_date,
         ), errors
+
+
+def _optional_text(value: object) -> str | None:
+    text = str(value or "").strip()
+    return text or None
+
+
+def _optional_int(value: object) -> int | None:
+    text = _optional_text(value)
+    return int(text) if text is not None else None
+
+
+def _optional_date(value: object) -> date | None:
+    text = _optional_text(value)
+    if text is None:
+        return None
+    parsed, error = parse_date(text, "release_date", 0)
+    if error is not None or parsed is None:
+        raise ValueError("release_date must be an ISO date")
+    return parsed

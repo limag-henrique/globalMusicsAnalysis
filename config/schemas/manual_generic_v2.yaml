@@ -1,0 +1,20 @@
+version: manual_generic_v2
+columns:
+  country: country
+  period_start: period_start
+  period_end: period_end
+  position: rank
+  native_id: platform_item_id
+  title: title
+  artist: artist
+  isrc: isrc
+  duration_ms: duration_ms
+  release_date: release_date
+  metric_value: metric_value
+optional_columns:
+  - artist
+  - isrc
+  - duration_ms
+  - release_date
+defaults:
+  item_kind: CATALOG_TRACK

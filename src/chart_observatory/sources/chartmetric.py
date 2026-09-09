@@ -103,7 +103,8 @@ class ChartmetricClient:
         raise ChartmetricAuthError("Chartmetric access token rejected after one refresh", 401)
 
     def discover_capabilities(
-        self, platforms: tuple[str, ...] = ("spotify", "deezer", "qq", "amazon")
+        self,
+        platforms: tuple[str, ...] = ("spotify", "applemusic", "youtube", "amazon"),
     ) -> tuple[MarketCapability, ...]:
         capabilities: list[MarketCapability] = []
         for platform in platforms:
