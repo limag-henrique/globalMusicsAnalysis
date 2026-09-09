@@ -19,6 +19,9 @@ not legal status. A missing capability remains missing.
 - `available` means the capability was observed in the current inventory or API response; it does not imply historical completeness or redistribution rights.
 - Empty date fields mean that only capability discovery was performed, not historical extraction.
 - YouTube `mostPopular` is a video ranking surface, not YouTube Music Top Songs.
+- The source-preserving unified catalog is [source_catalog.parquet](../data/normalized/source_catalog.parquet).
+  It materializes only artifacts present locally; Chartmetric historical rows are
+  absent until an authenticated, bounded backfill produces its observation artifact.
 
 The Chartmetric smoke test used the authenticated countries endpoint for Spotify
 and recorded non-successful probes for Apple Music, Deezer, QQ and Amazon as

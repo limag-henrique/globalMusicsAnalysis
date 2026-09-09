@@ -1,6 +1,6 @@
 # Corpus científico canônico — status do Corpus v1
 
-Atualizado em 2026-09-07.
+Atualizado em 2026-09-08.
 
 ## Entregue
 
@@ -13,6 +13,7 @@ Atualizado em 2026-09-07.
 - Sobreposição MGD × Kaggle: **19.942.141 equivalências exatas por ID Spotify** e **19.867.209 por título/artista/data/rank**. As fontes permanecem preservadas separadamente; a reconciliação usa precedência de fonte.
 - Pro-Música Brasil: inventário descoberto com 6 itens e captura pública atual de 50 linhas.
 - YouTube Data API: coleta atual completa para 111 regiões, categoria solicitada Music (`10`), com 3.037 observações de vídeos, 1.678 vídeos distintos e artefatos brutos por região/página. O resultado é um corpus de vídeo/viralidade, não YouTube Music Top Songs.
+- Catálogo unificado materializado: **47.434.073 observações preservadas por fonte**, com 47.431.036 linhas de faixa e 3.037 linhas de vídeo. A lista pode ser filtrada por fonte, plataforma, país/mercado, ano, chart, posição e texto pela CLI e pela página de observações.
 - Apple Music removido da camada ativa de adapters, testes, fixtures, enums e referências operacionais.
 
 ## Artefatos
@@ -24,12 +25,13 @@ Atualizado em 2026-09-07.
 - [Claims de gênero](../data/derived/genre_claims.parquet)
 - [Diversidade de gênero](../data/derived/genre_diversity_by_market_period.parquet)
 - [Relatório de sobreposição MGD/Kaggle](mgd_kaggle_overlap_report.md)
+- [Catálogo unificado de fontes](../data/normalized/source_catalog.parquet)
 
 O manifesto registra hashes SHA-256, contagens, intervalo temporal, regras e os 55 mercados elegíveis. Ele é um congelamento de artefatos de fonte; a associação de memberships no PostgreSQL fica explicitamente marcada como pendente.
 
 ## Estado operacional
 
-O `ResearchApplication` agora usa repositórios SQL reais, a ingestão é idempotente por hash da fonte, a reconciliação preserva todas as observações de origem e a CLI expõe cobertura, ingestão, reconciliação, exportação e congelamento.
+O `ResearchApplication` agora usa repositórios SQL reais, a ingestão é idempotente por hash da fonte, a reconciliação preserva todas as observações de origem e a CLI expõe cobertura, ingestão, reconciliação, exportação, congelamento e consulta/materialização do catálogo unificado.
 
 O carregamento completo no PostgreSQL não foi executado porque não há serviço PostgreSQL local disponível e o Docker Desktop não está com o engine ativo. Foi executado somente um smoke test SQLite de 10.000 linhas; ele não é o Corpus v1 e não deve ser usado para inferência. O congelamento operacional deve ser rodado após subir PostgreSQL:
 
@@ -42,5 +44,8 @@ python -m chart_observatory.cli corpus freeze --database-url postgresql+psycopg:
 ## Lacunas deliberadas
 
 - Idioma, letras e anotações semânticas têm schema, validação e persistência prontos, mas não foram preenchidos sem uma fonte licenciada/eticamente autorizada de letras.
-- Chartmetric e YouTube permanecem como fontes opcionais: não há credenciais configuradas nesta execução.
+- Chartmetric histórico permanece como lacuna: a capacidade foi descoberta, mas não há `chartmetric_observations.parquet` nem backfill local materializado nesta execução. O catálogo inclui Chartmetric automaticamente assim que esse artefato for fornecido.
+- YouTube histórico não foi inferido a partir do corpus atual: o artefato disponível é somente o snapshot oficial atual de Video Most Popular por região.
+- A deduplicação entre fontes continua deliberadamente pendente; linhas equivalentes permanecem separadas e rastreáveis.
+- Letras continuam fora do catálogo até a futura implementação licenciada/autorizada; o esquema não fabrica conteúdo ausente.
 - A cadeia Alembic existente contém uma migration PostgreSQL-específica anterior (`0005`), portanto a validação completa não pode ser feita em SQLite; a migration `0010` do corpus está criada e foi validada por lint, testes e inspeção estática.

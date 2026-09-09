@@ -1,4 +1,7 @@
+from chart_observatory.sources.catalog import CATALOG_COLUMNS
+
 DATASET_SCHEMAS: dict[str, tuple[str, ...]] = {
+    "source_catalog": CATALOG_COLUMNS,
     "track_master": ("canonical_track_id", "title", "artist_names", "external_ids"),
     "chart_observations": (
         "snapshot_id",

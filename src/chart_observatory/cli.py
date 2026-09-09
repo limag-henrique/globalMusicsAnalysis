@@ -39,6 +39,12 @@ from chart_observatory.procurement.schema_profiler import profile_sample
 from chart_observatory.rights.gate import RightsGate
 from chart_observatory.rights.models import RightsGrant, RightsProfile
 from chart_observatory.rights.repository import InMemoryRightsRepository
+from chart_observatory.sources.catalog import (
+    CatalogFilters,
+    catalog_source_paths,
+    filter_source_catalog,
+    write_source_catalog,
+)
 from chart_observatory.sources.chartmetric import ChartmetricClient, ChartmetricError
 from chart_observatory.sources.chartmetric_backfill import (
     BackfillRequest,
@@ -226,6 +232,77 @@ def corpus_export_analytical(
     typer.echo(
         json.dumps(
             {"status": "EXPORTED", "datasets": {name: str(path) for name, path in paths.items()}}
+        )
+    )
+
+
+@corpus_app.command("catalog")
+def corpus_catalog(
+    root: Path = typer.Option(Path("."), "--root", help="Raiz que contém data/ e research/."),
+    output: Path | None = typer.Option(
+        None,
+        "--output",
+        help="Parquet/CSV de saída; sem filtros, materializa todo o catálogo disponível.",
+    ),
+    provider: str | None = typer.Option(None, "--provider"),
+    origin_platform: str | None = typer.Option(None, "--platform"),
+    country_code: str | None = typer.Option(None, "--country"),
+    year: int | None = typer.Option(None, "--year"),
+    chart_family: str | None = typer.Option(None, "--chart-family"),
+    chart_name: str | None = typer.Option(None, "--chart-name"),
+    query: str | None = typer.Option(None, "--query"),
+    limit: int = typer.Option(200, min=0, max=100_000),
+) -> None:
+    """List or materialize all locally available source-preserving observations."""
+    materialized_path = (root / "data/normalized/source_catalog.parquet").resolve()
+    use_materialized = output is None or output.resolve() != materialized_path
+    paths = catalog_source_paths(root, include_materialized=use_materialized)
+    has_filters = any(
+        value is not None
+        for value in (
+            provider,
+            origin_platform,
+            country_code,
+            year,
+            chart_family,
+            chart_name,
+            query,
+        )
+    )
+    if output is not None and not has_filters:
+        write_source_catalog(paths, output)
+        rows = None
+    else:
+        frame = filter_source_catalog(
+            paths,
+            CatalogFilters(
+                provider=provider,
+                origin_platform=origin_platform,
+                country_code=country_code,
+                year=year,
+                chart_family=chart_family,
+                chart_name=chart_name,
+                query=query,
+                limit=limit,
+            ),
+        )
+        rows = frame.to_dicts()
+        if output is not None:
+            if output.suffix.casefold() == ".csv":
+                frame.write_csv(output)
+            else:
+                frame.write_parquet(output)
+    typer.echo(
+        json.dumps(
+            {
+                "status": "MATERIALIZED" if output is not None else "LISTED",
+                "source_artifacts": len(paths),
+                "source_paths": [str(path) for path in paths],
+                "output": str(output) if output is not None else None,
+                "rows": rows,
+            },
+            default=str,
+            ensure_ascii=False,
         )
     )
 

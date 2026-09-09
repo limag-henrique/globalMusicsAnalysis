@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import json
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 import polars as pl
 
+from chart_observatory.sources.catalog import CatalogFilters, filter_source_catalog
 from chart_observatory.ui.classifications import ContentClassification
 from chart_observatory.ui.taxonomy import taxonomy_codes
 
@@ -93,8 +94,7 @@ def manifest_metric_labels(payload: Mapping[str, object]) -> dict[str, str]:
                 tracks = _as_int(dataset.get("rows"))
                 break
     market_label = (
-        f"{_as_int(payload.get('eligible_cells'))}/"
-        f"{_as_int(payload.get('total_cells'))} elegíveis"
+        f"{_as_int(payload.get('eligible_cells'))}/{_as_int(payload.get('total_cells'))} elegíveis"
     )
     return {
         "observations": _format_number(observations),
@@ -120,15 +120,15 @@ def filter_mgd_observations(
     if filters.query:
         needle = filters.query.strip().lower()
         if needle:
-            title_matches = pl.col("track_title").str.to_lowercase().str.contains(
-                needle, literal=True, strict=False
+            title_matches = (
+                pl.col("track_title")
+                .str.to_lowercase()
+                .str.contains(needle, literal=True, strict=False)
             )
-            artist_matches = pl.col("artist").str.to_lowercase().str.contains(
-                needle, literal=True, strict=False
+            artist_matches = (
+                pl.col("artist").str.to_lowercase().str.contains(needle, literal=True, strict=False)
             )
-            query = query.filter(
-                title_matches | artist_matches
-            )
+            query = query.filter(title_matches | artist_matches)
     if filters.classification_state == "ANNOTATED":
         query = query.filter(pl.col("native_id").is_in(annotated_track_ids))
     elif filters.classification_state == "UNANNOTATED":
@@ -142,6 +142,34 @@ def filter_mgd_observations(
         )
         .limit(max(filters.limit, 0))
         .collect()
+    )
+
+
+def filter_source_observations(
+    paths: Iterable[Path], filters: CatalogFilters, annotated_track_ids: set[str]
+) -> pl.DataFrame:
+    """Query the source-preserving catalog, adding the UI classification label."""
+    filters = CatalogFilters(
+        provider=filters.provider,
+        origin_platform=filters.origin_platform,
+        country_code=filters.country_code,
+        year=filters.year,
+        date_start=filters.date_start,
+        date_end=filters.date_end,
+        max_rank=filters.max_rank,
+        chart_family=filters.chart_family,
+        chart_name=filters.chart_name,
+        query=filters.query,
+        classification_state=filters.classification_state,
+        annotated_track_ids=frozenset(annotated_track_ids),
+        limit=filters.limit,
+    )
+    observations = filter_source_catalog(paths, filters)
+    return observations.with_columns(
+        pl.when(pl.col("native_id").is_in(annotated_track_ids))
+        .then(pl.lit("ANNOTATED"))
+        .otherwise(pl.lit("UNANNOTATED"))
+        .alias("classification_state")
     )
 
 
@@ -234,10 +262,7 @@ def build_classification_profile_from_mgd_observations(
 ) -> pl.DataFrame:
     """Build a full-corpus profile independently of a bounded UI catalog."""
     observations = (
-        pl.scan_parquet(observations_path)
-        .select("country_code", "native_id")
-        .unique()
-        .collect()
+        pl.scan_parquet(observations_path).select("country_code", "native_id").unique().collect()
     )
     return build_classification_profile(observations, classifications)
 

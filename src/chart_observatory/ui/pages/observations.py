@@ -8,11 +8,11 @@ from pathlib import Path
 import polars as pl
 import streamlit as st
 
+from chart_observatory.sources.catalog import CatalogFilters, catalog_source_paths
 from chart_observatory.ui.classifications import JsonClassificationRepository
 from chart_observatory.ui.data import (
-    ObservationFilters,
     TrackDetail,
-    filter_mgd_observations,
+    filter_source_observations,
     load_track_detail,
 )
 from chart_observatory.ui.taxonomy import (
@@ -42,6 +42,32 @@ def format_observation_rows(rows: Iterable[Mapping[str, object]]) -> list[dict[s
             ),
             "Classificação": state_labels.get(str(row.get("classification_state")), "—"),
             "ID nativo": row.get("native_id") or "—",
+        }
+        for row in rows
+    ]
+
+
+def format_source_catalog_rows(rows: Iterable[Mapping[str, object]]) -> list[dict[str, object]]:
+    """Translate the unified catalog into a source-aware research table."""
+    state_labels = {"ANNOTATED": "Anotada", "UNANNOTATED": "Sem anotação"}
+    return [
+        {
+            "Fonte": row.get("provider") or "—",
+            "Plataforma": row.get("origin_platform") or "—",
+            "Tipo": row.get("item_kind") or "—",
+            "Mercado": row.get("market_code") or row.get("source_country_code") or "—",
+            "Chart": row.get("chart_name") or "—",
+            "Período": row.get("period_start") or "—",
+            "Posição": row.get("rank") or "—",
+            "Faixa/vídeo": row.get("track_title") or "—",
+            "Artista/canal": row.get("artist") or row.get("channel_title") or "—",
+            "Métrica": row.get("metric_value") if row.get("metric_value") is not None else "—",
+            "Tipo de métrica": row.get("metric_type") or "—",
+            "Visualizações": row.get("view_count") if row.get("view_count") is not None else "—",
+            "ID nativo": row.get("native_id") or "—",
+            "Artefato de origem": row.get("source_artifact") or "—",
+            "Classificação": state_labels.get(str(row.get("classification_state")), "—"),
+            "Equivalência": row.get("semantic_equivalence") or "—",
         }
         for row in rows
     ]
@@ -85,8 +111,7 @@ def _selected_dates(start: date | None, end: date | None) -> tuple[date | None, 
 def _render_detail(detail: TrackDetail, track_id: str) -> None:
     st.subheader("Detalhe da faixa")
     st.caption(
-        f"{detail.track_title or 'Faixa sem título'} · "
-        f"{detail.artist or 'Artista não informado'}"
+        f"{detail.track_title or 'Faixa sem título'} · {detail.artist or 'Artista não informado'}"
     )
     appearances, peak, mean_rank, duration, event = st.columns(5)
     appearances.metric("Aparições", detail.appearances)
@@ -117,9 +142,7 @@ def _render_detail(detail: TrackDetail, track_id: str) -> None:
             [
                 {
                     "Dimensão": dimension.label,
-                    "Nível": level_label(
-                        dimension.code, classification.scores[dimension.code]
-                    ),
+                    "Nível": level_label(dimension.code, classification.scores[dimension.code]),
                 }
                 for dimension in CONTENT_TAXONOMY
             ],
@@ -130,15 +153,19 @@ def _render_detail(detail: TrackDetail, track_id: str) -> None:
 def main() -> None:
     st.set_page_config(page_title="Observações · Chart Observatory", layout="wide")
     st.title("Observações")
-    st.caption("Consulta limitada e sob demanda ao corpus MGD.")
+    st.caption(
+        "Consulta unificada às observações locais de MGD, Kaggle, Chartmetric, "
+        "YouTube e Pro-Música."
+    )
 
     context = _manifest_context()
     if context is None:
         st.warning("Não foi possível ler o manifesto do corpus para consultar as observações.")
         return
     observations_path, markets, date_start, date_end = context
-    if not observations_path.exists():
-        st.info(f"O Parquet de observações não está disponível: {observations_path}")
+    source_paths = catalog_source_paths(Path("."))
+    if not source_paths:
+        st.info("Nenhum artefato de fonte disponível para consulta.")
         return
 
     annotated_track_ids = _classification_ids()
@@ -147,8 +174,26 @@ def main() -> None:
 
     filters_column, limit_column = st.columns((3, 1))
     with filters_column:
-        market = st.selectbox("Mercado", ["Todos", *markets])
-        selected_start, selected_end = _selected_dates(date_start, date_end)
+        market = st.text_input("País/mercado (ISO ou nome)", placeholder="Todos")
+        provider = st.selectbox(
+            "Fonte",
+            [
+                "Todos",
+                "MGD",
+                "KAGGLE_DHRUVILDAVE",
+                "CHARTMETRIC",
+                "YOUTUBE_DATA_API",
+                "PRO_MUSICA_BRASIL",
+            ],
+        )
+        chart_family = st.selectbox(
+            "Família do chart",
+            ["Todos", "TOP_200", "VIRAL_50", "YOUTUBE_VIDEO_MOST_POPULAR", "TOP_50_STREAMING"],
+        )
+        selected_year = st.number_input(
+            "Ano (0 = todos)", min_value=0, max_value=2100, value=0, step=1
+        )
+        selected_start, selected_end = _selected_dates(date_start, date.today())
         max_rank = st.number_input("Melhor posição máxima", min_value=1, value=200, step=1)
         query = st.text_input("Faixa ou artista")
         classification = st.selectbox(
@@ -167,13 +212,16 @@ def main() -> None:
         st.caption("Máximo de 1.000 linhas por consulta.")
 
     try:
-        observations = filter_mgd_observations(
-            observations_path,
-            ObservationFilters(
-                country_code=None if market == "Todos" else market,
+        observations = filter_source_observations(
+            source_paths,
+            CatalogFilters(
+                provider=None if provider == "Todos" else provider,
+                country_code=market.strip() or None,
+                year=int(selected_year) or None,
                 date_start=selected_start,
                 date_end=selected_end,
                 max_rank=int(max_rank),
+                chart_family=None if chart_family == "Todos" else chart_family,
                 query=query,
                 classification_state=classification,
                 limit=int(limit),
@@ -187,9 +235,18 @@ def main() -> None:
         st.info("Nenhuma observação corresponde aos filtros selecionados.")
         return
 
-    rows = format_observation_rows(observations.to_dicts())
+    rows = format_source_catalog_rows(observations.to_dicts())
     st.dataframe(rows, use_container_width=True, hide_index=True)
-    track_ids = observations.get_column("native_id").unique(maintain_order=True).to_list()
+    track_ids = (
+        observations.filter(pl.col("item_kind") == "TRACK")
+        .get_column("native_id")
+        .drop_nulls()
+        .unique(maintain_order=True)
+        .to_list()
+    )
+    if not track_ids:
+        st.info("As linhas selecionadas não possuem detalhe de faixa disponível.")
+        return
     track_id = st.selectbox("Faixa selecionada", track_ids)
     try:
         detail = load_track_detail(observations_path, SURVIVAL_PATH, GENRE_CLAIMS_PATH, track_id)
