@@ -1,0 +1,36 @@
+{
+  "input": {
+    "path": "data\\normalized\\mgd_observations.parquet",
+    "sha256": "7079bda3f8b7ad6d3736f1cb33e3708db7dd8446154dd49f9d580bb149b60d33"
+  },
+  "outputs": {
+    "genre_distance": {
+      "path": "data\\derived\\article\\genre_distance.parquet",
+      "rows": 12157,
+      "sha256": "099136dee191da8e6d277bc07a3ab7a9807e30f4b34720803245e1b9157c15f2"
+    },
+    "genre_variation": {
+      "path": "data\\derived\\article\\genre_variation.parquet",
+      "rows": 27704,
+      "sha256": "89d8b6732c5926b71cc690896cfaa0dedd6704ad6abef3a99078db7e2e5dbf0d"
+    },
+    "market_anxiety": {
+      "path": "data\\derived\\article\\market_anxiety.parquet",
+      "rows": 114828,
+      "sha256": "015d6a4846988111e44a3c10b7e08ca325ff36f377d1810933b3dc965cab6620"
+    },
+    "persistence": {
+      "path": "data\\derived\\article\\persistence.parquet",
+      "rows": 382688,
+      "sha256": "c25e9c59f4eabdd83bd9451242ecab8d3a245d8fa8e143c1ba008c1e71f7a656"
+    }
+  },
+  "parameters": {
+    "classifications": null,
+    "genre_claims": "data\\derived\\genre_claims.parquet",
+    "resolved_video_links": null,
+    "video_observations": null
+  },
+  "resolution": "EXACT_ID_ONLY_LAZY",
+  "schema_version": "article-analytics-v1"
+}

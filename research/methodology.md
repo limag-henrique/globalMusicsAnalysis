@@ -31,3 +31,20 @@ canonical chart-entry layer must apply an explicit precedence rule and emit a
 Markets are discovered per source. The global corpus is the union of legitimate
 source capabilities; comparable and balanced corpora are derived subsets with
 documented thresholds, not hardcoded country lists.
+
+## Article analytics
+
+Persistence is measured in native chart periods per resolved recording and also
+reports the occupied calendar span from the first period start to the last period
+end. Market "anxiety" is operationalized as period-to-period Top-N turnover:
+new entries, exits, retained tracks, Jaccard similarity, turnover rate, and mean
+rank displacement. Genre variation uses distinct resolved tracks by market/year;
+Jensen–Shannon distance compares the resulting distributions.
+
+Virality is kept at the video/platform-item level. Linked videos are counted
+individually; feature exports use the best rank, maximum views, and median views,
+not an unqualified sum across videos. Content prevalence excludes unannotated
+track/category cells from its denominator while retaining score zero as observed
+absence. No causal explanation of a market is inferred from these descriptive
+outputs alone; country, genre, year, rank, and virality interactions are modelled
+as associations and require authorized lyrics/annotations.

@@ -14,10 +14,10 @@ Standard network execution remains bounded and opt-in. A live run still requires
 
 ## Global multi-source extraction limitations
 
-The local MGD corpus is the only source currently materialized as a multi-year
-all-market archive. Chartmetric capability discovery proves current access, not
-historical availability. Pro-Música is Brazilian and aggregate by design. The
-YouTube region inventory is not a music-chart archive. Kaggle is adapter-ready
-but not locally acquired in this environment. Do not compare provider counts as
-if they were independent musical events until canonical track and source
+The local MGD and Kaggle artifacts are currently materialized as multi-year
+archives, but they cover different source windows and chart semantics. Chartmetric
+capability discovery and the bounded pilot prove access to a tested endpoint, not
+historical completeness. Pro-Música is Brazilian and aggregate by design. The
+YouTube region inventory is not a music-chart archive. Do not compare provider
+counts as if they were independent musical events until canonical track and source
 precedence review is complete.

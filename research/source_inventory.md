@@ -34,6 +34,9 @@ imports by artifact SHA-256.
   source-preserving rows from the locally available MGD, Kaggle, YouTube and
   Pro-Música artifacts. It is queryable with `corpus catalog` and keeps videos
   separate from track charts.
+- [Article analytics manifest](../data/derived/article/manifest.json) — hashes,
+  parameters and row counts for the reproducible persistence, market-anxiety,
+  genre-variation and genre-distance outputs.
 
 ## Unified catalog contract
 

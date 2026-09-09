@@ -14,6 +14,7 @@ Atualizado em 2026-09-08.
 - Pro-Música Brasil: inventário descoberto com 6 itens e captura pública atual de 50 linhas.
 - YouTube Data API: coleta atual completa para 111 regiões, categoria solicitada Music (`10`), com 3.037 observações de vídeos, 1.678 vídeos distintos e artefatos brutos por região/página. O resultado é um corpus de vídeo/viralidade, não YouTube Music Top Songs.
 - Catálogo unificado materializado: **47.434.073 observações preservadas por fonte**, com 47.431.036 linhas de faixa e 3.037 linhas de vídeo. A lista pode ser filtrada por fonte, plataforma, país/mercado, ano, chart, posição e texto pela CLI e pela página de observações.
+- Analytics do artigo materializadas a partir do MGD: **382.688 combinações de permanência**, **114.828 comparações de ansiedade/turnover**, **27.704 distribuições de gênero** e **12.157 pares de distância Jensen–Shannon**, com resolução exata por ID Spotify e observações não resolvidas preservadas nos denominadores.
 - Apple Music removido da camada ativa de adapters, testes, fixtures, enums e referências operacionais.
 
 ## Artefatos
@@ -26,6 +27,7 @@ Atualizado em 2026-09-08.
 - [Diversidade de gênero](../data/derived/genre_diversity_by_market_period.parquet)
 - [Relatório de sobreposição MGD/Kaggle](mgd_kaggle_overlap_report.md)
 - [Catálogo unificado de fontes](../data/normalized/source_catalog.parquet)
+- [Analytics do artigo](../data/derived/article/manifest.json) — manifesto com hashes e os Parquet de permanência, ansiedade, gênero e dispersão.
 
 O manifesto registra hashes SHA-256, contagens, intervalo temporal, regras e os 55 mercados elegíveis. Ele é um congelamento de artefatos de fonte; a associação de memberships no PostgreSQL fica explicitamente marcada como pendente.
 
@@ -45,6 +47,7 @@ python -m chart_observatory.cli corpus freeze --database-url postgresql+psycopg:
 
 - Idioma, letras e anotações semânticas têm schema, validação e persistência prontos, mas não foram preenchidos sem uma fonte licenciada/eticamente autorizada de letras.
 - Chartmetric histórico permanece como lacuna: a capacidade foi descoberta, mas não há `chartmetric_observations.parquet` nem backfill local materializado nesta execução. O catálogo inclui Chartmetric automaticamente assim que esse artefato for fornecido.
+- Viralidade e conteúdo só geram saídas quando forem fornecidos vínculos de vídeos e classificações autorizadas; sem esses insumos a aplicação exibe `INSUFFICIENT_DATA`/pendência, sem transformar ausência em zero.
 - YouTube histórico não foi inferido a partir do corpus atual: o artefato disponível é somente o snapshot oficial atual de Video Most Popular por região.
 - A deduplicação entre fontes continua deliberadamente pendente; linhas equivalentes permanecem separadas e rastreáveis.
 - Letras continuam fora do catálogo até a futura implementação licenciada/autorizada; o esquema não fabrica conteúdo ausente.

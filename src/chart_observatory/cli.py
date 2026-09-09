@@ -1,17 +1,23 @@
 # ruff: noqa: B008
 
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import UTC, date, datetime, timedelta
+from hashlib import sha256
 from pathlib import Path
 from uuid import UUID, uuid4
 
+import polars as pl
 import typer
 
 from chart_observatory.adapters.youtube_data.most_popular import YouTubeMostPopularSource
 from chart_observatory.application import ResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
 from chart_observatory.config import Settings
+from chart_observatory.corpus.catalog_reconciliation import (
+    canonical_track_reference,
+    canonicalize_catalog_lazy,
+)
 from chart_observatory.corpus.eligibility import EligibilityRules
 from chart_observatory.corpus.freeze import freeze_source_artifacts
 from chart_observatory.corpus.repository import (
@@ -23,6 +29,7 @@ from chart_observatory.db.models.charts import ChartSnapshot
 from chart_observatory.domain.enums import RightsOperation, RightsProfileStatus
 from chart_observatory.domain.errors import SourceDisabled
 from chart_observatory.exports.analytical import write_mgd_analytical_datasets
+from chart_observatory.exports.article_analytics import write_article_datasets
 from chart_observatory.ingestion.corpus import (
     ingest_mgd_parquet,
     write_mgd_balanced_panel,
@@ -43,6 +50,7 @@ from chart_observatory.sources.catalog import (
     CatalogFilters,
     catalog_source_paths,
     filter_source_catalog,
+    scan_source_catalog,
     write_source_catalog,
 )
 from chart_observatory.sources.chartmetric import ChartmetricClient, ChartmetricError
@@ -61,6 +69,8 @@ from chart_observatory.sources.reports import (
     write_top_artist_list,
 )
 from chart_observatory.sources.youtube import YouTubeMarketDiscovery
+from chart_observatory.ui.classifications import JsonClassificationRepository
+from chart_observatory.ui.taxonomy import TAXONOMY_VERSION
 
 app = typer.Typer(help="Rights-gated cross-platform chart research tools.")
 collect_app = typer.Typer()
@@ -305,6 +315,143 @@ def corpus_catalog(
             ensure_ascii=False,
         )
     )
+
+
+@corpus_app.command("analytics")
+def corpus_analytics(
+    observations: Path = typer.Option(
+        Path("data/normalized/source_catalog.parquet"),
+        "--observations",
+        help="Parquet normalizado; será reconciliado se não tiver IDs canônicos.",
+    ),
+    output_dir: Path = typer.Option(Path("data/derived/article"), "--output-dir"),
+    genre_claims: Path | None = typer.Option(None, "--genre-claims"),
+    classifications: Path | None = typer.Option(None, "--classifications"),
+    video_observations: Path | None = typer.Option(None, "--video-observations"),
+    resolved_video_links: Path | None = typer.Option(None, "--resolved-video-links"),
+) -> None:
+    """Materialize datasets for persistence, genre, content, and article analysis."""
+    if not observations.is_file():
+        raise typer.BadParameter(f"observation file not found: {observations}")
+    raw_scan = pl.scan_parquet(observations)
+    raw_columns = raw_scan.collect_schema().names()
+    source_scan = (
+        raw_scan
+        if {"market_code", "chart_family", "canonical_track_id"}.issubset(raw_columns)
+        else scan_source_catalog([observations])
+    )
+    needs_lazy_resolution = "canonical_track_id" not in raw_columns
+    if not needs_lazy_resolution:
+        needs_lazy_resolution = (
+            source_scan.filter(pl.col("canonical_track_id").is_not_null()).limit(1).collect().is_empty()
+        )
+    if needs_lazy_resolution:
+        source_scan = canonicalize_catalog_lazy(source_scan)
+    frame = source_scan.select(
+        [
+            column
+            for column in (
+                "source_observation_key",
+                "provider",
+                "origin_platform",
+                "item_kind",
+                "market_code",
+                "chart_family",
+                "period_start",
+                "period_end",
+                "rank",
+                "native_id",
+                "metric_type",
+                "metric_value",
+                "canonical_track_id",
+            )
+            if column in source_scan.collect_schema().names()
+        ]
+    ).collect(engine="streaming")
+    conflict_rows = None
+    claims = pl.read_parquet(genre_claims) if genre_claims is not None else None
+    if claims is not None and "canonical_track_id" in claims.columns:
+        claims = claims.with_columns(
+            pl.col("canonical_track_id")
+            .map_elements(canonical_track_reference, return_dtype=pl.String)
+            .alias("canonical_track_id")
+        )
+    videos = (
+        pl.scan_parquet(video_observations).collect(engine="streaming")
+        if video_observations is not None and video_observations.is_file()
+        else None
+    )
+    links = (
+        pl.scan_parquet(resolved_video_links).collect(engine="streaming")
+        if resolved_video_links is not None and resolved_video_links.is_file()
+        else None
+    )
+    records = []
+    if classifications is not None and classifications.is_file():
+        records = JsonClassificationRepository(classifications, TAXONOMY_VERSION).list_all()
+        records = [
+            replace(record, canonical_track_id=canonical_track_reference(record.canonical_track_id))
+            for record in records
+        ]
+    paths = write_article_datasets(
+        frame,
+        output_dir,
+        genre_claims=claims,
+        classifications=records,
+        video_observations=videos,
+        resolved_video_links=links,
+    )
+    output_rows = {
+        name: pl.scan_parquet(path).select(pl.len()).collect().item()
+        for name, path in paths.items()
+    }
+    manifest = {
+        "schema_version": "article-analytics-v1",
+        "resolution": "EXACT_ID_ONLY_LAZY",
+        "input": {"path": str(observations), "sha256": _file_sha256(observations)},
+        "parameters": {
+            "genre_claims": str(genre_claims) if genre_claims is not None else None,
+            "classifications": str(classifications) if classifications is not None else None,
+            "video_observations": (
+                str(video_observations) if video_observations is not None else None
+            ),
+            "resolved_video_links": (
+                str(resolved_video_links) if resolved_video_links is not None else None
+            ),
+        },
+        "outputs": {
+            name: {"path": str(path), "sha256": _file_sha256(path), "rows": output_rows[name]}
+            for name, path in paths.items()
+        },
+    }
+    manifest_path = output_dir / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    typer.echo(
+        json.dumps(
+            {
+                "status": "MATERIALIZED",
+                "input": str(observations),
+                "input_rows": frame.height,
+                "conflicts": conflict_rows,
+                "resolution": "EXACT_ID_ONLY_LAZY",
+                "outputs": {name: str(path) for name, path in paths.items()},
+                "output_rows": output_rows,
+                "manifest": str(manifest_path),
+            },
+            ensure_ascii=False,
+        )
+    )
+
+
+def _file_sha256(path: Path) -> str:
+    digest = sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 @corpus_app.command("freeze")

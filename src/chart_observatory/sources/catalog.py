@@ -131,6 +131,23 @@ def scan_source_catalog(paths: Iterable[Path]) -> pl.LazyFrame:
     return pl.concat(frames, how="vertical_relaxed")
 
 
+def catalog_quality_report(paths: Iterable[Path]) -> pl.DataFrame:
+    """Summarize the available catalog without materializing its observations."""
+    return (
+        scan_source_catalog(paths)
+        .group_by("provider", "origin_platform", "item_kind", "chart_family")
+        .agg(
+            pl.len().alias("rows"),
+            pl.col("market_code").n_unique().alias("markets"),
+            pl.col("period_start").min().alias("date_start"),
+            pl.col("period_end").max().alias("date_end"),
+            pl.col("metric_value").is_null().sum().alias("null_metric_rows"),
+        )
+        .sort("provider", "origin_platform", "item_kind", "chart_family")
+        .collect(engine="streaming")
+    )
+
+
 def filter_source_catalog(paths: Iterable[Path], filters: CatalogFilters) -> pl.DataFrame:
     query = scan_source_catalog(paths)
     if filters.provider:

@@ -280,7 +280,7 @@ class ResearchApplication:
                 else pl.DataFrame({"canonical_track_id": [], "title": []})
             )
         if name == "track_platform_country_summary":
-            rows = self.session.execute(
+            summary_rows = self.session.execute(
                 select(
                     ChartEntry.canonical_track_id,
                     ChartDefinition.platform_code,
@@ -297,12 +297,12 @@ class ResearchApplication:
                 )
             ).all()
             return (
-                pl.DataFrame([dict(row._mapping) for row in rows])
-                if rows
+                pl.DataFrame([dict(row._mapping) for row in summary_rows])
+                if summary_rows
                 else pl.DataFrame({"canonical_track_id": [], "appearances": []})
             )
         if name == "cross_platform_presence":
-            rows = self.session.execute(
+            presence_rows = self.session.execute(
                 select(
                     ChartEntry.canonical_track_id,
                     func.count(func.distinct(ChartDefinition.platform_code)).label("platforms"),
@@ -315,8 +315,8 @@ class ResearchApplication:
                 .group_by(ChartEntry.canonical_track_id)
             ).all()
             return (
-                pl.DataFrame([dict(row._mapping) for row in rows])
-                if rows
+                pl.DataFrame([dict(row._mapping) for row in presence_rows])
+                if presence_rows
                 else pl.DataFrame({"canonical_track_id": [], "platforms": []})
             )
         raise ValueError(f"unknown dataset: {name}")
