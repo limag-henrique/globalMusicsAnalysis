@@ -37,11 +37,15 @@ O `ResearchApplication` agora usa repositórios SQL reais, a ingestão é idempo
 
 O carregamento completo do MGD foi executado no PostgreSQL local e validado após reinício de processo:
 
-- PostgreSQL 18 local em `data/runtime/postgres`, base `chart_observatory`.
+- PostgreSQL 18 local em `D:\PromiscuidadeMusicalPostgres`, base `chart_observatory`.
 - Alembic em `0012_track_metadata`.
-- 21.255.472 entradas persistidas, 114.896 snapshots, 126.213 tracks/items e 68 perfis de célula.
-- 21.255.472 entradas resolvidas, sem pendências de resolução no corpus carregado.
+- 21.258.511 entradas persistidas, 115.009 snapshots, 127.892 tracks/items e 181 perfis de célula (MGD, YouTube atual e smoke test Chartmetric).
+- 21.258.511 entradas resolvidas, sem pendências de resolução no corpus carregado.
 - `ResearchApplication`, CLI, FastAPI e Streamlit usam a mesma URL configurada em `.env`.
+
+O artefato Kaggle continua preservado em Parquet e pode ser materializado com
+`corpus ingest-normalized`; ele não foi incluído na transação operacional desta
+execução após a interrupção da carga de 26 milhões de linhas.
 
 O caminho operacional continua sendo:
 
@@ -56,9 +60,9 @@ Para preparar uma instância nova, execute primeiro `python -m chart_observatory
 ## Lacunas deliberadas
 
 - Idioma, letras e anotações semânticas têm schema, validação e persistência prontos, mas não foram preenchidos sem uma fonte licenciada/eticamente autorizada de letras.
-- Chartmetric histórico permanece como lacuna: a capacidade foi descoberta, mas não há `chartmetric_observations.parquet` nem backfill local materializado nesta execução. O catálogo inclui Chartmetric automaticamente assim que esse artefato for fornecido.
+- Chartmetric histórico permanece como lacuna: o artefato local atual contém somente o smoke test de 2 observações; o importador PostgreSQL genérico está pronto para o backfill assim que a enumeração histórica for autorizada pela conta.
 - Viralidade e conteúdo só geram saídas quando forem fornecidos vínculos de vídeos e classificações autorizadas; sem esses insumos a aplicação exibe `INSUFFICIENT_DATA`/pendência, sem transformar ausência em zero.
 - YouTube histórico não foi inferido a partir do corpus atual: o artefato disponível é somente o snapshot oficial atual de Video Most Popular por região.
 - A deduplicação entre fontes continua deliberadamente pendente; linhas equivalentes permanecem separadas e rastreáveis.
 - Letras continuam fora do catálogo até a futura implementação licenciada/autorizada; o esquema não fabrica conteúdo ausente.
-- A cadeia Alembic existente contém uma migration PostgreSQL-específica anterior (`0005`), portanto a validação completa não pode ser feita em SQLite; a migration `0010` do corpus está criada e foi validada por lint, testes e inspeção estática.
+- A cadeia Alembic existente contém uma migration PostgreSQL-específica anterior (`0005`), portanto a validação completa não pode ser feita em SQLite; a migration `0012` de metadados de track está aplicada e foi validada por lint, testes e inspeção estática.

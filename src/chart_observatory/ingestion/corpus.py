@@ -373,22 +373,27 @@ def ingest_normalized_parquet(
     temporary COPY staging table so multi-million-row artifacts do not go through
     the ORM one row at a time.
     """
-    del batch_size
     if session.bind is None or session.bind.dialect.name != "postgresql":
         raise RuntimeError("normalized bulk ingestion requires PostgreSQL")
     source_hash = sha256_file(path)
-    existing_snapshot = session.scalar(
+    existing_snapshots = session.scalars(
         select(ChartSnapshot).where(
             ChartSnapshot.provider_metadata["source_sha256"].as_string() == source_hash
         )
-    )
-    if existing_snapshot is not None:
-        cells = build_normalized_cell_inputs(path)
-        profiles = tuple(evaluate_cell(cell, rules or EligibilityRules()) for cell in cells)
-        for result in profiles:
-            profile_chart_cell(session, result)
-        session.commit()
-        return NormalizedIngestionSummary(path, source_hash, 0, 0, len(cells), 0, 0)
+    ).all()
+    if existing_snapshots:
+        complete = all(
+            bool(snapshot.provider_metadata.get("ingestion_complete"))
+            for snapshot in existing_snapshots
+        )
+        if complete:
+            cells = build_normalized_cell_inputs(path)
+            profiles = tuple(evaluate_cell(cell, rules or EligibilityRules()) for cell in cells)
+            for result in profiles:
+                profile_chart_cell(session, result)
+            session.commit()
+            return NormalizedIngestionSummary(path, source_hash, 0, 0, len(cells), 0, 0)
+        session.rollback()
     # The hash lookup opens a SQLAlchemy transaction.  Release it before the
     # independent psycopg COPY connection so interrupted imports do not leave
     # an idle transaction holding an old snapshot.
@@ -400,6 +405,7 @@ def ingest_normalized_parquet(
     connection = psycopg.connect(url.render_as_string(hide_password=False))
     try:
         with connection.cursor() as cursor:
+            cursor.execute("SET work_mem = '256MB'; SET maintenance_work_mem = '1GB'")
             cursor.execute(
                 """
                 CREATE TEMP TABLE normalized_import_stage (
@@ -418,7 +424,7 @@ def ingest_normalized_parquet(
                     item_kind text NOT NULL,
                     observed_at timestamptz,
                     source_artifact text
-                ) ON COMMIT DROP
+                ) ON COMMIT PRESERVE ROWS
                 """
             )
             _copy_rows(
@@ -444,8 +450,12 @@ def ingest_normalized_parquet(
                 _normalized_stage_rows(path),
             )
             cursor.execute(
+                "CREATE INDEX normalized_import_stage_period_idx "
+                "ON normalized_import_stage (period_start)"
+            )
+            cursor.execute(
                 """
-                CREATE TEMP TABLE normalized_import_cells ON COMMIT DROP AS
+                CREATE TEMP TABLE normalized_import_cells ON COMMIT PRESERVE ROWS AS
                 SELECT DISTINCT provider, platform_code, country_code, chart_name,
                        period_start, period_end, rank
                 FROM normalized_import_stage
@@ -468,7 +478,7 @@ def ingest_normalized_parquet(
             )
             cursor.execute(
                 """
-                CREATE TEMP TABLE normalized_import_items ON COMMIT DROP AS
+                CREATE TEMP TABLE normalized_import_items ON COMMIT PRESERVE ROWS AS
                 SELECT platform_code, native_id, max(item_kind) AS item_kind,
                        max(left(title, 1000)) AS title, max(left(artist, 1000)) AS artist
                 FROM normalized_import_stage
@@ -489,7 +499,7 @@ def ingest_normalized_parquet(
             )
             cursor.execute(
                 """
-                CREATE TEMP TABLE normalized_import_links ON COMMIT DROP AS
+                CREATE TEMP TABLE normalized_import_links ON COMMIT PRESERVE ROWS AS
                 SELECT i.id AS platform_item_id,
                        COALESCE(l.canonical_track_id, gen_random_uuid()) AS canonical_track_id,
                        i.title, i.artist,
@@ -523,8 +533,11 @@ def ingest_normalized_parquet(
             )
             cursor.execute(
                 """
-                CREATE TEMP TABLE normalized_import_snapshots ON COMMIT DROP AS
-                SELECT gen_random_uuid() AS id, d.id AS chart_definition_id,
+                CREATE TEMP TABLE normalized_import_snapshots ON COMMIT PRESERVE ROWS AS
+                SELECT md5(%s::text || ':' || s.platform_code || ':' || s.provider || ':' ||
+                           s.country_code || ':' || s.chart_name || ':' ||
+                           s.period_start::text || ':' || s.period_end::text)::uuid AS id,
+                       d.id AS chart_definition_id,
                        s.period_start, s.period_end,
                        max(s.observed_at) AS observed_at,
                        encode(digest(%s::text || ':' || s.platform_code || ':' || s.provider ||
@@ -543,7 +556,7 @@ def ingest_normalized_parquet(
                 GROUP BY d.id, s.period_start, s.period_end, s.provider,
                          s.platform_code, s.country_code, s.chart_name
                 """,
-                (source_hash,),
+                (source_hash, source_hash),
             )
             cursor.execute(
                 """
@@ -557,22 +570,32 @@ def ingest_normalized_parquet(
                        jsonb_build_object('source_file', %s::text, 'source_sha256', %s::text,
                                           'provider', provider, 'platform_code', platform_code)
                 FROM normalized_import_snapshots
+                ON CONFLICT (id) DO NOTHING
                 """,
                 (str(path), source_hash),
             )
+            connection.commit()
             cursor.execute(
                 """
-                INSERT INTO chart_entries (
-                    id, snapshot_id, platform_item_id, canonical_track_id, position,
-                    metric_type, metric_value, raw_fields
-                )
-                SELECT gen_random_uuid(), si.id, pi.id, il.canonical_track_id, s.rank,
-                       COALESCE(NULLIF(s.metric_type, ''), 'NONE'),
-                       CASE WHEN s.metric_value ~ '^-?[0-9]+(\\.[0-9]+)?$'
-                            THEN s.metric_value::numeric ELSE NULL END,
-                       jsonb_build_object('artist', COALESCE(s.artist, ''),
-                                          'source_artifact', COALESCE(s.source_artifact, ''),
-                                          'source_sha256', %s::text, 'provider', s.provider)
+                CREATE TEMP TABLE normalized_existing_keys ON COMMIT PRESERVE ROWS AS
+                SELECT DISTINCT ce.canonical_track_id, cs.period_start, cd.country_code
+                FROM chart_entries ce
+                JOIN chart_snapshots cs ON cs.id = ce.snapshot_id
+                JOIN chart_definitions cd ON cd.id = cs.chart_definition_id
+                WHERE ce.canonical_track_id IS NOT NULL
+                  AND COALESCE(cs.provider_metadata->>'provider', '') <> 'KAGGLE_DHRUVILDAVE'
+                """
+            )
+            cursor.execute(
+                "CREATE INDEX normalized_existing_keys_idx "
+                "ON normalized_existing_keys (canonical_track_id, period_start, country_code)"
+            )
+            cursor.execute(
+                """
+                CREATE TEMP TABLE normalized_import_resolved ON COMMIT PRESERVE ROWS AS
+                SELECT si.period_start, si.id AS snapshot_id, pi.id AS platform_item_id,
+                       il.canonical_track_id, s.rank, s.metric_type, s.metric_value,
+                       s.artist, s.source_artifact, s.provider
                 FROM normalized_import_stage s
                 JOIN normalized_import_snapshots si
                   ON si.platform_code = s.platform_code AND si.provider = s.provider
@@ -581,11 +604,55 @@ def ingest_normalized_parquet(
                 JOIN platform_items pi
                   ON pi.platform_code = s.platform_code AND pi.native_id = s.native_id
                 JOIN normalized_import_links il ON il.platform_item_id = pi.id
-                ON CONFLICT (snapshot_id, position) DO NOTHING
-                """,
-                (source_hash,),
+                LEFT JOIN normalized_existing_keys ek
+                  ON ek.canonical_track_id = il.canonical_track_id
+                 AND ek.period_start = si.period_start
+                 AND ek.country_code = si.country_code
+                WHERE s.provider <> 'KAGGLE_DHRUVILDAVE' OR ek.canonical_track_id IS NULL
+                """
             )
-            written = cursor.rowcount
+            cursor.execute(
+                "CREATE INDEX normalized_import_resolved_period_idx "
+                "ON normalized_import_resolved (period_start)"
+            )
+            period_rows = cursor.execute(
+                "SELECT DISTINCT period_start FROM normalized_import_snapshots "
+                "ORDER BY period_start"
+            ).fetchall()
+            period_dates = [row[0] for row in period_rows]
+            written = 0
+            for offset in range(0, len(period_dates), max(1, batch_size // 10_000)):
+                date_batch = period_dates[offset : offset + max(1, batch_size // 10_000)]
+                cursor.execute(
+                    """
+                INSERT INTO chart_entries (
+                    id, snapshot_id, platform_item_id, canonical_track_id, position,
+                    metric_type, metric_value, raw_fields
+                )
+                SELECT gen_random_uuid(), snapshot_id, platform_item_id,
+                       canonical_track_id, rank,
+                       COALESCE(NULLIF(s.metric_type, ''), 'NONE'),
+                       CASE WHEN metric_value ~ '^-?[0-9]+(\\.[0-9]+)?$'
+                            THEN metric_value::numeric ELSE NULL END,
+                       jsonb_build_object('artist', COALESCE(artist, ''),
+                                          'source_artifact', COALESCE(source_artifact, ''),
+                                          'source_sha256', %s::text, 'provider', provider)
+                FROM normalized_import_resolved
+                WHERE period_start = ANY(%s)
+                ON CONFLICT (snapshot_id, position) DO NOTHING
+                    """,
+                    (source_hash, date_batch),
+                )
+                written += cursor.rowcount
+                connection.commit()
+            cursor.execute(
+                """
+                UPDATE chart_snapshots
+                SET provider_metadata = provider_metadata || '{"ingestion_complete": true}'::jsonb
+                WHERE id IN (SELECT id FROM normalized_import_snapshots)
+                """
+            )
+            connection.commit()
             snapshot_row = cursor.execute(
                 "SELECT count(*) FROM normalized_import_snapshots"
             ).fetchone()
@@ -596,9 +663,20 @@ def ingest_normalized_parquet(
             snapshots = int(snapshot_row[0] if snapshot_row else 0)
             tracks = int(track_row[0] if track_row else 0)
             rows_seen = int(input_row[0] if input_row else 0)
+            cursor.execute(
+                "DROP TABLE normalized_import_stage, normalized_import_cells, "
+                "normalized_import_items, normalized_import_links, normalized_import_snapshots, "
+                "normalized_import_resolved, normalized_existing_keys"
+            )
         connection.commit()
     except Exception:
-        connection.rollback()
+        try:
+            if not connection.closed:
+                connection.rollback()
+        except psycopg.OperationalError:
+            # Preserve the original server-side failure.  A lost socket cannot
+            # acknowledge a rollback and must not mask the useful exception.
+            pass
         raise
     finally:
         connection.close()

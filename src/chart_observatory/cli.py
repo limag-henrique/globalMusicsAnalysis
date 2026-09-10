@@ -933,8 +933,9 @@ def sources_kaggle_import(
     root: Path = typer.Option(Path("data/raw/kaggle/spotify-charts")),
     output: Path = typer.Option(Path("data/normalized/kaggle_spotify_observations.parquet")),
     chart: str | None = typer.Option(None),
+    top_n: int = typer.Option(100, min=1, max=200),
 ) -> None:
-    summary = KaggleSpotifyChartsSource(root).import_to(output, chart=chart)
+    summary = KaggleSpotifyChartsSource(root).import_to(output, chart=chart, top_n=top_n)
     typer.echo(json.dumps(asdict(summary), default=str))
 
 

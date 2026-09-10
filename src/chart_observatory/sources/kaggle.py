@@ -123,6 +123,7 @@ class KaggleSpotifyChartsSource:
     def iter_observations(
         self,
         chart: str | None = None,
+        top_n: int = 100,
         countries: set[str] | None = None,
         from_date: date | None = None,
         to_date: date | None = None,
@@ -147,6 +148,8 @@ class KaggleSpotifyChartsSource:
                     chart_name = str(row[chart_col]) if chart_col else "top200"
                     normalized_chart = chart_name.casefold().replace(" ", "")
                     if chart and normalized_chart != chart.casefold().replace(" ", ""):
+                        continue
+                    if top_n and int(row[rank_col]) > top_n:
                         continue
                     country = str(row[region_col]).upper()
                     if wanted and country not in wanted:
@@ -183,6 +186,7 @@ class KaggleSpotifyChartsSource:
         output_path: Path,
         *,
         chart: str | None = None,
+        top_n: int = 100,
         countries: set[str] | None = None,
         from_date: date | None = None,
         to_date: date | None = None,
@@ -195,6 +199,7 @@ class KaggleSpotifyChartsSource:
             if (
                 previous.get("source_checksum") == source_checksum
                 and previous.get("chart") == chart
+                and previous.get("top_n") == top_n
             ):
                 rows = int(previous.get("rows", 0))
                 return ImportSummary(
@@ -272,6 +277,8 @@ class KaggleSpotifyChartsSource:
         )
         if chart:
             frame = frame.filter(pl.col("chart_name") == chart.casefold().replace(" ", ""))
+        if top_n:
+            frame = frame.filter(pl.col("rank") <= top_n)
         if countries:
             frame = frame.filter(pl.col("country_code").is_in(sorted(countries)))
         if from_date:
@@ -282,7 +289,10 @@ class KaggleSpotifyChartsSource:
         rows = int(frame.select(pl.len()).collect(engine="streaming").item())
         frame.sink_parquet(output_path, compression="zstd")
         sidecar.write_text(
-            json.dumps({"source_checksum": source_checksum, "chart": chart, "rows": rows}, indent=2)
+            json.dumps(
+                {"source_checksum": source_checksum, "chart": chart, "top_n": top_n, "rows": rows},
+                indent=2,
+            )
             + "\n",
             encoding="utf-8",
         )
