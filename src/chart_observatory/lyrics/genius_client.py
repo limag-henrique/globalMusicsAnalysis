@@ -8,6 +8,7 @@ from typing import Any
 from urllib.parse import quote
 
 import httpx
+from rapidfuzz import fuzz
 
 from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
 
@@ -80,7 +81,6 @@ class GeniusClient:
 
     def _try_direct_url(self, title: str, artist: str) -> str | None:
         """Construct the canonical Genius URL and try to scrape it."""
-        # Remove feat. from title for URL construction
         clean_title = re.sub(
             r"\s*[\[(]\s*(?:feat\.?|ft\.?|featuring)\b.*?[\])]", "", title, flags=re.I
         )
@@ -96,10 +96,11 @@ class GeniusClient:
         return None
 
     def _try_api_search(self, title: str, artist: str) -> str | None:
-        """Use the Genius API to search, then scrape the lyrics page."""
+        """Use the Genius API to search, then scrape the lyrics page with fuzzy validation."""
         if not self._token:
             return None
-        query = f"{artist.split(',', 1)[0].strip()} {title}"
+        primary_artist = artist.split(",", 1)[0].strip()
+        query = f"{primary_artist} {title}"
         try:
             resp = self._http.get(
                 "https://api.genius.com/search",
@@ -116,34 +117,39 @@ class GeniusClient:
         if not hits:
             return None
 
-        # Match the best hit
         wanted_title = normalize_lookup_text(title)
-        wanted_artist = normalize_lookup_text(artist.split(",", 1)[0])
+        wanted_artist = normalize_lookup_text(primary_artist)
 
-        for hit in hits[:5]:
+        best_hit_url: str | None = None
+        best_score = 0.0
+
+        for hit in hits[:8]:
             result = hit.get("result", {})
             hit_title = normalize_lookup_text(str(result.get("title", "")))
             hit_artist = normalize_lookup_text(
                 str(result.get("primary_artist", {}).get("name", ""))
             )
-            if hit_title == wanted_title and hit_artist == wanted_artist:
-                page_url = result.get("url")
-                if page_url:
-                    return self._scrape_lyrics_page(page_url)
+            
+            title_score = fuzz.token_set_ratio(wanted_title, hit_title)
+            artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
+            combined = (title_score * 0.6) + (artist_score * 0.4)
 
-        # Fallback: try the first result if title matches
-        first = hits[0].get("result", {})
-        first_title = normalize_lookup_text(str(first.get("title", "")))
-        if first_title == wanted_title:
-            page_url = first.get("url")
-            if page_url:
-                return self._scrape_lyrics_page(page_url)
+            # Strict threshold to avoid wrong song attribution
+            if title_score >= 80 and artist_score >= 70 and combined > best_score:
+                best_score = combined
+                best_hit_url = result.get("url")
+
+        if best_hit_url:
+            lyrics = self._scrape_lyrics_page(best_hit_url)
+            if lyrics:
+                return lyrics
 
         return None
 
     def _try_site_search(self, title: str, artist: str) -> str | None:
-        """Search Genius via their site search and scrape the result."""
-        query = f"{artist.split(',', 1)[0].strip()} {title}"
+        """Search Genius via their site search and scrape the result with fuzzy validation."""
+        primary_artist = artist.split(",", 1)[0].strip()
+        query = f"{primary_artist} {title}"
         search_url = f"https://genius.com/api/search/multi?per_page=5&q={quote(query)}"
 
         try:
@@ -156,7 +162,7 @@ class GeniusClient:
 
         sections = data.get("response", {}).get("sections", [])
         wanted_title = normalize_lookup_text(title)
-        wanted_artist = normalize_lookup_text(artist.split(",", 1)[0])
+        wanted_artist = normalize_lookup_text(primary_artist)
 
         for section in sections:
             if section.get("type") != "song":
@@ -167,9 +173,10 @@ class GeniusClient:
                 hit_artist = normalize_lookup_text(
                     str(result.get("primary_artist", {}).get("name", ""))
                 )
-                if hit_title == wanted_title or (
-                    wanted_artist in hit_artist and wanted_title in hit_title
-                ):
+                title_score = fuzz.token_set_ratio(wanted_title, hit_title)
+                artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
+                
+                if title_score >= 80 and artist_score >= 70:
                     page_url = result.get("url")
                     if page_url:
                         lyrics = self._scrape_lyrics_page(page_url)
@@ -190,12 +197,7 @@ class GeniusClient:
             return None
 
     def _extract_lyrics_from_html(self, html: str) -> str | None:
-        """Extract lyrics text from a Genius page HTML string.
-
-        Genius wraps lyrics in containers with ``data-lyrics-container="true"``.
-        We use regex rather than BeautifulSoup for this specific extraction to
-        keep dependencies light — the HTML structure is predictable.
-        """
+        """Extract lyrics text from a Genius page HTML string."""
         # Find all lyrics containers
         containers = re.findall(
             r'<div[^>]*data-lyrics-container="true"[^>]*>(.*?)</div>',
@@ -203,7 +205,6 @@ class GeniusClient:
             re.DOTALL,
         )
         if not containers:
-            # Fallback: try the older Genius lyrics div structure
             match = re.search(
                 r'<div\s+class="lyrics"[^>]*>(.*?)</div>',
                 html,
@@ -223,15 +224,22 @@ class GeniusClient:
 
         full_lyrics = "\n".join(lines).strip()
 
-        # Clean Genius metadata noise from extracted text
-        # Remove "N ContributorsTranslations..." prefix line
+        # Clean Genius metadata noise
+        # 1. Remove "N ContributorsTranslations..." prefix
         full_lyrics = re.sub(
-            r"^\d+\s+Contributor[s]?.*?(?=\n\[|\n[A-Z])", "", full_lyrics, count=1, flags=re.DOTALL
+            r"^\d+\s*Contributor[s]?.*?(?=\n\[|\n[A-Z0-9])", "", full_lyrics, count=1, flags=re.DOTALL
         )
-        # Remove "Song Title Lyrics" header line
+        # 2. Remove "Song Title Lyrics" header
         full_lyrics = re.sub(r"^.*?\bLyrics\s*\n", "", full_lyrics, count=1)
-        # Clean up excessive newlines
-        full_lyrics = re.sub(r"\n{3,}", "\n\n", full_lyrics)
-        full_lyrics = full_lyrics.strip()
+        # 3. Remove "You might also like"
+        full_lyrics = re.sub(r"\bYou might also like\b", "", full_lyrics, flags=re.I)
+        # 4. Remove trailing "Embed" or "123Embed"
+        full_lyrics = re.sub(r"\d*Embed$", "", full_lyrics.strip())
+        # 5. Clean up excessive newlines
+        full_lyrics = re.sub(r"\n{3,}", "\n\n", full_lyrics).strip()
 
-        return full_lyrics if len(full_lyrics) > 20 else None
+        # Must have at least 30 characters and at least 2 lines to be valid lyrics
+        if len(full_lyrics) < 30 or "\n" not in full_lyrics:
+            return None
+
+        return full_lyrics
