@@ -631,7 +631,7 @@ def ingest_normalized_parquet(
                 )
                 SELECT gen_random_uuid(), snapshot_id, platform_item_id,
                        canonical_track_id, rank,
-                       COALESCE(NULLIF(s.metric_type, ''), 'NONE'),
+                       COALESCE(NULLIF(metric_type, ''), 'NONE'),
                        CASE WHEN metric_value ~ '^-?[0-9]+(\\.[0-9]+)?$'
                             THEN metric_value::numeric ELSE NULL END,
                        jsonb_build_object('artist', COALESCE(artist, ''),
@@ -648,7 +648,9 @@ def ingest_normalized_parquet(
             cursor.execute(
                 """
                 UPDATE chart_snapshots
-                SET provider_metadata = provider_metadata || '{"ingestion_complete": true}'::jsonb
+                SET provider_metadata = (
+                    provider_metadata::jsonb || '{"ingestion_complete": true}'::jsonb
+                )::json
                 WHERE id IN (SELECT id FROM normalized_import_snapshots)
                 """
             )
