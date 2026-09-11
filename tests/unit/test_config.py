@@ -16,3 +16,11 @@ def test_market_universe_is_not_a_static_country_whitelist() -> None:
     settings = Settings.load(PROJECT_ROOT)
 
     assert settings.countries == ()
+
+
+def test_gemini_key_uses_short_environment_name(monkeypatch) -> None:
+    monkeypatch.setenv("GEMINI", "test-key")
+
+    settings = Settings.load(PROJECT_ROOT)
+
+    assert settings.gemini_api_key == "test-key"

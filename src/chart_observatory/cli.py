@@ -5,8 +5,10 @@ from dataclasses import asdict, replace
 from datetime import UTC, date, datetime, timedelta
 from hashlib import sha256
 from pathlib import Path
+from typing import Any
 from uuid import UUID, uuid4
 
+import httpx
 import polars as pl
 import typer
 from alembic import command as alembic_command
@@ -40,6 +42,15 @@ from chart_observatory.ingestion.corpus import (
     write_mgd_coverage,
 )
 from chart_observatory.ingestion.youtube import collect_youtube_current
+from chart_observatory.lyrics.gemini_pipeline import (
+    GeminiAnnotationClient,
+    GeminiApiError,
+    LrclibClient,
+    LyricsOvhClient,
+    append_jsonl,
+    existing_song_ids,
+    throttle,
+)
 from chart_observatory.lyrics.repository import (
     LyricDocumentInput,
     annotate_document,
@@ -668,6 +679,140 @@ def corpus_ingest_lyrics(
     service.session.commit()
     typer.echo(
         json.dumps({"status": "IMPORTED", "documents": documents, "annotations": annotations})
+    )
+
+
+@corpus_app.command("gemini-analyze")
+def corpus_gemini_analyze(
+    tracks: Path = typer.Option(
+        Path("data/derived/track_master.parquet"),
+        "--tracks",
+        help="Parquet with canonical_track_id, title and artist_names.",
+    ),
+    output: Path = typer.Option(
+        Path("data/derived/lyrics/gemini_annotations.jsonl"),
+        "--output",
+        help="Append-only JSONL output; completed song IDs are skipped on reruns.",
+    ),
+    model: str = typer.Option("gemini-3.8-flash", help="Gemini model name."),
+    limit: int | None = typer.Option(None, min=1, help="Optional bounded run for a smoke test."),
+    delay: float = typer.Option(0.35, min=0.0, help="Delay between sequential provider requests."),
+) -> None:
+    """Fetch original lyrics and ask Gemini for an English translation plus annotations."""
+    settings = Settings.load(Path.cwd())
+    if not settings.gemini_api_key:
+        raise typer.BadParameter("Set GEMINI in .env before running this command.")
+    if not tracks.exists():
+        raise typer.BadParameter(f"Track file does not exist: {tracks}")
+
+    table = pl.read_parquet(tracks)
+    required = {"canonical_track_id", "title", "artist_names"}
+    missing = required.difference(table.columns)
+    if missing:
+        raise typer.BadParameter(f"Track file is missing columns: {', '.join(sorted(missing))}")
+    completed = existing_song_ids(output)
+    lrclib = LrclibClient()
+    lyrics_ovh = LyricsOvhClient()
+    gemini = GeminiAnnotationClient(settings.gemini_api_key, model=model)
+    processed = skipped = missing_lyrics = analyzed = failed = 0
+    rows = table.iter_rows(named=True)
+    for row in rows:
+        if limit is not None and processed >= limit:
+            break
+        song_id = str(row["canonical_track_id"])
+        if song_id in completed:
+            skipped += 1
+            continue
+        title = str(row["title"])
+        artists_value = row["artist_names"]
+        if isinstance(artists_value, (list, tuple)):
+            artist = ", ".join(str(value) for value in artists_value)
+        else:
+            artist = str(artists_value)
+        lyrics: str | None = None
+        source = None
+        source_metadata: dict[str, Any] = {}
+        try:
+            lrclib_result = lrclib.fetch(title, artist)
+            if lrclib_result is not None:
+                lyrics, source_metadata = lrclib_result
+                source = "LRCLIB"
+            else:
+                throttle(delay)
+                lyrics = lyrics_ovh.fetch(title, artist)
+                source = "LYRICS_OVH" if lyrics else None
+            if lyrics is None:
+                append_jsonl(
+                    output,
+                    {
+                        "song_id": song_id,
+                        "title": title,
+                        "artist": artist,
+                        "lyrics_status": "MISSING",
+                        "lyrics_source": None,
+                        "gemini_model": model,
+                    },
+                )
+                missing_lyrics += 1
+            else:
+                analysis = gemini.annotate(song_id, title, artist, lyrics)
+                append_jsonl(
+                    output,
+                    {
+                        "song_id": song_id,
+                        "title": title,
+                        "artist": artist,
+                        "lyrics_status": "FOUND",
+                        "lyrics_source": source,
+                        "source_metadata": source_metadata,
+                        "original_lyrics": lyrics,
+                        "gemini_model": model,
+                        "analysis": analysis,
+                    },
+                )
+                analyzed += 1
+        except GeminiApiError as error:
+            append_jsonl(
+                output,
+                {
+                    "song_id": song_id,
+                    "title": title,
+                    "artist": artist,
+                    "lyrics_status": "GEMINI_ERROR",
+                    "lyrics_source": source,
+                    "gemini_model": model,
+                    "error": str(error),
+                },
+            )
+            failed += 1
+        except (httpx.HTTPError, TimeoutError, OSError) as error:
+            append_jsonl(
+                output,
+                {
+                    "song_id": song_id,
+                    "title": title,
+                    "artist": artist,
+                    "lyrics_status": "PROVIDER_ERROR",
+                    "lyrics_source": source,
+                    "gemini_model": model,
+                    "error": type(error).__name__,
+                },
+            )
+            failed += 1
+        processed += 1
+        throttle(delay)
+    typer.echo(
+        json.dumps(
+            {
+                "status": "COMPLETED",
+                "processed": processed,
+                "skipped_existing": skipped,
+                "analyzed": analyzed,
+                "missing_lyrics": missing_lyrics,
+                "failed": failed,
+                "output": str(output),
+            }
+        )
     )
 
 

@@ -87,6 +87,12 @@ class Settings(BaseSettings):
             "YOUTUBE_DATA_API_KEY", "CHART_OBSERVATORY_YOUTUBE_DATA_API_KEY"
         ),
     )
+    gemini_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "GEMINI", "GEMINI_API_KEY", "CHART_OBSERVATORY_GEMINI_API_KEY"
+        ),
+    )
 
     @classmethod
     def load(cls, project_root: Path) -> Settings:
