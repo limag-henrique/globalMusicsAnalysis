@@ -18,6 +18,7 @@ dependencies = [
   "pydantic>=2.11,<3",
   "pydantic-settings>=2.10,<3",
   "pyyaml>=6.0,<7",
+  "rapidfuzz>=3.13,<4",
   "scipy>=1.16,<2",
   "statsmodels>=0.14,<1",
   "lifelines>=0.30,<1",

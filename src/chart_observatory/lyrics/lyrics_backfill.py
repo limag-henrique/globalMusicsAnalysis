@@ -6,7 +6,8 @@ Usage:
 Features:
 - Loads canonical tracks directly from ``data/derived/track_master.parquet`` (126,213 tracks)
 - Optionally includes extra tracks from Kaggle observations (--include-all, 224k+ tracks)
-- Cascades across Genius (API + HTML), Letras.mus.br, LRCLIB, and Lyrics.ovh with RapidFuzz validation
+- Cascades across Genius (API + HTML), Letras.mus.br, LRCLIB, and Lyrics.ovh
+  with RapidFuzz validation
 - High-quality sanitization of lyrics (no ads, no contributor tags, minimum length)
 - Streaming thread-safe append to ``gemini_annotations.jsonl`` (never rewrites 100k+ rows)
 - Strict deduplication: songs already recorded are skipped instantly on resume
@@ -17,16 +18,15 @@ Features:
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, UTC
 import json
 import os
-from pathlib import Path
-import re
 import sys
 import threading
 import time
-from typing import Any
+from collections.abc import Mapping
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+from pathlib import Path
+from typing import Any, TypedDict, cast
 
 # Force UTF-8 output on Windows (cp1252 can't handle Korean, Arabic, etc.)
 if hasattr(sys.stdout, "reconfigure"):
@@ -37,7 +37,6 @@ import polars as pl
 
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiAnnotationClient,
-    GeminiApiError,
     LrclibClient,
     LyricsOvhClient,
     normalize_lookup_text,
@@ -49,6 +48,26 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 _DEFAULT_TRACKS = _PROJECT_ROOT / "data" / "derived" / "track_master.parquet"
 _KAGGLE_TRACKS = _PROJECT_ROOT / "data" / "normalized" / "kaggle_spotify_observations.parquet"
 _DEFAULT_JSONL = _PROJECT_ROOT / "data" / "derived" / "lyrics" / "gemini_annotations.jsonl"
+APPROVED_LYRICS_SOURCES = frozenset({"GENIUS", "LETRAS", "LRCLIB", "LYRICS_OVH"})
+
+
+class AutomationStats(TypedDict):
+    processed: int
+    found: int
+    missing: int
+    errors: int
+    by_source: dict[str, int]
+
+
+def is_valid_lyrics_record(record: Mapping[str, Any]) -> bool:
+    """Return whether a JSONL record is a successful, insertable lyric result."""
+    if str(record.get("lyrics_status", "")).upper() != "FOUND":
+        return False
+    source = str(record.get("lyrics_source", "")).upper()
+    if source not in APPROVED_LYRICS_SOURCES:
+        return False
+    lyrics = record.get("original_lyrics")
+    return isinstance(lyrics, str) and bool(lyrics.strip())
 
 
 def _load_dotenv(env_path: Path | None = None) -> None:
@@ -129,7 +148,7 @@ class LyricsEngine:
             else:
                 clients["GEMINI"] = None
             self._local.clients = clients
-        return self._local.clients
+        return cast(dict[str, Any], self._local.clients)
 
     def find_lyrics(self, title: str, artist: str) -> tuple[str | None, str | None, dict[str, Any]]:
         """Try cascading sources in order: Genius -> Letras -> LRCLIB -> Lyrics.ovh."""
@@ -185,11 +204,14 @@ class LyricsEngine:
         for attempt in range(2):
             self.rate_gemini.wait()
             try:
-                return gemini.annotate(
-                    song_id=song_id,
-                    title=title,
-                    artist=artist,
-                    lyrics=lyrics,
+                return cast(
+                    dict[str, Any],
+                    gemini.annotate(
+                        song_id=song_id,
+                        title=title,
+                        artist=artist,
+                        lyrics=lyrics,
+                    ),
                 )
             except Exception as exc:
                 err_str = str(exc).lower()
@@ -207,7 +229,7 @@ def _normalize_song_key(title: str, artist: str) -> tuple[str, str]:
 
 
 def _load_completed(output_path: Path) -> tuple[set[str], set[tuple[str, str]]]:
-    """Read all completed song IDs and normalized (title, artist) keys from the JSONL output file."""
+    """Read IDs and keys only for valid lyric records in the JSONL output."""
     if not output_path.exists():
         return set(), set()
     completed_ids: set[str] = set()
@@ -219,6 +241,8 @@ def _load_completed(output_path: Path) -> tuple[set[str], set[tuple[str, str]]]:
                 continue
             try:
                 item = json.loads(line)
+                if not isinstance(item, dict) or not is_valid_lyrics_record(item):
+                    continue
                 sid = item.get("song_id")
                 if sid:
                     completed_ids.add(str(sid))
@@ -238,7 +262,7 @@ def _load_tracks(
     completed_keys: set[tuple[str, str]] | None = None,
     limit: int | None = None,
 ) -> list[dict[str, str]]:
-    """Load canonical track list from parquet, filtering out already completed and similar duplicate songs."""
+    """Load tracks, filtering completed IDs and similar duplicate songs."""
     comp_ids = completed_ids or set()
     comp_keys = completed_keys or set()
     tracks_to_process: list[dict[str, str]] = []
@@ -325,6 +349,9 @@ def run_full_automation(
     gemini_key: str | None = None,
     gemini_model: str = "gemini-3.8-flash",
 ) -> None:
+    if workers < 1:
+        raise ValueError("workers must be at least 1")
+
     _load_dotenv()
     genius_token = genius_token or os.environ.get("GENIUS") or os.environ.get("GENIUS_ACCESS_TOKEN")
     gemini_key = gemini_key or os.environ.get("GEMINI") or os.environ.get("GEMINI_API_KEY")
@@ -343,7 +370,10 @@ def run_full_automation(
 
     print(f"\n{'='*65}")
     print("  MASSIVE ROOT LYRICS AUTOMATION ENGINE")
-    print(f"  Already completed in JSONL: {len(completed_ids)} IDs ({len(completed_keys)} unique song titles)")
+    print(
+        f"  Already completed in JSONL: {len(completed_ids)} IDs "
+        f"({len(completed_keys)} unique song titles)"
+    )
     print(f"  Remaining tracks to process: {total_tracks}")
     print(f"  Output JSONL: {output_path}")
     print(f"  Workers: {workers}")
@@ -362,16 +392,16 @@ def run_full_automation(
         skip_gemini=skip_gemini,
     )
 
-    write_lock = threading.Lock()
-    stats = {
+    stats: AutomationStats = {
         "processed": 0,
         "found": 0,
         "missing": 0,
+        "errors": 0,
         "by_source": {"GENIUS": 0, "LETRAS": 0, "LRCLIB": 0, "LYRICS_OVH": 0},
     }
     start_time = time.monotonic()
 
-    def process_single_track(track: dict[str, str]) -> dict[str, Any]:
+    def process_single_track(track: dict[str, str]) -> dict[str, Any] | None:
         sid = track["song_id"]
         title = track["title"]
         artist = track["artist"]
@@ -394,73 +424,76 @@ def run_full_automation(
                 if analysis:
                     record["analysis"] = analysis
             return record
-        else:
-            return {
-                "song_id": sid,
-                "title": title,
-                "artist": artist,
-                "lyrics_status": "MISSING",
-                "lyrics_source": None,
-                "gemini_model": gemini_model,
-            }
+        return None
 
-    # Open append-only file stream
-    with output_path.open("a", encoding="utf-8") as out_file:
-        with ThreadPoolExecutor(max_workers=workers) as executor:
-            future_to_track = {
-                executor.submit(process_single_track, t): t for t in tracks
-            }
+    # Open append-only file stream. Only valid FOUND records cross this boundary.
+    with output_path.open("a", encoding="utf-8") as out_file, ThreadPoolExecutor(
+        max_workers=workers
+    ) as executor:
+        future_to_track: dict[Any, dict[str, str]] = {}
+        track_iter = iter(tracks)
 
-            for future in as_completed(future_to_track):
+        def submit_next() -> bool:
+            try:
+                track = next(track_iter)
+            except StopIteration:
+                return False
+            future = executor.submit(process_single_track, track)
+            future_to_track[future] = track
+            return True
+
+        for _ in range(min(workers, total_tracks)):
+            submit_next()
+
+        while future_to_track:
+            completed, _ = wait(future_to_track, return_when=FIRST_COMPLETED)
+            for future in completed:
+                future_to_track.pop(future)
+                stats["processed"] += 1
                 try:
                     record = future.result()
-                except Exception as exc:
-                    track = future_to_track[future]
-                    record = {
-                        "song_id": track["song_id"],
-                        "title": track["title"],
-                        "artist": track["artist"],
-                        "lyrics_status": "MISSING",
-                        "lyrics_source": None,
-                        "error": str(exc),
-                    }
+                except Exception:
+                    stats["errors"] += 1
+                    record = None
 
-                # Streaming thread-safe write
-                with write_lock:
+                if record is not None and is_valid_lyrics_record(record):
                     out_file.write(json.dumps(record, ensure_ascii=False) + "\n")
                     out_file.flush()
+                    stats["found"] += 1
+                    src = str(record["lyrics_source"])
+                    stats["by_source"][src] = stats["by_source"].get(src, 0) + 1
+                else:
+                    stats["missing"] += 1
 
-                    stats["processed"] += 1
-                    status = record.get("lyrics_status")
-                    if status == "FOUND":
-                        stats["found"] += 1
-                        src = record.get("lyrics_source", "UNKNOWN")
-                        stats["by_source"][src] = stats["by_source"].get(src, 0) + 1
-                    else:
-                        stats["missing"] += 1
+                submit_next()
 
-                    count = stats["processed"]
-                    if count % 10 == 0 or count == total_tracks or count <= 5:
-                        elapsed = time.monotonic() - start_time
-                        speed = (count / elapsed) * 60 if elapsed > 0 else 0
-                        remaining = total_tracks - count
-                        eta_minutes = (remaining / speed) if speed > 0 else 0
-                        found_pct = (stats["found"] / count) * 100
+            count = stats["processed"]
+            if count % 10 == 0 or count == total_tracks or count <= 5:
+                elapsed = time.monotonic() - start_time
+                speed = (count / elapsed) * 60 if elapsed > 0 else 0
+                remaining = total_tracks - count
+                eta_minutes = (remaining / speed) if speed > 0 else 0
+                found_pct = (stats["found"] / count) * 100
 
-                        print(
-                            f"  [{count}/{total_tracks}] "
-                            f"Found: {stats['found']} ({found_pct:.1f}%) | "
-                            f"Missing: {stats['missing']} | "
-                            f"Speed: {speed:.1f} tracks/min | "
-                            f"ETA: {eta_minutes:.1f} min"
-                        )
+                print(
+                    f"  [{count}/{total_tracks}] "
+                    f"Found: {stats['found']} ({found_pct:.1f}%) | "
+                    f"Not inserted: {stats['missing']} | "
+                    f"Errors: {stats['errors']} | "
+                    f"Speed: {speed:.1f} tracks/min | "
+                    f"ETA: {eta_minutes:.1f} min"
+                )
 
     elapsed_total = time.monotonic() - start_time
     print(f"\n{'='*65}")
     print("  AUTOMATION COMPLETE!")
     print(f"  Total Processed: {stats['processed']}")
-    print(f"  Total Found:     {stats['found']} ({(stats['found']/max(1, stats['processed']))*100:.1f}%)")
-    print(f"  Total Missing:   {stats['missing']}")
+    print(
+        f"  Total Found:     {stats['found']} "
+        f"({(stats['found'] / max(1, stats['processed'])) * 100:.1f}%)"
+    )
+    print(f"  Total Not Inserted: {stats['missing']}")
+    print(f"  Total Errors:     {stats['errors']}")
     print(f"  Sources Breakdown: {stats['by_source']}")
     print(f"  Time Elapsed:    {elapsed_total/60:.1f} minutes")
     print(f"{'='*65}\n")
@@ -509,7 +542,10 @@ def main() -> None:
     parser.add_argument(
         "--skip-gemini",
         action="store_true",
-        help="Skip Gemini English translation / semantic analysis, saving only verified original lyrics",
+        help=(
+            "Skip Gemini English translation / semantic analysis, saving only "
+            "verified original lyrics"
+        ),
     )
     parser.add_argument(
         "--genius-token",

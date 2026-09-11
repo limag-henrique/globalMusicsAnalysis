@@ -227,7 +227,11 @@ class GeniusClient:
         # Clean Genius metadata noise
         # 1. Remove "N ContributorsTranslations..." prefix
         full_lyrics = re.sub(
-            r"^\d+\s*Contributor[s]?.*?(?=\n\[|\n[A-Z0-9])", "", full_lyrics, count=1, flags=re.DOTALL
+            r"^\d+\s*Contributor[s]?.*?(?=\n\[|\n[A-Z0-9])",
+            "",
+            full_lyrics,
+            count=1,
+            flags=re.DOTALL,
         )
         # 2. Remove "Song Title Lyrics" header
         full_lyrics = re.sub(r"^.*?\bLyrics\s*\n", "", full_lyrics, count=1)
