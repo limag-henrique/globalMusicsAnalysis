@@ -1,6 +1,18 @@
 import polars as pl
 
-from chart_observatory.ui.article_analytics import market_anxiety_summary
+from chart_observatory.ui.article_analytics import (
+    article_methodology_markdown,
+    market_anxiety_summary,
+)
+
+
+def test_article_methodology_documents_current_corpus_status() -> None:
+    documentation = article_methodology_markdown()
+
+    assert "126.213" in documentation
+    assert "47.434.073" in documentation
+    assert "deduplicação completa entre fontes ainda está pendente" in documentation
+    assert "GEMINI" in documentation
 
 
 def test_market_anxiety_summary_ranks_markets_by_average_turnover() -> None:

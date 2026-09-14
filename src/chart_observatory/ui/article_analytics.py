@@ -5,6 +5,55 @@ from pathlib import Path
 import polars as pl
 
 
+def article_methodology_markdown() -> str:
+    """Explain the corpus construction and the current article-analysis boundary."""
+
+    return """### Procedimento realizado até aqui
+
+**Unidade de análise.** A unidade científica é a gravação musical. O
+`canonical_track_id` identifica a gravação resolvida; uma observação de chart
+continua vinculada à sua fonte, plataforma, mercado, período, posição e métrica.
+Vídeos do YouTube são itens distintos e não são tratados automaticamente como
+faixas.
+
+**Aquisição e preservação.** Foram inventariadas as fontes e seus direitos/capacidades;
+o MGD foi normalizado como Spotify Top 200 histórico (2017-01-01 a 2022-03-13,
+68 mercados, 21.257.472 observações). O Kaggle Spotify Charts foi importado para
+validação (26.173.514 observações, 70 regiões), o Pro-Música Brasil teve inventário
+de 6 itens e captura pública de 50 linhas, e o YouTube Data API produziu o snapshot
+atual de 111 regiões (3.037 observações, 1.678 vídeos distintos). O Chartmetric
+permanece somente em piloto histórico, sem backfill longitudinal concluído.
+
+**Reconciliação.** A resolução prioriza ID Spotify/ISRC exato; similaridade de
+título/artista não confirma uma identidade sozinha. O `track_master` atual tem
+**126.213 faixas canônicas**. O catálogo unificado preserva **47.434.073
+observações**, separadas por fonte (47.431.036 de faixas e 3.037 de vídeos). A
+**deduplicação completa entre fontes ainda está pendente**: equivalências não são
+apagadas, e as fontes continuam rastreáveis.
+
+**Elegibilidade e análises.** Foram aplicados cobertura mínima de 95%, pelo menos
+3 anos e profundidade mediana mínima de 100; 55 de 68 células foram elegíveis.
+As saídas materializadas medem permanência, turnover/renovação do Top-N, variação
+de gêneros e distância Jensen–Shannon. Viralidade permanece no nível de vídeo.
+Prevalência de conteúdo exclui células sem anotação do denominador, e os resultados
+são associações descritivas, não evidência causal.
+
+**Letras e Gemini.** A camada de letras usa fontes em cascata e registra fonte,
+status, versão textual e auditoria; correspondências ambíguas não são aceitas.
+O Gemini recebe a letra inteira, com linhas numeradas, e retorna JSON estruturado
+com idioma, tradução, dimensões semânticas, evidências e indicadores de qualidade.
+O processamento é incremental e append-only: faixas concluídas são puladas e erros
+podem ser retomados. A autenticação ADC foi configurada no projeto Google Cloud
+`project-bae72195-c4bf-4177-bca`; o pipeline atual também mantém a chave `GEMINI`
+do `.env` como caminho operacional.
+
+**Limitações atuais.** O conjunto canônico não é a soma deduplicada final de todas
+as fontes; YouTube mede vídeos atuais, Chartmetric histórico ainda não foi
+completado, e letras/anotações dependem de cobertura e autorização da fonte.
+`GLOBAL` não deve ser interpretado como país. Toda tabela do artigo deve informar
+fonte, período, denominador, faltantes e versão do artefato."""
+
+
 def market_anxiety_summary(frame: pl.DataFrame) -> pl.DataFrame:
     """Rank markets by average Top-N turnover and rank displacement."""
     schema = {
@@ -47,6 +96,8 @@ def main() -> None:
         "Resultados descritivos por mercado. Associação não implica causalidade;"
         " fontes e períodos mantêm suas semânticas nativas."
     )
+    with st.expander("Procedimento realizado e status do corpus", expanded=False):
+        st.markdown(article_methodology_markdown())
     anxiety = _read_optional("market_anxiety")
     if anxiety is None:
         st.info("Dados ainda não disponíveis. Execute corpus analytics.")
