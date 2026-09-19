@@ -1,4 +1,5 @@
 from pathlib import Path
+from decimal import Decimal
 
 from chart_observatory.config import Settings
 
@@ -24,3 +25,21 @@ def test_google_cloud_project_uses_environment_name(monkeypatch) -> None:
     settings = Settings.load(PROJECT_ROOT)
 
     assert settings.google_cloud_project == "test-project"
+
+
+def test_gemini_settings_use_unprefixed_environment_aliases(monkeypatch) -> None:
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.5-flash")
+    monkeypatch.setenv("GEMINI_THINKING_LEVEL", "LOW")
+    monkeypatch.setenv("GEMINI_OUTPUT_TOKEN_ALLOWANCE", "2048")
+    monkeypatch.setenv("GEMINI_INPUT_USD_PER_MILLION_TOKENS", "0.5")
+    monkeypatch.setenv("GEMINI_OUTPUT_USD_PER_MILLION_TOKENS", "1.5")
+    monkeypatch.setenv("GEMINI_THOUGHT_USD_PER_MILLION_TOKENS", "2.5")
+
+    settings = Settings.load(PROJECT_ROOT)
+
+    assert settings.gemini_model == "gemini-3.5-flash"
+    assert settings.gemini_thinking_level == "LOW"
+    assert settings.gemini_output_token_allowance == 2048
+    assert settings.gemini_input_usd_per_million_tokens == Decimal("0.5")
+    assert settings.gemini_output_usd_per_million_tokens == Decimal("1.5")
+    assert settings.gemini_thought_usd_per_million_tokens == Decimal("2.5")
