@@ -6,13 +6,30 @@ ao Gemini para detectar o idioma, produzir uma tradução inglesa e classificar 
 dimensões da pesquisa em escala 0–3. A resposta é gravada em
 `data/derived/lyrics/gemini_annotations.jsonl` uma faixa por linha.
 
-## Execução
+## Autenticação
 
-Defina a chave no `.env`:
+O pipeline usa Vertex AI com Application Default Credentials (ADC), sem chave de
+API. Em Bash/Linux ou macOS, configure o ADC com o script:
+
+```bash
+bash <(curl -sSL \
+  https://storage.googleapis.com/cloud-samples-data/adc/setup_adc.sh)
+```
+
+Esse script instala ou localiza o `gcloud`, solicita o projeto, configura o ADC,
+define o projeto de quota, habilita `aiplatform.googleapis.com` e faz uma chamada
+de verificação. Como ele baixa e executa código remoto, revise o script antes de
+rodá-lo. Em produção, prefira ADC baseado em conta de serviço para não depender de
+login pessoal.
+
+Se o projeto não for detectado automaticamente pelo ADC, defina no `.env`:
 
 ```dotenv
-GEMINI=sua_chave_do_google_ai_studio
+GOOGLE_CLOUD_PROJECT=seu-project-id
+GOOGLE_CLOUD_LOCATION=global
 ```
+
+## Execução
 
 Depois execute:
 

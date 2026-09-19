@@ -90,8 +90,9 @@ item even when it is linked to a recording.
    returns structured JSON containing language, English translation, semantic
    dimensions, evidence, and quality flags. The append-only process is resumable:
    completed tracks are skipped and provider/model failures are recorded separately.
-   ADC is configured for Google Cloud project `project-bae72195-c4bf-4177-bca`,
-   while the current client also supports the configured `GEMINI` environment key.
+   The current client uses Vertex AI with Application Default Credentials (ADC),
+   not a Gemini API key. Production execution should use a service account rather
+   than a personal user login.
 
 Current limitations are explicit: the 126,213 tracks are not the fully deduplicated
 union of every source; YouTube is a current video snapshot rather than YouTube Music

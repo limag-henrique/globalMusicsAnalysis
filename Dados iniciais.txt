@@ -2,7 +2,7 @@ O que vende mais: estar apaixonado ou sofrer por amor?
 Como sexualidade explícita, objetificação, materialismo e narrativas antissociais variam entre os principais mercados musicais?
 As músicas brasileiras são mais problemáticas
 Grafico de permanência de músicas nas diferentes plataformas analisadas como um todo, indicando os países mais ansiosos através da maior alteração das músicas. Também realizar gráficos de variação de gênero e dispersão média dos gêneros musicais. para possivelmente indicar ansiedade 
-
+Adicionar índice de relevancia do país de acordo com o acesso à internet do país, assim um país como india e brasil passará na frente de gana.
 
 O que vende mais em cada país?
 How do lyrical narratives differ across national Spotify charts?

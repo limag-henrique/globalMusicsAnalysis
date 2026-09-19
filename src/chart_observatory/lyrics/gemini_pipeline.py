@@ -17,6 +17,10 @@ class GeminiApiError(RuntimeError):
     """Raised when Gemini cannot return a valid JSON analysis."""
 
 
+class GoogleAuthError(RuntimeError):
+    """Raised when Application Default Credentials cannot authorize Gemini."""
+
+
 def normalize_lookup_text(value: str) -> str:
     """Normalize titles/artists for conservative cross-provider matching."""
 
@@ -126,19 +130,59 @@ paraphrase.
 
 
 class GeminiAnnotationClient:
-    """Gemini ``generateContent`` client configured for deterministic JSON output."""
+    """Vertex AI Gemini client using Application Default Credentials."""
 
     def __init__(
         self,
-        api_key: str,
+        project_id: str | None = None,
+        location: str = "global",
         model: str = "gemini-3.8-flash",
+        credentials: Any | None = None,
         http_client: Any | None = None,
     ) -> None:
-        if not api_key.strip():
-            raise ValueError("Gemini API key cannot be empty")
-        self._api_key = api_key
+        self._credentials = credentials
+        self._project_id = project_id
+        self._location = location.strip().lower()
         self._model = model
         self._http = http_client or httpx.Client(timeout=120.0, follow_redirects=True)
+        if not self._location:
+            raise ValueError("Google Cloud location cannot be empty")
+
+        if self._credentials is None:
+            try:
+                import google.auth
+
+                self._credentials, detected_project = google.auth.default(
+                    scopes=["https://www.googleapis.com/auth/cloud-platform"]
+                )
+            except Exception as exc:
+                raise GoogleAuthError(
+                    "Application Default Credentials are unavailable; run the ADC setup first"
+                ) from exc
+            self._project_id = self._project_id or detected_project
+
+        if not self._project_id:
+            raise GoogleAuthError(
+                "Google Cloud project is unavailable; set GOOGLE_CLOUD_PROJECT or configure ADC"
+            )
+
+    def _access_token(self) -> str:
+        credentials = self._credentials
+        if credentials is None:
+            raise GoogleAuthError("Application Default Credentials are unavailable")
+        if not getattr(credentials, "valid", False) or not getattr(credentials, "token", None):
+            try:
+                from google.auth.transport.requests import Request
+
+                credentials.refresh(Request())
+            except Exception as exc:
+                raise GoogleAuthError(
+                    "Application Default Credentials could not be refreshed"
+                ) from exc
+        token = getattr(credentials, "token", None)
+        if not isinstance(token, str) or not token.strip():
+            raise GoogleAuthError("Application Default Credentials returned no access token")
+        return token
 
     def annotate(
         self,
@@ -155,13 +199,25 @@ class GeminiAnnotationClient:
             f"{_ANALYSIS_INSTRUCTIONS}\nSong ID: {song_id}\nTitle: {title}\nArtist: {artist}\n"
             f"Declared language: {language or 'unknown'}\n<lyrics>\n{numbered}\n</lyrics>"
         )
+        project_id = self._project_id
+        if project_id is None:
+            raise GoogleAuthError("Google Cloud project is unavailable")
+        api_host = (
+            "aiplatform.googleapis.com"
+            if self._location == "global"
+            else f"{quote(self._location, safe='')}-aiplatform.googleapis.com"
+        )
         url = (
-            "https://generativelanguage.googleapis.com/v1beta/models/"
+            f"https://{api_host}/v1/projects/{quote(project_id, safe='')}/locations/"
+            f"{quote(self._location, safe='')}/publishers/google/models/"
             f"{quote(self._model, safe='')}:generateContent"
         )
         response = self._http.post(
             url,
-            headers={"x-goog-api-key": self._api_key},
+            headers={
+                "Authorization": f"Bearer {self._access_token()}",
+                "x-goog-user-project": project_id,
+            },
             json={
                 "contents": [{"role": "user", "parts": [{"text": prompt}]}],
                 "generationConfig": {

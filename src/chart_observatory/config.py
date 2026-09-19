@@ -75,6 +75,20 @@ class Settings(BaseSettings):
     artifact_root: Path = Path("data/raw")
     config_root: Path = Path("config")
     log_level: str = "INFO"
+    google_cloud_project: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "GOOGLE_CLOUD_PROJECT",
+            "GOOGLE_CLOUD_PROJECT_ID",
+            "CHART_OBSERVATORY_GOOGLE_CLOUD_PROJECT",
+        ),
+    )
+    google_cloud_location: str = Field(
+        default="global",
+        validation_alias=AliasChoices(
+            "GOOGLE_CLOUD_LOCATION", "CHART_OBSERVATORY_GOOGLE_CLOUD_LOCATION"
+        ),
+    )
     chartmetric_refresh_token: str | None = Field(
         default=None,
         validation_alias=AliasChoices(
@@ -85,12 +99,6 @@ class Settings(BaseSettings):
         default=None,
         validation_alias=AliasChoices(
             "YOUTUBE_DATA_API_KEY", "CHART_OBSERVATORY_YOUTUBE_DATA_API_KEY"
-        ),
-    )
-    gemini_api_key: str | None = Field(
-        default=None,
-        validation_alias=AliasChoices(
-            "GEMINI", "GEMINI_API_KEY", "CHART_OBSERVATORY_GEMINI_API_KEY"
         ),
     )
 

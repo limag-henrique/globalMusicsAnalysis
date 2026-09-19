@@ -43,9 +43,8 @@ status, versão textual e auditoria; correspondências ambíguas não são aceit
 O Gemini recebe a letra inteira, com linhas numeradas, e retorna JSON estruturado
 com idioma, tradução, dimensões semânticas, evidências e indicadores de qualidade.
 O processamento é incremental e append-only: faixas concluídas são puladas e erros
-podem ser retomados. A autenticação ADC foi configurada no projeto Google Cloud
-`project-bae72195-c4bf-4177-bca`; o pipeline atual também mantém a chave `GEMINI`
-do `.env` como caminho operacional.
+podem ser retomados. O pipeline usa Vertex AI com Application Default Credentials
+(ADC), obtidas pelo ambiente Google Cloud, sem chave de API do Gemini.
 
 **Limitações atuais.** O conjunto canônico não é a soma deduplicada final de todas
 as fontes; YouTube mede vídeos atuais, Chartmetric histórico ainda não foi

@@ -70,6 +70,17 @@ def test_valid_record_rejects_missing_empty_and_unknown_source():
     assert not is_valid_lyrics_record({**valid, "original_lyrics": "   "})
 
 
+def test_valid_record_accepts_google_manual_source():
+    record = {
+        "song_id": "manual-google",
+        "lyrics_status": "FOUND",
+        "lyrics_source": "GOOGLE_MANUAL",
+        "original_lyrics": "line one\nline two",
+    }
+
+    assert is_valid_lyrics_record(record)
+
+
 def test_missing_song_result_is_not_insertable():
     assert is_valid_lyrics_record({"lyrics_status": "MISSING"}) is False
 

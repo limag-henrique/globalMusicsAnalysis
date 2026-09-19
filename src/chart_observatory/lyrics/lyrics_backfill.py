@@ -48,7 +48,9 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 _DEFAULT_TRACKS = _PROJECT_ROOT / "data" / "derived" / "track_master.parquet"
 _KAGGLE_TRACKS = _PROJECT_ROOT / "data" / "normalized" / "kaggle_spotify_observations.parquet"
 _DEFAULT_JSONL = _PROJECT_ROOT / "data" / "derived" / "lyrics" / "gemini_annotations.jsonl"
-APPROVED_LYRICS_SOURCES = frozenset({"GENIUS", "LETRAS", "LRCLIB", "LYRICS_OVH"})
+APPROVED_LYRICS_SOURCES = frozenset(
+    {"GENIUS", "LETRAS", "LRCLIB", "LYRICS_OVH", "GOOGLE_MANUAL"}
+)
 
 
 class AutomationStats(TypedDict):
@@ -111,13 +113,15 @@ class LyricsEngine:
     def __init__(
         self,
         genius_token: str | None = None,
-        gemini_key: str | None = None,
         gemini_model: str = "gemini-3.8-flash",
+        google_cloud_project: str | None = None,
+        google_cloud_location: str = "global",
         skip_gemini: bool = False,
     ) -> None:
         self.genius_token = genius_token
-        self.gemini_key = gemini_key
         self.gemini_model = gemini_model
+        self.google_cloud_project = google_cloud_project
+        self.google_cloud_location = google_cloud_location
         self.skip_gemini = skip_gemini
 
         # Domain rate limiters
@@ -139,9 +143,10 @@ class LyricsEngine:
                 "LRCLIB": LrclibClient(http_client=http),
                 "LYRICS_OVH": LyricsOvhClient(http_client=http),
             }
-            if self.gemini_key and not self.skip_gemini:
+            if not self.skip_gemini:
                 clients["GEMINI"] = GeminiAnnotationClient(
-                    api_key=self.gemini_key,
+                    project_id=self.google_cloud_project,
+                    location=self.google_cloud_location,
                     model=self.gemini_model,
                     http_client=http,
                 )
@@ -346,15 +351,23 @@ def run_full_automation(
     include_all: bool = True,
     skip_gemini: bool = False,
     genius_token: str | None = None,
-    gemini_key: str | None = None,
     gemini_model: str = "gemini-3.8-flash",
+    google_cloud_project: str | None = None,
+    google_cloud_location: str | None = None,
 ) -> None:
     if workers < 1:
         raise ValueError("workers must be at least 1")
 
     _load_dotenv()
     genius_token = genius_token or os.environ.get("GENIUS") or os.environ.get("GENIUS_ACCESS_TOKEN")
-    gemini_key = gemini_key or os.environ.get("GEMINI") or os.environ.get("GEMINI_API_KEY")
+    google_cloud_project = (
+        google_cloud_project
+        or os.environ.get("GOOGLE_CLOUD_PROJECT")
+        or os.environ.get("GOOGLE_CLOUD_PROJECT_ID")
+    )
+    google_cloud_location = (
+        google_cloud_location or os.environ.get("GOOGLE_CLOUD_LOCATION") or "global"
+    )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     completed_ids, completed_keys = _load_completed(output_path)
@@ -378,7 +391,7 @@ def run_full_automation(
     print(f"  Output JSONL: {output_path}")
     print(f"  Workers: {workers}")
     print(f"  Genius Token: {'YES' if genius_token else 'NO'}")
-    print(f"  Gemini Translation: {'DISABLED' if skip_gemini or not gemini_key else 'ENABLED'}")
+    print(f"  Gemini Translation: {'DISABLED' if skip_gemini else 'ENABLED (ADC)'}")
     print(f"{'='*65}\n")
 
     if total_tracks == 0:
@@ -387,8 +400,9 @@ def run_full_automation(
 
     engine = LyricsEngine(
         genius_token=genius_token,
-        gemini_key=gemini_key,
         gemini_model=gemini_model,
+        google_cloud_project=google_cloud_project,
+        google_cloud_location=google_cloud_location,
         skip_gemini=skip_gemini,
     )
 
@@ -419,7 +433,7 @@ def run_full_automation(
                 "original_lyrics": lyrics,
                 "gemini_model": gemini_model,
             }
-            if not skip_gemini and gemini_key:
+            if not skip_gemini:
                 analysis = engine.annotate(sid, title, artist, lyrics)
                 if analysis:
                     record["analysis"] = analysis
@@ -553,14 +567,19 @@ def main() -> None:
         help="Genius API access token (or set in .env)",
     )
     parser.add_argument(
-        "--gemini-key",
-        default=None,
-        help="Gemini API key (or set in .env)",
-    )
-    parser.add_argument(
         "--gemini-model",
         default="gemini-3.8-flash",
         help="Gemini model name",
+    )
+    parser.add_argument(
+        "--google-cloud-project",
+        default=None,
+        help="Google Cloud project ID (or set GOOGLE_CLOUD_PROJECT in .env)",
+    )
+    parser.add_argument(
+        "--google-cloud-location",
+        default="global",
+        help="Vertex AI location (default: global)",
     )
 
     args = parser.parse_args()
@@ -573,8 +592,9 @@ def main() -> None:
         include_all=args.include_all,
         skip_gemini=args.skip_gemini,
         genius_token=args.genius_token,
-        gemini_key=args.gemini_key,
         gemini_model=args.gemini_model,
+        google_cloud_project=args.google_cloud_project,
+        google_cloud_location=args.google_cloud_location,
     )
 
 

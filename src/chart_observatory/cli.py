@@ -45,6 +45,7 @@ from chart_observatory.ingestion.youtube import collect_youtube_current
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiAnnotationClient,
     GeminiApiError,
+    GoogleAuthError,
     LrclibClient,
     LyricsOvhClient,
     append_jsonl,
@@ -700,8 +701,6 @@ def corpus_gemini_analyze(
 ) -> None:
     """Fetch original lyrics and ask Gemini for an English translation plus annotations."""
     settings = Settings.load(Path.cwd())
-    if not settings.gemini_api_key:
-        raise typer.BadParameter("Set GEMINI in .env before running this command.")
     if not tracks.exists():
         raise typer.BadParameter(f"Track file does not exist: {tracks}")
 
@@ -713,7 +712,14 @@ def corpus_gemini_analyze(
     completed = existing_song_ids(output)
     lrclib = LrclibClient()
     lyrics_ovh = LyricsOvhClient()
-    gemini = GeminiAnnotationClient(settings.gemini_api_key, model=model)
+    try:
+        gemini = GeminiAnnotationClient(
+            project_id=settings.google_cloud_project,
+            location=settings.google_cloud_location,
+            model=model,
+        )
+    except GoogleAuthError as error:
+        raise typer.BadParameter(str(error)) from error
     processed = skipped = missing_lyrics = analyzed = failed = 0
     rows = table.iter_rows(named=True)
     for row in rows:

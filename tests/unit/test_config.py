@@ -18,9 +18,9 @@ def test_market_universe_is_not_a_static_country_whitelist() -> None:
     assert settings.countries == ()
 
 
-def test_gemini_key_uses_short_environment_name(monkeypatch) -> None:
-    monkeypatch.setenv("GEMINI", "test-key")
+def test_google_cloud_project_uses_environment_name(monkeypatch) -> None:
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "test-project")
 
     settings = Settings.load(PROJECT_ROOT)
 
-    assert settings.gemini_api_key == "test-key"
+    assert settings.google_cloud_project == "test-project"

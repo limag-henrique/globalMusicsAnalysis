@@ -21,13 +21,36 @@ def test_gemini_client_extracts_json_text_from_response() -> None:
                 ]
             }
 
+    calls: list[tuple[str, dict[str, object]]] = []
+
     class FakeHttp:
         def post(self, *args, **kwargs):
+            calls.append((args[0], kwargs))
             return FakeResponse()
 
-    client = GeminiAnnotationClient("key", http_client=FakeHttp())
+    class FakeCredentials:
+        token = "access-token"
+        expired = False
+        valid = True
+
+        def refresh(self, request) -> None:
+            raise AssertionError("valid credentials should not be refreshed")
+
+    client = GeminiAnnotationClient(
+        project_id="test-project",
+        credentials=FakeCredentials(),
+        http_client=FakeHttp(),
+    )
 
     assert client.annotate("id", "Title", "Artist", "linha") == {"translation_en": "hello"}
+    assert calls[0][0] == (
+        "https://aiplatform.googleapis.com/v1/projects/test-project/locations/global/"
+        "publishers/google/models/gemini-3.8-flash:generateContent"
+    )
+    assert calls[0][1]["headers"] == {
+        "Authorization": "Bearer access-token",
+        "x-goog-user-project": "test-project",
+    }
 
 
 def test_lyrics_ovh_client_returns_none_for_http_errors() -> None:

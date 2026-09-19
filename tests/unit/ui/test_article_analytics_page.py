@@ -12,7 +12,7 @@ def test_article_methodology_documents_current_corpus_status() -> None:
     assert "126.213" in documentation
     assert "47.434.073" in documentation
     assert "deduplicação completa entre fontes ainda está pendente" in documentation
-    assert "GEMINI" in documentation
+    assert "ADC" in documentation
 
 
 def test_market_anxiety_summary_ranks_markets_by_average_turnover() -> None:
