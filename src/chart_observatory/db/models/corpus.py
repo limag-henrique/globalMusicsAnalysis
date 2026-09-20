@@ -1,9 +1,29 @@
 from datetime import date, datetime
 from decimal import Decimal
+from typing import cast
 from uuid import UUID
 
-from sqlalchemy import JSON, Date, DateTime, ForeignKey, Numeric, String, Text, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import (
+    DDL,
+    JSON,
+    BigInteger,
+    Column,
+    Date,
+    DateTime,
+    DefaultClause,
+    ForeignKey,
+    Identity,
+    Index,
+    Numeric,
+    String,
+    Text,
+    UniqueConstraint,
+    event,
+    text,
+)
+from sqlalchemy.engine import Connection
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm import Mapped, Mapper, mapped_column
 
 from chart_observatory.db.base import Base, CreatedAtMixin, UuidPrimaryKeyMixin
 
@@ -195,3 +215,148 @@ class SemanticAnnotation(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     model_version: Mapped[str] = mapped_column(String(80), nullable=False)
     source: Mapped[str] = mapped_column(String(100), nullable=False)
     review_status: Mapped[str] = mapped_column(String(30), nullable=False, default="UNREVIEWED")
+
+
+class LyricClassificationSnapshot(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
+    """An immutable automatic-classification outcome for one lyric document."""
+
+    __tablename__ = "lyric_classification_snapshots"
+    __table_args__ = (
+        Index(
+            "ix_lyric_classification_snapshots_signature",
+            "canonical_track_id",
+            "lyrics_hash",
+            "model_id",
+            "taxonomy_version",
+            "prompt_version",
+        ),
+        Index(
+            "ix_lyric_classification_snapshots_classification_status",
+            "classification_status",
+        ),
+    )
+
+    lyric_document_id: Mapped[UUID] = mapped_column(
+        ForeignKey("lyric_documents.id"), nullable=False
+    )
+    canonical_track_id: Mapped[UUID] = mapped_column(
+        ForeignKey("canonical_tracks.id"), nullable=False
+    )
+    lyrics_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    model_id: Mapped[str] = mapped_column(String(160), nullable=False)
+    taxonomy_version: Mapped[str] = mapped_column(String(80), nullable=False)
+    prompt_version: Mapped[str] = mapped_column(String(80), nullable=False)
+    classification_status: Mapped[str] = mapped_column(String(40), nullable=False)
+    confidence: Mapped[float | None] = mapped_column()
+    result_json: Mapped[dict[str, object] | None] = mapped_column(JSON)
+    error: Mapped[str | None] = mapped_column(Text)
+    classified_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    input_tokens: Mapped[int | None] = mapped_column()
+    output_tokens: Mapped[int | None] = mapped_column()
+    thought_tokens: Mapped[int | None] = mapped_column()
+    total_tokens: Mapped[int | None] = mapped_column()
+    estimated_cost_usd: Mapped[Decimal | None] = mapped_column(Numeric(20, 10))
+    append_order: Mapped[int] = mapped_column(BigInteger, Identity(always=True), nullable=False)
+    forced_from_snapshot_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("lyric_classification_snapshots.id")
+    )
+
+
+def _reject_immutable_lyric_classification_snapshot_change(
+    _mapper: Mapper[object], _connection: Connection, _target: object
+) -> None:
+    raise InvalidRequestError("immutable lyric classification snapshot")
+
+
+_APPEND_ORDER_IDENTITY = LyricClassificationSnapshot.__table__.c.append_order.identity
+
+
+def _use_sqlite_append_order_default(
+    _target: object, connection: Connection, **_kwargs: object
+) -> None:
+    if connection.dialect.name == "sqlite":
+        append_order = cast(
+            Column[object], LyricClassificationSnapshot.__table__.columns["append_order"]
+        )
+        append_order.server_default = DefaultClause(text("0"))
+        append_order.identity = None
+
+
+def _restore_append_order_identity(
+    _target: object, connection: Connection, **_kwargs: object
+) -> None:
+    if connection.dialect.name == "sqlite":
+        append_order = cast(
+            Column[object], LyricClassificationSnapshot.__table__.columns["append_order"]
+        )
+        append_order.server_default = _APPEND_ORDER_IDENTITY
+        append_order.identity = _APPEND_ORDER_IDENTITY
+
+
+event.listen(
+    LyricClassificationSnapshot,
+    "before_update",
+    _reject_immutable_lyric_classification_snapshot_change,
+)
+event.listen(
+    LyricClassificationSnapshot.__table__,
+    "before_create",
+    _use_sqlite_append_order_default,
+)
+
+event.listen(
+    LyricClassificationSnapshot.__table__,
+    "after_create",
+    DDL(  # type: ignore[no-untyped-call]
+        """
+        CREATE TRIGGER lyric_classification_snapshots_append_order
+        AFTER INSERT ON lyric_classification_snapshots
+        BEGIN
+            UPDATE lyric_classification_snapshots
+            SET append_order = (
+                SELECT COALESCE(MAX(append_order), 0) + 1
+                FROM lyric_classification_snapshots
+                WHERE id != NEW.id
+            )
+            WHERE id = NEW.id;
+        END
+        """
+    ).execute_if(dialect="sqlite"),
+)
+event.listen(
+    LyricClassificationSnapshot.__table__,
+    "after_create",
+    _restore_append_order_identity,
+)
+event.listen(
+    LyricClassificationSnapshot.__table__,
+    "after_create",
+    DDL(  # type: ignore[no-untyped-call]
+        """
+        CREATE TRIGGER lyric_classification_snapshots_immutable_update
+        BEFORE UPDATE ON lyric_classification_snapshots
+        WHEN NOT (OLD.append_order = 0 AND NEW.append_order > 0)
+        BEGIN
+            SELECT RAISE(ABORT, 'lyric classification snapshots are immutable');
+        END
+        """
+    ).execute_if(dialect="sqlite"),
+)
+event.listen(
+    LyricClassificationSnapshot.__table__,
+    "after_create",
+    DDL(  # type: ignore[no-untyped-call]
+        """
+        CREATE TRIGGER lyric_classification_snapshots_immutable_delete
+        BEFORE DELETE ON lyric_classification_snapshots
+        BEGIN
+            SELECT RAISE(ABORT, 'lyric classification snapshots are immutable');
+        END
+        """
+    ).execute_if(dialect="sqlite"),
+)
+event.listen(
+    LyricClassificationSnapshot,
+    "before_delete",
+    _reject_immutable_lyric_classification_snapshot_change,
+)

@@ -1,5 +1,5 @@
-from pathlib import Path
 from decimal import Decimal
+from pathlib import Path
 
 from chart_observatory.config import Settings
 

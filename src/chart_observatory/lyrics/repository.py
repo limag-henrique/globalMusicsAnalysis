@@ -12,8 +12,17 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from chart_observatory.db.models.corpus import LyricDocument, SemanticAnnotation
+from chart_observatory.db.models.corpus import (
+    LyricClassificationSnapshot,
+    LyricDocument,
+    SemanticAnnotation,
+)
 from chart_observatory.lyrics.annotations import SemanticAnnotationInput, validate_annotation
+from chart_observatory.lyrics.classification import (
+    CostRateCard,
+    LyricsClassification,
+    UsageTelemetry,
+)
 
 AUTHORIZED_RIGHTS = {"LICENSED", "RESEARCH_AUTHORIZED", "PUBLIC_DOMAIN", "AUTHORIZED"}
 
@@ -28,6 +37,99 @@ class LyricDocumentInput:
     text: str | None = None
     retrieved_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     metadata: dict[str, object] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class ClassificationSnapshotInput:
+    """All data required to append one immutable automatic classification outcome."""
+
+    lyric_document_id: UUID
+    canonical_track_id: UUID
+    lyrics_hash: str
+    model_id: str
+    taxonomy_version: str
+    prompt_version: str
+    classification_status: str
+    result: LyricsClassification | None = None
+    error: str | None = None
+    confidence: float | None = None
+    classified_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    usage: UsageTelemetry | None = None
+    rate_card: CostRateCard | None = None
+    forced_from_snapshot_id: UUID | None = None
+
+
+def find_matching_snapshot(
+    session: Session, snapshot: ClassificationSnapshotInput
+) -> LyricClassificationSnapshot | None:
+    """Return the most recently appended outcome for a reproducibility signature."""
+    return session.scalar(
+        select(LyricClassificationSnapshot)
+        .where(
+            LyricClassificationSnapshot.canonical_track_id == snapshot.canonical_track_id,
+            LyricClassificationSnapshot.lyrics_hash == snapshot.lyrics_hash,
+            LyricClassificationSnapshot.model_id == snapshot.model_id,
+            LyricClassificationSnapshot.taxonomy_version == snapshot.taxonomy_version,
+            LyricClassificationSnapshot.prompt_version == snapshot.prompt_version,
+        )
+        .order_by(
+            LyricClassificationSnapshot.append_order.desc(),
+        )
+    )
+
+
+def append_classification_snapshot(
+    session: Session, snapshot: ClassificationSnapshotInput
+) -> LyricClassificationSnapshot:
+    """Append an outcome after verifying its document and explicit track agree."""
+    document = session.get(LyricDocument, snapshot.lyric_document_id)
+    if document is None:
+        raise ValueError(f"lyric_document_id does not exist: {snapshot.lyric_document_id}")
+    if document.canonical_track_id != snapshot.canonical_track_id:
+        raise ValueError("canonical_track_id does not match lyric document")
+    if snapshot.forced_from_snapshot_id is not None:
+        forced_from = session.get(LyricClassificationSnapshot, snapshot.forced_from_snapshot_id)
+        if forced_from is None:
+            raise ValueError(
+                f"forced_from_snapshot_id does not exist: {snapshot.forced_from_snapshot_id}"
+            )
+        if (
+            forced_from.canonical_track_id != snapshot.canonical_track_id
+            or forced_from.lyrics_hash != snapshot.lyrics_hash
+            or forced_from.model_id != snapshot.model_id
+            or forced_from.taxonomy_version != snapshot.taxonomy_version
+            or forced_from.prompt_version != snapshot.prompt_version
+        ):
+            raise ValueError("forced_from_snapshot_id does not match snapshot signature")
+
+    result_json = snapshot.result.model_dump(mode="json") if snapshot.result is not None else None
+    usage = snapshot.usage
+    confidence = snapshot.confidence
+    if confidence is None and snapshot.result is not None:
+        confidence = snapshot.result.confidence
+    row = LyricClassificationSnapshot(
+        lyric_document_id=snapshot.lyric_document_id,
+        canonical_track_id=snapshot.canonical_track_id,
+        lyrics_hash=snapshot.lyrics_hash,
+        model_id=snapshot.model_id,
+        taxonomy_version=snapshot.taxonomy_version,
+        prompt_version=snapshot.prompt_version,
+        classification_status=snapshot.classification_status,
+        confidence=confidence,
+        result_json=result_json,
+        error=snapshot.error,
+        classified_at=snapshot.classified_at,
+        input_tokens=usage.input_tokens if usage is not None else None,
+        output_tokens=usage.output_tokens if usage is not None else None,
+        thought_tokens=usage.thought_tokens if usage is not None else None,
+        total_tokens=usage.total_tokens if usage is not None else None,
+        estimated_cost_usd=snapshot.rate_card.calculate(usage) if snapshot.rate_card else None,
+        forced_from_snapshot_id=snapshot.forced_from_snapshot_id,
+    )
+    session.add(row)
+    session.flush()
+    session.refresh(row)
+    return row
 
 
 def ingest_lyric_document(session: Session, document: LyricDocumentInput) -> LyricDocument:

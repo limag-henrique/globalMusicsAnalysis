@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
 import yaml  # type: ignore[import-untyped]
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from chart_observatory.lyrics.classification import ThinkingLevel
 
 
 class CountryConfig(BaseModel):
@@ -87,6 +90,48 @@ class Settings(BaseSettings):
         default="global",
         validation_alias=AliasChoices(
             "GOOGLE_CLOUD_LOCATION", "CHART_OBSERVATORY_GOOGLE_CLOUD_LOCATION"
+        ),
+    )
+    gemini_model: str | None = Field(
+        default=None,
+        min_length=1,
+        validation_alias=AliasChoices("GEMINI_MODEL", "CHART_OBSERVATORY_GEMINI_MODEL"),
+    )
+    gemini_thinking_level: ThinkingLevel = Field(
+        default=ThinkingLevel.MINIMAL,
+        validation_alias=AliasChoices(
+            "GEMINI_THINKING_LEVEL", "CHART_OBSERVATORY_GEMINI_THINKING_LEVEL"
+        ),
+    )
+    gemini_output_token_allowance: int = Field(
+        default=2048,
+        gt=0,
+        validation_alias=AliasChoices(
+            "GEMINI_OUTPUT_TOKEN_ALLOWANCE", "CHART_OBSERVATORY_GEMINI_OUTPUT_TOKEN_ALLOWANCE"
+        ),
+    )
+    gemini_input_usd_per_million_tokens: Decimal | None = Field(
+        default=None,
+        ge=0,
+        validation_alias=AliasChoices(
+            "GEMINI_INPUT_USD_PER_MILLION_TOKENS",
+            "CHART_OBSERVATORY_GEMINI_INPUT_USD_PER_MILLION_TOKENS",
+        ),
+    )
+    gemini_output_usd_per_million_tokens: Decimal | None = Field(
+        default=None,
+        ge=0,
+        validation_alias=AliasChoices(
+            "GEMINI_OUTPUT_USD_PER_MILLION_TOKENS",
+            "CHART_OBSERVATORY_GEMINI_OUTPUT_USD_PER_MILLION_TOKENS",
+        ),
+    )
+    gemini_thought_usd_per_million_tokens: Decimal | None = Field(
+        default=None,
+        ge=0,
+        validation_alias=AliasChoices(
+            "GEMINI_THOUGHT_USD_PER_MILLION_TOKENS",
+            "CHART_OBSERVATORY_GEMINI_THOUGHT_USD_PER_MILLION_TOKENS",
         ),
     )
     chartmetric_refresh_token: str | None = Field(
