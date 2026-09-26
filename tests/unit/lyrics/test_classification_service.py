@@ -151,6 +151,7 @@ class FailsOnceClassifier(FakeClassifier):
         return super().classify(lyrics, language)
 
 
+<<<<<<< HEAD
 class LanguageUnsupportedClassifier(FakeClassifier):
     def classify(self, lyrics: str, language: str | None = None) -> GeminiClassificationResponse:
         del language
@@ -163,6 +164,8 @@ class LanguageUnsupportedClassifier(FakeClassifier):
         )
 
 
+=======
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 def _document(
     session: Session,
     text: str | None,
@@ -254,11 +257,19 @@ def test_only_unclassified_excludes_terminal_local_outcomes(session: Session) ->
     assert summary.status_outcomes == {}
 
 
+<<<<<<< HEAD
 def test_only_unclassified_excludes_persisted_provider_error_from_initial_pass(
     session: Session,
 ) -> None:
     """A failed item must not be retried by the unattended initial-pass queue."""
     _document(session, "letra longa o bastante para registrar uma falha")
+=======
+def test_only_unclassified_retries_persisted_provider_error_without_force(
+    session: Session,
+) -> None:
+    """A prior provider error must remain eligible for a later explicit run."""
+    _document(session, "letra longa o bastante para uma nova tentativa")
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
     classifier = FailsOnceClassifier()
     service = LyricsClassificationService(session, classifier, _settings())
 
@@ -266,6 +277,7 @@ def test_only_unclassified_excludes_persisted_provider_error_from_initial_pass(
     second = service.run(ClassificationRequest(only_unclassified=True))
 
     assert first.errors == 1
+<<<<<<< HEAD
     assert second.selected == 0
     assert len(session.scalars(select(LyricClassificationSnapshot)).all()) == 1
 
@@ -306,6 +318,10 @@ def test_only_unclassified_excludes_language_unsupported_outcome(session: Sessio
     assert first.status_outcomes == {"language_unsupported": 1}
     assert second.selected == 0
     assert len(classifier.classified_texts) == 1
+=======
+    assert second.classified == 1
+    assert len(session.scalars(select(LyricClassificationSnapshot)).all()) == 2
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 
 
 def test_selection_is_authorized_deduplicated_and_limited(session: Session) -> None:

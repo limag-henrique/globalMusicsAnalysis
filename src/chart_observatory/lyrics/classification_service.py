@@ -33,14 +33,21 @@ from chart_observatory.lyrics.repository import (
 )
 
 MIN_CLASSIFIABLE_TEXT_CHARS = 20
+<<<<<<< HEAD
 HANDLED_CLASSIFICATION_STATUSES = (
+=======
+TERMINAL_CLASSIFICATION_STATUSES = (
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
     "classified",
     "ambiguous",
     "instrumental",
     "insufficient_text",
+<<<<<<< HEAD
     "language_unsupported",
     "blocked",
     "error",
+=======
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 )
 
 
@@ -208,7 +215,11 @@ class LyricsClassificationService:
                     LyricClassificationSnapshot.canonical_track_id
                     == LyricDocument.canonical_track_id,
                     LyricClassificationSnapshot.classification_status.in_(
+<<<<<<< HEAD
                         HANDLED_CLASSIFICATION_STATUSES
+=======
+                        TERMINAL_CLASSIFICATION_STATUSES
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                     ),
                 )
             )
@@ -252,7 +263,11 @@ class LyricsClassificationService:
         provider_candidates: list[_Candidate] = []
         for candidate in candidates:
             match = self._find_match(candidate)
+<<<<<<< HEAD
             if not request.force and match is not None and self._is_handled_match(match):
+=======
+            if not request.force and match is not None and self._is_terminal_match(match):
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                 if request.estimate_cost:
                     summary.skipped_idempotent += 1
                 continue
@@ -306,7 +321,11 @@ class LyricsClassificationService:
                 while len(pending) >= request.workers:
                     self._complete_one(pending, summary)
                 match = self._find_match(candidate)
+<<<<<<< HEAD
                 if match is not None and not request.force and self._is_handled_match(match):
+=======
+                if match is not None and not request.force and self._is_terminal_match(match):
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                     summary.skipped_idempotent += 1
                     continue
                 forced_from_id = match.id if match is not None and request.force else None
@@ -446,9 +465,15 @@ class LyricsClassificationService:
         )
 
     @staticmethod
+<<<<<<< HEAD
     def _is_handled_match(snapshot: LyricClassificationSnapshot) -> bool:
         status = getattr(snapshot, "classification_status", None)
         return status is None or status in HANDLED_CLASSIFICATION_STATUSES
+=======
+    def _is_terminal_match(snapshot: LyricClassificationSnapshot) -> bool:
+        status = getattr(snapshot, "classification_status", None)
+        return status is None or status in TERMINAL_CLASSIFICATION_STATUSES
+>>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 
     @staticmethod
     def _local_status(candidate: _Candidate) -> str | None:

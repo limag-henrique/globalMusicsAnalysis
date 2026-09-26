@@ -23,7 +23,7 @@ def _settings() -> SimpleNamespace:
         google_cloud_project="test-project",
         google_cloud_location="global",
         gemini_model="gemini-fixed-model",
-        gemini_thinking_level="MINIMAL",
+        gemini_thinking_level="LOW",
         gemini_output_token_allowance=100,
         gemini_input_usd_per_million_tokens=Decimal("1"),
         gemini_output_usd_per_million_tokens=Decimal("2"),
