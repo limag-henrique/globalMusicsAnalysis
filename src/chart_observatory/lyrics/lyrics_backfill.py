@@ -36,7 +36,8 @@ import httpx
 import polars as pl
 
 from chart_observatory.lyrics.gemini_pipeline import (
-    GeminiAnnotationClient,
+    GeminiLyricsClassifier,
+    GeminiOutcomeStatus,
     LrclibClient,
     LyricsOvhClient,
     normalize_lookup_text,
@@ -144,11 +145,10 @@ class LyricsEngine:
                 "LYRICS_OVH": LyricsOvhClient(http_client=http),
             }
             if not self.skip_gemini:
-                clients["GEMINI"] = GeminiAnnotationClient(
-                    project_id=self.google_cloud_project,
+                clients["GEMINI"] = GeminiLyricsClassifier(
+                    project_id=self.google_cloud_project or "",
                     location=self.google_cloud_location,
-                    model=self.gemini_model,
-                    http_client=http,
+                    model_id=self.gemini_model,
                 )
             else:
                 clients["GEMINI"] = None
@@ -200,30 +200,23 @@ class LyricsEngine:
         return None, None, {}
 
     def annotate(self, song_id: str, title: str, artist: str, lyrics: str) -> dict[str, Any] | None:
+        """Classify lyrics via Gemini, returning the result dict or None.
+
+        The classifier already handles transient retries internally (429, 5xx),
+        so this method does not add its own retry loop. Non-transient outcomes
+        (BLOCKED, AUTH_ERROR, MALFORMED) are returned as None without wasting
+        additional API calls.
+        """
+        del song_id, title, artist  # Classification uses lyrics only.
         clients = self._get_clients()
-        gemini = clients.get("GEMINI")
+        gemini: GeminiLyricsClassifier | None = clients.get("GEMINI")
         if not gemini:
             return None
 
-        # Up to 2 retries with backoff on 429 / network glitch
-        for attempt in range(2):
-            self.rate_gemini.wait()
-            try:
-                return cast(
-                    dict[str, Any],
-                    gemini.annotate(
-                        song_id=song_id,
-                        title=title,
-                        artist=artist,
-                        lyrics=lyrics,
-                    ),
-                )
-            except Exception as exc:
-                err_str = str(exc).lower()
-                if "429" in err_str or "resourceexhausted" in err_str:
-                    time.sleep(4.0 * (attempt + 1))
-                else:
-                    break
+        self.rate_gemini.wait()
+        response = gemini.classify(lyrics)
+        if response.outcome is GeminiOutcomeStatus.SUCCESS and response.result is not None:
+            return response.result.model_dump(mode="json")
         return None
 
 

@@ -5,6 +5,7 @@ from google.genai import errors
 
 from chart_observatory.lyrics.classification import LyricsClassification
 from chart_observatory.lyrics.gemini_pipeline import (
+    GeminiAnnotationClient,
     GeminiLyricsClassifier,
     GeminiOutcomeStatus,
     LyricsOvhClient,
@@ -240,6 +241,46 @@ def test_classifier_reuses_one_sdk_client_per_thread(monkeypatch) -> None:
     assert generation_count == 2
 
 
+def test_legacy_annotation_facade_delegates_with_lyrics_only(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            calls.append(kwargs)
+            return SimpleNamespace(
+                parsed=VALID_CLASSIFICATION,
+                usage_metadata=None,
+                prompt_feedback=None,
+                candidates=[],
+            )
+
+    monkeypatch.setattr(
+        "chart_observatory.lyrics.gemini_pipeline.genai.Client",
+        lambda **_kwargs: SimpleNamespace(models=FakeModels()),
+    )
+    client = GeminiAnnotationClient(
+        project_id="project",
+        location="global",
+        model="gemini-2.5-flash",
+        http_client=object(),
+    )
+
+    result = client.annotate(
+        "secret-song-id",
+        "Secret Title",
+        "Secret Artist",
+        "only these lyrics",
+    )
+
+    assert result["classification_status"] == "classified"
+    assert calls[0]["model"] == "gemini-2.5-flash"
+    prompt = str(calls[0]["contents"])
+    assert "only these lyrics" in prompt
+    assert "secret-song-id" not in prompt
+    assert "Secret Title" not in prompt
+    assert "Secret Artist" not in prompt
+
+
 def test_usage_metadata_is_extracted_without_inventing_missing_tokens() -> None:
     usage = extract_usage(SimpleNamespace(prompt_token_count=10))
 
@@ -311,6 +352,29 @@ def test_malformed_or_invalid_parsed_output_is_recoverable(
     assert outcome.result is None
     assert outcome.usage is not None
     assert "private lyric" not in (outcome.error or "")
+
+
+def test_sdk_model_instance_is_revalidated_from_its_python_payload(monkeypatch) -> None:
+    valid = LyricsClassification.model_validate(VALID_CLASSIFICATION)
+    invalid = valid.model_copy(update={"confidence": 4})
+    response = SimpleNamespace(
+        parsed=invalid,
+        usage_metadata=None,
+        prompt_feedback=None,
+        candidates=[],
+    )
+    models = SimpleNamespace(generate_content=lambda **_kwargs: response)
+    monkeypatch.setattr(
+        "chart_observatory.lyrics.gemini_pipeline.genai.Client",
+        lambda **_kwargs: SimpleNamespace(models=models),
+    )
+
+    outcome = GeminiLyricsClassifier("project", "global", "gemini-2.5-flash").classify(
+        "private lyric"
+    )
+
+    assert outcome.outcome is GeminiOutcomeStatus.VALIDATION_ERROR
+    assert outcome.result is None
 
 
 def test_safety_block_is_a_typed_recoverable_outcome(monkeypatch) -> None:

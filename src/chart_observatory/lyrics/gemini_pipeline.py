@@ -188,6 +188,7 @@ class GeminiLyricsClassifier:
         max_attempts: int = 3,
         retry_wait_seconds: float = 0.5,
         thinking_level: ThinkingLevel | str = ThinkingLevel.MINIMAL,
+        max_output_tokens: int | None = None,
     ) -> None:
         if not project_id.strip():
             raise ValueError("Google Cloud project cannot be empty")
@@ -201,6 +202,8 @@ class GeminiLyricsClassifier:
             raise ValueError("Gemini max attempts must be at least one")
         if retry_wait_seconds < 0:
             raise ValueError("Gemini retry wait cannot be negative")
+        if max_output_tokens is not None and max_output_tokens < 1:
+            raise ValueError("Gemini max output tokens must be positive")
         self._project_id = project_id
         self._location = location
         self._model_id = model_id
@@ -208,6 +211,7 @@ class GeminiLyricsClassifier:
         self._max_attempts = max_attempts
         self._retry_wait_seconds = retry_wait_seconds
         self._thinking_level = ThinkingLevel(thinking_level)
+        self._max_output_tokens = max_output_tokens
         self._local = threading.local()
 
     def _client(self) -> genai.Client:
@@ -228,6 +232,8 @@ class GeminiLyricsClassifier:
             "response_mime_type": "application/json",
             "response_schema": LyricsClassification,
         }
+        if self._max_output_tokens is not None:
+            config["max_output_tokens"] = self._max_output_tokens
         if policy.temperature is not None:
             config["temperature"] = policy.temperature
         if policy.thinking_level is not None:
@@ -278,7 +284,12 @@ class GeminiLyricsClassifier:
                 error="Gemini returned no structured classification",
             )
         try:
-            result = LyricsClassification.model_validate(parsed)
+            validation_payload = (
+                parsed.model_dump(mode="python")
+                if isinstance(parsed, LyricsClassification)
+                else parsed
+            )
+            result = LyricsClassification.model_validate(validation_payload)
         except ValidationError:
             return GeminiClassificationResponse(
                 outcome=GeminiOutcomeStatus.VALIDATION_ERROR,
@@ -360,9 +371,40 @@ def _response_was_blocked(response: Any) -> bool:
     )
 
 
-# Import compatibility for the legacy retrieval/backfill module. The manual REST client no
-# longer exists; new classification code should use ``GeminiLyricsClassifier`` directly.
-GeminiAnnotationClient = GeminiLyricsClassifier
+class GeminiAnnotationClient:
+    """Deprecated legacy facade over the lyrics-only structured SDK adapter."""
+
+    def __init__(
+        self,
+        project_id: str | None = None,
+        location: str = "global",
+        model: str = "gemini-3.8-flash",
+        http_client: Any | None = None,
+    ) -> None:
+        del http_client  # Accepted only for callers that shared an HTTP client with retrieval.
+        if not project_id:
+            raise GoogleAuthError(
+                "Google Cloud project is unavailable; set GOOGLE_CLOUD_PROJECT"
+            )
+        self._classifier = GeminiLyricsClassifier(
+            project_id=project_id,
+            location=location,
+            model_id=model,
+        )
+
+    def annotate(
+        self,
+        song_id: str,
+        title: str,
+        artist: str,
+        lyrics: str,
+        language: str | None = None,
+    ) -> dict[str, Any]:
+        del song_id, title, artist
+        response = self._classifier.classify(lyrics=lyrics, language=language)
+        if response.result is None:
+            raise GeminiApiError(response.error or "Gemini classification failed")
+        return response.result.model_dump(mode="json")
 
 
 def existing_song_ids(output: Path) -> set[str]:

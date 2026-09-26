@@ -3,6 +3,7 @@
 import json
 from dataclasses import asdict, replace
 from datetime import UTC, date, datetime, timedelta
+from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
@@ -42,9 +43,15 @@ from chart_observatory.ingestion.corpus import (
     write_mgd_coverage,
 )
 from chart_observatory.ingestion.youtube import collect_youtube_current
+from chart_observatory.lyrics.classification_service import (
+    ClassificationRequest,
+    CostLimitExceeded,
+    LyricsClassificationService,
+)
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiAnnotationClient,
     GeminiApiError,
+    GeminiLyricsClassifier,
     GoogleAuthError,
     LrclibClient,
     LyricsOvhClient,
@@ -681,6 +688,57 @@ def corpus_ingest_lyrics(
     typer.echo(
         json.dumps({"status": "IMPORTED", "documents": documents, "annotations": annotations})
     )
+
+
+@corpus_app.command("classify-lyrics")
+def corpus_classify_lyrics(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    limit: int | None = typer.Option(None, min=1),
+    force: bool = typer.Option(False),
+    only_unclassified: bool = typer.Option(False),
+    estimate_cost: bool = typer.Option(False),
+    max_cost_usd: str | None = typer.Option(None),
+    workers: int = typer.Option(2, min=1, max=8),
+) -> None:
+    """Classify authorized stored lyrics into immutable automatic snapshots."""
+    cost_limit: Decimal | None = None
+    if max_cost_usd is not None:
+        try:
+            cost_limit = Decimal(max_cost_usd)
+        except InvalidOperation as error:
+            raise typer.BadParameter("--max-cost-usd must be a decimal number") from error
+        if not cost_limit.is_finite() or cost_limit < 0:
+            raise typer.BadParameter("--max-cost-usd must be a finite non-negative number")
+    settings = Settings.load(Path.cwd())
+    if not settings.google_cloud_project:
+        raise typer.BadParameter("GOOGLE_CLOUD_PROJECT is required")
+    if not settings.gemini_model:
+        raise typer.BadParameter("GEMINI_MODEL is required")
+    application = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    classifier = GeminiLyricsClassifier(
+        settings.google_cloud_project,
+        settings.google_cloud_location,
+        settings.gemini_model,
+        thinking_level=settings.gemini_thinking_level,
+        max_output_tokens=settings.gemini_output_token_allowance,
+    )
+    service = LyricsClassificationService(application.session, classifier, settings)
+    try:
+        summary = service.run(
+            ClassificationRequest(
+                limit=limit,
+                force=force,
+                only_unclassified=only_unclassified,
+                estimate_cost=estimate_cost,
+                max_cost_usd=cost_limit,
+                workers=workers,
+            )
+        )
+    except CostLimitExceeded as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(json.dumps(summary.to_json(), sort_keys=True))
 
 
 @corpus_app.command("gemini-analyze")

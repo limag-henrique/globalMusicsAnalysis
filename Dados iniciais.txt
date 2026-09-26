@@ -1,3 +1,11 @@
+  AUTOMATION COMPLETE!
+  Total Processed: 193636
+  Total Found:     152062 (78.5%)
+  Total Not Inserted: 41574
+  Total Errors:     0
+  Sources Breakdown: {'GENIUS': 118955, 'LETRAS': 25796, 'LRCLIB': 6686, 'LYRICS_OVH': 625}
+  Time Elapsed:    3660.1 minutes
+
 O que vende mais: estar apaixonado ou sofrer por amor?
 Como sexualidade explícita, objetificação, materialismo e narrativas antissociais variam entre os principais mercados musicais?
 As músicas brasileiras são mais problemáticas
@@ -34,7 +42,6 @@ Classificação de no mínimo essas características para cada uma das músicas
 | Ato sexual explícito
 | Armas
 | Dinheiro
-| TikTok viral 
 
 ---> Analisando sempre mencionar ≠ glorificar
 > “Meu irmão morreu por causa do tráfico.” difere de “Sou traficante e isso demonstra meu poder.” semanticamente são completamente diferentes.
