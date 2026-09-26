@@ -1,0 +1,2 @@
+{"batch":1,"selected":5,"classified":5,"status_outcomes":{"classified":5},"known_input_tokens":10414,"known_output_tokens":2393,"known_thought_tokens":417,"known_total_tokens":13224,"known_cost_usd":"0.0048885000","errors":0}
+{"batch":2,"selected":5,"classified":4,"status_outcomes":{"classified":4,"error":1},"known_input_tokens":8455,"known_output_tokens":1892,"known_thought_tokens":0,"known_total_tokens":10347,"known_cost_usd":null,"errors":1}

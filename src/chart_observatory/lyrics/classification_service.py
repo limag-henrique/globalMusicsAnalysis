@@ -33,7 +33,12 @@ from chart_observatory.lyrics.repository import (
 )
 
 MIN_CLASSIFIABLE_TEXT_CHARS = 20
-SUCCESSFUL_CLASSIFICATION_STATUSES = ("classified", "ambiguous")
+TERMINAL_CLASSIFICATION_STATUSES = (
+    "classified",
+    "ambiguous",
+    "instrumental",
+    "insufficient_text",
+)
 
 
 class LyricsClassifier(Protocol):
@@ -177,7 +182,7 @@ class LyricsClassificationService:
                     LyricClassificationSnapshot.canonical_track_id
                     == LyricDocument.canonical_track_id,
                     LyricClassificationSnapshot.classification_status.in_(
-                        SUCCESSFUL_CLASSIFICATION_STATUSES
+                        TERMINAL_CLASSIFICATION_STATUSES
                     ),
                 )
             )
@@ -220,7 +225,8 @@ class LyricsClassificationService:
     ) -> None:
         provider_candidates: list[_Candidate] = []
         for candidate in candidates:
-            if not request.force and self._find_match(candidate) is not None:
+            match = self._find_match(candidate)
+            if not request.force and match is not None and self._is_terminal_match(match):
                 if request.estimate_cost:
                     summary.skipped_idempotent += 1
                 continue
@@ -274,7 +280,7 @@ class LyricsClassificationService:
                 while len(pending) >= request.workers:
                     self._complete_one(pending, summary)
                 match = self._find_match(candidate)
-                if match is not None and not request.force:
+                if match is not None and not request.force and self._is_terminal_match(match):
                     summary.skipped_idempotent += 1
                     continue
                 forced_from_id = match.id if match is not None and request.force else None
@@ -324,7 +330,7 @@ class LyricsClassificationService:
     ) -> None:
         if response.outcome is GeminiOutcomeStatus.SUCCESS and response.result is not None:
             status = response.result.classification_status.value
-            result = response.result if status in SUCCESSFUL_CLASSIFICATION_STATUSES else None
+            result = response.result if status in {"classified", "ambiguous"} else None
             error = None
         elif response.outcome is GeminiOutcomeStatus.BLOCKED:
             status = "blocked"
@@ -375,7 +381,7 @@ class LyricsClassificationService:
         )
         self._session.commit()
         summary.status_outcomes[status] = summary.status_outcomes.get(status, 0) + 1
-        if status in SUCCESSFUL_CLASSIFICATION_STATUSES:
+        if status in {"classified", "ambiguous"}:
             summary.classified += 1
         if status == "error":
             summary.errors += 1
@@ -398,6 +404,11 @@ class LyricsClassificationService:
                 classification_status="pending",
             ),
         )
+
+    @staticmethod
+    def _is_terminal_match(snapshot: LyricClassificationSnapshot) -> bool:
+        status = getattr(snapshot, "classification_status", None)
+        return status is None or status in TERMINAL_CLASSIFICATION_STATUSES
 
     @staticmethod
     def _local_status(candidate: _Candidate) -> str | None:

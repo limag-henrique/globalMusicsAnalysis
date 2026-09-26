@@ -3,7 +3,7 @@
 import sqlalchemy as sa
 from alembic import op
 
-revision = "0013_lyric_classification_snapshots"
+revision = "0013_lyrics_classification"
 down_revision = "0012_track_metadata"
 branch_labels = None
 depends_on = None

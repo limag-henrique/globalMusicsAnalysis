@@ -479,6 +479,9 @@ def test_service_unavailable_stops_after_bounded_retries(monkeypatch) -> None:
     ).classify("lyrics")
 
     assert outcome.outcome is GeminiOutcomeStatus.TRANSIENT_ERROR
+    assert outcome.error == (
+        "Gemini remained unavailable after bounded retries (HTTP 503)"
+    )
     assert attempts == 3
 
 

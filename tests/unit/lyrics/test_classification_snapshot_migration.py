@@ -79,6 +79,11 @@ def test_snapshot_metadata_indexes_match_migration_contract() -> None:
     assert indexes == {SIGNATURE_INDEX, STATUS_INDEX}
 
 
+def test_revision_fits_alembic_version_column(migration_module: ModuleType) -> None:
+    """Alembic's default version table stores revision IDs in VARCHAR(32)."""
+    assert len(migration_module.revision) <= 32
+
+
 def test_metadata_uses_postgresql_identity_and_sqlite_generated_append_order() -> None:
     """Catches metadata DDL that diverges from the migration's dialect-specific append key."""
     postgresql_ddl = str(

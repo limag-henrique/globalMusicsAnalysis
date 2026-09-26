@@ -332,17 +332,29 @@ def _provider_failure(exc: Exception) -> GeminiClassificationResponse:
     if isinstance(exc, errors.APIError) and exc.code in {401, 403}:
         return GeminiClassificationResponse(
             outcome=GeminiOutcomeStatus.AUTH_ERROR,
-            error="Gemini authentication or authorization failed",
+            error=f"Gemini authentication or authorization failed (HTTP {exc.code})",
         )
     if _is_retryable(exc):
         return GeminiClassificationResponse(
             outcome=GeminiOutcomeStatus.TRANSIENT_ERROR,
-            error="Gemini remained unavailable after bounded retries",
+            error=(
+                "Gemini remained unavailable after bounded retries "
+                f"({_safe_failure_detail(exc)})"
+            ),
         )
     return GeminiClassificationResponse(
         outcome=GeminiOutcomeStatus.PROVIDER_ERROR,
         error=f"Gemini request failed ({type(exc).__name__})",
     )
+
+
+def _safe_failure_detail(exc: Exception) -> str:
+    """Keep retry diagnostics useful without persisting provider response bodies."""
+    if isinstance(exc, errors.APIError):
+        return f"HTTP {exc.code}"
+    if isinstance(exc, httpx.TransportError):
+        return type(exc).__name__
+    return type(exc).__name__
 
 
 def _enum_value(value: Any) -> str | None:

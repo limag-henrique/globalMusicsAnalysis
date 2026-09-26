@@ -131,6 +131,22 @@ class FakeClassifier:
         return self.input_tokens
 
 
+class FailsOnceClassifier(FakeClassifier):
+    def __init__(self) -> None:
+        super().__init__()
+        self.failed = False
+
+    def classify(self, lyrics: str, language: str | None = None) -> GeminiClassificationResponse:
+        if not self.failed:
+            self.failed = True
+            self.classified_texts.append(lyrics)
+            return GeminiClassificationResponse(
+                outcome=GeminiOutcomeStatus.PROVIDER_ERROR,
+                error="temporary provider failure",
+            )
+        return super().classify(lyrics, language)
+
+
 def _document(
     session: Session,
     text: str | None,
@@ -206,6 +222,36 @@ def test_local_preflight_persists_non_scored_outcomes_without_provider_calls(
         "instrumental",
     }
     assert all(row.result_json is None for row in rows)
+
+
+def test_only_unclassified_excludes_terminal_local_outcomes(session: Session) -> None:
+    """Local instrumental and insufficient outcomes must not be selected again."""
+    _document(session, "  ")
+    _document(session, "instrumental metadata wins", metadata={"instrumental": True})
+    classifier = FakeClassifier()
+    service = LyricsClassificationService(session, classifier, _settings())
+
+    service.run(ClassificationRequest())
+    summary = service.run(ClassificationRequest(only_unclassified=True))
+
+    assert summary.selected == 0
+    assert summary.status_outcomes == {}
+
+
+def test_only_unclassified_retries_persisted_provider_error_without_force(
+    session: Session,
+) -> None:
+    """A prior provider error must remain eligible for a later explicit run."""
+    _document(session, "letra longa o bastante para uma nova tentativa")
+    classifier = FailsOnceClassifier()
+    service = LyricsClassificationService(session, classifier, _settings())
+
+    first = service.run(ClassificationRequest())
+    second = service.run(ClassificationRequest(only_unclassified=True))
+
+    assert first.errors == 1
+    assert second.classified == 1
+    assert len(session.scalars(select(LyricClassificationSnapshot)).all()) == 2
 
 
 def test_selection_is_authorized_deduplicated_and_limited(session: Session) -> None:
