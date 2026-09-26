@@ -10,7 +10,7 @@ from decimal import Decimal
 from typing import Protocol
 from uuid import UUID
 
-from sqlalchemy import exists, select
+from sqlalchemy import exists, func, select
 from sqlalchemy.orm import Session
 
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
@@ -33,7 +33,15 @@ from chart_observatory.lyrics.repository import (
 )
 
 MIN_CLASSIFIABLE_TEXT_CHARS = 20
-SUCCESSFUL_CLASSIFICATION_STATUSES = ("classified", "ambiguous")
+HANDLED_CLASSIFICATION_STATUSES = (
+    "classified",
+    "ambiguous",
+    "instrumental",
+    "insufficient_text",
+    "language_unsupported",
+    "blocked",
+    "error",
+)
 
 
 class LyricsClassifier(Protocol):
@@ -86,6 +94,8 @@ class ClassificationRunSummary:
     known_total_tokens: int = 0
     known_cost_usd: Decimal | None = None
     errors: int = 0
+    skipped_due_to_error: int = 0
+    item_outcomes: list[dict[str, str | None]] = field(default_factory=list)
     estimated_candidates: int = 0
     estimated_input_tokens: int | None = None
     output_token_allowance: int = 0
@@ -105,6 +115,8 @@ class ClassificationRunSummary:
                 str(self.known_cost_usd) if self.known_cost_usd is not None else None
             ),
             "errors": self.errors,
+            "skipped_due_to_error": self.skipped_due_to_error,
+            "item_outcomes": list(self.item_outcomes),
             "estimated_candidates": self.estimated_candidates,
             "estimated_input_tokens": self.estimated_input_tokens,
             "output_token_allowance": self.output_token_allowance,
@@ -167,6 +179,25 @@ class LyricsClassificationService:
         self._classify(candidates, request, summary)
         return summary
 
+    def count_initial_pass_remaining(self) -> int:
+        """Count authorized tracks with no durable outcome in the unattended queue."""
+        handled_snapshot = exists(
+            select(LyricClassificationSnapshot.id).where(
+                LyricClassificationSnapshot.canonical_track_id
+                == LyricDocument.canonical_track_id,
+                LyricClassificationSnapshot.classification_status.in_(
+                    HANDLED_CLASSIFICATION_STATUSES
+                ),
+            )
+        )
+        count = self._session.scalar(
+            select(func.count(func.distinct(LyricDocument.canonical_track_id))).where(
+                LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)),
+                ~handled_snapshot,
+            )
+        )
+        return int(count or 0)
+
     def _select_candidates(self, request: ClassificationRequest) -> list[_Candidate]:
         statement = select(LyricDocument).where(
             LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS))
@@ -177,7 +208,7 @@ class LyricsClassificationService:
                     LyricClassificationSnapshot.canonical_track_id
                     == LyricDocument.canonical_track_id,
                     LyricClassificationSnapshot.classification_status.in_(
-                        SUCCESSFUL_CLASSIFICATION_STATUSES
+                        HANDLED_CLASSIFICATION_STATUSES
                     ),
                 )
             )
@@ -220,7 +251,8 @@ class LyricsClassificationService:
     ) -> None:
         provider_candidates: list[_Candidate] = []
         for candidate in candidates:
-            if not request.force and self._find_match(candidate) is not None:
+            match = self._find_match(candidate)
+            if not request.force and match is not None and self._is_handled_match(match):
                 if request.estimate_cost:
                     summary.skipped_idempotent += 1
                 continue
@@ -274,7 +306,7 @@ class LyricsClassificationService:
                 while len(pending) >= request.workers:
                     self._complete_one(pending, summary)
                 match = self._find_match(candidate)
-                if match is not None and not request.force:
+                if match is not None and not request.force and self._is_handled_match(match):
                     summary.skipped_idempotent += 1
                     continue
                 forced_from_id = match.id if match is not None and request.force else None
@@ -308,6 +340,8 @@ class LyricsClassificationService:
             candidate, forced_from_id = pending.pop(future)
             try:
                 response = future.result()
+            except MemoryError:
+                raise
             except Exception as exc:  # adapter bugs remain durable without leaking request text
                 response = GeminiClassificationResponse(
                     outcome=GeminiOutcomeStatus.PROVIDER_ERROR,
@@ -324,7 +358,7 @@ class LyricsClassificationService:
     ) -> None:
         if response.outcome is GeminiOutcomeStatus.SUCCESS and response.result is not None:
             status = response.result.classification_status.value
-            result = response.result if status in SUCCESSFUL_CLASSIFICATION_STATUSES else None
+            result = response.result if status in {"classified", "ambiguous"} else None
             error = None
         elif response.outcome is GeminiOutcomeStatus.BLOCKED:
             status = "blocked"
@@ -342,6 +376,7 @@ class LyricsClassificationService:
             summary,
             result=result,
             error=error,
+            provider_outcome=response.outcome.value,
         )
 
     def _persist(
@@ -354,6 +389,7 @@ class LyricsClassificationService:
         *,
         result: object | None = None,
         error: str | None = None,
+        provider_outcome: str | None = None,
     ) -> None:
         validated_result = result if isinstance(result, LyricsClassification) else None
         row = append_classification_snapshot(
@@ -375,10 +411,20 @@ class LyricsClassificationService:
         )
         self._session.commit()
         summary.status_outcomes[status] = summary.status_outcomes.get(status, 0) + 1
-        if status in SUCCESSFUL_CLASSIFICATION_STATUSES:
+        if status in {"classified", "ambiguous"}:
             summary.classified += 1
         if status == "error":
             summary.errors += 1
+            summary.skipped_due_to_error += 1
+        summary.item_outcomes.append(
+            {
+                "lyric_document_id": str(candidate.lyric_document_id),
+                "canonical_track_id": str(candidate.canonical_track_id),
+                "status": status,
+                "error": error,
+                "provider_outcome": provider_outcome,
+            }
+        )
         self._add_usage(summary, usage)
         if row.estimated_cost_usd is not None:
             summary.known_cost_usd = (summary.known_cost_usd or Decimal(0)) + Decimal(
@@ -398,6 +444,11 @@ class LyricsClassificationService:
                 classification_status="pending",
             ),
         )
+
+    @staticmethod
+    def _is_handled_match(snapshot: LyricClassificationSnapshot) -> bool:
+        status = getattr(snapshot, "classification_status", None)
+        return status is None or status in HANDLED_CLASSIFICATION_STATUSES
 
     @staticmethod
     def _local_status(candidate: _Candidate) -> str | None:

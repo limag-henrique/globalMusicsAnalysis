@@ -141,6 +141,37 @@ def test_prompt_contains_only_lyrics_and_optional_language_metadata(monkeypatch)
         assert forbidden not in prompt.casefold()
 
 
+def test_prompt_anchors_social_classification_without_overclaiming(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            calls.append(kwargs)
+            return SimpleNamespace(
+                parsed=VALID_CLASSIFICATION,
+                usage_metadata=None,
+                prompt_feedback=None,
+                candidates=[],
+            )
+
+    monkeypatch.setattr(
+        "chart_observatory.lyrics.gemini_pipeline.genai.Client",
+        lambda **_kwargs: SimpleNamespace(models=FakeModels()),
+    )
+
+    GeminiLyricsClassifier("project", "global", "gemini-3.5-flash").classify(
+        "texto de teste longo o bastante",
+        language="pt-BR",
+    )
+
+    prompt = str(calls[0]["contents"]).casefold()
+    assert "0 (absent), 1 (incidental), 2 (substantial), or 3 (central)" in prompt
+    assert "narrator or quoted voice" in prompt
+    assert "absence of consent language is not coercion" in prompt
+    assert "use ambiguous" in prompt
+    assert "do not infer demographic identity" in prompt
+
+
 @pytest.mark.parametrize(
     ("model_id", "temperature", "thinking_level"),
     [
@@ -479,6 +510,9 @@ def test_service_unavailable_stops_after_bounded_retries(monkeypatch) -> None:
     ).classify("lyrics")
 
     assert outcome.outcome is GeminiOutcomeStatus.TRANSIENT_ERROR
+    assert outcome.error == (
+        "Gemini remained unavailable after bounded retries (HTTP 503)"
+    )
     assert attempts == 3
 
 

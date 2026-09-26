@@ -9,7 +9,7 @@ from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field
 
 TAXONOMY_VERSION = "lyrics-classification-v1"
-PROMPT_VERSION = "lyrics-classification-prompt-v1"
+PROMPT_VERSION = "lyrics-classification-prompt-v2"
 
 Intensity = Annotated[int, Field(ge=0, le=3)]
 

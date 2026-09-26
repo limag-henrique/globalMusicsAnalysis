@@ -741,6 +741,252 @@ def corpus_classify_lyrics(
     typer.echo(json.dumps(summary.to_json(), sort_keys=True))
 
 
+def _emit_classification_run_event(event: dict[str, object], log_path: Path) -> None:
+    payload = {
+        "timestamp_utc": datetime.now(UTC).isoformat(),
+        **event,
+    }
+    encoded = json.dumps(payload, sort_keys=True)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("a", encoding="utf-8") as stream:
+        stream.write(encoded + "\n")
+    typer.echo(encoded)
+
+
+def _global_classification_failure(summary: object) -> str | None:
+    for item in getattr(summary, "item_outcomes", []):
+        outcome = str(item.get("provider_outcome") or "").casefold()
+        error = str(item.get("error") or "").casefold()
+        if outcome == "auth_error" or "http 401" in error or "http 403" in error:
+            return "authentication_or_authorization"
+        if "http 429" in error or "resource_exhausted" in error or "quota" in error:
+            return "quota_or_rate_limit"
+    return None
+
+
+@corpus_app.command("classify-lyrics-run")
+def corpus_classify_lyrics_run(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    batch_size: int = typer.Option(5, min=1, max=5),
+    workers: int = typer.Option(1, min=1, max=1),
+    log_path: Path = typer.Option(
+        Path("data/derived/lyrics/gemini_classification_run.jsonl")
+    ),
+    max_batches: int | None = typer.Option(None, min=1),
+) -> None:
+    """Run the initial classification pass in resumable, observable batches."""
+    settings = Settings.load(Path.cwd())
+    if not settings.google_cloud_project:
+        raise typer.BadParameter("GOOGLE_CLOUD_PROJECT is required")
+    if not settings.gemini_model:
+        raise typer.BadParameter("GEMINI_MODEL is required")
+    if str(settings.gemini_thinking_level).upper() != "LOW":
+        raise typer.BadParameter("GEMINI_THINKING_LEVEL must be LOW for unattended runs")
+
+    application = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    classifier = GeminiLyricsClassifier(
+        settings.google_cloud_project,
+        settings.google_cloud_location,
+        settings.gemini_model,
+        thinking_level=settings.gemini_thinking_level,
+        max_output_tokens=settings.gemini_output_token_allowance,
+    )
+    service = LyricsClassificationService(application.session, classifier, settings)
+    run_id = str(uuid4())
+    initial_remaining = service.count_initial_pass_remaining()
+
+    try:
+        estimate = service.run(
+            ClassificationRequest(
+                limit=batch_size,
+                only_unclassified=True,
+                estimate_cost=True,
+                workers=workers,
+            )
+        )
+    except MemoryError:
+        _emit_classification_run_event(
+            {"event": "fatal", "run_id": run_id, "reason": "memory"}, log_path
+        )
+        raise typer.Exit(code=2)
+    except Exception as error:
+        application.session.rollback()
+        _emit_classification_run_event(
+            {
+                "event": "fatal",
+                "run_id": run_id,
+                "reason": "database_or_runtime",
+                "error_type": type(error).__name__,
+            },
+            log_path,
+        )
+        raise typer.Exit(code=2)
+
+    _emit_classification_run_event(
+        {
+            "event": "estimate",
+            "run_id": run_id,
+            "initial_remaining": initial_remaining,
+            **estimate.to_json(),
+        },
+        log_path,
+    )
+    if estimate.selected > 0 and (
+        estimate.estimated_cost_usd is None or estimate.estimated_cost_usd <= 0
+    ):
+        _emit_classification_run_event(
+            {
+                "event": "fatal",
+                "run_id": run_id,
+                "reason": "cost_estimate_unavailable_or_zero",
+            },
+            log_path,
+        )
+        raise typer.Exit(code=2)
+
+    totals = {
+        "selected": 0,
+        "classified": 0,
+        "skipped_due_to_error": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "thought_tokens": 0,
+        "total_tokens": 0,
+    }
+    total_known_cost = Decimal(0)
+    known_cost_batches = 0
+    status_totals: dict[str, int] = {}
+    remaining = initial_remaining
+    batch = 0
+
+    while remaining > 0:
+        batch += 1
+        try:
+            summary = service.run(
+                ClassificationRequest(
+                    limit=batch_size,
+                    only_unclassified=True,
+                    workers=workers,
+                )
+            )
+            remaining = service.count_initial_pass_remaining()
+        except MemoryError:
+            _emit_classification_run_event(
+                {
+                    "event": "fatal",
+                    "run_id": run_id,
+                    "batch": batch,
+                    "reason": "memory",
+                },
+                log_path,
+            )
+            raise typer.Exit(code=2)
+        except Exception as error:
+            application.session.rollback()
+            _emit_classification_run_event(
+                {
+                    "event": "fatal",
+                    "run_id": run_id,
+                    "batch": batch,
+                    "reason": "database_or_runtime",
+                    "error_type": type(error).__name__,
+                },
+                log_path,
+            )
+            raise typer.Exit(code=2)
+
+        totals["selected"] += summary.selected
+        totals["classified"] += summary.classified
+        totals["skipped_due_to_error"] += summary.skipped_due_to_error
+        totals["input_tokens"] += summary.known_input_tokens
+        totals["output_tokens"] += summary.known_output_tokens
+        totals["thought_tokens"] += summary.known_thought_tokens
+        totals["total_tokens"] += summary.known_total_tokens
+        if summary.known_cost_usd is not None:
+            total_known_cost += summary.known_cost_usd
+            known_cost_batches += 1
+        for status, count in summary.status_outcomes.items():
+            status_totals[status] = status_totals.get(status, 0) + count
+
+        processed = max(0, initial_remaining - remaining)
+        progress_percent = (
+            round((processed / initial_remaining) * 100, 2) if initial_remaining else 100.0
+        )
+        _emit_classification_run_event(
+            {
+                "event": "batch",
+                "run_id": run_id,
+                "batch": batch,
+                "remaining": remaining,
+                "processed": processed,
+                "progress_percent": progress_percent,
+                **summary.to_json(),
+            },
+            log_path,
+        )
+
+        fatal_reason = _global_classification_failure(summary)
+        if fatal_reason is not None:
+            _emit_classification_run_event(
+                {
+                    "event": "fatal",
+                    "run_id": run_id,
+                    "batch": batch,
+                    "reason": fatal_reason,
+                    "remaining": remaining,
+                },
+                log_path,
+            )
+            raise typer.Exit(code=2)
+        if summary.selected == 0 and remaining > 0:
+            _emit_classification_run_event(
+                {
+                    "event": "fatal",
+                    "run_id": run_id,
+                    "batch": batch,
+                    "reason": "queue_progress_stalled",
+                    "remaining": remaining,
+                },
+                log_path,
+            )
+            raise typer.Exit(code=2)
+        if max_batches is not None and batch >= max_batches and remaining > 0:
+            _emit_classification_run_event(
+                {
+                    "event": "paused",
+                    "run_id": run_id,
+                    "batch": batch,
+                    "reason": "max_batches_reached",
+                    "remaining": remaining,
+                },
+                log_path,
+            )
+            return
+        application.session.expire_all()
+
+    _emit_classification_run_event(
+        {
+            "event": "complete",
+            "run_id": run_id,
+            "batches": batch,
+            "remaining": remaining,
+            "total_selected": totals["selected"],
+            "total_classified": totals["classified"],
+            "total_skipped_due_to_error": totals["skipped_due_to_error"],
+            "status_outcomes": dict(sorted(status_totals.items())),
+            "known_input_tokens": totals["input_tokens"],
+            "known_output_tokens": totals["output_tokens"],
+            "known_thought_tokens": totals["thought_tokens"],
+            "known_total_tokens": totals["total_tokens"],
+            "known_cost_usd": str(total_known_cost) if known_cost_batches else None,
+            "known_cost_batches": known_cost_batches,
+        },
+        log_path,
+    )
+
+
 @corpus_app.command("gemini-analyze")
 def corpus_gemini_analyze(
     tracks: Path = typer.Option(

@@ -13,7 +13,11 @@ from sqlalchemy.orm import Session
 import chart_observatory.lyrics.classification_service as classification_service
 from chart_observatory.db.base import Base
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
-from chart_observatory.lyrics.classification import LyricsClassification, UsageTelemetry
+from chart_observatory.lyrics.classification import (
+    ClassificationStatus,
+    LyricsClassification,
+    UsageTelemetry,
+)
 from chart_observatory.lyrics.classification_service import (
     ClassificationRequest,
     CostLimitExceeded,
@@ -131,6 +135,34 @@ class FakeClassifier:
         return self.input_tokens
 
 
+class FailsOnceClassifier(FakeClassifier):
+    def __init__(self) -> None:
+        super().__init__()
+        self.failed = False
+
+    def classify(self, lyrics: str, language: str | None = None) -> GeminiClassificationResponse:
+        if not self.failed:
+            self.failed = True
+            self.classified_texts.append(lyrics)
+            return GeminiClassificationResponse(
+                outcome=GeminiOutcomeStatus.PROVIDER_ERROR,
+                error="temporary provider failure",
+            )
+        return super().classify(lyrics, language)
+
+
+class LanguageUnsupportedClassifier(FakeClassifier):
+    def classify(self, lyrics: str, language: str | None = None) -> GeminiClassificationResponse:
+        del language
+        self.classified_texts.append(lyrics)
+        return GeminiClassificationResponse(
+            outcome=GeminiOutcomeStatus.SUCCESS,
+            result=_classification().model_copy(
+                update={"classification_status": ClassificationStatus.LANGUAGE_UNSUPPORTED}
+            ),
+        )
+
+
 def _document(
     session: Session,
     text: str | None,
@@ -206,6 +238,74 @@ def test_local_preflight_persists_non_scored_outcomes_without_provider_calls(
         "instrumental",
     }
     assert all(row.result_json is None for row in rows)
+
+
+def test_only_unclassified_excludes_terminal_local_outcomes(session: Session) -> None:
+    """Local instrumental and insufficient outcomes must not be selected again."""
+    _document(session, "  ")
+    _document(session, "instrumental metadata wins", metadata={"instrumental": True})
+    classifier = FakeClassifier()
+    service = LyricsClassificationService(session, classifier, _settings())
+
+    service.run(ClassificationRequest())
+    summary = service.run(ClassificationRequest(only_unclassified=True))
+
+    assert summary.selected == 0
+    assert summary.status_outcomes == {}
+
+
+def test_only_unclassified_excludes_persisted_provider_error_from_initial_pass(
+    session: Session,
+) -> None:
+    """A failed item must not be retried by the unattended initial-pass queue."""
+    _document(session, "letra longa o bastante para registrar uma falha")
+    classifier = FailsOnceClassifier()
+    service = LyricsClassificationService(session, classifier, _settings())
+
+    first = service.run(ClassificationRequest())
+    second = service.run(ClassificationRequest(only_unclassified=True))
+
+    assert first.errors == 1
+    assert second.selected == 0
+    assert len(session.scalars(select(LyricClassificationSnapshot)).all()) == 1
+
+
+def test_provider_error_is_marked_skipped_and_next_candidate_continues(
+    session: Session,
+) -> None:
+    """One provider failure must not abort or hide later work in the same batch."""
+    _document(session, "primeira letra longa que terá falha do provedor")
+    _document(session, "segunda letra longa que deve continuar normalmente")
+    classifier = FailsOnceClassifier()
+
+    summary = LyricsClassificationService(session, classifier, _settings()).run(
+        ClassificationRequest(limit=2, workers=1)
+    )
+
+    rows = session.scalars(
+        select(LyricClassificationSnapshot).order_by(LyricClassificationSnapshot.append_order)
+    ).all()
+    assert [row.classification_status for row in rows] == ["error", "classified"]
+    assert summary.classified == 1
+    assert summary.errors == 1
+    assert summary.skipped_due_to_error == 1
+    assert [item["status"] for item in summary.item_outcomes] == ["error", "classified"]
+    assert summary.item_outcomes[0]["error"] == "temporary provider failure"
+    assert summary.item_outcomes[0]["provider_outcome"] == "provider_error"
+
+
+def test_only_unclassified_excludes_language_unsupported_outcome(session: Session) -> None:
+    """A definitive unsupported-language result must not re-enter the queue."""
+    _document(session, "letra longa o bastante em idioma não suportado")
+    classifier = LanguageUnsupportedClassifier()
+    service = LyricsClassificationService(session, classifier, _settings())
+
+    first = service.run(ClassificationRequest())
+    second = service.run(ClassificationRequest(only_unclassified=True))
+
+    assert first.status_outcomes == {"language_unsupported": 1}
+    assert second.selected == 0
+    assert len(classifier.classified_texts) == 1
 
 
 def test_selection_is_authorized_deduplicated_and_limited(session: Session) -> None:
@@ -395,6 +495,24 @@ def test_provider_failure_persists_safe_error_and_partial_telemetry(session: Ses
     assert row.estimated_cost_usd is None
     assert secret not in str(summary.to_json())
     assert secret not in (row.error or "")
+
+
+def test_memory_error_aborts_instead_of_skipping_the_entire_queue(session: Session) -> None:
+    """Process memory exhaustion is global and must not be treated as one bad song."""
+    _document(session, "letra longa que encontra falta de memória global")
+
+    class OutOfMemoryClassifier(FakeClassifier):
+        def classify(
+            self, lyrics: str, language: str | None = None
+        ) -> GeminiClassificationResponse:
+            raise MemoryError
+
+    with pytest.raises(MemoryError):
+        LyricsClassificationService(
+            session, OutOfMemoryClassifier(), _settings()
+        ).run(ClassificationRequest(workers=1))
+
+    assert session.scalars(select(LyricClassificationSnapshot)).all() == []
 
 
 def test_non_scored_provider_status_discards_taxonomy_payload(session: Session) -> None:
