@@ -7,8 +7,10 @@ import re
 import threading
 import time
 import unicodedata
+from copy import deepcopy
 from dataclasses import dataclass
 from enum import StrEnum
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -131,7 +133,10 @@ the text supports competing plausible readings or is too unclear for a reliable 
 interpretation, and lower confidence accordingly. Do not infer demographic identity,
 intent, lived behavior, or factual events beyond the text. Interpret slang, metaphor,
 irony, and reclaimed language cautiously. Prefer a lower intensity and confidence when
-the evidence is indirect. Return a neutral, schema-compatible result only."""
+the evidence is indirect. Confidence measures coding certainty, not probability of harm
+or moral agreement: use 0.50 or below for unresolved readings, 0.51 to 0.79 for indirect
+or context-dependent evidence, 0.80 to 0.94 for clear evidence, and 0.95 to 1.00 only for
+direct, repeated, unambiguous evidence. Return a neutral, schema-compatible result only."""
 
 
 class GeminiOutcomeStatus(StrEnum):
@@ -176,9 +181,121 @@ def extract_usage(metadata: Any | None) -> UsageTelemetry | None:
     )
 
 
-def _build_lyrics_prompt(lyrics: str, language: str | None) -> str:
+def build_lyrics_prompt(lyrics: str, language: str | None) -> str:
+    """Build the only model-visible lyric prompt used by online and batch modes."""
+
     language_context = f"\nLyric language: {language}" if language else ""
     return f"{_CLASSIFICATION_INSTRUCTIONS}{language_context}\n<lyrics>\n{lyrics}\n</lyrics>"
+
+
+_SUPPORTED_SCHEMA_KEYS = {
+    "type",
+    "title",
+    "description",
+    "enum",
+    "items",
+    "minimum",
+    "maximum",
+    "anyOf",
+    "properties",
+    "additionalProperties",
+    "required",
+}
+
+
+def _inline_schema_references(schema: dict[str, object]) -> dict[str, object]:
+    definitions = schema.get("$defs")
+    if definitions is None:
+        return deepcopy(schema)
+    if not isinstance(definitions, dict):
+        raise TypeError("lyrics response schema definitions must be an object")
+
+    def resolve(value: object, stack: tuple[str, ...] = ()) -> object:
+        if isinstance(value, list):
+            return [resolve(item, stack) for item in value]
+        if not isinstance(value, dict):
+            return value
+        reference = value.get("$ref")
+        if reference is not None:
+            if not isinstance(reference, str) or not reference.startswith("#/$defs/"):
+                raise ValueError("lyrics response schema contains an unsupported reference")
+            name = reference.removeprefix("#/$defs/")
+            if name in stack:
+                raise ValueError("lyrics response schema contains a recursive reference")
+            target = definitions.get(name)
+            if not isinstance(target, dict):
+                raise ValueError("lyrics response schema contains an unknown reference")
+            merged = {**target, **{key: item for key, item in value.items() if key != "$ref"}}
+            return resolve(merged, (*stack, name))
+        return {
+            key: resolve(item, stack)
+            for key, item in value.items()
+            if key != "$defs"
+        }
+
+    resolved = resolve(schema)
+    if not isinstance(resolved, dict):
+        raise TypeError("lyrics response schema must be an object")
+    return resolved
+
+
+def _sanitize_schema(value: object, *, parent_key: str | None = None) -> object:
+    if isinstance(value, list):
+        return [_sanitize_schema(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    if parent_key == "properties":
+        return {key: _sanitize_schema(item) for key, item in value.items()}
+    sanitized = {
+        key: _sanitize_schema(item, parent_key=key)
+        for key, item in value.items()
+        if key in _SUPPORTED_SCHEMA_KEYS
+    }
+    properties = sanitized.get("properties")
+    if isinstance(properties, dict):
+        sanitized["required"] = list(properties)
+    return sanitized
+
+
+@lru_cache(maxsize=1)
+def _cached_lyrics_response_json_schema() -> dict[str, object]:
+    schema = _sanitize_schema(
+        _inline_schema_references(LyricsClassification.model_json_schema())
+    )
+    if not isinstance(schema, dict):
+        raise TypeError("lyrics response schema must be an object")
+    return schema
+
+
+def lyrics_response_json_schema() -> dict[str, object]:
+    """Return a provider-compatible schema without mutable shared state."""
+
+    return deepcopy(_cached_lyrics_response_json_schema())
+
+
+def build_lyrics_generation_config(
+    model_id: str,
+    thinking_level: ThinkingLevel | str,
+    max_output_tokens: int | None,
+) -> types.GenerateContentConfig:
+    """Build the shared provider wire config for one model family."""
+
+    if max_output_tokens is not None and max_output_tokens < 1:
+        raise ValueError("Gemini max output tokens must be positive")
+    policy = GenerationPolicy.for_model(model_id, thinking_level)
+    config: dict[str, Any] = {
+        "response_mime_type": "application/json",
+        "response_json_schema": lyrics_response_json_schema(),
+    }
+    if max_output_tokens is not None:
+        config["max_output_tokens"] = max_output_tokens
+    if policy.temperature is not None:
+        config["temperature"] = policy.temperature
+    if policy.thinking_level is not None:
+        config["thinking_config"] = types.ThinkingConfig(
+            thinking_level=types.ThinkingLevel(policy.thinking_level.value)
+        )
+    return types.GenerateContentConfig(**config)
 
 
 class GeminiLyricsClassifier:
@@ -233,20 +350,9 @@ class GeminiLyricsClassifier:
         return client
 
     def _generation_config(self) -> types.GenerateContentConfig:
-        policy = GenerationPolicy.for_model(self._model_id, self._thinking_level)
-        config: dict[str, Any] = {
-            "response_mime_type": "application/json",
-            "response_schema": LyricsClassification,
-        }
-        if self._max_output_tokens is not None:
-            config["max_output_tokens"] = self._max_output_tokens
-        if policy.temperature is not None:
-            config["temperature"] = policy.temperature
-        if policy.thinking_level is not None:
-            config["thinking_config"] = types.ThinkingConfig(
-                thinking_level=types.ThinkingLevel(policy.thinking_level.value)
-            )
-        return types.GenerateContentConfig(**config)
+        return build_lyrics_generation_config(
+            self._model_id, self._thinking_level, self._max_output_tokens
+        )
 
     def _retrying(self) -> Retrying:
         return Retrying(
@@ -261,7 +367,7 @@ class GeminiLyricsClassifier:
         )
 
     def classify(self, lyrics: str, language: str | None = None) -> GeminiClassificationResponse:
-        prompt = _build_lyrics_prompt(lyrics, language)
+        prompt = build_lyrics_prompt(lyrics, language)
 
         def generate() -> types.GenerateContentResponse:
             return self._client().models.generate_content(
@@ -314,7 +420,7 @@ class GeminiLyricsClassifier:
         )
 
     def estimate_input_tokens(self, lyrics: str, language: str | None = None) -> int | None:
-        prompt = _build_lyrics_prompt(lyrics, language)
+        prompt = build_lyrics_prompt(lyrics, language)
 
         def count() -> types.CountTokensResponse:
             return self._client().models.count_tokens(model=self._model_id, contents=prompt)

@@ -134,6 +134,29 @@ class Settings(BaseSettings):
             "CHART_OBSERVATORY_GEMINI_THOUGHT_USD_PER_MILLION_TOKENS",
         ),
     )
+    gemini_batch_bucket: str | None = Field(
+        default=None,
+        min_length=1,
+        validation_alias=AliasChoices(
+            "GEMINI_BATCH_BUCKET", "CHART_OBSERVATORY_GEMINI_BATCH_BUCKET"
+        ),
+    )
+    gemini_batch_input_usd_per_million_tokens: Decimal | None = Field(
+        default=None,
+        gt=0,
+        validation_alias=AliasChoices(
+            "GEMINI_BATCH_INPUT_USD_PER_MILLION_TOKENS",
+            "CHART_OBSERVATORY_GEMINI_BATCH_INPUT_USD_PER_MILLION_TOKENS",
+        ),
+    )
+    gemini_batch_output_usd_per_million_tokens: Decimal | None = Field(
+        default=None,
+        gt=0,
+        validation_alias=AliasChoices(
+            "GEMINI_BATCH_OUTPUT_USD_PER_MILLION_TOKENS",
+            "CHART_OBSERVATORY_GEMINI_BATCH_OUTPUT_USD_PER_MILLION_TOKENS",
+        ),
+    )
     chartmetric_refresh_token: str | None = Field(
         default=None,
         validation_alias=AliasChoices(

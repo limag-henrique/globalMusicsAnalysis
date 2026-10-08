@@ -99,3 +99,14 @@ union of every source; YouTube is a current video snapshot rather than YouTube M
 history; Chartmetric historical coverage is incomplete; and lyrics/annotations
 depend on source coverage and authorization. `GLOBAL` is not a country. Article
 tables must report source, period, denominator, missingness, and artifact version.
+
+## Recovered classification corpus audit (2026-10-07)
+
+The operational audit in [research-quality-20261007](../docs/operations/research-quality-20261007.md)
+supersedes any assumption that successful automatic classifications are already
+validated country-level article results. It documents current database counts,
+recovered original-ID lineage, unverified identity, source exclusions, missing
+language, denominator corrections and review requirements. The target population
+may be the general population of countries; the observed sample remains platform
+chart repertoires. Population shares, endorsement and intrinsic national traits
+are not identified by these data alone.

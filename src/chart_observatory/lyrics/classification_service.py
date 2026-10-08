@@ -21,33 +21,28 @@ from chart_observatory.lyrics.classification import (
     LyricsClassification,
     UsageTelemetry,
 )
+from chart_observatory.lyrics.classification_queue import (
+    HANDLED_CLASSIFICATION_STATUSES,
+    MIN_CLASSIFIABLE_TEXT_CHARS,
+    ClassificationCandidate,
+    ClassificationSignature,
+    classification_queue_lock,
+    select_remaining_candidates,
+)
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiClassificationResponse,
     GeminiOutcomeStatus,
+)
+from chart_observatory.lyrics.identity_quarantine import (
+    excluded_document_ids,
+    load_quarantine_entries,
+    load_suspended_sources,
 )
 from chart_observatory.lyrics.repository import (
     AUTHORIZED_RIGHTS,
     ClassificationSnapshotInput,
     append_classification_snapshot,
     find_matching_snapshot,
-)
-
-MIN_CLASSIFIABLE_TEXT_CHARS = 20
-<<<<<<< HEAD
-HANDLED_CLASSIFICATION_STATUSES = (
-=======
-TERMINAL_CLASSIFICATION_STATUSES = (
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
-    "classified",
-    "ambiguous",
-    "instrumental",
-    "insufficient_text",
-<<<<<<< HEAD
-    "language_unsupported",
-    "blocked",
-    "error",
-=======
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 )
 
 
@@ -133,14 +128,7 @@ class ClassificationRunSummary:
         }
 
 
-@dataclass(frozen=True, slots=True)
-class _Candidate:
-    lyric_document_id: UUID
-    canonical_track_id: UUID
-    lyrics_hash: str
-    text: str | None
-    language: str | None
-    instrumental: bool
+_Candidate = ClassificationCandidate
 
 
 class LyricsClassificationService:
@@ -165,6 +153,10 @@ class LyricsClassificationService:
         )
 
     def run(self, request: ClassificationRequest) -> ClassificationRunSummary:
+        with classification_queue_lock(self._session):
+            return self._run_locked(request)
+
+    def _run_locked(self, request: ClassificationRequest) -> ClassificationRunSummary:
         candidates = self._select_candidates(request)
         summary = ClassificationRunSummary(selected=len(candidates))
 
@@ -188,6 +180,8 @@ class LyricsClassificationService:
 
     def count_initial_pass_remaining(self) -> int:
         """Count authorized tracks with no durable outcome in the unattended queue."""
+        quarantined_ids = excluded_document_ids(load_quarantine_entries())
+        suspended_sources = load_suspended_sources()
         handled_snapshot = exists(
             select(LyricClassificationSnapshot.id).where(
                 LyricClassificationSnapshot.canonical_track_id
@@ -197,29 +191,46 @@ class LyricsClassificationService:
                 ),
             )
         )
-        count = self._session.scalar(
-            select(func.count(func.distinct(LyricDocument.canonical_track_id))).where(
-                LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)),
-                ~handled_snapshot,
-            )
+        statement = select(func.count(func.distinct(LyricDocument.canonical_track_id))).where(
+            LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)),
+            ~handled_snapshot,
         )
+        if quarantined_ids:
+            statement = statement.where(LyricDocument.id.not_in(quarantined_ids))
+        if suspended_sources:
+            statement = statement.where(
+                func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
+            )
+        count = self._session.scalar(statement)
         return int(count or 0)
 
     def _select_candidates(self, request: ClassificationRequest) -> list[_Candidate]:
+        if request.only_unclassified:
+            return select_remaining_candidates(
+                self._session,
+                ClassificationSignature(
+                    self._model_id, TAXONOMY_VERSION, PROMPT_VERSION
+                ),
+                request.limit,
+            )
         statement = select(LyricDocument).where(
             LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS))
         )
+        quarantined_ids = excluded_document_ids(load_quarantine_entries())
+        suspended_sources = load_suspended_sources()
+        if quarantined_ids:
+            statement = statement.where(LyricDocument.id.not_in(quarantined_ids))
+        if suspended_sources:
+            statement = statement.where(
+                func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
+            )
         if request.only_unclassified:
             successful_snapshot = exists(
                 select(LyricClassificationSnapshot.id).where(
                     LyricClassificationSnapshot.canonical_track_id
                     == LyricDocument.canonical_track_id,
                     LyricClassificationSnapshot.classification_status.in_(
-<<<<<<< HEAD
                         HANDLED_CLASSIFICATION_STATUSES
-=======
-                        TERMINAL_CLASSIFICATION_STATUSES
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                     ),
                 )
             )
@@ -263,11 +274,7 @@ class LyricsClassificationService:
         provider_candidates: list[_Candidate] = []
         for candidate in candidates:
             match = self._find_match(candidate)
-<<<<<<< HEAD
             if not request.force and match is not None and self._is_handled_match(match):
-=======
-            if not request.force and match is not None and self._is_terminal_match(match):
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                 if request.estimate_cost:
                     summary.skipped_idempotent += 1
                 continue
@@ -321,11 +328,7 @@ class LyricsClassificationService:
                 while len(pending) >= request.workers:
                     self._complete_one(pending, summary)
                 match = self._find_match(candidate)
-<<<<<<< HEAD
                 if match is not None and not request.force and self._is_handled_match(match):
-=======
-                if match is not None and not request.force and self._is_terminal_match(match):
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
                     summary.skipped_idempotent += 1
                     continue
                 forced_from_id = match.id if match is not None and request.force else None
@@ -465,15 +468,9 @@ class LyricsClassificationService:
         )
 
     @staticmethod
-<<<<<<< HEAD
     def _is_handled_match(snapshot: LyricClassificationSnapshot) -> bool:
         status = getattr(snapshot, "classification_status", None)
         return status is None or status in HANDLED_CLASSIFICATION_STATUSES
-=======
-    def _is_terminal_match(snapshot: LyricClassificationSnapshot) -> bool:
-        status = getattr(snapshot, "classification_status", None)
-        return status is None or status in TERMINAL_CLASSIFICATION_STATUSES
->>>>>>> 8633ddb7f53aa2829c0fee82e199cdf054166352
 
     @staticmethod
     def _local_status(candidate: _Candidate) -> str | None:

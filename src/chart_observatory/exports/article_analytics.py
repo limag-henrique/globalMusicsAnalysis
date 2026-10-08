@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
+from datetime import date, timedelta
 from itertools import combinations
 from pathlib import Path
 
@@ -18,7 +19,7 @@ from chart_observatory.ui.classifications import ContentClassification
 
 def build_market_anxiety_dataset(observations: pl.DataFrame, *, top_n: int = 50) -> pl.DataFrame:
     """Measure how often each market replaces or moves its top-N tracks."""
-    schema = {
+    schema: dict[str, type[pl.DataType] | pl.DataType] = {
         "market_code": pl.String,
         "period_start": pl.Date,
         "previous_period_start": pl.Date,
@@ -34,35 +35,58 @@ def build_market_anxiety_dataset(observations: pl.DataFrame, *, top_n: int = 50)
     missing = required.difference(observations.columns)
     if missing:
         raise ValueError(f"market anxiety input is missing columns: {sorted(missing)}")
+    cell_columns = [
+        c
+        for c in ("provider", "origin_platform", "chart_family", "frequency")
+        if c in observations.columns
+    ]
+    if "period_end" in observations.columns:
+        observations = observations.with_columns(
+            ((pl.col("period_end") - pl.col("period_start")).dt.total_days() + 1).alias(
+                "native_period_days"
+            )
+        )
+        cell_columns.append("native_period_days")
+    schema.update({c: observations.schema[c] for c in cell_columns})
+    groups = [*cell_columns, "market_code", "period_start"]
+    period_columns = ["period_end"] if "period_end" in observations.columns else []
     grouped = (
         observations.filter(
             pl.col("canonical_track_id").is_not_null()
             & (pl.col("rank") > 0)
             & (pl.col("rank") <= top_n)
         )
-        .select("market_code", "period_start", "canonical_track_id", "rank")
-        .group_by("market_code", "period_start")
-        .agg(pl.struct(["canonical_track_id", "rank"]).alias("ranked_tracks"))
-        .sort("market_code", "period_start")
+        .select(*groups, *period_columns, "canonical_track_id", "rank")
+        .group_by(groups)
+        .agg(
+            pl.struct(["canonical_track_id", "rank"]).alias("ranked_tracks"),
+            *[pl.col(c).max() for c in period_columns],
+        )
+        .sort(groups)
     )
-    previous: dict[str, tuple[object, dict[str, int]]] = {}
+    previous: dict[tuple[object, ...], tuple[date, date | None, dict[str, int]]] = {}
     output: list[dict[str, object]] = []
     for row in grouped.iter_rows(named=True):
         market = str(row["market_code"])
+        cell = tuple(row[c] for c in cell_columns) + (market,)
         period = row["period_start"]
         current = {
             str(item["canonical_track_id"]): int(item["rank"])
             for item in row["ranked_tracks"]
             if item["canonical_track_id"] is not None
         }
-        if market in previous:
-            previous_period, prior = previous[market]
+        if cell in previous:
+            previous_period, previous_end, prior = previous[cell]
+            if previous_end is not None and period != previous_end + timedelta(days=1):
+                previous[cell] = (period, row.get("period_end"), current)
+                continue
             left, right = set(prior), set(current)
             retained = left & right
             union = left | right
             jaccard = len(retained) / len(union) if union else None
             output.append(
                 {
+                    **{c: row[c] for c in cell_columns},
                     "market_code": market,
                     "period_start": period,
                     "previous_period_start": previous_period,
@@ -79,7 +103,7 @@ def build_market_anxiety_dataset(observations: pl.DataFrame, *, top_n: int = 50)
                     ),
                 }
             )
-        previous[market] = (period, current)
+        previous[cell] = (period, row.get("period_end"), current)
     return pl.DataFrame(output, schema=schema)
 
 
@@ -157,7 +181,7 @@ def build_genre_variation_dataset(
     observations: pl.DataFrame, genre_claims: pl.DataFrame
 ) -> pl.DataFrame:
     """Calculate distinct-track genre shares by market and calendar year."""
-    schema = {
+    schema: dict[str, type[pl.DataType] | pl.DataType] = {
         "provider": pl.String,
         "origin_platform": pl.String,
         "market_code": pl.String,
@@ -167,6 +191,25 @@ def build_genre_variation_dataset(
         "track_denominator": pl.UInt32,
         "genre_share": pl.Float64,
     }
+    if "period_end" in observations.columns:
+        observations = observations.with_columns(
+            ((pl.col("period_end") - pl.col("period_start")).dt.total_days() + 1).alias(
+                "native_period_days"
+            )
+        )
+    cell_columns = [
+        "provider",
+        "origin_platform",
+        *[
+            column
+            for column in ("chart_family", "frequency", "native_period_days")
+            if column in observations.columns
+        ],
+    ]
+    schema.update(
+        {column: observations.schema[column] for column in cell_columns if column not in schema}
+    )
+    groups = [*cell_columns, "market_code", "year"]
     if observations.height == 0 or genre_claims.height == 0:
         return pl.DataFrame(schema=schema)
     required_obs = {
@@ -191,30 +234,19 @@ def build_genre_variation_dataset(
             how="inner",
         )
         .rename({"normalized_genre": "genre"})
-        .unique(
-            subset=[
-                "provider",
-                "origin_platform",
-                "market_code",
-                "year",
-                "genre",
-                "canonical_track_id",
-            ]
-        )
+        .unique(subset=[*groups, "genre", "canonical_track_id"])
     )
     if joined.height == 0:
         return pl.DataFrame(schema=schema)
-    grouped = joined.group_by("provider", "origin_platform", "market_code", "year", "genre").agg(
+    grouped = joined.group_by(*groups, "genre").agg(
         pl.col("canonical_track_id").n_unique().alias("tracks")
     )
-    denominators = grouped.group_by("provider", "origin_platform", "market_code", "year").agg(
-        pl.col("tracks").sum().alias("track_denominator")
-    )
+    denominators = grouped.group_by(groups).agg(pl.col("tracks").sum().alias("track_denominator"))
     return (
-        grouped.join(denominators, on=["provider", "origin_platform", "market_code", "year"])
+        grouped.join(denominators, on=groups)
         .with_columns((pl.col("tracks") / pl.col("track_denominator")).alias("genre_share"))
         .select(list(schema))
-        .sort("provider", "origin_platform", "market_code", "year", "genre")
+        .sort(*groups, "genre")
     )
 
 
@@ -266,12 +298,32 @@ def write_article_datasets(
     if genre_claims is not None:
         variation = build_genre_variation_dataset(observations, genre_claims)
         outputs["genre_variation"] = variation
-        distributions: dict[tuple[str, int], dict[str, float]] = {}
-        for row in variation.iter_rows(named=True):
-            distributions.setdefault((row["market_code"], row["year"]), {})[
-                row["genre"]
-            ] = float(row["tracks"])
-        outputs["genre_distance"] = build_genre_distance_dataset(distributions)
+        distances = []
+        cell_columns = [
+            column
+            for column in (
+                "provider",
+                "origin_platform",
+                "chart_family",
+                "frequency",
+                "native_period_days",
+            )
+            if column in variation.columns
+        ]
+        for cell in variation.partition_by(cell_columns, maintain_order=True):
+            distributions: dict[tuple[str, int], dict[str, float]] = {}
+            for row in cell.iter_rows(named=True):
+                distributions.setdefault((row["market_code"], row["year"]), {})[row["genre"]] = (
+                    float(row["tracks"])
+                )
+            distances.append(
+                build_genre_distance_dataset(distributions).with_columns(
+                    *[pl.lit(cell[c][0]).cast(variation.schema[c]).alias(c) for c in cell_columns]
+                )
+            )
+        outputs["genre_distance"] = (
+            pl.concat(distances) if distances else build_genre_distance_dataset({})
+        )
     records = list(classifications)
     if records:
         content = classification_observations(observations, records)

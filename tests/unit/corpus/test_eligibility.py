@@ -30,3 +30,27 @@ def test_balanced_panel_uses_common_period_intersection() -> None:
         [evaluate_cell(first, rules), evaluate_cell(second, rules)], corpus_start=date(2020, 1, 8)
     )
     assert panel.common_periods[0] == date(2020, 1, 8)
+
+
+def test_balanced_panel_excludes_unobserved_internal_periods() -> None:
+    periods = tuple(date(2020, 1, 1) + timedelta(days=i) for i in range(370))
+    rules = EligibilityRules(minimum_coverage=0.95, minimum_years=1)
+    cells = [
+        evaluate_cell(
+            ChartCellInput(
+                "MGD",
+                "SPOTIFY",
+                country,
+                "TOP_200",
+                "DAILY",
+                tuple(p for i, p in enumerate(periods) if i != gap),
+                (200,),
+            ),
+            rules,
+        )
+        for country, gap in [("BR", 100), ("US", 200)]
+    ]
+    panel = select_balanced_panel(cells)
+    assert len(panel.common_periods) == 368
+    assert periods[100] not in panel.common_periods
+    assert periods[200] not in panel.common_periods

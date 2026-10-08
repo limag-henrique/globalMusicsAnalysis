@@ -43,3 +43,15 @@ def test_gemini_settings_use_unprefixed_environment_aliases(monkeypatch) -> None
     assert settings.gemini_input_usd_per_million_tokens == Decimal("0.5")
     assert settings.gemini_output_usd_per_million_tokens == Decimal("1.5")
     assert settings.gemini_thought_usd_per_million_tokens == Decimal("2.5")
+
+
+def test_batch_settings_use_unprefixed_environment_aliases(monkeypatch) -> None:
+    monkeypatch.setenv("GEMINI_BATCH_BUCKET", "private-lyrics-batch")
+    monkeypatch.setenv("GEMINI_BATCH_INPUT_USD_PER_MILLION_TOKENS", "0.375")
+    monkeypatch.setenv("GEMINI_BATCH_OUTPUT_USD_PER_MILLION_TOKENS", "1.875")
+
+    settings = Settings.load(PROJECT_ROOT)
+
+    assert settings.gemini_batch_bucket == "private-lyrics-batch"
+    assert settings.gemini_batch_input_usd_per_million_tokens == Decimal("0.375")
+    assert settings.gemini_batch_output_usd_per_million_tokens == Decimal("1.875")

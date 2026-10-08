@@ -16,6 +16,10 @@ from chart_observatory.db.models.corpus import (
     SourceConflict,
     TrackLanguage,
 )
+from chart_observatory.db.models.lyrics_batch import (
+    LyricClassificationBatchItem,
+    LyricClassificationBatchRun,
+)
 from chart_observatory.db.models.provenance import SourceArtifact
 from chart_observatory.db.models.reference import Country, DataSource, Platform
 from chart_observatory.db.models.resolution import ResolutionRecord
@@ -49,6 +53,8 @@ __all__ = [
     "GenreClaim",
     "GenreTaxonomy",
     "LyricClassificationSnapshot",
+    "LyricClassificationBatchItem",
+    "LyricClassificationBatchRun",
     "LyricDocument",
     "MarketGeography",
     "Platform",

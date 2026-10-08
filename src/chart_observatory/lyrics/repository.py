@@ -17,6 +17,7 @@ from chart_observatory.db.models.corpus import (
     LyricDocument,
     SemanticAnnotation,
 )
+from chart_observatory.db.models.lyrics_batch import LyricClassificationBatchItem
 from chart_observatory.lyrics.annotations import SemanticAnnotationInput, validate_annotation
 from chart_observatory.lyrics.classification import (
     CostRateCard,
@@ -57,6 +58,10 @@ class ClassificationSnapshotInput:
     usage: UsageTelemetry | None = None
     rate_card: CostRateCard | None = None
     forced_from_snapshot_id: UUID | None = None
+    provider_model_version: str | None = None
+    execution_mode: str = "online"
+    batch_run_id: UUID | None = None
+    batch_item_key: UUID | None = None
 
 
 def find_matching_snapshot(
@@ -87,6 +92,38 @@ def append_classification_snapshot(
         raise ValueError(f"lyric_document_id does not exist: {snapshot.lyric_document_id}")
     if document.canonical_track_id != snapshot.canonical_track_id:
         raise ValueError("canonical_track_id does not match lyric document")
+    if document.content_sha256 != snapshot.lyrics_hash:
+        raise ValueError("lyrics_hash does not match lyric document")
+    if snapshot.execution_mode not in {"online", "batch"}:
+        raise ValueError("execution_mode must be online or batch")
+    if snapshot.execution_mode == "batch":
+        if snapshot.batch_run_id is None or snapshot.batch_item_key is None:
+            raise ValueError("batch snapshots require batch_run_id and batch_item_key")
+        item = session.get(LyricClassificationBatchItem, snapshot.batch_item_key)
+        if item is None:
+            raise ValueError("batch_item_key does not exist")
+        item_signature = (
+            item.batch_run_id,
+            item.lyric_document_id,
+            item.canonical_track_id,
+            item.lyrics_hash,
+            item.model_id,
+            item.taxonomy_version,
+            item.prompt_version,
+        )
+        snapshot_signature = (
+            snapshot.batch_run_id,
+            snapshot.lyric_document_id,
+            snapshot.canonical_track_id,
+            snapshot.lyrics_hash,
+            snapshot.model_id,
+            snapshot.taxonomy_version,
+            snapshot.prompt_version,
+        )
+        if item_signature != snapshot_signature:
+            raise ValueError("batch item does not match snapshot signature")
+    elif snapshot.batch_run_id is not None or snapshot.batch_item_key is not None:
+        raise ValueError("online snapshots cannot reference a batch")
     if snapshot.forced_from_snapshot_id is not None:
         forced_from = session.get(LyricClassificationSnapshot, snapshot.forced_from_snapshot_id)
         if forced_from is None:
@@ -125,6 +162,10 @@ def append_classification_snapshot(
         total_tokens=usage.total_tokens if usage is not None else None,
         estimated_cost_usd=snapshot.rate_card.calculate(usage) if snapshot.rate_card else None,
         forced_from_snapshot_id=snapshot.forced_from_snapshot_id,
+        provider_model_version=snapshot.provider_model_version,
+        execution_mode=snapshot.execution_mode,
+        batch_run_id=snapshot.batch_run_id,
+        batch_item_key=snapshot.batch_item_key,
     )
     session.add(row)
     session.flush()

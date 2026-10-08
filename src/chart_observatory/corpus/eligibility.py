@@ -132,11 +132,7 @@ def select_balanced_panel(
     corpus_end: date | None = None,
 ) -> BalancedPanel:
     selected = tuple(result for result in cells if result.eligible)
-    period_sets = [
-        set(_expected_periods(result.first_date, result.last_date, result.cell.frequency))
-        for result in selected
-        if result.first_date and result.last_date
-    ]
+    period_sets = [set(result.cell.periods) for result in selected]
     common = set.intersection(*period_sets) if period_sets else set()
     if corpus_start:
         common = {period for period in common if period >= corpus_start}

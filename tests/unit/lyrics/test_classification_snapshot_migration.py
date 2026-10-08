@@ -27,6 +27,14 @@ STATUS_INDEX = (
     "ix_lyric_classification_snapshots_classification_status",
     ("classification_status",),
 )
+BATCH_RUN_INDEX = (
+    "ix_lyric_classification_snapshots_batch_run_id",
+    ("batch_run_id",),
+)
+BATCH_ITEM_INDEX = (
+    "ix_lyric_classification_snapshots_batch_item_key",
+    ("batch_item_key",),
+)
 
 
 class RecordingOperations:
@@ -76,7 +84,7 @@ def test_snapshot_metadata_indexes_match_migration_contract() -> None:
         for index in LyricClassificationSnapshot.__table__.indexes
     }
 
-    assert indexes == {SIGNATURE_INDEX, STATUS_INDEX}
+    assert indexes == {SIGNATURE_INDEX, STATUS_INDEX, BATCH_RUN_INDEX, BATCH_ITEM_INDEX}
 
 
 def test_revision_fits_alembic_version_column(migration_module: ModuleType) -> None:

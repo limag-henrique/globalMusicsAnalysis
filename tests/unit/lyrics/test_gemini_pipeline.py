@@ -96,7 +96,8 @@ def test_vertex_client_uses_adc_and_structured_schema(monkeypatch) -> None:
     assert "api_key" not in construction[0]
     assert construction[0]["http_options"].api_version == "v1"
     assert construction[0]["http_options"].timeout == 120_000
-    assert calls[0]["config"].response_schema is LyricsClassification
+    assert calls[0]["config"].response_json_schema
+    assert calls[0]["config"].response_schema is None
     assert calls[0]["config"].response_mime_type == "application/json"
 
 
@@ -170,6 +171,9 @@ def test_prompt_anchors_social_classification_without_overclaiming(monkeypatch) 
     assert "absence of consent language is not coercion" in prompt
     assert "use ambiguous" in prompt
     assert "do not infer demographic identity" in prompt
+    assert "0.95 to 1.00 only for" in prompt
+    assert "direct, repeated, unambiguous evidence" in prompt
+    assert "confidence measures coding certainty, not probability of harm" in prompt
 
 
 @pytest.mark.parametrize(

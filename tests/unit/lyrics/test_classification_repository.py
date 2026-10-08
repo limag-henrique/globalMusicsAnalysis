@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import UTC, datetime
 from decimal import Decimal
 from uuid import UUID, uuid4
@@ -9,6 +10,10 @@ from sqlalchemy.orm import Session
 
 from chart_observatory.db.base import Base
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
+from chart_observatory.db.models.lyrics_batch import (
+    LyricClassificationBatchItem,
+    LyricClassificationBatchRun,
+)
 from chart_observatory.lyrics.classification import (
     CostRateCard,
     LyricsClassification,
@@ -146,9 +151,7 @@ def test_forced_snapshot_appends_immutable_history(
     )
     forced = append_classification_snapshot(
         session,
-        snapshot_input(
-            lyric_document, result=classification(), forced_from_snapshot_id=first.id
-        ),
+        snapshot_input(lyric_document, result=classification(), forced_from_snapshot_id=first.id),
     )
 
     assert forced.id != first.id
@@ -165,15 +168,11 @@ def test_matching_signature_returns_last_forced_snapshot_when_created_at_ties(
     )
     forced = append_classification_snapshot(
         session,
-        snapshot_input(
-            lyric_document, result=classification(), forced_from_snapshot_id=first.id
-        ),
+        snapshot_input(lyric_document, result=classification(), forced_from_snapshot_id=first.id),
     )
     latest = append_classification_snapshot(
         session,
-        snapshot_input(
-            lyric_document, result=classification(), forced_from_snapshot_id=forced.id
-        ),
+        snapshot_input(lyric_document, result=classification(), forced_from_snapshot_id=forced.id),
     )
 
     match = find_matching_snapshot(session, snapshot_input(lyric_document))
@@ -192,15 +191,11 @@ def test_matching_signature_uses_append_order_for_tied_terminal_forced_branches(
     )
     earlier_branch = append_classification_snapshot(
         session,
-        snapshot_input(
-            lyric_document, result=classification(), forced_from_snapshot_id=first.id
-        ),
+        snapshot_input(lyric_document, result=classification(), forced_from_snapshot_id=first.id),
     )
     later_branch = append_classification_snapshot(
         session,
-        snapshot_input(
-            lyric_document, result=classification(), forced_from_snapshot_id=first.id
-        ),
+        snapshot_input(lyric_document, result=classification(), forced_from_snapshot_id=first.id),
     )
 
     assert first.append_order < earlier_branch.append_order < later_branch.append_order
@@ -250,6 +245,19 @@ def test_error_snapshot_has_no_invented_result_json(
     assert row.error == "provider unavailable"
 
 
+def test_snapshot_rejects_hash_that_does_not_match_document(
+    session: Session, lyric_document: LyricDocument
+) -> None:
+    invalid = ClassificationSnapshotInput(
+        **{
+            **snapshot_input(lyric_document, result=classification()).__dict__,
+            "lyrics_hash": "0" * 64,
+        }
+    )
+    with pytest.raises(ValueError, match="lyrics_hash"):
+        append_classification_snapshot(session, invalid)
+
+
 def test_snapshot_stores_complete_pydantic_result_as_json(
     session: Session, lyric_document: LyricDocument
 ) -> None:
@@ -279,3 +287,51 @@ def test_partial_usage_keeps_missing_usage_and_cost_null(
     assert row.thought_tokens is None
     assert row.total_tokens is None
     assert row.estimated_cost_usd is None
+
+
+def test_batch_snapshot_traceability_is_persisted(
+    session: Session, lyric_document: LyricDocument
+) -> None:
+    run = LyricClassificationBatchRun(
+        kind="pilot",
+        state="prepared",
+        model_id="gemini-fixed-model",
+        taxonomy_version="lyrics-classification-v1",
+        prompt_version="lyrics-classification-prompt-v1",
+        thinking_level="LOW",
+        project_id="project",
+        location="global",
+        bucket_name="private-bucket",
+    )
+    session.add(run)
+    session.flush()
+    item = LyricClassificationBatchItem(
+        opaque_key=uuid4(),
+        batch_run_id=run.id,
+        line_number=1,
+        lyric_document_id=lyric_document.id,
+        canonical_track_id=lyric_document.canonical_track_id,
+        lyrics_hash=lyric_document.content_sha256,
+        model_id=run.model_id,
+        taxonomy_version=run.taxonomy_version,
+        prompt_version=run.prompt_version,
+        state="reserved",
+    )
+    session.add(item)
+    session.flush()
+
+    row = append_classification_snapshot(
+        session,
+        replace(
+            snapshot_input(lyric_document, result=classification()),
+            batch_run_id=run.id,
+            batch_item_key=item.opaque_key,
+            provider_model_version="gemini-3.8-flash@001",
+            execution_mode="batch",
+        ),
+    )
+
+    assert row.batch_item_key == item.opaque_key
+    assert row.batch_run_id == run.id
+    assert row.provider_model_version == "gemini-3.8-flash@001"
+    assert row.execution_mode == "batch"

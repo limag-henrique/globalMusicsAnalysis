@@ -1,7 +1,7 @@
 # ruff: noqa: B008
 
 import json
-from dataclasses import asdict, replace
+from dataclasses import asdict, is_dataclass, replace
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
@@ -43,6 +43,13 @@ from chart_observatory.ingestion.corpus import (
     write_mgd_coverage,
 )
 from chart_observatory.ingestion.youtube import collect_youtube_current
+from chart_observatory.lyrics.batch_service import (
+    BATCH_MAX_OUTPUT_TOKENS,
+    MAX_TOTAL_BATCH_COST_USD,
+    BatchClassificationService,
+)
+from chart_observatory.lyrics.batch_storage import BatchStorageAdapter
+from chart_observatory.lyrics.batch_vertex import VertexBatchAdapter
 from chart_observatory.lyrics.classification_service import (
     ClassificationRequest,
     CostLimitExceeded,
@@ -58,6 +65,10 @@ from chart_observatory.lyrics.gemini_pipeline import (
     append_jsonl,
     existing_song_ids,
     throttle,
+)
+from chart_observatory.lyrics.legacy_corpus_import import (
+    import_legacy_api_lyrics,
+    preview_legacy_api_lyrics,
 )
 from chart_observatory.lyrics.repository import (
     LyricDocumentInput,
@@ -110,6 +121,7 @@ chartmetric_app = typer.Typer(help="Chartmetric authenticated source.")
 promusica_app = typer.Typer(help="Pro-Música Brasil public source.")
 youtube_app = typer.Typer(help="YouTube Data API market discovery.")
 corpus_app = typer.Typer(help="Canonical corpus, eligibility, and scientific freeze operations.")
+lyrics_batch_app = typer.Typer(help="Human-gated private Gemini batch classification operations.")
 db_app = typer.Typer(help="Operational PostgreSQL schema management.")
 app.add_typer(collect_app, name="collect")
 app.add_typer(import_app, name="import-chart")
@@ -124,6 +136,7 @@ sources_app.add_typer(chartmetric_app, name="chartmetric")
 sources_app.add_typer(promusica_app, name="promusica")
 sources_app.add_typer(youtube_app, name="youtube")
 app.add_typer(corpus_app, name="corpus")
+corpus_app.add_typer(lyrics_batch_app, name="classify-lyrics-batch")
 app.add_typer(db_app, name="db")
 
 
@@ -422,7 +435,10 @@ def corpus_analytics(
     needs_lazy_resolution = "canonical_track_id" not in raw_columns
     if not needs_lazy_resolution:
         needs_lazy_resolution = (
-            source_scan.filter(pl.col("canonical_track_id").is_not_null()).limit(1).collect().is_empty()
+            source_scan.filter(pl.col("canonical_track_id").is_not_null())
+            .limit(1)
+            .collect()
+            .is_empty()
         )
     if needs_lazy_resolution:
         source_scan = canonicalize_catalog_lazy(source_scan)
@@ -690,6 +706,32 @@ def corpus_ingest_lyrics(
     )
 
 
+@corpus_app.command("ingest-api-lyrics")
+def corpus_ingest_api_lyrics(
+    input_path: Path = typer.Option(
+        Path("data/derived/lyrics/gemini_annotations.jsonl"), "--input"
+    ),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+    rights_status: str = typer.Option("RESEARCH_AUTHORIZED", "--rights-status"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+) -> None:
+    """Import API-downloaded FOUND lyrics without using provider track IDs."""
+    if not input_path.is_file():
+        raise typer.BadParameter(f"lyrics input file does not exist: {input_path}")
+    if dry_run:
+        preview = preview_legacy_api_lyrics(input_path, rights_status=rights_status)
+        typer.echo(json.dumps({"status": "PREVIEW", **asdict(preview)}, sort_keys=True))
+        return
+    settings = Settings.load(Path.cwd())
+    service = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    summary = import_legacy_api_lyrics(
+        service.session, input_path, rights_status=rights_status
+    )
+    typer.echo(json.dumps({"status": "IMPORTED", **asdict(summary)}, sort_keys=True))
+
+
 @corpus_app.command("classify-lyrics")
 def corpus_classify_lyrics(
     database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
@@ -769,9 +811,7 @@ def corpus_classify_lyrics_run(
     database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
     batch_size: int = typer.Option(5, min=1, max=5),
     workers: int = typer.Option(1, min=1, max=1),
-    log_path: Path = typer.Option(
-        Path("data/derived/lyrics/gemini_classification_run.jsonl")
-    ),
+    log_path: Path = typer.Option(Path("data/derived/lyrics/gemini_classification_run.jsonl")),
     max_batches: int | None = typer.Option(None, min=1),
 ) -> None:
     """Run the initial classification pass in resumable, observable batches."""
@@ -810,7 +850,7 @@ def corpus_classify_lyrics_run(
         _emit_classification_run_event(
             {"event": "fatal", "run_id": run_id, "reason": "memory"}, log_path
         )
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=2) from None
     except Exception as error:
         application.session.rollback()
         _emit_classification_run_event(
@@ -822,7 +862,7 @@ def corpus_classify_lyrics_run(
             },
             log_path,
         )
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=2) from error
 
     _emit_classification_run_event(
         {
@@ -882,7 +922,7 @@ def corpus_classify_lyrics_run(
                 },
                 log_path,
             )
-            raise typer.Exit(code=2)
+            raise typer.Exit(code=2) from None
         except Exception as error:
             application.session.rollback()
             _emit_classification_run_event(
@@ -895,7 +935,7 @@ def corpus_classify_lyrics_run(
                 },
                 log_path,
             )
-            raise typer.Exit(code=2)
+            raise typer.Exit(code=2) from error
 
         totals["selected"] += summary.selected
         totals["classified"] += summary.classified
@@ -1559,20 +1599,12 @@ def sources_chartmetric_platforms(
     try:
         capabilities = ChartmetricClient(
             settings.chartmetric_refresh_token, transport=transport
-        ).discover_capabilities(
-            platforms=("spotify", "applemusic", "youtube", "amazon")
-        )
+        ).discover_capabilities(platforms=("spotify", "applemusic", "youtube", "amazon"))
         platforms = sorted(
-            {
-                capability.origin_platform
-                for capability in capabilities
-                if capability.available
-            }
+            {capability.origin_platform for capability in capabilities if capability.available}
         )
         typer.echo(
-            json.dumps(
-                {"status": "DISCOVERED", "provider": "CHARTMETRIC", "platforms": platforms}
-            )
+            json.dumps({"status": "DISCOVERED", "provider": "CHARTMETRIC", "platforms": platforms})
         )
     except ChartmetricError as error:
         typer.echo(
@@ -1587,9 +1619,7 @@ def sources_chartmetric_platforms(
 @chartmetric_app.command("markets")
 def sources_chartmetric_markets(
     platform: str = typer.Option(..., help="Chartmetric origin platform."),
-    allow_network: bool = typer.Option(
-        False, help="Opt in to authenticated market discovery."
-    ),
+    allow_network: bool = typer.Option(False, help="Opt in to authenticated market discovery."),
 ) -> None:
     """List markets available for one Chartmetric origin platform."""
     settings = Settings.load(Path.cwd())
@@ -1720,9 +1750,7 @@ def sources_chartmetric_backfill(
     from_date: str | None = typer.Option(
         None, "--from", help="Inclusive period in YYYY-MM-DD format."
     ),
-    to_date: str | None = typer.Option(
-        None, "--to", help="Inclusive period in YYYY-MM-DD format."
-    ),
+    to_date: str | None = typer.Option(None, "--to", help="Inclusive period in YYYY-MM-DD format."),
     all_dates: bool = typer.Option(
         False, "--all-dates", help="Discover provider-supported dates per market."
     ),
@@ -1818,9 +1846,7 @@ def sources_chartmetric_backfill(
                 )
                 return
             discovered_dates = [
-                value
-                for values in available_dates_by_country.values()
-                for value in values
+                value for values in available_dates_by_country.values() for value in values
             ]
             if not discovered_dates:
                 typer.echo(
@@ -1866,9 +1892,7 @@ def sources_chartmetric_backfill(
         )
     except ValueError as error:
         typer.echo(
-            json.dumps(
-                {"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)}
-            )
+            json.dumps({"status": "INVALID_WINDOW", "provider": "CHARTMETRIC", "error": str(error)})
         )
     except ChartmetricError as error:
         typer.echo(
@@ -2105,6 +2129,220 @@ def sources_promusica_collect_current(
             }
         )
     )
+
+
+_BATCH_EVENT_LOG = Path("data/derived/lyrics/gemini_batch_events.jsonl")
+_BATCH_FORBIDDEN_LOG_FIELDS = {
+    "lyrics",
+    "prompt",
+    "request",
+    "response",
+    "credential",
+    "access_token",
+}
+
+
+def _build_batch_service(database_url: str | None) -> BatchClassificationService:
+    settings = Settings.load(Path.cwd())
+    if not settings.google_cloud_project:
+        raise typer.BadParameter("GOOGLE_CLOUD_PROJECT is required")
+    if not settings.gemini_batch_bucket:
+        raise typer.BadParameter("GEMINI_BATCH_BUCKET is required")
+    application = ResearchApplication(
+        Path("data/runtime"), database_url=database_url or settings.database_url
+    )
+    storage = BatchStorageAdapter.from_adc(
+        settings.google_cloud_project, settings.gemini_batch_bucket
+    )
+    vertex = VertexBatchAdapter(settings.google_cloud_project, settings.google_cloud_location)
+    if not settings.gemini_model:
+        raise typer.BadParameter("GEMINI_MODEL is required")
+    counter = GeminiLyricsClassifier(
+        settings.google_cloud_project,
+        settings.google_cloud_location,
+        settings.gemini_model,
+        thinking_level=settings.gemini_thinking_level,
+        max_output_tokens=BATCH_MAX_OUTPUT_TOKENS,
+    )
+    return BatchClassificationService(
+        application.session,
+        settings,
+        storage,
+        vertex,
+        token_counter=counter,
+    )
+
+
+def _batch_cost(value: str) -> Decimal:
+    try:
+        parsed = Decimal(value)
+    except InvalidOperation as error:
+        raise typer.BadParameter("--max-cost-usd must be a decimal number") from error
+    if not parsed.is_finite() or parsed <= 0:
+        raise typer.BadParameter("--max-cost-usd must be a finite positive number")
+    if parsed > MAX_TOTAL_BATCH_COST_USD:
+        raise typer.BadParameter("--max-cost-usd cannot exceed US$600")
+    return parsed
+
+
+def _batch_jsonable(value: object) -> object:
+    model_dump = getattr(value, "model_dump", None)
+    if callable(model_dump):
+        return model_dump(mode="json")
+    if not isinstance(value, type) and is_dataclass(value):
+        return asdict(value)  # type: ignore[arg-type]
+    if isinstance(value, list):
+        return [_batch_jsonable(item) for item in value]
+    if hasattr(value, "__dict__"):
+        return {
+            key: _batch_jsonable(item)
+            for key, item in vars(value).items()
+            if not key.startswith("_")
+        }
+    return value
+
+
+def _assert_safe_batch_event(value: object) -> None:
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if str(key).casefold() in _BATCH_FORBIDDEN_LOG_FIELDS:
+                raise ValueError(f"forbidden batch log field: {key}")
+            _assert_safe_batch_event(item)
+    elif isinstance(value, list):
+        for item in value:
+            _assert_safe_batch_event(item)
+
+
+def _emit_batch_result(operation: str, result: object) -> None:
+    payload = _batch_jsonable(result)
+    _assert_safe_batch_event(payload)
+    event = {
+        "timestamp_utc": datetime.now(UTC).isoformat(),
+        "operation": operation,
+        "result": payload,
+    }
+    _BATCH_EVENT_LOG.parent.mkdir(parents=True, exist_ok=True)
+    with _BATCH_EVENT_LOG.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(event, default=str, sort_keys=True) + "\n")
+    typer.echo(json.dumps(payload, default=str, sort_keys=True))
+
+
+@lyrics_batch_app.command("preflight")
+def lyrics_batch_preflight(
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    """Validate ADC, database, model, rates, lock, and private bucket controls."""
+    _emit_batch_result("preflight", _build_batch_service(database_url).preflight())
+
+
+@lyrics_batch_app.command("prepare-canary")
+def lyrics_batch_prepare_canary(
+    max_cost_usd: str = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    cost = _batch_cost(max_cost_usd)
+    result = _build_batch_service(database_url).prepare_canary(cost)
+    _emit_batch_result("prepare-canary", result)
+
+
+@lyrics_batch_app.command("prepare-pilot")
+def lyrics_batch_prepare_pilot(
+    max_cost_usd: str = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    cost = _batch_cost(max_cost_usd)
+    result = _build_batch_service(database_url).prepare_pilot(cost)
+    _emit_batch_result("prepare-pilot", result)
+
+
+@lyrics_batch_app.command("prepare-main")
+def lyrics_batch_prepare_main(
+    max_cost_usd: str = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    cost = _batch_cost(max_cost_usd)
+    result = _build_batch_service(database_url).prepare_main(cost)
+    _emit_batch_result("prepare-main", result)
+
+
+@lyrics_batch_app.command("submit")
+def lyrics_batch_submit(
+    run_id: UUID = typer.Option(...),
+    max_cost_usd: str = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    cost = _batch_cost(max_cost_usd)
+    result = _build_batch_service(database_url).submit(run_id, cost)
+    _emit_batch_result("submit", result)
+
+
+@lyrics_batch_app.command("status")
+def lyrics_batch_status(
+    run_id: UUID = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    _emit_batch_result("status", _build_batch_service(database_url).status(run_id))
+
+
+@lyrics_batch_app.command("import-results")
+def lyrics_batch_import_results(
+    run_id: UUID = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    result = _build_batch_service(database_url).import_results(run_id)
+    _emit_batch_result("import-results", result)
+
+
+@lyrics_batch_app.command("quality-report")
+def lyrics_batch_quality_report(
+    run_id: UUID = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    result = _build_batch_service(database_url).quality_report(run_id)
+    _emit_batch_result("quality-report", result)
+
+
+@lyrics_batch_app.command("accept-pilot")
+def lyrics_batch_accept_pilot(
+    run_id: UUID = typer.Option(...),
+    reviewer: str = typer.Option(..., min=1),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    result = _build_batch_service(database_url).accept_pilot(run_id, reviewer)
+    _emit_batch_result("accept-pilot", result)
+
+
+@lyrics_batch_app.command("finalize")
+def lyrics_batch_finalize(
+    run_id: UUID = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    _emit_batch_result("finalize", _build_batch_service(database_url).finalize(run_id))
+
+
+@lyrics_batch_app.command("cleanup")
+def lyrics_batch_cleanup(
+    run_id: UUID = typer.Option(...),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    _emit_batch_result("cleanup", _build_batch_service(database_url).cleanup(run_id))
+
+
+@lyrics_batch_app.command("retry-errors")
+def lyrics_batch_retry_errors(
+    prior_run_id: UUID = typer.Option(...),
+    max_cost_usd: str = typer.Option(...),
+    error_code: list[str] | None = typer.Option(None),
+    limit: int | None = typer.Option(None, min=1),
+    missing_usage_only: bool = typer.Option(False, "--missing-usage-only"),
+    database_url: str | None = typer.Option(None, envvar="CHART_OBSERVATORY_DATABASE_URL"),
+) -> None:
+    cost = _batch_cost(max_cost_usd)
+    codes = frozenset(error_code) if error_code else None
+    result = _build_batch_service(database_url).prepare_retry_errors(
+        prior_run_id, cost, codes, limit, missing_usage_only
+    )
+    _emit_batch_result("retry-errors", result)
 
 
 if __name__ == "__main__":

@@ -74,9 +74,7 @@ def test_persistence_counts_native_periods_and_calendar_span() -> None:
 
 def test_persistence_reports_unresolved_observations_in_the_chart_cell() -> None:
     observations = _observations().with_columns(
-        pl.when(
-            (pl.col("market_code") == "BR") & (pl.col("period_start") == date(2020, 1, 15))
-        )
+        pl.when((pl.col("market_code") == "BR") & (pl.col("period_start") == date(2020, 1, 15)))
         .then(pl.lit(None, dtype=pl.String))
         .otherwise(pl.col("canonical_track_id"))
         .alias("canonical_track_id")
@@ -84,18 +82,16 @@ def test_persistence_reports_unresolved_observations_in_the_chart_cell() -> None
 
     result = build_persistence_dataset(observations)
 
-    assert result.filter(pl.col("market_code") == "BR")["unresolved_observations"].to_list() == [
-        1
-    ]
+    assert result.filter(pl.col("market_code") == "BR")["unresolved_observations"].to_list() == [1]
 
 
 def test_genre_variation_reports_shares_by_country_and_year() -> None:
     claims = pl.DataFrame(
         {"canonical_track_id": ["track-a", "track-b"], "normalized_genre": ["funk", "pop"]}
     )
-    observations = _observations().with_columns(
-        pl.lit("track-b").alias("second_track")
-    ).drop("second_track")
+    observations = (
+        _observations().with_columns(pl.lit("track-b").alias("second_track")).drop("second_track")
+    )
     result = build_genre_variation_dataset(observations, claims)
 
     assert result.filter(pl.col("market_code") == "BR")["genre_share"].to_list() == [1.0]
@@ -149,9 +145,7 @@ def test_market_anxiety_reports_constant_change_between_periods() -> None:
 
 
 def test_write_article_datasets_materializes_core_outputs(tmp_path) -> None:
-    claims = pl.DataFrame(
-        {"canonical_track_id": ["track-a"], "normalized_genre": ["funk"]}
-    )
+    claims = pl.DataFrame({"canonical_track_id": ["track-a"], "normalized_genre": ["funk"]})
 
     paths = write_article_datasets(_observations(), tmp_path, genre_claims=claims)
 
@@ -163,3 +157,43 @@ def test_write_article_datasets_materializes_core_outputs(tmp_path) -> None:
     }
     assert pl.read_parquet(paths["persistence"]).height == 2
     assert pl.read_parquet(paths["genre_variation"]).height == 2
+
+
+def test_turnover_does_not_compare_across_missing_native_periods() -> None:
+    observations = _observations().filter(pl.col("period_start") != date(2020, 1, 8))
+    assert build_market_anxiety_dataset(observations).height == 0
+
+
+def test_turnover_keeps_platform_cells_separate() -> None:
+    spotify = _observations().filter(pl.col("market_code") == "BR")
+    youtube = spotify.with_columns(
+        pl.lit("YOUTUBE").alias("origin_platform"),
+        pl.lit("VIDEO").alias("provider"),
+        pl.lit("MOST_POPULAR").alias("chart_family"),
+        pl.lit("other-track").alias("canonical_track_id"),
+    )
+    result = build_market_anxiety_dataset(pl.concat([spotify, youtube]))
+    assert result.height == 4
+    assert set(result["origin_platform"]) == {"SPOTIFY", "YOUTUBE"}
+
+
+def test_genre_distance_exports_platform_comparisons_separately(tmp_path) -> None:
+    spotify = _observations()
+    youtube = spotify.with_columns(
+        pl.lit("VIDEO").alias("provider"), pl.lit("YOUTUBE").alias("origin_platform")
+    )
+    claims = pl.DataFrame({"canonical_track_id": ["track-a"], "normalized_genre": ["pop"]})
+    paths = write_article_datasets(pl.concat([spotify, youtube]), tmp_path, genre_claims=claims)
+    result = pl.read_parquet(paths["genre_distance"])
+    assert result.height == 2
+    assert set(result["origin_platform"]) == {"SPOTIFY", "YOUTUBE"}
+
+
+def test_genre_distance_does_not_merge_chart_families(tmp_path) -> None:
+    first = _observations()
+    second = first.with_columns(pl.lit("ALTERNATIVE_CHART").alias("chart_family"))
+    claims = pl.DataFrame({"canonical_track_id": ["track-a"], "normalized_genre": ["pop"]})
+    paths = write_article_datasets(pl.concat([first, second]), tmp_path, genre_claims=claims)
+    result = pl.read_parquet(paths["genre_distance"])
+    assert result.height == 2
+    assert set(result["chart_family"]) == {"TOP_200", "ALTERNATIVE_CHART"}

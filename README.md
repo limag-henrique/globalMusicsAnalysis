@@ -80,6 +80,7 @@ GEMINI_INPUT_USD_PER_MILLION_TOKENS=0.15
 GEMINI_OUTPUT_USD_PER_MILLION_TOKENS=0.60
 GEMINI_THOUGHT_USD_PER_MILLION_TOKENS=0.60
 GEMINI_OUTPUT_TOKEN_ALLOWANCE=8192
+GEMINI_THINKING_LEVEL=LOW
 ```
 
 Se qualquer taxa da tabela estiver ausente, o custo financeiro é mantido estritamente como `null` para prevenir cálculos enganosos.
@@ -124,6 +125,32 @@ chart-observatory corpus classify-lyrics --limit 10 --only-unclassified
 chart-observatory corpus classify-lyrics --limit 5 --force
 ```
 
+### 4.4 Execução Longa, Retomável e Observável
+
+Para a passagem inicial completa, use o executor em lotes de até 5 e com um único worker:
+
+```powershell
+docker compose up -d postgres
+uv run chart-observatory db upgrade
+uv run chart-observatory corpus classify-lyrics-run --batch-size 5 --workers 1
+```
+
+O executor faz uma estimativa antes da primeira geração, mostra um evento JSON por lote e
+grava o mesmo histórico em
+`data/derived/lyrics/gemini_classification_run.jsonl`. Cada evento contém os IDs locais,
+status, tokens e custo conhecido. Letras e demais metadados contextuais nunca são escritos
+no relatório nem enviados ao Gemini.
+
+Uma falha isolada é persistida com `classification_status=error`, contabilizada como
+`skipped_due_to_error` e removida da fila da passagem inicial. A execução continua com a
+próxima música. O executor interrompe a fila inteira apenas para autenticação/autorização,
+quota ou rate limit, memória, banco, estimativa de custo ausente/nula ou ausência de
+progresso. Assim, reiniciar o mesmo comando retoma apenas os itens ainda não tratados e
+não insiste automaticamente nos erros já registrados.
+
+Use `--max-batches N` para uma janela operacional limitada. Não use `--force` na passagem
+inicial; os snapshots de erro ficam preservados para uma revalidação separada e auditável.
+
 ---
 
 ## 5. Testes e Validação de Código
@@ -155,3 +182,10 @@ uv run ruff check src tests
 # Verificação estrita de tipos
 uv run mypy src/chart_observatory
 ```
+# Gemini batch classification
+
+The asynchronous, private Vertex AI path for the remaining authorized lyrics is documented
+in [docs/operations/gemini-batch-lyrics.md](docs/operations/gemini-batch-lyrics.md). It uses
+ADC, a human-gated canary and 100-item pilot, immutable snapshot reconciliation, and a
+cumulative fail-closed ceiling of US$600. Implementation does not authorize applying the
+migration or launching live jobs.

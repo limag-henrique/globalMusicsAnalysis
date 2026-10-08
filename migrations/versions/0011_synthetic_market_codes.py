@@ -1,8 +1,7 @@
 """Allow synthetic market codes such as GLOBAL."""
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 revision = "0011_synthetic_market_codes"
 down_revision = "0010_canonical_scientific_corpus"

@@ -234,6 +234,11 @@ class LyricClassificationSnapshot(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
             "ix_lyric_classification_snapshots_classification_status",
             "classification_status",
         ),
+        Index(
+            "ix_lyric_classification_snapshots_batch_item_key",
+            "batch_item_key",
+            unique=True,
+        ),
     )
 
     lyric_document_id: Mapped[UUID] = mapped_column(
@@ -259,6 +264,16 @@ class LyricClassificationSnapshot(UuidPrimaryKeyMixin, CreatedAtMixin, Base):
     append_order: Mapped[int] = mapped_column(BigInteger, Identity(always=True), nullable=False)
     forced_from_snapshot_id: Mapped[UUID | None] = mapped_column(
         ForeignKey("lyric_classification_snapshots.id")
+    )
+    provider_model_version: Mapped[str | None] = mapped_column(String(200))
+    execution_mode: Mapped[str] = mapped_column(
+        String(16), nullable=False, default="online", server_default="online"
+    )
+    batch_run_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("lyric_classification_batch_runs.id"), index=True
+    )
+    batch_item_key: Mapped[UUID | None] = mapped_column(
+        ForeignKey("lyric_classification_batch_items.opaque_key")
     )
 
 
