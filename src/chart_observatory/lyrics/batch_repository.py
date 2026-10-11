@@ -64,7 +64,11 @@ class BatchRepository:
                 self._session.add(run)
                 self._session.flush()
                 provider_count = 0
-                for candidate in iter_remaining_candidates(self._session, request.signature):
+                for candidate in iter_remaining_candidates(
+                    self._session,
+                    request.signature,
+                    include_identity_holds=request.include_identity_holds,
+                ):
                     local_status = local_classification_status(candidate)
                     if local_status is not None:
                         append_classification_snapshot(
@@ -218,6 +222,7 @@ class BatchRepository:
         allowed_error_codes: frozenset[str] | None = None,
         *,
         require_missing_usage: bool = False,
+        include_identity_holds: bool = False,
     ) -> list[BatchRetryCandidate]:
         handled = aliased(LyricClassificationSnapshot)
         active = aliased(LyricClassificationBatchItem)
@@ -278,7 +283,7 @@ class BatchRepository:
             .order_by(LyricClassificationBatchItem.line_number)
         )
         excluded_ids = excluded_document_ids(load_quarantine_entries())
-        if excluded_ids:
+        if excluded_ids and not include_identity_holds:
             statement = statement.where(LyricDocument.id.not_in(excluded_ids))
         if allowed_error_codes is not None:
             if not allowed_error_codes:
@@ -289,7 +294,7 @@ class BatchRepository:
         if require_missing_usage:
             statement = statement.where(LyricClassificationSnapshot.input_tokens.is_(None))
         suspended_sources = load_suspended_sources()
-        if suspended_sources:
+        if suspended_sources and not include_identity_holds:
             statement = statement.where(
                 func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
             )
@@ -308,6 +313,7 @@ class BatchRepository:
             prior_run_id,
             allowed_error_codes,
             require_missing_usage=require_missing_usage,
+            include_identity_holds=request.include_identity_holds,
         )
         if limit is not None:
             if limit < 1:

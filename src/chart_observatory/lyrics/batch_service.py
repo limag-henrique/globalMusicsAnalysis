@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 from collections.abc import Callable, Iterator, Sequence
 from datetime import UTC, datetime
-from decimal import Decimal
+from decimal import ROUND_CEILING, Decimal
 from pathlib import Path
 from typing import Any, Protocol
 from uuid import UUID
@@ -14,7 +15,7 @@ import google.auth
 from google.auth.transport.requests import AuthorizedSession, Request
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import exists, func, inspect, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
 from chart_observatory.db.models.lyrics_batch import (
@@ -31,6 +32,8 @@ from chart_observatory.lyrics.batch_importer import BatchImporter, BatchImportSu
 from chart_observatory.lyrics.batch_jsonl import (
     BatchExportItem,
     PilotUsage,
+    build_batch_request,
+    canonical_request_sha256,
     estimate_batch_cost,
     iter_batch_request_hashes,
     write_batch_jsonl,
@@ -59,7 +62,7 @@ from chart_observatory.lyrics.classification_queue import (
 )
 from chart_observatory.lyrics.gemini_pipeline import build_lyrics_generation_config
 
-MAX_TOTAL_BATCH_COST_USD = Decimal("600")
+MAX_TOTAL_BATCH_COST_USD = Decimal("650")
 BATCH_MAX_OUTPUT_TOKENS = 1024
 
 
@@ -126,26 +129,53 @@ def enforce_cumulative_cost_cap(
     *,
     exclude_run_id: UUID | None = None,
 ) -> Decimal:
-    """Reserve against all known spend/active estimates under an absolute US$600 ceiling."""
+    """Reserve against all known spend/active estimates under the authorized ceiling."""
 
     if operator_cap <= 0:
         raise CostBudgetExceeded("--max-cost-usd must be positive")
     if operator_cap > MAX_TOTAL_BATCH_COST_USD:
-        raise CostBudgetExceeded("--max-cost-usd cannot exceed the absolute US$600 ceiling")
+        raise CostBudgetExceeded(
+            f"--max-cost-usd cannot exceed the absolute US${MAX_TOTAL_BATCH_COST_USD} ceiling"
+        )
     if new_conservative_cost <= 0:
         raise CostBudgetExceeded("a positive conservative cost estimate is required")
+    committed = cumulative_cost_commitment(session, exclude_run_id=exclude_run_id)
+    total = committed + new_conservative_cost
+    if total > operator_cap or total > MAX_TOTAL_BATCH_COST_USD:
+        raise CostBudgetExceeded(
+            f"cumulative conservative batch cost {total} exceeds the allowed ceiling"
+        )
+    return total
+
+
+def cumulative_cost_commitment(
+    session: Session,
+    *,
+    exclude_run_id: UUID | None = None,
+    covered_run_ids: frozenset[UUID] = frozenset(),
+) -> Decimal:
+    """Known costs plus unresolved commitments; billing anchors are explicit callers' evidence."""
     committed = Decimal(0)
     statement = select(LyricClassificationBatchRun)
     if exclude_run_id is not None:
         statement = statement.where(LyricClassificationBatchRun.id != exclude_run_id)
     for run in session.scalars(statement):
+        if run.id in covered_run_ids:
+            continue
         known = Decimal(run.known_cost_usd or 0)
         conservative = Decimal(run.conservative_cost_usd or 0)
-        finalized = run.state in {
-            BatchRunState.SUCCEEDED.value,
-            BatchRunState.IMPORTED.value,
-            BatchRunState.CLEANED.value,
-        } and run.summary_written
+        finalized = (
+            run.state
+            in {
+                BatchRunState.SUCCEEDED.value,
+                BatchRunState.IMPORTED.value,
+                BatchRunState.CLEANED.value,
+                BatchRunState.FAILED.value,
+                BatchRunState.CANCELLED.value,
+                BatchRunState.EXPIRED.value,
+            }
+            and run.summary_written
+        )
         if finalized:
             item_count = session.scalar(
                 select(func.count())
@@ -164,8 +194,7 @@ def enforce_cumulative_cost_cap(
                 select(
                     exists().where(
                         LyricClassificationBatchItem.batch_run_id == run.id,
-                        LyricClassificationBatchItem.snapshot_id
-                        == LyricClassificationSnapshot.id,
+                        LyricClassificationBatchItem.snapshot_id == LyricClassificationSnapshot.id,
                         LyricClassificationSnapshot.batch_run_id == run.id,
                         LyricClassificationSnapshot.estimated_cost_usd.is_(None),
                     )
@@ -178,13 +207,106 @@ def enforce_cumulative_cost_cap(
             ):
                 committed += known
                 continue
+            allocated = _verified_partial_commitment(session, run)
+            if allocated is not None:
+                committed += allocated
+                continue
         committed += max(known, conservative)
-    total = committed + new_conservative_cost
-    if total > operator_cap or total > MAX_TOTAL_BATCH_COST_USD:
-        raise CostBudgetExceeded(
-            f"cumulative conservative batch cost {total} exceeds the allowed ceiling"
+    return committed
+
+
+def _verified_partial_commitment(
+    session: Session, run: LyricClassificationBatchRun
+) -> Decimal | None:
+    """Allocate the original byte-based bound only after every request fingerprint matches.
+
+    Missing/expired outputs retain their input and maximum-output allocation.
+    A different prompt/config, incomplete artifact, or unknown estimate retains the full bound.
+    No historical reservation or snapshot is edited.
+    """
+    if (
+        run.model_id != "gemini-3.8-flash"
+        or run.thinking_level != "LOW"
+        or run.taxonomy_version != TAXONOMY_VERSION
+        or run.prompt_version != PROMPT_VERSION
+        or not run.source_byte_count
+        or not run.conservative_cost_usd
+    ):
+        return None
+    output_unit = Decimal(1024) * Decimal("1.875") / Decimal(1_000_000)
+    input_bound = Decimal(run.conservative_cost_usd) - run.request_count * output_unit
+    if input_bound < 0:
+        return None
+    config = build_lyrics_generation_config(run.model_id, run.thinking_level, 1024)
+    rows = session.execute(
+        select(LyricClassificationBatchItem, LyricDocument, LyricClassificationSnapshot)
+        .join(LyricDocument, LyricDocument.id == LyricClassificationBatchItem.lyric_document_id)
+        .outerjoin(
+            LyricClassificationSnapshot,
+            LyricClassificationSnapshot.id == LyricClassificationBatchItem.snapshot_id,
         )
-    return total
+        .where(LyricClassificationBatchItem.batch_run_id == run.id)
+        .options(
+            load_only(
+                LyricDocument.text,
+                LyricDocument.canonical_track_id,
+                LyricDocument.content_sha256,
+                LyricDocument.language_code,
+            ),
+            load_only(
+                LyricClassificationSnapshot.batch_run_id,
+                LyricClassificationSnapshot.estimated_cost_usd,
+            ),
+        )
+        .execution_options(yield_per=1000)
+    )
+    count = total_bytes = unknown_bytes = unknown_count = 0
+    known = Decimal(0)
+    for item, document, snapshot in rows:
+        if not document.text:
+            return None
+        payload = build_batch_request(
+            item,
+            ClassificationCandidate(
+                document.id,
+                document.canonical_track_id,
+                document.content_sha256,
+                document.text,
+                document.language_code,
+                False,
+            ),
+            config,
+        )
+        if canonical_request_sha256(payload) != item.request_sha256:
+            return None
+        size = (
+            len(
+                json.dumps(
+                    payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+                ).encode("utf-8")
+            )
+            + 1
+        )
+        count += 1
+        total_bytes += size
+        if (
+            snapshot is None
+            or snapshot.batch_run_id != run.id
+            or snapshot.estimated_cost_usd is None
+        ):
+            unknown_count += 1
+            unknown_bytes += size
+        else:
+            known += Decimal(snapshot.estimated_cost_usd)
+    if count != run.request_count or total_bytes != run.source_byte_count:
+        return None
+    unresolved = (
+        input_bound * Decimal(unknown_bytes) / Decimal(total_bytes) + unknown_count * output_unit
+    )
+    return (max(known, Decimal(run.known_cost_usd or 0)) + unresolved).quantize(
+        Decimal("0.0000000001"),
+        rounding=ROUND_CEILING,
+    )
 
 
 class BatchClassificationService:
@@ -201,6 +323,8 @@ class BatchClassificationService:
         adc_check: Callable[[], None] | None = None,
         project_number_resolver: Callable[[str], str] | None = None,
         temporary_root: Path | None = None,
+        cost_guard: Callable[..., Decimal] | None = None,
+        include_identity_holds: bool = False,
     ) -> None:
         self._session = session
         self._settings = settings
@@ -211,6 +335,8 @@ class BatchClassificationService:
         self._project_number_resolver = project_number_resolver or _resolve_project_number
         self._temporary_root = temporary_root
         self._repository = BatchRepository(session)
+        self._cost_guard = cost_guard or enforce_cumulative_cost_cap
+        self._include_identity_holds = include_identity_holds
 
     def preflight(self) -> BatchPreflightReport:
         model_id, project_id, bucket_name, input_rate, output_rate = self._validated_settings()
@@ -260,10 +386,12 @@ class BatchClassificationService:
         BatchImporter(self._session, self._rate_card()).assert_canary_contract(canary.id)
         return self._prepare(BatchRunKind.PILOT, total_size - 1, max_cost_usd)
 
-    def prepare_main(self, max_cost_usd: Decimal) -> list[BatchPreparation]:
+    def prepare_main(self, max_cost_usd: Decimal, limit: int = 190_000) -> list[BatchPreparation]:
         if self._accepted_pilot() is None:
             raise PilotNotAccepted("the 100-item pilot has not been durably accepted")
-        return self._prepare(BatchRunKind.MAIN, 190_000, max_cost_usd)
+        if not 1 <= limit <= 190_000:
+            raise ValueError("main limit must be between 1 and 190000")
+        return self._prepare(BatchRunKind.MAIN, limit, max_cost_usd)
 
     def prepare_retry_errors(
         self,
@@ -290,7 +418,7 @@ class BatchClassificationService:
             raise RuntimeError("only an uploaded run can be submitted")
         if run.conservative_cost_usd is None:
             raise CostBudgetExceeded("run has no conservative cost reservation")
-        enforce_cumulative_cost_cap(
+        self._cost_guard(
             self._session,
             Decimal(run.conservative_cost_usd),
             max_cost_usd,
@@ -453,6 +581,7 @@ class BatchClassificationService:
             bucket_name=bucket_name,
             limit=limit,
             thinking_level="LOW",
+            include_identity_holds=self._include_identity_holds,
         )
         with classification_queue_lock(self._session):
             run = (
@@ -513,7 +642,7 @@ class BatchClassificationService:
                         (value.conservative_cost_usd for value in estimates),
                         Decimal(0),
                     )
-                    enforce_cumulative_cost_cap(
+                    self._cost_guard(
                         self._session,
                         total_conservative,
                         max_cost_usd,

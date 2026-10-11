@@ -1,0 +1,9 @@
+{
+  "locked_reader": "PermissionError",
+  "winerror": 5,
+  "errno": 13,
+  "filename": "D:\\PromiscuidadeMusical\\data\\derived\\lyrics\\budget-20261008\\inspection-20261009-093750\\checkpoint-repro.continuous.tmp",
+  "filename2": "D:\\PromiscuidadeMusical\\data\\derived\\lyrics\\budget-20261008\\inspection-20261009-093750\\checkpoint-repro.json",
+  "after_reader_closed": "ok",
+  "production_cause": "compatible but not proven: original controller suppressed traceback"
+}

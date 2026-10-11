@@ -1,0 +1,10 @@
+{
+  "provider": "semrush",
+  "countries": 5,
+  "planned_requests": 310,
+  "max_plan_summary_units": 930,
+  "network_calls_this_run": 0,
+  "observed_cells": 0,
+  "access": "commercial_access_pending",
+  "partial2022": "January-February only; not full corpus through March13"
+}

@@ -1,0 +1,23 @@
+{
+  "observed_utc": "2026-10-11T04:36:52.394094+00:00",
+  "evidence_method": "Authenticated Edge project welcome and account credits table via cua_repl",
+  "project_id": "project-bae72195-c4bf-4177-bca",
+  "billing_account_id": "0169AF-BC9CE9-C4CC1C",
+  "displayed_credit_brl": "242.69",
+  "original_credit_brl": "1761.10",
+  "displayed_debit_brl": "1518.41",
+  "credit_source": "https://console.cloud.google.com/billing/0169AF-BC9CE9-C4CC1C/credits/all",
+  "prices_valid_before_utc": "2026-11-01T00:00:00+00:00",
+  "known_ledger_and_invoice_cost_brl": "1559.16940409343017720000",
+  "known_cost_not_covered_by_displayed_debit_brl": "40.75940409343017720000",
+  "controller_status": "running",
+  "controller_pid": 2992,
+  "current_policy_new_reservation_margin_brl": "14.93940317251664560000000000",
+  "live_policy_modified": false,
+  "checkpoint_modified": false,
+  "reason": "Controller alive. Fresh balance alone cannot release already-submitted commitments or unknown reservations; invoice plus known costs exceed currently displayed debit, so a full terminal-run baseline refresh is not demonstrated. Keep exclusive controller running and account policy intact.",
+  "second_account_verified": false,
+  "retry_reserve_brl": "111.76",
+  "ancillary_reserve_brl": "35",
+  "account_credit_safety_brl": "35"
+}

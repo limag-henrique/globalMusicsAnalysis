@@ -1,0 +1,26 @@
+{
+  "status": "running",
+  "controller_pid": 2992,
+  "controller_heartbeat_utc": "2026-10-10T21:35:07.867971+00:00",
+  "latest_run_id": "88bdb5a3-88a9-481f-9844-a64927339149",
+  "retry_run_state": "submitted",
+  "request_count": 7412,
+  "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4529289304236621824",
+  "preparation_in_progress": {
+    "baseline": "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "limit": 1153
+  },
+  "committed_conservative_brl": "1539.24324251217433285248",
+  "conservative_remaining_brl": "39.83802749185812640000000000",
+  "observed_utc": "2026-10-10T21:35:11.544332+00:00",
+  "checkpoint_sha256": "8fb16a76184124558c2f1ebc056b175b8f9b10340effaf0c7454b641404595eb",
+  "monitor_status": "ACTIVE",
+  "submitted_runs": {
+    "88bdb5a3-88a9-481f-9844-a64927339149": {
+      "state": "submitted",
+      "request_count": 7412,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4529289304236621824"
+    }
+  }
+}

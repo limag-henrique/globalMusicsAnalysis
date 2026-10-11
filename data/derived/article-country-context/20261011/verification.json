@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "country_years": 386,
+  "markets": 68,
+  "observed_values": 6270,
+  "gii_values": 372,
+  "import_errors": [],
+  "checks": [
+    "scope",
+    "unique_keys",
+    "finite_values",
+    "raw_sha256",
+    "gii_range",
+    "brazil_sigi_2019",
+    "partial_2022_alignment"
+  ]
+}

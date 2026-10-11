@@ -1,0 +1,54 @@
+{
+  "audited_at": "2026-10-11T14:40:10.659956+00:00",
+  "provider_calls": 0,
+  "selection_unit": "latest_snapshot_per_document_model_taxonomy_prompt",
+  "population_share_identifiable": false,
+  "table_counts": {
+    "lyric_documents": 159111,
+    "lyric_classification_snapshots": 241144,
+    "canonical_tracks": 159080,
+    "chart_entries": 0,
+    "chart_snapshots": 0,
+    "canonical_chart_entries": 0,
+    "coverage_cells": 0,
+    "platform_item_track_links": 0
+  },
+  "source_counts": {
+    "GENIUS": 124591,
+    "GOOGLE_MANUAL": 4,
+    "LETRAS": 26540,
+    "LRCLIB": 7039,
+    "LYRICS_OVH": 937
+  },
+  "missing_language_documents": 159111,
+  "latest_snapshot_counts": {
+    "selected_snapshots": 159111,
+    "error": 17635,
+    "primary_identity_eligible": 0,
+    "exploratory_eligible": 117823,
+    "classified": 139440,
+    "insufficient_text": 1378,
+    "instrumental": 604,
+    "language_unsupported": 40,
+    "ambiguous": 10,
+    "blocked": 4
+  },
+  "exclusion_reasons_nonexclusive": {
+    "not_classified": 19671,
+    "identity_unverified": 159111,
+    "source_suspended": 26540,
+    "identity_excluded": 751
+  },
+  "crosswalk_candidate_pairs": 108986,
+  "verified_crosswalk_pairs": 0,
+  "shared_track_ids_with_master": 0,
+  "original_id_lineage_pairs": 93908,
+  "original_id_lineage_documents": 93908,
+  "original_id_lineage_failures": {
+    "original_song_id_metadata_mismatch": 28,
+    "malformed_original_jsonl_record": 1,
+    "original_song_id_missing_from_master": 65181
+  },
+  "identity_review_sample_rows": 164,
+  "chart_catalog_rows": 47434073
+}

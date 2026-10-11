@@ -1,0 +1,21 @@
+{
+  "observed_utc": "2026-10-11T13:29:18.311276+00:00",
+  "controller_pid": 20952,
+  "wrapper_pid": 21664,
+  "windows_command_line_verified": true,
+  "status": "running",
+  "active_runs": {
+    "098c25a1-e5f0-4d05-910b-b954601c09ca": {
+      "state": "submitted",
+      "request_count": 4573,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6616883653383290880"
+    }
+  },
+  "preparation_in_progress": {
+    "baseline": "41934591-0444-4fce-bfde-238497f31e3a",
+    "limit": 1444
+  },
+  "automation_status_verified": "ACTIVE",
+  "first_account_only": true
+}

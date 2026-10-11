@@ -1,0 +1,84 @@
+{
+  "snapshot_utc": "2026-10-10 18:41:30.754781+00:00",
+  "execution_id": "full-corpus-brl-20261008",
+  "status": "budget_exhausted",
+  "current_runs": 92,
+  "current_requests": 36449,
+  "all_current_runs_imported_and_bound": true,
+  "pending_sent_jobs": 0,
+  "latest_corpus_statuses": [
+    {
+      "classification_status": "ambiguous",
+      "documents": 7,
+      "tracks": 7
+    },
+    {
+      "classification_status": "blocked",
+      "documents": 3,
+      "tracks": 3
+    },
+    {
+      "classification_status": "classified",
+      "documents": 116898,
+      "tracks": 116867
+    },
+    {
+      "classification_status": "error",
+      "documents": 40571,
+      "tracks": 40571
+    },
+    {
+      "classification_status": "instrumental",
+      "documents": 467,
+      "tracks": 467
+    },
+    {
+      "classification_status": "insufficient_text",
+      "documents": 1136,
+      "tracks": 1136
+    },
+    {
+      "classification_status": "language_unsupported",
+      "documents": 29,
+      "tracks": 29
+    }
+  ],
+  "latest_errors": [
+    {
+      "error": "batch_incomplete_response",
+      "documents": 226
+    },
+    {
+      "error": "batch_malformed_response",
+      "documents": 40309
+    },
+    {
+      "error": "batch_missing_output",
+      "documents": 20
+    },
+    {
+      "error": "batch_missing_usage",
+      "documents": 10
+    },
+    {
+      "error": "batch_provider_error",
+      "documents": 4
+    },
+    {
+      "error": "batch_schema_validation_error",
+      "documents": 2
+    }
+  ],
+  "known_observed_cost_brl": "1322.43378948809601200000",
+  "committed_conservative_brl": "1323.14127000403245925248",
+  "unknown_or_retained_cost_component_brl": "0.70748051593644725248",
+  "ancillary_reserve_brl": "35",
+  "retry_reserve_brl": "111.76",
+  "account_safety_credit_deduction_brl": "35",
+  "observed_available_new_commitment_brl": "0.01673445666599800000",
+  "authenticated_credit_refresh_required": true,
+  "second_account_credit_verified": false,
+  "historical_failed_preparations_need_prefix_audit": 61,
+  "provider_calls": 0,
+  "additional_api_cost_brl": "0"
+}

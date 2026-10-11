@@ -1,0 +1,42 @@
+{
+  "timestamp_utc": "2026-10-09T02:35:51.813471+00:00",
+  "remaining_provider_documents": 76933,
+  "sources": {
+    "LETRAS": 15289,
+    "GENIUS": 57946,
+    "LRCLIB": 3394,
+    "LYRICS_OVH": 304
+  },
+  "request_bytes": 611034255,
+  "expected_remaining_brl": "837.239657538497685600",
+  "conservative_remaining_brl": "2235.0705570073015620000",
+  "retry_reserve_brl": "111.76",
+  "baseline_run_ids": [
+    "remaining_corpus",
+    "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "41934591-0444-4fce-bfde-238497f31e3a",
+    "6e7ca60b-4a2e-4fca-a1c5-0be99f3af44d",
+    "059f0d93-0854-45ac-898d-d0eb23762ed3",
+    "997af504-461c-4c64-a419-d15f1167c5e3",
+    "25dbe9c1-7f0c-4229-9a03-777e61fcc7e4",
+    "cf27c4ed-7349-434e-a194-4f25a8e3de2d",
+    "c583a8fb-ccbb-449e-a18f-0f62bb1b3769",
+    "df0bcc13-4da9-4150-b5f7-dab763b5c83d",
+    "3eca7e0f-f92e-41d1-9815-b03413a01496",
+    "bounded_reanalysis"
+  ],
+  "retains_identity_flags": true,
+  "paid_api_calls": 0,
+  "budget_brl": "3500",
+  "current_account_credit_brl": "848.20",
+  "second_account_credit_verified": false,
+  "expanded_technical_error_documents": 197,
+  "technical_response_error_codes": [
+    "batch_incomplete_response",
+    "batch_malformed_response",
+    "batch_missing_output",
+    "batch_missing_usage",
+    "batch_provider_error",
+    "batch_schema_validation_error"
+  ]
+}

@@ -1,0 +1,1721 @@
+{
+  "observed_utc": "2026-10-11T13:26:02.053838+00:00",
+  "billing_account_id": "0169AF-BC9CE9-C4CC1C",
+  "project_id": "project-bae72195-c4bf-4177-bca",
+  "authenticated_credit_brl": "182.39",
+  "displayed_debit_brl": "1578.71",
+  "known_invoice_and_cost_brl": "1578.23554953170344520000",
+  "global_commitment_before_brl": "1579.06184163133154845248",
+  "global_commitment_after_brl": "1579.06184163133154845248",
+  "unknown_commitment_retained_brl": "0.82629209962810325248",
+  "additional_account_unknown_carry_brl": "0.83",
+  "available_for_technical_recovery_brl": "181.5600000000000000000000000",
+  "all_execution_jobs_imported": 177,
+  "pending_jobs": 0,
+  "preparation_in_progress": null,
+  "terminal_run_proof": [
+    {
+      "id": "13452091-7945-4df4-baf8-3bab687c0070",
+      "state": "cleaned",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0023347500"
+    },
+    {
+      "id": "10629624-5176-4ce8-83f8-be130d907e24",
+      "state": "imported",
+      "requests": 9,
+      "snapshots": 9,
+      "known_cost_usd": "0.0177431250"
+    },
+    {
+      "id": "5ab3f4e8-0727-4c46-b32c-7b126ecf27ce",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017868750"
+    },
+    {
+      "id": "04439c29-9b4d-456e-8295-3c73a6d61a1d",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017992500"
+    },
+    {
+      "id": "75e4117b-8664-40fe-adaa-575b49c59fd7",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0020092500"
+    },
+    {
+      "id": "bcc93630-ba91-48c4-b470-9d3fe29ef72a",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0020475000"
+    },
+    {
+      "id": "3900f944-8e78-4af4-9c47-4de03a7930f0",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0021090000"
+    },
+    {
+      "id": "d08a8bea-ba17-4751-818c-87d3b06fa45c",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0074388750"
+    },
+    {
+      "id": "12b741b5-3a1c-4beb-ae43-8f048cb066c2",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036450000"
+    },
+    {
+      "id": "e751a96e-e036-42fb-bd38-9a4dc329108c",
+      "state": "imported",
+      "requests": 9,
+      "snapshots": 9,
+      "known_cost_usd": "0.0166357500"
+    },
+    {
+      "id": "5b7e5031-aa0b-4159-b298-d927c6755667",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019987500"
+    },
+    {
+      "id": "5bb6c94b-62c4-4c96-91eb-f3ce1b630232",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036052500"
+    },
+    {
+      "id": "b47bd531-27da-4081-95e9-b76c164ef60d",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018960000"
+    },
+    {
+      "id": "fa6c188e-acf1-4945-87c0-8c5918515e32",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0045622500"
+    },
+    {
+      "id": "6656a59e-032f-418e-a880-cb02a86195f5",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018112500"
+    },
+    {
+      "id": "7afabc3a-d9e2-4996-9ef3-a496680727a7",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018030000"
+    },
+    {
+      "id": "d4bf417f-fc9f-4128-92b5-14d84982fbc2",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018971250"
+    },
+    {
+      "id": "ee2c799e-23c7-4c75-b370-4b951f761a84",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019031250"
+    },
+    {
+      "id": "7e601310-2eba-4bb1-b6d8-d46f50b7dacd",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018633750"
+    },
+    {
+      "id": "c6e9e94c-a6f2-44f2-a129-2e5209b7d83e",
+      "state": "imported",
+      "requests": 7,
+      "snapshots": 7,
+      "known_cost_usd": "0.0131388750"
+    },
+    {
+      "id": "b7e0011a-31c4-4610-b5fd-7507c18eb666",
+      "state": "imported",
+      "requests": 18,
+      "snapshots": 18,
+      "known_cost_usd": "0.0342521250"
+    },
+    {
+      "id": "44696376-ed4a-4222-860a-aa9a730daa9c",
+      "state": "imported",
+      "requests": 22,
+      "snapshots": 22,
+      "known_cost_usd": "0.0391035000"
+    },
+    {
+      "id": "7a2ff303-eb20-4057-8e4c-bb7a69084bee",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0074595000"
+    },
+    {
+      "id": "33506887-51ce-4552-8965-59c280171500",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018960000"
+    },
+    {
+      "id": "81ef1f2c-87b3-4177-824a-d3c76aafaea6",
+      "state": "imported",
+      "requests": 11,
+      "snapshots": 11,
+      "known_cost_usd": "0.0203606250"
+    },
+    {
+      "id": "c583a8fb-ccbb-449e-a18f-0f62bb1b3769",
+      "state": "imported",
+      "requests": 37,
+      "snapshots": 37,
+      "known_cost_usd": "0.0688470000"
+    },
+    {
+      "id": "b2c8fefd-ba9c-4a42-9823-7f8cdfe712f8",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017838750"
+    },
+    {
+      "id": "d48c9ba5-4d39-4bd6-888a-23fe90d1b5d8",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035276250"
+    },
+    {
+      "id": "3cd87bf7-475c-40be-bec4-8a378694279b",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0057030000"
+    },
+    {
+      "id": "3eca7e0f-f92e-41d1-9815-b03413a01496",
+      "state": "imported",
+      "requests": 8,
+      "snapshots": 8,
+      "known_cost_usd": "0.0164396250"
+    },
+    {
+      "id": "164b00d2-32ef-4ef1-bd5b-d8239276af86",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018427500"
+    },
+    {
+      "id": "09da3de0-1bf8-4a3f-bbb4-a00617d7dbc7",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0097496250"
+    },
+    {
+      "id": "f3e7aec6-a20f-41c0-b36e-5b84bcfd6153",
+      "state": "imported",
+      "requests": 10,
+      "snapshots": 10,
+      "known_cost_usd": "0.0216993750"
+    },
+    {
+      "id": "099fc860-e210-4b5c-a0a9-22af85c4bc84",
+      "state": "imported",
+      "requests": 19,
+      "snapshots": 19,
+      "known_cost_usd": "0.0362066250"
+    },
+    {
+      "id": "26c45cac-99b6-4d2e-bf8f-66ab04871473",
+      "state": "imported",
+      "requests": 21,
+      "snapshots": 21,
+      "known_cost_usd": "0.0404062500"
+    },
+    {
+      "id": "3ed0746b-1d3d-480d-b7ad-e24583ea0400",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019023750"
+    },
+    {
+      "id": "71b5c586-045c-40cb-86e9-3d31a4b9a38f",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019136250"
+    },
+    {
+      "id": "361aadd1-cb4d-4a87-aa2c-dff8b9c41e8c",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019605000"
+    },
+    {
+      "id": "bb8e3455-7e7d-4963-b0cc-08dc03d61fd2",
+      "state": "imported",
+      "requests": 18,
+      "snapshots": 18,
+      "known_cost_usd": "0.0336153750"
+    },
+    {
+      "id": "d995e0be-f0fb-4183-aad5-8599ee9e0a17",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017767500"
+    },
+    {
+      "id": "341451f2-8902-4308-b411-04fc89983715",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0054806250"
+    },
+    {
+      "id": "ce478ec9-a930-4342-8ab6-da2a5cf9ec86",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0041973750"
+    },
+    {
+      "id": "8578febf-f0c6-4ef5-9c8a-f6eb8455bef2",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0015637500"
+    },
+    {
+      "id": "8302c46e-520c-4c5e-845e-12ed97c28502",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017486250"
+    },
+    {
+      "id": "24af356d-f8d7-43c4-972d-2794303cee42",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018157500"
+    },
+    {
+      "id": "9c7463b3-2df8-4f00-bff1-14779556a743",
+      "state": "imported",
+      "requests": 9,
+      "snapshots": 9,
+      "known_cost_usd": "0.0170973750"
+    },
+    {
+      "id": "f094c706-008d-42ec-a97f-61deea37e09c",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036933750"
+    },
+    {
+      "id": "15bd9ef4-74ae-4537-a7da-a92e64e2ad0a",
+      "state": "imported",
+      "requests": 19,
+      "snapshots": 19,
+      "known_cost_usd": "0.0356407500"
+    },
+    {
+      "id": "100ee08e-009a-4458-8810-ff9501116701",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035853750"
+    },
+    {
+      "id": "8f65a91c-0600-4a5f-8cbc-4fd87fd34953",
+      "state": "imported",
+      "requests": 7,
+      "snapshots": 7,
+      "known_cost_usd": "0.0125328750"
+    },
+    {
+      "id": "9ea80110-3872-4ab9-9f1d-fd6889cb460b",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0081101250"
+    },
+    {
+      "id": "e3b93027-9de6-440f-8d7f-009d47ab89aa",
+      "state": "imported",
+      "requests": 19,
+      "snapshots": 19,
+      "known_cost_usd": "0.0355001250"
+    },
+    {
+      "id": "fc5adb1f-6d6f-4da8-bad3-c4f57d5d3134",
+      "state": "imported",
+      "requests": 7,
+      "snapshots": 7,
+      "known_cost_usd": "0.0129513750"
+    },
+    {
+      "id": "b6beca3f-2e10-4de5-8403-273e288e443d",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018123750"
+    },
+    {
+      "id": "c5a101f2-72fa-49ec-8039-0b17e8ba28db",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036195000"
+    },
+    {
+      "id": "23fd83e1-47fb-497a-bae9-f3fe9e0bc2d2",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017310000"
+    },
+    {
+      "id": "b0afdb6a-7ddf-4bb3-a30f-38a05596d7ce",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017775000"
+    },
+    {
+      "id": "17f395fc-ced2-404c-9151-90369c0642d0",
+      "state": "imported",
+      "requests": 36,
+      "snapshots": 36,
+      "known_cost_usd": "0.0680291250"
+    },
+    {
+      "id": "aaefa19c-1cd8-473e-a3cc-57d1f3a9516c",
+      "state": "imported",
+      "requests": 6,
+      "snapshots": 6,
+      "known_cost_usd": "0.0111558750"
+    },
+    {
+      "id": "f517f181-ccbb-45bb-91cf-62d4a32d7b6c",
+      "state": "imported",
+      "requests": 70,
+      "snapshots": 70,
+      "known_cost_usd": "0.1311813750"
+    },
+    {
+      "id": "befb51a7-d687-4cb0-ad0a-c47ce3ad9146",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0078510000"
+    },
+    {
+      "id": "ed833aee-ce2b-4ec5-ac44-d7dfeea911ab",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0055113750"
+    },
+    {
+      "id": "30d9679c-c342-4a8f-9526-9165199be867",
+      "state": "imported",
+      "requests": 100,
+      "snapshots": 100,
+      "known_cost_usd": "0.1892553750"
+    },
+    {
+      "id": "b0cb759d-9fd7-4103-b5b4-07d91ae03c23",
+      "state": "imported",
+      "requests": 100,
+      "snapshots": 100,
+      "known_cost_usd": "0.1884881250"
+    },
+    {
+      "id": "8680ddfa-74cf-4635-b9d7-ffa9c0911660",
+      "state": "imported",
+      "requests": 43,
+      "snapshots": 43,
+      "known_cost_usd": "0.0810150000"
+    },
+    {
+      "id": "094207f1-8b4b-402a-9e86-4c17a88368ee",
+      "state": "imported",
+      "requests": 21,
+      "snapshots": 21,
+      "known_cost_usd": "0.0398246250"
+    },
+    {
+      "id": "8f56a5f2-33bf-4baf-82a0-4312bc8568c3",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019293750"
+    },
+    {
+      "id": "18f86553-bf89-42d5-9677-3a46425d23a0",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0076331250"
+    },
+    {
+      "id": "75aad6a4-8c3c-41bc-a7e4-82c71d731f2a",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036660000"
+    },
+    {
+      "id": "bef48431-cf9d-490f-bbd9-1172c37a4412",
+      "state": "cleaned",
+      "requests": 99,
+      "snapshots": 99,
+      "known_cost_usd": "0.1911022500"
+    },
+    {
+      "id": "003e4373-b065-44d7-8b44-5d9dd9b06f5e",
+      "state": "imported",
+      "requests": 51,
+      "snapshots": 51,
+      "known_cost_usd": "0.0975112500"
+    },
+    {
+      "id": "ed98e09c-53e4-43cf-9c95-559b3a1b7c1e",
+      "state": "cleaned",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0038377500"
+    },
+    {
+      "id": "532f14dd-a835-4500-b3a8-372cc05e7a0c",
+      "state": "imported",
+      "requests": 11,
+      "snapshots": 11,
+      "known_cost_usd": "0.0201611250"
+    },
+    {
+      "id": "b026395e-482f-4776-9c18-645e12659853",
+      "state": "imported",
+      "requests": 22,
+      "snapshots": 22,
+      "known_cost_usd": "0.0404703750"
+    },
+    {
+      "id": "c28fb9d8-d19a-42c9-af8a-6642a0cbd31f",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0039918750"
+    },
+    {
+      "id": "74cdfa32-9c7a-4aca-a0ea-25a355e57e9a",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019106250"
+    },
+    {
+      "id": "501ee82c-7532-4edc-bcf8-0ddbf76ee644",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018825000"
+    },
+    {
+      "id": "b2598e46-29a5-476c-91bd-dac257411b4f",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035951250"
+    },
+    {
+      "id": "997eb2a0-abc6-48a9-8c46-73a6a9fe671e",
+      "state": "imported",
+      "requests": 21,
+      "snapshots": 21,
+      "known_cost_usd": "0.0411588750"
+    },
+    {
+      "id": "051639d2-ae1b-4e6d-a2ae-f7c684297517",
+      "state": "imported",
+      "requests": 7,
+      "snapshots": 7,
+      "known_cost_usd": "0.0137325000"
+    },
+    {
+      "id": "ea8fc3e9-0540-4bd1-b9f4-f470dbc389ea",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0020373750"
+    },
+    {
+      "id": "d59d2061-95ff-492f-a3cd-2dfedb0e6683",
+      "state": "imported",
+      "requests": 29,
+      "snapshots": 29,
+      "known_cost_usd": "0.0543678750"
+    },
+    {
+      "id": "04da0fb8-9469-47c9-8326-5922ac79ad90",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0073968750"
+    },
+    {
+      "id": "780add89-8294-4285-8781-ecc696e12048",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0093161250"
+    },
+    {
+      "id": "dd4160ca-3b25-4de1-9681-675c14097520",
+      "state": "imported",
+      "requests": 25,
+      "snapshots": 25,
+      "known_cost_usd": "0.0463353750"
+    },
+    {
+      "id": "9a77c542-1912-45ee-a852-26c3e4274f6f",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0034987500"
+    },
+    {
+      "id": "4b7c5547-63b4-407b-ba6b-9ba531269e4f",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018495000"
+    },
+    {
+      "id": "c5cd0cc4-355b-4c44-a269-1d8b7cb0d358",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017816250"
+    },
+    {
+      "id": "fa8b9184-0164-4bc5-b86d-7db92717ff93",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018465000"
+    },
+    {
+      "id": "2c77b209-e6a4-4d6d-b3be-678563d11bb2",
+      "state": "imported",
+      "requests": 74,
+      "snapshots": 74,
+      "known_cost_usd": "0.1417852500"
+    },
+    {
+      "id": "f025667e-8ea9-4188-b544-b5472c74625b",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017820000"
+    },
+    {
+      "id": "366e677f-ae0a-4ae0-bdb1-aa6b311e0446",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0021637500"
+    },
+    {
+      "id": "b300a44f-fb3d-4f27-90b9-07f09530485e",
+      "state": "imported",
+      "requests": 13,
+      "snapshots": 13,
+      "known_cost_usd": "0.0251463750"
+    },
+    {
+      "id": "8b401d05-56b7-4a18-8db6-98c05d4d1fc7",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0057341250"
+    },
+    {
+      "id": "17e92277-ea68-46f1-89b2-e93b36f3059c",
+      "state": "imported",
+      "requests": 13,
+      "snapshots": 13,
+      "known_cost_usd": "0.0245411250"
+    },
+    {
+      "id": "dc6104a7-4c1e-4387-804c-e2e8358b2772",
+      "state": "imported",
+      "requests": 29,
+      "snapshots": 29,
+      "known_cost_usd": "0.0549870000"
+    },
+    {
+      "id": "267cffb4-f60d-4364-add8-134082325ce8",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0095370000"
+    },
+    {
+      "id": "af523e55-4a38-4c42-97f8-efed29da9f70",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0074550000"
+    },
+    {
+      "id": "f1a8e272-86af-4a66-8f13-10420cdd26e3",
+      "state": "imported",
+      "requests": 8,
+      "snapshots": 8,
+      "known_cost_usd": "0.0161040000"
+    },
+    {
+      "id": "cbc1cd70-0652-47ac-ae57-d2775ca3fdb2",
+      "state": "imported",
+      "requests": 50,
+      "snapshots": 50,
+      "known_cost_usd": "0.0927131250"
+    },
+    {
+      "id": "d4bb9ce3-7061-492e-931f-7a6a6006c002",
+      "state": "imported",
+      "requests": 50,
+      "snapshots": 50,
+      "known_cost_usd": "0.0932445000"
+    },
+    {
+      "id": "2a33c079-e29c-44ae-a14c-7c8658c83838",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0095486250"
+    },
+    {
+      "id": "0f3d7f0a-5b35-493d-b41e-b8899e04b9ff",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0056996250"
+    },
+    {
+      "id": "c8425779-9305-43f1-9770-2076a528a656",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036345000"
+    },
+    {
+      "id": "26d60a24-a140-498e-8287-65d67cc8caf8",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018090000"
+    },
+    {
+      "id": "fe9ec860-37de-445b-8045-ffb66e3ce450",
+      "state": "imported",
+      "requests": 46,
+      "snapshots": 46,
+      "known_cost_usd": "0.0855393750"
+    },
+    {
+      "id": "f1c95e77-2e36-49e5-9e6d-a65a7b684045",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035201250"
+    },
+    {
+      "id": "9d6bc308-396c-46c6-8d57-99d31e462808",
+      "state": "imported",
+      "requests": 8,
+      "snapshots": 8,
+      "known_cost_usd": "0.0147757500"
+    },
+    {
+      "id": "82516040-dc06-4a01-833c-a23cc57e9ce6",
+      "state": "imported",
+      "requests": 29,
+      "snapshots": 29,
+      "known_cost_usd": "0.0540285000"
+    },
+    {
+      "id": "b5a1bbb0-7929-4a00-95a0-54079397ebd9",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019863750"
+    },
+    {
+      "id": "a3cc9071-8253-4c16-aaee-071bbca000f4",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0020598750"
+    },
+    {
+      "id": "d47c9051-1b51-4706-9443-9a274c7e8c4e",
+      "state": "imported",
+      "requests": 102,
+      "snapshots": 102,
+      "known_cost_usd": "0.1942481250"
+    },
+    {
+      "id": "7d6850be-39da-49ae-97b1-c5d46e458cc7",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036765000"
+    },
+    {
+      "id": "a602b1b0-90bf-4b95-93e8-f7854e48e985",
+      "state": "imported",
+      "requests": 164,
+      "snapshots": 164,
+      "known_cost_usd": "0.3057322500"
+    },
+    {
+      "id": "322158d9-13fd-4018-9b54-0368b953ecbf",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0096832500"
+    },
+    {
+      "id": "041e9289-e0a1-4079-a433-e34282e42b63",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0023647500"
+    },
+    {
+      "id": "d90a8cf4-4571-4081-b707-0973efdd10ec",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017745000"
+    },
+    {
+      "id": "4f01e5a3-49b0-477c-9a12-7198e40a3119",
+      "state": "imported",
+      "requests": 85,
+      "snapshots": 85,
+      "known_cost_usd": "0.1629562500"
+    },
+    {
+      "id": "db58329b-b30e-40d2-8631-a3069491eeaa",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0017977500"
+    },
+    {
+      "id": "516426e4-6f06-41b6-ba7d-2c6f766b55c1",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0039127500"
+    },
+    {
+      "id": "a4bbb62c-ead0-45cc-a5c8-b53853ff7ec1",
+      "state": "imported",
+      "requests": 35,
+      "snapshots": 35,
+      "known_cost_usd": "0.0656625000"
+    },
+    {
+      "id": "bcfe8844-03aa-48e3-b799-0b466b98ca1f",
+      "state": "imported",
+      "requests": 16,
+      "snapshots": 16,
+      "known_cost_usd": "0.0307826250"
+    },
+    {
+      "id": "6a1f8f92-1039-4da8-a59e-145eb1841ed1",
+      "state": "imported",
+      "requests": 152,
+      "snapshots": 152,
+      "known_cost_usd": "0.2862416250"
+    },
+    {
+      "id": "0fa6e780-e8de-450e-8665-70261ff81deb",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0037046250"
+    },
+    {
+      "id": "3e2e196c-a520-44ad-bb1d-828ed075351f",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0073897500"
+    },
+    {
+      "id": "22bd5763-1af3-4fc5-9c26-f2e9e6a1ebcf",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0076976250"
+    },
+    {
+      "id": "ff82b7cf-0492-489c-a993-ea04a2d59f8c",
+      "state": "imported",
+      "requests": 73,
+      "snapshots": 73,
+      "known_cost_usd": "0.1360192500"
+    },
+    {
+      "id": "07efdbae-d682-4873-a909-1322750ab44f",
+      "state": "imported",
+      "requests": 50,
+      "snapshots": 50,
+      "known_cost_usd": "0.0933907500"
+    },
+    {
+      "id": "dd7222fe-e4a8-403f-94bb-394f150a5ba7",
+      "state": "imported",
+      "requests": 32,
+      "snapshots": 32,
+      "known_cost_usd": "0.0597206250"
+    },
+    {
+      "id": "99963473-8c98-4b12-ba7d-6eb59383faab",
+      "state": "imported",
+      "requests": 13,
+      "snapshots": 13,
+      "known_cost_usd": "0.0249652500"
+    },
+    {
+      "id": "f77930cc-f1ea-452d-97f4-5db54ebcd0ac",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0094530000"
+    },
+    {
+      "id": "8bcd0820-1365-4f4d-9e47-b00be30c7840",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035377500"
+    },
+    {
+      "id": "840b0dd8-ef79-4f80-b246-22932e0bf158",
+      "state": "imported",
+      "requests": 200,
+      "snapshots": 200,
+      "known_cost_usd": "0.3758040000"
+    },
+    {
+      "id": "9615da66-237f-4a9b-be44-5c9e747b1d3f",
+      "state": "imported",
+      "requests": 19,
+      "snapshots": 19,
+      "known_cost_usd": "0.0355837500"
+    },
+    {
+      "id": "53aff058-09c3-4971-ab98-6ed1f085dd26",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035478750"
+    },
+    {
+      "id": "6e7ca60b-4a2e-4fca-a1c5-0be99f3af44d",
+      "state": "imported",
+      "requests": 20,
+      "snapshots": 20,
+      "known_cost_usd": "None"
+    },
+    {
+      "id": "451e6f7a-1c8e-402a-a50f-fd98e9c9ab37",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0058263750"
+    },
+    {
+      "id": "3ede8ab4-92ec-4f90-b1f8-d88139b4af1f",
+      "state": "imported",
+      "requests": 10,
+      "snapshots": 10,
+      "known_cost_usd": "0.0188617500"
+    },
+    {
+      "id": "d26b49a0-7b4c-4d38-bda3-d6897d8acf3f",
+      "state": "imported",
+      "requests": 139,
+      "snapshots": 139,
+      "known_cost_usd": "0.2607738750"
+    },
+    {
+      "id": "adf03a68-bc6d-4e28-a7d5-3bcccbc22657",
+      "state": "imported",
+      "requests": 3,
+      "snapshots": 3,
+      "known_cost_usd": "0.0055691250"
+    },
+    {
+      "id": "c59a85ec-d293-4c14-a50d-85ea324151b6",
+      "state": "imported",
+      "requests": 29,
+      "snapshots": 29,
+      "known_cost_usd": "0.0543862500"
+    },
+    {
+      "id": "b0fcfc11-4ceb-47ed-afc5-215af421ed67",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0021476250"
+    },
+    {
+      "id": "90ea6950-2541-4a54-afb4-e015a2d2b49c",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0074077500"
+    },
+    {
+      "id": "404e4b57-886e-4d21-bd15-03e98289b5cb",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035722500"
+    },
+    {
+      "id": "f7b1aa0d-45e8-4622-a097-c4e5d75a8b59",
+      "state": "imported",
+      "requests": 119,
+      "snapshots": 119,
+      "known_cost_usd": "0.2250082500"
+    },
+    {
+      "id": "14b0695c-6a78-46be-8cf3-73c5a06a86c9",
+      "state": "imported",
+      "requests": 137,
+      "snapshots": 137,
+      "known_cost_usd": "0.2570362500"
+    },
+    {
+      "id": "cf27c4ed-7349-434e-a194-4f25a8e3de2d",
+      "state": "imported",
+      "requests": 76,
+      "snapshots": 76,
+      "known_cost_usd": "0.1441901250"
+    },
+    {
+      "id": "bfebec51-26ab-43cb-9546-b87a9dcb2481",
+      "state": "imported",
+      "requests": 250,
+      "snapshots": 250,
+      "known_cost_usd": "0.4727216250"
+    },
+    {
+      "id": "bbc0172d-7f6b-469a-ba95-2e880e913cca",
+      "state": "imported",
+      "requests": 117,
+      "snapshots": 117,
+      "known_cost_usd": "0.2181630000"
+    },
+    {
+      "id": "f09d25c1-8a9e-4a77-8053-a0c72c3982e8",
+      "state": "imported",
+      "requests": 95,
+      "snapshots": 95,
+      "known_cost_usd": "0.1799276250"
+    },
+    {
+      "id": "75fe1f79-f25c-40fa-9c98-79fcb213d334",
+      "state": "imported",
+      "requests": 127,
+      "snapshots": 127,
+      "known_cost_usd": "0.2378625000"
+    },
+    {
+      "id": "ca6cbd64-a983-4e0f-8aa5-d047f5e541ae",
+      "state": "imported",
+      "requests": 5,
+      "snapshots": 5,
+      "known_cost_usd": "0.0096277500"
+    },
+    {
+      "id": "1436507f-c653-4058-9830-643470f53605",
+      "state": "imported",
+      "requests": 153,
+      "snapshots": 153,
+      "known_cost_usd": "0.2861531250"
+    },
+    {
+      "id": "e52738a6-0a0f-40ed-a293-2d5c5e7efe54",
+      "state": "imported",
+      "requests": 45,
+      "snapshots": 45,
+      "known_cost_usd": "0.0840045000"
+    },
+    {
+      "id": "206aea43-28d9-4aa5-b600-8b195f466cc9",
+      "state": "imported",
+      "requests": 22,
+      "snapshots": 22,
+      "known_cost_usd": "0.0419077500"
+    },
+    {
+      "id": "4285aedc-5a3a-431c-8afc-b4f3608e8519",
+      "state": "imported",
+      "requests": 20,
+      "snapshots": 20,
+      "known_cost_usd": "0.0386373750"
+    },
+    {
+      "id": "d4594409-abee-4693-84a9-da15b97ea03f",
+      "state": "imported",
+      "requests": 115,
+      "snapshots": 115,
+      "known_cost_usd": "0.2154408750"
+    },
+    {
+      "id": "cbcf3c95-d220-4d31-b2f7-6c624487c3af",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0036206250"
+    },
+    {
+      "id": "e8940ab3-7552-4607-bd64-d36acfe93cf8",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0070740000"
+    },
+    {
+      "id": "b3a590f6-c806-4ae3-966a-a0e1700f344b",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0072397500"
+    },
+    {
+      "id": "9258f87d-940a-456c-821d-a06d8007c465",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0041201250"
+    },
+    {
+      "id": "dfd0ffa5-2e90-4bd3-a1ed-f7fb66954695",
+      "state": "imported",
+      "requests": 15,
+      "snapshots": 15,
+      "known_cost_usd": "0.0285907500"
+    },
+    {
+      "id": "f9dc8b5c-2c3c-4a63-9126-9a1f1fbf1c41",
+      "state": "imported",
+      "requests": 24,
+      "snapshots": 24,
+      "known_cost_usd": "0.0445113750"
+    },
+    {
+      "id": "6496eadf-d24d-4e06-badc-eb91471bb923",
+      "state": "imported",
+      "requests": 24,
+      "snapshots": 24,
+      "known_cost_usd": "0.0450615000"
+    },
+    {
+      "id": "f7083689-93dc-423c-ae50-4046b302e62d",
+      "state": "imported",
+      "requests": 20,
+      "snapshots": 20,
+      "known_cost_usd": "0.0369060000"
+    },
+    {
+      "id": "cf3f8662-bc4b-468a-8581-7f73fe1cdddf",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0037256250"
+    },
+    {
+      "id": "9d268593-4c6f-4202-973c-5bcdb6a7c880",
+      "state": "imported",
+      "requests": 13,
+      "snapshots": 13,
+      "known_cost_usd": "0.0246078750"
+    },
+    {
+      "id": "d7a1a81d-310b-45cb-ac68-cbef1ef6b563",
+      "state": "imported",
+      "requests": 709,
+      "snapshots": 709,
+      "known_cost_usd": "1.3176821250"
+    },
+    {
+      "id": "477f3485-e0ba-445e-8247-95bd7d74f18a",
+      "state": "imported",
+      "requests": 300,
+      "snapshots": 300,
+      "known_cost_usd": "0.5632728750"
+    },
+    {
+      "id": "3c859620-e021-4283-955e-eeb5a4fda69a",
+      "state": "imported",
+      "requests": 17,
+      "snapshots": 17,
+      "known_cost_usd": "0.0311692500"
+    },
+    {
+      "id": "a2f101da-7aaf-46ad-96b4-906c9bf41f4b",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035133750"
+    },
+    {
+      "id": "f5c4fd19-2799-40ed-a32b-18944d48fd77",
+      "state": "imported",
+      "requests": 2,
+      "snapshots": 2,
+      "known_cost_usd": "0.0035317500"
+    },
+    {
+      "id": "7f67e683-e0dc-4497-a12f-7013fe7fd89a",
+      "state": "imported",
+      "requests": 30,
+      "snapshots": 30,
+      "known_cost_usd": "0.0570015000"
+    },
+    {
+      "id": "b41e9de1-4255-400a-82cb-19e0f1318327",
+      "state": "imported",
+      "requests": 82,
+      "snapshots": 82,
+      "known_cost_usd": "0.1537755000"
+    },
+    {
+      "id": "999f8d13-d23d-4f12-b0ea-d041c4215fd0",
+      "state": "imported",
+      "requests": 12,
+      "snapshots": 12,
+      "known_cost_usd": "0.0221677500"
+    },
+    {
+      "id": "dc056a81-00f7-4f3a-b2de-fa57d165254d",
+      "state": "imported",
+      "requests": 86,
+      "snapshots": 86,
+      "known_cost_usd": "0.1597830000"
+    },
+    {
+      "id": "29991884-24ba-423c-addb-e8defc8eab35",
+      "state": "imported",
+      "requests": 15,
+      "snapshots": 15,
+      "known_cost_usd": "0.0284276250"
+    },
+    {
+      "id": "4cb560fd-0900-43ac-bf08-9051c5308e61",
+      "state": "imported",
+      "requests": 4,
+      "snapshots": 4,
+      "known_cost_usd": "0.0078663750"
+    },
+    {
+      "id": "8ddf51b5-1e1c-4cc4-9959-377523cd527c",
+      "state": "imported",
+      "requests": 185,
+      "snapshots": 185,
+      "known_cost_usd": "0.3498060000"
+    },
+    {
+      "id": "3c3d9a2b-b9d2-4462-9822-81de986eae87",
+      "state": "imported",
+      "requests": 241,
+      "snapshots": 241,
+      "known_cost_usd": "0.4504751250"
+    },
+    {
+      "id": "616133a4-ea8b-49a9-9ff2-92b7152bb85c",
+      "state": "imported",
+      "requests": 178,
+      "snapshots": 178,
+      "known_cost_usd": "0.3349785000"
+    },
+    {
+      "id": "1441abb1-f183-462a-afae-b37deed49fd1",
+      "state": "imported",
+      "requests": 1353,
+      "snapshots": 1353,
+      "known_cost_usd": "2.5264635000"
+    },
+    {
+      "id": "bb40c102-0bf9-4bed-bc33-bf48ccfaca21",
+      "state": "imported",
+      "requests": 326,
+      "snapshots": 326,
+      "known_cost_usd": "0.6176265000"
+    },
+    {
+      "id": "4ef872e0-c31b-4eeb-b7dd-9d7f2088f5e3",
+      "state": "imported",
+      "requests": 29,
+      "snapshots": 29,
+      "known_cost_usd": "0.0538413750"
+    },
+    {
+      "id": "671f424d-860f-41d8-94cf-1cb629ea6290",
+      "state": "imported",
+      "requests": 85,
+      "snapshots": 85,
+      "known_cost_usd": "0.1596866250"
+    },
+    {
+      "id": "062e4a4c-4c14-4ec6-9895-b03286810c86",
+      "state": "imported",
+      "requests": 14,
+      "snapshots": 14,
+      "known_cost_usd": "0.0267742500"
+    },
+    {
+      "id": "70a7edf1-9ddc-4cad-a9dd-306c616ce038",
+      "state": "imported",
+      "requests": 4264,
+      "snapshots": 4264,
+      "known_cost_usd": "7.9612061250"
+    },
+    {
+      "id": "3c042a7d-4938-449b-b51b-b3838a7ac52a",
+      "state": "imported",
+      "requests": 38,
+      "snapshots": 38,
+      "known_cost_usd": "0.0704403750"
+    },
+    {
+      "id": "252db80d-25f7-4b29-af6e-19a2ece467fd",
+      "state": "imported",
+      "requests": 150,
+      "snapshots": 150,
+      "known_cost_usd": "0.2844360000"
+    },
+    {
+      "id": "ba5cb6d8-a480-4869-91c5-c7e86fd5474c",
+      "state": "imported",
+      "requests": 200,
+      "snapshots": 200,
+      "known_cost_usd": "0.3795183750"
+    },
+    {
+      "id": "9b859fa3-f696-4c37-b389-24587d7809dd",
+      "state": "imported",
+      "requests": 41,
+      "snapshots": 41,
+      "known_cost_usd": "0.0755137500"
+    },
+    {
+      "id": "f1b4bc93-09f4-498d-b66b-0f41e1637e3c",
+      "state": "imported",
+      "requests": 27,
+      "snapshots": 27,
+      "known_cost_usd": "0.0520477500"
+    },
+    {
+      "id": "770bb051-e9c8-4a11-8e00-5e7469eb7cf1",
+      "state": "imported",
+      "requests": 38,
+      "snapshots": 38,
+      "known_cost_usd": "0.0729731250"
+    },
+    {
+      "id": "028ab996-db99-48b7-9bd0-33af69bdc744",
+      "state": "imported",
+      "requests": 200,
+      "snapshots": 200,
+      "known_cost_usd": "0.3807798750"
+    },
+    {
+      "id": "18031803-d553-42c4-b7a1-82666d65a1e4",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0018990000"
+    },
+    {
+      "id": "d08fbc6b-9788-4957-a00b-cf82a79d9a24",
+      "state": "imported",
+      "requests": 34,
+      "snapshots": 34,
+      "known_cost_usd": "0.0645866250"
+    },
+    {
+      "id": "39765c69-d5aa-4e28-99df-71502807f7b9",
+      "state": "imported",
+      "requests": 63,
+      "snapshots": 63,
+      "known_cost_usd": "0.1174950000"
+    },
+    {
+      "id": "d6855ee3-3101-44e2-a089-42b1f72927cf",
+      "state": "imported",
+      "requests": 62,
+      "snapshots": 62,
+      "known_cost_usd": "0.1138215000"
+    },
+    {
+      "id": "5eb52bf5-dead-4ee7-a459-f12531ba474c",
+      "state": "imported",
+      "requests": 73,
+      "snapshots": 73,
+      "known_cost_usd": "0.1339631250"
+    },
+    {
+      "id": "56028574-67b0-4b2b-b203-d671db035c78",
+      "state": "imported",
+      "requests": 270,
+      "snapshots": 270,
+      "known_cost_usd": "0.5119920000"
+    },
+    {
+      "id": "39a5aaa0-bcbe-43e4-8f05-90cd79c7c01a",
+      "state": "imported",
+      "requests": 13,
+      "snapshots": 13,
+      "known_cost_usd": "0.0250293750"
+    },
+    {
+      "id": "997af504-461c-4c64-a419-d15f1167c5e3",
+      "state": "imported",
+      "requests": 500,
+      "snapshots": 500,
+      "known_cost_usd": "0.9448342500"
+    },
+    {
+      "id": "98729b26-a678-4f34-91cf-f2ef31f197bc",
+      "state": "imported",
+      "requests": 200,
+      "snapshots": 200,
+      "known_cost_usd": "0.3767782500"
+    },
+    {
+      "id": "bbe4f34a-ce0b-4a92-9e46-94db6a12036c",
+      "state": "imported",
+      "requests": 105,
+      "snapshots": 105,
+      "known_cost_usd": "0.1958670000"
+    },
+    {
+      "id": "914c9ab3-584a-4c81-a907-521a5ed964c7",
+      "state": "imported",
+      "requests": 16,
+      "snapshots": 16,
+      "known_cost_usd": "0.0302021250"
+    },
+    {
+      "id": "232f0002-cfe0-443d-887f-b4590671dccb",
+      "state": "imported",
+      "requests": 369,
+      "snapshots": 369,
+      "known_cost_usd": "0.6910241250"
+    },
+    {
+      "id": "ab8ff3e2-8cd4-45e5-8cc9-0ddad970c994",
+      "state": "imported",
+      "requests": 53,
+      "snapshots": 53,
+      "known_cost_usd": "0.0998092500"
+    },
+    {
+      "id": "4f961d9c-b0ec-48cb-a2e0-7e9c2749f79c",
+      "state": "imported",
+      "requests": 369,
+      "snapshots": 369,
+      "known_cost_usd": "0.6871680000"
+    },
+    {
+      "id": "051162a2-1cf4-4e73-8a4d-c5747f096b24",
+      "state": "imported",
+      "requests": 10,
+      "snapshots": 10,
+      "known_cost_usd": "0.0184395000"
+    },
+    {
+      "id": "48a6ae92-c561-49b7-8da5-2c7c9a85e95b",
+      "state": "imported",
+      "requests": 23,
+      "snapshots": 23,
+      "known_cost_usd": "0.0433098750"
+    },
+    {
+      "id": "fedbb133-53c8-4098-a8c8-152dcd946be4",
+      "state": "imported",
+      "requests": 223,
+      "snapshots": 223,
+      "known_cost_usd": "0.4141410000"
+    },
+    {
+      "id": "b701bf3f-6ce3-4add-aded-f345de30cc7b",
+      "state": "imported",
+      "requests": 8,
+      "snapshots": 8,
+      "known_cost_usd": "0.0150228750"
+    },
+    {
+      "id": "a7f40ab3-babb-414d-9b3e-d67d2dfa4978",
+      "state": "imported",
+      "requests": 52,
+      "snapshots": 52,
+      "known_cost_usd": "0.0969030000"
+    },
+    {
+      "id": "50460d31-a0b1-4ffc-8070-b9a3fa6ae00a",
+      "state": "imported",
+      "requests": 109,
+      "snapshots": 109,
+      "known_cost_usd": "0.2066156250"
+    },
+    {
+      "id": "7e1072f4-80af-4da8-9242-177741327ff9",
+      "state": "imported",
+      "requests": 513,
+      "snapshots": 513,
+      "known_cost_usd": "0.9670327500"
+    },
+    {
+      "id": "60428d16-aac3-439b-838e-c67a7c6ef482",
+      "state": "imported",
+      "requests": 94,
+      "snapshots": 94,
+      "known_cost_usd": "0.1753530000"
+    },
+    {
+      "id": "ffbc15f7-a158-42e6-9aea-6ff29ce9ff04",
+      "state": "imported",
+      "requests": 206,
+      "snapshots": 206,
+      "known_cost_usd": "0.3851276250"
+    },
+    {
+      "id": "2b4184ea-5967-476f-8779-701f2e11ea03",
+      "state": "imported",
+      "requests": 127,
+      "snapshots": 127,
+      "known_cost_usd": "0.2351366250"
+    },
+    {
+      "id": "ce08ef57-c2d4-43a5-b6de-3720f2623a33",
+      "state": "imported",
+      "requests": 228,
+      "snapshots": 228,
+      "known_cost_usd": "0.4272296250"
+    },
+    {
+      "id": "16daf4a2-f8eb-4b76-8111-7a5ac31aca51",
+      "state": "imported",
+      "requests": 432,
+      "snapshots": 432,
+      "known_cost_usd": "0.8023275000"
+    },
+    {
+      "id": "25dbe9c1-7f0c-4229-9a03-777e61fcc7e4",
+      "state": "imported",
+      "requests": 1000,
+      "snapshots": 1000,
+      "known_cost_usd": "1.8894618750"
+    },
+    {
+      "id": "c8290d1a-0413-4e54-83f0-e38d42cd61d7",
+      "state": "imported",
+      "requests": 753,
+      "snapshots": 753,
+      "known_cost_usd": "1.4082843750"
+    },
+    {
+      "id": "f3e9a9e1-b02e-427b-9b33-6ac22df65e53",
+      "state": "imported",
+      "requests": 84,
+      "snapshots": 84,
+      "known_cost_usd": "0.1576935000"
+    },
+    {
+      "id": "502adc14-65f7-4f6c-88d8-204651f6a7c3",
+      "state": "imported",
+      "requests": 986,
+      "snapshots": 986,
+      "known_cost_usd": "1.8694361250"
+    },
+    {
+      "id": "ece84948-f026-40dd-8654-75724543b459",
+      "state": "imported",
+      "requests": 1153,
+      "snapshots": 1153,
+      "known_cost_usd": "2.1778451250"
+    },
+    {
+      "id": "b1eccbbb-a217-47ab-8f0f-657fbc8c1a2c",
+      "state": "imported",
+      "requests": 5212,
+      "snapshots": 5212,
+      "known_cost_usd": "9.8612013750"
+    },
+    {
+      "id": "993c414d-2eb0-48af-849f-b84231b78826",
+      "state": "imported",
+      "requests": 1601,
+      "snapshots": 1601,
+      "known_cost_usd": "3.0300352500"
+    },
+    {
+      "id": "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+      "state": "failed",
+      "requests": 118549,
+      "snapshots": 118549,
+      "known_cost_usd": "60.3153405000"
+    },
+    {
+      "id": "60c603fa-c0c8-491a-b732-a4987b9d8ced",
+      "state": "imported",
+      "requests": 251,
+      "snapshots": 251,
+      "known_cost_usd": "0.4771608750"
+    },
+    {
+      "id": "b79f5f79-eaf7-40f0-b862-f28702bea11e",
+      "state": "imported",
+      "requests": 38,
+      "snapshots": 38,
+      "known_cost_usd": "0.0711457500"
+    },
+    {
+      "id": "88bdb5a3-88a9-481f-9844-a64927339149",
+      "state": "imported",
+      "requests": 7412,
+      "snapshots": 7412,
+      "known_cost_usd": "14.0115903750"
+    },
+    {
+      "id": "449489ff-25f4-4700-ab7a-4b68a0f69381",
+      "state": "imported",
+      "requests": 14051,
+      "snapshots": 14051,
+      "known_cost_usd": "26.6834692500"
+    },
+    {
+      "id": "ac8239f9-f1af-4b01-a85d-b77574a1ad68",
+      "state": "imported",
+      "requests": 8647,
+      "snapshots": 8647,
+      "known_cost_usd": "16.3611393750"
+    },
+    {
+      "id": "83b452a3-c902-4171-9f86-30106af4e642",
+      "state": "imported",
+      "requests": 2208,
+      "snapshots": 2208,
+      "known_cost_usd": "4.1033321250"
+    },
+    {
+      "id": "b8764115-38ff-488a-8ee2-5cee86399b46",
+      "state": "imported",
+      "requests": 604,
+      "snapshots": 604,
+      "known_cost_usd": "1.1375216250"
+    },
+    {
+      "id": "897d10f2-4f6a-41cc-bbcc-323a9eeb980e",
+      "state": "imported",
+      "requests": 108,
+      "snapshots": 108,
+      "known_cost_usd": "0.2021936250"
+    },
+    {
+      "id": "fb7469e7-c119-43e4-b20c-e82e232ec73d",
+      "state": "imported",
+      "requests": 67,
+      "snapshots": 67,
+      "known_cost_usd": "0.1258976250"
+    },
+    {
+      "id": "a04a1eb1-28c5-4d65-be64-88304a5218d4",
+      "state": "imported",
+      "requests": 3065,
+      "snapshots": 3065,
+      "known_cost_usd": "5.7972367500"
+    },
+    {
+      "id": "059f0d93-0854-45ac-898d-d0eb23762ed3",
+      "state": "succeeded",
+      "requests": 6000,
+      "snapshots": 6000,
+      "known_cost_usd": "11.3303253750"
+    },
+    {
+      "id": "83e1ecc2-b3d1-4f14-91d8-46be2aaa3415",
+      "state": "imported",
+      "requests": 1,
+      "snapshots": 1,
+      "known_cost_usd": "0.0019391250"
+    },
+    {
+      "id": "df0bcc13-4da9-4150-b5f7-dab763b5c83d",
+      "state": "imported",
+      "requests": 12195,
+      "snapshots": 12195,
+      "known_cost_usd": "22.9925805000"
+    },
+    {
+      "id": "41934591-0444-4fce-bfde-238497f31e3a",
+      "state": "failed",
+      "requests": 40460,
+      "snapshots": 40460,
+      "known_cost_usd": "51.7029513750"
+    }
+  ],
+  "planning_reserves_reassigned_by_explicit_user_instruction_brl": {
+    "retry": "111.76",
+    "accessory": "35",
+    "safety": "35"
+  },
+  "guard_below_margin_passed": true,
+  "guard_above_margin_rejected": true,
+  "second_account_verified": false,
+  "online_generation_calls": 0
+}

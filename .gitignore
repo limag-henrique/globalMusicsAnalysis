@@ -22,6 +22,7 @@ build/
 graphify-out/
 .graphify-out/
 .firecrawl/
+.superpowers/
 
 # IDE & Editors
 .vscode/
@@ -44,10 +45,27 @@ desktop.ini
 # Project Data Directories (keep structure via .gitkeep)
 data/raw/*
 data/interim/*
-data/processed/*
 data/exports/*
-data/normalized/*
 !data/**/.gitkeep
+
+# Operational, Backup & Recovery Data (not for external research distribution)
+data/backups/
+data/recovery/
+data/runtime/
+data/normalized/
+data/derived/lyrics/followup-*/
+data/derived/lyrics/pending-recovery-*/
+data/derived/research_quality/automated-quality-*/
+*.requests.jsonl
+
+# Temporary & Disposable Generated Artifacts (CLEANUP_REVIEW.csv)
+tmp/
+
+# Publication Validation & Local Reproduction Artifacts
+publication-validation/
+reproduced/
+reproduced-figures/
+publication/packages/
 
 # Personal Notes / Scratch
 scratch/
@@ -55,3 +73,4 @@ scratch/
 *.bak
 *.zip
 .ipynb_checkpoints/
+

@@ -17,6 +17,7 @@ from alembic.config import Config as AlembicConfig
 
 from chart_observatory.adapters.files.manual import ImportMetadata
 from chart_observatory.adapters.youtube_data.most_popular import YouTubeMostPopularSource
+from chart_observatory.analysis.country_context import app as country_context_app
 from chart_observatory.application import ResearchApplication
 from chart_observatory.charts.registry import AdapterRegistry
 from chart_observatory.config import Settings
@@ -108,6 +109,7 @@ from chart_observatory.ui.classifications import JsonClassificationRepository
 from chart_observatory.ui.taxonomy import TAXONOMY_VERSION
 
 app = typer.Typer(help="Rights-gated cross-platform chart research tools.")
+app.add_typer(country_context_app, name="country-context")
 collect_app = typer.Typer()
 import_app = typer.Typer()
 coverage_app = typer.Typer()

@@ -1,0 +1,108 @@
+{
+  "created_at": "2026-10-11T03:58:10.870298+00:00",
+  "countries": [
+    "AD",
+    "AE",
+    "AR",
+    "AT",
+    "AU",
+    "BE",
+    "BG",
+    "BO",
+    "BR",
+    "CA",
+    "CH",
+    "CL",
+    "CO",
+    "CR",
+    "CZ",
+    "DE",
+    "DK",
+    "DO",
+    "EC",
+    "EE",
+    "EG",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "GR",
+    "GT",
+    "HN",
+    "HU",
+    "ID",
+    "IE",
+    "IL",
+    "IN",
+    "IS",
+    "IT",
+    "JP",
+    "KR",
+    "LT",
+    "LU",
+    "LV",
+    "MA",
+    "MX",
+    "MY",
+    "NI",
+    "NL",
+    "NO",
+    "NZ",
+    "PA",
+    "PE",
+    "PH",
+    "PL",
+    "PT",
+    "PY",
+    "RO",
+    "RU",
+    "SA",
+    "SE",
+    "SG",
+    "SK",
+    "SV",
+    "TH",
+    "TR",
+    "TW",
+    "UA",
+    "US",
+    "UY",
+    "VN",
+    "ZA"
+  ],
+  "trends_statuses": {
+    "observed_relative_index": 27792,
+    "below_reporting_threshold": 8323
+  },
+  "radar_statuses": {
+    "observed_dns_share": 202,
+    "not_returned": 2
+  },
+  "radar_missing": [
+    {
+      "country_iso2": "AD",
+      "domain": "xnxx.com"
+    },
+    {
+      "country_iso2": "IS",
+      "domain": "xnxx.com"
+    }
+  ],
+  "rows": 36319,
+  "inputs": {
+    "D:\\PromiscuidadeMusical\\data\\derived\\country_context\\trends-browser\\trends-browser-observations.csv": "c9f6fe7380bfc0ae069768881ed872cb0cdb0f7b33d86d1ff142600d33027484",
+    "D:\\PromiscuidadeMusical\\data\\derived\\country_context\\recent\\indicators.csv": "ebd33fd198e8a54597be89458e2c7dbde8b7b3bafa26ba988695b48877f6ce99"
+  },
+  "outputs": {
+    "country-coverage.csv": "e6de5477910532c6c685c2a5449eb7fe622b394abd107836ef11fe8eb1509f44",
+    "indicators.csv": "400281be7d5734a25afa2617f505a248bad79b19a7cf19aaae009f81948169f0"
+  },
+  "limitations": [
+    "No combined consumption score or ranking is calculated",
+    "Trends scales are specific to comparison_group and full query window",
+    "Repeated porn anchors are preserved in their respective groups",
+    "boundary_bucket marks nominal periods crossing the requested end",
+    "DNS shares have a global domain denominator, not 68-country renormalization",
+    "Local vocabulary is provisional; six language gaps remain in the plan"
+  ]
+}

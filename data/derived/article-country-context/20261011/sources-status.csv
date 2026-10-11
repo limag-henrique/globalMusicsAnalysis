@@ -1,0 +1,4 @@
+source,indicator_code,status,source_url,reason
+WVS/EVS,wvs_sexual_values,microdata_download_unavailable,https://www.worldvaluessurvey.org/WVSEVSjoint2017.jsp,Official CSV download returned whitespace; weighted survey aggregates unavailable
+Radar/Similarweb,pornography_interest,access_and_historical_coverage_unverified,https://developers.cloudflare.com/radar/investigate/dns/,No authenticated access; DNS/traffic do not directly measure population consumption
+TikTok Research API,tiktok_music_exposure,restricted_access_no_track_time_data,https://developers.tiktok.com/products/research-api/,No approved access and no historical sound-to-track exposure series

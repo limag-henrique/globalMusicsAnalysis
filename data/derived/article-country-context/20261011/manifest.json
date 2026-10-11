@@ -1,0 +1,379 @@
+{
+  "methodology_version": "article-context-v1",
+  "annual_input": "D:\\PromiscuidadeMusical\\data\\derived\\research_quality\\country-all-history-20261011-022524\\annual-country-metrics.csv",
+  "annual_input_sha256": "7d380c9a06d94a9fd1de2a97699180edd8eb9a57efe70cbcdcaa925a4f3ace98",
+  "markets": [
+    "AD",
+    "AE",
+    "AR",
+    "AT",
+    "AU",
+    "BE",
+    "BG",
+    "BO",
+    "BR",
+    "CA",
+    "CH",
+    "CL",
+    "CO",
+    "CR",
+    "CZ",
+    "DE",
+    "DK",
+    "DO",
+    "EC",
+    "EE",
+    "EG",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "GR",
+    "GT",
+    "HN",
+    "HU",
+    "ID",
+    "IE",
+    "IL",
+    "IN",
+    "IS",
+    "IT",
+    "JP",
+    "KR",
+    "LT",
+    "LU",
+    "LV",
+    "MA",
+    "MX",
+    "MY",
+    "NI",
+    "NL",
+    "NO",
+    "NZ",
+    "PA",
+    "PE",
+    "PH",
+    "PL",
+    "PT",
+    "PY",
+    "RO",
+    "RU",
+    "SA",
+    "SE",
+    "SG",
+    "SK",
+    "SV",
+    "TH",
+    "TR",
+    "TW",
+    "UA",
+    "US",
+    "UY",
+    "VN",
+    "ZA"
+  ],
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "music_cutoff": "2022-03-13",
+  "country_years": 386,
+  "coverage_cells": 9650,
+  "observed_cells": 6270,
+  "sources": [
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/SI.POV.GINI?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/SI.POV.GINI?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:03.823292+00:00",
+      "status_code": 200,
+      "sha256": "18b052d9e9cd89996e7c477ed5ab30033700afa5b3941ace103a889ef4f3a6b6",
+      "bytes": 304292,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-SI.POV.GINI.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:04.634452+00:00",
+      "status_code": 200,
+      "sha256": "9cfb26b1d62e173be9d2db8f800edb32e56c5c5b4d5e19568703212755ea45e4",
+      "bytes": 396952,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-NY.GDP.PCAP.PP.KD.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:04.634452+00:00",
+      "status_code": 200,
+      "sha256": "59abcdadf10f3af645b601822af1fe18413405b173d991e438c2fbab3c827138",
+      "bytes": 356310,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-NY.GDP.PCAP.CD.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/SL.UEM.1524.ZS?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/SL.UEM.1524.ZS?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:05.007154+00:00",
+      "status_code": 200,
+      "sha256": "559e5d8fc6b8f1f99286f62ba82819ca260ae1d96cd9a725e39cacb7e45f0682",
+      "bytes": 432421,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-SL.UEM.1524.ZS.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.USER.ZS?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.USER.ZS?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:05.518903+00:00",
+      "status_code": 200,
+      "sha256": "68ffe8fa0cd4a6718898a42ef286bca9336904144f5bba83ad0d7f0c107782d6",
+      "bytes": 378372,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-IT.NET.USER.ZS.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.BBND.P2?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/IT.NET.BBND.P2?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:05.792165+00:00",
+      "status_code": 200,
+      "sha256": "5e1959267191172d6ad7758a47c9c0c86b6850cfc95155c4eb9574d37a27e19d",
+      "bytes": 382397,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-IT.NET.BBND.P2.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/SP.URB.TOTL.IN.ZS?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/SP.URB.TOTL.IN.ZS?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:05.772631+00:00",
+      "status_code": 200,
+      "sha256": "24e5b7bc875c551f679b9ed7261ba6c80b40ab53cc7f038871013ba78c409317",
+      "bytes": 379790,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-SP.URB.TOTL.IN.ZS.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:06.292437+00:00",
+      "status_code": 200,
+      "sha256": "5906d1a7f83e6aff808032929a0f35bfdbe8881262883593b88af467ce2d4e43",
+      "bytes": 321154,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-SP.POP.TOTL.json"
+    },
+    {
+      "source_url": "https://api.worldbank.org/v2/country/all/indicator/VC.IHR.PSRC.P5?format=json&date=2017:2022&per_page=20000",
+      "resolved_url": "https://api.worldbank.org/v2/country/all/indicator/VC.IHR.PSRC.P5?format=json&date=2017:2022&per_page=20000",
+      "retrieved_at": "2026-10-11T03:02:06.664902+00:00",
+      "status_code": 200,
+      "sha256": "1bcd3e9a8597793f59541e65002507591ec51ea9671839ddfdc54654edb82ee2",
+      "bytes": 369167,
+      "raw_path": "data\\raw\\country_context\\20261011\\worldbank-VC.IHR.PSRC.P5.json"
+    },
+    {
+      "source_url": "https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Composite_indices_complete_time_series.csv",
+      "resolved_url": "https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Composite_indices_complete_time_series.csv",
+      "retrieved_at": "2026-10-11T03:02:07.028607+00:00",
+      "status_code": 200,
+      "sha256": "61ed82e5b66c88dfca8ff9fac775c63981ecab6a254862af97acacc41c143117",
+      "bytes": 2001263,
+      "raw_path": "data\\raw\\country_context\\20261011\\HDR25_Composite_indices_complete_time_series.csv"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2017-01-01&until=2018-01-01&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2017-01-01&until=2018-01-01&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:02:46.500153+00:00",
+      "status_code": 200,
+      "sha256": "02a62e460580edf9b93610df05e53b436d986ae7f191ff28ad317f1f4527d52c",
+      "bytes": 17081,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2017.json"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2018-01-01&until=2019-01-01&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2018-01-01&until=2019-01-01&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:03:47.910833+00:00",
+      "status_code": 200,
+      "sha256": "bad9cb5fc38dfdb3e2ebae95983e17a1f0c87bd3188cebc017d8c96a977a75bd",
+      "bytes": 4805,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2018.json"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2019-01-01&until=2020-01-01&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2019-01-01&until=2020-01-01&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:04:15.285376+00:00",
+      "status_code": 200,
+      "sha256": "9ba2610811124be5ee8786fc84037982e7479e22499df3817e8b9c5c8d25d366",
+      "bytes": 8841,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2019.json"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2020-01-01&until=2021-01-01&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2020-01-01&until=2021-01-01&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:04:46.116978+00:00",
+      "status_code": 200,
+      "sha256": "f5fb6f93a687f65b086882e66158d665164130c9f52d8dc87f6f954bfee63329",
+      "bytes": 12390,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2020.json"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2021-01-01&until=2022-01-01&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2021-01-01&until=2022-01-01&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:05:34.493345+00:00",
+      "status_code": 200,
+      "sha256": "f64cf1773ca5c0a94a7488a42a0df014e6f68bac7fa3ecf115811f5a4912b649",
+      "bytes": 11081,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2021.json"
+    },
+    {
+      "source_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2022-01-01&until=2022-03-14&axis_x=probe_cc&axis_y=domain",
+      "resolved_url": "https://api.ooni.io/api/v1/aggregation?probe_cc=AD%2CAE%2CAR%2CAT%2CAU%2CBE%2CBG%2CBO%2CBR%2CCA%2CCH%2CCL%2CCO%2CCR%2CCZ%2CDE%2CDK%2CDO%2CEC%2CEE%2CEG%2CES%2CFI%2CFR%2CGB%2CGR%2CGT%2CHN%2CHU%2CID%2CIE%2CIL%2CIN%2CIS%2CIT%2CJP%2CKR%2CLT%2CLU%2CLV%2CMA%2CMX%2CMY%2CNI%2CNL%2CNO%2CNZ%2CPA%2CPE%2CPH%2CPL%2CPT%2CPY%2CRO%2CRU%2CSA%2CSE%2CSG%2CSK%2CSV%2CTH%2CTR%2CTW%2CUA%2CUS%2CUY%2CVN%2CZA&test_name=web_connectivity&domain=pornhub.com%2Cxvideos.com%2Cxnxx.com&since=2022-01-01&until=2022-03-14&axis_x=probe_cc&axis_y=domain",
+      "retrieved_at": "2026-10-11T03:05:56.600947+00:00",
+      "status_code": 200,
+      "sha256": "5723e6904fdcd52e31c867e09c8d5d07b95ae6c00df7a1f0f7711ffbf582993d",
+      "bytes": 5413,
+      "raw_path": "data\\raw\\country_context\\20261011\\ooni-adult-domains-2022.json"
+    },
+    {
+      "source_url": "https://sdmx.oecd.org/archive/rest/v1/data/OECD,DF_SIGI2019,/all?format=csvfile",
+      "resolved_url": "https://sdmx.oecd.org/archive/rest/v1/data/OECD,DF_SIGI2019,/all?format=csvfile",
+      "retrieved_at": "2026-10-11T03:04:25.802473+00:00",
+      "sha256": "40446dc8167b4e13c97cbf6c63da40bffd7602c1d400d0a7ec3921153672dfb3",
+      "raw_path": "data\\raw\\country_context\\source-discovery\\oecd_sigi2019_index.csv",
+      "bytes": 160458,
+      "status_code": 200
+    },
+    {
+      "source_url": "https://data.unodc.org/sites/dataportal.unodc.org/files/2026-07/data_cts_intentional_homicide.xlsx",
+      "resolved_url": "https://data.unodc.org/sites/dataportal.unodc.org/files/2026-07/data_cts_intentional_homicide.xlsx",
+      "retrieved_at": "2026-10-11T03:04:41.810215+00:00",
+      "sha256": "126c1b5282f2872d5197bcd130c0d2d4adf3b820230651f402ec3c0918c423bb",
+      "raw_path": "data\\raw\\country_context\\source-discovery\\unodc_homicide_2026-07.xlsx",
+      "bytes": 7762260,
+      "status_code": 200
+    }
+  ],
+  "music_inputs": [
+    {
+      "path": "data\\derived\\article\\genre_variation.parquet",
+      "sha256": "89d8b6732c5926b71cc690896cfaa0dedd6704ad6abef3a99078db7e2e5dbf0d"
+    },
+    {
+      "path": "data\\derived\\article\\persistence.parquet",
+      "sha256": "c25e9c59f4eabdd83bd9451242ecab8d3a245d8fa8e143c1ba008c1e71f7a656"
+    },
+    {
+      "path": "data\\derived\\genre_diversity_by_market_period.parquet",
+      "sha256": "73d5436a3d01b667c9f361b0ce22d73fd8f7f2b7d672cd4269c4139d36ba3721"
+    }
+  ],
+  "errors": [],
+  "notes": [
+    "Exact year only; no interpolation or imputation",
+    "2022 annual context can include months after music cutoff",
+    "OONI sample covers three selected domains; anomalies are not confirmed blocking",
+    "WDI homicide republishes UNODC; do not treat as independent evidence"
+  ],
+  "outputs": [
+    {
+      "path": "brazil-crossings.csv",
+      "bytes": 4162,
+      "sha256": "cb958c98da8d52a8a3a310246381243e3336053600bae4c8e4549d5b095f98dc"
+    },
+    {
+      "path": "country-context-observations.csv",
+      "bytes": 4115164,
+      "sha256": "4b5e2722f02879980c50f25e0c5747dce1812417c40ac32859c50aa4063714d4"
+    },
+    {
+      "path": "country-context-observations.parquet",
+      "bytes": 54659,
+      "sha256": "a7b24d762ea6cb7cf1e95e92f96b32608d9ed10e315cea056d80b2fbed47cbed"
+    },
+    {
+      "path": "country-year-crossings.csv",
+      "bytes": 201942,
+      "sha256": "c3e889dd06da2188380c870873b3faaf34d4f142a1fc2cc23ee969cc16b243af"
+    },
+    {
+      "path": "country-year-crossings.parquet",
+      "bytes": 99158,
+      "sha256": "54fbdd36a41083a7c76e0786b5e0a9f511cec54aaf07684f0b3d008d12daa37a"
+    },
+    {
+      "path": "coverage-summary.csv",
+      "bytes": 2058,
+      "sha256": "66f8c60210328586a7b9ecf8b6902afbdb4ad8ef462786ed84d8a56bc01f76c8"
+    },
+    {
+      "path": "coverage.csv",
+      "bytes": 4194818,
+      "sha256": "23c87aa1b21c3e4bd6920d1f3f23f37891deadc49dd98297587c8b6b1a983997"
+    },
+    {
+      "path": "coverage.parquet",
+      "bytes": 61637,
+      "sha256": "603bcefb16e6c3a8f00e5ae097a48d63cbdd27aa5007df7a722b207cfa582d0c"
+    },
+    {
+      "path": "exploratory-associations.csv",
+      "bytes": 15809,
+      "sha256": "5b2be75c1215438f770248a1f4898fa88ad3c14fafb4aa5d9d670dafba52559e"
+    },
+    {
+      "path": "exploratory-associations.parquet",
+      "bytes": 6507,
+      "sha256": "4f9f5a47b4431d7fc747dc1aa065925d80b280d1930b74604fb446e1603837a5"
+    },
+    {
+      "path": "indicator-coverage.csv",
+      "bytes": 857,
+      "sha256": "ffb124ef51fe677ccfb2afda5bae630267edd24136a88324f1e453f63d510818"
+    },
+    {
+      "path": "indicator-coverage.parquet",
+      "bytes": 2200,
+      "sha256": "1a6602b70ed842416817f673e1d90cc4d7e11cd540a0d5f39fd78f4c5302cc9a"
+    },
+    {
+      "path": "LEIA-ME.md",
+      "bytes": 5649,
+      "sha256": "eec9def52b50bcc135ebbbb705f9819dbba96fc20e023e1dcafbfd078bf8fa23"
+    },
+    {
+      "path": "music-genre-diversity.csv",
+      "bytes": 24274,
+      "sha256": "edeff9cb8715e362afd9eed91a34c2506dadb84cd98e66d050e71510c9979bda"
+    },
+    {
+      "path": "music-genre-diversity.parquet",
+      "bytes": 10913,
+      "sha256": "a3b44b1497039d0cdf615cefc556e6473dbb9d63ae0cc5d32048c48383bdc423"
+    },
+    {
+      "path": "music-genre_variation.csv",
+      "bytes": 1623543,
+      "sha256": "91903296ed10e876f0f5b08401ee6549adea21a2505652d9799fc31dac5e6ca4"
+    },
+    {
+      "path": "music-genre_variation.parquet",
+      "bytes": 117757,
+      "sha256": "8195b9efd289811b323db7e39b2ac793fd042fed4f163f235b3645b2ea9c9bf2"
+    },
+    {
+      "path": "music-persistence.csv",
+      "bytes": 40193685,
+      "sha256": "6608598da4168402098f604c1e63bbd4e0a890cf2261941fa0ecbc0708c794a6"
+    },
+    {
+      "path": "music-persistence.parquet",
+      "bytes": 6915473,
+      "sha256": "8477479bdb3d93d6af8bc48ebce560f1da1b01b6e52e77078324968b1508760c"
+    },
+    {
+      "path": "sources-status.csv",
+      "bytes": 661,
+      "sha256": "2ff2462d9fcffb6b8f7cf042a267f5d8500aea4c14180e20dee4cbb2e877ffba"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 308,
+      "sha256": "642efcb5f82e07a35b7ed2cfa4c20693409a8534321221b398963727589b36b7"
+    }
+  ]
+}

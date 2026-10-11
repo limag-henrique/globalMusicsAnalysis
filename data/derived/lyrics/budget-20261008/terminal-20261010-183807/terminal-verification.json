@@ -1,0 +1,957 @@
+{
+  "verified_at": "2026-10-10T18:39:10.383030+00:00",
+  "execution_id": "full-corpus-brl-20261008",
+  "status": "budget_exhausted",
+  "database_version": "16.15",
+  "provider_calls": 0,
+  "pending_imports": 0,
+  "active_database_runs": 0,
+  "verified_run_count": 92,
+  "request_count": 36449,
+  "classified": 35963,
+  "errors": 87,
+  "other_outcomes": 399,
+  "error_codes": {
+    "batch_provider_error": 3,
+    "batch_missing_usage": 5,
+    "batch_incomplete_response": 79
+  },
+  "error_documents": 87,
+  "attempts_exhausted_error_documents": 0,
+  "max_attempts_per_document": 1,
+  "remaining_candidates": {},
+  "verified_invoice_and_known_token_cost_brl": "1322.43378948809601200000",
+  "conservative_commitment_brl": "1323.14127000403245925248",
+  "unknown_cost_reserve_brl": "0.70748051593644725248",
+  "retry_reserve_brl": "111.76",
+  "ancillary_reserve_brl": "35",
+  "total_conservative_with_reserves_brl": "1469.90127000403245925248",
+  "account_new_commitment_brl": "409.82326554333400200000",
+  "account_margin_for_new_reservations_brl": "0.01673445666599800000000000000",
+  "global_cap_margin_brl": "2030.09872999596754074752",
+  "current_credit_revalidation_required": true,
+  "second_account_transition": "human_and_verified_only",
+  "audit_directory": "data/derived/research_quality/20261010-183608",
+  "runs": [
+    {
+      "id": "e751a96e-e036-42fb-bd38-9a4dc329108c",
+      "state": "imported",
+      "requests": 9,
+      "imported": 9,
+      "snapshots": 9,
+      "linked_items": 9,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "5bb6c94b-62c4-4c96-91eb-f3ce1b630232",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "7afabc3a-d9e2-4996-9ef3-a496680727a7",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "d4bf417f-fc9f-4128-92b5-14d84982fbc2",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "c6e9e94c-a6f2-44f2-a129-2e5209b7d83e",
+      "state": "imported",
+      "requests": 7,
+      "imported": 7,
+      "snapshots": 7,
+      "linked_items": 7,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b7e0011a-31c4-4610-b5fd-7507c18eb666",
+      "state": "imported",
+      "requests": 18,
+      "imported": 18,
+      "snapshots": 18,
+      "linked_items": 18,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "44696376-ed4a-4222-860a-aa9a730daa9c",
+      "state": "imported",
+      "requests": 22,
+      "imported": 22,
+      "snapshots": 22,
+      "linked_items": 22,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "7a2ff303-eb20-4057-8e4c-bb7a69084bee",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "33506887-51ce-4552-8965-59c280171500",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b2c8fefd-ba9c-4a42-9823-7f8cdfe712f8",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "d48c9ba5-4d39-4bd6-888a-23fe90d1b5d8",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "164b00d2-32ef-4ef1-bd5b-d8239276af86",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "09da3de0-1bf8-4a3f-bbb4-a00617d7dbc7",
+      "state": "imported",
+      "requests": 5,
+      "imported": 5,
+      "snapshots": 5,
+      "linked_items": 5,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "f3e7aec6-a20f-41c0-b36e-5b84bcfd6153",
+      "state": "imported",
+      "requests": 10,
+      "imported": 10,
+      "snapshots": 10,
+      "linked_items": 10,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "099fc860-e210-4b5c-a0a9-22af85c4bc84",
+      "state": "imported",
+      "requests": 19,
+      "imported": 19,
+      "snapshots": 19,
+      "linked_items": 19,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "26c45cac-99b6-4d2e-bf8f-66ab04871473",
+      "state": "imported",
+      "requests": 21,
+      "imported": 21,
+      "snapshots": 21,
+      "linked_items": 21,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "3ed0746b-1d3d-480d-b7ad-e24583ea0400",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "71b5c586-045c-40cb-86e9-3d31a4b9a38f",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "361aadd1-cb4d-4a87-aa2c-dff8b9c41e8c",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "d995e0be-f0fb-4183-aad5-8599ee9e0a17",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "341451f2-8902-4308-b411-04fc89983715",
+      "state": "imported",
+      "requests": 3,
+      "imported": 3,
+      "snapshots": 3,
+      "linked_items": 3,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ce478ec9-a930-4342-8ab6-da2a5cf9ec86",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8578febf-f0c6-4ef5-9c8a-f6eb8455bef2",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8302c46e-520c-4c5e-845e-12ed97c28502",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "24af356d-f8d7-43c4-972d-2794303cee42",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "f094c706-008d-42ec-a97f-61deea37e09c",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "15bd9ef4-74ae-4537-a7da-a92e64e2ad0a",
+      "state": "imported",
+      "requests": 19,
+      "imported": 19,
+      "snapshots": 19,
+      "linked_items": 19,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b0afdb6a-7ddf-4bb3-a30f-38a05596d7ce",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "17f395fc-ced2-404c-9151-90369c0642d0",
+      "state": "imported",
+      "requests": 36,
+      "imported": 36,
+      "snapshots": 36,
+      "linked_items": 36,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "aaefa19c-1cd8-473e-a3cc-57d1f3a9516c",
+      "state": "imported",
+      "requests": 6,
+      "imported": 6,
+      "snapshots": 6,
+      "linked_items": 6,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "befb51a7-d687-4cb0-ad0a-c47ce3ad9146",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ed833aee-ce2b-4ec5-ac44-d7dfeea911ab",
+      "state": "imported",
+      "requests": 3,
+      "imported": 3,
+      "snapshots": 3,
+      "linked_items": 3,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8680ddfa-74cf-4635-b9d7-ffa9c0911660",
+      "state": "imported",
+      "requests": 43,
+      "imported": 43,
+      "snapshots": 43,
+      "linked_items": 43,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8f56a5f2-33bf-4baf-82a0-4312bc8568c3",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "003e4373-b065-44d7-8b44-5d9dd9b06f5e",
+      "state": "imported",
+      "requests": 51,
+      "imported": 51,
+      "snapshots": 51,
+      "linked_items": 51,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "532f14dd-a835-4500-b3a8-372cc05e7a0c",
+      "state": "imported",
+      "requests": 11,
+      "imported": 11,
+      "snapshots": 11,
+      "linked_items": 11,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "c28fb9d8-d19a-42c9-af8a-6642a0cbd31f",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "74cdfa32-9c7a-4aca-a0ea-25a355e57e9a",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b2598e46-29a5-476c-91bd-dac257411b4f",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "997eb2a0-abc6-48a9-8c46-73a6a9fe671e",
+      "state": "imported",
+      "requests": 21,
+      "imported": 21,
+      "snapshots": 21,
+      "linked_items": 21,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "051639d2-ae1b-4e6d-a2ae-f7c684297517",
+      "state": "imported",
+      "requests": 7,
+      "imported": 7,
+      "snapshots": 7,
+      "linked_items": 7,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ea8fc3e9-0540-4bd1-b9f4-f470dbc389ea",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "04da0fb8-9469-47c9-8326-5922ac79ad90",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "4b7c5547-63b4-407b-ba6b-9ba531269e4f",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "2c77b209-e6a4-4d6d-b3be-678563d11bb2",
+      "state": "imported",
+      "requests": 74,
+      "imported": 74,
+      "snapshots": 74,
+      "linked_items": 74,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b300a44f-fb3d-4f27-90b9-07f09530485e",
+      "state": "imported",
+      "requests": 13,
+      "imported": 13,
+      "snapshots": 13,
+      "linked_items": 13,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "dc6104a7-4c1e-4387-804c-e2e8358b2772",
+      "state": "imported",
+      "requests": 29,
+      "imported": 29,
+      "snapshots": 29,
+      "linked_items": 29,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "f1a8e272-86af-4a66-8f13-10420cdd26e3",
+      "state": "imported",
+      "requests": 8,
+      "imported": 8,
+      "snapshots": 8,
+      "linked_items": 8,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "2a33c079-e29c-44ae-a14c-7c8658c83838",
+      "state": "imported",
+      "requests": 5,
+      "imported": 5,
+      "snapshots": 5,
+      "linked_items": 5,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "0f3d7f0a-5b35-493d-b41e-b8899e04b9ff",
+      "state": "imported",
+      "requests": 3,
+      "imported": 3,
+      "snapshots": 3,
+      "linked_items": 3,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "d47c9051-1b51-4706-9443-9a274c7e8c4e",
+      "state": "imported",
+      "requests": 102,
+      "imported": 102,
+      "snapshots": 102,
+      "linked_items": 102,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "4f01e5a3-49b0-477c-9a12-7198e40a3119",
+      "state": "imported",
+      "requests": 85,
+      "imported": 85,
+      "snapshots": 85,
+      "linked_items": 85,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "bcfe8844-03aa-48e3-b799-0b466b98ca1f",
+      "state": "imported",
+      "requests": 16,
+      "imported": 16,
+      "snapshots": 16,
+      "linked_items": 16,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "22bd5763-1af3-4fc5-9c26-f2e9e6a1ebcf",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "99963473-8c98-4b12-ba7d-6eb59383faab",
+      "state": "imported",
+      "requests": 13,
+      "imported": 13,
+      "snapshots": 13,
+      "linked_items": 13,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8bcd0820-1365-4f4d-9e47-b00be30c7840",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "53aff058-09c3-4971-ab98-6ed1f085dd26",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "3ede8ab4-92ec-4f90-b1f8-d88139b4af1f",
+      "state": "imported",
+      "requests": 10,
+      "imported": 10,
+      "snapshots": 10,
+      "linked_items": 10,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "d26b49a0-7b4c-4d38-bda3-d6897d8acf3f",
+      "state": "imported",
+      "requests": 139,
+      "imported": 139,
+      "snapshots": 139,
+      "linked_items": 139,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "adf03a68-bc6d-4e28-a7d5-3bcccbc22657",
+      "state": "imported",
+      "requests": 3,
+      "imported": 3,
+      "snapshots": 3,
+      "linked_items": 3,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b0fcfc11-4ceb-47ed-afc5-215af421ed67",
+      "state": "imported",
+      "requests": 1,
+      "imported": 1,
+      "snapshots": 1,
+      "linked_items": 1,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "90ea6950-2541-4a54-afb4-e015a2d2b49c",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "404e4b57-886e-4d21-bd15-03e98289b5cb",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "14b0695c-6a78-46be-8cf3-73c5a06a86c9",
+      "state": "imported",
+      "requests": 137,
+      "imported": 137,
+      "snapshots": 137,
+      "linked_items": 137,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ca6cbd64-a983-4e0f-8aa5-d047f5e541ae",
+      "state": "imported",
+      "requests": 5,
+      "imported": 5,
+      "snapshots": 5,
+      "linked_items": 5,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "1436507f-c653-4058-9830-643470f53605",
+      "state": "imported",
+      "requests": 153,
+      "imported": 153,
+      "snapshots": 153,
+      "linked_items": 153,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "e52738a6-0a0f-40ed-a293-2d5c5e7efe54",
+      "state": "imported",
+      "requests": 45,
+      "imported": 45,
+      "snapshots": 45,
+      "linked_items": 45,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "cbcf3c95-d220-4d31-b2f7-6c624487c3af",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b3a590f6-c806-4ae3-966a-a0e1700f344b",
+      "state": "imported",
+      "requests": 4,
+      "imported": 4,
+      "snapshots": 4,
+      "linked_items": 4,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "dfd0ffa5-2e90-4bd3-a1ed-f7fb66954695",
+      "state": "imported",
+      "requests": 15,
+      "imported": 15,
+      "snapshots": 15,
+      "linked_items": 15,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "6496eadf-d24d-4e06-badc-eb91471bb923",
+      "state": "imported",
+      "requests": 24,
+      "imported": 24,
+      "snapshots": 24,
+      "linked_items": 24,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "9d268593-4c6f-4202-973c-5bcdb6a7c880",
+      "state": "imported",
+      "requests": 13,
+      "imported": 13,
+      "snapshots": 13,
+      "linked_items": 13,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "a2f101da-7aaf-46ad-96b4-906c9bf41f4b",
+      "state": "imported",
+      "requests": 2,
+      "imported": 2,
+      "snapshots": 2,
+      "linked_items": 2,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "7f67e683-e0dc-4497-a12f-7013fe7fd89a",
+      "state": "imported",
+      "requests": 30,
+      "imported": 30,
+      "snapshots": 30,
+      "linked_items": 30,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b41e9de1-4255-400a-82cb-19e0f1318327",
+      "state": "imported",
+      "requests": 82,
+      "imported": 82,
+      "snapshots": 82,
+      "linked_items": 82,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "8ddf51b5-1e1c-4cc4-9959-377523cd527c",
+      "state": "imported",
+      "requests": 185,
+      "imported": 185,
+      "snapshots": 185,
+      "linked_items": 185,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "4ef872e0-c31b-4eeb-b7dd-9d7f2088f5e3",
+      "state": "imported",
+      "requests": 29,
+      "imported": 29,
+      "snapshots": 29,
+      "linked_items": 29,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "770bb051-e9c8-4a11-8e00-5e7469eb7cf1",
+      "state": "imported",
+      "requests": 38,
+      "imported": 38,
+      "snapshots": 38,
+      "linked_items": 38,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "56028574-67b0-4b2b-b203-d671db035c78",
+      "state": "imported",
+      "requests": 270,
+      "imported": 270,
+      "snapshots": 270,
+      "linked_items": 270,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "bbe4f34a-ce0b-4a92-9e46-94db6a12036c",
+      "state": "imported",
+      "requests": 105,
+      "imported": 105,
+      "snapshots": 105,
+      "linked_items": 105,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "914c9ab3-584a-4c81-a907-521a5ed964c7",
+      "state": "imported",
+      "requests": 16,
+      "imported": 16,
+      "snapshots": 16,
+      "linked_items": 16,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ab8ff3e2-8cd4-45e5-8cc9-0ddad970c994",
+      "state": "imported",
+      "requests": 53,
+      "imported": 53,
+      "snapshots": 53,
+      "linked_items": 53,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "051162a2-1cf4-4e73-8a4d-c5747f096b24",
+      "state": "imported",
+      "requests": 10,
+      "imported": 10,
+      "snapshots": 10,
+      "linked_items": 10,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "7e1072f4-80af-4da8-9242-177741327ff9",
+      "state": "imported",
+      "requests": 513,
+      "imported": 513,
+      "snapshots": 513,
+      "linked_items": 513,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "502adc14-65f7-4f6c-88d8-204651f6a7c3",
+      "state": "imported",
+      "requests": 986,
+      "imported": 986,
+      "snapshots": 986,
+      "linked_items": 986,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b1eccbbb-a217-47ab-8f0f-657fbc8c1a2c",
+      "state": "imported",
+      "requests": 5212,
+      "imported": 5212,
+      "snapshots": 5212,
+      "linked_items": 5212,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "993c414d-2eb0-48af-849f-b84231b78826",
+      "state": "imported",
+      "requests": 1601,
+      "imported": 1601,
+      "snapshots": 1601,
+      "linked_items": 1601,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "60c603fa-c0c8-491a-b732-a4987b9d8ced",
+      "state": "imported",
+      "requests": 251,
+      "imported": 251,
+      "snapshots": 251,
+      "linked_items": 251,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "b79f5f79-eaf7-40f0-b862-f28702bea11e",
+      "state": "imported",
+      "requests": 38,
+      "imported": 38,
+      "snapshots": 38,
+      "linked_items": 38,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "449489ff-25f4-4700-ab7a-4b68a0f69381",
+      "state": "imported",
+      "requests": 14051,
+      "imported": 14051,
+      "snapshots": 14051,
+      "linked_items": 14051,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "ac8239f9-f1af-4b01-a85d-b77574a1ad68",
+      "state": "imported",
+      "requests": 8647,
+      "imported": 8647,
+      "snapshots": 8647,
+      "linked_items": 8647,
+      "summary_written": true,
+      "job_error_code": null
+    },
+    {
+      "id": "a04a1eb1-28c5-4d65-be64-88304a5218d4",
+      "state": "imported",
+      "requests": 3065,
+      "imported": 3065,
+      "snapshots": 3065,
+      "linked_items": 3065,
+      "summary_written": true,
+      "job_error_code": null
+    }
+  ]
+}

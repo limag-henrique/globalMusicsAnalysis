@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from uuid import UUID
 
-from sqlalchemy import exists, func, select, text
+from sqlalchemy import Engine, exists, func, select, text
 from sqlalchemy.orm import Session
 
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
@@ -93,6 +93,7 @@ def iter_remaining_candidates(
     exclude_active_batch: bool = True,
     *,
     quarantine_manifest_path: Path | None = None,
+    include_identity_holds: bool = False,
 ) -> Iterator[ClassificationCandidate]:
     """Stream remaining candidates so local outcomes do not consume provider limits."""
 
@@ -110,10 +111,10 @@ def iter_remaining_candidates(
         LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)), ~handled
     )
     excluded_ids = excluded_document_ids(load_quarantine_entries(quarantine_manifest_path))
-    if excluded_ids:
+    if excluded_ids and not include_identity_holds:
         statement = statement.where(LyricDocument.id.not_in(excluded_ids))
     suspended_sources = load_suspended_sources(quarantine_manifest_path)
-    if suspended_sources:
+    if suspended_sources and not include_identity_holds:
         statement = statement.where(
             func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
         )
@@ -154,12 +155,25 @@ def classification_queue_lock(session: Session) -> Iterator[None]:
     if session.bind is None or session.bind.dialect.name != "postgresql":
         yield
         return
-    acquired = session.scalar(
-        text("SELECT pg_try_advisory_lock(:lock_key)"), {"lock_key": _QUEUE_LOCK_KEY}
-    )
-    if acquired is not True:
-        raise ClassificationQueueBusy("lyric classification queue is already active")
-    try:
+    marker = "lyric_classification_queue_lock_held"
+    if session.info.get(marker):
         yield
-    finally:
-        session.execute(text("SELECT pg_advisory_unlock(:lock_key)"), {"lock_key": _QUEUE_LOCK_KEY})
+        return
+    bind = session.get_bind()
+    engine = bind if isinstance(bind, Engine) else bind.engine
+    # Commits may return the Session connection to the pool. Keep the lock on
+    # its own physical connection until the outermost scope has exited.
+    with engine.connect() as lock_connection:
+        acquired = lock_connection.scalar(
+            text("SELECT pg_try_advisory_lock(:lock_key)"), {"lock_key": _QUEUE_LOCK_KEY}
+        )
+        if acquired is not True:
+            raise ClassificationQueueBusy("lyric classification queue is already active")
+        session.info[marker] = True
+        try:
+            yield
+        finally:
+            session.info.pop(marker, None)
+            lock_connection.execute(
+                text("SELECT pg_advisory_unlock(:lock_key)"), {"lock_key": _QUEUE_LOCK_KEY}
+            )

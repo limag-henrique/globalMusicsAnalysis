@@ -1,0 +1,318 @@
+{
+  "started_utc": "2026-10-10T14:38:48.734841+00:00",
+  "provider_calls": 0,
+  "sampling_seed": "classification-quality-20261010-v1:",
+  "sample_per_source": 12,
+  "sample_interpretation": "Diagnostic source-stratified sample; not population accuracy estimate",
+  "snapshot_utc": "2026-10-10 14:38:48.801592+00:00",
+  "table_counts": {
+    "canonical_tracks": 159080,
+    "lyric_documents": 159111,
+    "lyric_classification_snapshots": 209793,
+    "platform_item_track_links": 0
+  },
+  "finished_utc": "2026-10-10T14:39:02.761724+00:00",
+  "status_counts": {
+    "error": 48903,
+    "classified": 108646,
+    "insufficient_text": 1068,
+    "instrumental": 456,
+    "language_unsupported": 29,
+    "ambiguous": 6,
+    "blocked": 3
+  },
+  "source_status_counts": {
+    "GENIUS": {
+      "error": 36582,
+      "classified": 87014,
+      "insufficient_text": 969,
+      "instrumental": 6,
+      "language_unsupported": 14,
+      "ambiguous": 4,
+      "blocked": 2
+    },
+    "LRCLIB": {
+      "error": 2518,
+      "classified": 4506,
+      "insufficient_text": 12,
+      "language_unsupported": 2,
+      "instrumental": 1
+    },
+    "LETRAS": {
+      "error": 9563,
+      "classified": 16429,
+      "instrumental": 449,
+      "insufficient_text": 83,
+      "language_unsupported": 13,
+      "ambiguous": 2,
+      "blocked": 1
+    },
+    "LYRICS_OVH": {
+      "classified": 693,
+      "error": 240,
+      "insufficient_text": 4
+    },
+    "GOOGLE_MANUAL": {
+      "classified": 4
+    }
+  },
+  "version_counts": [
+    {
+      "model": "gemini-3.8-flash",
+      "taxonomy": "lyrics-classification-v1",
+      "prompt": "lyrics-classification-prompt-v2",
+      "count": 159111
+    }
+  ],
+  "classified_distinct_tracks": 108615,
+  "integrity_counts": {
+    "missing_document_language": 159111,
+    "primary_eligible": 0,
+    "exploratory_eligible": 92212,
+    "schema_valid": 108646,
+    "result_status_mismatch": 0,
+    "snapshot_confidence_missing": 0,
+    "confidence_mismatch": 0,
+    "classified_missing_usage": 0,
+    "classified_missing_cost": 0
+  },
+  "exclusion_reasons": {
+    "not_classified": 50465,
+    "identity_unverified": 159111,
+    "source_suspended": 26540,
+    "identity_excluded": 751
+  },
+  "schema_error_examples": [],
+  "confidence_counts": {
+    "0.80-0.94": 66040,
+    "0.95-1.00": 41934,
+    "0.51-0.79": 672
+  },
+  "intensity_distributions": {
+    "sexuality.sexual_explicitness": {
+      "1": 10189,
+      "0": 90417,
+      "2": 6634,
+      "3": 1406
+    },
+    "sexuality.sexual_desire": {
+      "0": 78234,
+      "1": 20479,
+      "2": 7157,
+      "3": 2776
+    },
+    "sexuality.sexual_innuendo": {
+      "0": 80261,
+      "1": 22718,
+      "2": 5426,
+      "3": 241
+    },
+    "sexuality.explicit_sexual_act": {
+      "1": 5563,
+      "0": 97998,
+      "2": 3910,
+      "3": 1175
+    },
+    "sexuality.explicit_sexual_anatomy": {
+      "1": 6219,
+      "0": 100094,
+      "3": 648,
+      "2": 1685
+    },
+    "relationships.romantic_affection": {
+      "0": 48774,
+      "2": 21936,
+      "1": 21523,
+      "3": 16413
+    },
+    "relationships.heartbreak": {
+      "0": 70550,
+      "1": 14924,
+      "3": 10267,
+      "2": 12905
+    },
+    "relationships.infidelity": {
+      "0": 98558,
+      "1": 7065,
+      "2": 2150,
+      "3": 873
+    },
+    "relationships.transactional_sex": {
+      "0": 103993,
+      "3": 78,
+      "1": 3571,
+      "2": 1004
+    },
+    "relationships.casual_sex": {
+      "0": 88341,
+      "1": 11928,
+      "2": 6501,
+      "3": 1876
+    },
+    "relationships.jealousy_possession": {
+      "0": 94033,
+      "1": 12089,
+      "2": 2224,
+      "3": 300
+    },
+    "relationships.reciprocity": {
+      "0": 53517,
+      "1": 39699,
+      "3": 2299,
+      "2": 13131
+    },
+    "gender_representation.objectification": {
+      "0": 88692,
+      "1": 13339,
+      "2": 6082,
+      "3": 533
+    },
+    "gender_representation.misogyny": {
+      "1": 10369,
+      "0": 94392,
+      "2": 3676,
+      "3": 209
+    },
+    "gender_representation.sexual_agency": {
+      "0": 90510,
+      "2": 4471,
+      "1": 12724,
+      "3": 941
+    },
+    "gender_representation.status_symbolization": {
+      "0": 93094,
+      "2": 3423,
+      "1": 12001,
+      "3": 128
+    },
+    "gender_representation.commodification": {
+      "0": 102703,
+      "3": 104,
+      "1": 4796,
+      "2": 1043
+    },
+    "material_status.money_reference": {
+      "1": 15184,
+      "2": 12903,
+      "3": 6380,
+      "0": 74179
+    },
+    "material_status.materialism": {
+      "1": 14739,
+      "2": 10141,
+      "3": 5670,
+      "0": 78096
+    },
+    "material_status.conspicuous_consumption": {
+      "1": 10594,
+      "2": 9951,
+      "3": 4287,
+      "0": 83814
+    },
+    "material_status.wealth_as_status": {
+      "1": 11955,
+      "2": 10957,
+      "3": 4739,
+      "0": 80995
+    },
+    "antisocial.drugs_alcohol.intensity": {
+      "2": 12528,
+      "1": 18988,
+      "3": 3180,
+      "0": 73950
+    },
+    "antisocial.crime.intensity": {
+      "1": 12942,
+      "2": 9158,
+      "0": 83407,
+      "3": 3139
+    },
+    "antisocial.violence.intensity": {
+      "1": 16119,
+      "2": 7389,
+      "0": 83239,
+      "3": 1899
+    },
+    "antisocial.weapons.intensity": {
+      "1": 8909,
+      "2": 5391,
+      "0": 92888,
+      "3": 1458
+    },
+    "territorial_identity": {
+      "1": 11952,
+      "0": 86051,
+      "2": 8953,
+      "3": 1690
+    }
+  },
+  "categorical_distributions": {
+    "consent": {
+      "not_applicable": 78832,
+      "implicit_mutual": 23608,
+      "ambiguous": 3644,
+      "explicit_mutual": 2370,
+      "nonconsensual": 94,
+      "coercive": 98
+    },
+    "target_gender": {
+      "unspecified": 35357,
+      "women": 32014,
+      "not_applicable": 35691,
+      "men": 3716,
+      "multiple": 1868
+    },
+    "stance.drugs_alcohol": {
+      "normalized": 13807,
+      "neutral": 83673,
+      "glorified": 5773,
+      "condemned": 803,
+      "ambivalent": 4590
+    },
+    "stance.crime": {
+      "neutral": 88993,
+      "glorified": 4884,
+      "ambivalent": 2980,
+      "normalized": 10291,
+      "condemned": 1498
+    },
+    "stance.violence": {
+      "neutral": 90912,
+      "glorified": 3804,
+      "normalized": 7831,
+      "condemned": 2366,
+      "ambivalent": 3733
+    },
+    "stance.weapons": {
+      "neutral": 98359,
+      "glorified": 3164,
+      "normalized": 5969,
+      "ambivalent": 454,
+      "condemned": 700
+    }
+  },
+  "diagnostic_flags": {
+    "all_intensities_zero": 9491,
+    "coercive_or_nonconsensual": 192,
+    "stance_without_intensity": 15
+  },
+  "error_counts": {
+    "batch_malformed_response": 48655,
+    "batch_incomplete_response": 212,
+    "batch_missing_usage": 10,
+    "batch_provider_error": 4,
+    "batch_missing_output": 20,
+    "batch_schema_validation_error": 2
+  },
+  "duplicate_text": {
+    "classified_groups_across_distinct_tracks": 1846,
+    "classified_documents_in_groups": 4689,
+    "groups_with_any_score_difference": 887,
+    "groups_with_difference_at_least_two": 1
+  },
+  "source_stratified_sample_count": 52,
+  "total_review_candidates": 58,
+  "human_accuracy_estimate": null,
+  "confidence_calibration": null,
+  "heuristic_flags_are_not_confirmed_errors": true
+}

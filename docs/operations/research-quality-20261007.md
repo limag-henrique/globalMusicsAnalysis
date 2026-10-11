@@ -126,3 +126,17 @@ priorizar validação sobre novas classificações. O acompanhamento noturno fic
 pausado, sem apagar jobs, resultados, buckets ou bancos. A troca de conta pelo
 usuário não reinicia o teto acumulado. Retomar exige respeitar o estado persistido,
 as exclusões, uma tentativa por erro técnico e o mesmo ledger conservador.
+
+A pedido expresso do usuário, a classificação exploratória foi retomada depois
+desta auditoria em 7 de outubro de 2026. A pausa operacional descrita acima é
+histórica; o estado atual está em `status.json` e na seção de retomada do runbook
+noturno. Os requisitos de validação científica e as exclusões permanecem.
+
+
+## Operação vigente: orçamento em reais e corpus completo
+
+A autorização posterior do usuário substitui os tetos USD e permite LETRAS
+na classificação exploratória. Consulte [operação BRL](brl-full-corpus-20261008.md)
+e `data/derived/lyrics/budget-20261008/billing-policy.json`. Quarentena e
+elegibilidade científica permanecem estritas; não usar classificações como
+validação da ligação ao ranking ou evidência da população geral.

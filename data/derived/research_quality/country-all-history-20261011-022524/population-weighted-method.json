@@ -1,0 +1,11 @@
+{
+  "formula": "population_2024 * thematic_percentage / 100",
+  "population_source": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?date=2024&format=json&per_page=400",
+  "population_source_lastupdated": "2026-10-08",
+  "classified_snapshot_utc": "2026-10-11T02:25:25Z",
+  "ranked_markets": 67,
+  "missing_population_markets": [
+    "TW"
+  ],
+  "interpretation": "Synthetic population-weighted score, not an estimate of people, prevalence or exposure. Percentages describe song recordings, not population. Current population and historical songs have different reference periods."
+}

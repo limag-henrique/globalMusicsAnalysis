@@ -324,6 +324,9 @@ def estimate_batch_cost(
                 rounding=ROUND_CEILING
             )
         )
+    # A pilot does not bound token density in all languages. Retain the UTF-8
+    # byte allowance even when the observed token/byte ratio is lower.
+    conservative_input = max(conservative_input, total_bytes, sum(exact_input_tokens or ()))
     conservative_output = request_count * max_output_tokens
     million = Decimal(1_000_000)
     expected_cost = (

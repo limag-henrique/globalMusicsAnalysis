@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-10-10T21:33:18.865280+00:00",
+  "postgres_version_num": 160015,
+  "current_runs_imported": 92,
+  "current_requests": 36449,
+  "pending_runs": 0,
+  "failed_preparations_preserved": 61,
+  "diagnosis": "Recovered PostgreSQL16 cluster was offline; stale postmaster PID absent in Windows; same data directory recovered using WAL; first controller startup performed no preparation/submission",
+  "root_cause_of_cluster_shutdown": "Not established; database log confirms interrupted shutdown",
+  "no_paid_calls_during_failed_startup": true
+}

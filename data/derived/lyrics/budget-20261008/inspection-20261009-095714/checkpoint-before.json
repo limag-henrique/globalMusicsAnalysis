@@ -1,0 +1,297 @@
+{
+  "execution_id": "full-corpus-brl-20261008",
+  "timestamp_utc": "2026-10-09T09:52:24.031735+00:00",
+  "status": "failed",
+  "database_host": "127.0.0.1",
+  "database_port": 56433,
+  "model": "gemini-3.8-flash",
+  "thinking_level": "LOW",
+  "max_output_tokens": 1024,
+  "financial_currency": "BRL",
+  "absolute_cap_brl": "3500",
+  "quality_hold": false,
+  "controller_stop_requested": false,
+  "baseline_run_ids": [
+    "remaining_corpus",
+    "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "41934591-0444-4fce-bfde-238497f31e3a",
+    "6e7ca60b-4a2e-4fca-a1c5-0be99f3af44d",
+    "059f0d93-0854-45ac-898d-d0eb23762ed3",
+    "997af504-461c-4c64-a419-d15f1167c5e3",
+    "25dbe9c1-7f0c-4229-9a03-777e61fcc7e4",
+    "cf27c4ed-7349-434e-a194-4f25a8e3de2d",
+    "c583a8fb-ccbb-449e-a18f-0f62bb1b3769",
+    "df0bcc13-4da9-4150-b5f7-dab763b5c83d",
+    "3eca7e0f-f92e-41d1-9815-b03413a01496",
+    "bounded_reanalysis"
+  ],
+  "retry_run_ids": [
+    "449489ff-25f4-4700-ab7a-4b68a0f69381",
+    "ac8239f9-f1af-4b01-a85d-b77574a1ad68",
+    "003e4373-b065-44d7-8b44-5d9dd9b06f5e",
+    "44696376-ed4a-4222-860a-aa9a730daa9c",
+    "f3e7aec6-a20f-41c0-b36e-5b84bcfd6153",
+    "b2c8fefd-ba9c-4a42-9823-7f8cdfe712f8",
+    "09da3de0-1bf8-4a3f-bbb4-a00617d7dbc7",
+    "d995e0be-f0fb-4183-aad5-8599ee9e0a17",
+    "341451f2-8902-4308-b411-04fc89983715",
+    "ce478ec9-a930-4342-8ab6-da2a5cf9ec86",
+    "8578febf-f0c6-4ef5-9c8a-f6eb8455bef2",
+    "8302c46e-520c-4c5e-845e-12ed97c28502"
+  ],
+  "reanalysis_run_ids": [],
+  "run_summaries": {
+    "449489ff-25f4-4700-ab7a-4b68a0f69381": {
+      "state": "running",
+      "request_count": 14051,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/113180016111517696",
+      "completed_count": 13319
+    },
+    "ac8239f9-f1af-4b01-a85d-b77574a1ad68": {
+      "state": "running",
+      "request_count": 8647,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2764058570214342656",
+      "completed_count": 8392
+    },
+    "003e4373-b065-44d7-8b44-5d9dd9b06f5e": {
+      "state": "imported",
+      "request_count": 51,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/7948827641224626176",
+      "completed_count": 51,
+      "classified": 50,
+      "errors": 0,
+      "known_cost_usd": "0.0975112500",
+      "status_counts": {
+        "classified": 50,
+        "insufficient_text": 1
+      }
+    },
+    "44696376-ed4a-4222-860a-aa9a730daa9c": {
+      "state": "imported",
+      "request_count": 22,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4292520470311337984",
+      "completed_count": 22,
+      "classified": 17,
+      "errors": 3,
+      "known_cost_usd": "0.0391035000",
+      "status_counts": {
+        "classified": 17,
+        "error": 3,
+        "insufficient_text": 2
+      }
+    },
+    "f3e7aec6-a20f-41c0-b36e-5b84bcfd6153": {
+      "state": "imported",
+      "request_count": 10,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8264079615140560896",
+      "completed_count": 10,
+      "classified": 8,
+      "errors": 0,
+      "known_cost_usd": "0.0216993750",
+      "status_counts": {
+        "classified": 8,
+        "insufficient_text": 2
+      }
+    },
+    "b2c8fefd-ba9c-4a42-9823-7f8cdfe712f8": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/907643137877344256",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017838750",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "09da3de0-1bf8-4a3f-bbb4-a00617d7dbc7": {
+      "state": "imported",
+      "request_count": 5,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6722282838021898240",
+      "completed_count": 5,
+      "classified": 5,
+      "errors": 0,
+      "known_cost_usd": "0.0097496250",
+      "status_counts": {
+        "classified": 5
+      }
+    },
+    "d995e0be-f0fb-4183-aad5-8599ee9e0a17": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2775792558305968128",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017767500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "341451f2-8902-4308-b411-04fc89983715": {
+      "state": "imported",
+      "request_count": 3,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/143297838619557888",
+      "completed_count": 3,
+      "classified": 3,
+      "errors": 0,
+      "known_cost_usd": "0.0054806250",
+      "status_counts": {
+        "classified": 3
+      }
+    },
+    "ce478ec9-a930-4342-8ab6-da2a5cf9ec86": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/3423607217205542912",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0041973750",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "8578febf-f0c6-4ef5-9c8a-f6eb8455bef2": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2969447342282899456",
+      "completed_count": 1,
+      "classified": 0,
+      "errors": 0,
+      "known_cost_usd": "0.0015637500",
+      "status_counts": {
+        "instrumental": 1
+      }
+    },
+    "8302c46e-520c-4c5e-845e-12ed97c28502": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/813560126911807488",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017486250",
+      "status_counts": {
+        "classified": 1
+      }
+    }
+  },
+  "historical_retry_run_ids": [
+    "ba5cb6d8-a480-4869-91c5-c7e86fd5474c",
+    "840b0dd8-ef79-4f80-b246-22932e0bf158",
+    "028ab996-db99-48b7-9bd0-33af69bdc744",
+    "a602b1b0-90bf-4b95-93e8-f7854e48e985",
+    "18031803-d553-42c4-b7a1-82666d65a1e4",
+    "cf27c4ed-7349-434e-a194-4f25a8e3de2d",
+    "db58329b-b30e-40d2-8631-a3069491eeaa",
+    "c583a8fb-ccbb-449e-a18f-0f62bb1b3769",
+    "04439c29-9b4d-456e-8295-3c73a6d61a1d",
+    "bb8e3455-7e7d-4963-b0cc-08dc03d61fd2",
+    "9c7463b3-2df8-4f00-bff1-14779556a743",
+    "9ea80110-3872-4ab9-9f1d-fd6889cb460b",
+    "100ee08e-009a-4458-8810-ff9501116701",
+    "b6beca3f-2e10-4de5-8403-273e288e443d",
+    "df0bcc13-4da9-4150-b5f7-dab763b5c83d",
+    "bb40c102-0bf9-4bed-bc33-bf48ccfaca21",
+    "3eca7e0f-f92e-41d1-9815-b03413a01496",
+    "3cd87bf7-475c-40be-bec4-8a378694279b",
+    "c5a101f2-72fa-49ec-8039-0b17e8ba28db",
+    "23fd83e1-47fb-497a-bae9-f3fe9e0bc2d2",
+    "6a1f8f92-1039-4da8-a59e-145eb1841ed1",
+    "3e2e196c-a520-44ad-bb1d-828ed075351f",
+    "f517f181-ccbb-45bb-91cf-62d4a32d7b6c",
+    "516426e4-6f06-41b6-ba7d-2c6f766b55c1",
+    "0fa6e780-e8de-450e-8665-70261ff81deb",
+    "bcc93630-ba91-48c4-b470-9d3fe29ef72a",
+    "75e4117b-8664-40fe-adaa-575b49c59fd7",
+    "d59d2061-95ff-492f-a3cd-2dfedb0e6683",
+    "18f86553-bf89-42d5-9677-3a46425d23a0",
+    "75aad6a4-8c3c-41bc-a7e4-82c71d731f2a",
+    "17e92277-ea68-46f1-89b2-e93b36f3059c",
+    "9a77c542-1912-45ee-a852-26c3e4274f6f",
+    "366e677f-ae0a-4ae0-bdb1-aa6b311e0446",
+    "f025667e-8ea9-4188-b544-b5472c74625b",
+    "267cffb4-f60d-4364-add8-134082325ce8",
+    "83e1ecc2-b3d1-4f14-91d8-46be2aaa3415",
+    "3900f944-8e78-4af4-9c47-4de03a7930f0",
+    "12b741b5-3a1c-4beb-ae43-8f048cb066c2",
+    "6656a59e-032f-418e-a880-cb02a86195f5",
+    "ee2c799e-23c7-4c75-b370-4b951f761a84",
+    "7e601310-2eba-4bb1-b6d8-d46f50b7dacd",
+    "5b7e5031-aa0b-4159-b298-d927c6755667"
+  ],
+  "historical_state_archive": "data\\derived\\lyrics\\budget-20261008\\prior-status-preserved.json",
+  "automation_id": "classifica-o-noturna-das-m-sicas",
+  "automation_status": "ACTIVE",
+  "methodological_validation_pending": true,
+  "include_identity_holds_for_exploration": true,
+  "account_switch": "human_only",
+  "max_new_attempts_per_document": 2,
+  "remaining_provider_documents_at_start": 76933,
+  "sources_at_start": {
+    "LETRAS": 15289,
+    "GENIUS": 57946,
+    "LRCLIB": 3394,
+    "LYRICS_OVH": 304
+  },
+  "resume_authorization": "User authorizes full corpus including LETRAS and bounded technical reanalyses within cumulative R$3500",
+  "billing_policy": "data/derived/lyrics/budget-20261008/billing-policy.json",
+  "financial_plan": "data/derived/lyrics/budget-20261008/corpus-plan.json",
+  "stop_reason": "continuous_controller_requires_inspection",
+  "controller_pid": 1168,
+  "execution_mode": "continuous",
+  "controller_poll_seconds": 30,
+  "max_inflight_jobs": 4,
+  "committed_conservative_brl": "1579.72837417102113325248",
+  "current_account_new_commitment_brl": "666.41036971032267600000",
+  "conservative_remaining_brl": "0.02963028967732400000000000000",
+  "known_batch_usd": "154.9713285000",
+  "remaining_ledger_usd": "0.004995883057172637268945422578",
+  "night_status_counts": {
+    "classified": 88,
+    "error": 3,
+    "instrumental": 1,
+    "insufficient_text": 5
+  },
+  "night_submitted_count": 22795,
+  "night_imported_classified_count": 88,
+  "night_imported_error_count": 3,
+  "imported_classified_count": 88,
+  "imported_errors": 3,
+  "controller_heartbeat_utc": "2026-10-09T09:52:24.031735+00:00",
+  "latest_run_id": "8302c46e-520c-4c5e-845e-12ed97c28502",
+  "retry_run_state": "imported",
+  "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/813560126911807488",
+  "request_count": 1,
+  "completed_count": 1,
+  "progress_percent": "100",
+  "technical_response_error_codes": [
+    "batch_incomplete_response",
+    "batch_malformed_response",
+    "batch_missing_output",
+    "batch_missing_usage",
+    "batch_provider_error",
+    "batch_schema_validation_error"
+  ],
+  "code_reload_preserved_submitted_jobs": 3,
+  "budget_blocked_remaining_usd": "0.002089633057172637268945422578",
+  "controller_error_type": "PermissionError",
+  "last_monitor_inspection_utc": "2026-10-09T09:52:24.031735+00:00",
+  "recovery_evidence_dir": "data\\derived\\lyrics\\budget-20261008\\inspection-20261009-095213",
+  "controller_restart_blocked": true,
+  "diagnostic_note": "Windows deny-delete reader reproduces PermissionError at checkpoint replacement; original exception location unavailable. Authentication/status/import succeeded during inspection; no automatic restart."
+}

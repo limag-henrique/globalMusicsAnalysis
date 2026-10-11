@@ -1,0 +1,603 @@
+{
+  "files": [
+    {
+      "original_name": "multiTimeline (1).csv",
+      "sha256": "180a63872c0f2e9208c83b48a89d309b13a601eb184b208379055fe443d6e375",
+      "analysis_batches": []
+    },
+    {
+      "original_name": "multiTimeline (10).csv",
+      "sha256": "fff3370bbc7c7b7030754959704e99d8b362d7711a61db9258be64febe2582df",
+      "analysis_batches": [
+        "e08249a4eae65301cbc9"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (11).csv",
+      "sha256": "8973bd34423c08132f4494223852340124b1040869065ae78252d127b7438170",
+      "analysis_batches": [
+        "8bdd0ea3fbc40276c474"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (12).csv",
+      "sha256": "55c2e5dff7ee31758c65ac483d527487b014a77380f55b1e6380def86b44a389",
+      "analysis_batches": [
+        "d724ad879d2d4e1ef880"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (13).csv",
+      "sha256": "fd28d11bae6de2498f55faa40b866fe0e68bd7246eff22797ce784f9632e5462",
+      "analysis_batches": [
+        "f939f71d171019f049b3"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (14).csv",
+      "sha256": "f1c13397716728b50eb6d3f0200d0e359146bf5522c526236c8af844f66fc8ff",
+      "analysis_batches": [
+        "12a2023c687b90bb40a3"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (15).csv",
+      "sha256": "0c2a42e260389587e76e3b514cb2f58bafdbba6922845922cb74bff6431e3a1b",
+      "analysis_batches": [
+        "ff5eead2b5d998844eb9"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (16).csv",
+      "sha256": "471d9002337a279f619f5bc6926d8b25b3b2253b1363b06adaa5a6ab2965ec16",
+      "analysis_batches": [
+        "17a7a31005fc49d0205d"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (17).csv",
+      "sha256": "6ebed7aadee5dd6896b2f5fc21fa35919e3ddd8f7abae794e2fc2fdfd8a84023",
+      "analysis_batches": [
+        "03f7107516cdac928ee6"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (18).csv",
+      "sha256": "0bef272d0ba52601ca7b8cc34eb5a7a723645b57ea3fcb960e251f1d7688f862",
+      "analysis_batches": [
+        "e6115dbf392497d590ae"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (19).csv",
+      "sha256": "b90b2e47f8625dd664bd5aa3c2e3d75d81488ebd63032af35eb35dbbd0562456",
+      "analysis_batches": [
+        "3133509755d802c58d90"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (2).csv",
+      "sha256": "a95159a69e1e6565c51eb4ed046e9266c1363388b556b19e9b6e9c15c94250a2",
+      "analysis_batches": [
+        "82f5611db0c08cf80f31"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (20).csv",
+      "sha256": "da0b0460e28670f3df88b4abf9d6d9c59c956c25b8279db923f0aef7ef5fcaab",
+      "analysis_batches": [
+        "bb76c6a91a7aa795cb06"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (21).csv",
+      "sha256": "cc5c1900772cef4f512f9daf9bc268b4201acf112dd8d501a6c1a119c1402267",
+      "analysis_batches": [
+        "72be615a58cba1938a73"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (22).csv",
+      "sha256": "733e5b2eaae353b07b7f98dff3f524c0effd237bcc108b50ad69a48355aac735",
+      "analysis_batches": [
+        "8e5534bade3b65c0f03b"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (23).csv",
+      "sha256": "b699ddb500590d949a998a05e18a2c0067871a8fa207ab77a7345492e45c649a",
+      "analysis_batches": [
+        "df6d092c640f455f3618"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (24).csv",
+      "sha256": "6892c199087423ea1a53174db4b5ed84012445e113e2444b1506fd0d42441be7",
+      "analysis_batches": [
+        "603e6f3de7a7403e167d"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (25).csv",
+      "sha256": "92547b859bcc28a00f5fc4278ae38845a73725a29ba3c1884619d30379d08c2e",
+      "analysis_batches": [
+        "58de23e4721125c045c9"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (26).csv",
+      "sha256": "acd4eed0445a99961704eaf5f64735cd8696aba5a38f75e28bbfabee3b4986c8",
+      "analysis_batches": [
+        "f7dad55994b07595d328"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (27).csv",
+      "sha256": "53adc866edab492080634f1ddf24b5e1239f83dc066b5bd1383a2966e0be6796",
+      "analysis_batches": [
+        "c49b1e535221da7fc661"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (28).csv",
+      "sha256": "5dd44ba4db95f2a5c1c10f3e4d658a0491e153da9fd18b78c48ba2925797187d",
+      "analysis_batches": [
+        "dfe9a7a0573ffc73fcc2"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (29).csv",
+      "sha256": "bfe0563092800097ceeec1e3024fb2149ce87f9e5a25b85fde91d7de3f35aa61",
+      "analysis_batches": [
+        "bfe38e58199389f94570"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (3).csv",
+      "sha256": "e20cfee537ee5dfbe96245e135a4db2837ce616b10c4f12aec8791489ad27398",
+      "analysis_batches": [
+        "b4e8181554572368df86"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (30).csv",
+      "sha256": "c2cb79b6ac197d1ab250f803d65467b270e319aa8338985301ad0cf096d128b7",
+      "analysis_batches": [
+        "55883ef65b84e18a25b1"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (31).csv",
+      "sha256": "6761ca19d429dbffdbac3947848503edf349fa2efa21b73847f06b77c15f9474",
+      "analysis_batches": [
+        "b42431438c116b5320fd"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (32).csv",
+      "sha256": "5b57ccc8415582f9bd982936a24bfe939f192ca86a2f580218fb7b145a993ce1",
+      "analysis_batches": [
+        "1f1469e1760e25a0aea1"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (33).csv",
+      "sha256": "875a9ac9591c8607daecd3d68cd4ab1753076ff088626d9685fe9bd7b9600566",
+      "analysis_batches": [
+        "2546449672b64eb330cc"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (34).csv",
+      "sha256": "586d4acd3a090aa4089841e353fbf3bde5c51f6fb57e5dfe9b67154d18e1c9f1",
+      "analysis_batches": [
+        "67bcb8b4e1be0b982ebe"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (35).csv",
+      "sha256": "f53f152eb44faaa4be561edb0931305555ae4ba9c0fdfe0fa69019bbdfea851b",
+      "analysis_batches": [
+        "9e13b381c52cd3bcde32"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (36).csv",
+      "sha256": "b283748b1f15fdd06dc2f893618e763e6c2388ec6cbbceff2b03e93203ce5eae",
+      "analysis_batches": [
+        "72a421163fcae106fc2c"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (37).csv",
+      "sha256": "46465b1d866a0b75279c145f371cbccba6d63e540f97e16a89b305745f0d6f95",
+      "analysis_batches": [
+        "65bd249add2d1fc56cd7"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (38).csv",
+      "sha256": "efe6435682b6b88b37a04eea6ab345040c456a00e5d9daaa67fddaea5375f910",
+      "analysis_batches": [
+        "c755b91c1d7c28e3afc2"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (39).csv",
+      "sha256": "6414e75c627f6e4ffc6f6d420bff8a5e76a55888d0eb7c8fc87f8c426999a31f",
+      "analysis_batches": [
+        "fac5c847185e357dab6e"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (4).csv",
+      "sha256": "33ad90024acdf37bbf819db339f30ac7085d9eef53176c9f2ada3ef66048302b",
+      "analysis_batches": [
+        "41e4da17efc3f328cf1e"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (40).csv",
+      "sha256": "40c11f8e3c1f19599740d7d687446bf2cf8adbdf577c38a92ffcad6392040065",
+      "analysis_batches": [
+        "5f3e38f45292b3e86fcc"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (41).csv",
+      "sha256": "6121f95195b96407e0b14e3fa93262838daafb63f5d14cf83eca048cc09f9d7a",
+      "analysis_batches": [
+        "bfda8262e3e33bbd82fd"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (42).csv",
+      "sha256": "fc80c1a50adf20cfc3c28ce88bde3a4ab5c8aa948ca173fc51ee2726e7d3c26d",
+      "analysis_batches": [
+        "cc58b6a6ebc50ba97b89"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (43).csv",
+      "sha256": "883269a9b4e44a6ba913e2db5c8d50774d92f03e022ecd24e5764b9302f14c7a",
+      "analysis_batches": [
+        "cf6c2bd5592e003dd258"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (44).csv",
+      "sha256": "be5abb7b146c5c6321fd2ccf49737d4283a53aa72b2f41b6aa114a6b355e9274",
+      "analysis_batches": [
+        "9687707828e0dc349778"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (45).csv",
+      "sha256": "15484033139838cd50c5505c24eb93fe9d2889bc8c52ae319a3febf64a0648c4",
+      "analysis_batches": [
+        "7c5a3ef25264dc2c2033"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (46).csv",
+      "sha256": "0c81ff4d897c142b7ec8d313483d1b0847a8a3ff720d6c680cd5d558e72390fc",
+      "analysis_batches": [
+        "8911f14042bf3d0fa937"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (47).csv",
+      "sha256": "497bb0dfe9bb3bd78b204cbdcf4ebe627c90da432732c30436edea5d208ede81",
+      "analysis_batches": [
+        "50696223c2d9d172fe2c"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (48).csv",
+      "sha256": "e4a9571ec584752fa8801c03493b7518749eb94f6f6a19d5c0a2d32e2dc1a1e7",
+      "analysis_batches": [
+        "340de8879cf26b605dde"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (49).csv",
+      "sha256": "49e89976f3b7284454aa6e61a7cb40569ca571faadc51f875026c819514bd327",
+      "analysis_batches": [
+        "b99abde617bc639898b2"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (5).csv",
+      "sha256": "2e357396e2da9385064d14b1b9330c88bb747d007ab7ec2d8766daf0ed10b49a",
+      "analysis_batches": [
+        "785981a07ae385fc99f5"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (50).csv",
+      "sha256": "349d6822b0cdf4e18ca86d37c9fcba280b9000f7eee0a42c73d56ba8588bedbb",
+      "analysis_batches": [
+        "6459f689845367eb1129"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (51).csv",
+      "sha256": "2a7476e22bb9f6d81a9ff28f6488ea23fe266d54adbc17ddd3ca33f44d9b1ba7",
+      "analysis_batches": [
+        "f6298c732f7b702784d0"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (52).csv",
+      "sha256": "8c811c86881e0c9b4c332ddd9060055be0b94b9b69ac7bc1d794dae4ea58e529",
+      "analysis_batches": [
+        "29a657a69d523f65724f"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (53).csv",
+      "sha256": "9a044a8efa058821f65982440243e35d7f7a586f6acde3facd0344c793871b28",
+      "analysis_batches": [
+        "d2b5a601950f8deee02e"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (54).csv",
+      "sha256": "eafa8508dcaf2df9009ee1d6c269fc15fb7ea84d8b25624b111b614996dfadfa",
+      "analysis_batches": [
+        "ad967ab049cb87a44551"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (55).csv",
+      "sha256": "366485fb24ce5d2289961409be392a3267d9bd4f1dd6cce9df9974118485c590",
+      "analysis_batches": [
+        "8a6b53b07623a95a6429"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (56).csv",
+      "sha256": "26b2a5036e517e4fdc3724e6ad58fb0bb4baf9e816dc0b94d7095d8ce94f67ef",
+      "analysis_batches": [
+        "f9991bf7eb6297585248"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (57).csv",
+      "sha256": "de1ee3a00a329dc8852958a6e7fed1c9e0091370ded0caf45710d8572aeee736",
+      "analysis_batches": [
+        "1eb05a62e80de5676392"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (58).csv",
+      "sha256": "35177ab3b41782df010b698c4aa6ab6befda5b83137b60508aee6f37bbdfaa94",
+      "analysis_batches": [
+        "58c19b83cf34f2764dad"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (59).csv",
+      "sha256": "8fe39cc1c18576414a6542d080822ad039de2bbbc449de29ee97700bebcc01b3",
+      "analysis_batches": [
+        "1234ba73084035f881c9"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (6).csv",
+      "sha256": "36133bd2d3bbe8a16720ebab04531796392895eb4911ee1529eb7536f0b50c4a",
+      "analysis_batches": [
+        "adaa8181152b99e0d680"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (60).csv",
+      "sha256": "eb2e672caa4d73c83c6ec2683ba4367f25da79b83c3b49fe4f462bb8d33fed84",
+      "analysis_batches": [
+        "68a3910fb615f4614a18"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (61).csv",
+      "sha256": "ecc5f6dd8902601988ea546aa588c0f6c9794b94f88e5cf5082a811dfad09b0b",
+      "analysis_batches": [
+        "9732907a006395f90ddb"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (62).csv",
+      "sha256": "f25bed0e92b788fcc0c816635abca88a3b27a56765a4ea4e9f963456c1bb7b63",
+      "analysis_batches": [
+        "eb06b206191ae70608f8"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (63).csv",
+      "sha256": "d8b870d47026e0e3afdf2400b56aaee04721a16589a1172f22cd893f44378a2c",
+      "analysis_batches": [
+        "510c08eef580c335b93c"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (64).csv",
+      "sha256": "72c11665dc1405845ec1fd930bdd204238cf4c6f371c59a0ea67325aef3e6ff3",
+      "analysis_batches": [
+        "a8d9c6b09d0c8ab6c241"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (65).csv",
+      "sha256": "17bc6857bd670728cfd76127b3bd21b4607d545324f049682afbf83d37c35830",
+      "analysis_batches": [
+        "a43bc5a842c557778382"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (66).csv",
+      "sha256": "826f48b3449a912505a18ec1a1f569cee0c6d548da503e1359df7413404e8fb8",
+      "analysis_batches": [
+        "d85f5aae213f535f5cb0"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (67).csv",
+      "sha256": "894d126817f737442b3aa99559f37cbc260ed273c4bb3c72589901703a3dcd7d",
+      "analysis_batches": [
+        "c4cc0e7092b68a577284"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (68).csv",
+      "sha256": "4db9055e93ce49d1dbebf9969b61b5268ad4ac5cbe67f80725dd4c2acbc17a8a",
+      "analysis_batches": [
+        "cd4299a4f221199fdeab"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (69).csv",
+      "sha256": "4be56bfea7324998c511bc0345b5faefc78f3b4c037bbdfe38001487c78a8c19",
+      "analysis_batches": [
+        "9eda1beb7b3c22bf7c34"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (7).csv",
+      "sha256": "33ad90024acdf37bbf819db339f30ac7085d9eef53176c9f2ada3ef66048302b",
+      "analysis_batches": [
+        "41e4da17efc3f328cf1e"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (70).csv",
+      "sha256": "21165f5768668d81d83fba94e68d4779b8b28623a53c2218eb1dc3a45e4bb85e",
+      "analysis_batches": [
+        "16c40dd35b2ac2262f6c"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (71).csv",
+      "sha256": "b2a123c8e65de8479232ae7bd613be50f12f25ccafec540a6dbd4101a068288f",
+      "analysis_batches": [
+        "6c0c8f39d5e500f6602c"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (72).csv",
+      "sha256": "496988a49c0358171702d6167873a360dfe2a332986a681c3b801103709fddb3",
+      "analysis_batches": [
+        "296c6a2a9b33b961bb74"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (73).csv",
+      "sha256": "dc6e042a200b4dfc0e388005afc0a6207ba1e7bc49148fa62263e92359a031db",
+      "analysis_batches": [
+        "b731aef7ba0bb9390eeb"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (74).csv",
+      "sha256": "87af36261754fa0e7fab6dd6c90db3eb43af5c96f35c8b67ba95d90eb871928e",
+      "analysis_batches": [
+        "f5356bc9ef36ff201e53"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (75).csv",
+      "sha256": "0d2b8cf5cafe77c90ec51fabb9f8004b7c59cbdcaf62f98eba991603f62b4b02",
+      "analysis_batches": [
+        "690fa068cca246c8ff85"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (76).csv",
+      "sha256": "66b175863558395407ff4622442eba1cdc8a0426d4f0cc3ad7f46618ed66165a",
+      "analysis_batches": [
+        "d6a47ea28d3be1e362b6"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (77).csv",
+      "sha256": "99599016a25b3180705a4939f5f9a27ea97483542c187dd4781facec6780f21b",
+      "analysis_batches": [
+        "05c2e58542481fc5e908"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (78).csv",
+      "sha256": "2ca1e37fb62448d9d44dc20f6d863a92d5cebd1fe7423dbdc0a9a71e5ed6c7b2",
+      "analysis_batches": [
+        "a5c67f6efc94573c6fd0"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (79).csv",
+      "sha256": "22781de3af7751d7c2e4a6bc2e1ebf4b622e658d07d1fba73c7bcc829f157fce",
+      "analysis_batches": [
+        "1b8495474caa260b9093"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (8).csv",
+      "sha256": "2e357396e2da9385064d14b1b9330c88bb747d007ab7ec2d8766daf0ed10b49a",
+      "analysis_batches": [
+        "785981a07ae385fc99f5"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (80).csv",
+      "sha256": "5ac5b067fbf7a40ce9d525c166f3fe3727e9c208ce1a2d30886f37c11676f262",
+      "analysis_batches": [
+        "b9d48fb1dbdfb4ba67b2"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (81).csv",
+      "sha256": "9dc984481ed6141ae5914bc9d9f641437aa4dc0361c0030e111247031ef04cfe",
+      "analysis_batches": [
+        "fd8d503b5471cda35123"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (82).csv",
+      "sha256": "f63cb58552ff50e194b7222fcac43365a5965d7cdedace3c7402e77b5981b39c",
+      "analysis_batches": [
+        "b205428be9d77b42b85f"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (83).csv",
+      "sha256": "0f803995e92ae6060992a70f775c5a82b9a296e5f7dcea1eff5f26e807db387f",
+      "analysis_batches": [
+        "60a468adc7f644455458"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (84).csv",
+      "sha256": "e9924c13f4bd57870832dc8524b587223ad8f30d2921ff2663b36d90e6d6ecbc",
+      "analysis_batches": [
+        "2136ffba72d5422da20d"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (85).csv",
+      "sha256": "a2841bb47f16d3bc802cb33b1407eafd30aa6f9b37a475b96b88f5ba017cdc7d",
+      "analysis_batches": [
+        "342231d86ef47b77cf1d"
+      ]
+    },
+    {
+      "original_name": "multiTimeline (9).csv",
+      "sha256": "36133bd2d3bbe8a16720ebab04531796392895eb4911ee1529eb7536f0b50c4a",
+      "analysis_batches": [
+        "adaa8181152b99e0d680"
+      ]
+    },
+    {
+      "original_name": "multiTimeline.csv",
+      "sha256": "329a32f30d409da53bc255a12c146ffd814af62e13d0e582b913713708730a87",
+      "analysis_batches": []
+    }
+  ],
+  "note": "Arquivo integral dos downloads. A análise utiliza os 81 lotes de browser-downloads.json; pilotos e duplicatas não acrescentam observações."
+}

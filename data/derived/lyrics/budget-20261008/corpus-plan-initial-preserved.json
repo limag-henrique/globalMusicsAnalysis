@@ -1,0 +1,26 @@
+{
+  "timestamp_utc": "2026-10-09T02:35:51.813471+00:00",
+  "remaining_provider_documents": 76736,
+  "sources": {
+    "LETRAS": 15273,
+    "GENIUS": 57777,
+    "LRCLIB": 3383,
+    "LYRICS_OVH": 303
+  },
+  "request_bytes": 609570140,
+  "expected_remaining_brl": "835.16694030831985440",
+  "conservative_remaining_brl": "2229.57089512726672800",
+  "retry_reserve_brl": "111.48",
+  "baseline_run_ids": [
+    "remaining_corpus",
+    "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "41934591-0444-4fce-bfde-238497f31e3a",
+    "6e7ca60b-4a2e-4fca-a1c5-0be99f3af44d",
+    "bounded_reanalysis"
+  ],
+  "retains_identity_flags": true,
+  "paid_api_calls": 0,
+  "budget_brl": "3500",
+  "current_account_credit_brl": "848.20",
+  "second_account_credit_verified": false
+}

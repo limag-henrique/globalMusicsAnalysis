@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "variant": "previous",
+      "seconds": 15.856551699999727,
+      "commitment_ledger_usd": "26.6983020000",
+      "documents": 14051
+    },
+    {
+      "variant": "optimized",
+      "seconds": 5.838336300000265,
+      "commitment_ledger_usd": "26.6983020000",
+      "documents": 14051
+    }
+  ],
+  "unreconciled_submitted_jobs": [],
+  "provider_calls": 0,
+  "note": "Same PostgreSQL database, sequential reads; cache effects are not controlled"
+}

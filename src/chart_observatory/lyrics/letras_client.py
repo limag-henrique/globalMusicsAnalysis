@@ -2,15 +2,22 @@
 
 from __future__ import annotations
 
+import json
 import re
 import unicodedata
 from typing import Any
 from urllib.parse import quote
 
 import httpx
+from bs4 import BeautifulSoup
 from rapidfuzz import fuzz
 
 from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
+from chart_observatory.lyrics.text_quality import (
+    html_fragment_text,
+    html_lyric_text,
+    prepare_lyric_derivative,
+)
 
 _HEADERS = {
     "User-Agent": (
@@ -33,16 +40,6 @@ def _slugify_letras(text: str) -> str:
     return text
 
 
-def _strip_html_tags(html: str) -> str:
-    """Remove HTML tags, keeping text content and converting <br>/<p> to newlines."""
-    html = re.sub(r"<br\s*/?>", "\n", html, flags=re.I)
-    html = re.sub(r"</p>", "\n\n", html, flags=re.I)
-    html = re.sub(r"<[^>]+>", "", html)
-    html = html.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
-    html = html.replace("&#x27;", "'").replace("&quot;", '"')
-    return html.strip()
-
-
 class LetrasClient:
     """Scrape lyrics from Letras.mus.br.
 
@@ -57,7 +54,9 @@ class LetrasClient:
         http_client: Any | None = None,
     ) -> None:
         self._http = http_client or httpx.Client(
-            timeout=30.0, follow_redirects=True, headers=_HEADERS,
+            timeout=30.0,
+            follow_redirects=True,
+            headers=_HEADERS,
         )
 
     def fetch(self, title: str, artist: str) -> str | None:
@@ -111,9 +110,7 @@ class LetrasClient:
                 r'href="(/[a-z0-9][\w-]*/[\w-]+/)"',
                 resp.text,
             )
-            song_links = [
-                f"https://www.letras.mus.br{link}" for link in song_links_rel
-            ]
+            song_links = [f"https://www.letras.mus.br{link}" for link in song_links_rel]
 
         wanted_title = normalize_lookup_text(title)
         wanted_artist = normalize_lookup_text(primary_artist)
@@ -142,58 +139,30 @@ class LetrasClient:
 
     def _extract_lyrics(self, html: str) -> str | None:
         """Extract lyrics text from a Letras.mus.br page."""
-        # Strategy 1: lyric-original div (modern layout)
-        match = re.search(
-            r'<div[^>]*class="[^"]*lyric-original[^"]*"[^>]*>(.*?)</div>\s*(?:<div|</article)',
-            html,
-            re.DOTALL,
-        )
-        if match:
-            lyrics = _strip_html_tags(match.group(1))
-            if lyrics and len(lyrics) > 30:
-                return self._clean_lyrics(lyrics)
-
-        # Strategy 2: cnt-letra (older layout)
-        match = re.search(
-            r'<div[^>]*class="[^"]*cnt-letra[^"]*"[^>]*>(.*?)</div>',
-            html,
-            re.DOTALL,
-        )
-        if match:
-            lyrics = _strip_html_tags(match.group(1))
-            if lyrics and len(lyrics) > 30:
-                return self._clean_lyrics(lyrics)
-
-        # Strategy 3: Look for <p> tags inside lyrics containers
-        lyrics_blocks = re.findall(
-            r'<div[^>]*class="[^"]*lyric[^"]*"[^>]*>(.*?)</div>',
-            html,
-            re.DOTALL,
-        )
-        if lyrics_blocks:
-            all_text = []
-            for block in lyrics_blocks:
-                paragraphs = re.findall(r"<p[^>]*>(.*?)</p>", block, re.DOTALL)
-                if paragraphs:
-                    for p in paragraphs:
-                        text = _strip_html_tags(p)
-                        if text:
-                            all_text.append(text)
-                else:
-                    text = _strip_html_tags(block)
-                    if text:
-                        all_text.append(text)
-            if all_text:
-                full = "\n\n".join(all_text)
-                if len(full) > 30:
-                    return self._clean_lyrics(full)
+        page = BeautifulSoup(html, "html.parser")
+        for selector in (".lyric-original", ".cnt-letra"):
+            containers = page.select(selector)
+            if containers:
+                lyrics = "\n\n".join(html_lyric_text(node) for node in containers)
+                cleaned = self._clean_lyrics(lyrics)
+                if cleaned:
+                    return cleaned
+        # Fallback DOM containers, avoiding duplicate nested lyric blocks.
+        blocks = page.find_all("div", class_=re.compile("lyric"))
+        outer = [node for node in blocks if not any(parent in blocks for parent in node.parents)]
+        if outer:
+            cleaned = self._clean_lyrics("\n\n".join(html_lyric_text(node) for node in outer))
+            if cleaned:
+                return cleaned
 
         # Strategy 4: JSON-LD or embedded data
         match = re.search(r'"lyrics"\s*:\s*"((?:[^"\\]|\\.)*)"', html)
         if match:
-            lyrics = match.group(1)
-            lyrics = lyrics.encode().decode("unicode_escape", errors="replace")
-            lyrics = _strip_html_tags(lyrics)
+            try:
+                lyrics = json.loads('"' + match.group(1) + '"')
+            except json.JSONDecodeError:
+                return None
+            lyrics = html_fragment_text(lyrics)
             if lyrics and len(lyrics) > 30:
                 return self._clean_lyrics(lyrics)
 
@@ -201,6 +170,8 @@ class LetrasClient:
 
     def _clean_lyrics(self, text: str) -> str | None:
         """Clean up extracted lyrics text."""
+        text = prepare_lyric_derivative(text, "LETRAS").text
+        text = "\n".join(line.strip() for line in text.splitlines())
         text = re.sub(r"\n{3,}", "\n\n", text)
         text = re.sub(r"[ \t]+", " ", text)
         text = re.sub(r"^\s*Enviada por.*$", "", text, flags=re.MULTILINE)

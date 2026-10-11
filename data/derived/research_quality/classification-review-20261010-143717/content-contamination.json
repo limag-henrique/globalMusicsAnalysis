@@ -1,0 +1,46 @@
+{
+  "snapshot_utc": "2026-10-10 14:44:11.745403+00:00",
+  "method": "Literal footer signature and HTML-entity patterns; short/section flags are diagnostics, not completeness verdicts.",
+  "sources": [
+    {
+      "source": "GENIUS",
+      "documents": 124591,
+      "website_footer": 0,
+      "html_entity": 1,
+      "text_under_300_chars": 13899,
+      "starts_at_second_section": 9195
+    },
+    {
+      "source": "GOOGLE_MANUAL",
+      "documents": 4,
+      "website_footer": 0,
+      "html_entity": 0,
+      "text_under_300_chars": 0,
+      "starts_at_second_section": 0
+    },
+    {
+      "source": "LETRAS",
+      "documents": 26540,
+      "website_footer": 26539,
+      "html_entity": 14724,
+      "text_under_300_chars": 946,
+      "starts_at_second_section": 0
+    },
+    {
+      "source": "LRCLIB",
+      "documents": 7039,
+      "website_footer": 0,
+      "html_entity": 1,
+      "text_under_300_chars": 354,
+      "starts_at_second_section": 0
+    },
+    {
+      "source": "LYRICS_OVH",
+      "documents": 937,
+      "website_footer": 0,
+      "html_entity": 0,
+      "text_under_300_chars": 33,
+      "starts_at_second_section": 0
+    }
+  ]
+}

@@ -71,8 +71,13 @@ class LyricsOvhClient:
         return lyrics.strip() if isinstance(lyrics, str) and lyrics.strip() else None
 
 
+def _lyric_word_sequence(value: str) -> tuple[str, ...]:
+    value = unicodedata.normalize("NFC", value).casefold().replace("’", "'")
+    return tuple(re.findall(r"\w+(?:'\w+)*", value))
+
+
 class LrclibClient:
-    """LRCLIB search client with exact-match safeguards."""
+    """Retrieve identity-matched LRCLIB lyrics, holding divergent editions."""
 
     def __init__(
         self,
@@ -111,9 +116,38 @@ class LrclibClient:
                 and lyrics.strip()
             ):
                 exact.append(candidate)
-        if len(exact) != 1:
+        if not exact:
             return None
         chosen = exact[0]
+        if len(exact) > 1:
+            lyric_versions = {_lyric_word_sequence(item["plainLyrics"]) for item in exact}
+            if len(lyric_versions) != 1:
+                return None
+            try:
+                resolved_response = self._http.get(
+                    f"{self._base_url}/api/get",
+                    params={"track_name": title, "artist_name": artist.split(",", 1)[0].strip()},
+                )
+            except httpx.HTTPError:
+                resolved_response = None
+            if (
+                resolved_response is not None
+                and getattr(resolved_response, "status_code", 500) == 200
+            ):
+                try:
+                    resolved = resolved_response.json()
+                except (ValueError, TypeError):
+                    return None
+                if (
+                    not isinstance(resolved, dict)
+                    or normalize_lookup_text(str(resolved.get("trackName", ""))) != wanted_title
+                    or normalize_lookup_text(str(resolved.get("artistName", ""))) != wanted_artist
+                    or not isinstance(resolved.get("plainLyrics"), str)
+                    or _lyric_word_sequence(resolved["plainLyrics"]) not in lyric_versions
+                    or resolved.get("instrumental") is True
+                ):
+                    return None
+                chosen = resolved
         return chosen["plainLyrics"].strip(), {
             "id": chosen.get("id"),
             "album_name": chosen.get("albumName"),

@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-10-10T13:21:44.877921+00:00",
+  "account_id": "0169AF-BC9CE9-C4CC1C",
+  "available_brl": "591.60",
+  "original_brl": "1761.10",
+  "source": "https://console.cloud.google.com/billing/0169AF-BC9CE9-C4CC1C/credits/all",
+  "monthly_prices_valid_before": "2026-11-01T00:00:00+00:00",
+  "second_account_verified": false,
+  "method": "Authenticated Edge Cloud Billing credits page"
+}

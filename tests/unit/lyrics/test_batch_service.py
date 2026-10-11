@@ -71,7 +71,7 @@ def _attach_batch_snapshot(
     item = LyricClassificationBatchItem(
         opaque_key=uuid4(),
         batch_run_id=run.id,
-        line_number=1,
+        line_number=len(BatchRepository(session).items(run.id)) + 1,
         lyric_document_id=document.id,
         canonical_track_id=document.canonical_track_id,
         lyrics_hash=document.content_sha256,
@@ -103,6 +103,74 @@ def _attach_batch_snapshot(
     item.snapshot_id = snapshot.id
 
 
+def test_partial_terminal_run_reserves_only_unknown_requests_with_verified_hashes() -> None:
+    import json
+
+    from sqlalchemy import event
+
+    from chart_observatory.lyrics.batch_jsonl import build_batch_request, canonical_request_sha256
+
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        run = LyricClassificationBatchRun(
+            kind="main",
+            state="failed",
+            model_id="gemini-3.8-flash",
+            taxonomy_version=TAXONOMY_VERSION,
+            prompt_version=PROMPT_VERSION,
+            thinking_level="LOW",
+            project_id="p",
+            location="global",
+            bucket_name="b",
+            request_count=2,
+            imported_count=2,
+            summary_written=True,
+            conservative_cost_usd=Decimal("0.04"),
+            known_cost_usd=Decimal("0.001"),
+        )
+        session.add(run)
+        session.flush()
+        _attach_batch_snapshot(session, run, error_code=None, estimated_cost=Decimal("0.001"))
+        _attach_batch_snapshot(session, run, error_code="batch_missing_output", estimated_cost=None)
+        service = BatchClassificationService(
+            session, settings(), SimpleNamespace(), SimpleNamespace()
+        )
+        byte_count = 0
+        for export in service._iter_export_items(run.id):
+            payload = build_batch_request(export.item, export.candidate, export.config)
+            export.item.request_sha256 = canonical_request_sha256(payload)
+            byte_count += (
+                len(
+                    json.dumps(
+                        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+                    ).encode()
+                )
+                + 1
+            )
+        run.source_byte_count = byte_count
+        session.commit()
+        # Budget checks must not transfer provider result payloads or provenance
+        # metadata while reconstructing the independently fingerprinted requests.
+        queries = []
+
+        def capture_query(connection, cursor, statement, parameters, context, executemany):
+            queries.append(statement)
+
+        event.listen(engine, "before_cursor_execute", capture_query)
+        # Equal request lengths: known cost + half the original bound, never zero unknown cost.
+        assert enforce_cumulative_cost_cap(session, Decimal("1"), Decimal("600")) == Decimal(
+            "1.021"
+        )
+        assert not any("lyric_classification_snapshots.result_json" in sql for sql in queries)
+        assert not any("lyric_documents.metadata_json" in sql for sql in queries)
+        event.remove(engine, "before_cursor_execute", capture_query)
+        # An unverified reconstruction must retain the entire original reservation.
+        session.get(LyricClassificationBatchItem, export.item.opaque_key).request_sha256 = "0" * 64
+        session.commit()
+        assert enforce_cumulative_cost_cap(session, Decimal("1"), Decimal("600")) == Decimal("1.04")
+
+
 def test_resumed_import_rebuilds_known_cost_from_all_durable_snapshots(monkeypatch) -> None:
     engine = create_engine("sqlite+pysqlite:///:memory:")
     Base.metadata.create_all(engine)
@@ -124,9 +192,7 @@ def test_resumed_import_rebuilds_known_cost_from_all_durable_snapshots(monkeypat
         )
         session.add(run)
         session.flush()
-        _attach_batch_snapshot(
-            session, run, error_code=None, estimated_cost=Decimal("1.25")
-        )
+        _attach_batch_snapshot(session, run, error_code=None, estimated_cost=Decimal("1.25"))
         session.commit()
         storage = SimpleNamespace(
             object_names=lambda _prefix: ["runs/output/predictions.jsonl"],
@@ -147,7 +213,7 @@ def test_resumed_import_rebuilds_known_cost_from_all_durable_snapshots(monkeypat
         assert run.known_cost_usd == Decimal("1.25")
 
 
-def test_cumulative_budget_reserves_all_runs_and_never_exceeds_600() -> None:
+def test_cumulative_budget_reserves_all_runs_under_authorized_650_ceiling() -> None:
     engine = create_engine("sqlite+pysqlite:///:memory:")
     Base.metadata.create_all(engine)
     with Session(engine) as session:
@@ -171,8 +237,12 @@ def test_cumulative_budget_reserves_all_runs_and_never_exceeds_600() -> None:
         enforce_cumulative_cost_cap(session, Decimal("100"), Decimal("600"))
         with pytest.raises(CostBudgetExceeded):
             enforce_cumulative_cost_cap(session, Decimal("100.01"), Decimal("600"))
+        enforce_cumulative_cost_cap(session, Decimal("145"), Decimal("645"))
+        with pytest.raises(CostBudgetExceeded):
+            enforce_cumulative_cost_cap(session, Decimal("145.01"), Decimal("645"))
+        enforce_cumulative_cost_cap(session, Decimal("150"), Decimal("650"))
         with pytest.raises(CostBudgetExceeded, match="cannot exceed"):
-            enforce_cumulative_cost_cap(session, Decimal("1"), Decimal("601"))
+            enforce_cumulative_cost_cap(session, Decimal("1"), Decimal("650.01"))
 
 
 def test_batch_output_ceiling_keeps_current_corpus_within_output_only_budget() -> None:
@@ -232,9 +302,7 @@ def test_completed_run_releases_unused_reservation_when_cost_is_known() -> None:
         )
         session.add(run)
         session.flush()
-        _attach_batch_snapshot(
-            session, run, error_code=None, estimated_cost=Decimal("1")
-        )
+        _attach_batch_snapshot(session, run, error_code=None, estimated_cost=Decimal("1"))
         session.commit()
 
         total = enforce_cumulative_cost_cap(session, Decimal("101"), Decimal("600"))
@@ -338,7 +406,6 @@ def test_completed_missing_output_and_unpriced_error_keep_reservations() -> None
 
         with pytest.raises(CostBudgetExceeded):
             enforce_cumulative_cost_cap(session, Decimal("100"), Decimal("600"))
-
 
 
 def test_main_is_blocked_until_pilot_acceptance_is_durable() -> None:
@@ -492,6 +559,44 @@ def _force_one_request_per_artifact(monkeypatch: pytest.MonkeyPatch) -> None:
         return original(run_id, items, directory, max_requests=1)
 
     monkeypatch.setattr(batch_service_module, "write_batch_jsonl", split_writer)
+
+
+def test_injected_budget_guard_blocks_upload_and_submit_before_provider_calls(
+    tmp_path: Path,
+) -> None:
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    storage = FakeBatchStorage()
+
+    def deny(*_args, **_kwargs):
+        raise CostBudgetExceeded("BRL reservation rejected")
+
+    with Session(engine) as session:
+        service = _service_with_two_lyrics(session, tmp_path, storage)
+        service._cost_guard = deny
+        with pytest.raises(CostBudgetExceeded, match="BRL"):
+            service._prepare(BatchRunKind.PILOT, 2, Decimal("3500"))
+        assert storage.uploaded == []
+        run = LyricClassificationBatchRun(
+            kind="main",
+            state="uploaded",
+            model_id="gemini-3.8-flash",
+            taxonomy_version=TAXONOMY_VERSION,
+            prompt_version=PROMPT_VERSION,
+            thinking_level="LOW",
+            project_id="project",
+            location="global",
+            bucket_name="private-bucket",
+            request_count=1,
+            conservative_cost_usd=Decimal("1"),
+            source_uri="gs://private-bucket/input",
+            output_uri_prefix="gs://private-bucket/output/",
+        )
+        session.add(run)
+        session.commit()
+        with pytest.raises(CostBudgetExceeded, match="BRL"):
+            service.submit(run.id, Decimal("3500"))
+        assert run.provider_job_name is None
 
 
 def test_prepare_creates_one_independent_run_per_jsonl_artifact(

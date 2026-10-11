@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from chart_observatory.db.base import Base
 from chart_observatory.lyrics.classification_queue import (
     ClassificationSignature,
+    iter_remaining_candidates,
     select_remaining_candidates,
 )
 from chart_observatory.lyrics.identity_quarantine import (
@@ -19,6 +20,62 @@ from chart_observatory.lyrics.identity_quarantine import (
     scientifically_eligible_document_ids,
 )
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
+
+
+def test_exploratory_source_override_preserves_default_scientific_quarantine(tmp_path):
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        doc = ingest_lyric_document(
+            session,
+            LyricDocumentInput(
+                canonical_track_id=uuid4(),
+                source="LETRAS",
+                source_version="1",
+                rights_status="RESEARCH_AUTHORIZED",
+                text="supplied lyric text long enough",
+            ),
+        )
+        unauthorized = ingest_lyric_document(
+            session,
+            LyricDocumentInput(
+                canonical_track_id=uuid4(),
+                source="LETRAS",
+                source_version="1",
+                rights_status="AUTHORIZED",
+                text="unauthorized lyric text long enough",
+            ),
+        )
+        unauthorized.rights_status = "UNKNOWN"
+        session.flush()
+        manifest = tmp_path / "policy.json"
+        _write_manifest(
+            manifest,
+            [_entry(doc.id, "confirmed_mismatch")],
+            suspended_sources=[
+                {
+                    "source": "LETRAS",
+                    "status": "suspended_pending_validation",
+                    "reason": "Identity remains unverified",
+                    "effective_on": "2026-09-27",
+                    "expected_document_count": 1,
+                    "allow_active_batch_reconciliation": True,
+                }
+            ],
+        )
+        signature = ClassificationSignature("gemini-3.8-flash", "taxonomy", "prompt")
+        assert not list(
+            iter_remaining_candidates(session, signature, quarantine_manifest_path=manifest)
+        )
+        candidates = list(
+            iter_remaining_candidates(
+                session, signature, quarantine_manifest_path=manifest, include_identity_holds=True
+            )
+        )
+        assert [item.lyric_document_id for item in candidates] == [doc.id]
+        assert unauthorized.id not in {item.lyric_document_id for item in candidates}
+        assert load_suspended_sources(manifest) == frozenset({"LETRAS"})
+        assert not scientifically_eligible_document_ids([doc.id], load_quarantine_entries(manifest))
 
 
 def _entry(document_id: UUID, decision: str) -> dict[str, object]:

@@ -1,0 +1,24 @@
+{
+  "source": "google_trends_web_unofficial",
+  "planned_queries": 2082,
+  "completed_queries": 0,
+  "pending_queries": 2082,
+  "attempted_this_run": 1,
+  "blocked": {
+    "query_id": "2892fe572fd823c0a6cc",
+    "country_iso2": "BR",
+    "term": "porn",
+    "language": "en",
+    "status": "rate_limited",
+    "http_status": 429,
+    "error_type": "HTTPStatusError"
+  },
+  "interval_seconds": 8,
+  "created_at": "2026-10-11T03:21:16.137542+00:00",
+  "csv_sha256": "d1375fba550d949fd7b30ff86381bdb37b7f4a9810407cdb9e7787a50821482a",
+  "limitations": [
+    "Unofficial website endpoints may change or deny automated access",
+    "Local indices cannot rank countries or be summed across terms",
+    "Native vocabulary remains a candidate requiring linguistic review"
+  ]
+}

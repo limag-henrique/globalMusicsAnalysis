@@ -1,0 +1,38 @@
+[
+  {
+    "id": "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "state": "failed",
+    "request_count": 118549,
+    "imported_count": 118549,
+    "summary_written": true,
+    "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6454998708135133184",
+    "submitted_at": "2026-09-26 20:51:25.148660+00:00",
+    "job_error_code": null,
+    "snapshots": 118549,
+    "linked_items": 118549
+  },
+  {
+    "id": "059f0d93-0854-45ac-898d-d0eb23762ed3",
+    "state": "succeeded",
+    "request_count": 6000,
+    "imported_count": 6000,
+    "summary_written": true,
+    "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/597442870135226368",
+    "submitted_at": "2026-09-28 01:59:15.917369+00:00",
+    "job_error_code": null,
+    "snapshots": 6000,
+    "linked_items": 6000
+  },
+  {
+    "id": "41934591-0444-4fce-bfde-238497f31e3a",
+    "state": "failed",
+    "request_count": 40460,
+    "imported_count": 40460,
+    "summary_written": true,
+    "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8681553734846644224",
+    "submitted_at": "2026-09-26 20:51:42.289236+00:00",
+    "job_error_code": null,
+    "snapshots": 40460,
+    "linked_items": 40460
+  }
+]

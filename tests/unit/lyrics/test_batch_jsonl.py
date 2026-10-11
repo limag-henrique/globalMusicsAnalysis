@@ -120,7 +120,7 @@ def test_estimate_is_positive_and_conservative(tmp_path) -> None:
     assert estimate.conservative_cost_usd >= estimate.expected_cost_usd
 
 
-def test_corpus_reservation_uses_worst_observed_pilot_token_byte_ratio_with_margin() -> None:
+def test_corpus_reservation_does_not_reduce_byte_bound_using_pilot_average() -> None:
     artifact = BatchJsonlArtifact(
         path=Path("main.jsonl"),
         sha256="a" * 64,
@@ -137,6 +137,6 @@ def test_corpus_reservation_uses_worst_observed_pilot_token_byte_ratio_with_marg
 
     estimate = estimate_batch_cost([artifact], None, usage, rates, 1_024)
 
-    assert estimate.conservative_input_tokens == 6_000
+    assert estimate.conservative_input_tokens == 10_000
     assert estimate.conservative_output_tokens == 20_480
-    assert estimate.conservative_cost_usd == Decimal("0.040650")
+    assert estimate.conservative_cost_usd == Decimal("0.042150")

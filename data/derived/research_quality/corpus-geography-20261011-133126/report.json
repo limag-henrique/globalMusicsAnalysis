@@ -1,0 +1,2714 @@
+{
+  "observed_utc": "2026-10-11 13:31:27.145281+00:00",
+  "quoted_snapshot_utc": "2026-10-11T06:13:05.712984+00:00",
+  "quoted_cohort": {
+    "total_tracks": 159080,
+    "classified_tracks": 139409,
+    "pending_tracks": 19671,
+    "mapped_unique_tracks": 159058,
+    "unmapped_classified_tracks": 16,
+    "unmapped_pending_tracks": 6,
+    "mapped_pending_unique_tracks": 19665,
+    "countries": [
+      {
+        "market_code": "CH",
+        "total_corpus_tracks": 13255,
+        "classified_tracks": 12469,
+        "pending_tracks": 786,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.929837797057714
+      },
+      {
+        "market_code": "DE",
+        "total_corpus_tracks": 12090,
+        "classified_tracks": 11245,
+        "pending_tracks": 845,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.989247311827957
+      },
+      {
+        "market_code": "FR",
+        "total_corpus_tracks": 11881,
+        "classified_tracks": 10848,
+        "pending_tracks": 1033,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.694554330443566
+      },
+      {
+        "market_code": "US",
+        "total_corpus_tracks": 11555,
+        "classified_tracks": 10601,
+        "pending_tracks": 954,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.256166161834704
+      },
+      {
+        "market_code": "SE",
+        "total_corpus_tracks": 11060,
+        "classified_tracks": 10301,
+        "pending_tracks": 759,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.862567811934901
+      },
+      {
+        "market_code": "FI",
+        "total_corpus_tracks": 11151,
+        "classified_tracks": 10265,
+        "pending_tracks": 886,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.945475742085912
+      },
+      {
+        "market_code": "AT",
+        "total_corpus_tracks": 11039,
+        "classified_tracks": 10237,
+        "pending_tracks": 802,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.2651508288794275
+      },
+      {
+        "market_code": "NL",
+        "total_corpus_tracks": 10986,
+        "classified_tracks": 10115,
+        "pending_tracks": 871,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9282723466229745
+      },
+      {
+        "market_code": "GB",
+        "total_corpus_tracks": 11045,
+        "classified_tracks": 10049,
+        "pending_tracks": 996,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.01765504753282
+      },
+      {
+        "market_code": "BE",
+        "total_corpus_tracks": 10410,
+        "classified_tracks": 9625,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.540826128722382
+      },
+      {
+        "market_code": "CA",
+        "total_corpus_tracks": 10512,
+        "classified_tracks": 9609,
+        "pending_tracks": 903,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.590182648401827
+      },
+      {
+        "market_code": "NO",
+        "total_corpus_tracks": 10337,
+        "classified_tracks": 9552,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.594079520170262
+      },
+      {
+        "market_code": "IE",
+        "total_corpus_tracks": 9873,
+        "classified_tracks": 8932,
+        "pending_tracks": 941,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.531044262129038
+      },
+      {
+        "market_code": "GLOBAL",
+        "total_corpus_tracks": 9388,
+        "classified_tracks": 8931,
+        "pending_tracks": 457,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.867916489135066
+      },
+      {
+        "market_code": "IT",
+        "total_corpus_tracks": 9592,
+        "classified_tracks": 8799,
+        "pending_tracks": 793,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.267306088407006
+      },
+      {
+        "market_code": "DK",
+        "total_corpus_tracks": 9444,
+        "classified_tracks": 8724,
+        "pending_tracks": 720,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.6238881829733165
+      },
+      {
+        "market_code": "TW",
+        "total_corpus_tracks": 9085,
+        "classified_tracks": 8379,
+        "pending_tracks": 706,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.771051183269125
+      },
+      {
+        "market_code": "PL",
+        "total_corpus_tracks": 9190,
+        "classified_tracks": 8272,
+        "pending_tracks": 918,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.98911860718172
+      },
+      {
+        "market_code": "CZ",
+        "total_corpus_tracks": 8816,
+        "classified_tracks": 8109,
+        "pending_tracks": 707,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.01950998185118
+      },
+      {
+        "market_code": "PT",
+        "total_corpus_tracks": 8249,
+        "classified_tracks": 7622,
+        "pending_tracks": 627,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.600921323796824
+      },
+      {
+        "market_code": "HU",
+        "total_corpus_tracks": 8132,
+        "classified_tracks": 7538,
+        "pending_tracks": 594,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.304476143630104
+      },
+      {
+        "market_code": "ES",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7502,
+        "pending_tracks": 767,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.275607691377434
+      },
+      {
+        "market_code": "AU",
+        "total_corpus_tracks": 8200,
+        "classified_tracks": 7376,
+        "pending_tracks": 824,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.048780487804878
+      },
+      {
+        "market_code": "NZ",
+        "total_corpus_tracks": 8169,
+        "classified_tracks": 7302,
+        "pending_tracks": 867,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.613294160852002
+      },
+      {
+        "market_code": "JP",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7209,
+        "pending_tracks": 1060,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 12.818962389648084
+      },
+      {
+        "market_code": "SK",
+        "total_corpus_tracks": 7302,
+        "classified_tracks": 6835,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.395508079978089
+      },
+      {
+        "market_code": "HK",
+        "total_corpus_tracks": 7068,
+        "classified_tracks": 6618,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.366723259762309
+      },
+      {
+        "market_code": "BR",
+        "total_corpus_tracks": 7331,
+        "classified_tracks": 6593,
+        "pending_tracks": 738,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.066839448915564
+      },
+      {
+        "market_code": "GR",
+        "total_corpus_tracks": 6915,
+        "classified_tracks": 6548,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.307302964569776
+      },
+      {
+        "market_code": "SG",
+        "total_corpus_tracks": 6973,
+        "classified_tracks": 6433,
+        "pending_tracks": 540,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.744156030402983
+      },
+      {
+        "market_code": "MY",
+        "total_corpus_tracks": 6741,
+        "classified_tracks": 6274,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.927755525886367
+      },
+      {
+        "market_code": "ZA",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6075,
+        "pending_tracks": 359,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.5797326701896175
+      },
+      {
+        "market_code": "AR",
+        "total_corpus_tracks": 6677,
+        "classified_tracks": 6039,
+        "pending_tracks": 638,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.555189456342669
+      },
+      {
+        "market_code": "LV",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6029,
+        "pending_tracks": 405,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.294684488654026
+      },
+      {
+        "market_code": "CO",
+        "total_corpus_tracks": 6566,
+        "classified_tracks": 6001,
+        "pending_tracks": 565,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.60493451111788
+      },
+      {
+        "market_code": "CL",
+        "total_corpus_tracks": 6433,
+        "classified_tracks": 5920,
+        "pending_tracks": 513,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9745064511114565
+      },
+      {
+        "market_code": "LT",
+        "total_corpus_tracks": 6319,
+        "classified_tracks": 5889,
+        "pending_tracks": 430,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.804874188953948
+      },
+      {
+        "market_code": "TR",
+        "total_corpus_tracks": 6539,
+        "classified_tracks": 5878,
+        "pending_tracks": 661,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.10857929346995
+      },
+      {
+        "market_code": "IS",
+        "total_corpus_tracks": 6307,
+        "classified_tracks": 5863,
+        "pending_tracks": 444,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.03979705089583
+      },
+      {
+        "market_code": "PH",
+        "total_corpus_tracks": 6382,
+        "classified_tracks": 5772,
+        "pending_tracks": 610,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.558132246944531
+      },
+      {
+        "market_code": "RO",
+        "total_corpus_tracks": 5987,
+        "classified_tracks": 5669,
+        "pending_tracks": 318,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.311508267913814
+      },
+      {
+        "market_code": "DO",
+        "total_corpus_tracks": 5800,
+        "classified_tracks": 5521,
+        "pending_tracks": 279,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.810344827586207
+      },
+      {
+        "market_code": "ID",
+        "total_corpus_tracks": 6123,
+        "classified_tracks": 5502,
+        "pending_tracks": 621,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.142087212150907
+      },
+      {
+        "market_code": "EE",
+        "total_corpus_tracks": 5901,
+        "classified_tracks": 5499,
+        "pending_tracks": 402,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.812404677173361
+      },
+      {
+        "market_code": "CR",
+        "total_corpus_tracks": 5819,
+        "classified_tracks": 5469,
+        "pending_tracks": 350,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.014779171678983
+      },
+      {
+        "market_code": "UY",
+        "total_corpus_tracks": 5821,
+        "classified_tracks": 5371,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 7.730630475863253
+      },
+      {
+        "market_code": "MX",
+        "total_corpus_tracks": 5781,
+        "classified_tracks": 5213,
+        "pending_tracks": 568,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.825289742259125
+      },
+      {
+        "market_code": "GT",
+        "total_corpus_tracks": 5373,
+        "classified_tracks": 5006,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.830448538991252
+      },
+      {
+        "market_code": "PA",
+        "total_corpus_tracks": 5216,
+        "classified_tracks": 4965,
+        "pending_tracks": 251,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.8121165644171775
+      },
+      {
+        "market_code": "LU",
+        "total_corpus_tracks": 5237,
+        "classified_tracks": 4944,
+        "pending_tracks": 293,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.594806186748138
+      },
+      {
+        "market_code": "PE",
+        "total_corpus_tracks": 5280,
+        "classified_tracks": 4887,
+        "pending_tracks": 393,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.443181818181818
+      },
+      {
+        "market_code": "BG",
+        "total_corpus_tracks": 5177,
+        "classified_tracks": 4879,
+        "pending_tracks": 298,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.75622947653081
+      },
+      {
+        "market_code": "EC",
+        "total_corpus_tracks": 5154,
+        "classified_tracks": 4818,
+        "pending_tracks": 336,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.5192083818393485
+      },
+      {
+        "market_code": "TH",
+        "total_corpus_tracks": 5008,
+        "classified_tracks": 4734,
+        "pending_tracks": 274,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.4712460063897765
+      },
+      {
+        "market_code": "PY",
+        "total_corpus_tracks": 4917,
+        "classified_tracks": 4674,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.942037827943868
+      },
+      {
+        "market_code": "AD",
+        "total_corpus_tracks": 5424,
+        "classified_tracks": 4594,
+        "pending_tracks": 830,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 15.3023598820059
+      },
+      {
+        "market_code": "IL",
+        "total_corpus_tracks": 4645,
+        "classified_tracks": 4361,
+        "pending_tracks": 284,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.1141011840688915
+      },
+      {
+        "market_code": "BO",
+        "total_corpus_tracks": 4569,
+        "classified_tracks": 4326,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.318450426789232
+      },
+      {
+        "market_code": "HN",
+        "total_corpus_tracks": 4505,
+        "classified_tracks": 4311,
+        "pending_tracks": 194,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.306326304106548
+      },
+      {
+        "market_code": "SV",
+        "total_corpus_tracks": 4483,
+        "classified_tracks": 4276,
+        "pending_tracks": 207,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.617443676109748
+      },
+      {
+        "market_code": "VN",
+        "total_corpus_tracks": 4297,
+        "classified_tracks": 4018,
+        "pending_tracks": 279,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.492902024668373
+      },
+      {
+        "market_code": "MA",
+        "total_corpus_tracks": 3521,
+        "classified_tracks": 3331,
+        "pending_tracks": 190,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.396194262993467
+      },
+      {
+        "market_code": "NI",
+        "total_corpus_tracks": 3388,
+        "classified_tracks": 3247,
+        "pending_tracks": 141,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.1617473435655254
+      },
+      {
+        "market_code": "IN",
+        "total_corpus_tracks": 3493,
+        "classified_tracks": 3166,
+        "pending_tracks": 327,
+        "first_year": 2019,
+        "last_year": 2022,
+        "pending_pct": 9.361580303464072
+      },
+      {
+        "market_code": "RU",
+        "total_corpus_tracks": 3364,
+        "classified_tracks": 3132,
+        "pending_tracks": 232,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 6.896551724137931
+      },
+      {
+        "market_code": "AE",
+        "total_corpus_tracks": 3183,
+        "classified_tracks": 3072,
+        "pending_tracks": 111,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 3.4872761545711595
+      },
+      {
+        "market_code": "SA",
+        "total_corpus_tracks": 2976,
+        "classified_tracks": 2839,
+        "pending_tracks": 137,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 4.603494623655914
+      },
+      {
+        "market_code": "UA",
+        "total_corpus_tracks": 2776,
+        "classified_tracks": 2618,
+        "pending_tracks": 158,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 5.69164265129683
+      },
+      {
+        "market_code": "EG",
+        "total_corpus_tracks": 2386,
+        "classified_tracks": 2253,
+        "pending_tracks": 133,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.574182732606873
+      },
+      {
+        "market_code": "KR",
+        "total_corpus_tracks": 2001,
+        "classified_tracks": 1930,
+        "pending_tracks": 71,
+        "first_year": 2021,
+        "last_year": 2022,
+        "pending_pct": 3.548225887056472
+      }
+    ],
+    "pending_country_order": [
+      {
+        "market_code": "JP",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7209,
+        "pending_tracks": 1060,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 12.818962389648084
+      },
+      {
+        "market_code": "FR",
+        "total_corpus_tracks": 11881,
+        "classified_tracks": 10848,
+        "pending_tracks": 1033,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.694554330443566
+      },
+      {
+        "market_code": "GB",
+        "total_corpus_tracks": 11045,
+        "classified_tracks": 10049,
+        "pending_tracks": 996,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.01765504753282
+      },
+      {
+        "market_code": "US",
+        "total_corpus_tracks": 11555,
+        "classified_tracks": 10601,
+        "pending_tracks": 954,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.256166161834704
+      },
+      {
+        "market_code": "IE",
+        "total_corpus_tracks": 9873,
+        "classified_tracks": 8932,
+        "pending_tracks": 941,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.531044262129038
+      },
+      {
+        "market_code": "PL",
+        "total_corpus_tracks": 9190,
+        "classified_tracks": 8272,
+        "pending_tracks": 918,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.98911860718172
+      },
+      {
+        "market_code": "CA",
+        "total_corpus_tracks": 10512,
+        "classified_tracks": 9609,
+        "pending_tracks": 903,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.590182648401827
+      },
+      {
+        "market_code": "FI",
+        "total_corpus_tracks": 11151,
+        "classified_tracks": 10265,
+        "pending_tracks": 886,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.945475742085912
+      },
+      {
+        "market_code": "NL",
+        "total_corpus_tracks": 10986,
+        "classified_tracks": 10115,
+        "pending_tracks": 871,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9282723466229745
+      },
+      {
+        "market_code": "NZ",
+        "total_corpus_tracks": 8169,
+        "classified_tracks": 7302,
+        "pending_tracks": 867,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.613294160852002
+      },
+      {
+        "market_code": "DE",
+        "total_corpus_tracks": 12090,
+        "classified_tracks": 11245,
+        "pending_tracks": 845,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.989247311827957
+      },
+      {
+        "market_code": "AD",
+        "total_corpus_tracks": 5424,
+        "classified_tracks": 4594,
+        "pending_tracks": 830,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 15.3023598820059
+      },
+      {
+        "market_code": "AU",
+        "total_corpus_tracks": 8200,
+        "classified_tracks": 7376,
+        "pending_tracks": 824,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.048780487804878
+      },
+      {
+        "market_code": "AT",
+        "total_corpus_tracks": 11039,
+        "classified_tracks": 10237,
+        "pending_tracks": 802,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.2651508288794275
+      },
+      {
+        "market_code": "IT",
+        "total_corpus_tracks": 9592,
+        "classified_tracks": 8799,
+        "pending_tracks": 793,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.267306088407006
+      },
+      {
+        "market_code": "CH",
+        "total_corpus_tracks": 13255,
+        "classified_tracks": 12469,
+        "pending_tracks": 786,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.929837797057714
+      },
+      {
+        "market_code": "NO",
+        "total_corpus_tracks": 10337,
+        "classified_tracks": 9552,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.594079520170262
+      },
+      {
+        "market_code": "BE",
+        "total_corpus_tracks": 10410,
+        "classified_tracks": 9625,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.540826128722382
+      },
+      {
+        "market_code": "ES",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7502,
+        "pending_tracks": 767,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.275607691377434
+      },
+      {
+        "market_code": "SE",
+        "total_corpus_tracks": 11060,
+        "classified_tracks": 10301,
+        "pending_tracks": 759,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.862567811934901
+      },
+      {
+        "market_code": "BR",
+        "total_corpus_tracks": 7331,
+        "classified_tracks": 6593,
+        "pending_tracks": 738,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.066839448915564
+      },
+      {
+        "market_code": "DK",
+        "total_corpus_tracks": 9444,
+        "classified_tracks": 8724,
+        "pending_tracks": 720,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.6238881829733165
+      },
+      {
+        "market_code": "CZ",
+        "total_corpus_tracks": 8816,
+        "classified_tracks": 8109,
+        "pending_tracks": 707,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.01950998185118
+      },
+      {
+        "market_code": "TW",
+        "total_corpus_tracks": 9085,
+        "classified_tracks": 8379,
+        "pending_tracks": 706,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.771051183269125
+      },
+      {
+        "market_code": "TR",
+        "total_corpus_tracks": 6539,
+        "classified_tracks": 5878,
+        "pending_tracks": 661,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.10857929346995
+      },
+      {
+        "market_code": "AR",
+        "total_corpus_tracks": 6677,
+        "classified_tracks": 6039,
+        "pending_tracks": 638,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.555189456342669
+      },
+      {
+        "market_code": "PT",
+        "total_corpus_tracks": 8249,
+        "classified_tracks": 7622,
+        "pending_tracks": 627,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.600921323796824
+      },
+      {
+        "market_code": "ID",
+        "total_corpus_tracks": 6123,
+        "classified_tracks": 5502,
+        "pending_tracks": 621,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.142087212150907
+      },
+      {
+        "market_code": "PH",
+        "total_corpus_tracks": 6382,
+        "classified_tracks": 5772,
+        "pending_tracks": 610,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.558132246944531
+      },
+      {
+        "market_code": "HU",
+        "total_corpus_tracks": 8132,
+        "classified_tracks": 7538,
+        "pending_tracks": 594,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.304476143630104
+      },
+      {
+        "market_code": "MX",
+        "total_corpus_tracks": 5781,
+        "classified_tracks": 5213,
+        "pending_tracks": 568,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.825289742259125
+      },
+      {
+        "market_code": "CO",
+        "total_corpus_tracks": 6566,
+        "classified_tracks": 6001,
+        "pending_tracks": 565,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.60493451111788
+      },
+      {
+        "market_code": "SG",
+        "total_corpus_tracks": 6973,
+        "classified_tracks": 6433,
+        "pending_tracks": 540,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.744156030402983
+      },
+      {
+        "market_code": "CL",
+        "total_corpus_tracks": 6433,
+        "classified_tracks": 5920,
+        "pending_tracks": 513,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9745064511114565
+      },
+      {
+        "market_code": "SK",
+        "total_corpus_tracks": 7302,
+        "classified_tracks": 6835,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.395508079978089
+      },
+      {
+        "market_code": "MY",
+        "total_corpus_tracks": 6741,
+        "classified_tracks": 6274,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.927755525886367
+      },
+      {
+        "market_code": "UY",
+        "total_corpus_tracks": 5821,
+        "classified_tracks": 5371,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 7.730630475863253
+      },
+      {
+        "market_code": "HK",
+        "total_corpus_tracks": 7068,
+        "classified_tracks": 6618,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.366723259762309
+      },
+      {
+        "market_code": "IS",
+        "total_corpus_tracks": 6307,
+        "classified_tracks": 5863,
+        "pending_tracks": 444,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.03979705089583
+      },
+      {
+        "market_code": "LT",
+        "total_corpus_tracks": 6319,
+        "classified_tracks": 5889,
+        "pending_tracks": 430,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.804874188953948
+      },
+      {
+        "market_code": "LV",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6029,
+        "pending_tracks": 405,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.294684488654026
+      },
+      {
+        "market_code": "EE",
+        "total_corpus_tracks": 5901,
+        "classified_tracks": 5499,
+        "pending_tracks": 402,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.812404677173361
+      },
+      {
+        "market_code": "PE",
+        "total_corpus_tracks": 5280,
+        "classified_tracks": 4887,
+        "pending_tracks": 393,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.443181818181818
+      },
+      {
+        "market_code": "GR",
+        "total_corpus_tracks": 6915,
+        "classified_tracks": 6548,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.307302964569776
+      },
+      {
+        "market_code": "GT",
+        "total_corpus_tracks": 5373,
+        "classified_tracks": 5006,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.830448538991252
+      },
+      {
+        "market_code": "ZA",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6075,
+        "pending_tracks": 359,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.5797326701896175
+      },
+      {
+        "market_code": "CR",
+        "total_corpus_tracks": 5819,
+        "classified_tracks": 5469,
+        "pending_tracks": 350,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.014779171678983
+      },
+      {
+        "market_code": "EC",
+        "total_corpus_tracks": 5154,
+        "classified_tracks": 4818,
+        "pending_tracks": 336,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.5192083818393485
+      },
+      {
+        "market_code": "IN",
+        "total_corpus_tracks": 3493,
+        "classified_tracks": 3166,
+        "pending_tracks": 327,
+        "first_year": 2019,
+        "last_year": 2022,
+        "pending_pct": 9.361580303464072
+      },
+      {
+        "market_code": "RO",
+        "total_corpus_tracks": 5987,
+        "classified_tracks": 5669,
+        "pending_tracks": 318,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.311508267913814
+      },
+      {
+        "market_code": "BG",
+        "total_corpus_tracks": 5177,
+        "classified_tracks": 4879,
+        "pending_tracks": 298,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.75622947653081
+      },
+      {
+        "market_code": "LU",
+        "total_corpus_tracks": 5237,
+        "classified_tracks": 4944,
+        "pending_tracks": 293,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.594806186748138
+      },
+      {
+        "market_code": "IL",
+        "total_corpus_tracks": 4645,
+        "classified_tracks": 4361,
+        "pending_tracks": 284,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.1141011840688915
+      },
+      {
+        "market_code": "VN",
+        "total_corpus_tracks": 4297,
+        "classified_tracks": 4018,
+        "pending_tracks": 279,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.492902024668373
+      },
+      {
+        "market_code": "DO",
+        "total_corpus_tracks": 5800,
+        "classified_tracks": 5521,
+        "pending_tracks": 279,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.810344827586207
+      },
+      {
+        "market_code": "TH",
+        "total_corpus_tracks": 5008,
+        "classified_tracks": 4734,
+        "pending_tracks": 274,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.4712460063897765
+      },
+      {
+        "market_code": "PA",
+        "total_corpus_tracks": 5216,
+        "classified_tracks": 4965,
+        "pending_tracks": 251,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.8121165644171775
+      },
+      {
+        "market_code": "PY",
+        "total_corpus_tracks": 4917,
+        "classified_tracks": 4674,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.942037827943868
+      },
+      {
+        "market_code": "BO",
+        "total_corpus_tracks": 4569,
+        "classified_tracks": 4326,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.318450426789232
+      },
+      {
+        "market_code": "RU",
+        "total_corpus_tracks": 3364,
+        "classified_tracks": 3132,
+        "pending_tracks": 232,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 6.896551724137931
+      },
+      {
+        "market_code": "SV",
+        "total_corpus_tracks": 4483,
+        "classified_tracks": 4276,
+        "pending_tracks": 207,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.617443676109748
+      },
+      {
+        "market_code": "HN",
+        "total_corpus_tracks": 4505,
+        "classified_tracks": 4311,
+        "pending_tracks": 194,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.306326304106548
+      },
+      {
+        "market_code": "MA",
+        "total_corpus_tracks": 3521,
+        "classified_tracks": 3331,
+        "pending_tracks": 190,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.396194262993467
+      },
+      {
+        "market_code": "UA",
+        "total_corpus_tracks": 2776,
+        "classified_tracks": 2618,
+        "pending_tracks": 158,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 5.69164265129683
+      },
+      {
+        "market_code": "NI",
+        "total_corpus_tracks": 3388,
+        "classified_tracks": 3247,
+        "pending_tracks": 141,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.1617473435655254
+      },
+      {
+        "market_code": "SA",
+        "total_corpus_tracks": 2976,
+        "classified_tracks": 2839,
+        "pending_tracks": 137,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 4.603494623655914
+      },
+      {
+        "market_code": "EG",
+        "total_corpus_tracks": 2386,
+        "classified_tracks": 2253,
+        "pending_tracks": 133,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.574182732606873
+      },
+      {
+        "market_code": "AE",
+        "total_corpus_tracks": 3183,
+        "classified_tracks": 3072,
+        "pending_tracks": 111,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 3.4872761545711595
+      },
+      {
+        "market_code": "KR",
+        "total_corpus_tracks": 2001,
+        "classified_tracks": 1930,
+        "pending_tracks": 71,
+        "first_year": 2021,
+        "last_year": 2022,
+        "pending_pct": 3.548225887056472
+      }
+    ],
+    "years": [
+      {
+        "year": 2017,
+        "total_corpus_tracks": 42739,
+        "classified_tracks": 35076,
+        "pending_tracks": 7663
+      },
+      {
+        "year": 2018,
+        "total_corpus_tracks": 36370,
+        "classified_tracks": 31721,
+        "pending_tracks": 4649
+      },
+      {
+        "year": 2019,
+        "total_corpus_tracks": 33364,
+        "classified_tracks": 30143,
+        "pending_tracks": 3221
+      },
+      {
+        "year": 2020,
+        "total_corpus_tracks": 36018,
+        "classified_tracks": 33014,
+        "pending_tracks": 3004
+      },
+      {
+        "year": 2021,
+        "total_corpus_tracks": 36330,
+        "classified_tracks": 33984,
+        "pending_tracks": 2346
+      },
+      {
+        "year": 2022,
+        "total_corpus_tracks": 10437,
+        "classified_tracks": 10317,
+        "pending_tracks": 120
+      }
+    ],
+    "brazil_years": [
+      {
+        "market_code": "BR",
+        "year": 2017,
+        "total_corpus_tracks": 2284,
+        "classified_tracks": 1994,
+        "pending_tracks": 290
+      },
+      {
+        "market_code": "BR",
+        "year": 2018,
+        "total_corpus_tracks": 1762,
+        "classified_tracks": 1598,
+        "pending_tracks": 164
+      },
+      {
+        "market_code": "BR",
+        "year": 2019,
+        "total_corpus_tracks": 1250,
+        "classified_tracks": 1150,
+        "pending_tracks": 100
+      },
+      {
+        "market_code": "BR",
+        "year": 2020,
+        "total_corpus_tracks": 1444,
+        "classified_tracks": 1328,
+        "pending_tracks": 116
+      },
+      {
+        "market_code": "BR",
+        "year": 2021,
+        "total_corpus_tracks": 1442,
+        "classified_tracks": 1348,
+        "pending_tracks": 94
+      },
+      {
+        "market_code": "BR",
+        "year": 2022,
+        "total_corpus_tracks": 372,
+        "classified_tracks": 368,
+        "pending_tracks": 4
+      }
+    ]
+  },
+  "current": {
+    "total_tracks": 159080,
+    "classified_tracks": 139409,
+    "pending_tracks": 19671,
+    "mapped_unique_tracks": 159058,
+    "unmapped_classified_tracks": 16,
+    "unmapped_pending_tracks": 6,
+    "mapped_pending_unique_tracks": 19665,
+    "countries": [
+      {
+        "market_code": "CH",
+        "total_corpus_tracks": 13255,
+        "classified_tracks": 12469,
+        "pending_tracks": 786,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.929837797057714
+      },
+      {
+        "market_code": "DE",
+        "total_corpus_tracks": 12090,
+        "classified_tracks": 11245,
+        "pending_tracks": 845,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.989247311827957
+      },
+      {
+        "market_code": "FR",
+        "total_corpus_tracks": 11881,
+        "classified_tracks": 10848,
+        "pending_tracks": 1033,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.694554330443566
+      },
+      {
+        "market_code": "US",
+        "total_corpus_tracks": 11555,
+        "classified_tracks": 10601,
+        "pending_tracks": 954,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.256166161834704
+      },
+      {
+        "market_code": "SE",
+        "total_corpus_tracks": 11060,
+        "classified_tracks": 10301,
+        "pending_tracks": 759,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.862567811934901
+      },
+      {
+        "market_code": "FI",
+        "total_corpus_tracks": 11151,
+        "classified_tracks": 10265,
+        "pending_tracks": 886,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.945475742085912
+      },
+      {
+        "market_code": "AT",
+        "total_corpus_tracks": 11039,
+        "classified_tracks": 10237,
+        "pending_tracks": 802,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.2651508288794275
+      },
+      {
+        "market_code": "NL",
+        "total_corpus_tracks": 10986,
+        "classified_tracks": 10115,
+        "pending_tracks": 871,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9282723466229745
+      },
+      {
+        "market_code": "GB",
+        "total_corpus_tracks": 11045,
+        "classified_tracks": 10049,
+        "pending_tracks": 996,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.01765504753282
+      },
+      {
+        "market_code": "BE",
+        "total_corpus_tracks": 10410,
+        "classified_tracks": 9625,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.540826128722382
+      },
+      {
+        "market_code": "CA",
+        "total_corpus_tracks": 10512,
+        "classified_tracks": 9609,
+        "pending_tracks": 903,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.590182648401827
+      },
+      {
+        "market_code": "NO",
+        "total_corpus_tracks": 10337,
+        "classified_tracks": 9552,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.594079520170262
+      },
+      {
+        "market_code": "IE",
+        "total_corpus_tracks": 9873,
+        "classified_tracks": 8932,
+        "pending_tracks": 941,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.531044262129038
+      },
+      {
+        "market_code": "GLOBAL",
+        "total_corpus_tracks": 9388,
+        "classified_tracks": 8931,
+        "pending_tracks": 457,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.867916489135066
+      },
+      {
+        "market_code": "IT",
+        "total_corpus_tracks": 9592,
+        "classified_tracks": 8799,
+        "pending_tracks": 793,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.267306088407006
+      },
+      {
+        "market_code": "DK",
+        "total_corpus_tracks": 9444,
+        "classified_tracks": 8724,
+        "pending_tracks": 720,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.6238881829733165
+      },
+      {
+        "market_code": "TW",
+        "total_corpus_tracks": 9085,
+        "classified_tracks": 8379,
+        "pending_tracks": 706,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.771051183269125
+      },
+      {
+        "market_code": "PL",
+        "total_corpus_tracks": 9190,
+        "classified_tracks": 8272,
+        "pending_tracks": 918,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.98911860718172
+      },
+      {
+        "market_code": "CZ",
+        "total_corpus_tracks": 8816,
+        "classified_tracks": 8109,
+        "pending_tracks": 707,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.01950998185118
+      },
+      {
+        "market_code": "PT",
+        "total_corpus_tracks": 8249,
+        "classified_tracks": 7622,
+        "pending_tracks": 627,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.600921323796824
+      },
+      {
+        "market_code": "HU",
+        "total_corpus_tracks": 8132,
+        "classified_tracks": 7538,
+        "pending_tracks": 594,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.304476143630104
+      },
+      {
+        "market_code": "ES",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7502,
+        "pending_tracks": 767,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.275607691377434
+      },
+      {
+        "market_code": "AU",
+        "total_corpus_tracks": 8200,
+        "classified_tracks": 7376,
+        "pending_tracks": 824,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.048780487804878
+      },
+      {
+        "market_code": "NZ",
+        "total_corpus_tracks": 8169,
+        "classified_tracks": 7302,
+        "pending_tracks": 867,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.613294160852002
+      },
+      {
+        "market_code": "JP",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7209,
+        "pending_tracks": 1060,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 12.818962389648084
+      },
+      {
+        "market_code": "SK",
+        "total_corpus_tracks": 7302,
+        "classified_tracks": 6835,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.395508079978089
+      },
+      {
+        "market_code": "HK",
+        "total_corpus_tracks": 7068,
+        "classified_tracks": 6618,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.366723259762309
+      },
+      {
+        "market_code": "BR",
+        "total_corpus_tracks": 7331,
+        "classified_tracks": 6593,
+        "pending_tracks": 738,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.066839448915564
+      },
+      {
+        "market_code": "GR",
+        "total_corpus_tracks": 6915,
+        "classified_tracks": 6548,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.307302964569776
+      },
+      {
+        "market_code": "SG",
+        "total_corpus_tracks": 6973,
+        "classified_tracks": 6433,
+        "pending_tracks": 540,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.744156030402983
+      },
+      {
+        "market_code": "MY",
+        "total_corpus_tracks": 6741,
+        "classified_tracks": 6274,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.927755525886367
+      },
+      {
+        "market_code": "ZA",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6075,
+        "pending_tracks": 359,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.5797326701896175
+      },
+      {
+        "market_code": "AR",
+        "total_corpus_tracks": 6677,
+        "classified_tracks": 6039,
+        "pending_tracks": 638,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.555189456342669
+      },
+      {
+        "market_code": "LV",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6029,
+        "pending_tracks": 405,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.294684488654026
+      },
+      {
+        "market_code": "CO",
+        "total_corpus_tracks": 6566,
+        "classified_tracks": 6001,
+        "pending_tracks": 565,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.60493451111788
+      },
+      {
+        "market_code": "CL",
+        "total_corpus_tracks": 6433,
+        "classified_tracks": 5920,
+        "pending_tracks": 513,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9745064511114565
+      },
+      {
+        "market_code": "LT",
+        "total_corpus_tracks": 6319,
+        "classified_tracks": 5889,
+        "pending_tracks": 430,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.804874188953948
+      },
+      {
+        "market_code": "TR",
+        "total_corpus_tracks": 6539,
+        "classified_tracks": 5878,
+        "pending_tracks": 661,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.10857929346995
+      },
+      {
+        "market_code": "IS",
+        "total_corpus_tracks": 6307,
+        "classified_tracks": 5863,
+        "pending_tracks": 444,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.03979705089583
+      },
+      {
+        "market_code": "PH",
+        "total_corpus_tracks": 6382,
+        "classified_tracks": 5772,
+        "pending_tracks": 610,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.558132246944531
+      },
+      {
+        "market_code": "RO",
+        "total_corpus_tracks": 5987,
+        "classified_tracks": 5669,
+        "pending_tracks": 318,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.311508267913814
+      },
+      {
+        "market_code": "DO",
+        "total_corpus_tracks": 5800,
+        "classified_tracks": 5521,
+        "pending_tracks": 279,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.810344827586207
+      },
+      {
+        "market_code": "ID",
+        "total_corpus_tracks": 6123,
+        "classified_tracks": 5502,
+        "pending_tracks": 621,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.142087212150907
+      },
+      {
+        "market_code": "EE",
+        "total_corpus_tracks": 5901,
+        "classified_tracks": 5499,
+        "pending_tracks": 402,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.812404677173361
+      },
+      {
+        "market_code": "CR",
+        "total_corpus_tracks": 5819,
+        "classified_tracks": 5469,
+        "pending_tracks": 350,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.014779171678983
+      },
+      {
+        "market_code": "UY",
+        "total_corpus_tracks": 5821,
+        "classified_tracks": 5371,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 7.730630475863253
+      },
+      {
+        "market_code": "MX",
+        "total_corpus_tracks": 5781,
+        "classified_tracks": 5213,
+        "pending_tracks": 568,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.825289742259125
+      },
+      {
+        "market_code": "GT",
+        "total_corpus_tracks": 5373,
+        "classified_tracks": 5006,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.830448538991252
+      },
+      {
+        "market_code": "PA",
+        "total_corpus_tracks": 5216,
+        "classified_tracks": 4965,
+        "pending_tracks": 251,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.8121165644171775
+      },
+      {
+        "market_code": "LU",
+        "total_corpus_tracks": 5237,
+        "classified_tracks": 4944,
+        "pending_tracks": 293,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.594806186748138
+      },
+      {
+        "market_code": "PE",
+        "total_corpus_tracks": 5280,
+        "classified_tracks": 4887,
+        "pending_tracks": 393,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.443181818181818
+      },
+      {
+        "market_code": "BG",
+        "total_corpus_tracks": 5177,
+        "classified_tracks": 4879,
+        "pending_tracks": 298,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.75622947653081
+      },
+      {
+        "market_code": "EC",
+        "total_corpus_tracks": 5154,
+        "classified_tracks": 4818,
+        "pending_tracks": 336,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.5192083818393485
+      },
+      {
+        "market_code": "TH",
+        "total_corpus_tracks": 5008,
+        "classified_tracks": 4734,
+        "pending_tracks": 274,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.4712460063897765
+      },
+      {
+        "market_code": "PY",
+        "total_corpus_tracks": 4917,
+        "classified_tracks": 4674,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.942037827943868
+      },
+      {
+        "market_code": "AD",
+        "total_corpus_tracks": 5424,
+        "classified_tracks": 4594,
+        "pending_tracks": 830,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 15.3023598820059
+      },
+      {
+        "market_code": "IL",
+        "total_corpus_tracks": 4645,
+        "classified_tracks": 4361,
+        "pending_tracks": 284,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.1141011840688915
+      },
+      {
+        "market_code": "BO",
+        "total_corpus_tracks": 4569,
+        "classified_tracks": 4326,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.318450426789232
+      },
+      {
+        "market_code": "HN",
+        "total_corpus_tracks": 4505,
+        "classified_tracks": 4311,
+        "pending_tracks": 194,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.306326304106548
+      },
+      {
+        "market_code": "SV",
+        "total_corpus_tracks": 4483,
+        "classified_tracks": 4276,
+        "pending_tracks": 207,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.617443676109748
+      },
+      {
+        "market_code": "VN",
+        "total_corpus_tracks": 4297,
+        "classified_tracks": 4018,
+        "pending_tracks": 279,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.492902024668373
+      },
+      {
+        "market_code": "MA",
+        "total_corpus_tracks": 3521,
+        "classified_tracks": 3331,
+        "pending_tracks": 190,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.396194262993467
+      },
+      {
+        "market_code": "NI",
+        "total_corpus_tracks": 3388,
+        "classified_tracks": 3247,
+        "pending_tracks": 141,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.1617473435655254
+      },
+      {
+        "market_code": "IN",
+        "total_corpus_tracks": 3493,
+        "classified_tracks": 3166,
+        "pending_tracks": 327,
+        "first_year": 2019,
+        "last_year": 2022,
+        "pending_pct": 9.361580303464072
+      },
+      {
+        "market_code": "RU",
+        "total_corpus_tracks": 3364,
+        "classified_tracks": 3132,
+        "pending_tracks": 232,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 6.896551724137931
+      },
+      {
+        "market_code": "AE",
+        "total_corpus_tracks": 3183,
+        "classified_tracks": 3072,
+        "pending_tracks": 111,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 3.4872761545711595
+      },
+      {
+        "market_code": "SA",
+        "total_corpus_tracks": 2976,
+        "classified_tracks": 2839,
+        "pending_tracks": 137,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 4.603494623655914
+      },
+      {
+        "market_code": "UA",
+        "total_corpus_tracks": 2776,
+        "classified_tracks": 2618,
+        "pending_tracks": 158,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 5.69164265129683
+      },
+      {
+        "market_code": "EG",
+        "total_corpus_tracks": 2386,
+        "classified_tracks": 2253,
+        "pending_tracks": 133,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.574182732606873
+      },
+      {
+        "market_code": "KR",
+        "total_corpus_tracks": 2001,
+        "classified_tracks": 1930,
+        "pending_tracks": 71,
+        "first_year": 2021,
+        "last_year": 2022,
+        "pending_pct": 3.548225887056472
+      }
+    ],
+    "pending_country_order": [
+      {
+        "market_code": "JP",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7209,
+        "pending_tracks": 1060,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 12.818962389648084
+      },
+      {
+        "market_code": "FR",
+        "total_corpus_tracks": 11881,
+        "classified_tracks": 10848,
+        "pending_tracks": 1033,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.694554330443566
+      },
+      {
+        "market_code": "GB",
+        "total_corpus_tracks": 11045,
+        "classified_tracks": 10049,
+        "pending_tracks": 996,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.01765504753282
+      },
+      {
+        "market_code": "US",
+        "total_corpus_tracks": 11555,
+        "classified_tracks": 10601,
+        "pending_tracks": 954,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.256166161834704
+      },
+      {
+        "market_code": "IE",
+        "total_corpus_tracks": 9873,
+        "classified_tracks": 8932,
+        "pending_tracks": 941,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.531044262129038
+      },
+      {
+        "market_code": "PL",
+        "total_corpus_tracks": 9190,
+        "classified_tracks": 8272,
+        "pending_tracks": 918,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.98911860718172
+      },
+      {
+        "market_code": "CA",
+        "total_corpus_tracks": 10512,
+        "classified_tracks": 9609,
+        "pending_tracks": 903,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.590182648401827
+      },
+      {
+        "market_code": "FI",
+        "total_corpus_tracks": 11151,
+        "classified_tracks": 10265,
+        "pending_tracks": 886,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.945475742085912
+      },
+      {
+        "market_code": "NL",
+        "total_corpus_tracks": 10986,
+        "classified_tracks": 10115,
+        "pending_tracks": 871,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9282723466229745
+      },
+      {
+        "market_code": "NZ",
+        "total_corpus_tracks": 8169,
+        "classified_tracks": 7302,
+        "pending_tracks": 867,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.613294160852002
+      },
+      {
+        "market_code": "DE",
+        "total_corpus_tracks": 12090,
+        "classified_tracks": 11245,
+        "pending_tracks": 845,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.989247311827957
+      },
+      {
+        "market_code": "AD",
+        "total_corpus_tracks": 5424,
+        "classified_tracks": 4594,
+        "pending_tracks": 830,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 15.3023598820059
+      },
+      {
+        "market_code": "AU",
+        "total_corpus_tracks": 8200,
+        "classified_tracks": 7376,
+        "pending_tracks": 824,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.048780487804878
+      },
+      {
+        "market_code": "AT",
+        "total_corpus_tracks": 11039,
+        "classified_tracks": 10237,
+        "pending_tracks": 802,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.2651508288794275
+      },
+      {
+        "market_code": "IT",
+        "total_corpus_tracks": 9592,
+        "classified_tracks": 8799,
+        "pending_tracks": 793,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.267306088407006
+      },
+      {
+        "market_code": "CH",
+        "total_corpus_tracks": 13255,
+        "classified_tracks": 12469,
+        "pending_tracks": 786,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.929837797057714
+      },
+      {
+        "market_code": "NO",
+        "total_corpus_tracks": 10337,
+        "classified_tracks": 9552,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.594079520170262
+      },
+      {
+        "market_code": "BE",
+        "total_corpus_tracks": 10410,
+        "classified_tracks": 9625,
+        "pending_tracks": 785,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.540826128722382
+      },
+      {
+        "market_code": "ES",
+        "total_corpus_tracks": 8269,
+        "classified_tracks": 7502,
+        "pending_tracks": 767,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.275607691377434
+      },
+      {
+        "market_code": "SE",
+        "total_corpus_tracks": 11060,
+        "classified_tracks": 10301,
+        "pending_tracks": 759,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.862567811934901
+      },
+      {
+        "market_code": "BR",
+        "total_corpus_tracks": 7331,
+        "classified_tracks": 6593,
+        "pending_tracks": 738,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.066839448915564
+      },
+      {
+        "market_code": "DK",
+        "total_corpus_tracks": 9444,
+        "classified_tracks": 8724,
+        "pending_tracks": 720,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.6238881829733165
+      },
+      {
+        "market_code": "CZ",
+        "total_corpus_tracks": 8816,
+        "classified_tracks": 8109,
+        "pending_tracks": 707,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.01950998185118
+      },
+      {
+        "market_code": "TW",
+        "total_corpus_tracks": 9085,
+        "classified_tracks": 8379,
+        "pending_tracks": 706,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.771051183269125
+      },
+      {
+        "market_code": "TR",
+        "total_corpus_tracks": 6539,
+        "classified_tracks": 5878,
+        "pending_tracks": 661,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.10857929346995
+      },
+      {
+        "market_code": "AR",
+        "total_corpus_tracks": 6677,
+        "classified_tracks": 6039,
+        "pending_tracks": 638,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.555189456342669
+      },
+      {
+        "market_code": "PT",
+        "total_corpus_tracks": 8249,
+        "classified_tracks": 7622,
+        "pending_tracks": 627,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.600921323796824
+      },
+      {
+        "market_code": "ID",
+        "total_corpus_tracks": 6123,
+        "classified_tracks": 5502,
+        "pending_tracks": 621,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 10.142087212150907
+      },
+      {
+        "market_code": "PH",
+        "total_corpus_tracks": 6382,
+        "classified_tracks": 5772,
+        "pending_tracks": 610,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.558132246944531
+      },
+      {
+        "market_code": "HU",
+        "total_corpus_tracks": 8132,
+        "classified_tracks": 7538,
+        "pending_tracks": 594,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.304476143630104
+      },
+      {
+        "market_code": "MX",
+        "total_corpus_tracks": 5781,
+        "classified_tracks": 5213,
+        "pending_tracks": 568,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 9.825289742259125
+      },
+      {
+        "market_code": "CO",
+        "total_corpus_tracks": 6566,
+        "classified_tracks": 6001,
+        "pending_tracks": 565,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 8.60493451111788
+      },
+      {
+        "market_code": "SG",
+        "total_corpus_tracks": 6973,
+        "classified_tracks": 6433,
+        "pending_tracks": 540,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.744156030402983
+      },
+      {
+        "market_code": "CL",
+        "total_corpus_tracks": 6433,
+        "classified_tracks": 5920,
+        "pending_tracks": 513,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.9745064511114565
+      },
+      {
+        "market_code": "MY",
+        "total_corpus_tracks": 6741,
+        "classified_tracks": 6274,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.927755525886367
+      },
+      {
+        "market_code": "SK",
+        "total_corpus_tracks": 7302,
+        "classified_tracks": 6835,
+        "pending_tracks": 467,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.395508079978089
+      },
+      {
+        "market_code": "UY",
+        "total_corpus_tracks": 5821,
+        "classified_tracks": 5371,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2021,
+        "pending_pct": 7.730630475863253
+      },
+      {
+        "market_code": "HK",
+        "total_corpus_tracks": 7068,
+        "classified_tracks": 6618,
+        "pending_tracks": 450,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.366723259762309
+      },
+      {
+        "market_code": "IS",
+        "total_corpus_tracks": 6307,
+        "classified_tracks": 5863,
+        "pending_tracks": 444,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.03979705089583
+      },
+      {
+        "market_code": "LT",
+        "total_corpus_tracks": 6319,
+        "classified_tracks": 5889,
+        "pending_tracks": 430,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.804874188953948
+      },
+      {
+        "market_code": "LV",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6029,
+        "pending_tracks": 405,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.294684488654026
+      },
+      {
+        "market_code": "EE",
+        "total_corpus_tracks": 5901,
+        "classified_tracks": 5499,
+        "pending_tracks": 402,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.812404677173361
+      },
+      {
+        "market_code": "PE",
+        "total_corpus_tracks": 5280,
+        "classified_tracks": 4887,
+        "pending_tracks": 393,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 7.443181818181818
+      },
+      {
+        "market_code": "GT",
+        "total_corpus_tracks": 5373,
+        "classified_tracks": 5006,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.830448538991252
+      },
+      {
+        "market_code": "GR",
+        "total_corpus_tracks": 6915,
+        "classified_tracks": 6548,
+        "pending_tracks": 367,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.307302964569776
+      },
+      {
+        "market_code": "ZA",
+        "total_corpus_tracks": 6434,
+        "classified_tracks": 6075,
+        "pending_tracks": 359,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.5797326701896175
+      },
+      {
+        "market_code": "CR",
+        "total_corpus_tracks": 5819,
+        "classified_tracks": 5469,
+        "pending_tracks": 350,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.014779171678983
+      },
+      {
+        "market_code": "EC",
+        "total_corpus_tracks": 5154,
+        "classified_tracks": 4818,
+        "pending_tracks": 336,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 6.5192083818393485
+      },
+      {
+        "market_code": "IN",
+        "total_corpus_tracks": 3493,
+        "classified_tracks": 3166,
+        "pending_tracks": 327,
+        "first_year": 2019,
+        "last_year": 2022,
+        "pending_pct": 9.361580303464072
+      },
+      {
+        "market_code": "RO",
+        "total_corpus_tracks": 5987,
+        "classified_tracks": 5669,
+        "pending_tracks": 318,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.311508267913814
+      },
+      {
+        "market_code": "BG",
+        "total_corpus_tracks": 5177,
+        "classified_tracks": 4879,
+        "pending_tracks": 298,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.75622947653081
+      },
+      {
+        "market_code": "LU",
+        "total_corpus_tracks": 5237,
+        "classified_tracks": 4944,
+        "pending_tracks": 293,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.594806186748138
+      },
+      {
+        "market_code": "IL",
+        "total_corpus_tracks": 4645,
+        "classified_tracks": 4361,
+        "pending_tracks": 284,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.1141011840688915
+      },
+      {
+        "market_code": "DO",
+        "total_corpus_tracks": 5800,
+        "classified_tracks": 5521,
+        "pending_tracks": 279,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.810344827586207
+      },
+      {
+        "market_code": "VN",
+        "total_corpus_tracks": 4297,
+        "classified_tracks": 4018,
+        "pending_tracks": 279,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 6.492902024668373
+      },
+      {
+        "market_code": "TH",
+        "total_corpus_tracks": 5008,
+        "classified_tracks": 4734,
+        "pending_tracks": 274,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.4712460063897765
+      },
+      {
+        "market_code": "PA",
+        "total_corpus_tracks": 5216,
+        "classified_tracks": 4965,
+        "pending_tracks": 251,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.8121165644171775
+      },
+      {
+        "market_code": "BO",
+        "total_corpus_tracks": 4569,
+        "classified_tracks": 4326,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 5.318450426789232
+      },
+      {
+        "market_code": "PY",
+        "total_corpus_tracks": 4917,
+        "classified_tracks": 4674,
+        "pending_tracks": 243,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.942037827943868
+      },
+      {
+        "market_code": "RU",
+        "total_corpus_tracks": 3364,
+        "classified_tracks": 3132,
+        "pending_tracks": 232,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 6.896551724137931
+      },
+      {
+        "market_code": "SV",
+        "total_corpus_tracks": 4483,
+        "classified_tracks": 4276,
+        "pending_tracks": 207,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.617443676109748
+      },
+      {
+        "market_code": "HN",
+        "total_corpus_tracks": 4505,
+        "classified_tracks": 4311,
+        "pending_tracks": 194,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.306326304106548
+      },
+      {
+        "market_code": "MA",
+        "total_corpus_tracks": 3521,
+        "classified_tracks": 3331,
+        "pending_tracks": 190,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.396194262993467
+      },
+      {
+        "market_code": "UA",
+        "total_corpus_tracks": 2776,
+        "classified_tracks": 2618,
+        "pending_tracks": 158,
+        "first_year": 2020,
+        "last_year": 2022,
+        "pending_pct": 5.69164265129683
+      },
+      {
+        "market_code": "NI",
+        "total_corpus_tracks": 3388,
+        "classified_tracks": 3247,
+        "pending_tracks": 141,
+        "first_year": 2017,
+        "last_year": 2022,
+        "pending_pct": 4.1617473435655254
+      },
+      {
+        "market_code": "SA",
+        "total_corpus_tracks": 2976,
+        "classified_tracks": 2839,
+        "pending_tracks": 137,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 4.603494623655914
+      },
+      {
+        "market_code": "EG",
+        "total_corpus_tracks": 2386,
+        "classified_tracks": 2253,
+        "pending_tracks": 133,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 5.574182732606873
+      },
+      {
+        "market_code": "AE",
+        "total_corpus_tracks": 3183,
+        "classified_tracks": 3072,
+        "pending_tracks": 111,
+        "first_year": 2018,
+        "last_year": 2022,
+        "pending_pct": 3.4872761545711595
+      },
+      {
+        "market_code": "KR",
+        "total_corpus_tracks": 2001,
+        "classified_tracks": 1930,
+        "pending_tracks": 71,
+        "first_year": 2021,
+        "last_year": 2022,
+        "pending_pct": 3.548225887056472
+      }
+    ],
+    "years": [
+      {
+        "year": 2017,
+        "total_corpus_tracks": 42739,
+        "classified_tracks": 35076,
+        "pending_tracks": 7663
+      },
+      {
+        "year": 2018,
+        "total_corpus_tracks": 36370,
+        "classified_tracks": 31721,
+        "pending_tracks": 4649
+      },
+      {
+        "year": 2019,
+        "total_corpus_tracks": 33364,
+        "classified_tracks": 30143,
+        "pending_tracks": 3221
+      },
+      {
+        "year": 2020,
+        "total_corpus_tracks": 36018,
+        "classified_tracks": 33014,
+        "pending_tracks": 3004
+      },
+      {
+        "year": 2021,
+        "total_corpus_tracks": 36330,
+        "classified_tracks": 33984,
+        "pending_tracks": 2346
+      },
+      {
+        "year": 2022,
+        "total_corpus_tracks": 10437,
+        "classified_tracks": 10317,
+        "pending_tracks": 120
+      }
+    ],
+    "brazil_years": [
+      {
+        "market_code": "BR",
+        "year": 2017,
+        "total_corpus_tracks": 2284,
+        "classified_tracks": 1994,
+        "pending_tracks": 290
+      },
+      {
+        "market_code": "BR",
+        "year": 2018,
+        "total_corpus_tracks": 1762,
+        "classified_tracks": 1598,
+        "pending_tracks": 164
+      },
+      {
+        "market_code": "BR",
+        "year": 2019,
+        "total_corpus_tracks": 1250,
+        "classified_tracks": 1150,
+        "pending_tracks": 100
+      },
+      {
+        "market_code": "BR",
+        "year": 2020,
+        "total_corpus_tracks": 1444,
+        "classified_tracks": 1328,
+        "pending_tracks": 116
+      },
+      {
+        "market_code": "BR",
+        "year": 2021,
+        "total_corpus_tracks": 1442,
+        "classified_tracks": 1348,
+        "pending_tracks": 94
+      },
+      {
+        "market_code": "BR",
+        "year": 2022,
+        "total_corpus_tracks": 372,
+        "classified_tracks": 368,
+        "pending_tracks": 4
+      }
+    ]
+  },
+  "source_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "last_source_date": "2022-03-13",
+  "sources": "Spotify Top 200 and Viral 50, MGD and Kaggle",
+  "unit": "canonical corpus track UUID; deduplicated across recording IDs, years, chart families and providers per market",
+  "market_interpretation": "Circulation market, not artist origin; years are ranking observation years, not release years",
+  "overlap": "Tracks may belong to multiple countries and multiple years; rows must not be summed as globally unique music",
+  "lineage": "Exact original source ID/document lineage; no fuzzy association, no independently validated lyric identity",
+  "classification_inclusion": "Operational classified status, including exploratory records; not scientific eligibility or accuracy",
+  "unlinked_2026_sources": "YouTube and Pro-Musica had no exact usable song links in the prior full source inventory",
+  "online_model_calls": 0,
+  "database_mutations": 0
+}

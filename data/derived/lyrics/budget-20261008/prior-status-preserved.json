@@ -1,0 +1,697 @@
+{
+  "execution_id": "night-20261007",
+  "timestamp_utc": "2026-10-08T07:58:14.089227+00:00",
+  "status": "budget_exhausted",
+  "database_host": "127.0.0.1",
+  "database_port": 56433,
+  "model": "gemini-3.8-flash",
+  "thinking_level": "LOW",
+  "absolute_cap_usd": "650",
+  "operational_cap_usd": "645",
+  "historical_margin_usd": "0",
+  "committed_conservative_usd": "644.9976956250",
+  "known_batch_usd": "154.7867137500",
+  "baseline_run_ids": [
+    "9361b92b-64b6-4cb5-adb9-1a23dd78ec50",
+    "41934591-0444-4fce-bfde-238497f31e3a",
+    "6e7ca60b-4a2e-4fca-a1c5-0be99f3af44d"
+  ],
+  "retry_run_ids": [
+    "ba5cb6d8-a480-4869-91c5-c7e86fd5474c",
+    "840b0dd8-ef79-4f80-b246-22932e0bf158",
+    "028ab996-db99-48b7-9bd0-33af69bdc744",
+    "a602b1b0-90bf-4b95-93e8-f7854e48e985",
+    "18031803-d553-42c4-b7a1-82666d65a1e4",
+    "cf27c4ed-7349-434e-a194-4f25a8e3de2d",
+    "db58329b-b30e-40d2-8631-a3069491eeaa",
+    "c583a8fb-ccbb-449e-a18f-0f62bb1b3769",
+    "04439c29-9b4d-456e-8295-3c73a6d61a1d",
+    "bb8e3455-7e7d-4963-b0cc-08dc03d61fd2",
+    "9c7463b3-2df8-4f00-bff1-14779556a743",
+    "9ea80110-3872-4ab9-9f1d-fd6889cb460b",
+    "100ee08e-009a-4458-8810-ff9501116701",
+    "b6beca3f-2e10-4de5-8403-273e288e443d",
+    "df0bcc13-4da9-4150-b5f7-dab763b5c83d",
+    "bb40c102-0bf9-4bed-bc33-bf48ccfaca21",
+    "3eca7e0f-f92e-41d1-9815-b03413a01496",
+    "3cd87bf7-475c-40be-bec4-8a378694279b",
+    "c5a101f2-72fa-49ec-8039-0b17e8ba28db",
+    "23fd83e1-47fb-497a-bae9-f3fe9e0bc2d2",
+    "6a1f8f92-1039-4da8-a59e-145eb1841ed1",
+    "3e2e196c-a520-44ad-bb1d-828ed075351f",
+    "f517f181-ccbb-45bb-91cf-62d4a32d7b6c",
+    "516426e4-6f06-41b6-ba7d-2c6f766b55c1",
+    "0fa6e780-e8de-450e-8665-70261ff81deb",
+    "bcc93630-ba91-48c4-b470-9d3fe29ef72a",
+    "75e4117b-8664-40fe-adaa-575b49c59fd7",
+    "d59d2061-95ff-492f-a3cd-2dfedb0e6683",
+    "18f86553-bf89-42d5-9677-3a46425d23a0",
+    "75aad6a4-8c3c-41bc-a7e4-82c71d731f2a",
+    "17e92277-ea68-46f1-89b2-e93b36f3059c",
+    "9a77c542-1912-45ee-a852-26c3e4274f6f",
+    "366e677f-ae0a-4ae0-bdb1-aa6b311e0446",
+    "f025667e-8ea9-4188-b544-b5472c74625b",
+    "267cffb4-f60d-4364-add8-134082325ce8",
+    "83e1ecc2-b3d1-4f14-91d8-46be2aaa3415",
+    "3900f944-8e78-4af4-9c47-4de03a7930f0",
+    "12b741b5-3a1c-4beb-ae43-8f048cb066c2",
+    "6656a59e-032f-418e-a880-cb02a86195f5",
+    "ee2c799e-23c7-4c75-b370-4b951f761a84",
+    "7e601310-2eba-4bb1-b6d8-d46f50b7dacd",
+    "5b7e5031-aa0b-4159-b298-d927c6755667"
+  ],
+  "max_new_retry_generations": 1,
+  "latest_job_output_expired": true,
+  "credits_currency": "BRL",
+  "credits_used": "913",
+  "credits_total": "1761",
+  "credits_remaining": "848",
+  "account_switch": "human_only",
+  "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1674433750995304448",
+  "completed_count": 1,
+  "request_count": 1,
+  "progress_percent": "100",
+  "automation_id": "classifica-o-noturna-das-m-sicas",
+  "keep_awake_pid": 24476,
+  "quality_hold": false,
+  "quality_hold_reason": null,
+  "stop_reason": "resume_requested_but_conservative_ledger_has_no_operational_balance",
+  "conservative_remaining_usd": "0.0023043750",
+  "imported_classified_count": 13585,
+  "imported_errors": 46,
+  "retry_run_state": "imported",
+  "automation_status": "PAUSED",
+  "quality_audit": "data/derived/research_quality/20261008-final/audit.json",
+  "resume_authorization": "Explicit user requested resumption with existing cumulative USD650 ceiling",
+  "methodological_validation_pending": true,
+  "latest_run_id": "5b7e5031-aa0b-4159-b298-d927c6755667",
+  "night_submitted_count": 13746,
+  "night_imported_classified_count": 13585,
+  "night_imported_error_count": 46,
+  "run_summaries": {
+    "840b0dd8-ef79-4f80-b246-22932e0bf158": {
+      "state": "imported",
+      "classified": 200,
+      "errors": 0,
+      "known_cost_usd": "0.375804000"
+    },
+    "028ab996-db99-48b7-9bd0-33af69bdc744": {
+      "state": "imported",
+      "request_count": 200,
+      "conservative_cost_usd": "0.719346375",
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/9170323487032606720",
+      "completed_count": 200,
+      "classified": 198,
+      "errors": 0,
+      "known_cost_usd": "0.3807798750",
+      "status_counts": {
+        "classified": 198,
+        "insufficient_text": 2
+      }
+    },
+    "ba5cb6d8-a480-4869-91c5-c7e86fd5474c": {
+      "state": "imported",
+      "classified": 200,
+      "errors": 0,
+      "known_cost_usd": "0.379518375"
+    },
+    "a602b1b0-90bf-4b95-93e8-f7854e48e985": {
+      "state": "imported",
+      "request_count": 164,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6630856247149068288",
+      "completed_count": 164,
+      "classified": 163,
+      "errors": 0,
+      "known_cost_usd": "0.3057322500",
+      "status_counts": {
+        "classified": 163,
+        "insufficient_text": 1
+      }
+    },
+    "18031803-d553-42c4-b7a1-82666d65a1e4": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6873487677073653760",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0018990000",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "cf27c4ed-7349-434e-a194-4f25a8e3de2d": {
+      "state": "imported",
+      "request_count": 76,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1156167950126809088",
+      "completed_count": 76,
+      "classified": 74,
+      "errors": 1,
+      "known_cost_usd": "0.1441901250",
+      "status_counts": {
+        "classified": 74,
+        "error": 1,
+        "insufficient_text": 1
+      }
+    },
+    "db58329b-b30e-40d2-8631-a3069491eeaa": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/5004493831714897920",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017977500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "c583a8fb-ccbb-449e-a18f-0f62bb1b3769": {
+      "state": "imported",
+      "request_count": 37,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2319785503848660992",
+      "completed_count": 37,
+      "classified": 34,
+      "errors": 1,
+      "known_cost_usd": "0.0688470000",
+      "status_counts": {
+        "classified": 34,
+        "error": 1,
+        "insufficient_text": 2
+      }
+    },
+    "04439c29-9b4d-456e-8295-3c73a6d61a1d": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/9092847499692998656",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017992500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "bb8e3455-7e7d-4963-b0cc-08dc03d61fd2": {
+      "state": "imported",
+      "request_count": 18,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1749728307265404928",
+      "completed_count": 18,
+      "classified": 18,
+      "errors": 0,
+      "known_cost_usd": "0.0336153750",
+      "status_counts": {
+        "classified": 18
+      }
+    },
+    "9c7463b3-2df8-4f00-bff1-14779556a743": {
+      "state": "imported",
+      "request_count": 9,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1743324751545237504",
+      "completed_count": 9,
+      "classified": 9,
+      "errors": 0,
+      "known_cost_usd": "0.0170973750",
+      "status_counts": {
+        "classified": 9
+      }
+    },
+    "9ea80110-3872-4ab9-9f1d-fd6889cb460b": {
+      "state": "imported",
+      "request_count": 4,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2103260878013988864",
+      "completed_count": 4,
+      "classified": 4,
+      "errors": 0,
+      "known_cost_usd": "0.0081101250",
+      "status_counts": {
+        "classified": 4
+      }
+    },
+    "100ee08e-009a-4458-8810-ff9501116701": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6834292286566694912",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0035853750",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "b6beca3f-2e10-4de5-8403-273e288e443d": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8198882973659955200",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0018123750",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "df0bcc13-4da9-4150-b5f7-dab763b5c83d": {
+      "state": "imported",
+      "request_count": 12195,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1259961847788863488",
+      "completed_count": 12195,
+      "classified": 12054,
+      "errors": 43,
+      "known_cost_usd": "22.9925805000",
+      "status_counts": {
+        "blocked": 1,
+        "classified": 12054,
+        "error": 43,
+        "insufficient_text": 97
+      }
+    },
+    "bb40c102-0bf9-4bed-bc33-bf48ccfaca21": {
+      "state": "imported",
+      "request_count": 326,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2174192572145074176",
+      "completed_count": 326,
+      "classified": 323,
+      "errors": 0,
+      "known_cost_usd": "0.6176265000",
+      "status_counts": {
+        "classified": 323,
+        "insufficient_text": 3
+      }
+    },
+    "3eca7e0f-f92e-41d1-9815-b03413a01496": {
+      "state": "imported",
+      "request_count": 8,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/5871647866216251392",
+      "completed_count": 8,
+      "classified": 7,
+      "errors": 1,
+      "known_cost_usd": "0.0164396250",
+      "status_counts": {
+        "classified": 7,
+        "error": 1
+      }
+    },
+    "3cd87bf7-475c-40be-bec4-8a378694279b": {
+      "state": "imported",
+      "request_count": 3,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6690177098490839040",
+      "completed_count": 3,
+      "classified": 3,
+      "errors": 0,
+      "known_cost_usd": "0.0057030000",
+      "status_counts": {
+        "classified": 3
+      }
+    },
+    "c5a101f2-72fa-49ec-8039-0b17e8ba28db": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6566891058691571712",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0036195000",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "23fd83e1-47fb-497a-bae9-f3fe9e0bc2d2": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2883790988432637952",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017310000",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "6a1f8f92-1039-4da8-a59e-145eb1841ed1": {
+      "state": "imported",
+      "request_count": 152,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/456913739233361920",
+      "completed_count": 152,
+      "classified": 150,
+      "errors": 0,
+      "known_cost_usd": "0.2862416250",
+      "status_counts": {
+        "ambiguous": 1,
+        "classified": 150,
+        "insufficient_text": 1
+      }
+    },
+    "3e2e196c-a520-44ad-bb1d-828ed075351f": {
+      "state": "imported",
+      "request_count": 4,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6586312832084606976",
+      "completed_count": 4,
+      "classified": 4,
+      "errors": 0,
+      "known_cost_usd": "0.0073897500",
+      "status_counts": {
+        "classified": 4
+      }
+    },
+    "f517f181-ccbb-45bb-91cf-62d4a32d7b6c": {
+      "state": "imported",
+      "request_count": 70,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8971953997195771904",
+      "completed_count": 70,
+      "classified": 68,
+      "errors": 0,
+      "known_cost_usd": "0.1311813750",
+      "status_counts": {
+        "classified": 68,
+        "insufficient_text": 2
+      }
+    },
+    "516426e4-6f06-41b6-ba7d-2c6f766b55c1": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1386203374843592704",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0039127500",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "0fa6e780-e8de-450e-8665-70261ff81deb": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6125679032697618432",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0037046250",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "bcc93630-ba91-48c4-b470-9d3fe29ef72a": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6993184910919860224",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0020475000",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "75e4117b-8664-40fe-adaa-575b49c59fd7": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4872693173870133248",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0020092500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "d59d2061-95ff-492f-a3cd-2dfedb0e6683": {
+      "state": "imported",
+      "request_count": 29,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/7134485349228609536",
+      "completed_count": 29,
+      "classified": 27,
+      "errors": 0,
+      "known_cost_usd": "0.0543678750",
+      "status_counts": {
+        "classified": 27,
+        "insufficient_text": 2
+      }
+    },
+    "18f86553-bf89-42d5-9677-3a46425d23a0": {
+      "state": "imported",
+      "request_count": 4,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6747175781274746880",
+      "completed_count": 4,
+      "classified": 4,
+      "errors": 0,
+      "known_cost_usd": "0.0076331250",
+      "status_counts": {
+        "classified": 4
+      }
+    },
+    "75aad6a4-8c3c-41bc-a7e4-82c71d731f2a": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/2566850164656439296",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0036660000",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "17e92277-ea68-46f1-89b2-e93b36f3059c": {
+      "state": "imported",
+      "request_count": 13,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8880193154788098048",
+      "completed_count": 13,
+      "classified": 12,
+      "errors": 0,
+      "known_cost_usd": "0.0245411250",
+      "status_counts": {
+        "classified": 12,
+        "insufficient_text": 1
+      }
+    },
+    "9a77c542-1912-45ee-a852-26c3e4274f6f": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/5840263406313013248",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0034987500",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "366e677f-ae0a-4ae0-bdb1-aa6b311e0446": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4216152790692528128",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0021637500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "f025667e-8ea9-4188-b544-b5472c74625b": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4291025134497562624",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0017820000",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "267cffb4-f60d-4364-add8-134082325ce8": {
+      "state": "imported",
+      "request_count": 5,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/6860328721912430592",
+      "completed_count": 5,
+      "classified": 5,
+      "errors": 0,
+      "known_cost_usd": "0.0095370000",
+      "status_counts": {
+        "classified": 5
+      }
+    },
+    "83e1ecc2-b3d1-4f14-91d8-46be2aaa3415": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/4457658320710270976",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0019391250",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "3900f944-8e78-4af4-9c47-4de03a7930f0": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/662812684697206784",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0021090000",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "12b741b5-3a1c-4beb-ae43-8f048cb066c2": {
+      "state": "imported",
+      "request_count": 2,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/7785255495383646208",
+      "completed_count": 2,
+      "classified": 2,
+      "errors": 0,
+      "known_cost_usd": "0.0036450000",
+      "status_counts": {
+        "classified": 2
+      }
+    },
+    "6656a59e-032f-418e-a880-cb02a86195f5": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/8287406853835456512",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0018112500",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "ee2c799e-23c7-4c75-b370-4b951f761a84": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/793417073890951168",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0019031250",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "7e601310-2eba-4bb1-b6d8-d46f50b7dacd": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/544030244525309952",
+      "completed_count": 1,
+      "classified": 1,
+      "errors": 0,
+      "known_cost_usd": "0.0018633750",
+      "status_counts": {
+        "classified": 1
+      }
+    },
+    "5b7e5031-aa0b-4159-b298-d927c6755667": {
+      "state": "imported",
+      "request_count": 1,
+      "submission_attempted": true,
+      "provider_job_name": "projects/186052082420/locations/global/batchPredictionJobs/1674433750995304448",
+      "completed_count": 1,
+      "classified": 0,
+      "errors": 0,
+      "known_cost_usd": "0.0019987500",
+      "status_counts": {
+        "insufficient_text": 1
+      }
+    }
+  },
+  "submission_attempted_at": "2026-10-08T02:09:33.760159+00:00",
+  "controller_pid": 8864,
+  "execution_mode": "continuous",
+  "controller_poll_seconds": 30,
+  "max_inflight_jobs": 4,
+  "night_status_counts": {
+    "error": 46,
+    "ambiguous": 1,
+    "blocked": 1,
+    "classified": 13585,
+    "insufficient_text": 113
+  },
+  "controller_heartbeat_utc": "2026-10-08T07:58:14.089227+00:00",
+  "controller_recoveries": [
+    {
+      "timestamp_utc": "2026-10-08T02:33:43.814619+00:00",
+      "error": "ClassificationQueueBusy",
+      "resolution": "dedicated physical PostgreSQL lock connection; regression passed; no untracked prepared/uploaded runs or held advisory locks"
+    },
+    {
+      "timestamp_utc": "2026-10-09T02:06:35.661793+00:00",
+      "resolution": "Recovered PostgreSQL16 started; obsolete Docker socket runtime directories preserved before Desktop restart; no new paid calls because operational budget is exhausted"
+    }
+  ],
+  "controller_stop_requested": false,
+  "controller_code_version": "continuous-v3-usd645-operational-usd650-authorized",
+  "budget_authorizations": [
+    {
+      "authorized_at": "2026-10-08T03:26:45.131826+00:00",
+      "absolute_cap_usd": "650",
+      "operational_cap_usd": "645",
+      "reserve_margin_usd": "5",
+      "source": "explicit_user_request",
+      "previous_status": "budget_exhausted"
+    }
+  ],
+  "incidental_margin_usd": "5",
+  "budget_blocked_remaining_usd": "0.0023043750",
+  "monitor_finalized_at": "2026-10-08T10:25:51.498870+00:00",
+  "verified_retry_run_count": 42,
+  "verified_pending_job_count": 0,
+  "audit_verified_updated": true,
+  "audit_recovery_reason": "Original CSV could not be opened for writing; generated separate output directory preserving previous audit",
+  "unresolved_reserved_usd": "490.2109818750",
+  "pause_history": [
+    {
+      "timestamp_utc": "2026-10-08T10:26:23.805998+00:00",
+      "previous_status": "budget_exhausted",
+      "reason": "explicit_user_pause_save_for_later"
+    }
+  ],
+  "credits_information_source": "user_report_20261008",
+  "saved_for_later_at": "2026-10-08T10:26:23.805998+00:00",
+  "other_account_reported_credits_brl": "1761",
+  "last_local_recovery_at": "2026-10-09T02:06:35.661793+00:00"
+}

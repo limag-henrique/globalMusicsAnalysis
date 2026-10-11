@@ -114,3 +114,113 @@ até esse registro. Ruff e mypy do arquivo alterado passaram.
 
 81 testes unitários das interfaces batch e do contrato Gemini passaram. A
 autenticação e o preflight reais passaram. Graphify foi atualizado localmente.
+
+## Retomada após auditoria — 7 de outubro de 2026
+
+O usuário solicitou expressamente continuar a classificação noturna após ler o
+relatório de qualidade. A pausa metodológica foi retirada para a classificação
+exploratória; a exigência de validação da amostra científica permanece. Fontes
+suspensas, quarentena, direitos, hash e exclusão de resultados válidos/reservas
+continuam vigentes. Não se promove resultado da IA a evidência populacional.
+
+O retry anterior `ba5cb6d8-a480-4869-91c5-c7e86fd5474c` foi importado com 200
+classificações e nenhum erro individual, custo com telemetria US$ 0,379518375.
+O novo retry `840b0dd8-ef79-4f80-b246-22932e0bf158` tem 200 documentos distintos,
+sem sobreposição com a tentativa anterior desta noite. Foi submetido ao job
+`projects/186052082420/locations/global/batchPredictionJobs/356779016268546048`.
+Reserva do novo lote: US$ 0,71669025. Compromisso acumulado após reserva:
+US$ 599,36860125; custos conhecidos US$ 129,244997625. O ledger atual do banco
+prevalece sobre estes valores históricos para as próximas tranches.
+
+`quality_hold=false`, automação ativa a cada 15 minutos e helper de suspensão
+reiniciado por até 12 horas. Consulte `status.json` para IDs, processo e estado
+mais recentes. Ao encerrar, regenere a auditoria local para atualizar a tabela de
+elegibilidade e proveniência, sem chamadas pagas. O percentual do job atual não
+mede a conclusão do corpus inteiro. Confira tentativa única por documento em
+todos os `retry_run_ids`, independentemente da baseline de origem.
+
+## Coordenação contínua — orientação operacional vigente
+
+O usuário solicitou remover a tranche fixa de 200. A execução passa a usar
+`scripts/run_continuous_lyrics.py`, com consultas a cada 30 segundos e até quatro
+jobs simultâneos. O tamanho é calculado pelo saldo/reserva por documento e limitado
+a 190.000 requisições por shard; a verificação definitiva do ledger ocorre antes
+de uploads e submissões. Se a estimativa não couber, reduz-se a quantidade, sem
+repetir uploads. O teto continua US$ 600. A inferência usa a infraestrutura Google;
+CPU/GPU local não executam o modelo. Esta seção substitui a orientação de lotes
+fixos e o uso do heartbeat como responsável direto por novos envios.
+
+Iniciar em PowerShell a partir do repositório, mantendo a janela escondida:
+
+```powershell
+$continuousPython = (Resolve-Path '.venv/Scripts/python.exe').Path
+$continuousScript = (Resolve-Path 'scripts/run_continuous_lyrics.py').Path
+Start-Process -FilePath $continuousPython -ArgumentList $continuousScript -WindowStyle Hidden
+```
+
+O arquivo `continuous.lock` mantém exclusão de processo: iniciar uma segunda
+instância não duplica trabalho. `status.json` registra PID, timestamp de atividade,
+IDs, estado por run, reserva/custos e totais desta noite. Escritas são atômicas.
+IDs preparados são registrados antes da submissão; o flag `submission_attempted`
+é salvo antes da chamada. Preparação interrompida ou resultado de submissão
+ambíguo interrompem o controlador para inspeção. Nunca relançar cegamente se
+`status=failed` ou se `preparation_in_progress` estiver presente. Uma preparação
+recusada por orçamento não libera as reservas históricas.
+
+O monitor Codex consulta a cada cinco minutos. Com o controlador vivo, apenas
+observa o estado e não prepara/submete/importa em paralelo. Verifique a linha de
+comando do PID, não apenas o número. Se ele parar, investigue checkpoints e banco
+antes de qualquer recuperação. Estados científicos/quarentena não são removidos.
+Jobs já submetidos podem ser reconciliados mesmo após falha do coordenador;
+nenhuma submissão ambígua é repetida. Ao concluir/esgotar orçamento, o controlador
+recalcula a auditoria local; o monitor pausa o agendamento e informa o resultado.
+
+Para solicitar parada reversível, grave `controller_stop_requested=true` no
+estado, com o controlador ocioso. Isso não cancela jobs no Google. Preserve os
+IDs e importe resultados pendentes pelo monitor antes de encerrá-lo.
+
+Validação da coordenação contínua: 177 testes, incluindo PostgreSQL real, Ruff e
+mypy passaram. O teste de PostgreSQL reproduziu um advisory lock que permanecia
+no pool depois de commit. A guarda agora usa conexão física dedicada e suporta
+escopos aninhados; a liberação usa a mesma conexão. O teste confirmou concorrente
+bloqueado durante a guarda e desbloqueado após sua saída. No Windows, o teste e
+uma segunda invocação real confirmaram exclusão de processo sem duplicar jobs.
+
+A primeira rodada contínua calculou lotes de 164 e 1 documento pelo saldo;
+rodadas seguintes continuam automaticamente após importações com telemetria.
+Os tamanhos pequenos atuais resultam do teto financeiro quase esgotado, não de
+um limite fixo de 200. Um erro individual registrado não autoriza retry de retry.
+O controlador mantém os snapshots e contagens separados por estado.
+
+
+## Retomada autorizada em 8 de outubro de 2026 — orçamento vigente
+
+O usuário elevou o teto acumulado para US$ 650. A coordenação aplica US$ 645
+antes de cada upload e submissão, mantendo US$ 5 de margem para custos acessórios.
+Esta decisão substitui os valores históricos de US$ 600 deste documento, sem
+reiniciar o ledger ou liberar reservas antigas sem telemetria. Na retomada,
+custos conhecidos mais reservas somam US$ 599,996980875; saldo operacional
+US$ 45,003019125. A margem não é autorização para cobrança além dos créditos.
+
+Plano de entrega: continuar apenas os retries elegíveis das três baselines,
+excluindo todos os documentos já tentados nesta execução e preservando direitos,
+quarentena e suspensão de LETRAS. Reconciliar prontamente os jobs e produzir a
+auditoria local ao finalizar. Não gastar com novas fontes, validações externas
+ou novas tentativas dos retries. Manter até quatro jobs, dimensionados pelo saldo.
+O monitor deve usar teto absoluto US$ 650 e operacional US$ 645.
+
+Qualidade de entrega: histórico íntegro, erro individual explícito, proveniência,
+seleção exploratória separada da amostra principal e relatório de cobertura.
+A validação da identidade e da ligação aos rankings permanece pendente; completar
+todas as músicas e validar inferências populacionais não está garantido pelo saldo.
+O sistema deve parar seguro quando não houver candidatos ou saldo suficiente,
+importar tudo que foi submetido e pausar o monitor. Sem commits ou troca de branch.
+
+
+## Operação vigente: orçamento em reais e corpus completo
+
+A autorização posterior do usuário substitui os tetos USD e permite LETRAS
+na classificação exploratória. Consulte [operação BRL](brl-full-corpus-20261008.md)
+e `data/derived/lyrics/budget-20261008/billing-policy.json`. Quarentena e
+elegibilidade científica permanecem estritas; não usar classificações como
+validação da ligação ao ranking ou evidência da população geral.

@@ -1,0 +1,42 @@
+{
+  "country_years": 386,
+  "series_years": 2150,
+  "countries": 68,
+  "series": 383,
+  "model_specs": 30,
+  "estimated_models": 20,
+  "sample_rows": 5850,
+  "exclusion_rows": 5730,
+  "created_at": "2026-10-11T04:11:53.725952+00:00",
+  "schema_version": "historical-trends-v1",
+  "inputs": [
+    {
+      "path": "D:\\PromiscuidadeMusical\\data\\derived\\research_quality\\country-all-history-20261011-022524\\annual-country-metrics.csv",
+      "sha256": "7d380c9a06d94a9fd1de2a97699180edd8eb9a57efe70cbcdcaa925a4f3ace98"
+    },
+    {
+      "path": "D:\\PromiscuidadeMusical\\data\\derived\\country_context\\trends-browser\\trends-browser-observations.csv",
+      "sha256": "c9f6fe7380bfc0ae069768881ed872cb0cdb0f7b33d86d1ff142600d33027484"
+    },
+    {
+      "path": "D:\\PromiscuidadeMusical\\data\\derived\\article-country-context\\20261011\\country-year-crossings.parquet",
+      "sha256": "54fbdd36a41083a7c76e0786b5e0a9f511cec54aaf07684f0b3d008d12daa37a"
+    }
+  ],
+  "outputs": {
+    "country-year-music.csv": "bb6f8b9d1a03c042ef04c55203f161899bc961faeb133aef3650cc8a7fba545b",
+    "country-year-music.parquet": "02e617e8501c2d9f1205b20f4b0fa0a69c50230fdb02e4b336338ede0130a3e0",
+    "country-year-trends.csv": "6079fd1929acba0f173057162cc93dfbca85f3b509625017b4b81c1c1b5bfdcc",
+    "country-year-trends.parquet": "aaee89bec75838c4be52a5f88b5c33075eb4a20480688ad1f3654ae8ec8e574e",
+    "historical-associations.csv": "6325065ef0d763271ecad2beac18e73d6e7b6b2e1376b451a0621d0780b05fa4",
+    "historical-associations.parquet": "c63bd85061af7f43ebbebdccbc32c333ef33e4a42a11bcf6bf742ee8e0c0a741",
+    "historical-coverage.csv": "60cbc806b171f38375e056be21790f81c2d3addc5e7eb328b3b7bdc00d42d9d7",
+    "LEIA-ME.md": "36ae76019d799a52719042b3024cd2dd187cce4613d2ed71d1af6d96a4497a0e",
+    "model-exclusions.csv": "4d6ed13131d3664386f04b9c29df4dc231a2a45e4506d9657aa0158925adee03",
+    "model-exclusions.parquet": "22d055b7af5af4ada05660b77d7c78e946857cc10ce24ced66576e7df05dd2ae",
+    "model-samples.csv": "42ca490a56c2c0e211e55f126bdc96c38f4dffd182d6e74c2fd1bca8ca471f8a",
+    "model-samples.parquet": "8f1b45597fa904813ef25617e2e2900654e95bbfa5c7b5aeb5b10c9ddadb929a"
+  },
+  "commercial_access": "pending",
+  "raw_cross_country_comparisons": false
+}

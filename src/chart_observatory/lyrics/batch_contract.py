@@ -87,6 +87,7 @@ class BatchPreparationRequest:
     bucket_name: str
     limit: int | None = None
     thinking_level: str = "LOW"
+    include_identity_holds: bool = False
 
 
 @dataclass(frozen=True, slots=True)

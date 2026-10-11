@@ -8,9 +8,11 @@ from typing import Any
 from urllib.parse import quote
 
 import httpx
+from bs4 import BeautifulSoup
 from rapidfuzz import fuzz
 
 from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
+from chart_observatory.lyrics.text_quality import html_lyric_text
 
 _HEADERS = {
     "User-Agent": (
@@ -20,15 +22,6 @@ _HEADERS = {
     ),
     "Accept-Language": "en-US,en;q=0.9",
 }
-
-
-def _strip_html_tags(html: str) -> str:
-    """Remove HTML tags, keeping text content and converting <br> to newlines."""
-    html = re.sub(r"<br\s*/?>", "\n", html, flags=re.I)
-    html = re.sub(r"<[^>]+>", "", html)
-    html = html.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
-    html = html.replace("&#x27;", "'").replace("&quot;", '"')
-    return html.strip()
 
 
 def _slugify(text: str) -> str:
@@ -55,7 +48,9 @@ class GeniusClient:
     ) -> None:
         self._token = access_token
         self._http = http_client or httpx.Client(
-            timeout=30.0, follow_redirects=True, headers=_HEADERS,
+            timeout=30.0,
+            follow_redirects=True,
+            headers=_HEADERS,
         )
 
     # -- public API -----------------------------------------------------------
@@ -129,7 +124,7 @@ class GeniusClient:
             hit_artist = normalize_lookup_text(
                 str(result.get("primary_artist", {}).get("name", ""))
             )
-            
+
             title_score = fuzz.token_set_ratio(wanted_title, hit_title)
             artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
             combined = (title_score * 0.6) + (artist_score * 0.4)
@@ -175,7 +170,7 @@ class GeniusClient:
                 )
                 title_score = fuzz.token_set_ratio(wanted_title, hit_title)
                 artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
-                
+
                 if title_score >= 80 and artist_score >= 70:
                     page_url = result.get("url")
                     if page_url:
@@ -199,26 +194,17 @@ class GeniusClient:
     def _extract_lyrics_from_html(self, html: str) -> str | None:
         """Extract lyrics text from a Genius page HTML string."""
         # Find all lyrics containers
-        containers = re.findall(
-            r'<div[^>]*data-lyrics-container="true"[^>]*>(.*?)</div>',
-            html,
-            re.DOTALL,
-        )
+        page = BeautifulSoup(html, "html.parser")
+        containers = page.select('[data-lyrics-container="true"]')
         if not containers:
-            match = re.search(
-                r'<div\s+class="lyrics"[^>]*>(.*?)</div>',
-                html,
-                re.DOTALL,
-            )
-            if match:
-                containers = [match.group(1)]
+            containers = page.select("div.lyrics")
 
         if not containers:
             return None
 
         lines: list[str] = []
         for container in containers:
-            text = _strip_html_tags(container)
+            text = html_lyric_text(container)
             if text:
                 lines.append(text)
 

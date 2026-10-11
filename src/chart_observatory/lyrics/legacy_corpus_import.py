@@ -39,7 +39,7 @@ class LegacyLyricCandidate:
     text: str
     retrieved_at: datetime
     rights_status: str
-    metadata: dict[str, str]
+    metadata: dict[str, object]
 
 
 @dataclass(frozen=True)
@@ -115,6 +115,17 @@ def legacy_annotation_candidate(
     if source in blocked_sources or (source, lyrics_hash) in blocked_signatures:
         return None
 
+    metadata: dict[str, object] = {
+        "ingest_artifact": "gemini_annotations.jsonl",
+        "ingest_line_number": line_number,
+    }
+    provider_id = payload.get("song_id")
+    if isinstance(provider_id, (str, int)) and not isinstance(provider_id, bool):
+        metadata["provider_song_id"] = provider_id
+    source_metadata = payload.get("source_metadata")
+    if isinstance(source_metadata, dict):
+        metadata["source_metadata"] = dict(source_metadata)
+
     return LegacyLyricCandidate(
         line_number=line_number,
         canonical_track_id=canonical_track_id,
@@ -126,7 +137,7 @@ def legacy_annotation_candidate(
         text=text,
         retrieved_at=retrieved_at,
         rights_status=authorized_status,
-        metadata={"ingest_artifact": "gemini_annotations.jsonl"},
+        metadata=metadata,
     )
 
 

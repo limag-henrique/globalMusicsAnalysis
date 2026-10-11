@@ -1,5 +1,6 @@
 """Read-only audit of the recovered corpus and chart linkage; no provider calls."""
 
+import argparse
 import csv
 import hashlib
 import json
@@ -28,7 +29,10 @@ def normalize(value: str) -> str:
 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
-    output = root / "data/derived/research_quality/20261007"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    output = args.output_dir or root / "data/derived/research_quality/20261007"
     output.mkdir(parents=True, exist_ok=True)
     engine = create_engine(Settings.load(root).database_url)
     entries = {entry.lyric_document_id: entry for entry in load_quarantine_entries()}

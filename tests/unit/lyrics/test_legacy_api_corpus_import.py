@@ -27,7 +27,7 @@ def test_candidate_identity_ignores_provider_song_id() -> None:
     assert first.lyrics_hash == second.lyrics_hash
     assert first.source == second.source
     assert first.rights_status == "RESEARCH_AUTHORIZED"
-    assert first.metadata == {"ingest_artifact": "gemini_annotations.jsonl"}
+    assert first.metadata["ingest_artifact"] == "gemini_annotations.jsonl"
 
 
 def test_candidate_uses_stable_track_and_artist_ids_and_preserves_source() -> None:
@@ -168,3 +168,26 @@ def test_candidate_truncates_display_artist_without_changing_track_identity() ->
 
     assert candidate is not None
     assert len(candidate.artist_name) == 500
+
+
+def test_candidate_preserves_provider_provenance_without_rewriting_text() -> None:
+    original = "First line with &#39;encoded&#39; content\nSecond complete line"
+    candidate = legacy_annotation_candidate(
+        {
+            "title": "Example",
+            "artist": "Artist",
+            "lyrics_status": "FOUND",
+            "lyrics_source": "GENIUS",
+            "original_lyrics": original,
+            "song_id": "original-provider-id",
+            "source_metadata": {"id": 42, "version": "live"},
+        },
+        17,
+        datetime(2026, 10, 10, tzinfo=UTC),
+    )
+
+    assert candidate is not None
+    assert candidate.text == original
+    assert candidate.metadata["provider_song_id"] == "original-provider-id"
+    assert candidate.metadata["source_metadata"] == {"id": 42, "version": "live"}
+    assert candidate.metadata["ingest_line_number"] == 17
