@@ -18,13 +18,13 @@
     },
     {
       "path": "plot_global_patterns.py",
-      "sha256": "5c7ffbf59c30f4de569e9bf0343cedf31df4fe7f517e7cd455d903928ab836d3"
+      "sha256": "87d16cb21c3e9a83b02b3f4ed6378b501442d496cf84033794f20eba9db86705"
     }
   ],
   "outputs": [
     {
       "path": "figures\\chart-family-contrast.pdf",
-      "sha256": "e0aa1748999309e4bd84b36bad1e0feef62446345f1e8b4cc368b4acfdb4adea"
+      "sha256": "01d6c9fd5b89d0f341e8a2d42dd3b745657ff032584c0e7ae5ff665e932432a9"
     },
     {
       "path": "figures\\chart-family-contrast.png",
@@ -32,23 +32,23 @@
     },
     {
       "path": "figures\\chart-family-contrast.svg",
-      "sha256": "02779e01b5a8cd40d602b69dfc5d672f457f753a761bcf247e052084bd29168f"
+      "sha256": "06b2f2f9b05aadada277ffd011d769c38822fba7f14459b667a5cb9edfd418cb"
     },
     {
       "path": "figures\\global-dimension-changes.pdf",
-      "sha256": "4f9a52ccfa5b49c08e39111c7f509b39b5db7ef2a0b15b4c34a891e936845730"
+      "sha256": "eae3b2466e306d3d9926bc8060bf39a748cc9959e1166c960c2903e7fb00d447"
     },
     {
       "path": "figures\\global-dimension-changes.png",
-      "sha256": "38f3a66b89a3d04b921dff8836fc58cd1efdbae05dc4740630029e32137437c3"
+      "sha256": "ad517461af61fcf56515073dc1285ed6cf54933e15a14fa28c8bb53bb65da81b"
     },
     {
       "path": "figures\\global-dimension-changes.svg",
-      "sha256": "be64802be6c4c0f12615b595296a4c823957f21f4b14cdfdb61004e2bbf364a7"
+      "sha256": "bb22dadd9843f08b42fa8f0d084bd3187199811d01d746a0b0f6d8c7d7ce8dda"
     },
     {
       "path": "figures\\global-trajectories.pdf",
-      "sha256": "99807603e1e86e06bd8ff71701282430730c33dbcdb49009edb713d5f183aeaf"
+      "sha256": "09da3950f3a4892314dfa70b180a27838856e6d0add1247257bfe7764a202a0f"
     },
     {
       "path": "figures\\global-trajectories.png",
@@ -56,11 +56,11 @@
     },
     {
       "path": "figures\\global-trajectories.svg",
-      "sha256": "e6f5466565dcd36e885767d313b61ca4117b8d0d0601d12925748a0867d8c784"
+      "sha256": "7fb75f2088002059d96f22a52d772ded0afc87410f67a3a3de98b98a2c2a6667"
     },
     {
       "path": "figures\\social-association-trajectories.pdf",
-      "sha256": "5257df0ec1e391f2619dbeede6f8db4bbb9d86fa30511a429d4d5da3a9d976d8"
+      "sha256": "396301ac3577e96ce905cfaaf278b48599998d99ec96fd15963b6978c254245e"
     },
     {
       "path": "figures\\social-association-trajectories.png",
@@ -68,8 +68,8 @@
     },
     {
       "path": "figures\\social-association-trajectories.svg",
-      "sha256": "cf906ae0db6187f327a5064f6c2de8bcb9bdfb2e9d76cc199644a8bacd92c58c"
+      "sha256": "262c0e7514fab8c7f66650dfd87107ec0001099d8ee884202abf617ed7f31057"
     }
   ],
-  "inline_definitions_sha256": "3201df5ac72a00f9127cb44babc611e1b02292ab14d778979142744d525ffcf5"
+  "inline_definitions_sha256": "0582482a792781608fffe201dd72144b4dcbac8f863b56d11a9567a0512c0d8a"
 }

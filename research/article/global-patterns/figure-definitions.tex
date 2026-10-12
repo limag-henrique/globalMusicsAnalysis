@@ -46,71 +46,75 @@
 \label{fig:global-time}
 \end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering\begin{tikzpicture}
-\begin{axis}[width=\dimexpr\columnwidth-24mm\relax,height=104mm,scale only axis=false,
- xmin=-4,xmax=12,ymin=.2,ymax=27.6,xtick={-4,0,4,8},ytick={26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1},yticklabels={{Money references},{Drugs / alcohol},{Materialism},{Crime},{Wealth as status},{Sexual explicitness},{Weapons},{Casual sex},{Conspicuous consumption},{Territorial identity},{Heartbreak},{Violence},{Sexual agency},{Sexual innuendo},{Sexual desire},{Explicit sexual acts},{Objectification},{Jealousy / possession},{Status symbolization},{Sexual anatomy},{Infidelity},{Transactional sex},{Misogyny},{Commodification},{Reciprocity},{Romantic affection}},
- xlabel={Change in share, 2017--2021 (pp)},xlabel style={font=\scriptsize},tick label style={font=\scriptsize},
- xmajorgrids=true,grid style={gray!18},axis line style={gray}]
-\draw[gray,dashed] (axis cs:0,.3)--(axis cs:0,26.6);
-\draw[gray!65,thick] (axis cs:2.267652,26)--(axis cs:7.022541,26);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,26) {48/55};
-\draw[gray!65,thick] (axis cs:0.410851,25)--(axis cs:6.117446,25);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,25) {45/55};
-\draw[gray!65,thick] (axis cs:1.901706,24)--(axis cs:5.611154,24);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,24) {48/55};
-\draw[gray!65,thick] (axis cs:1.477499,23)--(axis cs:5.067675,23);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,23) {51/55};
-\draw[gray!65,thick] (axis cs:1.839363,22)--(axis cs:6.126683,22);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,22) {48/55};
-\draw[gray!65,thick] (axis cs:0.900828,21)--(axis cs:6.093631,21);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,21) {45/55};
-\draw[gray!65,thick] (axis cs:1.440705,20)--(axis cs:5.143227,20);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,20) {53/55};
-\draw[gray!65,thick] (axis cs:0.252737,19)--(axis cs:5.901170,19);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,19) {43/55};
-\draw[gray!65,thick] (axis cs:1.428501,18)--(axis cs:5.661177,18);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,18) {47/55};
-\draw[gray!65,thick] (axis cs:1.837014,17)--(axis cs:3.978834,17);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,17) {50/55};
-\draw[gray!65,thick] (axis cs:0.574003,16)--(axis cs:5.449409,16);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,16) {44/55};
-\draw[gray!65,thick] (axis cs:0.670765,15)--(axis cs:4.292003,15);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,15) {48/55};
-\draw[gray!65,thick] (axis cs:-0.518891,14)--(axis cs:5.030915,14);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,14) {38/55};
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=44mm},
+width=48mm,height=86mm,scale only axis=true,xmin=-4,xmax=8,ymin=.4,ymax=13.6,
+xtick={-4,-2,0,2,4,6},xlabel={Change in share (percentage points)},
+xlabel style={font=\scriptsize},tick label style={font=\scriptsize},title style={font=\small},
+xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+\nextgroupplot[ytick={13,12,11,10,9,8,7,6,5,4,3,2,1},yticklabels={{Money references},{Drugs / alcohol},{Materialism},{Crime},{Wealth as status},{Sexual explicitness},{Weapons},{Casual sex},{Conspicuous consumption},{Territorial identity},{Heartbreak},{Violence},{Sexual agency}},title={Larger mean increases}]
+\draw[gray,dashed] (axis cs:0,.4)--(axis cs:0,13.6);
+\draw[gray!65,thick] (axis cs:2.267652,13)--(axis cs:7.022541,13);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,13) {48/55};
+\draw[gray!65,thick] (axis cs:0.410851,12)--(axis cs:6.117446,12);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,12) {45/55};
+\draw[gray!65,thick] (axis cs:1.901706,11)--(axis cs:5.611154,11);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,11) {48/55};
+\draw[gray!65,thick] (axis cs:1.477499,10)--(axis cs:5.067675,10);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,10) {51/55};
+\draw[gray!65,thick] (axis cs:1.839363,9)--(axis cs:6.126683,9);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,9) {48/55};
+\draw[gray!65,thick] (axis cs:0.900828,8)--(axis cs:6.093631,8);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,8) {45/55};
+\draw[gray!65,thick] (axis cs:1.440705,7)--(axis cs:5.143227,7);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,7) {53/55};
+\draw[gray!65,thick] (axis cs:0.252737,6)--(axis cs:5.901170,6);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,6) {43/55};
+\draw[gray!65,thick] (axis cs:1.428501,5)--(axis cs:5.661177,5);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,5) {47/55};
+\draw[gray!65,thick] (axis cs:1.837014,4)--(axis cs:3.978834,4);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,4) {50/55};
+\draw[gray!65,thick] (axis cs:0.574003,3)--(axis cs:5.449409,3);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,3) {44/55};
+\draw[gray!65,thick] (axis cs:0.670765,2)--(axis cs:4.292003,2);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,2) {48/55};
+\draw[gray!65,thick] (axis cs:-0.518891,1)--(axis cs:5.030915,1);
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,1) {38/55};
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(4.495539,13) (3.804479,12) (3.779604,11) (3.710568,10) (3.707348,9) (3.586817,8) (3.534137,7) (3.309420,6) (3.279988,5) (3.115725,4) (2.920314,3) (2.865182,2) (2.548219,1)};
+\nextgroupplot[ytick={13,12,11,10,9,8,7,6,5,4,3,2,1},yticklabels={{Sexual innuendo},{Sexual desire},{Explicit sexual acts},{Objectification},{Jealousy / possession},{Status symbolization},{Sexual anatomy},{Infidelity},{Transactional sex},{Misogyny},{Commodification},{Reciprocity},{Romantic affection}},title={Smaller increases and decreases}]
+\draw[gray,dashed] (axis cs:0,.4)--(axis cs:0,13.6);
 \draw[gray!65,thick] (axis cs:-0.318277,13)--(axis cs:5.790287,13);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,13) {36/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,13) {36/55};
 \draw[gray!65,thick] (axis cs:-1.446731,12)--(axis cs:5.155236,12);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,12) {26/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,12) {26/55};
 \draw[gray!65,thick] (axis cs:0.638187,11)--(axis cs:3.174208,11);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,11) {49/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,11) {49/55};
 \draw[gray!65,thick] (axis cs:0.385005,10)--(axis cs:2.858504,10);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,10) {45/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,10) {45/55};
 \draw[gray!65,thick] (axis cs:0.321588,9)--(axis cs:1.761613,9);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,9) {49/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,9) {49/55};
 \draw[gray!65,thick] (axis cs:0.319422,8)--(axis cs:1.538841,8);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,8) {46/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,8) {46/55};
 \draw[gray!65,thick] (axis cs:0.296223,7)--(axis cs:1.264193,7);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,7) {49/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,7) {49/55};
 \draw[gray!65,thick] (axis cs:-0.129502,6)--(axis cs:0.841650,6);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,6) {32/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,6) {32/55};
 \draw[gray!65,thick] (axis cs:0.182799,5)--(axis cs:0.485998,5);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,5) {46/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,5) {46/55};
 \draw[gray!65,thick] (axis cs:-0.294200,4)--(axis cs:0.667159,4);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,4) {30/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,4) {30/55};
 \draw[gray!65,thick] (axis cs:-0.112472,3)--(axis cs:0.256888,3);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,3) {34/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,3) {34/55};
 \draw[gray!65,thick] (axis cs:-1.495781,2)--(axis cs:1.526836,2);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,2) {27/55};
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,2) {27/55};
 \draw[gray!65,thick] (axis cs:-2.478436,1)--(axis cs:1.060692,1);
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,1) {21/55};
-\addplot[only marks,blue,mark=*,mark size=1.7pt] coordinates {(4.495539,26) (3.804479,25) (3.779604,24) (3.710568,23) (3.707348,22) (3.586817,21) (3.534137,20) (3.309420,19) (3.279988,18) (3.115725,17) (2.920314,16) (2.865182,15) (2.548219,14) (2.345754,13) (2.312660,12) (2.142570,11) (1.817757,10) (0.977507,9) (0.972531,8) (0.863537,7) (0.437759,6) (0.367759,5) (0.235336,4) (0.106954,3) (-0.070506,2) (-0.629478,1)};
-\node[font=\scriptsize,anchor=east] at (axis cs:11.5,27.2) {Rising};
-\end{axis}\end{tikzpicture}
-\caption{Changes in all 26 dimensions in the fixed 55-market panel. Blue points: mean paired market change; gray segments: interquartile range of market changes. Right-hand counts show markets with a positive change. ``pp'' means percentage points. These spreads describe observed markets, not sampling confidence.}
+\node[font=\scriptsize,anchor=east] at (axis cs:7.8,1) {21/55};
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(2.345754,13) (2.312660,12) (2.142570,11) (1.817757,10) (0.977507,9) (0.972531,8) (0.863537,7) (0.437759,6) (0.367759,5) (0.235336,4) (0.106954,3) (-0.070506,2) (-0.629478,1)};
+\end{groupplot}\end{tikzpicture}
+\caption{Which themes increased, and how widely? All 26 dimensions are ordered by mean change from 2017 to 2021 and split across two panels with the same scale. A blue point to the right of zero indicates an increase in the average market share. Gray bars show the middle half of market changes, not confidence intervals. Counts at the right show how many of the same 55 markets increased. Materialism, crime and weapons rose in most markets, whereas a positive mean for sexual desire masks a less widespread change.}
 \label{fig:global-changes}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[t]
 \centering\begin{tikzpicture}

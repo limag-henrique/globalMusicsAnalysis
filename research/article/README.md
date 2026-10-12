@@ -1,7 +1,7 @@
 # Artigo e atlas internacional
 
 Artigo em inglês, com foco no Brasil, revisado em 12/10/2026. A versão atual tem
-11 páginas A4, oito figuras vetoriais, seis tabelas de resultados/métodos e uma
+11 páginas A4, sete figuras vetoriais, seis tabelas de resultados/métodos e uma
 tabela de atlas para os 68 mercados. As cópias em `publication/` pertencem à
 entrega anterior; esta revisão está em `research/article/`.
 
@@ -33,7 +33,10 @@ entrega anterior; esta revisão está em `research/article/`.
 
 A revisão define o corpus analítico como 153.501 gravações classificadas e
 461.447 pares gravação–mercado. A classificação cobre 100% desse corpus final;
-a retenção de 70,8% do inventário inicial continua explícita. A confirmação
+o inventário de candidatos foi ampliado previamente para a seleção. O rendimento
+aproximado de 70,8% dos pares é usado apenas como exemplo de planejamento:
+100 candidatos correspondem a aproximadamente 71 gravações no corpus pretendido.
+As tabelas apresentam as contagens reais. A confirmação
 anterior de verificação por especialistas não fornece rótulos individuais,
 tamanho da amostra ou concordância. Essas métricas continuam não estimadas.
 A amostra independente provisória tem 3.381 gravações: 754 no estrato máximo 0,
@@ -44,6 +47,7 @@ O protocolo está em `revision-analysis/validation-protocol.txt`.
 
 Para reproduzir as extensões: executar
 `.venv/Scripts/python.exe research/article/analyze_revision.py`, depois
+`.venv/Scripts/python.exe research/article/analyze_social_revision.py`, depois
 `.venv/Scripts/python.exe research/article/compose_article.py`, e compilar
 `article.tex` com Tectonic a partir desta pasta. Não executar nova classificação
 nem alterar o banco. As seções seguintes preservam informações da extração
@@ -149,6 +153,20 @@ Os arquivos de avaliações históricas permanecem preservados e não substituem
 a verificação por especialistas concluída posteriormente.
 
 ## Verificações
+
+A revisão solicitada em 12/10/2026 acrescenta `social-revision/`: três modelos
+contextuais ajustados, suas comparações sem ajuste nas mesmas amostras, quatro
+modelos de busca com inglês/termos locais nas mesmas 232 células de 47 mercados,
+amostras, termos e hashes de proveniência. Os modelos sociais usam somente o
+MGD Top 200 em 2021, controlam renda, internet, participação de rap/hip-hop,
+metadados de gênero ausentes e circulação compartilhada. Os idiomas reais das
+letras continuam indisponíveis; não se declara controle linguístico completo.
+Os testes são exploratórios e usam correção de Holm. A Figura 5 foi dividida
+em dois painéis de 13 dimensões. As Tabelas 4, 5 e 6 usam a largura da página.
+O exemplo de rendimento de 70,8% é ponderado por pares gravação--mercado;
+a média simples dos rendimentos nacionais é diferente (70,56%). Nenhuma
+contagem nacional foi substituída por um número aproximado quando existe
+uma contagem observada.
 
 Compilação Tectonic, inspeção de todas as páginas por renderização Poppler,
 revisão dos numeradores/denominadores e unicidade das junções. Consulta

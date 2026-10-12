@@ -41,7 +41,10 @@ def coords(frame,x,y):
 def save(fig,name):
     FIGURES.mkdir(exist_ok=True)
     for suffix in ['pdf','svg','png']:
-        fig.savefig(FIGURES/(name+'.'+suffix),bbox_inches='tight',dpi=220)
+        path=FIGURES/(name+'.'+suffix)
+        fig.savefig(path,bbox_inches='tight',dpi=220)
+        if suffix=='svg':
+            path.write_text('\n'.join(line.rstrip() for line in path.read_text(encoding='utf-8').splitlines())+'\n',encoding='utf-8',newline='\n')
     plt.close(fig)
 
 def style(ax):
@@ -97,6 +100,31 @@ def latex_figures():
 \caption{Changes in all 26 dimensions in the fixed 55-market panel. Blue points: mean paired market change; gray segments: interquartile range of market changes. Right-hand counts show markets with a positive change. ``pp'' means percentage points. These spreads describe observed markets, not sampling confidence.}
 \label{fig:global-changes}
 \end{figure}'''
+    # Two aligned panels give every dimension room at the article's full width.
+    panels=[]
+    for part in range(2):
+        rows=s.to_dicts()[part*13:(part+1)*13]
+        ticks=','.join(str(13-i) for i in range(13))
+        labels=','.join('{'+LABELS[r['metric']]+'}' for r in rows)
+        panels.append(r'\nextgroupplot[ytick={'+ticks+r'},yticklabels={'+labels+r'},title={'+('Larger mean increases' if part==0 else 'Smaller increases and decreases')+r'}]')
+        panels.append(r'\draw[gray,dashed] (axis cs:0,.4)--(axis cs:0,13.6);')
+        for i,r in enumerate(rows):
+            y=13-i
+            panels.append(f"\\draw[gray!65,thick] (axis cs:{r['p25_change_pp']:.6f},{y})--(axis cs:{r['p75_change_pp']:.6f},{y});")
+            panels.append(f"\\node[font=\\scriptsize,anchor=east] at (axis cs:7.8,{y}) {{{r['markets_increasing']}/55}};")
+        panels.append(r'\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {'+' '.join(f"({r['mean_change_pp']:.6f},{13-i})" for i,r in enumerate(rows))+'};')
+    shift=r'''\begin{figure*}[t]
+\centering\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=44mm},
+width=48mm,height=86mm,scale only axis=true,xmin=-4,xmax=8,ymin=.4,ymax=13.6,
+xtick={-4,-2,0,2,4,6},xlabel={Change in share (percentage points)},
+xlabel style={font=\scriptsize},tick label style={font=\scriptsize},title style={font=\small},
+xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+'''+ '\n'.join(panels)+r'''
+\end{groupplot}\end{tikzpicture}
+\caption{Which themes increased, and how widely? All 26 dimensions are ordered by mean change from 2017 to 2021 and split across two panels with the same scale. A blue point to the right of zero indicates an increase in the average market share. Gray bars show the middle half of market changes, not confidence intervals. Counts at the right show how many of the same 55 markets increased. Materialism, crime and weapons rose in most markets, whereas a positive mean for sexual desire masks a less widespread change.}
+\label{fig:global-changes}
+\end{figure*}'''
     family=['romantic_affection','heartbreak','explicitness','misogyny','materialism','crime','weapons','territorial_identity']
     family_points=[]
     for panel,color,mark,offset in [('top200_matched52','blue','*',.13),('viral50_matched52','orange','triangle*',-.13)]:
@@ -155,16 +183,19 @@ def main():
     for ax in axes[:,0]:ax.set_ylabel('Classified recordings (%)')
     fig.legend(*axes[0,0].get_legend_handles_labels(),loc='outside upper center',ncol=3,frameon=False)
     save(fig,'global-trajectories')
-    s=pl.read_csv(DATA/'change-summary.csv').filter(pl.col('panel')=='combined55').sort('mean_change_pp')
-    fig,ax=plt.subplots(figsize=(4.2,5.5),layout='constrained')
-    for y,r in enumerate(s.to_dicts()):
-        ax.plot([r['p25_change_pp'],r['p75_change_pp']],[y,y],color=GRAY,linewidth=2)
-        ax.scatter(r['mean_change_pp'],y,color=BLUE,s=18)
-        ax.text(11.5,y,f"{r['markets_increasing']}/55",ha='right',va='center',fontsize=7)
-    ax.text(11.5,26,'Rising',ha='right',va='center',fontsize=7)
-    ax.set_yticks(range(26),[LABELS[m] for m in s['metric']]);ax.set_xlim(-4,12);ax.axvline(0,color=GRAY,linestyle='--',linewidth=.6)
-    ax.set_xlabel('2017–2021 change in share (percentage points)');ax.set_title('All dimensions · mean change and market IQR')
-    ax.grid(axis='x',color='#E1E5E9',linewidth=.45);ax.spines[['top','right']].set_visible(False)
+    s=pl.read_csv(DATA/'change-summary.csv').filter(pl.col('panel')=='combined55').sort('mean_change_pp',descending=True)
+    fig,axes=plt.subplots(1,2,figsize=(10,5),layout='constrained',sharex=True)
+    for part,ax in enumerate(axes):
+        rows=s.to_dicts()[part*13:(part+1)*13]
+        for i,r in enumerate(rows):
+            ax.plot([r['p25_change_pp'],r['p75_change_pp']],[i,i],color=GRAY,linewidth=2)
+            ax.scatter(r['mean_change_pp'],i,color=BLUE,s=24)
+            ax.text(7.8,i,f"{r['markets_increasing']}/55",ha='right',va='center',fontsize=8)
+        ax.set_yticks(range(13),[LABELS[r['metric']] for r in rows]);ax.invert_yaxis()
+        ax.set_xlim(-4,8);ax.set_xticks([-4,-2,0,2,4,6]);ax.axvline(0,color=GRAY,linestyle='--',linewidth=.6)
+        ax.set_xlabel('Change in share (percentage points)')
+        ax.set_title('Larger mean increases' if part==0 else 'Smaller increases and decreases')
+        ax.grid(axis='x',color='#E1E5E9',linewidth=.45);ax.spines[['top','right']].set_visible(False)
     save(fig,'global-dimension-changes')
     summary=pl.read_csv(DATA/'change-summary.csv');family=['romantic_affection','heartbreak','explicitness','misogyny','materialism','crime','weapons','territorial_identity']
     fig,ax=plt.subplots(figsize=(4.2,2.7),layout='constrained')
@@ -185,7 +216,7 @@ def main():
         ax.set_title(title+'\n'+str(rows['markets'][0])+' fixed markets',fontsize=8);ax.set_ylim(-.75,.75);ax.set_xticks([2017,2019,2021]);style(ax)
     for ax in axes[:,0]:ax.set_ylabel('Spearman correlation')
     save(fig,'social-association-trajectories')
-    (DATA/'figure-definitions.tex').write_text('\n\n'.join(latex_figures().values()),encoding='utf-8')
+    (DATA/'figure-definitions.tex').write_text('\n\n'.join(latex_figures().values()),encoding='utf-8',newline='\n')
     manifest={'inputs':[{'path':str(p.relative_to(HERE)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in
         [DATA/'annual-global-trends.csv',DATA/'change-summary.csv',DATA/'fixed-sample-social-correlations.csv',HERE/'analysis-final/annual-country-metrics.parquet',Path(__file__)]],
         'outputs':[{'path':str(p.relative_to(HERE)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(FIGURES.glob('*'))

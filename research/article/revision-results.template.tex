@@ -1,18 +1,17 @@
-\subsection{Four questions about music and society}
-\textbf{Cultural Evolution: How did references to wealth, weapons, and romantic affection evolve across different world regions between 2017 and 2021?}
+\subsection{Regional change, repertoire groups and chart persistence}
 Wealth-as-status references rise from 8.44\% to 11.79\% in the Latin American panel and from 11.02\% to 14.37\% in the Nordic panel, but fall from 5.49\% to 3.39\% in Japan and Taiwan. Weapons rise by 1.86 percentage points in Latin America and 5.04 in Nordic markets, while their change in Japan and Taiwan is close to zero. Romantic affection stays near 46.3\% in Latin America, falls from 35.91\% to 34.10\% in Nordic markets and rises from 47.04\% to 51.69\% in Japan and Taiwan. Table~\ref{tab:regional-revision} reports changes and recording-level intervals; the Nordic romance interval includes zero. These are changes in circulating lyrics, not direct measurements of residents' values.
 
-\begin{table}[t]
-\caption{Change from 2017 to 2021, percentage points, with 95\% recording-bootstrap intervals. Wealth means wealth as status; romance means romantic affection. East Asia contains Japan and Taiwan only.}
+\begin{table*}[t]
+\caption{Change from 2017 to 2021, percentage points, with 95\% recording-bootstrap intervals. Wealth means wealth as status; romance means romantic affection. The Japan--Taiwan comparison includes only those two markets.}
 \label{tab:regional-revision}
-\centering\scriptsize\setlength{\tabcolsep}{3pt}
-\begin{tabularx}{\columnwidth}{@{}X*{3}{>{\raggedleft\arraybackslash}p{.22\columnwidth}}@{}}
+\centering\small\setlength{\tabcolsep}{5pt}
+\begin{tabularx}{\textwidth}{@{}Xrrr@{}}
 \toprule Panel & Wealth & Weapons & Romance \\
 \midrule
 @@REGIONAL_ROWS@@
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{table*}
 
 The decomposition helps explain why these shifts cannot automatically be called cultural change. Of the 3.78-point materialism increase, the genre partition, including untagged songs, assigns 2.57 points to changes within groups (95\% interval 1.22--3.73) and 1.21 to changing group shares (0.77--1.66). For weapons, the corresponding terms are 2.87 (2.15--3.50) and 0.66 (0.43--0.93); for crime they are 2.82 (1.98--3.77) and 0.89 (0.55--1.23). Changes within a group still include different songs entering and leaving its chart repertoire; the words of the same recording have not been observed changing.
 
@@ -20,13 +19,8 @@ Missing genre tags are central to this result: untagged songs account for 2.54 o
 
 The separate release-group decomposition assigns materialism $-1.90$ points within groups ($-3.04$ to $-0.64$) and $+5.68$ to composition (4.46--6.85). For weapons the terms are $+0.68$ ($-0.01$ to 1.41) and $+2.85$ (2.10--3.59); for crime, $-0.08$ ($-0.87$ to 0.77) and $+3.79$ (2.93--4.75). Thus, newer catalogue groups gaining chart share provide a plausible compositional account of much of the aggregate increase. Missing dates, reissues and genre tags limit the interpretation; a language decomposition remains pending.
 
-\textbf{Music \& Society: Do national income inequality (Gini) or homicide rates predict the prevalence of materialism or violence in local top-chart music?}
-The available analysis establishes associations, not validated prediction. Across the same 39 complete-data markets, annual materialism--Gini correlations are negative, ranging from $-0.50$ to $-0.30$ in 2017--2021. Across 47 markets, violence--homicide correlations range from $-0.43$ to $-0.27$. These patterns do not support a simple claim that more unequal or more violent countries have more materialistic or violent chart lyrics. In the separate weighted Top-200 panel, the 2021 correlations weaken from $-0.430$ to $-0.229$ for materialism--Gini and from $-0.329$ to $-0.181$ for violence--homicide when streams replace recording counts. No held-out predictive accuracy has been estimated. Chart selection, shared international hits and social confounding remain possible explanations.
+These regional comparisons raise a related question: do markets with similar lyrical profiles form consistent groups? An exploratory analysis finds four clusters of chart-repertoire themes, with mean silhouette 0.442. This score measures how well markets fit their assigned cluster relative to other clusters. All 16 Latin American panel markets fall in one cluster, alongside Nicaragua and Spain. Japan, Taiwan and South Korea share another cluster with India and several Southeast Asian markets, as well as Andorra and Turkey. Denmark, Finland, Norway and Sweden share a cluster, while Iceland belongs to another. The remaining clusters mix European, Anglophone and other markets. The grouping partly follows geography and circulation, but does not reproduce a continental map. It describes thematic similarity in charted songs. Independent data and resampling checks are needed to establish cluster stability.
 
-\textbf{Clustering \& Regionality: Can we identify cultural clusters of music consumption based on lyric themes (e.g., Latin America vs. Nordic countries vs. East Asia)?}
-We identify four exploratory clusters of chart-repertoire themes, with mean silhouette 0.442. All 16 Latin American panel markets fall in one cluster, alongside Nicaragua and Spain. Japan, Taiwan and South Korea share another cluster with India and several Southeast Asian markets, as well as Andorra and Turkey. Nordic markets are less uniform: Denmark, Finland, Norway and Sweden share a cluster, while Iceland belongs to another. The remaining clusters contain a mix of European, Anglophone and other markets. The grouping therefore partly follows geography and cultural circulation, but does not reproduce a simple continental map. It describes thematic similarity in charted songs, not a tested classification of individual listening cultures. All memberships are exported; cluster stability has not been established.
-
-\textbf{Streaming Longevity: Do songs featuring high romantic affection stay on charts longer than songs high in sexual explicitness or material conspicuous consumption?}
-Romance-positive recordings have a median of 11 observed chart days, compared with 7 when romance is below the threshold. Explicitness-positive recordings have a median of 14 days, compared with 7 otherwise; conspicuous-consumption-positive recordings have 8 days, the same median as their comparison group. These overlapping groups cannot be interpreted as mutually exclusive song types.
+The circulation of themes also depends on how long songs remain visible in charts. Recordings with clearly present romance have a median of 11 observed chart days, compared with 7 for recordings below that threshold. The corresponding values for explicitness are 14 and 7 days. Recordings with conspicuous consumption have 8 days, the same median as their comparison group. Themes overlap, so these comparisons do not describe mutually exclusive song types.
 
 In the joint adjusted model, romance and explicitness both associate with longer chart presence. Their log(1 + days) coefficients are 0.231 (95\% interval 0.177--0.285) and 0.325 (0.249--0.401); conspicuous consumption is 0.050 ($-0.012$ to 0.112). The romance-minus-explicitness contrast is $-0.095$ ($-0.184$ to $-0.005$), whereas romance minus conspicuous consumption is $+0.180$ (0.105--0.256). These exploratory comparisons support longer observed presence for romance than for conspicuous consumption after adjustment, but not longer presence than for explicitness. They concern chart days within 2017--2021, not lifetime popularity, all-platform listening or a causal advantage from adding a theme to a song.

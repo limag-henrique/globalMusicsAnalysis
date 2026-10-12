@@ -1,0 +1,41 @@
+{
+  "status": "post hoc exploratory; no causal identification",
+  "social_sample": "2021 classified MGD Top 200 only; equal market weight",
+  "controls": "log PPP income, internet access, rap/hip-hop share, untagged share, share charting in at least five observed panel markets",
+  "uncertainty": "social HC3 t intervals, Holm across three adjusted tests; search market-cluster t intervals, Holm across four paired tests",
+  "limitations": [
+    "Actual lyric language unavailable; country language is not substituted",
+    "Shared-chart share measures circulation, not foreign artist origin",
+    "Rap share does not fully adjust all genre composition",
+    "Single platform held constant; no cross-platform generalization",
+    "Shared recordings create residual between-market dependence in social HC3 intervals",
+    "Post hoc hypotheses motivated after viewing original results; independent replication required"
+  ],
+  "search": "equal mean of within-series standardized non-English terms; English and local models use identical complete market-years; at least four years per market",
+  "inputs": [
+    {
+      "path": "research\\article\\analyze_social_revision.py",
+      "sha256": "86c5f5f6913440e41da729531a10c2599e00e858673b0c875a2d21d2bffe35ac"
+    },
+    {
+      "path": "research\\article\\social-context\\market-context-2021.csv",
+      "sha256": "2247e17dd34ff7f2f6035986dc6b3c489f811f7bd590b5126b38c2a4a235e62b"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\classified-track-market-year.parquet",
+      "sha256": "53c440feb2dfbea355d64476772d4a592c7d6665fa93b70908a20368951057e6"
+    },
+    {
+      "path": "data\\derived\\genre_claims.parquet",
+      "sha256": "c0559ac322357c52e049b05b6e1708a55f6823e6839bdbbce33b7a71d94683fd"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\historical-trends-20261011\\country-year-trends.parquet",
+      "sha256": "aaee89bec75838c4be52a5f88b5c33075eb4a20480688ad1f3654ae8ec8e574e"
+    },
+    {
+      "path": "research\\article\\analysis-final\\annual-country-metrics.csv",
+      "sha256": "41ee27c5527f1b02c94e59015a37c858894add2df45b6a9f4d757b1f1d9ddd1f"
+    }
+  ]
+}

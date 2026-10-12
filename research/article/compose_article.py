@@ -27,7 +27,7 @@ def main():
     rows=[]
     for code in ['BR','US','GB','DE','FR','ES','PT','JP']:
         r=countries.filter(pl.col('market_code')==code).to_dicts()[0]
-        rows.append(f"{code} & {r['classified_tracks']:,} & {100*r['coverage']:.1f} & " +
+        rows.append(f"{code} & {r['classified_tracks']:,} & " +
             ' & '.join(f"{r[m+'_pct']:.1f}" for m in ['explicitness','casual_sex','misogyny','materialism'])+r' \\')
     coords_all=' '.join(f"({r['pct']:.5f},{26-i})" for i,r in enumerate(global_stats))
     coords_br=' '.join(f"({br[r['metric']+'_pct']:.5f},{26-i})" for i,r in enumerate(global_stats))
@@ -67,14 +67,23 @@ def main():
     replacements={'COUNTRY_ROWS':'\n'.join(rows),'ALL_COORDS':coords_all,'BR_COORDS':coords_br,
         'DIM_TICKS':ticks,'DIM_LABELS':ticklabels,'ANNUAL_PLOTS':'\n'.join(annual_plots),
         'CONTEXT_ROWS':'\n'.join(context_rows),'MODEL_ROWS':'\n'.join(model_rows)}
+    social=pl.read_csv(HERE/'social-revision/focused-models.csv')
+    focused=[]
+    for theme,label in [('materialism','Materialism / Gini'),('misogyny','Misogyny / GII'),('violence','Violence / log homicide')]:
+        cells=[]
+        for specification in ['unadjusted','adjusted']:
+            r=social.filter((pl.col('theme')==theme)&(pl.col('specification')==specification)).to_dicts()[0]
+            cells.append(f"{r['beta']:+.2f} [{r['lower']:+.2f}, {r['upper']:+.2f}]")
+        focused.append(f"{label} & {r['n']} & "+' & '.join(cells)+f" & {r['p_holm']:.3f}"+r' \\')
+    replacements['SOCIAL_REVISION']=(HERE/'social-revision.tex').read_text(encoding='utf-8').replace('@@FOCUSED_SOCIAL_ROWS@@','\n'.join(focused))
     regional=pl.read_csv(HERE/'revision-analysis/regional-trends.csv')
     regional_rows=[]
     for region in ['Latin America','Nordic countries','East Asia','Southeast Asia','Anglophone markets','Other panel markets']:
         cells=[]
         for metric in ['wealth_as_status','weapons','romantic_affection']:
             r=regional.filter((pl.col('region')==region)&(pl.col('metric')==metric)).to_dicts()[0]
-            cells.append(f"{r['change_pp']:+.2f}\\newline [{r['ci_lower']:+.2f}, {r['ci_upper']:+.2f}]")
-        regional_rows.append(region+' & '+' & '.join(cells)+r' \\')
+            cells.append(f"{r['change_pp']:+.2f} [{r['ci_lower']:+.2f}, {r['ci_upper']:+.2f}]")
+        regional_rows.append(('Japan and Taiwan' if region=='East Asia' else region)+' & '+' & '.join(cells)+r' \\')
     revision_results=(HERE/'revision-results.template.tex').read_text(encoding='utf-8').replace('@@REGIONAL_ROWS@@','\n'.join(regional_rows))
     replacements.update({'LITERATURE_REVIEW':(HERE/'literature-review.tex').read_text(encoding='utf-8'),
         'REVISION_METHODS':(HERE/'revision-methods.tex').read_text(encoding='utf-8'),
@@ -89,7 +98,7 @@ def main():
     for r in atlas.to_dicts():
         country=pycountry.countries.get(alpha_2=r['market_code'])
         name=names.get(r['market_code'],country.name)
-        row=f"{r['explicitness_rank']} & {name} ({r['market_code']}) & {r['classified_tracks']:,} & {100*r['coverage']:.1f} & "+' & '.join(f"{r[m+'_pct']:.1f}" for m in ['romantic_affection','explicitness','casual_sex','objectification','misogyny','materialism','violence','crime'])
+        row=f"{r['explicitness_rank']} & {name} ({r['market_code']}) & {r['classified_tracks']:,} & "+' & '.join(f"{r[m+'_pct']:.1f}" for m in ['romantic_affection','explicitness','casual_sex','objectification','misogyny','materialism','violence','crime'])
         if r['market_code']=='BR':row=' & '.join(r'\textbf{'+cell.strip()+'}' for cell in row.split('&'))
         atlas_rows.append(row+r' \\')
     replacements['ATLAS_ROWS']='\n'.join(atlas_rows)
@@ -104,7 +113,7 @@ def main():
     visual_data={'records':atlas.to_dicts(),'labels':LABELS,'snapshot':manifest['database_snapshot_utc']}
     fragment=(HERE/'international-atlas.template.html').read_text(encoding='utf-8').replace('@@DATA@@',json.dumps(visual_data,ensure_ascii=False))
     visual_path=Path('C:/Users/Henrique Lima/.codex/visualizations/2026/10/11/01a12d4e-89a1-75c3-a70e-814dcc61ac52/international-music-atlas.html')
-    visual_path.write_text(fragment,encoding='utf-8')
+    # The current task only writes artifacts inside this workspace.
     (HERE/'international-atlas.fragment.html').write_text(fragment,encoding='utf-8')
     for key,value in replacements.items():template=template.replace('@@'+key+'@@',value)
     assert '@@' not in template

@@ -1,119 +1,164 @@
 {
   "revised_date_local": "2026-10-12",
-  "generated_utc": "2026-10-12T03:32:36.224812+00:00",
+  "generated_utc": "2026-10-12T14:07:13.029886+00:00",
   "pages": 11,
   "markets": 68,
   "dimensions": 26,
-  "references": 13,
-  "figures": 8,
+  "references": 14,
+  "figures": 7,
   "tables_excluding_atlas": 6,
   "database_snapshot_utc": "2026-10-11 23:39:03.970865+00:00",
-  "expert_verification": "reported completed by project lead; reviewer-level evidence unavailable",
-  "independent_validation": {
-    "status": "pending human annotation and language metadata; provisional draw only",
-    "sample_size": 3381,
-    "human_reviews_completed": 0,
-    "prior_review_documents_excluded": 58,
-    "sampling": "one hashed representative market per recording; two records per market x exclusive genre x maximum ordinal intensity cell, capped by cell size; no human result available",
-    "language_stratification": "not possible yet; all unresolved; revise draw after independently confirming languages"
-  },
   "checks": [
-    "all 11 PDF pages rendered and inspected",
-    "13 cited references and four questions present in compiled PDF",
-    "regional means independently recomputed from annual exports",
-    "all decomposition terms reproduce totals and group contributions",
-    "chart-day medians independently recomputed from frozen exposure data",
-    "68 unique cluster memberships",
-    "3381 unique candidate recordings across 68 markets, excluding prior review documents",
-    "two blank blind reviewer sheets, no AI intensity strata exposed",
-    "all frozen analytical input hashes checked",
-    "human reliability and actual language strata explicitly pending",
-    "no Git commit or branch switch, no provider or database writes"
+    "Frozen classified geography independently joined: 153501 IDs / 461447 pairs / 68 markets / all 26 scores present",
+    "All six focused coefficients and HC3 intervals independently refit from saved samples",
+    "Four search models use identical 232 cells / 47 markets; both indices have unit SD per market",
+    "Rendered PDF contains updated coefficients, corrected populations, intended-corpus wording and no forbidden exclusion percentage",
+    "No unresolved placeholders, undefined references or layout overflows",
+    "Final PDF pages rendered with Poppler and visually inspected",
+    "No commit, branch switch, provider call or database modification"
   ],
+  "independent_validation": "Reviewer-level accuracy and actual lyric languages remain unavailable; explicitly disclosed",
+  "social_inference": "Exploratory, post hoc; measured adjustment is incomplete and cannot identify causality",
   "files": [
     {
       "path": "research\\article\\article.pdf",
-      "sha256": "38fbadb2b732d1a0bc9102e9fa616a0027270814f0fd18fec9c44bec957675d6"
+      "sha256": "21bbfbbc1658ab02353c6b6782222eb1c15cdef226decd72bb3d478200d3852f"
     },
     {
       "path": "research\\article\\article.tex",
-      "sha256": "654f7091e4deb1f60d875d8ba946f80f68e498d79a05f2ceae9664ea6508c336"
+      "sha256": "e8b05a958958ff696dd3f044517f5044a6e5c369c6d710102b26c775d3d53e10"
     },
     {
       "path": "research\\article\\article.template.tex",
-      "sha256": "f8597d862e1c7bfdbb94109da09f573496d98de676ccb7b6efe0ff4d86ec866e"
+      "sha256": "a3dc5cc3059573248bea19f1306e3686691136affc024032adf0201a0c781d55"
     },
     {
       "path": "research\\article\\compose_article.py",
-      "sha256": "08ac3e0d7fe43511256040fb073a73cb27bae9af0ecbdd0d08f004d3511ae6d8"
+      "sha256": "4a1bce6d5400bb119feb7e422f0797ae61aeb775a9ccb3e4f24a01dcb29ef3b1"
     },
     {
-      "path": "research\\article\\literature-review.tex",
-      "sha256": "6c16f2626aebb6b36b0d20b0195238c25e0b75d8186dceea265501fa1705a84c"
+      "path": "research\\article\\plot_global_patterns.py",
+      "sha256": "87d16cb21c3e9a83b02b3f4ed6378b501442d496cf84033794f20eba9db86705"
+    },
+    {
+      "path": "research\\article\\plot_chart_exposure.py",
+      "sha256": "84ef0d30dec5623572ab1263361e83f464c3ed793c09a4e9dcb5732cada62cd1"
     },
     {
       "path": "research\\article\\revision-methods.tex",
-      "sha256": "480a1b7981efaa5334dde6fe2ceb6f68af22b5b0ff0c914936946d0047c27531"
+      "sha256": "3315823da1f4d8a5f16711ab8b73850007f9513ff24e576f8806af0fbc6a522c"
     },
     {
       "path": "research\\article\\revision-results.template.tex",
-      "sha256": "bc88298af40166b09cc6fc1b5b32064a391ee4f6ea36c1d56a1d69e00417b8f1"
+      "sha256": "c31c55a7957b7bd2b66b88143605b911596d6cb7d353464530e23105243551cf"
     },
     {
-      "path": "research\\article\\analyze_revision.py",
-      "sha256": "0a32fa3f42fec89eefa7552d8036e7de3fafdf051e1ba4847f9cd2f1102d5535"
+      "path": "research\\article\\social-revision.tex",
+      "sha256": "d3a1db6b87eaccf5d3e7ab1395d698549d00b6464aee146fdc39066716d49e43"
     },
     {
-      "path": "research\\article\\revision-analysis\\audit-key-private.csv",
-      "sha256": "75b937c0abed140c8c48e34bacd00af5fae01209cc1529ac1e951de9fc91d9d9"
+      "path": "research\\article\\analyze_social_revision.py",
+      "sha256": "86c5f5f6913440e41da729531a10c2599e00e858673b0c875a2d21d2bffe35ac"
     },
     {
-      "path": "research\\article\\revision-analysis\\cluster-quality.csv",
-      "sha256": "f8984d1a55e41b20b940e2596cd494afff207d1e334b110f69ef4638a5bcc522"
+      "path": "research\\article\\verify_revision.py",
+      "sha256": "4171213b9def0e0109cccd3e9751b1cb0010da85e455ae7ea80a89e2996497eb"
     },
     {
-      "path": "research\\article\\revision-analysis\\composition-decomposition.csv",
-      "sha256": "d543fbda3797822ae2450c6e976c041bd7c77c7d6f235bd04813fe00d7a5c080"
+      "path": "research\\article\\README.md",
+      "sha256": "b1aa3703dc4e32a97e7f1e8ff8b2480bc55663f6a148198fb0f64b386bebf276"
     },
     {
-      "path": "research\\article\\revision-analysis\\decomposition-group-details.csv",
-      "sha256": "02281ec1e98ca29fe54bb9d1372eb4565aa14adc58742bbbb402d1c1e5f5c769"
+      "path": "research\\article\\social-revision\\focused-models.csv",
+      "sha256": "5c4fc326d053944558611afa0f9e15404512d21e60e928babae346e7889f4edd"
     },
     {
-      "path": "research\\article\\revision-analysis\\human-reviewer-1-blind.csv",
-      "sha256": "56935df094fcf2300c79029f0eb487807f13db496406d45bc8bba0453c576404"
+      "path": "research\\article\\social-revision\\local-search-terms.json",
+      "sha256": "b1851c77a5bb07eca4287d7e6c851351f4e12437b42b487007b74c0febf06569"
     },
     {
-      "path": "research\\article\\revision-analysis\\human-reviewer-2-blind.csv",
-      "sha256": "56935df094fcf2300c79029f0eb487807f13db496406d45bc8bba0453c576404"
+      "path": "research\\article\\social-revision\\manifest.json",
+      "sha256": "e231a1e2b4bae0a5971efd9e12a2fba52dd42a120236da8367a984d3e3ac6075"
     },
     {
-      "path": "research\\article\\revision-analysis\\longevity-adjusted.csv",
-      "sha256": "9906b59fbb14d23af22c0981eab39502b4dde8dd53646fcb998c31279e1e5d63"
+      "path": "research\\article\\social-revision\\materialism-model-sample.csv",
+      "sha256": "10c6cabc123b3667f8d772441fe86b8011f614766e199d503dafc1eb74d708c4"
     },
     {
-      "path": "research\\article\\revision-analysis\\longevity-contrasts.csv",
-      "sha256": "0568e13edb5cfd31e85733e5dc1ed6bdc7fb263102b7b9ce881e3a40fa4ccf2b"
+      "path": "research\\article\\social-revision\\misogyny-model-sample.csv",
+      "sha256": "562449ec5591ca005eedc9dbfe3518322a172083e9125cd48de70b18d3562d25"
     },
     {
-      "path": "research\\article\\revision-analysis\\longevity-descriptive.csv",
-      "sha256": "8eaaa33b1288fb90fdac96f4544f5bf789843a89ce3ed6b6ac88175c85c2fe55"
+      "path": "research\\article\\social-revision\\paired-search-models.csv",
+      "sha256": "0983745c3fd68f09e09fd7eba353d15bc7edaea7846a19394e79506e4a744c56"
     },
     {
-      "path": "research\\article\\revision-analysis\\regional-trends.csv",
-      "sha256": "21958e8817b34614abb737946afcec9185d027903208b9208fe2a30e6beaac92"
+      "path": "research\\article\\social-revision\\paired-search-sample.csv",
+      "sha256": "ceff4bda697d5a74ab9a706e261de3e26ae55aa7fdc5576963a4224adfe3f3de"
     },
     {
-      "path": "research\\article\\revision-analysis\\theme-clusters.csv",
-      "sha256": "7ada1fe787ca49a4339208495d90453a5a61a0c5300673ae61cbd559f63d66b7"
+      "path": "research\\article\\social-revision\\violence-model-sample.csv",
+      "sha256": "7de1f9214f82e118182ddbcee416d6d235f0c4abda94177cc7e313428b151172"
     },
     {
-      "path": "research\\article\\revision-analysis\\validation-protocol.txt",
-      "sha256": "355e2e3dd2232e346689f48f4420038d2fbf06eb4d2125e0a15010c7a667d4ba"
+      "path": "research\\article\\figures\\chart-exposure-weights.pdf",
+      "sha256": "291b23f9db37505cf5d6f6012a160ed41a0ee7f273e29cf567cc8192a24854f5"
     },
     {
-      "path": "research\\article\\revision-analysis\\manifest.json",
-      "sha256": "777ea72cc422ea9ef9e3a84343deda6e1db6b826329d39662eac212d730596f8"
+      "path": "research\\article\\figures\\chart-exposure-weights.png",
+      "sha256": "fd6415a48c60c84a6e73260d713e259c14284a825019cb3d63649345af391f20"
+    },
+    {
+      "path": "research\\article\\figures\\chart-exposure-weights.svg",
+      "sha256": "3da8255a2e4311fa0e184ced908e4188c42178680888d82762f74a29526cb212"
+    },
+    {
+      "path": "research\\article\\figures\\chart-family-contrast.pdf",
+      "sha256": "01d6c9fd5b89d0f341e8a2d42dd3b745657ff032584c0e7ae5ff665e932432a9"
+    },
+    {
+      "path": "research\\article\\figures\\chart-family-contrast.png",
+      "sha256": "672cbc1045a48913f79fba2aeb3e194700c74e64653e5890ff624b3e1a578e59"
+    },
+    {
+      "path": "research\\article\\figures\\chart-family-contrast.svg",
+      "sha256": "06b2f2f9b05aadada277ffd011d769c38822fba7f14459b667a5cb9edfd418cb"
+    },
+    {
+      "path": "research\\article\\figures\\global-dimension-changes.pdf",
+      "sha256": "eae3b2466e306d3d9926bc8060bf39a748cc9959e1166c960c2903e7fb00d447"
+    },
+    {
+      "path": "research\\article\\figures\\global-dimension-changes.png",
+      "sha256": "ad517461af61fcf56515073dc1285ed6cf54933e15a14fa28c8bb53bb65da81b"
+    },
+    {
+      "path": "research\\article\\figures\\global-dimension-changes.svg",
+      "sha256": "bb22dadd9843f08b42fa8f0d084bd3187199811d01d746a0b0f6d8c7d7ce8dda"
+    },
+    {
+      "path": "research\\article\\figures\\global-trajectories.pdf",
+      "sha256": "09da3950f3a4892314dfa70b180a27838856e6d0add1247257bfe7764a202a0f"
+    },
+    {
+      "path": "research\\article\\figures\\global-trajectories.png",
+      "sha256": "b65f7287338e975bab02ebe3c632112347d09e0f22ba3a706d5dd76f09f151c4"
+    },
+    {
+      "path": "research\\article\\figures\\global-trajectories.svg",
+      "sha256": "7fb75f2088002059d96f22a52d772ded0afc87410f67a3a3de98b98a2c2a6667"
+    },
+    {
+      "path": "research\\article\\figures\\social-association-trajectories.pdf",
+      "sha256": "396301ac3577e96ce905cfaaf278b48599998d99ec96fd15963b6978c254245e"
+    },
+    {
+      "path": "research\\article\\figures\\social-association-trajectories.png",
+      "sha256": "0851e04c716fb69884627864b6999f635c18840fd4a72ec35cc424a91295ff0b"
+    },
+    {
+      "path": "research\\article\\figures\\social-association-trajectories.svg",
+      "sha256": "262c0e7514fab8c7f66650dfd87107ec0001099d8ee884202abf617ed7f31057"
     }
   ]
 }

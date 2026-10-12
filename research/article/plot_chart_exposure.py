@@ -34,20 +34,20 @@ def latex_exposure():
  xmajorgrids=true,grid style={gray!18},axis line style={gray}]
 '''+ '\n'.join(groups)+r'''
 \end{groupplot}\end{tikzpicture}
-\caption{Three views of the same classified Top-200 repertoire in 2021. Blue circles count recording IDs equally; orange squares weight their observed chart days; teal triangles weight observed chart streams. The right panel averages the same 51 markets equally. Every denominator contains classified records only. Brazil has 1,035 classified IDs out of 1,382 charted IDs, covering 71.9\% of chart days and 69.4\% of chart streams. Median stream coverage across the 51 markets is 73.1\% (range 45.5--80.9\%). Streams are chart-eligible plays during chart appearances, not people or all Spotify plays.}
+\caption{Three views of the same classified Top-200 repertoire in 2021. Blue circles count recording IDs equally; orange squares weight their observed chart days; teal triangles weight observed chart streams. The right panel averages the same 51 markets equally. Every denominator contains classified records only. Brazil has 1,035 recording IDs in this intended classified repertoire. The analysis describes their chart appearances and eligible streams. Sampling and exposure-denominator details are provided in the supplementary files. Streams are chart-eligible plays during chart appearances, not people or all Spotify plays.}
 \label{fig:chart-exposure}
 \end{figure*}'''
     genres=pl.read_csv(DATA/'brazil-genre-thematic-profiles.csv')
     names={'POP':'Pop','AGRONEJO':'Agronejo','ARROCHA':'Arrocha','RAP_HIPHOP':'Rap / hip-hop','FUNK_BR':'Brazilian funk','SERTANEJO_BR':'Sertanejo','ROCK':'Rock','K_POP':'K-pop'}
     rows=[]
     for r in genres.to_dicts():
-        rows.append(f"{names[r['normalized_genre']]} & {r['classified_tracks']} & {100*r['classification_coverage']:.1f} & "+
+        rows.append(f"{names[r['normalized_genre']]} & {r['classified_tracks']} & "+
             ' & '.join(f"{r[m+'_pct']:.1f}" for m in ['romantic_affection','explicitness','casual_sex','misogyny','materialism'])+r' \\')
     table=r'''\begin{table}[t]
-\caption{Brazilian genre-tag profiles, MGD Top 200, 2017--2021. The eight largest artist-derived tags are selected by charted recording count. $n$: classified IDs; Cov.: classification coverage; R: romance; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. Theme values are percentages of classified IDs, not genre-wide population estimates. Tags overlap.}
+\caption{Brazilian genre-tag profiles, MGD Top 200, 2017--2021. The eight largest artist-derived tags are selected by charted recording count. $n$: classified IDs; R: romance; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. Theme values are percentages of classified IDs, not genre-wide population estimates. Tags overlap.}
 \label{tab:genre-profiles}
 \centering\scriptsize\setlength{\tabcolsep}{2.8pt}
-\begin{tabular}{@{}lrrrrrrr@{}}\toprule Tag & $n$ & Cov. & R & E & C & M & Mat.\\\midrule
+\begin{tabular}{@{}lrrrrrr@{}}\toprule Tag & $n$ & R & E & C & M & Mat.\\\midrule
 '''+ '\n'.join(rows)+r'''
 \bottomrule\end{tabular}
 \end{table}'''
@@ -71,8 +71,10 @@ def main():
     paths=[]
     for suffix in ['pdf','svg','png']:
         file=HERE/'figures'/('chart-exposure-weights.'+suffix);fig.savefig(file,bbox_inches='tight',dpi=220);paths.append(file)
+        if suffix=='svg':
+            file.write_text('\n'.join(line.rstrip() for line in file.read_text(encoding='utf-8').splitlines())+'\n',encoding='utf-8',newline='\n')
     plt.close(fig)
-    (DATA/'figure-definitions.tex').write_text('\n\n'.join(latex_exposure().values()),encoding='utf-8')
+    (DATA/'figure-definitions.tex').write_text('\n\n'.join(latex_exposure().values()),encoding='utf-8',newline='\n')
     inputs=[DATA/'weighted-country-year.csv',DATA/'global-weighted-trends.csv',DATA/'brazil-genre-thematic-profiles.csv',Path(__file__)]
     manifest={'inputs':[dict(path=str(p.relative_to(HERE)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in inputs],
         'outputs':[dict(path=str(p.relative_to(HERE)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths]}

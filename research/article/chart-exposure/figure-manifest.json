@@ -14,17 +14,17 @@
     },
     {
       "path": "plot_chart_exposure.py",
-      "sha256": "34cfb0ac337e6eadbc89a31c883587517175f1c80840e38ff16e3d5b19ce0991"
+      "sha256": "84ef0d30dec5623572ab1263361e83f464c3ed793c09a4e9dcb5732cada62cd1"
     }
   ],
   "outputs": [
     {
       "path": "figures\\chart-exposure-weights.pdf",
-      "sha256": "3c6cb1db41a0a283259b0512beb1642839746ce8568c622af50d044b53458b3b"
+      "sha256": "291b23f9db37505cf5d6f6012a160ed41a0ee7f273e29cf567cc8192a24854f5"
     },
     {
       "path": "figures\\chart-exposure-weights.svg",
-      "sha256": "1222b8fd0337bb9000a24871104857ee0d1d04120742c4f6c8ccd78f2acdc4e7"
+      "sha256": "3da8255a2e4311fa0e184ced908e4188c42178680888d82762f74a29526cb212"
     },
     {
       "path": "figures\\chart-exposure-weights.png",
