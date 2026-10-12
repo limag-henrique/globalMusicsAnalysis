@@ -1,0 +1,123 @@
+{
+  "seed": 20261012,
+  "bootstrap_replicates": 400,
+  "bootstrap_unit": "recording ID shared across all market/year appearances",
+  "analytical_corpus": "153501 classified recording IDs; 461447 recording-market pairs; exclusions remain in selection flow",
+  "regions": {
+    "Latin America": [
+      "AR",
+      "BO",
+      "BR",
+      "CL",
+      "CO",
+      "CR",
+      "DO",
+      "EC",
+      "GT",
+      "HN",
+      "MX",
+      "PA",
+      "PE",
+      "PY",
+      "SV",
+      "UY"
+    ],
+    "Nordic countries": [
+      "DK",
+      "FI",
+      "IS",
+      "NO",
+      "SE"
+    ],
+    "East Asia": [
+      "JP",
+      "TW"
+    ],
+    "Southeast Asia": [
+      "ID",
+      "MY",
+      "PH",
+      "SG",
+      "TH"
+    ],
+    "Anglophone markets": [
+      "AU",
+      "CA",
+      "GB",
+      "IE",
+      "NZ",
+      "US"
+    ],
+    "Other panel markets": [
+      "AD",
+      "AT",
+      "BE",
+      "BG",
+      "CH",
+      "CZ",
+      "DE",
+      "EE",
+      "ES",
+      "FR",
+      "GR",
+      "HU",
+      "IT",
+      "LT",
+      "LU",
+      "LV",
+      "NL",
+      "PL",
+      "PT",
+      "SK",
+      "TR"
+    ]
+  },
+  "clustering": {
+    "k": 4,
+    "silhouette": 0.44180631909565105
+  },
+  "genre_priority": "rap hip hop; latin urban funk; country sertanejo; rock metal; dance electronic; soul rnb; pop; other tagged; untagged",
+  "genre_tagged_endpoint_pairs": 111292,
+  "endpoint_pairs": 199496,
+  "release_known_endpoint_pairs": 150236,
+  "validation": {
+    "status": "pending human annotation and language metadata; provisional draw only",
+    "sample_size": 3381,
+    "human_reviews_completed": 0,
+    "prior_review_documents_excluded": 58,
+    "sampling": "one hashed representative market per recording; two records per market x exclusive genre x maximum ordinal intensity cell, capped by cell size; no human result available",
+    "language_stratification": "not possible yet; all unresolved; revise draw after independently confirming languages"
+  },
+  "limits": [
+    "CIs condition on frozen classifications and observed markets, not human coding accuracy or national population sampling",
+    "Genre and release decompositions are separate, non-additive, metadata-dependent descriptions",
+    "Clusters are exploratory, k chosen by silhouette; no stability validation",
+    "Longevity is observed 2017-2021 chart days, not uncensored lifetime or a causal effect"
+  ],
+  "inputs": [
+    {
+      "path": "research\\article\\analyze_revision.py",
+      "sha256": "0a32fa3f42fec89eefa7552d8036e7de3fafdf051e1ba4847f9cd2f1102d5535"
+    },
+    {
+      "path": "research\\article\\analysis-final\\native-id-annotations.parquet",
+      "sha256": "488ca78b4ecb7097bbb4d30059e34db95a88fd6e65e4eb66df51cf87fc40a0de"
+    },
+    {
+      "path": "data\\derived\\research_quality\\country-all-history-20261011-022524\\unique-chart-track-market-year-source.parquet",
+      "sha256": "8763df13c10040f5ea85ccbe61c13cf58a9f5541002a9d2ffeea6bc1cbe8b4e3"
+    },
+    {
+      "path": "data\\derived\\genre_claims.parquet",
+      "sha256": "c0559ac322357c52e049b05b6e1708a55f6823e6839bdbbce33b7a71d94683fd"
+    },
+    {
+      "path": "mgd\\songs\\spotify_hit_songs_dataset_complete.csv",
+      "sha256": "6563736be686e18148e7853b53ffb48338aaa120fff32eded7bad19fc661fe48"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\classified-track-market-year.parquet",
+      "sha256": "53c440feb2dfbea355d64476772d4a592c7d6665fa93b70908a20368951057e6"
+    }
+  ]
+}

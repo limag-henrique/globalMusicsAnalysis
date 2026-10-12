@@ -67,6 +67,18 @@ def main():
     replacements={'COUNTRY_ROWS':'\n'.join(rows),'ALL_COORDS':coords_all,'BR_COORDS':coords_br,
         'DIM_TICKS':ticks,'DIM_LABELS':ticklabels,'ANNUAL_PLOTS':'\n'.join(annual_plots),
         'CONTEXT_ROWS':'\n'.join(context_rows),'MODEL_ROWS':'\n'.join(model_rows)}
+    regional=pl.read_csv(HERE/'revision-analysis/regional-trends.csv')
+    regional_rows=[]
+    for region in ['Latin America','Nordic countries','East Asia','Southeast Asia','Anglophone markets','Other panel markets']:
+        cells=[]
+        for metric in ['wealth_as_status','weapons','romantic_affection']:
+            r=regional.filter((pl.col('region')==region)&(pl.col('metric')==metric)).to_dicts()[0]
+            cells.append(f"{r['change_pp']:+.2f}\\newline [{r['ci_lower']:+.2f}, {r['ci_upper']:+.2f}]")
+        regional_rows.append(region+' & '+' & '.join(cells)+r' \\')
+    revision_results=(HERE/'revision-results.template.tex').read_text(encoding='utf-8').replace('@@REGIONAL_ROWS@@','\n'.join(regional_rows))
+    replacements.update({'LITERATURE_REVIEW':(HERE/'literature-review.tex').read_text(encoding='utf-8'),
+        'REVISION_METHODS':(HERE/'revision-methods.tex').read_text(encoding='utf-8'),
+        'REVISION_RESULTS':revision_results})
     from plot_global_patterns import latex_figures
     replacements.update(latex_figures())
     from plot_chart_exposure import latex_exposure
@@ -96,7 +108,7 @@ def main():
     (HERE/'international-atlas.fragment.html').write_text(fragment,encoding='utf-8')
     for key,value in replacements.items():template=template.replace('@@'+key+'@@',value)
     assert '@@' not in template
-    (HERE/'article.tex').write_text(template,encoding='utf-8')
+    (HERE/'article.tex').write_text(template,encoding='utf-8',newline='\n')
     print('Written',HERE/'article.tex','using snapshot',manifest['database_snapshot_utc'])
 
 if __name__=='__main__':main()

@@ -1,11 +1,12 @@
 # Artigo e atlas internacional
 
-Artigo em inglês, com foco no Brasil, sete páginas de texto e gráficos científicos
-em duas colunas e uma página de atlas para todos os 68 mercados. Inclui oito
-figuras vetoriais, cinco tabelas de resultados/métodos e a tabela internacional.
+Artigo em inglês, com foco no Brasil, revisado em 12/10/2026. A versão atual tem
+11 páginas A4, oito figuras vetoriais, seis tabelas de resultados/métodos e uma
+tabela de atlas para os 68 mercados. As cópias em `publication/` pertencem à
+entrega anterior; esta revisão está em `research/article/`.
 
 - `article.tex`: fonte LaTeX independente, com todos os dados gráficos incorporados.
-- `article.pdf`: versão compilada e revisada visualmente, oito páginas A4.
+- `article.pdf`: versão compilada e revisada visualmente, 11 páginas A4.
 - `international-atlas.html`: consulta interativa de países e posições em 26 dimensões.
 - `international-atlas.csv`: valores, numeradores, denominadores e posições por dimensão.
 - `analysis-final/`: resultados completos em CSV/Parquet, amostras dos modelos,
@@ -21,6 +22,32 @@ figuras vetoriais, cinco tabelas de resultados/métodos e a tabela internacional
   cruzamentos sociais com três ponderações. Os originais permanecem preservados.
 - `figures/`: cinco figuras adicionais em PDF, SVG e PNG, prontas para reutilização.
 - `delivery-manifest.json`: hashes dos produtos e verificações de entrega.
+- `revision-analysis/`: tendências regionais com intervalos por gravação,
+  decomposições por gênero e grupo de lançamento, quatro clusters exploratórios,
+  permanência observada nos charts, dois contrastes ajustados e pacote de
+  avaliação humana. `audit-key-private.*` contém os escores de IA e não deve ser
+  entregue aos avaliadores; use `human-reviewer-1-blind.csv` e a segunda planilha.
+- `literature-review.tex`, `revision-methods.tex` e
+  `revision-results.template.tex`: trechos editoriais incorporados na fonte
+  independente por `compose_article.py`.
+
+A revisão define o corpus analítico como 153.501 gravações classificadas e
+461.447 pares gravação–mercado. A classificação cobre 100% desse corpus final;
+a retenção de 70,8% do inventário inicial continua explícita. A confirmação
+anterior de verificação por especialistas não fornece rótulos individuais,
+tamanho da amostra ou concordância. Essas métricas continuam não estimadas.
+A amostra independente provisória tem 3.381 gravações: 754 no estrato máximo 0,
+821 no 1, 883 no 2 e 923 no 3, distribuídas pelos 68 mercados. Dois avaliadores
+devem preencher as planilhas cegas. Os idiomas reais ainda precisam ser
+identificados para finalizar a estratificação; não se inferem idiomas por país.
+O protocolo está em `revision-analysis/validation-protocol.txt`.
+
+Para reproduzir as extensões: executar
+`.venv/Scripts/python.exe research/article/analyze_revision.py`, depois
+`.venv/Scripts/python.exe research/article/compose_article.py`, e compilar
+`article.tex` com Tectonic a partir desta pasta. Não executar nova classificação
+nem alterar o banco. As seções seguintes preservam informações da extração
+original; a situação da validação independente é a descrita nesta revisão.
 
 O snapshot somente leitura do PostgreSQL é de 11/10/2026, 20:39:03 BRT. Foram
 selecionadas 154.964 identidades de gravação no corpus geral e 153.501 IDs de

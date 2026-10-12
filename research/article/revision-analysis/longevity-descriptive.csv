@@ -1,0 +1,7 @@
+metric,substantial,recording_market_pairs,median_days,p25_days,p75_days
+romantic_affection,false,140725,7.0,2.0,37.0
+romantic_affection,true,83873,11.0,2.0,66.0
+explicitness,false,199290,7.0,2.0,44.0
+explicitness,true,25308,14.0,3.0,78.0
+conspicuous_consumption,false,184431,8.0,2.0,49.0
+conspicuous_consumption,true,40167,8.0,2.0,42.0

@@ -29,22 +29,24 @@
 \setcounter{topnumber}{4}
 \setcounter{bottomnumber}{4}
 \setcounter{totalnumber}{8}
-\title{\vspace{-8mm}\Large\bfseries Brazil in a Global Atlas of Lyrical Themes:\\Verified Music Data and Social Context}
+\title{\vspace{-8mm}\Large\bfseries Brazil in a Global Atlas of Lyrical Themes:\\Chart Repertoires and Social Context}
 \author{}
 \date{\vspace{-10mm}\small Data freeze: 11 October 2026}
 \begin{document}
 \raggedbottom
 \maketitle
 \begin{abstract}
-\noindent We connect verified lyrics to charts, recorded plays, genre tags and social indicators. The archive holds 47.43 million source records and 153,501 classified recording IDs in 68 markets. From 2017 to 2021, status and conflict themes grow across a fixed 55-market panel. Romance falls in Top 200 but rises in Viral 50. A further analysis of 17.27 million daily chart entries shows that romance receives more stream weight than song counts suggest, while crime and weapons receive less. Brazil combines rising sexual themes, strong romantic content and distinct genre profiles. Several social links weaken when weighted by streams. Eight figures and an international atlas show why repertoire size, persistence and recorded plays must be examined together.
+\noindent We study how lyrical themes circulate across music markets and how they relate to chart exposure and social conditions. From an archive of 47.43 million source records, the final analytical corpus includes 153,501 classified recording IDs in 68 markets. Every recording in this final corpus has a classification; recordings without one are excluded and documented. Between 2017 and 2021, status and conflict themes increase in a fixed 55-market panel, with different regional patterns. Genre and release-group decompositions show that changes in repertoire composition account for part of these trends. Four exploratory theme clusters broadly separate Latin American and Asian repertoires. In 51 Top-200 markets, romantic and sexually explicit songs both have longer observed chart presence than songs without those themes. National Gini and homicide indicators show descriptive associations, without establishing predictive accuracy or causation. Human validation metrics remain pending because reviewer-level labels are unavailable. Figures and a market atlas distinguish song counts, chart days and recorded plays.
 \end{abstract}
 
 \section{Research question}
-How do sexual, romantic, gender, material, and antisocial themes differ across music markets, and how do they relate to chart dynamics and external indicators? Brazil is a focal case, compared with other markets using the same measures. The analysis separates sexual content from objectification and misogyny, and thematic presence from endorsement. This allows several aspects of a song to coexist without collapsing them into one moral score.
+How do sexual, romantic, gender, material, and crime and conflict themes differ across music markets, and how do they relate to chart dynamics and external indicators? Brazil is a focal case, compared with other markets using the same measures. The analysis separates sexual content from objectification and misogyny, and thematic presence from endorsement. This allows several aspects of a song to coexist without collapsing them into one moral score.
 
-The study combines historical charts, complete lyrics, structured Gemini classification, specialist verification, and dated contextual data. It addresses differences in the circulating repertoire, changes over time, and associations with economic conditions, gender inequality, homicide, internet access, and relative search interest. A market identifies where a recording charts; it does not identify the artist's nationality.
+The study combines historical charts, lyrics, structured Gemini classification and social indicators matched by year. A specialist check was reported by the project lead; an independent, measured validation is still needed. We examine the songs circulating in each market, changes over time and associations with social conditions. A market identifies where a recording appears in the charts, not the artist's nationality or the listener's identity.
 
 Six axes organize the analysis: \textbf{intimacy} (romance, heartbreak, reciprocity and sexual relations); \textbf{gender and power} (agency, objectification and misogyny); \textbf{status and inequality} (money, materialism and wealth); \textbf{violence and security} (crime, weapons and drugs); \textbf{digital environment} (access, search and connectivity); and \textbf{cultural circulation} (identity, genres and chart persistence). Brazil is the focal case. The atlas lets every market inspect its own profile, position and coverage.
+
+@@LITERATURE_REVIEW@@
 
 \section{Corpus and method}
 \subsection{Sources, units, and coverage}
@@ -67,11 +69,11 @@ Pro-M\'usica / aggregate & 50 & Aug. 2026 \\
 \end{tabularx}
 \end{table}
 
-The geographical analysis excludes GLOBAL, Hong Kong, and Puerto Rico under the established market policy, and keeps Taiwan as a separate market. The resulting union contains 222,102 distinct recording IDs, 652,121 recording--market pairs, and 386 market--year cells in 68 markets. Classified links cover 153,501 recording IDs and 461,447 recording--market pairs. The latter coverage is 70.8\%; individual market coverage ranges from 59.7\% to 79.1\%. Markets enter displayed comparisons with at least 300 classified recordings. Chart coverage and classification coverage are different quantities.
+The geographical analysis excludes GLOBAL, Hong Kong and Puerto Rico under the established market policy, and keeps Taiwan as a separate market. The initial chart inventory contains 222,102 distinct recording IDs and 652,121 recording--market pairs in 68 markets. We exclude 68,601 recording IDs without a usable classification, corresponding to 190,674 recording--market pairs. The final analytical corpus therefore contains 153,501 recording IDs and 461,447 recording--market pairs across 386 market--year cells. Classification is available for 100\% of this final corpus. The selection retains 70.8\% of the initial pairs, ranging from 59.7\% to 79.1\% by market; the remaining 29.2\% are outside the analytical corpus. These selection rates stay visible in tables so that a complete final corpus is not confused with complete coverage of the original charts. Markets enter displayed comparisons with at least 300 classified recordings. This restriction defines a study of the classified repertoire and does not demonstrate that excluded songs have the same thematic profile.
 
-The main window starts on 1 January 2017 and ends on 13 March 2022. The partial 2022 repertoire is described but excluded from annual contextual correlations and search models. The 2026 YouTube and Pro-M\'usica captures are supplementary inventories, not extensions of the historical series. A YouTube video remains a video-level item, and the most-popular endpoint is not a historical YouTube Music Top Songs archive. Chartmetric pilot files and source capability records are retained as acquisition evidence, outside the quantified source union.
+The main window starts on 1 January 2017 and ends on 13 March 2022. The partial 2022 repertoire is described but excluded from annual contextual correlations and search models. The 2026 YouTube and Pro-M\'usica captures are supplementary inventories, not extensions of the historical series. A YouTube video remains a video-level item, and the most-popular endpoint is not a historical YouTube Music Top Songs archive. Chartmetric pilot files and source capability records are retained as acquisition evidence, outside the counted source archive.
 
-\subsection{Classification and completed verification}
+\subsection{Classification and validation status}
 Lyrics are acquired through the configured provider cascade, with source, version, and SHA-256 text hash preserved. Gemini receives the supplied lyric text and returns schema-constrained JSON. The model is \texttt{gemini-3.8-flash}; the taxonomy and prompt are \texttt{lyrics-classification-v1} and \texttt{lyrics-classification-prompt-v2}. The contract contains 26 ordinal dimensions in six groups: sexuality, relationships, gender representation, material status, antisocial content, and territorial identity. It also codes consent, target gender, representation roles, and stance. Generation uses Vertex AI; batch outputs are reconciled into an append-only PostgreSQL history.
 
 \begin{figure}[t]
@@ -79,7 +81,7 @@ Lyrics are acquired through the configured provider cascade, with source, versio
 \begin{tikzpicture}[font=\scriptsize,box/.style={draw=blue,rounded corners=2pt,fill=blue!4,align=center,minimum height=7mm,text width=36mm}]
 \node[box] (a) at (0,0) {Chart archive\\native IDs and dates};
 \node[box] (b) at (4.5,0) {Lyrics and Gemini\\26 dimensions + categories};
-\node[box] (c) at (4.5,-1.2) {Completed specialist check\\classifications and links};
+\node[box] (c) at (4.5,-1.2) {Reported specialist check\\independent metrics pending};
 \node[box] (d) at (0,-1.2) {Frozen analytical corpus\\market / year denominators};
 \draw[->,thick,blue] (a)--(b);
 \draw[->,thick,blue] (b)--(c);
@@ -91,26 +93,30 @@ Lyrics are acquired through the configured provider cascade, with source, versio
 \label{fig:workflow}
 \end{figure}
 
-Specialists completed verification of the classification results and the links between lyrics and recordings. This stage is complete. The analytical freeze uses the latest result per document for the fixed model, taxonomy, and prompt, then selects the latest applicable recording result. Text hashes, research authorization, and existing exclusion decisions define the eligible version. No confidence cutoff is applied to the reported corpus.
+The project lead reported that specialists completed a check of classifications and lyric-to-recording links. The archived confirmation does not include the number of reviewed items, individual reviewer scores or error counts. It therefore cannot establish measured classification accuracy. An earlier review contained 58 candidates and 22 AI-assisted text inspections, without an independent human reference set; its blank review fields cannot support agreement or F1 estimates. The analytical freeze uses the latest result per document for the fixed model, taxonomy and prompt, then selects the latest applicable recording result. Text hashes, research authorization and existing exclusion decisions define the eligible version. No confidence cutoff is applied.
+
+An independent validation package now contains 3,381 provisional candidate recordings and separate blind sheets for two reviewers. None of these new sheets has been scored. Sampling spans circulation market, an exclusive broad genre group and maximum thematic intensity from 0 to 3, excluding the earlier 58 review documents. Actual lyric language is unavailable in the frozen metadata: all language strata remain unresolved. The sample must be revised after independently confirming languages before it can be described as language-stratified. Both reviewers will score all retained items independently, using language-qualified reviewers where needed, followed by documented adjudication. The accompanying protocol defines counts, inclusion weights, agreement, binary precision/recall/F1 at intensity $\geq2$, ordinal confusion matrices, quadratic-weighted kappa, macro F1 and mean absolute error, with recording-level intervals and errors by language and theme. These metrics are currently unestimated, not zero. The present results depend on the frozen AI labels.
 
 The freeze is 11 October 2026, 23:39 UTC (20:39 in S\~ao Paulo): 155,010 of 159,111 lyric documents are classified (97.4\%), representing 154,979 recording identities before selection. The selected corpus has 154,995 documents, 154,964 recording identities, and 154,942 linked native IDs before geographical restrictions. Errors, instrumental, ambiguous and other unscored states remain separate from score zero; full counts accompany the analysis.
 
-Scores run from 0 (absent) to 3 (central). A score of 2 or 3 means substantial presence. Each percentage is the share of classified recording IDs with substantial presence of that theme. Each ID counts once per market and year; unclassified recordings count in coverage, not as theme absence. The scores describe the text, not the artist's conduct. Separate fields record consent and whether antisocial content is condemned, neutral, ambivalent, normalized or glorified.
+Scores run from 0 (absent) to 3 (central). A score of 2 or 3 means that a theme is clearly present. Each percentage is the share of classified recording IDs meeting this threshold. Each ID counts once per market and year; excluded recordings remain in the selection flow and are never treated as theme absence. The scores describe the text, not the artist's conduct. Separate fields record consent and whether antisocial content is condemned, neutral, ambivalent, normalized or glorified.
 
 \subsection{Chart dynamics and external context}
 Persistence counts days in the charts, including re-entries. Calendar span is reported separately. Top-50 renewal uses Jaccard distance between adjacent daily charts: how much the two sets of recordings differ. Comparisons across missing dates are excluded. Genre tags come from artist metadata and can overlap, so their shares need not sum to 100\%.
 
 International trends use the same 55 markets in all five complete years, with at least 300 classified recording IDs and 50\% classification coverage in every market--year. Each market has equal weight; interquartile ranges describe market dispersion, not confidence intervals. The source sensitivities use 52 balanced Top-200 markets, 51 MGD-only markets, and 55 Viral-50 markets; the chart-family comparison uses the same 52 markets in both families. Additional panels require 70\% classification coverage throughout (8 markets), or pre-existing chart eligibility and a 1 January 2017 source start (46 markets). A distinct-recording yearly pool counts each ID once across the 55 markets. All denominators and membership lists are exported; partial 2022 is excluded.
 
-A further analysis links the verified classifications to 17,268,835 daily MGD chart entries in the same 51 markets during 2017--2021. Identical duplicate entries are counted once; source files are preserved. Each market--year is measured three ways: one vote per recording, weight by days in the charts, and weight by recorded chart streams. Each measure uses its own classified denominator and coverage. Genre profiles use the eight largest Brazilian artist-derived tags, selected by recording count before examining theme scores. Social indicators are also crossed with all three weightings using the same complete-data markets within each comparison.
+A further analysis links the frozen classifications to 17,268,835 daily MGD chart entries in the same 51 markets during 2017--2021. Identical duplicate entries are counted once; source files are preserved. Each market--year is measured three ways: one vote per recording, weight by days in the charts, and weight by recorded chart streams. Each measure uses its own classified denominator and coverage. Genre profiles use the eight largest Brazilian artist-derived tags, selected by recording count before examining theme scores. Social indicators are also compared with all three weightings using the same complete-data markets within each comparison.
 
 Context is joined by exact market and reference year: World Bank income, Gini, unemployment, population and internet indicators; UNDP Gender Inequality Index (GII); OECD SIGI for its 2019 edition; and UNODC homicide indicators~\cite{wdi,gii,sigi,homicide}. Missing values stay missing, without interpolation. SIGI is not converted into an annual time series. OONI connectivity tests are kept separately from music and search measures. The contextual export verifies unique keys, value ranges, and raw-response hashes.
 
 Google Trends exports retain term, language, query batch, sampling period, and raw hash. The historical panel has 2,150 series--year summaries from 383 local term/language/batch series. Means are weighted by the days represented by each bucket; weeks crossing years are split. Values reported as $<1$ contribute bounds $[0,1)$ rather than an invented point estimate. The index is relative search interest, normalized to the query's place and period, not visits or counts of people~\cite{trends}.
 
+@@REVISION_METHODS@@
+
 \section{Results}
 \subsection{Thematic profile and market differences}
-Figure~\ref{fig:themes} reports all 26 dimensions. Romantic affection (35.5\%) and heartbreak (21.4\%) are the most frequent substantial themes in the full selected corpus. Money references (16.5\%), reciprocity (14.1\%), drugs/alcohol (13.7\%), and materialism (13.5\%) follow. Sexual explicitness is 7.2\%, objectification 5.8\%, and misogyny 3.4\%. Themes overlap: their percentages do not sum to 100\%.
+Figure~\ref{fig:themes} reports all 26 dimensions. Romantic affection (35.5\%) and heartbreak (21.4\%) are the most frequent clearly present themes in the full selected corpus. Money references (16.5\%), reciprocity (14.1\%), drugs/alcohol (13.7\%), and materialism (13.5\%) follow. Sexual explicitness is 7.2\%, objectification 5.8\%, and misogyny 3.4\%. Themes overlap: their percentages do not sum to 100\%.
 
 Brazil's all-history repertoire contains 7,186 classified IDs out of 9,619 charted IDs (74.7\% coverage). Romantic affection is 40.3\%, heartbreak 24.1\%, casual sex 15.1\%, explicitness 12.5\%, objectification 7.1\%, misogyny 1.9\%, and materialism 8.6\%. Brazil therefore combines comparatively frequent sexual and romantic content with lower misogyny and materialism than several comparator repertoires (Table~\ref{tab:markets}). Sexual content and misogyny do not move as one measure.
 
@@ -137,7 +143,7 @@ Brazil's all-history repertoire contains 7,186 classified IDs out of 9,619 chart
 \end{figure}
 
 \begin{table}[t]
-\caption{Selected circulation markets, pooled historical window. $n$: classified IDs; Cov.: classification coverage; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. All thematic columns are percentages at intensity $\geq2$.}
+\caption{Selected circulation markets, combined historical period. $n$: classified IDs; Cov.: retained share of initial repertoire; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. All thematic columns are percentages at intensity $\geq2$.}
 \label{tab:markets}
 \centering\footnotesize\setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{@{}lrrrrrr@{}}
@@ -208,7 +214,7 @@ Growth of materialism, crime, weapons, heartbreak and territorial identity persi
 \subsection{Music and six social axes}
 Within the 386 historical market--year cells, World Bank PPP income and internet use are observed in 380 cells each, GII in 372, Gini in 286, and total UNODC homicide in 332. SIGI is observed for 54 markets in 2019. These differences determine the pairwise sample sizes in Table~\ref{tab:context}.
 
-All 26 lyric dimensions are crossed with 13 downloaded contextual indicators, separately in 2017--2021: 1,690 specified cells, of which 1,586 support descriptive correlations. The matrix includes observed and insufficient-data cells, without selecting only large coefficients. Table~\ref{tab:context} organizes selected contrasts across the six axes; the complete matrix accompanies the article.
+All 26 lyric dimensions are compared with 13 downloaded contextual indicators, separately in 2017--2021: 1,690 specified cells, of which 1,586 support descriptive correlations. The matrix includes observed and insufficient-data cells, without selecting only large coefficients. Table~\ref{tab:context} organizes selected contrasts across the six axes; the complete matrix accompanies the article.
 
 \begin{table}[t]
 \caption{Exact-year descriptive Spearman associations. $n$ counts markets; no causal or significance claim is assigned to these correlations. Income is per-capita PPP income; GII and SIGI are distinct gender indices.}
@@ -230,6 +236,8 @@ Brazil's 2021 contextual profile anchors the comparison: Gini 52.9, youth unempl
 
 @@SOCIAL_TIME_FIGURE@@
 \textbf{Social links persist across years, not just in a single cross-section.} Holding the market sample fixed within each pair, materialism correlates positively with PPP income in all five years ($\rho=0.41$--$0.61$, 54 markets) and negatively with Gini ($-0.50$--$-0.30$, 39 markets). Misogyny and GII remain negatively associated ($-0.55$--$-0.43$, 53 markets); violence and homicide also remain negative ($-0.43$--$-0.27$, 47 markets). Territorial identity and urbanization remain positive ($0.23$--$0.36$, 54 markets). Romance's link to youth unemployment is weaker ($-0.17$--$-0.04$, 53 markets). Figure~\ref{fig:social-time} shows these fixed-sample trajectories. The results challenge a direct reading of lyrical violence or misogyny as national social prevalence; they instead define concrete questions about repertoire selection, circulation and representation.
+
+@@REVISION_RESULTS@@
 
 \subsection{Historical search associations}
 The established search specification uses the English term \textit{porn}, selecting the lexicographically first query batch within each market before fitting outcomes. Local indices are standardized within each eligible market series. Models use 2017--2021, at least 300 classified recordings per market--year, at least 80\% temporal search coverage, at least four eligible years per market, and at least 20 markets. Native-language terms remain in the descriptive panel.
@@ -256,19 +264,19 @@ Music provides a measurable record of how intimacy, power, status, violence and 
 
 The atlas makes these findings actionable for research and public debate: educators can compare representations, researchers can test mechanisms, and cultural institutions can track repertoire change with explicit evidence. It replaces broad judgments with inspectable measures. Each international position is specific to one dimension; no composite moral ranking is imposed.
 
-Inference is bounded by the observed units. Charted songs are a selected repertoire, not a sample of residents; streams are not unique listeners or endorsement. Spotify chart streams use eligibility filtering~\cite{spotify}. Equal recording weights describe repertoire diversity, not listening exposure. Top 200 and Viral 50 have different selection mechanisms. Shared songs create dependence between markets that market-clustered errors do not fully remove. Short panels, changing repertoires, genre mix, and missing contextual values constrain interpretation even with completed specialist verification.
+Inference is bounded by the observed units. Charted songs are a selected repertoire, not a sample of residents; streams are not unique listeners or endorsement. Spotify chart streams use eligibility filtering~\cite{spotify}. Equal recording weights describe repertoire diversity, not listening exposure. Top 200 and Viral 50 have different selection mechanisms. Shared songs create dependence between markets. The new recording-level bootstrap and longevity model retain that dependence; the earlier search models still group uncertainty only by market. Short panels, changing repertoires, incomplete genre and language metadata, missing contextual values and unmeasured classification error constrain interpretation.
 
 Adult-term search interest is not pornography consumption. OONI coverage comprises 211 market--year cells with connectivity-test counts; the tests come from participating networks and anomalies do not by themselves confirm censorship~\cite{ooni}. Female homicide is not synonymous with femicide, and partner/family homicide is a distinct indicator. The 2019 SIGI edition and annual GII must retain their own dates and definitions. Annual 2022 context extends beyond the musical cutoff and stays outside models.
 
 Historical commercial visits, weighted WVS sexual-value aggregates and dated TikTok exposure are absent. Contemporary DNS and the traffic pilot remain separate. A legacy index combining historical song shares with 2024 population is synthetic, not an exposed audience estimate. Viral-50 membership does not identify TikTok effects on longevity.
 
 \section{Reproducibility and conclusion}
-The analysis exports all 26 dimensions, country/year denominators, eight international panels, chart-day and stream weights, genre profiles, fixed-sample social links, the complete contextual matrix and the 30 search models. The manifests record the database snapshot, model versions, hashes and completed specialist verification. Publication figures are also supplied as PDF, SVG and PNG.
+The analysis exports all 26 dimensions, country/year denominators, eight international panels, chart-day and stream weights, genre profiles, fixed-sample social links, the complete contextual matrix and the 30 search models. The revision adds regional changes, two repertoire decompositions, exploratory cluster memberships, longevity summaries and adjusted contrasts, alongside the blind human-review sheets and validation protocol. The manifests record the database snapshot, model versions, hashes, the reported specialist check and the pending independent validation. Publication figures are also supplied as PDF, SVG and PNG.
 
-The supplied scripts reproduce the frozen statistics, contextual matrix and standalone LaTeX figures without new model calls or database writes. The contribution is a verified comparison of music and society across several dimensions, supported by inspectable recording, market and year evidence.
+The supplied scripts reproduce the frozen statistics, new comparisons, contextual matrix and standalone LaTeX figures without new model calls or database writes. The contribution is a traceable comparison of lyrical themes, circulation and social context across markets and years. Independent human validation and language metadata are the main remaining requirements for stronger claims and submission readiness.
 
 \begingroup\scriptsize
-\begin{thebibliography}{8}
+\begin{thebibliography}{99}
 \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
 \bibitem{archive} Chart Observatory. Local source inventory, MGD/Kaggle overlap audit, classification database, and frozen article manifest. Snapshot: 11 October 2026. Repository: PromiscuidadeMusical.
 \bibitem{spotify} Spotify. \href{https://support.spotify.com/us/artists/article/understanding-spotify-charts/}{Understanding Spotify charts}. Accessed 11 October 2026.
@@ -278,12 +286,17 @@ The supplied scripts reproduce the frozen statistics, contextual matrix and stan
 \bibitem{sigi} OECD. \href{https://www.oecd.org/en/topics/sub-issues/social-institutions-and-gender-index.html}{Social Institutions and Gender Index, 2019 edition}. Archived SDMX observations.
 \bibitem{homicide} UNODC. \href{https://dataunodc.un.org/dp-intentional-homicide-victims}{UN-CTS intentional homicide data}. July 2026 release; historical years joined without imputation.
 \bibitem{ooni} OONI. \href{https://ooni.org/support/interpreting-ooni-data/}{Interpreting OONI data}. Historical Web Connectivity aggregates and response provenance retained in the context archive.
+\bibitem{brand} Brand, C. O., Acerbi, A., and Mesoudi, A. (2019). Cultural evolution of emotional expression in 50 years of song lyrics. \textit{Evolutionary Human Sciences}, 1, e11. \href{https://doi.org/10.1017/ehs.2019.11}{doi:10.1017/ehs.2019.11}.
+\bibitem{varnum} Varnum, M. E. W., Krems, J. A., Morris, C., Wormley, A., and Grossmann, I. (2021). Why are song lyrics becoming simpler? A time series analysis of lyrical complexity in six decades of American popular music. \textit{PLOS ONE}, 16, e0244576. \href{https://doi.org/10.1371/journal.pone.0244576}{doi:10.1371/journal.pone.0244576}.
+\bibitem{parada} Parada-Cabaleiro, E., et al. (2024). Song lyrics have become simpler and more repetitive over the last five decades. \textit{Scientific Reports}, 14, 5531. \href{https://doi.org/10.1038/s41598-024-55742-x}{doi:10.1038/s41598-024-55742-x}.
+\bibitem{liu} Liu, M., Hu, X., and Schedl, M. (2018). The relation of culture, socio-economics, and friendship to music preferences: A large-scale, cross-country study. \textit{PLOS ONE}, 13, e0208186. \href{https://doi.org/10.1371/journal.pone.0208186}{doi:10.1371/journal.pone.0208186}.
+\bibitem{schedl} Schedl, M., Bauer, C., Reisinger, W., Kowald, D., and Lex, E. (2021). Listener modeling and context-aware music recommendation based on country archetypes. \textit{Frontiers in Artificial Intelligence}, 3, 508725. \href{https://doi.org/10.3389/frai.2020.508725}{doi:10.3389/frai.2020.508725}.
 \end{thebibliography}
 \endgroup
 \clearpage
 \onecolumn
 \section*{International atlas: all 68 circulation markets}
-\noindent\small Position ranks sexual explicitness (E) from highest to lowest. Other columns retain their own values; the companion interactive atlas ranks any of the 26 dimensions. $n$ is the classified recording count; Cov. is classification coverage; R is romantic affection; C is casual sex; O is objectification; M is misogyny; Mat. is materialism; V is violence; Cr. is crime. All thematic values are percentages at intensity $\geq2$, pooled over 2017--2021 and through 13 March 2022. Each recording counts once per market. Higher position is a larger thematic share, not better performance. Brazil is the reference case.\par\vspace{4pt}
+\noindent\small Position ranks sexual explicitness (E) from highest to lowest. Other columns retain their own values; the companion interactive atlas ranks any of the 26 dimensions. $n$ is the classified recording count; Cov. is the retained share of the initial chart repertoire; R is romantic affection; C is casual sex; O is objectification; M is misogyny; Mat. is materialism; V is violence; Cr. is crime. All thematic values are percentages at intensity $\geq2$, pooled over 2017--2021 and through 13 March 2022. Each recording counts once per market. Higher position is a larger thematic share, not better performance. Brazil is the reference case.\par\vspace{4pt}
 \centering
 \fontsize{8}{9}\selectfont\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}rlrrrrrrrrrr@{}}

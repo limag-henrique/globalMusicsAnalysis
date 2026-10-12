@@ -1,0 +1,62 @@
+Independent human validation protocol
+
+Status: prepared, not completed. The frozen archive records the project lead's
+confirmation of a completed specialist check, but contains no reviewer-level
+reference labels from that stage. This protocol creates a separate blinded
+evaluation. Its metrics cannot be replaced by AI self-review.
+
+Population and sampling
+Use the final classified geographical corpus, deduplicated by native recording
+ID. Exclude documents in the earlier 58-candidate review. The reproducible seed
+is 20261012. Assign each recording one representative circulation market using
+a seeded hash over its observed recording-market pairs. Use one exclusive broad
+artist-derived genre group, including untagged. Maximum intensity over all 26
+dimensions defines provisional strata 0, 1, 2 and 3. Draw up to two recordings
+per market x genre x intensity cell. The private key includes stratum size and
+inclusion probability. It must not be supplied to annotators.
+
+The provisional draw is NOT yet stratified by lyric language. Before freezing
+the final reference sample, identify actual lyric languages independently for
+the sampling frame, preserve mixed-language cases, and add language to the joint
+strata. Never substitute a country's dominant language. Verify that each focal
+theme has enough positive and negative examples and all available ordinal levels;
+add a separately identified rare-category supplement if needed. Retain inclusion
+probabilities, list exclusions and report achieved counts by language, market,
+genre and intensity. The current draw is a candidate set, not a completed audit.
+
+Two independent reviewers
+Give each qualified reviewer a separate blind CSV, the same frozen lyric version
+identified by document ID and SHA-256, and the taxonomy rubric. Retrieve texts
+through the project's authorized research interface; do not publish lyrics.
+Reviewers must not see AI scores, confidence values, each other's decisions or
+the private key. Both independently verify recording identity, actual language
+and all 26 dimensions on the 0 to 3 scale. Use language-qualified reviewers for
+non-English, mixed-language, slang, ambiguous or culturally specific texts.
+Record abstentions and missing texts separately; never turn them into score zero.
+Keep original labels. A third expert adjudicates disagreements after the two
+independent passes, with a recorded reason. Freeze the adjudicated reference
+before opening AI predictions. Do not tune the prompt on this reference sample.
+
+Metrics and reporting
+Report the number drawn, scored by each reviewer, double-scored, excluded,
+abstained and adjudicated, with counts per stratum and per theme. Double coding
+is planned for all retained items. Before adjudication report exact ordinal
+agreement, agreement within one level, unweighted Cohen kappa for the binary
+threshold >=2, and quadratic-weighted Cohen kappa for the 0 to 3 levels.
+
+Compare frozen AI outputs with adjudicated human scores. For each dimension,
+report TP, FP, FN and TN at >=2, precision=TP/(TP+FP), recall=TP/(TP+FN), and
+F1=2*TP/(2*TP+FP+FN), plus specificity and prevalence. Leave undefined ratios
+missing with their denominator, not zero. Report both raw sample estimates and
+inverse-inclusion-weight estimates for the finalized sampling frame. For ordinal
+scores report the 4x4 confusion matrix, per-level precision/recall/F1, macro F1,
+mean absolute error, exact and within-one agreement, and quadratic-weighted kappa.
+Report errors by actual language and category, with stratum sample sizes.
+
+Use a stratified recording-level bootstrap with at least 1000 replicates for
+95% intervals, keeping both reviewer scores and all theme scores together.
+Label sparse language/category estimates as inconclusive. Do not pool repeated
+appearances of a recording as independent human judgments. Report major/minor
+identity errors separately from semantic errors. A sensitivity analysis should
+repeat key article conclusions after applying empirically measured error rates;
+until labels exist, all reliability metrics remain unestimated.
