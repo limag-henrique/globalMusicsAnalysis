@@ -1,0 +1,581 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=16mm,columnsep=6mm]{geometry}
+\usepackage{amsmath,booktabs,tabularx,array}
+\usepackage{graphicx,xcolor,tikz,pgfplots,balance}
+\usepackage[font=small,labelfont=bf,skip=4pt]{caption}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots,fillbetween}
+\definecolor{blue}{HTML}{245581}
+\definecolor{orange}{HTML}{BD5B21}
+\definecolor{teal}{HTML}{187E78}
+\titleformat{\section}{\normalsize\bfseries}{\thesection.}{.4em}{}
+\titleformat{\subsection}{\small\bfseries}{\thesubsection}{.4em}{}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{7pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\bottomfraction}{.85}
+\renewcommand{\textfraction}{.05}
+\renewcommand{\floatpagefraction}{.8}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\title{\vspace{-8mm}\Large\bfseries Brazil in a Global Atlas of Lyrical Themes:\\Verified Music Data and Social Context}
+\author{}
+\date{\vspace{-10mm}\small Data freeze: 11 October 2026}
+\begin{document}
+\raggedbottom
+\maketitle
+\begin{abstract}
+\noindent We connect verified lyrics to charts, recorded plays, genre tags and social indicators. The archive holds 47.43 million source records and 153,501 classified recording IDs in 68 markets. From 2017 to 2021, status and conflict themes grow across a fixed 55-market panel. Romance falls in Top 200 but rises in Viral 50. A further analysis of 17.27 million daily chart entries shows that romance receives more stream weight than song counts suggest, while crime and weapons receive less. Brazil combines rising sexual themes, strong romantic content and distinct genre profiles. Several social links weaken when weighted by streams. Eight figures and an international atlas show why repertoire size, persistence and recorded plays must be examined together.
+\end{abstract}
+
+\section{Research question}
+How do sexual, romantic, gender, material, and antisocial themes differ across music markets, and how do they relate to chart dynamics and external indicators? Brazil is a focal case, compared with other markets using the same measures. The analysis separates sexual content from objectification and misogyny, and thematic presence from endorsement. This allows several aspects of a song to coexist without collapsing them into one moral score.
+
+The study combines historical charts, complete lyrics, structured Gemini classification, specialist verification, and dated contextual data. It addresses differences in the circulating repertoire, changes over time, and associations with economic conditions, gender inequality, homicide, internet access, and relative search interest. A market identifies where a recording charts; it does not identify the artist's nationality.
+
+Six axes organize the analysis: \textbf{intimacy} (romance, heartbreak, reciprocity and sexual relations); \textbf{gender and power} (agency, objectification and misogyny); \textbf{status and inequality} (money, materialism and wealth); \textbf{violence and security} (crime, weapons and drugs); \textbf{digital environment} (access, search and connectivity); and \textbf{cultural circulation} (identity, genres and chart persistence). Brazil is the focal case. The atlas lets every market inspect its own profile, position and coverage.
+
+\section{Corpus and method}
+\subsection{Sources, units, and coverage}
+Table~\ref{tab:sources} inventories the unified source catalog~\cite{archive}. MGD and Kaggle preserve overlapping Spotify charts; 19,942,141 exact native-ID equivalences were identified in the earlier overlap audit. Their row counts are therefore not additive evidence of independent events. We normalize Spotify recording IDs and count each ID once per market for the all-history comparison, and once per market--year for the annual comparison. Top 200 and Viral 50 are combined to describe the broader chart repertoire; source-specific results remain available separately.
+
+\begin{table}[t]
+\caption{Source archive before analytical deduplication. Counts include source territories; they are not audience sizes.}
+\label{tab:sources}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrr@{}}
+\toprule Source / chart & Records & Period \\
+\midrule
+MGD / Spotify Top 200 & 21,257,472 & 2017--22 \\
+Kaggle / Spotify Top 200 & 20,321,904 & 2017--21 \\
+Kaggle / Spotify Viral 50 & 5,851,610 & 2017--21 \\
+YouTube / popular videos & 3,037 & Sep. 2026 \\
+Pro-M\'usica / aggregate & 50 & Aug. 2026 \\
+\midrule Total stored source records & 47,434,073 & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The geographical analysis excludes GLOBAL, Hong Kong, and Puerto Rico under the established market policy, and keeps Taiwan as a separate market. The resulting union contains 222,102 distinct recording IDs, 652,121 recording--market pairs, and 386 market--year cells in 68 markets. Classified links cover 153,501 recording IDs and 461,447 recording--market pairs. The latter coverage is 70.8\%; individual market coverage ranges from 59.7\% to 79.1\%. Markets enter displayed comparisons with at least 300 classified recordings. Chart coverage and classification coverage are different quantities.
+
+The main window starts on 1 January 2017 and ends on 13 March 2022. The partial 2022 repertoire is described but excluded from annual contextual correlations and search models. The 2026 YouTube and Pro-M\'usica captures are supplementary inventories, not extensions of the historical series. A YouTube video remains a video-level item, and the most-popular endpoint is not a historical YouTube Music Top Songs archive. Chartmetric pilot files and source capability records are retained as acquisition evidence, outside the quantified source union.
+
+\subsection{Classification and completed verification}
+Lyrics are acquired through the configured provider cascade, with source, version, and SHA-256 text hash preserved. Gemini receives the supplied lyric text and returns schema-constrained JSON. The model is \texttt{gemini-3.8-flash}; the taxonomy and prompt are \texttt{lyrics-classification-v1} and \texttt{lyrics-classification-prompt-v2}. The contract contains 26 ordinal dimensions in six groups: sexuality, relationships, gender representation, material status, antisocial content, and territorial identity. It also codes consent, target gender, representation roles, and stance. Generation uses Vertex AI; batch outputs are reconciled into an append-only PostgreSQL history.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\scriptsize,box/.style={draw=blue,rounded corners=2pt,fill=blue!4,align=center,minimum height=7mm,text width=36mm}]
+\node[box] (a) at (0,0) {Chart archive\\native IDs and dates};
+\node[box] (b) at (4.5,0) {Lyrics and Gemini\\26 dimensions + categories};
+\node[box] (c) at (4.5,-1.2) {Completed specialist check\\classifications and links};
+\node[box] (d) at (0,-1.2) {Frozen analytical corpus\\market / year denominators};
+\draw[->,thick,blue] (a)--(b);
+\draw[->,thick,blue] (b)--(c);
+\draw[->,thick,blue] (c)--(d);
+\node[font=\scriptsize,align=center] at (2.25,-2.03) {Exact-year context joins $\longrightarrow$ descriptive results and models};
+\draw[->,blue] (d.south)--(0,-1.78)--(.2,-1.78);
+\end{tikzpicture}
+\caption{Research workflow. Source records and model histories remain traceable; the analytical joins use explicit recording and time keys.}
+\label{fig:workflow}
+\end{figure}
+
+Specialists completed verification of the classification results and the links between lyrics and recordings. This stage is complete. The analytical freeze uses the latest result per document for the fixed model, taxonomy, and prompt, then selects the latest applicable recording result. Text hashes, research authorization, and existing exclusion decisions define the eligible version. No confidence cutoff is applied to the reported corpus.
+
+The freeze is 11 October 2026, 23:39 UTC (20:39 in S\~ao Paulo): 155,010 of 159,111 lyric documents are classified (97.4\%), representing 154,979 recording identities before selection. The selected corpus has 154,995 documents, 154,964 recording identities, and 154,942 linked native IDs before geographical restrictions. Errors, instrumental, ambiguous and other unscored states remain separate from score zero; full counts accompany the analysis.
+
+Scores run from 0 (absent) to 3 (central). A score of 2 or 3 means substantial presence. Each percentage is the share of classified recording IDs with substantial presence of that theme. Each ID counts once per market and year; unclassified recordings count in coverage, not as theme absence. The scores describe the text, not the artist's conduct. Separate fields record consent and whether antisocial content is condemned, neutral, ambivalent, normalized or glorified.
+
+\subsection{Chart dynamics and external context}
+Persistence counts days in the charts, including re-entries. Calendar span is reported separately. Top-50 renewal uses Jaccard distance between adjacent daily charts: how much the two sets of recordings differ. Comparisons across missing dates are excluded. Genre tags come from artist metadata and can overlap, so their shares need not sum to 100\%.
+
+International trends use the same 55 markets in all five complete years, with at least 300 classified recording IDs and 50\% classification coverage in every market--year. Each market has equal weight; interquartile ranges describe market dispersion, not confidence intervals. The source sensitivities use 52 balanced Top-200 markets, 51 MGD-only markets, and 55 Viral-50 markets; the chart-family comparison uses the same 52 markets in both families. Additional panels require 70\% classification coverage throughout (8 markets), or pre-existing chart eligibility and a 1 January 2017 source start (46 markets). A distinct-recording yearly pool counts each ID once across the 55 markets. All denominators and membership lists are exported; partial 2022 is excluded.
+
+A further analysis links the verified classifications to 17,268,835 daily MGD chart entries in the same 51 markets during 2017--2021. Identical duplicate entries are counted once; source files are preserved. Each market--year is measured three ways: one vote per recording, weight by days in the charts, and weight by recorded chart streams. Each measure uses its own classified denominator and coverage. Genre profiles use the eight largest Brazilian artist-derived tags, selected by recording count before examining theme scores. Social indicators are also crossed with all three weightings using the same complete-data markets within each comparison.
+
+Context is joined by exact market and reference year: World Bank income, Gini, unemployment, population and internet indicators; UNDP Gender Inequality Index (GII); OECD SIGI for its 2019 edition; and UNODC homicide indicators~\cite{wdi,gii,sigi,homicide}. Missing values stay missing, without interpolation. SIGI is not converted into an annual time series. OONI connectivity tests are kept separately from music and search measures. The contextual export verifies unique keys, value ranges, and raw-response hashes.
+
+Google Trends exports retain term, language, query batch, sampling period, and raw hash. The historical panel has 2,150 series--year summaries from 383 local term/language/batch series. Means are weighted by the days represented by each bucket; weeks crossing years are split. Values reported as $<1$ contribute bounds $[0,1)$ rather than an invented point estimate. The index is relative search interest, normalized to the query's place and period, not visits or counts of people~\cite{trends}.
+
+\section{Results}
+\subsection{Thematic profile and market differences}
+Figure~\ref{fig:themes} reports all 26 dimensions. Romantic affection (35.5\%) and heartbreak (21.4\%) are the most frequent substantial themes in the full selected corpus. Money references (16.5\%), reciprocity (14.1\%), drugs/alcohol (13.7\%), and materialism (13.5\%) follow. Sexual explicitness is 7.2\%, objectification 5.8\%, and misogyny 3.4\%. Themes overlap: their percentages do not sum to 100\%.
+
+Brazil's all-history repertoire contains 7,186 classified IDs out of 9,619 charted IDs (74.7\% coverage). Romantic affection is 40.3\%, heartbreak 24.1\%, casual sex 15.1\%, explicitness 12.5\%, objectification 7.1\%, misogyny 1.9\%, and materialism 8.6\%. Brazil therefore combines comparatively frequent sexual and romantic content with lower misogyny and materialism than several comparator repertoires (Table~\ref{tab:markets}). Sexual content and misogyny do not move as one measure.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=\dimexpr\columnwidth-24mm\relax,height=107mm,scale only axis=false,
+ xmin=0,xmax=50,ymin=.3,ymax=26.7,
+ xlabel={Substantial thematic presence (\%)},
+ xlabel style={font=\scriptsize},xtick={0,10,20,30,40,50},
+ ytick={26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1},yticklabels={{Sexual explicitness},{Sexual desire},{Sexual innuendo},{Explicit sexual acts},{Sexual anatomy},{Romantic affection},{Heartbreak},{Infidelity},{Transactional sex},{Casual sex},{Jealousy / possession},{Reciprocity},{Objectification},{Misogyny},{Sexual agency},{Status symbolization},{Commodification},{Money references},{Materialism},{Conspicuous consumption},{Wealth as status},{Drugs / alcohol},{Crime},{Violence},{Weapons},{Territorial identity}},
+ tick label style={font=\scriptsize},axis line style={gray},
+ xmajorgrids=true,grid style={gray!18},tick align=outside,
+ legend style={at={(.98,.98)},anchor=north east,font=\scriptsize,draw=none,fill=white},
+ legend cell align=left]
+\addplot[only marks,mark=*,mark size=1.9pt,color=blue] coordinates {(7.15134,26) (8.97628,25) (5.06505,24) (4.49395,23) (2.09791,22) (35.51341,21) (21.35980,20) (2.71160,19) (0.95248,18) (7.42430,17) (2.33215,16) (14.06649,15) (5.81748,14) (3.37562,13) (4.92179,12) (3.06394,11) (1.01378,10) (16.53481,9) (13.51475,8) (12.18864,7) (13.40634,6) (13.72706,5) (10.60053,4) (8.19803,3) (5.91944,2) (9.42800,1)};
+\addlegendentry{Full corpus}
+\addplot[only marks,mark=square*,mark size=1.8pt,color=orange] coordinates {(12.51044,26) (20.01113,25) (10.65962,24) (7.65377,23) (4.28611,22) (40.28667,21) (24.13025,20) (3.86863,19) (0.91845,18) (15.12664,17) (3.67381,16) (21.80629,15) (7.08322,14) (1.89257,13) (15.47453,12) (2.90843,11) (0.93237,10) (9.68550,9) (8.55831,8) (8.72530,7) (9.01753,6) (10.17256,5) (5.17673,4) (4.53660,3) (3.46507,2) (8.21041,1)};
+\addlegendentry{Brazil}
+\end{axis}
+\end{tikzpicture}
+\caption{All taxonomy dimensions. The full corpus counts 154,964 selected recording identities once; Brazil counts 7,186 classified chart IDs once across the historical window. The full corpus is a pooled corpus reference, not an average national prevalence.}
+\label{fig:themes}
+\end{figure}
+
+\begin{table}[t]
+\caption{Selected circulation markets, pooled historical window. $n$: classified IDs; Cov.: classification coverage; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. All thematic columns are percentages at intensity $\geq2$.}
+\label{tab:markets}
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule Market & $n$ & Cov. & E & C & M & Mat.\\
+\midrule
+BR & 7,186 & 74.7 & 12.5 & 15.1 & 1.9 & 8.6 \\
+US & 11,296 & 75.6 & 16.1 & 15.2 & 8.3 & 24.5 \\
+GB & 10,752 & 74.5 & 10.9 & 10.9 & 3.8 & 17.9 \\
+DE & 11,907 & 73.5 & 9.4 & 8.9 & 7.2 & 27.7 \\
+FR & 11,579 & 75.9 & 10.3 & 8.7 & 6.8 & 23.0 \\
+ES & 8,082 & 73.4 & 11.4 & 13.6 & 1.6 & 10.3 \\
+PT & 8,065 & 73.4 & 11.9 & 12.6 & 3.8 & 14.2 \\
+JP & 8,047 & 63.5 & 3.6 & 3.7 & 0.8 & 4.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across all 68 markets, the largest explicitness shares are in the Dominican Republic (21.4\%), Panama (19.2\%), and Chile (17.6\%). The largest misogyny share is in Romania (11.1\%); the largest materialism share is in Switzerland (27.8\%). These are distributions of charted recordings under a common coding rule, not rankings of national character.
+
+Themes are distinct but overlap. Of 11,082 recordings with substantial explicitness, 60.1\% also have substantial objectification and 30.8\% misogyny. Among 20,943 materialism-positive recordings, 40.7\% also code crime; among 12,704 violence-positive recordings, 78.3\% also code crime. These conditional shares concern texts, not people. Consent, representation and stance remain separate measures in the accompanying distributions.
+
+\subsection{Brazil over time and repertoire persistence}
+From 2017 to 2021, Brazil's explicitness share rises from 7.0\% to 19.7\% and casual-sex share from 8.2\% to 23.8\%; romantic affection stays near 40--42\% (Figure~\ref{fig:brazil}). Classification coverage in those years ranges from 72.6\% to 76.1\%. These are changes in each year's repertoire; repeated recordings may enter several annual denominators. The 2022 partial window is shown separately and is not a full-year continuation.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=\columnwidth,height=53mm,xmin=2016.8,xmax=2022.2,ymin=0,ymax=50,
+ xtick={2017,2018,2019,2020,2021,2022},xticklabels={17,18,19,20,21,22*},
+ ylabel={Classified recordings (\%)},ylabel style={font=\scriptsize},
+ tick label style={font=\scriptsize},ymajorgrids=true,grid style={gray!18},
+ legend style={at={(.5,1.02)},anchor=south,legend columns=2,font=\scriptsize,draw=none},
+ legend cell align=left]
+\addplot[color=blue,mark=*,thick] coordinates {(2017,40.84381) (2018,41.55172) (2019,41.89627) (2020,41.37199) (2021,40.08499) (2022,41.30435)};\addlegendentry{Romantic affection}
+\addplot[color=orange,mark=square*,thick] coordinates {(2017,8.16876) (2018,12.52874) (2019,18.55754) (2020,18.81188) (2021,23.79603) (2022,31.52174)};\addlegendentry{Casual sex}
+\addplot[color=teal,mark=triangle*,thick] coordinates {(2017,6.95691) (2018,9.42529) (2019,14.91086) (2020,16.05375) (2021,19.68839) (2022,23.09783)};\addlegendentry{Sexual explicitness}
+\addplot[color=gray,mark=diamond*,thick] coordinates {(2017,6.32855) (2018,8.73563) (2019,7.86062) (2020,7.56719) (2021,12.25212) (2022,12.50000)};\addlegendentry{Materialism}
+\draw[gray,dashed] (axis cs:2021.5,0)--(axis cs:2021.5,50);
+\end{axis}
+\end{tikzpicture}
+\caption{Brazil's annual thematic shares. Classified denominators for 2017--2022: 2,228; 1,740; 1,234; 1,414; 1,412; 368. *2022 ends on 13 March. Lines connect annual summaries, not individual song trajectories.}
+\label{fig:brazil}
+\end{figure}
+
+In the separate MGD Top-200 dynamics dataset, Brazil has 5,010 distinct recording--market pairs, with a median of 16 chart days (interquartile range 2--98), compared with 6 in the United States and United Kingdom, 7 in Germany, and 13 in Japan. Brazil's mean Top-50 Jaccard turnover is 0.069 across 1,892 adjacent daily chart pairs, against 0.114 in the United States and 0.032 in Japan. This supports a description of different repertoire persistence, without treating turnover as psychological anxiety.
+
+Genre profiles are examined alongside exposure below. Artist rankings and network files remain supplementary descriptions rather than additional independent song samples.
+
+\subsection{International shifts and new patterns}
+\begin{figure*}[t]
+\centering\begin{tikzpicture}
+\begin{groupplot}[group style={group size=3 by 2,horizontal sep=9mm,vertical sep=9mm},
+ width=.27\textwidth,height=39mm,scale only axis=true,
+ xmin=2016.8,xmax=2021.2,ymin=0,ymax=50,xtick={2017,2019,2021},xticklabels={17,19,21},ytick={0,20,40},
+ tick label style={font=\scriptsize},title style={font=\small},ylabel style={font=\scriptsize},
+ axis line style={gray},ymajorgrids=true,grid style={gray!18}]
+\nextgroupplot[title={Romantic affection},ylabel={Recordings (\%)}]
+\addplot[name path=lower0,draw=none] coordinates {(2017.000000,34.771657) (2018.000000,32.469527) (2019.000000,32.204276) (2020.000000,31.313403) (2021.000000,33.037893)};
+\addplot[name path=upper0,draw=none] coordinates {(2017.000000,45.437784) (2018.000000,44.472891) (2019.000000,46.480589) (2020.000000,47.452949) (2021.000000,47.384528)};
+\addplot[blue!13,draw=none] fill between[of=lower0 and upper0];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,40.667626) (2018.000000,39.169534) (2019.000000,39.231390) (2020.000000,39.211221) (2021.000000,40.038148)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,40.843806) (2018.000000,41.551724) (2019.000000,41.896272) (2020.000000,41.371994) (2021.000000,40.084986)};
+\nextgroupplot[title={Sexual explicitness},ylabel={}]
+\addplot[name path=lower1,draw=none] coordinates {(2017.000000,5.909948) (2018.000000,7.916010) (2019.000000,9.312452) (2020.000000,10.167596) (2021.000000,8.295344)};
+\addplot[name path=upper1,draw=none] coordinates {(2017.000000,8.914187) (2018.000000,13.132479) (2019.000000,15.643946) (2020.000000,17.565024) (2021.000000,15.501254)};
+\addplot[blue!13,draw=none] fill between[of=lower1 and upper1];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,7.667900) (2018.000000,10.380642) (2019.000000,12.192882) (2020.000000,13.209204) (2021.000000,11.254716)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,6.956912) (2018.000000,9.425287) (2019.000000,14.910859) (2020.000000,16.053748) (2021.000000,19.688385)};
+\nextgroupplot[title={Materialism},ylabel={}]
+\addplot[name path=lower2,draw=none] coordinates {(2017.000000,6.863643) (2018.000000,9.763686) (2019.000000,8.354031) (2020.000000,9.764218) (2021.000000,10.235561)};
+\addplot[name path=upper2,draw=none] coordinates {(2017.000000,13.590013) (2018.000000,17.333145) (2019.000000,18.312764) (2020.000000,20.959022) (2021.000000,17.996222)};
+\addplot[blue!13,draw=none] fill between[of=lower2 and upper2];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,10.590463) (2018.000000,14.908394) (2019.000000,14.086727) (2020.000000,15.500047) (2021.000000,14.370067)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,6.328546) (2018.000000,8.735632) (2019.000000,7.860616) (2020.000000,7.567185) (2021.000000,12.252125)};
+\nextgroupplot[title={Crime},ylabel={Recordings (\%)}]
+\addplot[name path=lower3,draw=none] coordinates {(2017.000000,3.751466) (2018.000000,4.795346) (2019.000000,4.711368) (2020.000000,4.533178) (2021.000000,5.213941)};
+\addplot[name path=upper3,draw=none] coordinates {(2017.000000,8.122014) (2018.000000,10.944824) (2019.000000,11.878786) (2020.000000,15.202549) (2021.000000,14.404351)};
+\addplot[blue!13,draw=none] fill between[of=lower3 and upper3];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,6.696014) (2018.000000,8.678108) (2019.000000,9.234035) (2020.000000,10.810769) (2021.000000,10.406582)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,4.443447) (2018.000000,4.712644) (2019.000000,5.105348) (2020.000000,4.596888) (2021.000000,6.161473)};
+\nextgroupplot[title={Weapons},ylabel={}]
+\addplot[name path=lower4,draw=none] coordinates {(2017.000000,1.989334) (2018.000000,3.036415) (2019.000000,3.045682) (2020.000000,3.684788) (2021.000000,3.565187)};
+\addplot[name path=upper4,draw=none] coordinates {(2017.000000,5.030013) (2018.000000,7.771171) (2019.000000,8.074075) (2020.000000,11.641704) (2021.000000,10.062843)};
+\addplot[blue!13,draw=none] fill between[of=lower4 and upper4];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,3.849540) (2018.000000,5.817621) (2019.000000,6.129526) (2020.000000,7.851988) (2021.000000,7.383677)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,2.827648) (2018.000000,2.816092) (2019.000000,3.403566) (2020.000000,3.677511) (2021.000000,4.249292)};
+\nextgroupplot[title={Heartbreak},ylabel={}]
+\addplot[name path=lower5,draw=none] coordinates {(2017.000000,19.287839) (2018.000000,18.413000) (2019.000000,17.997344) (2020.000000,17.984207) (2021.000000,20.012556)};
+\addplot[name path=upper5,draw=none] coordinates {(2017.000000,24.584372) (2018.000000,25.113938) (2019.000000,27.742375) (2020.000000,28.169940) (2021.000000,30.729568)};
+\addplot[blue!13,draw=none] fill between[of=lower5 and upper5];
+\addplot[blue,thick,mark=*,mark size=1.3pt] coordinates {(2017.000000,22.184707) (2018.000000,21.807672) (2019.000000,23.141389) (2020.000000,23.056031) (2021.000000,25.105022)};
+\addplot[orange,thick,dashed,mark=square*,mark size=1.3pt] coordinates {(2017.000000,21.409336) (2018.000000,23.390805) (2019.000000,25.283630) (2020.000000,26.732673) (2021.000000,31.090652)};
+\end{groupplot}\end{tikzpicture}
+\caption{International trajectories, 2017--2021. Blue circles: equal-market means for the same 55 markets in all five years; orange dashed squares: Brazil. Bands are the middle 50\% of market values, not confidence intervals. Each theme uses the same 0--50\% axis; substantial presence means intensity $\geq2$. Markets have at least 300 classified recordings and 50\% classification coverage in every year. The changing annual repertoires, not changes within a song, are measured.}
+\label{fig:global-time}
+\end{figure*}
+\begin{figure}[t]
+\centering\begin{tikzpicture}
+\begin{axis}[width=\dimexpr\columnwidth-24mm\relax,height=104mm,scale only axis=false,
+ xmin=-4,xmax=12,ymin=.2,ymax=27.6,xtick={-4,0,4,8},ytick={26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1},yticklabels={{Money references},{Drugs / alcohol},{Materialism},{Crime},{Wealth as status},{Sexual explicitness},{Weapons},{Casual sex},{Conspicuous consumption},{Territorial identity},{Heartbreak},{Violence},{Sexual agency},{Sexual innuendo},{Sexual desire},{Explicit sexual acts},{Objectification},{Jealousy / possession},{Status symbolization},{Sexual anatomy},{Infidelity},{Transactional sex},{Misogyny},{Commodification},{Reciprocity},{Romantic affection}},
+ xlabel={Change in share, 2017--2021 (pp)},xlabel style={font=\scriptsize},tick label style={font=\scriptsize},
+ xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+\draw[gray,dashed] (axis cs:0,.3)--(axis cs:0,26.6);
+\draw[gray!65,thick] (axis cs:2.267652,26)--(axis cs:7.022541,26);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,26) {48/55};
+\draw[gray!65,thick] (axis cs:0.410851,25)--(axis cs:6.117446,25);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,25) {45/55};
+\draw[gray!65,thick] (axis cs:1.901706,24)--(axis cs:5.611154,24);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,24) {48/55};
+\draw[gray!65,thick] (axis cs:1.477499,23)--(axis cs:5.067675,23);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,23) {51/55};
+\draw[gray!65,thick] (axis cs:1.839363,22)--(axis cs:6.126683,22);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,22) {48/55};
+\draw[gray!65,thick] (axis cs:0.900828,21)--(axis cs:6.093631,21);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,21) {45/55};
+\draw[gray!65,thick] (axis cs:1.440705,20)--(axis cs:5.143227,20);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,20) {53/55};
+\draw[gray!65,thick] (axis cs:0.252737,19)--(axis cs:5.901170,19);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,19) {43/55};
+\draw[gray!65,thick] (axis cs:1.428501,18)--(axis cs:5.661177,18);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,18) {47/55};
+\draw[gray!65,thick] (axis cs:1.837014,17)--(axis cs:3.978834,17);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,17) {50/55};
+\draw[gray!65,thick] (axis cs:0.574003,16)--(axis cs:5.449409,16);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,16) {44/55};
+\draw[gray!65,thick] (axis cs:0.670765,15)--(axis cs:4.292003,15);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,15) {48/55};
+\draw[gray!65,thick] (axis cs:-0.518891,14)--(axis cs:5.030915,14);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,14) {38/55};
+\draw[gray!65,thick] (axis cs:-0.318277,13)--(axis cs:5.790287,13);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,13) {36/55};
+\draw[gray!65,thick] (axis cs:-1.446731,12)--(axis cs:5.155236,12);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,12) {26/55};
+\draw[gray!65,thick] (axis cs:0.638187,11)--(axis cs:3.174208,11);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,11) {49/55};
+\draw[gray!65,thick] (axis cs:0.385005,10)--(axis cs:2.858504,10);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,10) {45/55};
+\draw[gray!65,thick] (axis cs:0.321588,9)--(axis cs:1.761613,9);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,9) {49/55};
+\draw[gray!65,thick] (axis cs:0.319422,8)--(axis cs:1.538841,8);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,8) {46/55};
+\draw[gray!65,thick] (axis cs:0.296223,7)--(axis cs:1.264193,7);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,7) {49/55};
+\draw[gray!65,thick] (axis cs:-0.129502,6)--(axis cs:0.841650,6);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,6) {32/55};
+\draw[gray!65,thick] (axis cs:0.182799,5)--(axis cs:0.485998,5);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,5) {46/55};
+\draw[gray!65,thick] (axis cs:-0.294200,4)--(axis cs:0.667159,4);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,4) {30/55};
+\draw[gray!65,thick] (axis cs:-0.112472,3)--(axis cs:0.256888,3);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,3) {34/55};
+\draw[gray!65,thick] (axis cs:-1.495781,2)--(axis cs:1.526836,2);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,2) {27/55};
+\draw[gray!65,thick] (axis cs:-2.478436,1)--(axis cs:1.060692,1);
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,1) {21/55};
+\addplot[only marks,blue,mark=*,mark size=1.7pt] coordinates {(4.495539,26) (3.804479,25) (3.779604,24) (3.710568,23) (3.707348,22) (3.586817,21) (3.534137,20) (3.309420,19) (3.279988,18) (3.115725,17) (2.920314,16) (2.865182,15) (2.548219,14) (2.345754,13) (2.312660,12) (2.142570,11) (1.817757,10) (0.977507,9) (0.972531,8) (0.863537,7) (0.437759,6) (0.367759,5) (0.235336,4) (0.106954,3) (-0.070506,2) (-0.629478,1)};
+\node[font=\scriptsize,anchor=east] at (axis cs:11.5,27.2) {Rising};
+\end{axis}\end{tikzpicture}
+\caption{Changes in all 26 dimensions in the fixed 55-market panel. Blue points: mean paired market change; gray segments: interquartile range of market changes. Right-hand counts show markets with a positive change. ``pp'' means percentage points. These spreads describe observed markets, not sampling confidence.}
+\label{fig:global-changes}
+\end{figure}
+\begin{figure}[t]
+\centering\begin{tikzpicture}
+\begin{axis}[width=\dimexpr\columnwidth-16mm\relax,height=66mm,
+ xmin=-4,xmax=5,ymin=.4,ymax=8.6,xtick={-4,-2,0,2,4},ytick={8,7,6,5,4,3,2,1},
+ yticklabels={Romance,Heartbreak,Explicitness,Misogyny,Materialism,Crime,Weapons,Territorial identity},
+ xlabel={2017--2021 change (pp)},xlabel style={font=\scriptsize},tick label style={font=\scriptsize},
+ xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+\draw[gray,dashed] (axis cs:0,.5)--(axis cs:0,8.5);
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(-3.289687,8.130) (4.237042,7.130) (2.752028,6.130) (0.253379,5.130) (2.782451,4.130) (3.207601,3.130) (3.519905,2.130) (3.124103,1.130)};
+\addplot[only marks,orange,mark=triangle*,mark size=2pt] coordinates {(0.942803,7.870) (3.055312,6.870) (3.635211,5.870) (-0.113495,4.870) (1.112607,3.870) (2.731079,2.870) (2.560362,1.870) (2.517819,0.870)};
+\end{axis}\end{tikzpicture}
+\caption{Chart-family contrast in the same 52 markets. Blue circles: Top 200 (source union, IDs deduplicated); orange triangles: Viral 50. Each panel has at least 300 classified IDs and 50\% classification coverage in every full year. The romance trend changes direction across chart families; growth of status and conflict themes persists.}
+\label{fig:family-trends}
+\end{figure}
+
+\textbf{Status and conflict gain repertoire share.} In the fixed 55-market panel, mean substantial money references increase by 4.50 percentage points (pp), drugs/alcohol by 3.80, materialism by 3.78, crime by 3.71, weapons by 3.53 and territorial identity by 3.12 from 2017 to 2021 (Figures~\ref{fig:global-time}--\ref{fig:global-changes}). Growth is geographically broad: weapons increase in 53/55 markets, crime in 51/55, territorial identity in 50/55, and materialism in 48/55. This is a shift in chart repertoire composition, not a claim that listeners changed their conduct.
+
+\textbf{Romance persists while heartbreak grows.} Romantic affection averages 40.67\% in 2017 and 40.04\% in 2021; heartbreak rises from 22.18\% to 25.11\% in 44 markets. Sexual explicitness rises from 7.67\% to 11.25\%, whereas misogyny changes only from 2.71\% to 2.95\%. These trajectories separate affection, suffering, sexual content and gender hostility rather than treating them as one process.
+
+\textbf{Mean growth can be geographically concentrated.} Sexual desire has a positive mean change (+2.31 pp), yet its median market change is $-0.09$ pp and only 26/55 markets increase. Large shifts in a subset of markets raise the mean. Figure~\ref{fig:global-changes} separates average magnitude from geographical breadth.
+
+\textbf{Brazil's strongest shifts differ from the international pattern.} Brazil has the largest casual-sex increase in the 55-market panel (+15.63 pp), the second-largest explicitness increase (+12.73 pp, after Andorra), and the third-largest heartbreak increase (+9.68 pp, after Paraguay and Bolivia). Its weapons increase (+1.42 pp) is smaller than the international mean (+3.53 pp). Brazil's change therefore concentrates on sexual and relational themes rather than reproducing the strongest conflict trend.
+
+\textbf{The aggregate masks chart-family divergence.} For the same 52 markets, romance falls by 3.29 pp in Top 200 but rises by 0.94 pp in Viral 50 (Figure~\ref{fig:family-trends}). Heartbreak grows in both (+4.24 and +3.06 pp), as do materialism (+2.78 and +1.11) and weapons (+3.52 and +2.56). Near-flat aggregate romance is therefore not evidence of an unchanged chart landscape. Misogyny also differs slightly in direction (+0.25 versus $-0.11$ pp).
+
+Growth of materialism, crime, weapons, heartbreak and territorial identity persists in every source/coverage sensitivity. The distinct-recording pool also increases in these themes: materialism rises from 8.34\% to 15.88\%, crime from 7.03\% to 13.21\%, and weapons from 3.77\% to 7.71\%. Pool and market-mean levels answer different questions; shared recordings are not summed as independent global songs. Source-specific declines in romance remain explicit rather than being hidden by a single pooled statistic.
+
+\subsection{What receives chart exposure, and where themes concentrate}
+\begin{figure*}[t]
+\centering\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=14mm},width=.37\textwidth,height=57mm,scale only axis=true,
+ xmin=0,xmax=55,ymin=.4,ymax=8.6,xtick={0,10,20,30,40,50},ytick={8,7,6,5,4,3,2,1},
+ tick label style={font=\scriptsize},title style={font=\small},xlabel={Theme share (\%)},xlabel style={font=\scriptsize},
+ xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+\nextgroupplot[title={Brazil},yticklabels={Romance,Heartbreak,Explicitness,Casual sex,Misogyny,Materialism,Crime,Weapons}]
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(43.381643,8.18) (35.265700,7.18) (17.294686,6.18) (22.705314,5.18) (2.318841,4.18) (12.463768,3.18) (5.024155,2.18) (3.574879,1.18)};
+\addplot[only marks,orange,mark=square*,mark size=2pt] coordinates {(44.788609,8.00) (37.979871,7.00) (21.901567,6.00) (27.538028,5.00) (2.718158,4.00) (13.756624,3.00) (5.192330,2.00) (3.741756,1.00)};
+\addplot[only marks,teal,mark=triangle*,mark size=2pt] coordinates {(44.440178,7.82) (39.700251,6.82) (23.678509,5.82) (29.993152,4.82) (2.419407,3.82) (13.363212,2.82) (4.962364,1.82) (3.052341,0.82)};
+\nextgroupplot[title={51-market mean},yticklabels={}]
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(40.878956,8.18) (26.792659,7.18) (11.530168,6.18) (12.068266,5.18) (2.869502,4.18) (15.572504,3.18) (10.206607,2.18) (7.290892,1.18)};
+\addplot[only marks,orange,mark=square*,mark size=2pt] coordinates {(47.715061,8.00) (31.445475,7.00) (14.387629,6.00) (14.313864,5.00) (2.306561,4.00) (13.119027,3.00) (7.407665,2.00) (4.890054,1.00)};
+\addplot[only marks,teal,mark=triangle*,mark size=2pt] coordinates {(48.268171,7.82) (33.284715,6.82) (15.707437,5.82) (14.619290,4.82) (2.178785,3.82) (13.201071,2.82) (7.165506,1.82) (4.296835,0.82)};
+\end{groupplot}\end{tikzpicture}
+\caption{Three views of the same classified Top-200 repertoire in 2021. Blue circles count recording IDs equally; orange squares weight their observed chart days; teal triangles weight observed chart streams. The right panel averages the same 51 markets equally. Every denominator contains classified records only. Brazil has 1,035 classified IDs out of 1,382 charted IDs, covering 71.9\% of chart days and 69.4\% of chart streams. Median stream coverage across the 51 markets is 73.1\% (range 45.5--80.9\%). Streams are chart-eligible plays during chart appearances, not people or all Spotify plays.}
+\label{fig:chart-exposure}
+\end{figure*}
+\begin{table}[t]
+\caption{Brazilian genre-tag profiles, MGD Top 200, 2017--2021. The eight largest artist-derived tags are selected by charted recording count. $n$: classified IDs; Cov.: classification coverage; R: romance; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. Theme values are percentages of classified IDs, not genre-wide population estimates. Tags overlap.}
+\label{tab:genre-profiles}
+\centering\scriptsize\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{@{}lrrrrrrr@{}}\toprule Tag & $n$ & Cov. & R & E & C & M & Mat.\\\midrule
+Pop & 757 & 72.0 & 51.7 & 5.3 & 7.8 & 0.3 & 4.1 \\
+Agronejo & 283 & 58.1 & 61.1 & 1.1 & 9.2 & 0.0 & 0.7 \\
+Arrocha & 227 & 71.6 & 55.9 & 7.0 & 13.7 & 0.4 & 0.9 \\
+Rap / hip-hop & 106 & 65.0 & 16.0 & 25.5 & 21.7 & 3.8 & 40.6 \\
+Brazilian funk & 141 & 89.8 & 25.5 & 22.0 & 29.1 & 0.7 & 5.7 \\
+Sertanejo & 84 & 73.0 & 70.2 & 0.0 & 8.3 & 0.0 & 1.2 \\
+Rock & 71 & 63.4 & 31.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+K-pop & 55 & 58.5 & 34.5 & 0.0 & 0.0 & 0.0 & 9.1 \\
+\bottomrule\end{tabular}
+\end{table}
+
+\textbf{Counting recordings and counting plays give different pictures.} In 2021, romance covers 40.9\% of classified recording IDs in the 51-market MGD panel but 48.3\% of classified chart streams. Heartbreak rises from 26.8\% to 33.3\%, and explicitness from 11.5\% to 15.7\%. Crime falls from 10.2\% to 7.2\%, weapons from 7.3\% to 4.3\%, and materialism from 15.6\% to 13.2\% when streams supply the weights (Figure~\ref{fig:chart-exposure}). Growth in the number of conflict-themed recordings therefore coexists with a smaller share of recorded plays than a song-count measure suggests. Romance remains central to both views.
+
+\textbf{Brazil's sexual and relational themes receive extra chart weight.} Among its classified Top-200 repertoire in 2021, casual sex covers 22.7\% of recording IDs and 30.0\% of chart streams; explicitness covers 17.3\% and 23.7\%; heartbreak covers 35.3\% and 39.7\%. Misogyny stays close to 2.3--2.4\%. These are shares of classified records and their observed chart plays; the remaining unclassified streams are reported through coverage, not assigned a theme.
+
+\textbf{Genres reveal different combinations, not one national profile.} Across 2017--2021, the eight largest Brazilian tag groups have distinct profiles. Sertanejo has 70.2\% romantic affection and no substantial explicitness among 84 classified IDs. Brazilian funk has 29.1\% casual sex and 22.0\% explicitness among 141 IDs, while misogyny is 0.7\%. Rap/hip-hop has 40.6\% materialism and 25.5\% explicitness among 106 IDs; agronejo has 61.1\% romance and 1.1\% explicitness among 283. Table~\ref{tab:genre-profiles} reports every group and its coverage. Country totals combine styles with different profiles. Separating these observed groups makes the comparison more informative. The tags describe artists' genre metadata and can overlap.
+
+\textbf{Social links keep their direction, but change strength with exposure.} With the same complete-data markets in each comparison, the 2021 materialism--income correlation drops from 0.525 with recording weights to 0.319 with stream weights (50 markets). Materialism--Gini weakens from $-0.430$ to $-0.229$ (36); misogyny--GII from $-0.430$ to $-0.232$ (50); violence--homicide from $-0.329$ to $-0.181$ (44). Each direction persists under all three weightings in all five years. These links are stronger in repertoire composition than in the chart-stream view in 2021. Measures of musical variety and recorded exposure should therefore be reported separately when connecting music to social conditions.
+
+\subsection{Music and six social axes}
+Within the 386 historical market--year cells, World Bank PPP income and internet use are observed in 380 cells each, GII in 372, Gini in 286, and total UNODC homicide in 332. SIGI is observed for 54 markets in 2019. These differences determine the pairwise sample sizes in Table~\ref{tab:context}.
+
+All 26 lyric dimensions are crossed with 13 downloaded contextual indicators, separately in 2017--2021: 1,690 specified cells, of which 1,586 support descriptive correlations. The matrix includes observed and insufficient-data cells, without selecting only large coefficients. Table~\ref{tab:context} organizes selected contrasts across the six axes; the complete matrix accompanies the article.
+
+\begin{table}[t]
+\caption{Exact-year descriptive Spearman associations. $n$ counts markets; no causal or significance claim is assigned to these correlations. Income is per-capita PPP income; GII and SIGI are distinct gender indices.}
+\label{tab:context}
+\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrrr@{}}
+\toprule Lyrical theme / context & Year & $n$ & $\rho$ \\
+\midrule
+Objectification / GII & 2021 & 65 & +0.158 \\
+Misogyny / GII & 2021 & 65 & -0.330 \\
+Objectification / SIGI & 2019 & 54 & -0.072 \\
+Misogyny / SIGI & 2019 & 54 & -0.459 \\
+Materialism / Gini & 2021 & 48 & -0.456 \\
+Materialism / income (PPP) & 2021 & 67 & +0.408 \\
+Materialism / youth unemployment & 2021 & 66 & +0.316 \\
+Violence / total homicide & 2021 & 60 & -0.261 \\
+Crime / total homicide & 2021 & 60 & -0.253 \\
+Violence / female homicide & 2021 & 59 & -0.234 \\
+Violence / partner-family deaths & 2021 & 39 & -0.124 \\
+Romance / youth unemployment & 2021 & 66 & -0.267 \\
+Heartbreak / youth unemployment & 2021 & 66 & -0.119 \\
+Reciprocity / GII & 2021 & 65 & +0.440 \\
+Sexual agency / GII & 2021 & 65 & +0.360 \\
+Wealth as status / income & 2021 & 67 & +0.410 \\
+Territorial identity / urbanization & 2021 & 67 & +0.183 \\
+Explicitness / internet access & 2021 & 67 & -0.227 \\
+Explicitness / OONI anomalies & 2021 & 41 & -0.039 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Materialism is positively associated with income ($\rho=0.408$) and negatively with Gini ($-0.456$) in 2021. Misogyny is negatively associated with GII in 2021 ($-0.330$) and SIGI in 2019 ($-0.459$), whereas objectification has weaker associations with both. Violence and crime shares are negatively associated with total homicide ($-0.261$ and $-0.253$). The direction and magnitude differ by theme and context; lyrical content is not a direct proxy for national violence or gender conditions.
+
+\textbf{Intimacy} connects romantic affection and heartbreak to youth unemployment. \textbf{Gender and power} connects reciprocity and sexual agency to GII, with patterns distinct from misogyny. \textbf{Status} connects wealth symbolism to income. \textbf{Digital and cultural environments} connect explicitness to internet access and territorial identity to urbanization. Table~\ref{tab:context} reports every coefficient and sample size for these contrasts. OONI anomaly share has a near-zero association with explicitness. These are separate questions about representation, social conditions, infrastructure and circulation.
+
+Brazil's 2021 contextual profile anchors the comparison: Gini 52.9, youth unemployment 28.3\%, GII 0.405, internet use 80.7\%, urban population 87.1\%, and total homicide 21.7 per 100,000. These actual downloaded values are joined to the same-year musical repertoire; they are not inferred from lyrics.
+
+\begin{figure*}[t]
+\centering\begin{tikzpicture}
+\begin{groupplot}[group style={group size=3 by 2,horizontal sep=9mm,vertical sep=9mm},
+ width=.265\textwidth,height=31mm,scale only axis=true,
+ xmin=2016.8,xmax=2021.2,ymin=-.75,ymax=.75,xtick={2017,2019,2021},xticklabels={17,19,21},ytick={-.5,0,.5},
+ tick label style={font=\scriptsize},title style={font=\scriptsize},ylabel style={font=\scriptsize},
+ axis line style={gray},ymajorgrids=true,grid style={gray!18}]
+\nextgroupplot[title={Romance / youth unemployment ($n=53$)},ylabel={$ho$}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,-0.154975) (2018.000000,-0.078052) (2019.000000,-0.091761) (2020.000000,-0.040558) (2021.000000,-0.165215)};
+\nextgroupplot[title={Materialism / PPP income ($n=54$)},ylabel={}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,0.430151) (2018.000000,0.411245) (2019.000000,0.607700) (2020.000000,0.590471) (2021.000000,0.534210)};
+\nextgroupplot[title={Materialism / Gini ($n=39$)},ylabel={}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,-0.423972) (2018.000000,-0.301650) (2019.000000,-0.472131) (2020.000000,-0.504403) (2021.000000,-0.450000)};
+\nextgroupplot[title={Misogyny / GII ($n=53$)},ylabel={$ho$}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,-0.467534) (2018.000000,-0.462875) (2019.000000,-0.553284) (2020.000000,-0.551866) (2021.000000,-0.425067)};
+\nextgroupplot[title={Violence / homicide ($n=47$)},ylabel={}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,-0.265264) (2018.000000,-0.333025) (2019.000000,-0.388645) (2020.000000,-0.385523) (2021.000000,-0.430054)};
+\nextgroupplot[title={Territorial identity / urbanization ($n=54$)},ylabel={}]
+\draw[gray,dashed] (axis cs:2016.8,0)--(axis cs:2021.2,0);
+\addplot[teal,thick,mark=diamond*,mark size=1.5pt] coordinates {(2017.000000,0.238422) (2018.000000,0.234229) (2019.000000,0.360930) (2020.000000,0.316791) (2021.000000,0.289956)};
+\end{groupplot}\end{tikzpicture}
+\caption{Persistence of social associations, using a fixed market sample within each pair in every year. Points are separate-year Spearman correlations; $n$ counts markets, not people. World Bank data supply income, Gini, youth unemployment and urbanization; UNDP supplies GII; UNODC supplies homicide. No interpolation or pooled-year correlation is used. Stable directions describe aggregate associations and do not establish causes.}
+\label{fig:social-time}
+\end{figure*}
+\textbf{Social links persist across years, not just in a single cross-section.} Holding the market sample fixed within each pair, materialism correlates positively with PPP income in all five years ($\rho=0.41$--$0.61$, 54 markets) and negatively with Gini ($-0.50$--$-0.30$, 39 markets). Misogyny and GII remain negatively associated ($-0.55$--$-0.43$, 53 markets); violence and homicide also remain negative ($-0.43$--$-0.27$, 47 markets). Territorial identity and urbanization remain positive ($0.23$--$0.36$, 54 markets). Romance's link to youth unemployment is weaker ($-0.17$--$-0.04$, 53 markets). Figure~\ref{fig:social-time} shows these fixed-sample trajectories. The results challenge a direct reading of lyrical violence or misogyny as national social prevalence; they instead define concrete questions about repertoire selection, circulation and representation.
+
+\subsection{Historical search associations}
+The established search specification uses the English term \textit{porn}, selecting the lexicographically first query batch within each market before fitting outcomes. Local indices are standardized within each eligible market series. Models use 2017--2021, at least 300 classified recordings per market--year, at least 80\% temporal search coverage, at least four eligible years per market, and at least 20 markets. Native-language terms remain in the descriptive panel.
+
+For ten focal themes, linear models compare changes within each market while accounting for market differences and shared year effects. Adjusted models also account for PPP income and internet use. Effects express a change in musical share, in percentage points, for one local standard deviation of search interest. Uncertainty is grouped by market. The baseline includes 60 markets and 295 market--years; the higher-coverage check includes 24 and 104; adjusted models include 59 and 290. Benjamini--Hochberg correction covers all 30 models.
+
+\begin{table}[t]
+\caption{Adjusted within-market search associations. Effect units: percentage points per local search-index standard deviation. All models have 59 markets and 290 market--years; intervals are 95\%; $q$ covers the 30-model family. Full baseline and 70\% sensitivity estimates accompany the manuscript.}
+\label{tab:models}
+\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrrr@{}}
+\toprule Outcome & $\beta$ & 95\% interval & $q$ \\
+\midrule
+Sexual explicitness & -0.491 & [-1.016, +0.035] & 0.285 \\
+Objectification & -0.197 & [-0.532, +0.137] & 0.563 \\
+Misogyny & +0.004 & [-0.187, +0.196] & 0.965 \\
+Materialism & -0.653 & [-1.105, -0.201] & 0.078 \\
+Infidelity & -0.099 & [-0.265, +0.066] & 0.563 \\
+Casual sex & -0.431 & [-1.014, +0.152] & 0.432 \\
+Transactional sex & -0.023 & [-0.083, +0.036] & 0.722 \\
+Drugs / alcohol & -0.578 & [-1.019, -0.138] & 0.083 \\
+Violence & -0.069 & [-0.463, +0.326] & 0.862 \\
+Crime & -0.168 & [-0.618, +0.282] & 0.722 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+No model meets $q<0.05$. Adjusted materialism is $-0.653$ points per local standard deviation (95\% interval $[-1.105,-0.201]$, $q=0.078$), and drugs/alcohol is $-0.578$ ($[-1.019,-0.138]$, $q=0.083$). Explicitness is $-0.491$ ($[-1.016,0.035]$, $q=0.285$). The 70\% sensitivity has wider intervals and does not retain evidence below the same threshold. The findings do not support a simple positive relationship between relative adult-term searches and sexual lyrical content. They also do not prove that no relationship exists.
+
+\balance
+\section{Interpretation and scope}
+Music provides a measurable record of how intimacy, power, status, violence and identity circulate. Status and conflict themes expand across repertoires, while romance retains greater chart-stream weight. Brazil combines rising sexual themes, strong relational content and distinct genre profiles. The chart-family split, the exposure measures and the genre profiles each explain a different part of this picture. Social correlations remain visible over time but weaken under some exposure weights. A single country score would hide these differences.
+
+The atlas makes these findings actionable for research and public debate: educators can compare representations, researchers can test mechanisms, and cultural institutions can track repertoire change with explicit evidence. It replaces broad judgments with inspectable measures. Each international position is specific to one dimension; no composite moral ranking is imposed.
+
+Inference is bounded by the observed units. Charted songs are a selected repertoire, not a sample of residents; streams are not unique listeners or endorsement. Spotify chart streams use eligibility filtering~\cite{spotify}. Equal recording weights describe repertoire diversity, not listening exposure. Top 200 and Viral 50 have different selection mechanisms. Shared songs create dependence between markets that market-clustered errors do not fully remove. Short panels, changing repertoires, genre mix, and missing contextual values constrain interpretation even with completed specialist verification.
+
+Adult-term search interest is not pornography consumption. OONI coverage comprises 211 market--year cells with connectivity-test counts; the tests come from participating networks and anomalies do not by themselves confirm censorship~\cite{ooni}. Female homicide is not synonymous with femicide, and partner/family homicide is a distinct indicator. The 2019 SIGI edition and annual GII must retain their own dates and definitions. Annual 2022 context extends beyond the musical cutoff and stays outside models.
+
+Historical commercial visits, weighted WVS sexual-value aggregates and dated TikTok exposure are absent. Contemporary DNS and the traffic pilot remain separate. A legacy index combining historical song shares with 2024 population is synthetic, not an exposed audience estimate. Viral-50 membership does not identify TikTok effects on longevity.
+
+\section{Reproducibility and conclusion}
+The analysis exports all 26 dimensions, country/year denominators, eight international panels, chart-day and stream weights, genre profiles, fixed-sample social links, the complete contextual matrix and the 30 search models. The manifests record the database snapshot, model versions, hashes and completed specialist verification. Publication figures are also supplied as PDF, SVG and PNG.
+
+The supplied scripts reproduce the frozen statistics, contextual matrix and standalone LaTeX figures without new model calls or database writes. The contribution is a verified comparison of music and society across several dimensions, supported by inspectable recording, market and year evidence.
+
+\begingroup\scriptsize
+\begin{thebibliography}{8}
+\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+\bibitem{archive} Chart Observatory. Local source inventory, MGD/Kaggle overlap audit, classification database, and frozen article manifest. Snapshot: 11 October 2026. Repository: PromiscuidadeMusical.
+\bibitem{spotify} Spotify. \href{https://support.spotify.com/us/artists/article/understanding-spotify-charts/}{Understanding Spotify charts}. Accessed 11 October 2026.
+\bibitem{trends} Google. \href{https://support.google.com/trends/answer/4365533?hl=en}{FAQ about Google Trends data}. Accessed 11 October 2026.
+\bibitem{wdi} World Bank. \href{https://data.worldbank.org/}{World Development Indicators}. API responses for 2017--2022, retrieved 11 October 2026; endpoints and hashes in the context manifest.
+\bibitem{gii} UNDP. \href{https://hdr.undp.org/data-center/documentation-and-downloads}{Human Development Report 2025: composite indices time series}. Historical GII observations, archived with provenance.
+\bibitem{sigi} OECD. \href{https://www.oecd.org/en/topics/sub-issues/social-institutions-and-gender-index.html}{Social Institutions and Gender Index, 2019 edition}. Archived SDMX observations.
+\bibitem{homicide} UNODC. \href{https://dataunodc.un.org/dp-intentional-homicide-victims}{UN-CTS intentional homicide data}. July 2026 release; historical years joined without imputation.
+\bibitem{ooni} OONI. \href{https://ooni.org/support/interpreting-ooni-data/}{Interpreting OONI data}. Historical Web Connectivity aggregates and response provenance retained in the context archive.
+\end{thebibliography}
+\endgroup
+\clearpage
+\onecolumn
+\section*{International atlas: all 68 circulation markets}
+\noindent\small Position ranks sexual explicitness (E) from highest to lowest. Other columns retain their own values; the companion interactive atlas ranks any of the 26 dimensions. $n$ is the classified recording count; Cov. is classification coverage; R is romantic affection; C is casual sex; O is objectification; M is misogyny; Mat. is materialism; V is violence; Cr. is crime. All thematic values are percentages at intensity $\geq2$, pooled over 2017--2021 and through 13 March 2022. Each recording counts once per market. Higher position is a larger thematic share, not better performance. Brazil is the reference case.\par\vspace{4pt}
+\centering
+\fontsize{8}{9}\selectfont\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}rlrrrrrrrrrr@{}}
+\toprule Pos. & Circulation market & $n$ & Cov. & R & E & C & O & M & Mat. & V & Cr. \\
+\midrule
+1 & Dominican Republic (DO) & 5,723 & 72.8 & 40.5 & 21.4 & 23.0 & 13.8 & 4.1 & 19.4 & 9.0 & 10.2 \\
+2 & Panama (PA) & 5,159 & 71.8 & 43.9 & 19.2 & 21.3 & 10.9 & 2.8 & 15.3 & 6.7 & 7.8 \\
+3 & Chile (CL) & 6,311 & 72.0 & 42.8 & 17.6 & 20.3 & 10.1 & 2.2 & 12.0 & 5.7 & 6.4 \\
+4 & Paraguay (PY) & 4,842 & 71.6 & 43.6 & 17.2 & 20.7 & 9.6 & 1.7 & 11.2 & 4.6 & 5.3 \\
+5 & Romania (RO) & 5,867 & 75.2 & 30.5 & 16.8 & 15.9 & 14.9 & 11.1 & 24.3 & 14.0 & 16.3 \\
+6 & Honduras (HN) & 4,427 & 70.9 & 45.4 & 16.5 & 18.7 & 9.1 & 2.1 & 12.8 & 5.3 & 6.0 \\
+7 & United States (US) & 11,296 & 75.6 & 31.8 & 16.1 & 15.2 & 12.7 & 8.3 & 24.5 & 16.0 & 17.5 \\
+8 & Nicaragua (NI) & 3,345 & 64.2 & 47.6 & 15.5 & 17.5 & 8.5 & 1.8 & 11.0 & 5.1 & 5.4 \\
+9 & Canada (CA) & 10,296 & 74.7 & 32.8 & 15.3 & 14.7 & 12.3 & 7.7 & 24.3 & 15.0 & 16.4 \\
+10 & El Salvador (SV) & 4,421 & 70.8 & 47.0 & 15.2 & 18.1 & 8.2 & 1.9 & 10.9 & 4.5 & 5.2 \\
+11 & Uruguay (UY) & 5,725 & 72.0 & 42.6 & 14.9 & 18.3 & 8.7 & 1.7 & 11.2 & 4.6 & 5.4 \\
+12 & Bolivia (BO) & 4,506 & 70.4 & 49.4 & 14.5 & 17.9 & 7.6 & 1.3 & 9.2 & 3.3 & 3.8 \\
+13 & Bulgaria (BG) & 5,078 & 70.2 & 30.4 & 14.4 & 14.2 & 12.2 & 7.3 & 23.6 & 14.7 & 15.3 \\
+14 & Ecuador (EC) & 5,057 & 70.7 & 48.3 & 14.2 & 17.4 & 7.4 & 1.2 & 9.4 & 3.4 & 3.7 \\
+15 & Costa Rica (CR) & 5,708 & 72.0 & 42.2 & 14.1 & 16.0 & 8.6 & 2.8 & 13.1 & 7.0 & 7.1 \\
+16 & Guatemala (GT) & 5,282 & 72.3 & 47.3 & 14.0 & 17.1 & 7.6 & 1.7 & 10.1 & 4.2 & 4.8 \\
+17 & Iceland (IS) & 6,123 & 64.2 & 29.7 & 13.9 & 13.3 & 11.8 & 7.3 & 22.8 & 14.4 & 15.9 \\
+18 & South Africa (ZA) & 6,293 & 71.7 & 33.2 & 13.4 & 12.5 & 10.5 & 6.1 & 23.0 & 12.8 & 13.4 \\
+19 & Colombia (CO) & 6,422 & 70.4 & 46.1 & 13.1 & 16.2 & 6.9 & 1.4 & 9.0 & 4.0 & 4.4 \\
+20 & Argentina (AR) & 6,525 & 72.4 & 41.9 & 13.1 & 15.3 & 8.2 & 1.9 & 10.9 & 4.8 & 5.5 \\
+21 & Peru (PE) & 5,202 & 70.3 & 48.9 & 12.9 & 16.4 & 6.8 & 1.3 & 8.2 & 3.1 & 3.5 \\
+\textbf{22} & \textbf{Brazil (BR)} & \textbf{7,186} & \textbf{74.7} & \textbf{40.3} & \textbf{12.5} & \textbf{15.1} & \textbf{7.1} & \textbf{1.9} & \textbf{8.6} & \textbf{4.5} & \textbf{5.2} \\
+23 & Greece (GR) & 6,788 & 71.4 & 31.4 & 12.5 & 12.0 & 10.8 & 7.1 & 24.2 & 15.4 & 18.6 \\
+24 & United Arab Emirates (AE) & 3,123 & 71.6 & 42.7 & 12.4 & 11.9 & 9.4 & 5.5 & 18.3 & 12.6 & 12.6 \\
+25 & Portugal (PT) & 8,065 & 73.4 & 35.3 & 11.9 & 12.6 & 7.8 & 3.8 & 14.2 & 8.6 & 9.2 \\
+26 & Switzerland (CH) & 13,028 & 73.3 & 28.2 & 11.5 & 11.2 & 10.4 & 7.3 & 27.8 & 16.2 & 22.0 \\
+27 & Spain (ES) & 8,082 & 73.4 & 42.1 & 11.4 & 13.6 & 6.2 & 1.6 & 10.3 & 5.0 & 6.0 \\
+28 & Luxembourg (LU) & 5,135 & 70.3 & 34.0 & 11.3 & 11.3 & 9.3 & 5.3 & 21.7 & 12.7 & 15.9 \\
+29 & Ukraine (UA) & 2,707 & 72.9 & 25.9 & 11.2 & 10.2 & 10.6 & 7.1 & 18.0 & 10.8 & 11.5 \\
+30 & Israel (IL) & 4,547 & 63.9 & 36.2 & 11.0 & 11.0 & 8.7 & 4.9 & 15.5 & 10.1 & 9.9 \\
+31 & Latvia (LV) & 6,303 & 70.0 & 31.4 & 11.0 & 10.7 & 9.6 & 6.1 & 18.4 & 11.2 & 12.0 \\
+32 & United Kingdom (GB) & 10,752 & 74.5 & 33.1 & 10.9 & 10.9 & 7.9 & 3.8 & 17.9 & 13.3 & 15.0 \\
+33 & Morocco (MA) & 3,433 & 68.3 & 25.0 & 10.7 & 9.4 & 9.2 & 6.8 & 23.9 & 16.5 & 21.8 \\
+34 & New Zealand (NZ) & 7,950 & 70.9 & 35.4 & 10.6 & 9.9 & 7.5 & 4.4 & 14.6 & 10.1 & 10.2 \\
+35 & Russia (RU) & 3,286 & 74.9 & 23.7 & 10.4 & 9.2 & 9.6 & 6.2 & 16.3 & 11.1 & 11.3 \\
+36 & Slovakia (SK) & 7,133 & 69.8 & 29.1 & 10.4 & 10.4 & 8.9 & 5.5 & 18.8 & 9.5 & 10.8 \\
+37 & France (FR) & 11,579 & 75.9 & 23.8 & 10.3 & 8.7 & 8.9 & 6.8 & 23.0 & 19.7 & 27.6 \\
+38 & Belgium (BE) & 10,156 & 71.3 & 30.8 & 10.1 & 9.4 & 8.5 & 5.5 & 20.8 & 13.4 & 17.7 \\
+39 & Netherlands (NL) & 10,718 & 68.5 & 30.6 & 10.0 & 10.4 & 8.7 & 4.6 & 24.5 & 10.2 & 15.4 \\
+40 & Estonia (EE) & 5,750 & 69.8 & 35.0 & 10.0 & 9.4 & 7.7 & 4.5 & 15.0 & 9.2 & 9.4 \\
+41 & Australia (AU) & 7,991 & 71.8 & 35.8 & 9.8 & 9.5 & 6.8 & 3.8 & 14.0 & 9.8 & 9.8 \\
+42 & Saudi Arabia (SA) & 2,894 & 62.1 & 42.9 & 9.6 & 9.4 & 7.5 & 4.1 & 14.0 & 9.7 & 9.5 \\
+43 & Denmark (DK) & 9,255 & 72.7 & 32.4 & 9.4 & 9.7 & 7.1 & 3.7 & 17.6 & 9.5 & 12.0 \\
+44 & Germany (DE) & 11,907 & 73.5 & 26.0 & 9.4 & 8.9 & 9.1 & 7.2 & 27.7 & 15.2 & 21.1 \\
+45 & Mexico (MX) & 5,640 & 70.5 & 47.6 & 9.4 & 11.9 & 5.2 & 1.1 & 7.9 & 4.1 & 4.8 \\
+46 & Hungary (HU) & 7,943 & 71.0 & 34.5 & 9.1 & 9.4 & 7.0 & 4.1 & 13.3 & 8.5 & 8.5 \\
+47 & Ireland (IE) & 9,608 & 72.9 & 36.4 & 9.0 & 9.0 & 6.3 & 3.3 & 12.8 & 10.2 & 10.3 \\
+48 & Austria (AT) & 10,850 & 73.7 & 29.6 & 9.0 & 8.8 & 8.5 & 6.2 & 25.0 & 13.0 & 17.5 \\
+49 & Lithuania (LT) & 6,176 & 69.0 & 36.4 & 9.0 & 8.7 & 7.1 & 4.2 & 14.2 & 9.1 & 9.4 \\
+50 & Czechia (CZ) & 8,589 & 69.6 & 29.9 & 8.9 & 8.5 & 7.3 & 5.0 & 15.1 & 8.3 & 9.0 \\
+51 & Norway (NO) & 10,109 & 69.5 & 35.9 & 8.7 & 9.1 & 6.4 & 3.5 & 12.6 & 7.7 & 8.5 \\
+52 & Italy (IT) & 9,394 & 75.5 & 34.0 & 7.8 & 7.5 & 6.2 & 3.9 & 14.9 & 8.0 & 10.8 \\
+53 & Sweden (SE) & 10,844 & 72.0 & 36.5 & 7.2 & 7.3 & 4.7 & 2.2 & 12.9 & 11.1 & 12.6 \\
+54 & Egypt (EG) & 2,334 & 66.8 & 37.2 & 6.9 & 6.4 & 5.3 & 3.2 & 14.1 & 11.1 & 8.3 \\
+55 & Andorra (AD) & 5,235 & 74.6 & 44.5 & 6.8 & 8.6 & 4.2 & 1.4 & 6.2 & 4.5 & 4.2 \\
+56 & Finland (FI) & 10,913 & 68.4 & 32.5 & 6.6 & 7.2 & 4.8 & 2.8 & 9.7 & 8.1 & 7.0 \\
+57 & Poland (PL) & 8,908 & 70.0 & 30.0 & 6.5 & 6.9 & 5.5 & 3.7 & 13.3 & 6.5 & 7.7 \\
+58 & Singapore (SG) & 6,848 & 69.0 & 50.2 & 5.5 & 5.5 & 3.2 & 1.6 & 7.7 & 3.9 & 3.6 \\
+59 & India (IN) & 3,402 & 63.0 & 51.4 & 5.4 & 5.6 & 3.9 & 2.1 & 8.8 & 6.2 & 5.8 \\
+60 & Malaysia (MY) & 6,624 & 69.6 & 51.5 & 5.1 & 5.1 & 3.1 & 1.6 & 7.6 & 3.8 & 3.7 \\
+61 & Philippines (PH) & 6,273 & 71.8 & 55.7 & 4.8 & 4.6 & 2.4 & 1.1 & 5.5 & 2.9 & 2.7 \\
+62 & Türkiye (TR) & 6,350 & 66.0 & 37.3 & 4.5 & 4.3 & 3.5 & 1.9 & 8.9 & 6.9 & 6.7 \\
+63 & Vietnam (VN) & 4,220 & 64.9 & 57.2 & 4.1 & 4.4 & 2.4 & 0.9 & 5.7 & 2.4 & 2.4 \\
+64 & Thailand (TH) & 4,923 & 62.6 & 59.9 & 4.1 & 4.3 & 2.5 & 1.1 & 5.7 & 2.4 & 2.4 \\
+65 & South Korea (KR) & 1,969 & 79.1 & 52.8 & 3.8 & 4.0 & 2.1 & 1.0 & 8.8 & 2.9 & 2.7 \\
+66 & Indonesia (ID) & 5,985 & 70.3 & 56.1 & 3.6 & 4.0 & 1.9 & 0.9 & 4.8 & 2.3 & 2.2 \\
+67 & Japan (JP) & 8,047 & 63.5 & 43.5 & 3.6 & 3.7 & 1.9 & 0.8 & 4.9 & 3.0 & 2.7 \\
+68 & Taiwan (TW) & 8,887 & 59.7 & 52.4 & 3.5 & 3.9 & 1.8 & 0.8 & 5.2 & 2.5 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{document}

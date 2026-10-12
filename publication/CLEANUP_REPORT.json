@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-12T01:14:47.251032+00:00",
+  "deleted_files": 0,
+  "deletion_status": "blocked_by_automatic_policy_review",
+  "disposable_candidates": 59,
+  "disposable_candidate_bytes": 40114555,
+  "public_release_includes_disposable_files": false,
+  "preserved_evidence": [
+    "original source responses and manifests",
+    "raw lyric research corpus, kept private",
+    "older analyses and audit history",
+    "database and disaster-recovery backups"
+  ],
+  "publicly_withheld": [
+    "copyrighted lyric text",
+    "bulk original chart provider files",
+    "credentials/OAuth",
+    "cloud billing and account details",
+    "databases and recovery clusters"
+  ],
+  "note": "Older scientific snapshots are not byte-identical duplicates and were preserved. No deletion bypass was attempted."
+}

@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-11T23:55:47.839618+00:00",
+  "database_snapshot_utc": "2026-10-11 23:39:03.970865+00:00",
+  "themes": 26,
+  "context_indicators": 13,
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021
+  ],
+  "specifications": 1690,
+  "observed_associations": 1586,
+  "method": "Separate-year pairwise Spearman, >=300 classified recordings and >=10 markets; descriptive, no significance claims, no imputation",
+  "input_sha256": "05c355d22df6d6ffdf38b9e1b6d8e91e2d46db3dd1586c3a224281416a3367a3",
+  "provider_calls": 0,
+  "database_writes": 0
+}

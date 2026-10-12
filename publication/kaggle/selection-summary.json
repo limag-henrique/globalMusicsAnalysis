@@ -1,0 +1,54 @@
+{
+  "database_snapshot_utc": "2026-10-11 23:39:03.970865+00:00",
+  "documents": 159111,
+  "status_counts": [
+    {
+      "classification_status": "ambiguous",
+      "documents": 11,
+      "tracks": 11
+    },
+    {
+      "classification_status": "blocked",
+      "documents": 6,
+      "tracks": 6
+    },
+    {
+      "classification_status": "classified",
+      "documents": 155010,
+      "tracks": 154979
+    },
+    {
+      "classification_status": "error",
+      "documents": 1707,
+      "tracks": 1707
+    },
+    {
+      "classification_status": "instrumental",
+      "documents": 741,
+      "tracks": 741
+    },
+    {
+      "classification_status": "insufficient_text",
+      "documents": 1589,
+      "tracks": 1589
+    },
+    {
+      "classification_status": "language_unsupported",
+      "documents": 47,
+      "tracks": 47
+    }
+  ],
+  "selected_documents": 154995,
+  "selected_unique_tracks": 154964,
+  "linked_native_ids": 154942,
+  "geographic_unique_tracks": 153501,
+  "markets": 68,
+  "country_years": 386,
+  "metric_threshold": 2,
+  "confidence_filter": null,
+  "expert_verification": {
+    "status": "completed",
+    "scope": "classification results and lyric-to-recording linkage",
+    "source": "Project lead confirmation, 2026-10-11; record the stage as completed only"
+  }
+}

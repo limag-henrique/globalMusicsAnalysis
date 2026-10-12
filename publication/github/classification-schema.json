@@ -1,0 +1,359 @@
+{
+  "$defs": {
+    "Antisocial": {
+      "properties": {
+        "drugs_alcohol": {
+          "$ref": "#/$defs/AntisocialDimension"
+        },
+        "crime": {
+          "$ref": "#/$defs/AntisocialDimension"
+        },
+        "violence": {
+          "$ref": "#/$defs/AntisocialDimension"
+        },
+        "weapons": {
+          "$ref": "#/$defs/AntisocialDimension"
+        }
+      },
+      "required": [
+        "drugs_alcohol",
+        "crime",
+        "violence",
+        "weapons"
+      ],
+      "title": "Antisocial",
+      "type": "object"
+    },
+    "AntisocialDimension": {
+      "properties": {
+        "intensity": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Intensity",
+          "type": "integer"
+        },
+        "stance": {
+          "$ref": "#/$defs/Stance"
+        }
+      },
+      "required": [
+        "intensity",
+        "stance"
+      ],
+      "title": "AntisocialDimension",
+      "type": "object"
+    },
+    "ClassificationStatus": {
+      "enum": [
+        "classified",
+        "ambiguous",
+        "blocked",
+        "language_unsupported",
+        "insufficient_text",
+        "instrumental",
+        "error"
+      ],
+      "title": "ClassificationStatus",
+      "type": "string"
+    },
+    "Consent": {
+      "enum": [
+        "not_applicable",
+        "explicit_mutual",
+        "implicit_mutual",
+        "ambiguous",
+        "coercive",
+        "nonconsensual"
+      ],
+      "title": "Consent",
+      "type": "string"
+    },
+    "GenderRepresentation": {
+      "properties": {
+        "objectification": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Objectification",
+          "type": "integer"
+        },
+        "misogyny": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Misogyny",
+          "type": "integer"
+        },
+        "sexual_agency": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Sexual Agency",
+          "type": "integer"
+        },
+        "status_symbolization": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Status Symbolization",
+          "type": "integer"
+        },
+        "commodification": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Commodification",
+          "type": "integer"
+        },
+        "target_gender": {
+          "$ref": "#/$defs/TargetGender"
+        },
+        "representation_roles": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RepresentationRole"
+          },
+          "title": "Representation Roles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "objectification",
+        "misogyny",
+        "sexual_agency",
+        "status_symbolization",
+        "commodification",
+        "target_gender"
+      ],
+      "title": "GenderRepresentation",
+      "type": "object"
+    },
+    "MaterialStatus": {
+      "properties": {
+        "money_reference": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Money Reference",
+          "type": "integer"
+        },
+        "materialism": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Materialism",
+          "type": "integer"
+        },
+        "conspicuous_consumption": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Conspicuous Consumption",
+          "type": "integer"
+        },
+        "wealth_as_status": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Wealth As Status",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "money_reference",
+        "materialism",
+        "conspicuous_consumption",
+        "wealth_as_status"
+      ],
+      "title": "MaterialStatus",
+      "type": "object"
+    },
+    "Relationships": {
+      "properties": {
+        "romantic_affection": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Romantic Affection",
+          "type": "integer"
+        },
+        "heartbreak": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Heartbreak",
+          "type": "integer"
+        },
+        "infidelity": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Infidelity",
+          "type": "integer"
+        },
+        "transactional_sex": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Transactional Sex",
+          "type": "integer"
+        },
+        "casual_sex": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Casual Sex",
+          "type": "integer"
+        },
+        "jealousy_possession": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Jealousy Possession",
+          "type": "integer"
+        },
+        "reciprocity": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Reciprocity",
+          "type": "integer"
+        },
+        "consent": {
+          "$ref": "#/$defs/Consent"
+        }
+      },
+      "required": [
+        "romantic_affection",
+        "heartbreak",
+        "infidelity",
+        "transactional_sex",
+        "casual_sex",
+        "jealousy_possession",
+        "reciprocity",
+        "consent"
+      ],
+      "title": "Relationships",
+      "type": "object"
+    },
+    "RepresentationRole": {
+      "enum": [
+        "subject",
+        "object",
+        "agent",
+        "recipient",
+        "narrator",
+        "other"
+      ],
+      "title": "RepresentationRole",
+      "type": "string"
+    },
+    "Sexuality": {
+      "properties": {
+        "sexual_explicitness": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Sexual Explicitness",
+          "type": "integer"
+        },
+        "sexual_desire": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Sexual Desire",
+          "type": "integer"
+        },
+        "sexual_innuendo": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Sexual Innuendo",
+          "type": "integer"
+        },
+        "explicit_sexual_act": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Explicit Sexual Act",
+          "type": "integer"
+        },
+        "explicit_sexual_anatomy": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Explicit Sexual Anatomy",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sexual_explicitness",
+        "sexual_desire",
+        "sexual_innuendo",
+        "explicit_sexual_act",
+        "explicit_sexual_anatomy"
+      ],
+      "title": "Sexuality",
+      "type": "object"
+    },
+    "Stance": {
+      "enum": [
+        "condemned",
+        "neutral",
+        "ambivalent",
+        "normalized",
+        "glorified"
+      ],
+      "title": "Stance",
+      "type": "string"
+    },
+    "TargetGender": {
+      "enum": [
+        "women",
+        "men",
+        "nonbinary",
+        "multiple",
+        "unspecified",
+        "not_applicable"
+      ],
+      "title": "TargetGender",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "classification_status": {
+      "$ref": "#/$defs/ClassificationStatus"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "sexuality": {
+      "$ref": "#/$defs/Sexuality"
+    },
+    "relationships": {
+      "$ref": "#/$defs/Relationships"
+    },
+    "gender_representation": {
+      "$ref": "#/$defs/GenderRepresentation"
+    },
+    "material_status": {
+      "$ref": "#/$defs/MaterialStatus"
+    },
+    "antisocial": {
+      "$ref": "#/$defs/Antisocial"
+    },
+    "territorial_identity": {
+      "maximum": 3,
+      "minimum": 0,
+      "title": "Territorial Identity",
+      "type": "integer"
+    },
+    "romantic_summary": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Romantic Summary"
+    }
+  },
+  "required": [
+    "classification_status",
+    "confidence",
+    "sexuality",
+    "relationships",
+    "gender_representation",
+    "material_status",
+    "antisocial",
+    "territorial_identity"
+  ],
+  "title": "LyricsClassification",
+  "type": "object"
+}

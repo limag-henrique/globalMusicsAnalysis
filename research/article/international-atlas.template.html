@@ -1,0 +1,78 @@
+<div id="music-atlas-20261011">
+  <h2>Brazil and 68 music markets</h2>
+  <div class="viz-controls">
+    <label class="form-label">Circulation market<select id="atlas-country" class="form-select"></select></label>
+    <label class="form-label">Ranking dimension<select id="atlas-metric" class="form-select"></select></label>
+  </div>
+  <div id="atlas-selected" class="text-small" aria-live="polite"></div>
+  <div id="atlas-context" class="text-small" aria-live="polite"></div>
+  <div id="atlas-chart"></div>
+  <div class="viz-row">
+    <button type="button" id="atlas-all" class="btn" aria-expanded="false">Show all 68 markets</button>
+    <span class="text-small text-muted">Intensity ≥2 · Equal recording weights · 2017–2022*</span>
+  </div>
+  <div id="atlas-table-container" class="table-responsive" hidden>
+    <table class="table table-sm"><thead><tr><th>Position</th><th>Market</th><th class="text-end">n</th><th class="text-end">Coverage %</th><th class="text-end">Romance %</th><th class="text-end">Explicitness %</th><th class="text-end">Casual sex %</th><th class="text-end">Objectification %</th><th class="text-end">Misogyny %</th><th class="text-end">Materialism %</th><th class="text-end">Selected theme %</th><th class="text-end">Gini 2021</th><th class="text-end">Youth unemployment % 2021</th><th class="text-end">GII 2021</th><th class="text-end">Homicide /100k 2021</th><th class="text-end">Internet % 2021</th></tr></thead><tbody id="atlas-table"></tbody></table>
+  </div>
+  <div class="text-small text-muted">*2022 ends on 13 March. Position ranks thematic share, not national quality. Specialist verification completed. Unclassified recordings are excluded from theme denominators; coverage is shown separately.</div>
+</div>
+<style>
+#music-atlas-20261011 #atlas-chart {margin:12px 0}
+#music-atlas-20261011 .atlas-plot text {fill:var(--foreground);font-size:12px}
+#music-atlas-20261011 .atlas-focus {font-weight:500}
+#music-atlas-20261011 tr[data-focus="true"] {background:var(--accent);color:var(--accent-foreground)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(() => {
+  const root=document.getElementById('music-atlas-20261011');
+  const dataset=@@DATA@@;
+  const country=root.querySelector('#atlas-country'), metric=root.querySelector('#atlas-metric');
+  const chart=root.querySelector('#atlas-chart'), summary=root.querySelector('#atlas-selected'), tbody=root.querySelector('#atlas-table');
+  const button=root.querySelector('#atlas-all'), table=root.querySelector('#atlas-table-container');
+  dataset.records.slice().sort((a,b)=>a.market_name.localeCompare(b.market_name)).forEach(r=>country.add(new Option(r.market_name+' ('+r.market_code+')',r.market_code)));
+  Object.entries(dataset.labels).forEach(([key,label])=>metric.add(new Option(label,key)));
+  country.value='BR';metric.value='explicitness';
+  const pct=value=>Number(value).toFixed(1);
+  function draw(){
+    const field=metric.value+'_pct', rank=metric.value+'_rank';
+    const sorted=dataset.records.slice().sort((a,b)=>b[field]-a[field]||a.market_name.localeCompare(b.market_name));
+    const selected=sorted.find(r=>r.market_code===country.value), brazil=sorted.find(r=>r.market_code==='BR');
+    summary.textContent=selected.market_name+': #'+selected[rank]+'/68 · '+dataset.labels[metric.value]+' '+pct(selected[field])+'% · n='+selected.classified_tracks.toLocaleString('en-US')+' · coverage '+pct(selected.coverage*100)+'% · Brazil #'+brazil[rank]+'/68';
+    const contextual=(r,key,digits=1)=>r['context_2021_'+key]==null?'—':Number(r['context_2021_'+key]).toFixed(digits);
+    root.querySelector('#atlas-context').textContent='2021 context · Gini '+contextual(selected,'gini')+' · youth unemployment '+contextual(selected,'youth_unemployment')+'% · GII '+contextual(selected,'gender_inequality_index',3)+' · homicide '+contextual(selected,'homicide_unodc_total')+'/100k · internet '+contextual(selected,'internet_users')+'%';
+    const shown=sorted.slice(0,10);
+    [selected,brazil].forEach(r=>{if(!shown.some(v=>v.market_code===r.market_code))shown.push(r)});
+    shown.sort((a,b)=>b[field]-a[field]);
+    const width=Math.max(280,chart.getBoundingClientRect().width), left=width<450?132:182, right=52, top=24, bottom=50, height=top+shown.length*32+bottom;
+    chart.replaceChildren();
+    const svg=d3.select(chart).append('svg').attr('class','atlas-plot').attr('viewBox',`0 0 ${width} ${height}`).attr('width','100%').attr('height',height).attr('role','img').attr('aria-label',dataset.labels[metric.value]+' ranking: ten highest markets, selected market and Brazil');
+    svg.append('title').text(dataset.labels[metric.value]+': international positions');
+    const max=d3.max(sorted,d=>d[field]);
+    const x=d3.scaleLinear().domain([0,max*1.08]).nice().range([left,width-right]);
+    const y=d3.scaleBand().domain(shown.map(r=>r.market_code)).range([top,height-bottom]).padding(.38);
+    svg.append('rect').attr('data-chart-frame','').attr('x',left).attr('y',top).attr('width',width-left-right).attr('height',height-top-bottom).attr('fill','none').attr('stroke','var(--border)');
+    const axis=svg.append('g').attr('transform',`translate(0,${height-bottom})`).call(d3.axisBottom(x).ticks(width<450?3:5));
+    axis.selectAll('path,line').attr('stroke','var(--border)');
+    svg.append('text').attr('class','axis-title').attr('data-axis','x').attr('x',(left+width-right)/2).attr('y',height-8).attr('text-anchor','middle').text('Classified recordings (%)');
+    svg.append('text').attr('class','axis-title').attr('data-axis','y').attr('x',0).attr('y',13).text('Market / position');
+    shown.forEach(r=>{
+      const active=r.market_code===country.value, br=r.market_code==='BR', label=width<450?r.market_code:r.market_name;
+      const gy=y(r.market_code),mid=gy+y.bandwidth()/2;
+      svg.append('text').attr('x',left-8).attr('y',mid+4).attr('text-anchor','end').attr('class',active||br?'atlas-focus':'').text('#'+r[rank]+' '+label);
+      svg.append('rect').attr('x',left).attr('y',gy).attr('width',x(r[field])-left).attr('height',y.bandwidth()).attr('fill',br?'var(--viz-series-2)':'var(--viz-series-1)').attr('opacity',active||br?1:.55);
+      svg.append('text').attr('x',x(r[field])+6).attr('y',mid+4).text(pct(r[field]));
+      svg.append('rect').attr('data-chart-hit','').attr('x',left).attr('y',gy-7).attr('width',width-left).attr('height',32).attr('fill','transparent').attr('data-tooltip',r.market_name+' · #'+r[rank]+'/68 · '+pct(r[field])+'% · n='+r.classified_tracks+' · coverage '+pct(r.coverage*100)+'%');
+    });
+    tbody.replaceChildren();
+    sorted.forEach(r=>{
+      const tr=document.createElement('tr');tr.dataset.focus=String(r.market_code===country.value||r.market_code==='BR');
+      const cells=[r[rank],r.market_name+' ('+r.market_code+')',r.classified_tracks.toLocaleString('en-US'),pct(r.coverage*100),...['romantic_affection','explicitness','casual_sex','objectification','misogyny','materialism'].map(m=>pct(r[m+'_pct'])),pct(r[field]),...['gini','youth_unemployment','gender_inequality_index','homicide_unodc_total','internet_users'].map(k=>contextual(r,k,k==='gender_inequality_index'?3:1))];
+      cells.forEach((value,i)=>{const td=document.createElement('td');td.textContent=value;if(i>1)td.className='text-end text-nowrap';tr.append(td)});tbody.append(tr);
+    });
+  }
+  country.addEventListener('change',draw);metric.addEventListener('change',draw);
+  button.addEventListener('click',()=>{table.hidden=!table.hidden;button.setAttribute('aria-expanded',String(!table.hidden));button.textContent=table.hidden?'Show all 68 markets':'Hide full table'});
+  new ResizeObserver(draw).observe(chart);draw();
+})();
+</script>

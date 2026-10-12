@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "markets": 68,
+  "country_years": 386,
+  "global_panel_markets": 55,
+  "dimensions": 26,
+  "social_cells": 1690,
+  "global_sensitivity_panels": 8,
+  "search_models": 30,
+  "provider_calls": 0,
+  "database_required": false,
+  "verified_frozen_hashes": true,
+  "contract_tests_passed": 3,
+  "private_database_required": false,
+  "raw_lyrics_included": false,
+  "additional_global_figures_regenerated": 4,
+  "article_visual_review": "passed",
+  "package_integrity": "passed",
+  "notebook_direct_and_cli_archive_loading": "passed"
+}

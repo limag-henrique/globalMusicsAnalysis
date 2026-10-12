@@ -1,0 +1,75 @@
+{
+  "inputs": [
+    {
+      "path": "global-patterns\\annual-global-trends.csv",
+      "sha256": "a3275742f153caafa4970cd170e4772df8f0eda9fb9a48c7baa0e273e756c538"
+    },
+    {
+      "path": "global-patterns\\change-summary.csv",
+      "sha256": "aab74875050f5df3d658cdde54e8fad620ee7e9654da2e71ee1becc7e55ba556"
+    },
+    {
+      "path": "global-patterns\\fixed-sample-social-correlations.csv",
+      "sha256": "bd9b8f507158d407b50c7f985ba6d7a6aab59b99851fe491e7aac19808b0cc95"
+    },
+    {
+      "path": "analysis-final\\annual-country-metrics.parquet",
+      "sha256": "d32e1f413bfd1dc133200b20b8796e89cb4b23ec08f6948541db73509950cc80"
+    },
+    {
+      "path": "plot_global_patterns.py",
+      "sha256": "5c7ffbf59c30f4de569e9bf0343cedf31df4fe7f517e7cd455d903928ab836d3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "figures\\chart-family-contrast.pdf",
+      "sha256": "e0aa1748999309e4bd84b36bad1e0feef62446345f1e8b4cc368b4acfdb4adea"
+    },
+    {
+      "path": "figures\\chart-family-contrast.png",
+      "sha256": "672cbc1045a48913f79fba2aeb3e194700c74e64653e5890ff624b3e1a578e59"
+    },
+    {
+      "path": "figures\\chart-family-contrast.svg",
+      "sha256": "02779e01b5a8cd40d602b69dfc5d672f457f753a761bcf247e052084bd29168f"
+    },
+    {
+      "path": "figures\\global-dimension-changes.pdf",
+      "sha256": "4f9a52ccfa5b49c08e39111c7f509b39b5db7ef2a0b15b4c34a891e936845730"
+    },
+    {
+      "path": "figures\\global-dimension-changes.png",
+      "sha256": "38f3a66b89a3d04b921dff8836fc58cd1efdbae05dc4740630029e32137437c3"
+    },
+    {
+      "path": "figures\\global-dimension-changes.svg",
+      "sha256": "be64802be6c4c0f12615b595296a4c823957f21f4b14cdfdb61004e2bbf364a7"
+    },
+    {
+      "path": "figures\\global-trajectories.pdf",
+      "sha256": "99807603e1e86e06bd8ff71701282430730c33dbcdb49009edb713d5f183aeaf"
+    },
+    {
+      "path": "figures\\global-trajectories.png",
+      "sha256": "b65f7287338e975bab02ebe3c632112347d09e0f22ba3a706d5dd76f09f151c4"
+    },
+    {
+      "path": "figures\\global-trajectories.svg",
+      "sha256": "e6f5466565dcd36e885767d313b61ca4117b8d0d0601d12925748a0867d8c784"
+    },
+    {
+      "path": "figures\\social-association-trajectories.pdf",
+      "sha256": "5257df0ec1e391f2619dbeede6f8db4bbb9d86fa30511a429d4d5da3a9d976d8"
+    },
+    {
+      "path": "figures\\social-association-trajectories.png",
+      "sha256": "0851e04c716fb69884627864b6999f635c18840fd4a72ec35cc424a91295ff0b"
+    },
+    {
+      "path": "figures\\social-association-trajectories.svg",
+      "sha256": "cf906ae0db6187f327a5064f6c2de8bcb9bdfb2e9d76cc199644a8bacd92c58c"
+    }
+  ],
+  "inline_definitions_sha256": "3201df5ac72a00f9127cb44babc611e1b02292ab14d778979142744d525ffcf5"
+}

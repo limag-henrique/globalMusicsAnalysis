@@ -1,0 +1,34 @@
+\begin{figure*}[t]
+\centering\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=14mm},width=.37\textwidth,height=57mm,scale only axis=true,
+ xmin=0,xmax=55,ymin=.4,ymax=8.6,xtick={0,10,20,30,40,50},ytick={8,7,6,5,4,3,2,1},
+ tick label style={font=\scriptsize},title style={font=\small},xlabel={Theme share (\%)},xlabel style={font=\scriptsize},
+ xmajorgrids=true,grid style={gray!18},axis line style={gray}]
+\nextgroupplot[title={Brazil},yticklabels={Romance,Heartbreak,Explicitness,Casual sex,Misogyny,Materialism,Crime,Weapons}]
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(43.381643,8.18) (35.265700,7.18) (17.294686,6.18) (22.705314,5.18) (2.318841,4.18) (12.463768,3.18) (5.024155,2.18) (3.574879,1.18)};
+\addplot[only marks,orange,mark=square*,mark size=2pt] coordinates {(44.788609,8.00) (37.979871,7.00) (21.901567,6.00) (27.538028,5.00) (2.718158,4.00) (13.756624,3.00) (5.192330,2.00) (3.741756,1.00)};
+\addplot[only marks,teal,mark=triangle*,mark size=2pt] coordinates {(44.440178,7.82) (39.700251,6.82) (23.678509,5.82) (29.993152,4.82) (2.419407,3.82) (13.363212,2.82) (4.962364,1.82) (3.052341,0.82)};
+\nextgroupplot[title={51-market mean},yticklabels={}]
+\addplot[only marks,blue,mark=*,mark size=2pt] coordinates {(40.878956,8.18) (26.792659,7.18) (11.530168,6.18) (12.068266,5.18) (2.869502,4.18) (15.572504,3.18) (10.206607,2.18) (7.290892,1.18)};
+\addplot[only marks,orange,mark=square*,mark size=2pt] coordinates {(47.715061,8.00) (31.445475,7.00) (14.387629,6.00) (14.313864,5.00) (2.306561,4.00) (13.119027,3.00) (7.407665,2.00) (4.890054,1.00)};
+\addplot[only marks,teal,mark=triangle*,mark size=2pt] coordinates {(48.268171,7.82) (33.284715,6.82) (15.707437,5.82) (14.619290,4.82) (2.178785,3.82) (13.201071,2.82) (7.165506,1.82) (4.296835,0.82)};
+\end{groupplot}\end{tikzpicture}
+\caption{Three views of the same classified Top-200 repertoire in 2021. Blue circles count recording IDs equally; orange squares weight their observed chart days; teal triangles weight observed chart streams. The right panel averages the same 51 markets equally. Every denominator contains classified records only. Brazil has 1,035 classified IDs out of 1,382 charted IDs, covering 71.9\% of chart days and 69.4\% of chart streams. Median stream coverage across the 51 markets is 73.1\% (range 45.5--80.9\%). Streams are chart-eligible plays during chart appearances, not people or all Spotify plays.}
+\label{fig:chart-exposure}
+\end{figure*}
+
+\begin{table}[t]
+\caption{Brazilian genre-tag profiles, MGD Top 200, 2017--2021. The eight largest artist-derived tags are selected by charted recording count. $n$: classified IDs; Cov.: classification coverage; R: romance; E: explicitness; C: casual sex; M: misogyny; Mat.: materialism. Theme values are percentages of classified IDs, not genre-wide population estimates. Tags overlap.}
+\label{tab:genre-profiles}
+\centering\scriptsize\setlength{\tabcolsep}{2.8pt}
+\begin{tabular}{@{}lrrrrrrr@{}}\toprule Tag & $n$ & Cov. & R & E & C & M & Mat.\\\midrule
+Pop & 757 & 72.0 & 51.7 & 5.3 & 7.8 & 0.3 & 4.1 \\
+Agronejo & 283 & 58.1 & 61.1 & 1.1 & 9.2 & 0.0 & 0.7 \\
+Arrocha & 227 & 71.6 & 55.9 & 7.0 & 13.7 & 0.4 & 0.9 \\
+Rap / hip-hop & 106 & 65.0 & 16.0 & 25.5 & 21.7 & 3.8 & 40.6 \\
+Brazilian funk & 141 & 89.8 & 25.5 & 22.0 & 29.1 & 0.7 & 5.7 \\
+Sertanejo & 84 & 73.0 & 70.2 & 0.0 & 8.3 & 0.0 & 1.2 \\
+Rock & 71 & 63.4 & 31.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+K-pop & 55 & 58.5 & 34.5 & 0.0 & 0.0 & 0.0 & 9.1 \\
+\bottomrule\end{tabular}
+\end{table}

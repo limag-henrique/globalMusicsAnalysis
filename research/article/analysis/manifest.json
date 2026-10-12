@@ -1,0 +1,277 @@
+{
+  "created_utc": "2026-10-11T23:38:10.941229+00:00",
+  "database_snapshot_utc": "2026-10-11 23:37:54.879391+00:00",
+  "documents": 159111,
+  "status_counts": [
+    {
+      "classification_status": "ambiguous",
+      "documents": 11,
+      "tracks": 11
+    },
+    {
+      "classification_status": "blocked",
+      "documents": 6,
+      "tracks": 6
+    },
+    {
+      "classification_status": "classified",
+      "documents": 155010,
+      "tracks": 154979
+    },
+    {
+      "classification_status": "error",
+      "documents": 1707,
+      "tracks": 1707
+    },
+    {
+      "classification_status": "instrumental",
+      "documents": 741,
+      "tracks": 741
+    },
+    {
+      "classification_status": "insufficient_text",
+      "documents": 1589,
+      "tracks": 1589
+    },
+    {
+      "classification_status": "language_unsupported",
+      "documents": 47,
+      "tracks": 47
+    }
+  ],
+  "selected_documents": 154995,
+  "selected_unique_tracks": 154964,
+  "linked_native_ids": 154942,
+  "geographic_unique_tracks": 153501,
+  "markets": 68,
+  "country_years": 386,
+  "chart_unique_tracks": 222102,
+  "track_market_pairs": 652121,
+  "annotated_track_market_pairs": 461447,
+  "model": {
+    "model": "gemini-3.8-flash",
+    "taxonomy": "lyrics-classification-v1",
+    "prompt": "lyrics-classification-prompt-v2"
+  },
+  "model_counts": {
+    "model_specs": 30,
+    "estimated_models": 20,
+    "sample_rows": 3990,
+    "exclusion_rows": 7590
+  },
+  "metric_threshold": 2,
+  "confidence_filter": null,
+  "expert_verification": {
+    "status": "completed",
+    "scope": "classification results and lyric-to-recording linkage",
+    "source": "Project lead confirmation, 2026-10-11; record the stage as completed only"
+  },
+  "selection": "Latest matching model/taxonomy/prompt per document; current document hash; research authorization; existing identity exclusions; latest per track/native ID",
+  "source_policy": "MGD and Kaggle Spotify Top 200/Viral 50; equal weight per distinct native recording ID per market/year; GLOBAL/HK/PR excluded",
+  "provider_calls": 0,
+  "database_writes": 0,
+  "inputs": [
+    {
+      "path": "data\\derived\\research_quality\\country-all-history-20261011-022524\\recovered-original-id-lineage.parquet",
+      "sha256": "76686e86b4c1e70a89873aba96d9aaa39e6cfeddff4ba146a0ea64cfc66bd973"
+    },
+    {
+      "path": "data\\derived\\research_quality\\country-all-history-20261011-022524\\unique-chart-track-market-year-source.parquet",
+      "sha256": "8763df13c10040f5ea85ccbe61c13cf58a9f5541002a9d2ffeea6bc1cbe8b4e3"
+    },
+    {
+      "path": "data\\derived\\research_quality\\country-all-history-20261011-022524\\source-inventory.csv",
+      "sha256": "d0f53247693f40c10619f24e02e7ef33b766089e7e2e3e6b93b984cea75e48d4"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\20261011\\country-context-observations.parquet",
+      "sha256": "a7b24d762ea6cb7cf1e95e92f96b32608d9ed10e315cea056d80b2fbed47cbed"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\20261011\\coverage.parquet",
+      "sha256": "603bcefb16e6c3a8f00e5ae097a48d63cbdd27aa5007df7a722b207cfa582d0c"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\20261011\\music-genre_variation.parquet",
+      "sha256": "8195b9efd289811b323db7e39b2ac793fd042fed4f163f235b3645b2ea9c9bf2"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\historical-trends-20261011\\country-year-trends.parquet",
+      "sha256": "aaee89bec75838c4be52a5f88b5c33075eb4a20480688ad1f3654ae8ec8e574e"
+    },
+    {
+      "path": "data\\derived\\article-country-context\\historical-trends-20261011\\country-year-music.parquet",
+      "sha256": "02e617e8501c2d9f1205b20f4b0fa0a69c50230fdb02e4b336338ede0130a3e0"
+    },
+    {
+      "path": "data\\derived\\article\\persistence.parquet",
+      "sha256": "c25e9c59f4eabdd83bd9451242ecab8d3a245d8fa8e143c1ba008c1e71f7a656"
+    },
+    {
+      "path": "data\\derived\\article\\market_anxiety.parquet",
+      "sha256": "015d6a4846988111e44a3c10b7e08ca325ff36f377d1810933b3dc965cab6620"
+    },
+    {
+      "path": "data\\derived\\article\\genre_distance.parquet",
+      "sha256": "099136dee191da8e6d277bc07a3ab7a9807e30f4b34720803245e1b9157c15f2"
+    },
+    {
+      "path": "data\\derived\\research_quality\\automated-quality-20261010-final\\report.json",
+      "sha256": "801c42dff17d5ef464de62798d8a02dd4d4cb9e2ee648c7819bdac8c6f9af95f"
+    },
+    {
+      "path": "src\\chart_observatory\\analysis\\historical_models.py",
+      "sha256": "1573d0193d25ceb2647b3d5dcdcd4ca799706cc97c7624aeff15d098ac305b8c"
+    },
+    {
+      "path": "research\\article\\build_analysis.py",
+      "sha256": "064a78d34e902ddacdc889e9d08d74eb246bf78eb5f088915c8eddf4cbed5fed"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "research\\article\\analysis\\all-dimensions.csv",
+      "sha256": "caf8e8d881567ed4343fc720ca11f8ac34fc31bff73659c4b05afb61d0d5f0c2"
+    },
+    {
+      "path": "research\\article\\analysis\\all-dimensions.parquet",
+      "sha256": "92f18e1069525a429c5935ea45f3a17fbf9eb019d0ec75152c6d0375e34947f1"
+    },
+    {
+      "path": "research\\article\\analysis\\annual-country-metrics.csv",
+      "sha256": "41ee27c5527f1b02c94e59015a37c858894add2df45b6a9f4d757b1f1d9ddd1f"
+    },
+    {
+      "path": "research\\article\\analysis\\annual-country-metrics.parquet",
+      "sha256": "d32e1f413bfd1dc133200b20b8796e89cb4b23ec08f6948541db73509950cc80"
+    },
+    {
+      "path": "research\\article\\analysis\\categorical-distributions.csv",
+      "sha256": "d297dfa29ef23ecfb001af6dc273222ad6926df5f787352f9e24e046ff2c3d68"
+    },
+    {
+      "path": "research\\article\\analysis\\categorical-distributions.parquet",
+      "sha256": "2095d0493badf32d545f948fe614c4101865e99cc26ae8db793c39b74172db25"
+    },
+    {
+      "path": "research\\article\\analysis\\chart-dynamics.csv",
+      "sha256": "4154615d707490301bae3c9970d066127f1fe38bad7d10826fa3c62a0087054d"
+    },
+    {
+      "path": "research\\article\\analysis\\chart-dynamics.parquet",
+      "sha256": "88bc33d67f1f66a85a8b9df2b5a3b7f4470f0d8cc32660f7d51043043f255fd8"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\country-context-observations.csv",
+      "sha256": "4b5e2722f02879980c50f25e0c5747dce1812417c40ac32859c50aa4063714d4"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\country-context-observations.parquet",
+      "sha256": "a7b24d762ea6cb7cf1e95e92f96b32608d9ed10e315cea056d80b2fbed47cbed"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\country-year-crossings.csv",
+      "sha256": "33922fe815d3b53be709533ef01a3fbb17b668e281c59ad441aacac95fa8bed2"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\country-year-crossings.parquet",
+      "sha256": "d2e81feea64aa8a7017fe93df29304a33905a5edc44e4fe9eb9cac7bc5380ea5"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\coverage.csv",
+      "sha256": "27f3da8f2b50945bb831ac0276aae168eae7a27702f1f11fc5aa0311eb801f6d"
+    },
+    {
+      "path": "research\\article\\analysis\\context\\coverage.parquet",
+      "sha256": "b82c4a3b7947a811a4820467302821aa22d2087d3bc0c264772116a8c70ae8cd"
+    },
+    {
+      "path": "research\\article\\analysis\\context-associations.csv",
+      "sha256": "ae55831a170884cfb916141086cecb69dddb089d570a0f82e3331603a5c3b58d"
+    },
+    {
+      "path": "research\\article\\analysis\\context-associations.parquet",
+      "sha256": "7bcfab47aafa8fb2a682927e3328ffa47226dbda23e186db9c7d8c8003714ff5"
+    },
+    {
+      "path": "research\\article\\analysis\\context-coverage.csv",
+      "sha256": "becad64dff4fbda8a067d3cb97171bc2419dc3fb2dd03df15d5808367470b31e"
+    },
+    {
+      "path": "research\\article\\analysis\\context-coverage.parquet",
+      "sha256": "0230282df9818115974bc45638d9fb94877d85f127f3bab489dc5b23e5e48f8c"
+    },
+    {
+      "path": "research\\article\\analysis\\country-metrics.csv",
+      "sha256": "4cefc1a0d6bdaad80eeed84553d943315aa9883c519aef45926f9eebcb731c78"
+    },
+    {
+      "path": "research\\article\\analysis\\country-metrics.parquet",
+      "sha256": "7fc670aec10a7c19742040db203cd98a2e913398c8ece5661ff6f719b3cf2a71"
+    },
+    {
+      "path": "research\\article\\analysis\\country-year-trends.csv",
+      "sha256": "55776866acbce3f47d3ba9ce0f9f34a90bfd2b6510cbb37bfeb79867023c9a25"
+    },
+    {
+      "path": "research\\article\\analysis\\country-year-trends.parquet",
+      "sha256": "c1b04ac11c0b22bcd25bcf0234ac8a6ad78e833e653a0d703142d468e0ebd3d3"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\historical-associations.csv",
+      "sha256": "edda92d2d3d281dcbc72d4ccbaf7c1a8905e0ef601d9f4ca6a7bedaea5773f0b"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\historical-associations.parquet",
+      "sha256": "6fe85ef4a3234b292ca522adf3d3b7661bdb13d9451a630652939b77ec16ed91"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\model-exclusions.csv",
+      "sha256": "d15d15f1347f56722c57d3a23f683321c8ecb9f5f72b5172667fc2a208813585"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\model-exclusions.parquet",
+      "sha256": "601079e7249c1fdbe5b973d6a4728c8610be3e17e3dc97849e2f409f13360abe"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\model-samples.csv",
+      "sha256": "de56bb528bc8df7f770aa828e70cfbaae739bce6cbdfbda7ecd64b8a63a30dba"
+    },
+    {
+      "path": "research\\article\\analysis\\models\\model-samples.parquet",
+      "sha256": "c49bac618bdccd5a7b4abffcb681174ac14bdace4894eb2d66f6ca97627ba0e5"
+    },
+    {
+      "path": "research\\article\\analysis\\native-id-annotations.csv",
+      "sha256": "26385b32fdf408d79c5fbfb9dfa08c57d770d28e6aa8fb92c7bf5debf3a80067"
+    },
+    {
+      "path": "research\\article\\analysis\\native-id-annotations.parquet",
+      "sha256": "ece0d9850331edaea22c218a6389353456f4c2baed793595bdc7e624a23341d2"
+    },
+    {
+      "path": "research\\article\\analysis\\selected-classifications.csv",
+      "sha256": "320ef67ee95207842dcad2432746e5f0094f9706aac7f2dcf8e9b6e0b30fd23d"
+    },
+    {
+      "path": "research\\article\\analysis\\selected-classifications.parquet",
+      "sha256": "62c5f6d3a319116261e43db6d679005776ee2db281d941ce6f61a59fa1ff9572"
+    },
+    {
+      "path": "research\\article\\analysis\\source-coverage.csv",
+      "sha256": "f7f0a12d67fda014e8213fbe8cee0783212e1b3e3af7bac4d4a0cd2ea973b6f2"
+    },
+    {
+      "path": "research\\article\\analysis\\source-coverage.parquet",
+      "sha256": "07084dc50e6be0ce7be87596fc7d6555ad4e4601f607a7a10ab365785eb9616e"
+    },
+    {
+      "path": "research\\article\\analysis\\source-specific-country-metrics.csv",
+      "sha256": "0151744cd1dca7eca2ac4f2e8edf29276bdac96f52b911a437458f7605b2921c"
+    },
+    {
+      "path": "research\\article\\analysis\\source-specific-country-metrics.parquet",
+      "sha256": "8d813d1166a20a952ab0ae693d288f5702391a881825f2eb49b8b402d5a9b9df"
+    }
+  ]
+}

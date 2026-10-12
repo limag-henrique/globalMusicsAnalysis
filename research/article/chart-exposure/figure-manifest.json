@@ -1,0 +1,34 @@
+{
+  "inputs": [
+    {
+      "path": "chart-exposure\\weighted-country-year.csv",
+      "sha256": "f745c654b7ce2bf31b16b61cb922765cdebfabc6bf427f85167ee0e67b822d75"
+    },
+    {
+      "path": "chart-exposure\\global-weighted-trends.csv",
+      "sha256": "8603c538229317c1a87a150bd44cefd6734a0f5ba2c842a66fbf9d7da41f0b6b"
+    },
+    {
+      "path": "chart-exposure\\brazil-genre-thematic-profiles.csv",
+      "sha256": "675faaaacbb09a93b2fe8cec6fef60ad4584c80d554c0e2576561bed9de521fa"
+    },
+    {
+      "path": "plot_chart_exposure.py",
+      "sha256": "34cfb0ac337e6eadbc89a31c883587517175f1c80840e38ff16e3d5b19ce0991"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "figures\\chart-exposure-weights.pdf",
+      "sha256": "3c6cb1db41a0a283259b0512beb1642839746ce8568c622af50d044b53458b3b"
+    },
+    {
+      "path": "figures\\chart-exposure-weights.svg",
+      "sha256": "1222b8fd0337bb9000a24871104857ee0d1d04120742c4f6c8ccd78f2acdc4e7"
+    },
+    {
+      "path": "figures\\chart-exposure-weights.png",
+      "sha256": "fd6415a48c60c84a6e73260d713e259c14284a825019cb3d63649345af391f20"
+    }
+  ]
+}

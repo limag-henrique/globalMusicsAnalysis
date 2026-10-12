@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "finalized_utc": "2026-10-12T01:28:17.759408+00:00",
+  "packages": [
+    {
+      "platform": "github",
+      "scientific_files": 105,
+      "zip_bytes": 49897616,
+      "sha256": "7c220d181d3eb64dcde4d0e36eee71e50206e281f5caf81983fe16b629b9531f",
+      "zip_integrity": "passed",
+      "reproduction": "passed",
+      "global_sensitivity_panels": 8
+    },
+    {
+      "platform": "kaggle",
+      "scientific_files": 110,
+      "zip_bytes": 78963580,
+      "sha256": "edbf4477fb7497723a506bde293cef90566d31808e5c28f5e7d92dc6b14f9a42",
+      "zip_integrity": "passed",
+      "reproduction": "passed",
+      "global_sensitivity_panels": 8
+    }
+  ],
+  "online_uploads": 0,
+  "git_commits": 0,
+  "branch_changes": 0,
+  "cleanup": "blocked_by_automatic_policy_review",
+  "deleted_files": 0
+}

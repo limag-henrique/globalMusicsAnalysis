@@ -1,0 +1,131 @@
+{
+  "markets": [
+    "AR",
+    "AT",
+    "AU",
+    "BE",
+    "BO",
+    "BR",
+    "CA",
+    "CH",
+    "CL",
+    "CO",
+    "CR",
+    "CZ",
+    "DE",
+    "DK",
+    "DO",
+    "EC",
+    "EE",
+    "ES",
+    "FI",
+    "FR",
+    "GB",
+    "GR",
+    "GT",
+    "HN",
+    "HU",
+    "ID",
+    "IE",
+    "IS",
+    "IT",
+    "JP",
+    "LT",
+    "LV",
+    "MX",
+    "MY",
+    "NL",
+    "NO",
+    "NZ",
+    "PA",
+    "PE",
+    "PH",
+    "PL",
+    "PT",
+    "PY",
+    "SE",
+    "SG",
+    "SK",
+    "SV",
+    "TH",
+    "TR",
+    "TW",
+    "US"
+  ],
+  "period": "2017-01-01 to 2021-12-31",
+  "source": "MGD Spotify Top 200 only",
+  "recording_weight": "one recording ID per market/year",
+  "chart_day_weight": "number of observed daily chart entries",
+  "stream_weight": "sum of chart-eligible streams during observed chart days; not all-platform streams or unique listeners",
+  "social_method": "same complete-data markets within each indicator for every year, Spearman separately by year and weighting",
+  "genres": "top eight artist-derived labels by distinct Brazilian chart recording count; overlapping, not exclusive genre groups",
+  "provider_calls": 0,
+  "database_writes": 0,
+  "exact_duplicate_chart_rows_removed": 1800,
+  "duplicate_rule": "Identical market/date/recording/rank/streams rows counted once; conflicting recording/day values rejected",
+  "database_snapshot_utc": "2026-10-11 23:39:03.970865+00:00",
+  "inputs": [
+    {
+      "path": "data\\normalized\\mgd_observations.parquet",
+      "sha256": "7079bda3f8b7ad6d3736f1cb33e3708db7dd8446154dd49f9d580bb149b60d33"
+    },
+    {
+      "path": "data\\derived\\genre_claims.parquet",
+      "sha256": "c0559ac322357c52e049b05b6e1708a55f6823e6839bdbbce33b7a71d94683fd"
+    },
+    {
+      "path": "research\\article\\analysis-final\\native-id-annotations.parquet",
+      "sha256": "488ca78b4ecb7097bbb4d30059e34db95a88fd6e65e4eb66df51cf87fc40a0de"
+    },
+    {
+      "path": "research\\article\\analysis-final\\context\\country-year-crossings.parquet",
+      "sha256": "05c355d22df6d6ffdf38b9e1b6d8e91e2d46db3dd1586c3a224281416a3367a3"
+    },
+    {
+      "path": "research\\article\\analyze_chart_exposure.py",
+      "sha256": "e51df327cfde082312c88ccd2fe4e5a6b56cc72ac93317598185ccb22cb0a886"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "research\\article\\chart-exposure\\brazil-genre-thematic-profiles.csv",
+      "sha256": "675faaaacbb09a93b2fe8cec6fef60ad4584c80d554c0e2576561bed9de521fa"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\brazil-genre-thematic-profiles.parquet",
+      "sha256": "304e7e9f5206f33105d0f6ecdac27107d784182439b356420ce87215b1855b22"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\classified-track-market-year.csv",
+      "sha256": "809e0d2033c1b1e266cb7be61623d047416f9d920ef05198bb5ce3e743328a36"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\classified-track-market-year.parquet",
+      "sha256": "53c440feb2dfbea355d64476772d4a592c7d6665fa93b70908a20368951057e6"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\global-weighted-trends.csv",
+      "sha256": "8603c538229317c1a87a150bd44cefd6734a0f5ba2c842a66fbf9d7da41f0b6b"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\global-weighted-trends.parquet",
+      "sha256": "3ab482f723d213bb1a29b10e948366e9eaedb62d6ffd9a9db447da985d9bf519"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\weighted-country-year.csv",
+      "sha256": "f745c654b7ce2bf31b16b61cb922765cdebfabc6bf427f85167ee0e67b822d75"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\weighted-country-year.parquet",
+      "sha256": "48c8e7394c4a5dadd7fd641b0448112e1689d6dabfd399b0c1b4317b49fd6454"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\weighted-social-correlations.csv",
+      "sha256": "89e742d5154102f6231abfa643e56e44692089e9d7a80b392799b08c3b7ed10e"
+    },
+    {
+      "path": "research\\article\\chart-exposure\\weighted-social-correlations.parquet",
+      "sha256": "30e0653c64790d5ff26db415091b1d5c9b18ef431de99f1e3776c3bc42796724"
+    }
+  ]
+}

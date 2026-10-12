@@ -1,0 +1,145 @@
+{
+  "version": "lyrics-classification-v1",
+  "prompt_version": "lyrics-classification-prompt-v2",
+  "model": "gemini-3.8-flash",
+  "positive_threshold": 2,
+  "dimensions": {
+    "explicitness": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "sexual_desire": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "sexual_innuendo": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "explicit_sexual_act": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "explicit_sexual_anatomy": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "romantic_affection": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "heartbreak": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "infidelity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "transactional_sex": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "casual_sex": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "jealousy_possession": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "reciprocity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "objectification": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "misogyny": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "sexual_agency": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "status_symbolization": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "commodification": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "money_reference": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "materialism": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "conspicuous_consumption": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "wealth_as_status": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "drugs_alcohol": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "crime": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "violence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "weapons": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "territorial_identity": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    }
+  },
+  "intensity_meanings": {
+    "0": "absent",
+    "1": "incidental",
+    "2": "substantial",
+    "3": "central"
+  },
+  "expert_verification": "completed"
+}
