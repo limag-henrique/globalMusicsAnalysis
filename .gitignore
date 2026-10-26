@@ -74,3 +74,7 @@ scratch/
 *.zip
 .ipynb_checkpoints/
 
+
+# Runtime data: publish verified CSV gzip snapshots instead.
+*.csv
+data/derived/lyrics/gemini_annotations.jsonl

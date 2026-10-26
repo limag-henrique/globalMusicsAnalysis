@@ -1,1 +1,2 @@
-data/derived/lyrics/gemini_annotations.jsonl filter=lfs diff=lfs merge=lfs -text
+# Compressed data snapshots are ordinary Git blobs, independent of LFS.
+*.csv.gz -filter -diff -merge -text

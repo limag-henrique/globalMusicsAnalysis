@@ -21,6 +21,13 @@ O **Chart Observatory** coleta, normaliza e reconcilia metadados de faixas music
 
 ---
 
+## Dados compactados
+
+Após clonar ou atualizar os dados, execute `python scripts/sync_git_data.py restore`
+antes dos pipelines. Antes de versionar dados, execute
+`python scripts/sync_git_data.py pack` e `python scripts/sync_git_data.py verify`.
+Consulte [o fluxo de dados compactados](docs/operations/compressed-git-data.md).
+
 ## 2. Requisitos e Instalação
 
 - **Python**: 3.12+
