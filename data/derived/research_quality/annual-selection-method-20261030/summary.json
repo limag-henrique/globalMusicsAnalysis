@@ -1,0 +1,19 @@
+{
+  "source": "data\\normalized\\mgd_observations.parquet",
+  "years": [
+    2017,
+    2021
+  ],
+  "cells": 311,
+  "full_depth_complete_cells": 120,
+  "excluded_global": "GLOBAL is not a country",
+  "union_native_ids_complete_cells": {
+    "80": 3699,
+    "200": 8473,
+    "0.8": 13192,
+    "0.9": 19974,
+    "0.95": 26931,
+    "0.975": 34370
+  },
+  "note": "Observed daily chart streams only. Identity and calendar audits remain provisional."
+}

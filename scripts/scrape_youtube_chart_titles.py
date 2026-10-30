@@ -12,6 +12,7 @@ import csv
 import hashlib
 import json
 import re
+import shutil
 import time
 from contextlib import suppress
 from datetime import UTC, date, datetime, timedelta
@@ -21,6 +22,7 @@ from urllib.parse import urlparse
 import pycountry
 from import_web_chart_titles import CUTOFF, import_snapshot, validate_snapshot
 from sqlalchemy import create_engine
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 from chart_observatory.config import Settings
@@ -86,6 +88,19 @@ EXTRACT = """elements => elements.map((e,i) => {
     title:root.querySelector('#entity-title')?.textContent.trim() || '',
     artist:root.querySelector('#artist-names')?.textContent.replace(/\\s+/g,' ').trim() || ''};
 })"""
+EXTRACT_METRICS = EXTRACT.replace(
+    "return {rank:i+1,",
+    "const value=[...root.querySelectorAll('.metric.content')].at(-1)?.textContent.trim();"
+    "return {metric_text:value, rank:i+1,",
+)
+
+
+def parse_view_count(value):
+    if not isinstance(value, str) or not re.fullmatch(
+        r"(?:[0-9]+|[0-9]{1,3}(?:[,. \u00a0][0-9]{3})+)", value
+    ):
+        raise ValueError("missing or abbreviated weekly views")
+    return int(re.sub(r"\D", "", value))
 
 
 def parse_period(label):
@@ -130,13 +145,48 @@ def save_capture(document, output):
 def write_json_atomic(path, document):
     temporary = path.with_suffix(".part")
     temporary.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding="utf-8")
-    temporary.replace(path)
+    for attempt in range(6):
+        try:
+            temporary.replace(path)
+            return
+        except PermissionError:
+            if attempt == 5:
+                raise
+            time.sleep(0.05 * 2**attempt)
 
 
 def collection_status(planned, collected, failures, *, paused=False):
     if paused:
         return "PAUSED"
     return "COMPLETE" if collected == planned and not failures else "PARTIAL"
+
+
+def normalize_rendered_rows(rows):
+    ranked = []
+    for row in rows:
+        source_rank = row.get("source_rank")
+        if type(source_rank) is not int or not 1 <= source_rank <= 200:
+            if row.get("title"):
+                raise ValueError("named source row has no valid rank")
+            continue
+        ranked.append({**row, "rank": len(ranked) + 1})
+    if not 1 <= len(ranked) <= 200:
+        raise ValueError("unexpected chart depth")
+    return ranked
+
+
+def write_database_batch(engine, paths):
+    for attempt in range(3):
+        try:
+            with Session(engine) as session, session.begin():
+                return sum(
+                    import_snapshot(session, json.loads(path.read_text(encoding="utf-8")), path)
+                    for path in paths
+                )
+        except OperationalError:
+            if attempt == 2:
+                raise
+            time.sleep(2**attempt)
 
 
 async def collect(args):
@@ -149,7 +199,10 @@ async def collect(args):
     for path in output.glob("YOUTUBE_CHARTS_WEB_*.json"):
         # Cache correctness is checked before suppressing a network request.
         doc = validate_snapshot(json.loads(path.read_text(encoding="utf-8")))
-        if doc.get("observed_country_code") == doc["country_code"]:
+        if doc.get("observed_country_code") == doc["country_code"] and (
+            not getattr(args, "annual_metrics", False)
+            or all("metric_value" in r for r in doc["rows"])
+        ):
             completed.add((doc["country_code"], doc["period_end"]))
             verified_files.append(path)
     verified_files.extend(output.glob("KWORB_SPOTIFY_WEB_*.json"))
@@ -269,32 +322,35 @@ async def collect(args):
         print(json.dumps({"phase": "planned", **stats}), flush=True)
         pending_imports = []
         import_lock = asyncio.Lock()
+        last_database_flush = time.monotonic()
         engine = (
-            create_engine(Settings.load(ROOT).database_url, connect_args={"connect_timeout": 5})
+            create_engine(
+                Settings.load(ROOT).database_url,
+                connect_args={"connect_timeout": 5},
+                pool_pre_ping=True,
+            )
             if args.apply
             else None
         )
 
         def write_database(paths):
-            with Session(engine) as session, session.begin():
-                return sum(
-                    import_snapshot(
-                        session,
-                        json.loads(path.read_text(encoding="utf-8")),
-                        path,
-                    )
-                    for path in paths
-                )
+            return write_database_batch(engine, paths)
 
         async def flush_database(force=False):
+            nonlocal last_database_flush
             if engine is None or import_lock.locked():
                 return
             async with import_lock:
-                if len(pending_imports) >= 100 or (force and pending_imports):
+                if pending_imports and (
+                    len(pending_imports) >= 100
+                    or force
+                    or time.monotonic() - last_database_flush >= 60
+                ):
                     paths = pending_imports[:100]
                     del pending_imports[:100]
                     try:
                         stats["inserted_rows"] += await asyncio.to_thread(write_database, paths)
+                        last_database_flush = time.monotonic()
                     except Exception:
                         pending_imports[:0] = paths
                         raise
@@ -344,6 +400,9 @@ async def collect(args):
             page = await new_page(worker_context)
             page_uses = 0
             while not queue.empty() and not (output / "pause.request").exists():
+                if shutil.disk_usage(output).free < 5 * 1024**3:
+                    (output / "pause.request").touch()
+                    break
                 country, period = queue.get_nowait()
                 url = (
                     f"https://charts.youtube.com/charts/TopSongs/{country.lower()}/weekly/"
@@ -370,9 +429,15 @@ async def collect(args):
                             observed.append(country_code(caption.strip()))
                     if observed != [country]:
                         raise ValueError("rendered country differs from URL")
-                    captured_rows = await page.locator("ytmc-entry-row").evaluate_all(EXTRACT)
-                    if not 1 <= len(captured_rows) <= 100:
-                        raise ValueError("unexpected chart depth")
+                    captured_rows = normalize_rendered_rows(
+                        await page.locator("ytmc-entry-row").evaluate_all(
+                            EXTRACT_METRICS if getattr(args, "annual_metrics", False) else EXTRACT
+                        )
+                    )
+                    if getattr(args, "annual_metrics", False):
+                        for row in captured_rows:
+                            if row["title"]:
+                                row["metric_value"] = parse_view_count(row.pop("metric_text", None))
                     document = {
                         "provider": "YOUTUBE_CHARTS_WEB",
                         "country_code": country,
@@ -466,11 +531,23 @@ def main():
     )
     parser.add_argument("--apply", action="store_true", help="Import verified captures in batches")
     parser.add_argument(
+        "--annual-metrics",
+        action="store_true",
+        help="Collect weekly views into annual selection staging, without raw DB import",
+    )
+    parser.add_argument(
         "--pause",
         action="store_true",
         help="Request graceful pause of the run using this output directory; no network",
     )
     args = parser.parse_args()
+    if args.annual_metrics:
+        if args.apply:
+            parser.error(
+                "--annual-metrics uses build_annual_top80.py --apply for the capped selection"
+            )
+        if args.output == OUTPUT:
+            args.output = ROOT / "data/raw/annual_top80/20261021"
     args.output = args.output.resolve()
     if args.pause:
         args.output.mkdir(parents=True, exist_ok=True)

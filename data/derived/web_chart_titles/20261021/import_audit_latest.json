@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-10-24T02:35:57.132791+00:00",
+  "charts_database": [
+    {
+      "source_code": "KWORB_SPOTIFY_WEB",
+      "snapshots": 6,
+      "expected_entries": 1200,
+      "countries": 6,
+      "first_period": "2026-10-19",
+      "last_period": "2026-10-19"
+    },
+    {
+      "source_code": "YOUTUBE_CHARTS_WEB",
+      "snapshots": 5373,
+      "expected_entries": 537078,
+      "countries": 62,
+      "first_period": "2024-12-27",
+      "last_period": "2026-10-15"
+    }
+  ],
+  "chart_entry_checks": {
+    "entries": 538278,
+    "missing_titles": 0,
+    "without_canonical_track": 538278
+  },
+  "snapshot_entry_count_mismatches": 0,
+  "raw_charts": {
+    "verified_files": 5358,
+    "not_yet_in_database": 0,
+    "pending_files": []
+  },
+  "lyrics_reconciliation": {
+    "records_up_to_checkpoint": 2360,
+    "unique_eligible_documents": 2360,
+    "matched_in_database": 2360,
+    "missing_in_database": 0,
+    "malformed": 0,
+    "ineligible": 0,
+    "source_counts": {
+      "LRCLIB": 359,
+      "LYRICS_OVH": 764,
+      "GENIUS": 1237
+    },
+    "bytes_waiting_after_checkpoint": 3435
+  },
+  "samples": [
+    {
+      "document_id": "0a3cfd1f-ced6-5666-92bf-e175299e85d3",
+      "title": "35",
+      "artist": "Taco Hemingway",
+      "source": "GENIUS",
+      "characters": 520,
+      "lines": 13,
+      "hash_matches_source": true,
+      "quality_flags": [],
+      "excerpt": "[Zwrotka] Zanurzam się w Twoich perfumach, nie mogę"
+    },
+    {
+      "document_id": "dbcd3918-3fe3-5f47-84e1-3b7020260b7f",
+      "title": "Hasta La Vista",
+      "artist": "Heikki Kuula, Mariska",
+      "source": "LYRICS_OVH",
+      "characters": 1611,
+      "lines": 57,
+      "hash_matches_source": true,
+      "quality_flags": [],
+      "excerpt": "Hasta la vista baby, mä sanon vaan Hasta"
+    },
+    {
+      "document_id": "a3d508d7-eeb5-55f5-8b7a-524335958caa",
+      "title": "Maradona - En Español",
+      "artist": "Teflon Brothers",
+      "source": "LYRICS_OVH",
+      "characters": 1217,
+      "lines": 52,
+      "hash_matches_source": true,
+      "quality_flags": [],
+      "excerpt": "Me tenía loco, muriéndome Yo de su boca"
+    }
+  ],
+  "legacy_snapshot_reconciliation": {
+    "database_snapshots_without_verified_raw_file": 21,
+    "entries_in_those_snapshots": 2100
+  },
+  "external_identity_checks": [
+    {
+      "title": "35",
+      "url": "https://www.youtube.com/watch?v=NUsU9sKqjA4"
+    },
+    {
+      "title": "Hasta La Vista",
+      "url": "https://www.universalmusic.it/popular-music/album/hasta-la-vista-jumalaista-jerryy_32238381501/"
+    },
+    {
+      "title": "Maradona (En Español)",
+      "url": "https://www.youtube.com/watch?v=LyYLkjpAe2g"
+    }
+  ],
+  "full_lyrics_independently_verified": false
+}

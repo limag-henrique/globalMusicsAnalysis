@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-10-23T17:54:53.218323+00:00",
+  "target_documents": 32904,
+  "observed_documents": 293,
+  "processed_documents": 292,
+  "pending_documents": 32612,
+  "status_counts_by_document": {
+    "candidate_pending_validation": 289,
+    "not_found": 3,
+    "http_error": 1
+  },
+  "observed_recording_signatures": 293,
+  "candidate_variants_by_recording": 450,
+  "multi_source_recordings": 161,
+  "word_sequence_agreements": 12,
+  "word_sequence_disagreements": 149,
+  "incomplete_tail_observed": false,
+  "collection_complete": false,
+  "candidate_is_validated": false,
+  "article_regenerated": false
+}

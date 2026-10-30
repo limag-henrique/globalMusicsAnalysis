@@ -16,6 +16,7 @@ from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
 from chart_observatory.lyrics.text_quality import (
     html_fragment_text,
     html_lyric_text,
+    outer_lyric_containers,
     prepare_lyric_derivative,
 )
 
@@ -143,7 +144,9 @@ class LetrasClient:
         for selector in (".lyric-original", ".cnt-letra"):
             containers = page.select(selector)
             if containers:
-                lyrics = "\n\n".join(html_lyric_text(node) for node in containers)
+                lyrics = "\n\n".join(
+                    html_lyric_text(node) for node in outer_lyric_containers(list(containers))
+                )
                 cleaned = self._clean_lyrics(lyrics)
                 if cleaned:
                     return cleaned

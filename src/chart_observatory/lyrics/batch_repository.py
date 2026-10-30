@@ -19,6 +19,7 @@ from chart_observatory.lyrics.batch_contract import (
     BatchRunState,
     validate_run_transition,
 )
+from chart_observatory.lyrics.classification import UsageTelemetry
 from chart_observatory.lyrics.classification_queue import (
     ACTIVE_BATCH_ITEM_STATES,
     HANDLED_CLASSIFICATION_STATUSES,
@@ -81,6 +82,9 @@ class BatchRepository:
                                 taxonomy_version=request.signature.taxonomy_version,
                                 prompt_version=request.signature.prompt_version,
                                 classification_status=local_status,
+                                execution_mode="local",
+                                usage=UsageTelemetry(input_tokens=0, output_tokens=0,
+                                                     thought_tokens=0, total_tokens=0),
                             ),
                         )
                         continue

@@ -85,6 +85,99 @@ def test_missing_song_result_is_not_insertable():
     assert is_valid_lyrics_record({"lyrics_status": "MISSING"}) is False
 
 
+def test_resume_separates_interrupted_line_from_new_records(tmp_path):
+    output = tmp_path / "lyrics.jsonl"
+    interrupted = b'{"song_id":"partial","original_lyrics":"interrupted'
+    output.write_bytes(interrupted)
+    backfill._ensure_append_boundary(output)
+    next_record = {
+        "song_id": "new",
+        "title": "New",
+        "artist": "Artist",
+        "lyrics_status": "FOUND",
+        "lyrics_source": "GENIUS",
+        "original_lyrics": "Complete original lyric",
+    }
+    with output.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(next_record) + "\n")
+    ids, _keys = backfill._load_completed(output)
+    assert ids == {"new"}
+    assert output.read_bytes().startswith(interrupted + b"\n")
+
+
+def test_recovery_reads_baseline_without_writing_it(tmp_path, monkeypatch):
+    baseline = tmp_path / "baseline.jsonl"
+    content = (
+        json.dumps(
+            {
+                "song_id": "done",
+                "title": "Song",
+                "artist": "Artist",
+                "lyrics_status": "FOUND",
+                "lyrics_source": "GENIUS",
+                "original_lyrics": "Existing original text",
+            }
+        )
+        + "\n"
+    )
+    baseline.write_text(content, encoding="utf-8")
+    output = tmp_path / "new" / "recovery.jsonl"
+
+    def pending(**kwargs):
+        assert "done" in kwargs["completed_ids"]
+        return []
+
+    monkeypatch.setattr(backfill, "_load_tracks", pending)
+    backfill.run_full_automation(output_path=output, skip_gemini=True, completed_paths=(baseline,))
+    assert baseline.read_text(encoding="utf-8") == content
+    assert not output.exists()
+
+
+def test_suspended_source_does_not_block_recovery(tmp_path, monkeypatch):
+    monkeypatch.setattr(backfill, "load_suspended_sources", lambda: frozenset({"LETRAS"}))
+    output = tmp_path / "lyrics.jsonl"
+    output.write_text(
+        json.dumps(
+            {
+                "song_id": "retry",
+                "title": "Song",
+                "artist": "Artist",
+                "lyrics_status": "FOUND",
+                "lyrics_source": "LETRAS",
+                "original_lyrics": "old text",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    assert backfill._load_completed(output) == (set(), set())
+
+
+def test_suspended_provider_is_skipped_and_fallback_used(monkeypatch):
+    monkeypatch.setattr(backfill, "load_suspended_sources", lambda: frozenset({"LETRAS"}))
+    calls = []
+
+    class Provider:
+        def __init__(self, name, result):
+            self.name, self.result = name, result
+
+        def fetch(self, *_args):
+            calls.append(self.name)
+            return self.result
+
+    engine = backfill.LyricsEngine(skip_gemini=True)
+    clients = {
+        "GENIUS": Provider("GENIUS", None),
+        "LETRAS": Provider("LETRAS", "bad"),
+        "LRCLIB": Provider("LRCLIB", ("verified text", {"id": 1})),
+        "LYRICS_OVH": Provider("LYRICS_OVH", None),
+    }
+    monkeypatch.setattr(engine, "_get_clients", lambda: clients)
+    result = engine.find_lyrics("Song", "Artist")
+    assert result == ("verified text", "LRCLIB", {"id": 1})
+    assert calls == ["GENIUS", "LRCLIB"]
+
+
 def test_automation_writes_only_found_records_and_bounds_active_workers(tmp_path, monkeypatch):
     catalog = tmp_path / "track_master.parquet"
     output = tmp_path / "lyrics.jsonl"

@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from chart_observatory.lyrics.classification import LyricsClassification
 from chart_observatory.lyrics.identity_quarantine import EXCLUDED_DECISIONS, IdentityQuarantineEntry
 from chart_observatory.lyrics.repository import AUTHORIZED_RIGHTS
+from chart_observatory.lyrics.review_evidence import load_review_evidence, review_blocks
 
 
 @dataclass(frozen=True)
@@ -30,6 +31,8 @@ def assess_classification(
     human agreement with AI scores; callers must establish those separately.
     """
     reasons: list[str] = []
+    if review_blocks(load_review_evidence(), str(document.id), document.content_sha256):
+        reasons.append("human_report_pending_adjudication")
     if document.canonical_track_id != snapshot.canonical_track_id:
         reasons.append("track_mismatch")
     if document.content_sha256 != snapshot.lyrics_hash:

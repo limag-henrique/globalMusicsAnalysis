@@ -1,0 +1,12 @@
+{
+  "checks": "passed",
+  "countries": 68,
+  "country_year_cells": 680,
+  "ranked_rows": 235461,
+  "planning_memberships": 71348,
+  "calendar_eligible_memberships": 40520,
+  "planning_unique_candidates": 23984,
+  "calendar_eligible_unique_candidates": 16410,
+  "independent_check": "BR2019 top230 IDs/order/streams match pandas aggregation",
+  "snapshot_errors": 0
+}

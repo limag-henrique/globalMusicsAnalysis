@@ -9,6 +9,18 @@ from chart_observatory.lyrics.genius_client import GeniusClient
 from chart_observatory.lyrics.letras_client import LetrasClient
 
 
+def test_genius_fetch_does_not_duplicate_nested_lyric_containers() -> None:
+    html = '''<div data-lyrics-container="true">[Verse 1]<br>First complete verse
+    <div data-lyrics-container="true">[Chorus]<br>Entire repeated chorus</div></div>'''
+    with httpx.Client(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))
+    ) as http:
+        lyrics = GeniusClient(http_client=http).fetch("Example", "Artist")
+    assert lyrics is not None
+    assert lyrics.count("Entire repeated chorus") == 1
+    assert "First complete verse" in lyrics
+
+
 def test_genius_fetch_preserves_first_verse_after_nested_metadata() -> None:
     html = """<div data-lyrics-container="true"><div>2 Contributors</div>
         [Verse 1]<br>First complete verse with enough words<br>Another line</div>

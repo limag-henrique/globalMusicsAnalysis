@@ -21,6 +21,28 @@ from chart_observatory.lyrics.repository import (
 )
 
 
+def test_human_reported_text_is_not_queued_for_a_new_paid_classification(monkeypatch):
+    from chart_observatory.lyrics import review_evidence
+
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    with Session(engine) as session:
+        document = ingest_lyric_document(session, LyricDocumentInput(
+            canonical_track_id=uuid4(), source="GENIUS", source_version="1",
+            rights_status="AUTHORIZED", text="A reported incomplete lyric fragment",
+        ))
+        session.commit()
+        monkeypatch.setattr(review_evidence, "load_review_evidence", lambda: [{
+            "document_id": str(document.id), "lyrics_hash": document.content_sha256,
+            "status": "pending_adjudication", "decision": "reported_text_defect",
+        }])
+        candidates = select_remaining_candidates(
+            session, ClassificationSignature("gemini-3.8-flash", "taxonomy", "new-prompt"),
+            limit=10,
+        )
+        assert candidates == []
+
+
 def test_selection_excludes_handled_and_active_batch_signatures() -> None:
     engine = create_engine("sqlite+pysqlite:///:memory:")
     Base.metadata.create_all(engine)

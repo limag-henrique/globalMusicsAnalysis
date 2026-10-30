@@ -6,6 +6,26 @@ import pytest
 from chart_observatory.lyrics.gemini_pipeline import LrclibClient
 
 
+def test_search_uses_same_primary_artist_as_identity_validation() -> None:
+    def provider(request: httpx.Request) -> httpx.Response:
+        assert request.url.params["artist_name"] == "Artist"
+        return httpx.Response(
+            200,
+            json=[
+                {
+                    "id": 1,
+                    "trackName": "Example",
+                    "artistName": "Artist",
+                    "plainLyrics": "Matched original text",
+                }
+            ],
+        )
+
+    with httpx.Client(transport=httpx.MockTransport(provider)) as http:
+        result = LrclibClient(http_client=http).fetch("Example", "Artist, Guest")
+    assert result is not None
+
+
 def test_fetch_recovers_identical_editions_with_the_resolved_edition_metadata() -> None:
     first = {
         "id": 1,
@@ -81,9 +101,14 @@ def test_fetch_rejects_a_resolved_edition_that_conflicts_with_the_search(
     }
 
     def provider(request: httpx.Request) -> httpx.Response:
-        payload = [first, {**first, "id": 2}] if request.url.path == "/api/search" else {
-            **first, **resolved_changes,
-        }
+        payload = (
+            [first, {**first, "id": 2}]
+            if request.url.path == "/api/search"
+            else {
+                **first,
+                **resolved_changes,
+            }
+        )
         return httpx.Response(200, json=payload)
 
     with httpx.Client(transport=httpx.MockTransport(provider)) as http:

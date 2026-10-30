@@ -1,0 +1,26 @@
+{
+  "pid": 20252,
+  "started_at": "2026-10-23T17:48:31.857898+00:00",
+  "command": [
+    "D:\\PromiscuidadeMusical\\.venv\\Scripts\\python.exe",
+    "-u",
+    "D:\\PromiscuidadeMusical\\scripts\\recover_reviewed_lyrics.py",
+    "--targets-jsonl",
+    "C:\\Users\\Henrique Lima\\.codex\\visualizations\\2026\\10\\23\\01a1693f-5895-73d2-b03a-cc3df735fce2\\corpus-revision\\recovery-targets-enriched.jsonl",
+    "--output-dir",
+    "D:\\PromiscuidadeMusical\\data\\derived\\research_quality\\recovery-expanded-20261023",
+    "--cache-dir",
+    "D:\\PromiscuidadeMusical\\data\\derived\\research_quality\\recovery-expanded-20261023\\http-cache",
+    "--limit",
+    "32904",
+    "--workers",
+    "4",
+    "--all-sources"
+  ],
+  "output": "D:\\PromiscuidadeMusical\\data\\derived\\research_quality\\recovery-expanded-20261023",
+  "kind": "one_off_conventional_lyrics_acquisition",
+  "gemini_calls": 0,
+  "copied_initial_records": 100,
+  "status": "stopped_for_storage_migration",
+  "resumed_at": "C:\\Users\\Henrique Lima\\.codex\\visualizations\\2026\\10\\23\\01a1693f-5895-73d2-b03a-cc3df735fce2\\corpus-revision\\recovery-resumed-20261023"
+}

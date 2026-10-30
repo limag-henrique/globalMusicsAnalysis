@@ -24,3 +24,24 @@ dispositivo e período. Visitas repetidas não equivalem a pessoas distintas.
 
 **Cobertura temporal**: parcela dos dias da janela de referência representada
 por amostras válidas, incluindo amostras censuradas explicitamente identificadas.
+
+**Obra musical**: composição que pode ser interpretada em diferentes gravações.
+Não identifica uma transcrição específica.
+
+**Gravação**: interpretação sonora identificável de uma obra. Original, remix,
+ao vivo, cover e edição censurada podem exigir identidades distintas.
+
+**Edição textual**: versão identificável da letra de uma gravação, com idioma,
+estrutura e repetições próprios. Sua equivalência com outra edição requer evidência.
+
+**Item de plataforma**: entrada identificada por uma plataforma, que pode agregar
+uploads ou versões. Um identificador derivado localmente não é um ID nativo.
+
+**Identidade textual validada**: edição textual cuja associação musical e
+integridade foram confirmadas com evidência rastreável.
+
+**Adjudicação**: decisão documentada que resolve divergências entre avaliações
+independentes. Um comentário isolado permanece evidência até essa decisão.
+
+**Seleção elegível**: músicas mais bem posicionadas com letras adequadas à análise,
+mantidas separadamente das posições originais de popularidade.

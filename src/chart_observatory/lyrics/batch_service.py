@@ -8,7 +8,7 @@ from collections.abc import Callable, Iterator, Sequence
 from datetime import UTC, datetime
 from decimal import ROUND_CEILING, Decimal
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 from uuid import UUID
 
 import google.auth
@@ -61,6 +61,11 @@ from chart_observatory.lyrics.classification_queue import (
     classification_queue_lock,
 )
 from chart_observatory.lyrics.gemini_pipeline import build_lyrics_generation_config
+from chart_observatory.lyrics.revision_budget import (
+    REVISION_PROMPT_VERSIONS,
+    RevisionBudgetPolicy,
+    category_for_kind,
+)
 
 MAX_TOTAL_BATCH_COST_USD = Decimal("650")
 BATCH_MAX_OUTPUT_TOKENS = 1024
@@ -325,6 +330,7 @@ class BatchClassificationService:
         temporary_root: Path | None = None,
         cost_guard: Callable[..., Decimal] | None = None,
         include_identity_holds: bool = False,
+        revision_phase: Literal["historical", "2026"] = "historical",
     ) -> None:
         self._session = session
         self._settings = settings
@@ -333,10 +339,29 @@ class BatchClassificationService:
         self._token_counter = token_counter
         self._adc_check = adc_check or _refresh_adc
         self._project_number_resolver = project_number_resolver or _resolve_project_number
-        self._temporary_root = temporary_root
+        project_root = Path(__file__).resolve().parents[3]
+        self._temporary_root = Path(temporary_root or project_root / "data/runtime/batch-inputs")
+        if self._temporary_root.resolve().drive != project_root.drive:
+            raise ValueError("Batch temporary files must remain on the project drive D:")
+        self._temporary_root.mkdir(parents=True, exist_ok=True)
         self._repository = BatchRepository(session)
-        self._cost_guard = cost_guard or enforce_cumulative_cost_cap
+        self._cost_guard = cost_guard or self._default_cost_guard
         self._include_identity_holds = include_identity_holds
+        if revision_phase not in {"historical", "2026"}:
+            raise ValueError("invalid revision phase")
+        self._revision_guard = RevisionBudgetPolicy(phase=revision_phase)
+
+    def _default_cost_guard(
+        self, session: Session, cost: Decimal, cap: Decimal,
+        *, exclude_run_id: UUID | None = None,
+    ) -> Decimal:
+        run = session.get(LyricClassificationBatchRun, exclude_run_id) if exclude_run_id else None
+        version = run.prompt_version if run is not None else PROMPT_VERSION
+        guard = (
+            self._revision_guard if version in REVISION_PROMPT_VERSIONS
+            else enforce_cumulative_cost_cap
+        )
+        return guard(session, cost, cap, exclude_run_id=exclude_run_id)
 
     def preflight(self) -> BatchPreflightReport:
         model_id, project_id, bucket_name, input_rate, output_rate = self._validated_settings()
@@ -371,7 +396,8 @@ class BatchClassificationService:
             bucket_name=bucket_name,
             adc_available=True,
             migration_ready=True,
-            absolute_cost_cap_usd=MAX_TOTAL_BATCH_COST_USD,
+            absolute_cost_cap_usd=(Decimal("180") if PROMPT_VERSION in REVISION_PROMPT_VERSIONS
+                                   else MAX_TOTAL_BATCH_COST_USD),
         )
 
     def prepare_canary(self, max_cost_usd: Decimal) -> list[BatchPreparation]:
@@ -418,6 +444,11 @@ class BatchClassificationService:
             raise RuntimeError("only an uploaded run can be submitted")
         if run.conservative_cost_usd is None:
             raise CostBudgetExceeded("run has no conservative cost reservation")
+        if run.prompt_version in REVISION_PROMPT_VERSIONS:
+            self._revision_guard(
+                self._session, Decimal(run.conservative_cost_usd), max_cost_usd,
+                exclude_run_id=run.id,
+            )
         self._cost_guard(
             self._session,
             Decimal(run.conservative_cost_usd),
@@ -598,20 +629,27 @@ class BatchClassificationService:
             prepared_runs = [run]
             uploaded_objects: list[StoredObject] = []
             try:
+                if PROMPT_VERSION in REVISION_PROMPT_VERSIONS:
+                    ledger = self._revision_guard.reconcile(self._session)
+                    ledger.preview(category_for_kind(kind.value), Decimal(0), max_cost_usd)
                 export_stream = self._iter_export_items(run.id)
                 exact_exports: list[BatchExportItem] | None = None
+                exact_tokens: list[int] = []
                 if kind in {BatchRunKind.CANARY, BatchRunKind.PILOT}:
                     exact_exports = list(export_stream)
                     exports: Sequence[BatchExportItem] | Iterator[BatchExportItem] = exact_exports
                 else:
-                    exports = export_stream
+                    def counted_exports():
+                        for export in export_stream:
+                            exact_tokens.extend(self._exact_tokens([export]))
+                            yield export
+                    exports = counted_exports()
                 with tempfile.TemporaryDirectory(
                     dir=str(self._temporary_root) if self._temporary_root else None
                 ) as temporary:
                     artifacts = write_batch_jsonl(run.id, exports, Path(temporary))
-                    exact_tokens = (
-                        self._exact_tokens(exact_exports) if exact_exports is not None else None
-                    )
+                    if exact_exports is not None:
+                        exact_tokens = self._exact_tokens(exact_exports)
                     shard_hashes = [
                         list(iter_batch_request_hashes(artifact.path)) for artifact in artifacts
                     ]
@@ -646,7 +684,11 @@ class BatchClassificationService:
                         self._session,
                         total_conservative,
                         max_cost_usd,
+                        exclude_run_id=run.id,
                     )
+                    if PROMPT_VERSION in REVISION_PROMPT_VERSIONS:
+                        self._revision_guard(self._session, total_conservative, max_cost_usd,
+                                             exclude_run_id=run.id)
                     preparations = []
                     for shard_run, artifact, hashes, estimate in zip(
                         prepared_runs, artifacts, shard_hashes, estimates, strict=True
@@ -733,7 +775,7 @@ class BatchClassificationService:
 
     def _exact_tokens(self, exports: Sequence[BatchExportItem]) -> list[int]:
         if self._token_counter is None:
-            raise RuntimeError("exact canary/pilot token counter is unavailable")
+            raise RuntimeError("pre-submit token counter is unavailable")
         values: list[int] = []
         for export in exports:
             value = self._token_counter.estimate_input_tokens(

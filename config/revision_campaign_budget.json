@@ -1,0 +1,26 @@
+{
+  "campaign_id": "lyrics-revision-20261023",
+  "total_limit_usd": "180",
+  "allocations_usd": {
+    "pilot": "10",
+    "main": "110",
+    "review": "25",
+    "services": "10",
+    "contingency": "25"
+  },
+  "storage_root": "D:\\PromiscuidadeMusical",
+  "runtime_directory": "data/derived/annual_revision/runtime",
+  "temporary_directory": "data/runtime/tmp",
+  "cross_volume_relocation_allowed": false,
+  "prefer_batch": true,
+  "paid_inference_authorized": false,
+  "prices_verified": false,
+  "maximum_recovery_workers": 2,
+  "maximum_http_attempts": 3,
+  "minimum_free_disk_bytes": 1073741824,
+  "external_expense_declaration": {
+    "no_unrecorded_campaign_expenses": true,
+    "source": "user_confirmation_2026-10-25",
+    "provider_ledger_reconciled": false
+  }
+}

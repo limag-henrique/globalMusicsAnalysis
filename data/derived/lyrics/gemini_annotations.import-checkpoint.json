@@ -1,0 +1,17 @@
+{
+  "source": "D:\\PromiscuidadeMusical\\data\\derived\\lyrics\\gemini_annotations.jsonl",
+  "inode": 844424930148500,
+  "offset": 245818176,
+  "documents_inserted": 96,
+  "updated_at": "2026-10-23T15:33:25.848512+00:00",
+  "last_batch": {
+    "records_seen": 13,
+    "eligible_rows": 13,
+    "malformed_records": 0,
+    "noneligible_records": 0,
+    "documents_inserted": 13,
+    "documents_already_present": 0,
+    "tracks_inserted": 3,
+    "artists_inserted": 1
+  }
+}

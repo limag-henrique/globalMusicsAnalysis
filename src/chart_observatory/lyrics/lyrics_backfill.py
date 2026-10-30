@@ -18,6 +18,7 @@ Features:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -43,15 +44,17 @@ from chart_observatory.lyrics.gemini_pipeline import (
     normalize_lookup_text,
 )
 from chart_observatory.lyrics.genius_client import GeniusClient
+from chart_observatory.lyrics.identity_quarantine import (
+    load_quarantined_source_signatures,
+    load_suspended_sources,
+)
 from chart_observatory.lyrics.letras_client import LetrasClient
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
 _DEFAULT_TRACKS = _PROJECT_ROOT / "data" / "derived" / "track_master.parquet"
 _KAGGLE_TRACKS = _PROJECT_ROOT / "data" / "normalized" / "kaggle_spotify_observations.parquet"
 _DEFAULT_JSONL = _PROJECT_ROOT / "data" / "derived" / "lyrics" / "gemini_annotations.jsonl"
-APPROVED_LYRICS_SOURCES = frozenset(
-    {"GENIUS", "LETRAS", "LRCLIB", "LYRICS_OVH", "GOOGLE_MANUAL"}
-)
+APPROVED_LYRICS_SOURCES = frozenset({"GENIUS", "LETRAS", "LRCLIB", "LYRICS_OVH", "GOOGLE_MANUAL"})
 
 
 class AutomationStats(TypedDict):
@@ -124,6 +127,8 @@ class LyricsEngine:
         self.google_cloud_project = google_cloud_project
         self.google_cloud_location = google_cloud_location
         self.skip_gemini = skip_gemini
+        self.suspended_sources = load_suspended_sources()
+        self.quarantined_signatures = load_quarantined_source_signatures()
 
         # Domain rate limiters
         self.rate_genius = DomainRateLimiter(0.8)
@@ -158,45 +163,29 @@ class LyricsEngine:
     def find_lyrics(self, title: str, artist: str) -> tuple[str | None, str | None, dict[str, Any]]:
         """Try cascading sources in order: Genius -> Letras -> LRCLIB -> Lyrics.ovh."""
         clients = self._get_clients()
-
-        # 1. Genius
-        self.rate_genius.wait()
-        try:
-            lyrics = clients["GENIUS"].fetch(title, artist)
-            if lyrics:
-                return lyrics, "GENIUS", {}
-        except Exception:
-            pass
-
-        # 2. Letras.mus.br
-        self.rate_letras.wait()
-        try:
-            lyrics = clients["LETRAS"].fetch(title, artist)
-            if lyrics:
-                return lyrics, "LETRAS", {}
-        except Exception:
-            pass
-
-        # 3. LRCLIB
-        self.rate_lrclib.wait()
-        try:
-            res = clients["LRCLIB"].fetch(title, artist)
-            if res:
-                lyrics, meta = res
-                if lyrics:
-                    return lyrics, "LRCLIB", meta
-        except Exception:
-            pass
-
-        # 4. Lyrics.ovh
-        self.rate_ovh.wait()
-        try:
-            lyrics = clients["LYRICS_OVH"].fetch(title, artist)
-            if lyrics:
-                return lyrics, "LYRICS_OVH", {}
-        except Exception:
-            pass
-
+        for source, limiter in (
+            ("GENIUS", self.rate_genius),
+            ("LETRAS", self.rate_letras),
+            ("LRCLIB", self.rate_lrclib),
+            ("LYRICS_OVH", self.rate_ovh),
+        ):
+            if source in self.suspended_sources:
+                continue
+            limiter.wait()
+            try:
+                result = clients[source].fetch(title, artist)
+                if not result:
+                    continue
+                lyrics, metadata = result if source == "LRCLIB" else (result, {})
+                if not isinstance(lyrics, str) or not lyrics.strip():
+                    continue
+                signature = (source, hashlib.sha256(lyrics.encode("utf-8")).hexdigest())
+                if signature in self.quarantined_signatures:
+                    continue
+                return lyrics, source, metadata
+            except Exception:
+                # One provider failure must not prevent trying the remaining sources.
+                continue
         return None, None, {}
 
     def annotate(self, song_id: str, title: str, artist: str, lyrics: str) -> dict[str, Any] | None:
@@ -226,12 +215,26 @@ def _normalize_song_key(title: str, artist: str) -> tuple[str, str]:
     return (normalize_lookup_text(title), normalize_lookup_text(clean_artist))
 
 
+def _ensure_append_boundary(output_path: Path) -> None:
+    """Preserve an interrupted final fragment, separating it from future records."""
+    if not output_path.exists() or output_path.stat().st_size == 0:
+        return
+    with output_path.open("rb") as handle:
+        handle.seek(-1, 2)
+        terminated = handle.read(1) == b"\n"
+    if not terminated:
+        with output_path.open("ab") as handle:
+            handle.write(b"\n")
+
+
 def _load_completed(output_path: Path) -> tuple[set[str], set[tuple[str, str]]]:
     """Read IDs and keys only for valid lyric records in the JSONL output."""
     if not output_path.exists():
         return set(), set()
     completed_ids: set[str] = set()
     completed_keys: set[tuple[str, str]] = set()
+    suspended = load_suspended_sources()
+    quarantined = load_quarantined_source_signatures()
     with output_path.open("r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
@@ -240,6 +243,15 @@ def _load_completed(output_path: Path) -> tuple[set[str], set[tuple[str, str]]]:
             try:
                 item = json.loads(line)
                 if not isinstance(item, dict) or not is_valid_lyrics_record(item):
+                    continue
+                source = str(item["lyrics_source"]).upper()
+                if source in suspended:
+                    continue
+                signature = (
+                    source,
+                    hashlib.sha256(item["original_lyrics"].encode("utf-8")).hexdigest(),
+                )
+                if signature in quarantined:
                     continue
                 sid = item.get("song_id")
                 if sid:
@@ -321,11 +333,13 @@ def _load_tracks(
 
             seen_ids.add(sid)
             seen_keys.add(key)
-            tracks_to_process.append({
-                "song_id": sid,
-                "title": raw_title,
-                "artist": raw_artist,
-            })
+            tracks_to_process.append(
+                {
+                    "song_id": sid,
+                    "title": raw_title,
+                    "artist": raw_artist,
+                }
+            )
 
     print(f"  Deduplication complete: {duplicates_filtered} similar/duplicate songs removed.")
     print(f"  Total unique songs remaining to search: {len(tracks_to_process)}")
@@ -347,6 +361,7 @@ def run_full_automation(
     gemini_model: str = "gemini-3.8-flash",
     google_cloud_project: str | None = None,
     google_cloud_location: str | None = None,
+    completed_paths: tuple[Path, ...] = (),
 ) -> None:
     if workers < 1:
         raise ValueError("workers must be at least 1")
@@ -363,7 +378,12 @@ def run_full_automation(
     )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    _ensure_append_boundary(output_path)
     completed_ids, completed_keys = _load_completed(output_path)
+    for completed_path in completed_paths:
+        ids, keys = _load_completed(completed_path)
+        completed_ids.update(ids)
+        completed_keys.update(keys)
 
     tracks = _load_tracks(
         tracks_path=tracks_path,
@@ -374,7 +394,7 @@ def run_full_automation(
     )
     total_tracks = len(tracks)
 
-    print(f"\n{'='*65}")
+    print(f"\n{'=' * 65}")
     print("  MASSIVE ROOT LYRICS AUTOMATION ENGINE")
     print(
         f"  Already completed in JSONL: {len(completed_ids)} IDs "
@@ -385,7 +405,7 @@ def run_full_automation(
     print(f"  Workers: {workers}")
     print(f"  Genius Token: {'YES' if genius_token else 'NO'}")
     print(f"  Gemini Translation: {'DISABLED' if skip_gemini else 'ENABLED (ADC)'}")
-    print(f"{'='*65}\n")
+    print(f"{'=' * 65}\n")
 
     if total_tracks == 0:
         print("  All tracks in the database are already verified! Nothing left to process.")
@@ -434,9 +454,10 @@ def run_full_automation(
         return None
 
     # Open append-only file stream. Only valid FOUND records cross this boundary.
-    with output_path.open("a", encoding="utf-8") as out_file, ThreadPoolExecutor(
-        max_workers=workers
-    ) as executor:
+    with (
+        output_path.open("a", encoding="utf-8") as out_file,
+        ThreadPoolExecutor(max_workers=workers) as executor,
+    ):
         future_to_track: dict[Any, dict[str, str]] = {}
         track_iter = iter(tracks)
 
@@ -492,7 +513,7 @@ def run_full_automation(
                 )
 
     elapsed_total = time.monotonic() - start_time
-    print(f"\n{'='*65}")
+    print(f"\n{'=' * 65}")
     print("  AUTOMATION COMPLETE!")
     print(f"  Total Processed: {stats['processed']}")
     print(
@@ -502,8 +523,8 @@ def run_full_automation(
     print(f"  Total Not Inserted: {stats['missing']}")
     print(f"  Total Errors:     {stats['errors']}")
     print(f"  Sources Breakdown: {stats['by_source']}")
-    print(f"  Time Elapsed:    {elapsed_total/60:.1f} minutes")
-    print(f"{'='*65}\n")
+    print(f"  Time Elapsed:    {elapsed_total / 60:.1f} minutes")
+    print(f"{'=' * 65}\n")
 
 
 def main() -> None:
@@ -511,25 +532,29 @@ def main() -> None:
         description="Massive, resilient lyrics backfill for the entire database."
     )
     parser.add_argument(
-        "--tracks", "-t",
+        "--tracks",
+        "-t",
         type=Path,
         default=_DEFAULT_TRACKS,
         help="Path to track_master.parquet (default: data/derived/track_master.parquet)",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         type=Path,
         default=_DEFAULT_JSONL,
         help="Path to output JSONL file (default: data/derived/lyrics/gemini_annotations.jsonl)",
     )
     parser.add_argument(
-        "--workers", "-w",
+        "--workers",
+        "-w",
         type=int,
         default=6,
         help="Number of concurrent worker threads (default: 6)",
     )
     parser.add_argument(
-        "--limit", "-n",
+        "--limit",
+        "-n",
         type=int,
         default=None,
         help="Limit number of tracks to process in this run",
@@ -575,6 +600,13 @@ def main() -> None:
         help="Vertex AI location (default: global)",
     )
 
+    parser.add_argument(
+        "--completed-from",
+        type=Path,
+        action="append",
+        default=[],
+        help="Read completed songs from an existing corpus without modifying it (repeatable)",
+    )
     args = parser.parse_args()
 
     run_full_automation(
@@ -588,6 +620,7 @@ def main() -> None:
         gemini_model=args.gemini_model,
         google_cloud_project=args.google_cloud_project,
         google_cloud_location=args.google_cloud_location,
+        completed_paths=tuple(args.completed_from),
     )
 
 

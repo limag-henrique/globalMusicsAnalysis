@@ -44,6 +44,7 @@ from chart_observatory.lyrics.repository import (
     append_classification_snapshot,
     find_matching_snapshot,
 )
+from chart_observatory.lyrics.revision_budget import REVISION_PROMPT_VERSIONS
 
 
 class LyricsClassifier(Protocol):
@@ -342,6 +343,11 @@ class LyricsClassificationService:
                         summary,
                     )
                     continue
+                if PROMPT_VERSION in REVISION_PROMPT_VERSIONS:
+                    raise CostLimitExceeded(
+                        "Legacy online revision dispatch is disabled: use the campaign Batch "
+                        "flow with reconciled global budget and validated text signatures"
+                    )
                 future = executor.submit(
                     self._classifier.classify,
                     candidate.text or "",
@@ -414,6 +420,10 @@ class LyricsClassificationService:
         provider_outcome: str | None = None,
     ) -> None:
         validated_result = result if isinstance(result, LyricsClassification) else None
+        local = (provider_outcome is None and result is None and usage is None
+                 and status in {"instrumental", "insufficient_text"})
+        if local:
+            usage = UsageTelemetry(input_tokens=0, output_tokens=0, thought_tokens=0, total_tokens=0)
         row = append_classification_snapshot(
             self._session,
             ClassificationSnapshotInput(
@@ -429,6 +439,7 @@ class LyricsClassificationService:
                 usage=usage,
                 rate_card=self._rate_card,
                 forced_from_snapshot_id=forced_from_id,
+                execution_mode="local" if local else "online",
             ),
         )
         self._session.commit()

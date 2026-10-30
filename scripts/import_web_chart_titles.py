@@ -102,6 +102,11 @@ def validate_snapshot(raw):
                 "native_id": native,
             }
         )
+        if "metric_value" in row:
+            value = row["metric_value"]
+            if type(value) is not int or value < 0 or value > 2**63 - 1:
+                raise ValueError("invalid reproduction metric")
+            rows[-1]["metric_value"] = value
     if not rows:
         raise ValueError("empty chart")
     missing = raw.get("missing_title_positions", [])

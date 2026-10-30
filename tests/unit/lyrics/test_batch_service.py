@@ -5,6 +5,7 @@ from types import SimpleNamespace
 from uuid import UUID, uuid4
 
 import pytest
+from chart_observatory.lyrics import campaign_budget as campaign_budget_module
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
@@ -34,6 +35,15 @@ from chart_observatory.lyrics.classification_queue import (
     iter_remaining_candidates,
 )
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
+
+
+@pytest.fixture(autouse=True)
+def isolated_campaign_budget(tmp_path, monkeypatch):
+    """Fake-provider tests never read or certify the researcher's real cost ledger."""
+    ledger = campaign_budget_module.CampaignBudget(tmp_path / "campaign-budget.sqlite")
+    ledger.attest(external_complete=True, provider_complete=True,
+                  evidence={"source": "unit_test_fake_providers"})
+    monkeypatch.setattr(campaign_budget_module, "DEFAULT_BUDGET_PATH", ledger.path)
 
 
 def settings(**overrides):
@@ -512,6 +522,25 @@ class FakeBatchStorage:
 class FixedTokenCounter:
     def estimate_input_tokens(self, _lyrics: str, _language: str | None = None) -> int:
         return 100
+
+
+def test_new_revision_budget_does_not_charge_previous_campaign_again(tmp_path: Path) -> None:
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    storage = FakeBatchStorage()
+    with Session(engine) as session:
+        session.add(LyricClassificationBatchRun(
+            kind="main", state="failed", model_id="gemini-3.8-flash",
+            taxonomy_version=TAXONOMY_VERSION, prompt_version="lyrics-classification-prompt-v2",
+            thinking_level="LOW", project_id="project", location="global",
+            bucket_name="private-bucket", request_count=0, summary_written=True,
+            conservative_cost_usd=Decimal("650"), known_cost_usd=Decimal("650"),
+        ))
+        session.commit()
+        service = _service_with_two_lyrics(session, tmp_path, storage)
+        prepared = service.prepare_canary(Decimal("200"))
+        assert len(prepared) == 1
+        assert len(storage.uploaded) == 1
 
 
 def _service_with_two_lyrics(

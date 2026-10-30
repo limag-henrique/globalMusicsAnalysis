@@ -6,6 +6,7 @@ import hashlib
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
+from decimal import Decimal
 from typing import Any
 from uuid import UUID
 
@@ -94,8 +95,14 @@ def append_classification_snapshot(
         raise ValueError("canonical_track_id does not match lyric document")
     if document.content_sha256 != snapshot.lyrics_hash:
         raise ValueError("lyrics_hash does not match lyric document")
-    if snapshot.execution_mode not in {"online", "batch"}:
-        raise ValueError("execution_mode must be online or batch")
+    if snapshot.execution_mode not in {"online", "batch", "local"}:
+        raise ValueError("execution_mode must be online, batch or local")
+    if snapshot.execution_mode == "local":
+        if (snapshot.classification_status not in {"instrumental", "insufficient_text"}
+                or snapshot.result is not None or snapshot.usage is None
+                or any(value != 0 for value in (snapshot.usage.input_tokens,
+                       snapshot.usage.output_tokens, snapshot.usage.thought_tokens))):
+            raise ValueError("local outcomes require zero usage and no thematic result")
     if snapshot.execution_mode == "batch":
         if snapshot.batch_run_id is None or snapshot.batch_item_key is None:
             raise ValueError("batch snapshots require batch_run_id and batch_item_key")
@@ -160,7 +167,8 @@ def append_classification_snapshot(
         output_tokens=usage.output_tokens if usage is not None else None,
         thought_tokens=usage.thought_tokens if usage is not None else None,
         total_tokens=usage.total_tokens if usage is not None else None,
-        estimated_cost_usd=snapshot.rate_card.calculate(usage) if snapshot.rate_card else None,
+        estimated_cost_usd=(Decimal(0) if snapshot.execution_mode == "local" else
+                            snapshot.rate_card.calculate(usage) if snapshot.rate_card else None),
         forced_from_snapshot_id=snapshot.forced_from_snapshot_id,
         provider_model_version=snapshot.provider_model_version,
         execution_mode=snapshot.execution_mode,

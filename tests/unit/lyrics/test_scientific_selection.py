@@ -78,6 +78,32 @@ def valid_result() -> dict[str, object]:
     }
 
 
+def test_human_text_defect_blocks_even_identity_confirmed_document() -> None:
+    from chart_observatory.lyrics.review_evidence import load_review_evidence
+
+    evidence = load_review_evidence()[0]
+    from uuid import UUID
+
+    document = SimpleNamespace(
+        id=UUID(evidence["document_id"]), canonical_track_id=uuid4(),
+        content_sha256=evidence["lyrics_hash"], source="GENIUS", rights_status="AUTHORIZED",
+    )
+    snapshot = SimpleNamespace(
+        canonical_track_id=document.canonical_track_id, lyrics_hash=document.content_sha256,
+        classification_status="classified", result_json=valid_result(),
+    )
+    review = SimpleNamespace(
+        lyric_document_id=document.id, canonical_track_id=document.canonical_track_id,
+        lyrics_hash=document.content_sha256, source="GENIUS", decision="confirmed_match",
+    )
+    decision = assess_classification(
+        document, snapshot, entries=(review,), suspended_sources=frozenset(),
+    )
+    assert not decision.primary_eligible
+    assert not decision.exploratory_eligible
+    assert "human_report_pending_adjudication" in decision.reasons
+
+
 def test_provider_error_is_not_reported_as_a_malformed_classification() -> None:
     document = SimpleNamespace(
         id=uuid4(),

@@ -5,6 +5,15 @@ from pathlib import Path
 import pytest
 
 
+def test_weekly_view_counts_must_be_exact_not_abbreviated(modules):
+    _, scraper = modules
+    assert scraper.parse_view_count("7,497,177") == 7497177
+    assert scraper.parse_view_count("7.497.177") == 7497177
+    for value in ("7.4M", "7.4", "", None, "-1"):
+        with pytest.raises(ValueError):
+            scraper.parse_view_count(value)
+
+
 def test_limited_collection_does_not_claim_complete(modules):
     _, scraper = modules
     assert scraper.collection_status(100, 5, []) == "PARTIAL"
@@ -25,6 +34,33 @@ def test_pause_request_does_not_start_collection(modules, monkeypatch, tmp_path)
 def test_paused_collection_cannot_claim_complete(modules):
     _, scraper = modules
     assert scraper.collection_status(5, 5, [], paused=True) == "PAUSED"
+
+
+def test_structural_rows_are_skipped_but_tied_songs_are_preserved(modules):
+    _, scraper = modules
+    rows = [{"source_rank": 0, "title": ""}] + [
+        {"source_rank": min(i, 100), "title": f"Song {i}"} for i in range(1, 102)
+    ]
+    result = scraper.normalize_rendered_rows(rows)
+    assert len(result) == 101
+    assert result[-1] == {"rank": 101, "source_rank": 100, "title": "Song 101"}
+
+
+def test_database_startup_errors_have_bounded_retries(modules, monkeypatch):
+    from sqlalchemy.exc import OperationalError
+
+    _, scraper = modules
+    attempts = []
+
+    def unavailable(_engine):
+        attempts.append(1)
+        raise OperationalError("connect", {}, RuntimeError("starting up"))
+
+    monkeypatch.setattr(scraper, "Session", unavailable)
+    monkeypatch.setattr(scraper.time, "sleep", lambda _: None)
+    with pytest.raises(OperationalError):
+        scraper.write_database_batch(None, [])
+    assert len(attempts) == 3
 
 
 @pytest.mark.parametrize("title", [None, True, 123])
@@ -89,6 +125,15 @@ def test_same_title_different_artists_keep_distinct_source_identities(modules, s
     result = importer.validate_snapshot(snapshot)
     assert result["rows"][0]["native_id"] != result["rows"][1]["native_id"]
     assert importer.validate_snapshot(result) == result
+
+
+def test_weekly_metric_survives_capture_validation(modules, snapshot):
+    importer, _ = modules
+    snapshot["rows"][0]["metric_value"] = 7497177
+    assert importer.validate_snapshot(snapshot)["rows"][0]["metric_value"] == 7497177
+    snapshot["rows"][0]["metric_value"] = True
+    with pytest.raises(ValueError):
+        importer.validate_snapshot(snapshot)
 
 
 def test_source_tied_ranks_do_not_discard_a_title(modules, snapshot):

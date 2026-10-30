@@ -56,6 +56,11 @@ data/normalized/
 data/derived/lyrics/followup-*/
 data/derived/lyrics/pending-recovery-*/
 data/derived/research_quality/automated-quality-*/
+data/derived/research_quality/corpus-revision-*/
+data/derived/research_quality/annual-top80-*/
+data/derived/research_quality/test-resume-*/
+data/derived/research_quality/test-top80-*/
+data/derived/annual_revision/
 *.requests.jsonl
 
 # Temporary & Disposable Generated Artifacts (CLEANUP_REVIEW.csv)

@@ -1,0 +1,9 @@
+{
+  "rankings.parquet": "bde63f2c1476ec5ad427f9d21be574b48a566c253916dfbb92c3f3cadfbd7219",
+  "source_coverage.csv": "db56477585157c5c18ed2b4bc782eb0fee1c09650b0538eea2aaa4797b2f315f",
+  "country_quotas.csv": "fcf64432b5cce91a666424cac2a54766d6645b81a4f9f859f17b6b085dc50f5a",
+  "country_year_import_plan.csv": "ff23bab83c5e2ff9f582e1a2a5c6fa7a7607e1401279264a208bebb34b676912",
+  "import_calendar_eligible.csv": "90bb3600ad26698d55ec3142bf0dbc94b2449bc569924f449cd7c5795401c852",
+  "selected_observed_planning.csv": "d10c0be538f36c8e72a5db91a05961c3f8eb3765730d3a902ba022a3f78d7a97",
+  "allocation_summary.json": "6729bed8beec5872fdb7cef5e8d29d5f723cb5ad64c6b2b1a2cbc8f190d63715"
+}

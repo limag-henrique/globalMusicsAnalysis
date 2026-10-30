@@ -38,6 +38,12 @@ class LyricTextDerivative:
         return self.original_sha256 != self.derivative_sha256
 
 
+def outer_lyric_containers(containers: list[Tag]) -> list[Tag]:
+    """Keep nested sections in their parent, without reading them a second time."""
+    identities = {id(node) for node in containers}
+    return [node for node in containers if not any(id(p) in identities for p in node.parents)]
+
+
 def prepare_lyric_derivative(text: str, source: str) -> LyricTextDerivative:
     """Remove only known encoding/UI artifacts; do not infer missing verses."""
     original_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()

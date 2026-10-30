@@ -14,10 +14,15 @@ from scrape_youtube_chart_titles import OUTPUT, write_json_atomic
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def refresh():
-    for script in ("report_web_chart_coverage.py", "export_web_chart_titles.py"):
+def refresh(annual=False):
+    scripts = (
+        ("build_annual_top80.py",)
+        if annual
+        else ("report_web_chart_coverage.py", "export_web_chart_titles.py")
+    )
+    for script in scripts:
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / script)],
+            [sys.executable, str(ROOT / "scripts" / script)] + (["--apply"] if annual else []),
             cwd=ROOT,
             capture_output=True,
             text=True,
@@ -32,6 +37,7 @@ def refresh():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pid", required=True, type=int)
+    parser.add_argument("--annual-top80", action="store_true")
     args = parser.parse_args()
     kernel = ctypes.WinDLL("kernel32", use_last_error=True)
     kernel.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_bool, ctypes.c_ulong]
@@ -42,7 +48,9 @@ def main():
     handle = kernel.OpenProcess(0x00100000, False, args.pid)  # SYNCHRONIZE only
     if not handle:
         raise OSError(ctypes.get_last_error(), "Cannot monitor collector process")
-    status_path = OUTPUT / "export_manifest.json"
+    status_path = (
+        ROOT / "data/raw/annual_top80/20261021" if args.annual_top80 else OUTPUT
+    ) / "export_manifest.json"
     last_refresh = 0
     try:
         while True:
@@ -54,7 +62,7 @@ def main():
                     "updated_at": datetime.now(UTC).isoformat(),
                 }
                 try:
-                    refresh()
+                    refresh(args.annual_top80)
                     status["export_status"] = "UPDATED"
                 except (RuntimeError, subprocess.TimeoutExpired) as error:
                     status["export_status"] = "FAILED"

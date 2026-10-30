@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from rapidfuzz import fuzz
 
 from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
-from chart_observatory.lyrics.text_quality import html_lyric_text
+from chart_observatory.lyrics.text_quality import html_lyric_text, outer_lyric_containers
 
 _HEADERS = {
     "User-Agent": (
@@ -203,7 +203,7 @@ class GeniusClient:
             return None
 
         lines: list[str] = []
-        for container in containers:
+        for container in outer_lyric_containers(list(containers)):
             text = html_lyric_text(container)
             if text:
                 lines.append(text)

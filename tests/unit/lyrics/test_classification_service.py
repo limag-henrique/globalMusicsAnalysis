@@ -31,7 +31,10 @@ from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric
 
 
 @pytest.fixture
-def session() -> Session:
+def session(monkeypatch) -> Session:
+    # Preserve legacy behavior tests without enabling unbudgeted revision dispatch.
+    monkeypatch.setattr(classification_service, "PROMPT_VERSION",
+                        "lyrics-classification-prompt-v2")
     engine = create_engine("sqlite+pysqlite:///:memory:")
     Base.metadata.create_all(engine)
     with Session(engine, expire_on_commit=False) as database_session:
@@ -238,6 +241,16 @@ def test_local_preflight_persists_non_scored_outcomes_without_provider_calls(
         "instrumental",
     }
     assert all(row.result_json is None for row in rows)
+    assert all(row.execution_mode == "local" and row.estimated_cost_usd == 0 for row in rows)
+
+
+def test_legacy_online_route_cannot_bypass_revision_budget(session, monkeypatch):
+    monkeypatch.setattr(classification_service, "PROMPT_VERSION", "lyrics-classification-prompt-v3")
+    _document(session, "Full original lyrics with enough words for thematic classification. " * 4)
+    classifier = FakeClassifier()
+    with pytest.raises(CostLimitExceeded, match="online revision dispatch is disabled"):
+        LyricsClassificationService(session, classifier, _settings()).run(ClassificationRequest())
+    assert classifier.classified_texts == []
 
 
 def test_only_unclassified_excludes_terminal_local_outcomes(session: Session) -> None:

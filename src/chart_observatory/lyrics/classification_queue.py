@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
 from chart_observatory.db.models.lyrics_batch import LyricClassificationBatchItem
+from chart_observatory.lyrics import review_evidence
 from chart_observatory.lyrics.identity_quarantine import (
     excluded_document_ids,
     load_quarantine_entries,
@@ -133,7 +134,12 @@ def iter_remaining_candidates(
     statement = statement.order_by(LyricDocument.created_at, LyricDocument.id)
 
     seen: set[tuple[UUID, str]] = set()
+    human_reports = review_evidence.load_review_evidence()
     for document in session.scalars(statement).yield_per(100):
+        if review_evidence.review_blocks(
+            human_reports, str(document.id), document.content_sha256,
+        ):
+            continue
         local_signature = (document.canonical_track_id, document.content_sha256)
         if local_signature in seen:
             continue

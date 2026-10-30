@@ -555,3 +555,10 @@ def test_lyrics_ovh_client_returns_none_for_http_errors() -> None:
     client = LyricsOvhClient(http_client=FakeHttp())
 
     assert client.fetch("Title", "Artist") is None
+def test_revision_prompt_separates_overlapping_dimensions():
+    from chart_observatory.lyrics.gemini_pipeline import build_lyrics_prompt
+
+    prompt = build_lyrics_prompt("A complete lyric", "en").lower()
+    assert "score each dimension independently" in prompt
+    assert "self-love alone is not romantic affection" in prompt
+    assert "never reconstruct missing lyrics" in prompt
