@@ -12,6 +12,9 @@ from chart_observatory.lyrics.letras_client import LetrasClient
 def test_genius_fetch_does_not_duplicate_nested_lyric_containers() -> None:
     html = '''<div data-lyrics-container="true">[Verse 1]<br>First complete verse
     <div data-lyrics-container="true">[Chorus]<br>Entire repeated chorus</div></div>'''
+    html = ('<script type="application/ld+json">'
+            '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
+            '</script>') + html
     with httpx.Client(
         transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))
     ) as http:
@@ -25,6 +28,9 @@ def test_genius_fetch_preserves_first_verse_after_nested_metadata() -> None:
     html = """<div data-lyrics-container="true"><div>2 Contributors</div>
         [Verse 1]<br>First complete verse with enough words<br>Another line</div>
         <div data-lyrics-container="true">[Verse 2]<br>Second complete verse</div>"""
+    html = ('<script type="application/ld+json">'
+            '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
+            '</script>') + html
     with httpx.Client(
         transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))
     ) as http:
@@ -87,3 +93,14 @@ def test_letras_fetch_removes_observed_terminal_footer_variants(footer: str) -> 
         lyrics = LetrasClient(http_client=http).fetch("Example", "Artist")
 
     assert lyrics == "First complete lyric line\nSecond complete lyric line"
+
+
+@pytest.mark.parametrize("notice", ["Only a portion", "Lyrics snippet", "Ver a letra completa",
+                                    "Apenas um trecho da letra", "Leer la letra completa"])
+def test_explicit_preview_notices_are_rejected_and_auditable(notice):
+    from chart_observatory.lyrics.quota_acquisition import candidate
+    from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
+
+    text = "First full line\n" + notice + "\nLast available line"
+    assert candidate(text, "GENIUS") is None
+    assert "explicit_partial_lyrics_notice" in prepare_lyric_derivative(text, "GENIUS").flags

@@ -5,13 +5,11 @@ from __future__ import annotations
 import re
 import unicodedata
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 import httpx
 from bs4 import BeautifulSoup
-from rapidfuzz import fuzz
 
-from chart_observatory.lyrics.gemini_pipeline import normalize_lookup_text
 from chart_observatory.lyrics.text_quality import html_lyric_text, outer_lyric_containers
 
 _HEADERS = {
@@ -57,6 +55,8 @@ class GeniusClient:
 
     def fetch(self, title: str, artist: str) -> str | None:
         """Try to find lyrics for a song. Returns cleaned lyrics text or None."""
+        if not title.strip() or not artist.strip():
+            return None
         # Strategy 1: Direct URL construction (fastest)
         lyrics = self._try_direct_url(title, artist)
         if lyrics:
@@ -79,22 +79,14 @@ class GeniusClient:
         clean_title = re.sub(
             r"\s*[\[(]\s*(?:feat\.?|ft\.?|featuring)\b.*?[\])]", "", title, flags=re.I
         )
-        slug = f"{_slugify(artist.split(',', 1)[0].strip())}-{_slugify(clean_title.strip())}-lyrics"
-        url = f"https://genius.com/{slug}"
-
-        try:
-            resp = self._http.get(url)
-            if resp.status_code == 200:
-                return self._extract_lyrics_from_html(resp.text)
-        except (httpx.HTTPError, httpx.TimeoutException):
-            pass
-        return None
+        slug = f"{_slugify(artist.strip())}-{_slugify(clean_title.strip())}-lyrics"
+        return self._scrape_lyrics_page(f"https://genius.com/{slug}", title, artist)
 
     def _try_api_search(self, title: str, artist: str) -> str | None:
-        """Use the Genius API to search, then scrape the lyrics page with fuzzy validation."""
+        """Search the official API and require exact page identity."""
         if not self._token:
             return None
-        primary_artist = artist.split(",", 1)[0].strip()
+        primary_artist = artist.strip()
         query = f"{primary_artist} {title}"
         try:
             resp = self._http.get(
@@ -102,6 +94,8 @@ class GeniusClient:
                 params={"q": query},
                 headers={"Authorization": f"Bearer {self._token}"},
             )
+            if resp.status_code in (401, 403):
+                self._token = None
             if resp.status_code != 200:
                 return None
             data = resp.json()
@@ -112,38 +106,15 @@ class GeniusClient:
         if not hits:
             return None
 
-        wanted_title = normalize_lookup_text(title)
-        wanted_artist = normalize_lookup_text(primary_artist)
-
-        best_hit_url: str | None = None
-        best_score = 0.0
-
         for hit in hits[:8]:
-            result = hit.get("result", {})
-            hit_title = normalize_lookup_text(str(result.get("title", "")))
-            hit_artist = normalize_lookup_text(
-                str(result.get("primary_artist", {}).get("name", ""))
-            )
-
-            title_score = fuzz.token_set_ratio(wanted_title, hit_title)
-            artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
-            combined = (title_score * 0.6) + (artist_score * 0.4)
-
-            # Strict threshold to avoid wrong song attribution
-            if title_score >= 80 and artist_score >= 70 and combined > best_score:
-                best_score = combined
-                best_hit_url = result.get("url")
-
-        if best_hit_url:
-            lyrics = self._scrape_lyrics_page(best_hit_url)
+            lyrics = self._scrape_search_result(hit.get("result", {}), title, artist)
             if lyrics:
                 return lyrics
-
         return None
 
     def _try_site_search(self, title: str, artist: str) -> str | None:
-        """Search Genius via their site search and scrape the result with fuzzy validation."""
-        primary_artist = artist.split(",", 1)[0].strip()
+        """Search the public endpoint and require exact page identity."""
+        primary_artist = artist.strip()
         query = f"{primary_artist} {title}"
         search_url = f"https://genius.com/api/search/multi?per_page=5&q={quote(query)}"
 
@@ -156,36 +127,53 @@ class GeniusClient:
             return None
 
         sections = data.get("response", {}).get("sections", [])
-        wanted_title = normalize_lookup_text(title)
-        wanted_artist = normalize_lookup_text(primary_artist)
-
         for section in sections:
             if section.get("type") != "song":
                 continue
             for hit in section.get("hits", [])[:5]:
-                result = hit.get("result", {})
-                hit_title = normalize_lookup_text(str(result.get("title", "")))
-                hit_artist = normalize_lookup_text(
-                    str(result.get("primary_artist", {}).get("name", ""))
-                )
-                title_score = fuzz.token_set_ratio(wanted_title, hit_title)
-                artist_score = fuzz.token_set_ratio(wanted_artist, hit_artist)
-
-                if title_score >= 80 and artist_score >= 70:
-                    page_url = result.get("url")
-                    if page_url:
-                        lyrics = self._scrape_lyrics_page(page_url)
-                        if lyrics:
-                            return lyrics
+                lyrics = self._scrape_search_result(hit.get("result", {}), title, artist)
+                if lyrics:
+                    return lyrics
         return None
 
-    # -- scraping helpers -----------------------------------------------------
+    def _scrape_search_result(self, result: dict, title: str, artist: str) -> str | None:
+        from chart_observatory.lyrics.quota_discovery import match_genius_identity
 
-    def _scrape_lyrics_page(self, url: str) -> str | None:
-        """Fetch a Genius lyrics page and extract text."""
+        if not isinstance(result, dict) or not match_genius_identity(title, artist, result):
+            return None
+        return self._scrape_lyrics_page(result.get("url", ""), title, artist, result)
+
+    def _scrape_lyrics_page(
+        self, url: str, title: str, artist: str, result: dict | None = None
+    ) -> str | None:
+        """Extract text only after verifying the page's song and performer identity."""
+        from chart_observatory.lyrics.quota_acquisition import (
+            genius_main_entity_identity,
+            structured_identity,
+        )
+        from chart_observatory.lyrics.quota_discovery import genius_performer_names
+
+        if not isinstance(url, str):
+            return None
+        parsed = urlparse(url)
+        if parsed.scheme != "https" or parsed.netloc != "genius.com":
+            return None
         try:
             resp = self._http.get(url)
             if resp.status_code != 200:
+                return None
+            page = BeautifulSoup(resp.text, "html.parser")
+            expected_title, expected_artist, performers = title, artist, []
+            if result is not None:
+                expected_title = result.get("title", "")
+                expected_artist = (result.get("primary_artist") or {}).get("name", "")
+                performers = genius_performer_names(result)
+            verified = structured_identity(page, expected_title, expected_artist, performers)
+            if not verified and result is not None:
+                verified = genius_main_entity_identity(
+                    page, expected_title, expected_artist, performers, result.get("id")
+                )
+            if not verified:
                 return None
             return self._extract_lyrics_from_html(resp.text)
         except (httpx.HTTPError, httpx.TimeoutException):

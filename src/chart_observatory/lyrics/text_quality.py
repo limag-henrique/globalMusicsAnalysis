@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup, Tag
 
-TEXT_QUALITY_VERSION = "lyrics-text-quality-v2"
+TEXT_QUALITY_VERSION = "lyrics-text-quality-v3"
 _LETRAS_FOOTER = re.compile(
     r"(?:^|\n[ \t]*|(?<=\s))Adicionar aos favoritos\s+Adicionar à playlist\s+"
     r"Tamanho do texto\s+Cifra\s+(?:Imprimir\s+)?Corrigir\s+"
@@ -22,6 +22,19 @@ _SECOND_SECTION = re.compile(
     re.IGNORECASE,
 )
 _ENTITY = re.compile(r"&#(?:[0-9]+|x[0-9a-fA-F]+);|&(?:amp|quot|apos|lt|gt|nbsp);")
+
+_PARTIAL_TEXT = re.compile(
+    r"only a portion|lyrics snippet|see full lyrics|remaining lyrics|"
+    r"(?:apenas|somente) (?:um )?trecho da letra|"
+    r"(?:ver|veja|ler) (?:a )?letra completa|"
+    r"(?:ver|leer) (?:la )?letra completa",
+    re.IGNORECASE,
+)
+
+
+def has_partial_lyrics_notice(text: str) -> bool:
+    """Detect explicit preview notices, without inferring missing verses."""
+    return bool(_PARTIAL_TEXT.search(text))
 
 
 @dataclass(frozen=True)
@@ -64,6 +77,8 @@ def prepare_lyric_derivative(text: str, source: str) -> LyricTextDerivative:
         flags.append("remaining_interface_residue")
     if _ENTITY.search(cleaned):
         flags.append("remaining_encoded_entity")
+    if has_partial_lyrics_notice(cleaned):
+        flags.append("explicit_partial_lyrics_notice")
     if _SECOND_SECTION.search(cleaned):
         flags.append("possible_missing_initial_section")
     if len(cleaned.strip()) < 100:

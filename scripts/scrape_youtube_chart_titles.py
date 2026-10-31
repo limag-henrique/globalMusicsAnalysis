@@ -3,7 +3,7 @@
 Uses isolated headless Chrome sessions, a bounded page pool, HTTP cache, and CDP
 resource blocking. Saves only names, artists, source row/rank, market and period.
 Completed snapshots are cached on disk and never fetched again on resume.
-Playwright is an optional acquisition dependency, not an application dependency.
+Playwright and its browser binaries are required acquisition dependencies.
 """
 
 import argparse
@@ -223,7 +223,8 @@ async def collect(args):
 
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch(
-            channel="chrome",
+            channel=(None if getattr(args, "browser_channel", "chrome") == "chromium"
+                     else "chrome"),
             headless=True,
             args=[
                 "--no-proxy-server",
@@ -521,6 +522,8 @@ def main():
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--countries", help="Optional comma-separated article market codes")
     parser.add_argument("--workers", type=int, choices=(1, 2, 3), default=2)
+    parser.add_argument("--browser-channel", choices=("chrome", "chromium"), default="chrome",
+                        help="Use installed Chrome or Playwright's managed Chromium")
     parser.add_argument("--max-snapshots", type=int)
     parser.add_argument(
         "--retries",

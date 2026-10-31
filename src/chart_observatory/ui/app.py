@@ -136,7 +136,7 @@ def _render_source_inventory() -> None:
         if sources:
             st.dataframe(sources, use_container_width=True, hide_index=True)
         else:
-                st.info("Execute `chart-observatory sources mgd inspect` para criar o inventário.")
+            st.info("Execute `chart-observatory sources mgd inspect` para criar o inventário.")
 
 
 def _render_operational_database() -> None:
@@ -166,9 +166,12 @@ def _render_operational_database() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Chart Observatory · Corpus v1", layout="wide")
-    st.title("Chart Observatory · Corpus v1")
-    st.caption("Visão geral do corpus congelado e de seus artefatos analíticos.")
+    st.set_page_config(page_title="Chart Observatory · Pesquisa musical", layout="wide")
+    st.title("Chart Observatory")
+    st.page_link(
+        "pages/quota_import.py", label="Revisar importação por cotas · 2018–2026", icon="🎵"
+    )
+    st.caption("A visão abaixo corresponde ao corpus histórico e seus artefatos analíticos.")
 
     summary, labels, error = _load_manifest()
     if error or summary is None or labels is None:

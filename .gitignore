@@ -55,6 +55,7 @@ data/runtime/
 data/normalized/
 data/derived/lyrics/followup-*/
 data/derived/lyrics/pending-recovery-*/
+data/derived/lyrics/quota-*/
 data/derived/research_quality/automated-quality-*/
 data/derived/research_quality/corpus-revision-*/
 data/derived/research_quality/annual-top80-*/

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
-from chart_observatory.api.routes import charts, coverage, exports, rights, tracks
+from chart_observatory.api.routes import charts, coverage, exports, quota_staging, rights, tracks
 from chart_observatory.application import ResearchApplication
 from chart_observatory.config import Settings
 
@@ -21,7 +21,14 @@ def create_app(
             database_url=database_url or settings.database_url,
         )
     app.state.application = application
-    for router in (charts.router, tracks.router, coverage.router, rights.router, exports.router):
+    for router in (
+        charts.router,
+        tracks.router,
+        coverage.router,
+        rights.router,
+        exports.router,
+        quota_staging.router,
+    ):
         app.include_router(router)
     return app
 

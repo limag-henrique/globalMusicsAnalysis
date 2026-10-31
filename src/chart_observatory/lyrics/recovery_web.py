@@ -29,7 +29,12 @@ MIN_FREE_CACHE_BYTES = 1024 ** 3
 class CachedRecoveryHTTP:
     """Serialize starts per domain; retain successful raw responses for replay."""
 
-    def __init__(self, cache: Path, client: httpx.Client, interval: float = 0.3):
+    def __init__(
+        self, cache: Path, client: httpx.Client, interval: float = 0.3, *, attempts: int = 3
+    ):
+        if attempts < 1:
+            raise ValueError("HTTP attempts must be positive")
+        self.attempts = attempts
         self.cache, self.client, self.interval = cache, client, interval
         self.cache.mkdir(parents=True, exist_ok=True)
         self._guard = threading.Lock()
@@ -87,7 +92,7 @@ class CachedRecoveryHTTP:
                     path.rename(path.with_suffix(f".interrupted-{uuid4()}"))
             if disk_usage(self.cache).free < MIN_FREE_CACHE_BYTES:
                 raise OSError(errno.ENOSPC, "recovery paused: less than 1 GiB free on cache volume")
-            for attempt in range(3):
+            for attempt in range(self.attempts):
                 try:
                     with slots:
                         with pace_lock:
@@ -96,7 +101,7 @@ class CachedRecoveryHTTP:
                             self._last[domain] = time.monotonic()
                         response = self.client.send(request, follow_redirects=True)
                 except httpx.HTTPError:
-                    if attempt == 2:
+                    if attempt == self.attempts - 1:
                         self.trace.append({"url": str(request.url), "status": None})
                         raise
                     time.sleep(2 ** attempt)
@@ -128,7 +133,10 @@ class CachedRecoveryHTTP:
                         "raw_bytes_preserved": True,
                     })
                     return response
-                if response.status_code not in {429, 500, 502, 503, 504} or attempt == 2:
+                if (
+                    response.status_code not in {429, 500, 502, 503, 504}
+                    or attempt == self.attempts - 1
+                ):
                     self.trace.append({"url": str(request.url), "status": response.status_code})
                     return response
                 try:

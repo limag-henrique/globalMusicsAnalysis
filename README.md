@@ -10,8 +10,11 @@ aplicar as cotas variáveis por país/ano e preparar a classificação Gemini, s
 Ele inclui um resumo e um texto de continuidade para o Codex no computador novo.
 
 Nesta fase, o teto informado é **US$150**, com meta principal de até 30 mil candidatos
-globais. As cotas já foram calculadas; os importadores e o despacho pago do novo
-protocolo ainda precisam de integração. Receitas antigas de Top 80 e tetos de
+globais. A importação por cotas já tem staging PostgreSQL e uma página de revisão
+em Streamlit (`Importação por cotas`). Letras pendentes não estão liberadas para
+classificação; o despacho pago do novo protocolo ainda precisa de integração.
+Consulte [a importação e revisão pendente](docs/operations/postgres-lyric-staging-20261031.md).
+Receitas antigas de Top 80 e tetos de
 US$180/600 abaixo ou em documentos históricos não configuram esta execução.
 
 ---
