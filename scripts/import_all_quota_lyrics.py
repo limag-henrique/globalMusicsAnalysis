@@ -51,6 +51,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--state-root", required=True, type=Path)
     parser.add_argument("--hours", type=float, default=24)
+    parser.add_argument("--candidate-ids-file", type=Path)
+    parser.add_argument("--search-cache-max-age-hours", type=float)
     args = parser.parse_args()
     if not 0 < args.hours <= 24:
         parser.error("hours must be in (0,24]")
@@ -72,6 +74,19 @@ def main():
             for line in selection_raw.decode("utf-8").splitlines()
             if line
         }
+        filter_hash = None
+        scope_count = len(candidate_ids)
+        if args.candidate_ids_file:
+            raw = args.candidate_ids_file.read_bytes()
+            wanted = {
+                json.loads(line)["candidate_id"]
+                for line in raw.decode("utf-8").splitlines()
+                if line
+            }
+            if not wanted or not wanted.issubset(candidate_ids):
+                raise ValueError("candidate filter must be nonempty and within frozen selection")
+            filter_hash = hashlib.sha256(raw).hexdigest()
+            scope_count = len(wanted)
         config_path = state / "campaign.json"
         if not config_path.exists():
             source = json.loads(
@@ -88,6 +103,8 @@ def main():
                 source_reference_is_analysis_input=False,
                 candidate_count=len(candidate_ids),
                 selection_sha256=hashlib.sha256(selection_raw).hexdigest(),
+                candidate_filter_sha256=filter_hash,
+                acquisition_scope_count=scope_count,
             )
             for relative, expected in config["frozen_inputs"].items():
                 with (ROOT / relative).open("rb") as file:
@@ -135,12 +152,17 @@ def main():
             "--method-prefix",
             state.name,
         ]
+        if args.candidate_ids_file:
+            worker.extend(["--candidate-ids-file", str(args.candidate_ids_file.resolve())])
+        if args.search_cache_max_age_hours is not None:
+            worker.extend(["--search-cache-max-age-hours", str(args.search_cache_max_age_hours)])
         publish_status(
             state / "status.json",
             dict(
                 stage="acquiring_all_candidates",
                 pid=os.getpid(),
                 total_candidates=len(candidate_ids),
+                acquisition_scope_count=scope_count,
                 scope=(
                     "All frozen quota candidates; reuse existing texts "
                     "and recover absent/suspect texts"

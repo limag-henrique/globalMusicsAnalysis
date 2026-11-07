@@ -188,15 +188,28 @@ class AcquisitionStore:
 class PacedHTTP(CachedRecoveryHTTP):
     """Cache successes and 404s; pause a domain after access or rate-limit failures."""
 
-    def __init__(self, cache, client, cache_sources=()):
+    def __init__(
+        self,
+        cache,
+        client,
+        cache_sources=(),
+        *,
+        search_cache_max_age_seconds=None,
+        cooldown_path=None,
+    ):
         # The scheduler owns provider retries and observes the complete Retry-After.
         super().__init__(cache, client, interval=0.5, attempts=1)
         self.cache_sources = tuple(Path(path) for path in cache_sources if Path(path).is_dir())
+        if search_cache_max_age_seconds is not None and search_cache_max_age_seconds <= 0:
+            raise ValueError("search cache age must be positive")
+        self.search_cache_max_age_seconds = search_cache_max_age_seconds
         self._reuse_guard = threading.Lock()
         self._blocked_until = {}
         self._negative = set()
         self._domain_guard = threading.Lock()
-        self._cooldown_path = self.cache / "provider-cooldowns.sqlite"
+        self._cooldown_path = (
+            Path(cooldown_path) if cooldown_path else self.cache / "provider-cooldowns.sqlite"
+        )
         with closing(sqlite3.connect(self._cooldown_path)) as db, db:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS provider_cooldowns("
@@ -217,10 +230,7 @@ class PacedHTTP(CachedRecoveryHTTP):
         with self._domain_guard:
             return max(
                 0,
-                min(
-                    self._blocked_until.get(domain, 0) - now
-                    for domain in domains
-                ),
+                min(self._blocked_until.get(domain, 0) - now for domain in domains),
             )
 
     def provider_retry_delays(self):
@@ -257,6 +267,25 @@ class PacedHTTP(CachedRecoveryHTTP):
                 (domain, until_epoch),
             )
 
+    def _borrowable(self, path, url):
+        parsed = urlparse(url)
+        search = (parsed.hostname, parsed.path) in {
+            ("lrclib.net", "/api/search"),
+            ("genius.com", "/api/search/multi"),
+        }
+        if not search or self.search_cache_max_age_seconds is None:
+            return True
+        try:
+            saved = json.loads(path.read_text(encoding="utf-8"))
+            retrieved = datetime.fromisoformat(saved["retrieved_at"])
+            return retrieved.tzinfo is not None and (
+                0
+                <= (datetime.now(UTC) - retrieved).total_seconds()
+                <= self.search_cache_max_age_seconds
+            )
+        except (ValueError, TypeError, KeyError):
+            return False
+
     def get(self, url, **kwargs):
         request = self.client.build_request("GET", url, **kwargs)
         domain, key = urlparse(str(request.url)).netloc, str(request.url)
@@ -265,7 +294,7 @@ class PacedHTTP(CachedRecoveryHTTP):
             if not cached_path.exists():
                 for directory in self.cache_sources:
                     previous = directory / cached_path.name
-                    if previous.exists():
+                    if previous.exists() and self._borrowable(previous, key):
                         try:
                             cached_path.hardlink_to(previous)
                         except OSError:
@@ -348,7 +377,8 @@ def structured_identity(page, title, artist, allowed_artists=()):
                 continue
             if item not in recordings and any(
                 kind in {"MusicRecording", "MusicComposition", "Song"}
-                for kind in kinds if isinstance(kind, str)
+                for kind in kinds
+                if isinstance(kind, str)
             ):
                 recordings.append(item)
     if primary_refs:
@@ -360,8 +390,11 @@ def structured_identity(page, title, artist, allowed_artists=()):
             else:
                 ref_id = ref.get("@id") if isinstance(ref, dict) else ref
                 matches = [
-                    entity for entity in entities
-                    if isinstance(ref_id, str) and ref_id and entity.get("@id") == ref_id
+                    entity
+                    for entity in entities
+                    if isinstance(ref_id, str)
+                    and ref_id
+                    and entity.get("@id") == ref_id
                     and entity in recordings
                 ]
             if len(matches) != 1:
@@ -520,11 +553,7 @@ def extract_html(html, source, title, artist, allowed_artists=(), *, provider_so
 
 
 def candidate(text, source, **metadata):
-    if (
-        not isinstance(text, str)
-        or not text
-        or has_partial_lyrics_notice(text)
-    ):
+    if not isinstance(text, str) or not text or has_partial_lyrics_notice(text):
         return None
     derivative = prepare_lyric_derivative(text, source)
     return dict(

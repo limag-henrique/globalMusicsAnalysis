@@ -33,3 +33,22 @@ foi preservado, e a nova campanha usa um override restrito ao subprocesso.
 Verificação antes do início: 63 testes de campanha/supervisor/aquisição/descoberta
 passaram; Ruff passou nos três arquivos desta alteração. O supervisor também foi
 testado com um subprocesso real offline. Não houve chamada Vertex.
+
+## Importação intermediária durante a coleta
+
+`scripts/import_validation_updates.py` lê o SQLite em modo somente leitura;
+não inicia outro coletor nem faz requisições a fornecedores. Produz snapshot
+PostgreSQL append-only e auditoria de hashes/pendências. O lock transacional do
+staging serializa a persistência com outros importadores. Não libera classificação.
+
+O piloto real usa `--once`. Após validado, o processo independente importa ao
+acumular 100 mudanças na quantidade de textos ou após 30 minutos com mudanças de
+conteúdo/proveniência. Sem alteração, não duplica snapshots. Termina quando o
+supervisor encerra ou ao atingir o prazo da campanha mais a margem de finalização.
+
+Estados e checkpoints ficam em `validation-updates/`, com ciclos separados.
+O checkpoint registra o run_id importado e o auditado. Contagens do snapshot
+podem diferir das da coleta, que continua avançando durante a importação.
+
+Nesta extensão, 20 testes de atualização, staging, revisão e qualidade passaram.
+O primeiro ciclo real foi importado e auditado com zero liberação de classificação.

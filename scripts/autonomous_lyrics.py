@@ -251,7 +251,12 @@ def filter_targeted_candidates(targets, path):
 
 
 def main(
-    hours=8, method_prefix="exact-discovery-v2", wait_pid=None, candidate_ids_file=None, rounds=3
+    hours=8,
+    method_prefix="exact-discovery-v2",
+    wait_pid=None,
+    candidate_ids_file=None,
+    rounds=3,
+    search_cache_max_age_hours=None,
 ):
     STATE.mkdir(parents=True, exist_ok=True)
     if wait_pid:
@@ -403,7 +408,23 @@ def main(
                 old_caches.extend(
                     (ROOT / "data/derived/annual_revision").glob("*/acquisition/http-cache")
                 )
-                http = PacedHTTP(OUTPUT / "http-cache", client, cache_sources=old_caches)
+                cache = OUTPUT / "http-cache"
+                if search_cache_max_age_hours is not None:
+                    # Refresh only old discovery responses in an isolated cache;
+                    # preserve raw evidence and share all existing provider pauses.
+                    old_caches.insert(0, cache)
+                    cache = STATE / "http-cache"
+                http = PacedHTTP(
+                    cache,
+                    client,
+                    cache_sources=old_caches,
+                    search_cache_max_age_seconds=(
+                        search_cache_max_age_hours * 3600
+                        if search_cache_max_age_hours is not None
+                        else None
+                    ),
+                    cooldown_path=OUTPUT / "http-cache/provider-cooldowns.sqlite",
+                )
                 native_signature = None
                 for round_number in range(1, rounds + 1):
                     display_path = BASE / "native-display-metadata.json"
@@ -688,12 +709,22 @@ if __name__ == "__main__":
     parser.add_argument("--state-root", type=Path)
     parser.add_argument("--base-root", type=Path)
     parser.add_argument("--candidate-ids-file", type=Path)
+    parser.add_argument("--search-cache-max-age-hours", type=float)
     parser.add_argument("--rounds", type=int, choices=(1, 2, 3), default=3)
     args = parser.parse_args()
     if not 0 < args.hours <= 24:
         parser.error("hours must be in (0,24]")
+    if args.search_cache_max_age_hours is not None and args.search_cache_max_age_hours <= 0:
+        parser.error("search cache age must be positive")
     if args.state_root:
         STATE = args.state_root.resolve()
     if args.base_root:
         BASE = args.base_root.resolve()
-    main(args.hours, args.method_prefix, args.wait_pid, args.candidate_ids_file, args.rounds)
+    main(
+        args.hours,
+        args.method_prefix,
+        args.wait_pid,
+        args.candidate_ids_file,
+        args.rounds,
+        args.search_cache_max_age_hours,
+    )

@@ -459,3 +459,73 @@ def test_verified_duration_can_disambiguate_same_named_lrclib_editions(tmp_path)
     )
     assert audit["identity_validated"] is False
     assert audit["completeness_validated"] is False
+
+
+@pytest.mark.parametrize(
+    "url,old,expected_calls",
+    [
+        ("https://lrclib.net/api/search?q=test", True, 1),
+        ("https://genius.com/api/search/multi?q=test", True, 1),
+        ("https://lrclib.net/api/search?q=test", False, 0),
+        ("https://genius.com/example-lyrics", True, 0),
+    ],
+)
+def test_refresh_search_cache_preserves_original_evidence(tmp_path, url, old, expected_calls):
+    from chart_observatory.lyrics.recovery_web import CachedRecoveryHTTP
+
+    old_cache = tmp_path / "old"
+    calls = []
+    with httpx.Client(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, json=[]))
+    ) as client:
+        CachedRecoveryHTTP(old_cache, client).get(url)
+    path = next(old_cache.glob("*.json"))
+    saved = json.loads(path.read_text(encoding="utf-8"))
+    saved["retrieved_at"] = (
+        datetime.now(UTC) - timedelta(days=2) if old else datetime.now(UTC)
+    ).isoformat()
+    path.write_text(json.dumps(saved), encoding="utf-8")
+    original = path.read_bytes()
+
+    def respond(request):
+        calls.append(str(request.url))
+        return httpx.Response(200, json=[{"id": 1}])
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        http = PacedHTTP(
+            tmp_path / "new", client, cache_sources=[old_cache], search_cache_max_age_seconds=3600
+        )
+        assert http.get(url).status_code == 200
+    assert len(calls) == expected_calls
+    assert path.read_bytes() == original
+
+
+def test_search_refresh_honors_shared_provider_pause(tmp_path):
+    import time
+
+    old = tmp_path / "old"
+    old.mkdir()
+    cooldown = old / "provider-cooldowns.sqlite"
+    import sqlite3
+
+    with sqlite3.connect(cooldown) as conn:
+        conn.execute(
+            "CREATE TABLE provider_cooldowns(domain TEXT PRIMARY KEY,until_epoch REAL NOT NULL)"
+        )
+        conn.execute(
+            "INSERT INTO provider_cooldowns VALUES (?,?)", ("lrclib.net", time.time() + 600)
+        )
+
+    def forbidden(_request):
+        raise AssertionError("refresh must not bypass provider pause")
+
+    with httpx.Client(transport=httpx.MockTransport(forbidden)) as client:
+        http = PacedHTTP(
+            tmp_path / "new",
+            client,
+            cache_sources=[old],
+            search_cache_max_age_seconds=3600,
+            cooldown_path=cooldown,
+        )
+        assert http.get("https://lrclib.net/api/search", params={"q": "test"}).status_code == 429
+        assert http.provider_retry_delays()["lrclib.net"] > 500
