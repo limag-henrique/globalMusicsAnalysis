@@ -14,6 +14,10 @@ globais. A importação por cotas já tem staging PostgreSQL e uma página de re
 em Streamlit (`Importação por cotas`). Letras pendentes não estão liberadas para
 classificação; o despacho pago do novo protocolo ainda precisa de integração.
 Consulte [a importação e revisão pendente](docs/operations/postgres-lyric-staging-20261031.md).
+Novas classificações online e batch, inclusive `--force` e `--estimate-cost`,
+exigem [adjudicação explícita de identidade e integridade por documento/hash](docs/operations/classification-eligibility-gate.md).
+Documentos históricos sem essa evidência são preservados e ficam fora de novas
+chamadas; o backfill de aquisição deve usar `--skip-gemini`.
 Receitas antigas de Top 80 e tetos de
 US$180/600 abaixo ou em documentos históricos não configuram esta execução.
 

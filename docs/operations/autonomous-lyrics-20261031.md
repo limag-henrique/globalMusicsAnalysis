@@ -375,3 +375,253 @@ recover_with_fallback tenta AZLyrics e Musixmatch após descoberta LRCLIB/Genius
 ### Pausa por disponibilidade das quatro fontes
 
 search_retry_delay aceita conjunto explícito de provedores; a fila agora usa LRCLIB, Genius, AZLyrics e Musixmatch, permitindo trabalho quando qualquer uma dessas fontes está disponível. Bloqueio por domínio e Retry-After continuam respeitados. Trinta e quatro testes passaram e Ruff passou. O worker v13 já enfileirado carregará essa versão ao iniciar; v12 PID 3660, metadados PID 2580 e espera PID 9752 foram confirmados vivos às 20:18 BRT. Metadados: 19.313 resolvidos; v12: 18.996 itens restantes na primeira rodada, sem chamadas pagas. Novo replay exclusivamente local iniciado em data/runtime/offline-native-19k-replay-20261031, processo real 3112, launcher 17440.
+
+
+### Replay após 19 mil metadados confirmados
+
+A execução offline-native-19k-replay-20261031 (PID 3112) terminou em 2026-10-31T23:22:54Z: 20.489 candidatos examinados, 341 novas propostas, 173 propostas já existentes, zero erros e zero requisições de rede. O processo foi acompanhado por identidade Windows e avanço de leituras durante a preparação antes de seu primeiro contador, sem reinício. A preparação de próximas execuções agora publica status antes de verificar seleção/metadados e a cada 500 tarefas na revisão de qualidade, usando publish_status com retentativas de compartilhamento; Ruff e compilação passaram. Iniciada preparação de novo snapshot PostgreSQL; as propostas permanecem pendentes de incorporação e revisão até confirmação do snapshot.
+
+Snapshot confirmado: 30e9d86d7f5ba812cc0d0666615a1d587174c099af885b674ea1239bc5ece7f4, persistido em 2026-10-31T23:24:06Z, 28.373 candidatos, 16.507 textos distintos atuais, 320 novos blobs históricos (19.792 totais), zero candidatos liberados para classificação paga. Inventário atualizado: 18.631 candidatos com texto, 9.742 sem texto; 68.342 posições com texto e 17.748 posições selecionadas sem texto. As 3.730 lacunas de ranking permanecem. Não confundir esses contadores com letras corretamente atribuídas/completas certificadas.
+
+
+### Textos compartilhados por identidades diferentes
+
+Nova auditoria identity_collisions verifica título e intérpretes normalizados para cada SHA-256. A análise do snapshot 30e9d86d encontrou 106 grupos/238 candidatos: 51 grupos com títulos diferentes e 73 com intérpretes diferentes (há sobreposição). São sinais de revisão, não prova automática de erro: covers, versões e nomes alternativos podem explicar alguns casos. Inventário em data/runtime/shared-text-identity-review-20261031.json. Cinco testes de colisão/staging passaram; Ruff passou. Snapshot 7900e3d462c12fb1a57229aacedf745d340552e3e2e6f39a082d0bff11a0a7f3 persistido, 28.373 candidatos, 16.507 textos distintos, zero blobs novos, alertas incluídos e zero liberação para classificação. Alvos atomizados em identity-audit/shared-text-repair-targets.jsonl, com candidato/hash/run_id; v13 os incorpora à prioridade apenas enquanto o hash suspeito corresponder ao resultado atual, preservando a lista antiga de reparos. Quatro testes de atualização/colisão passaram após integrar a prioridade. Nenhum texto foi escolhido ou substituído por essa auditoria.
+
+
+### Preservação de versos no cliente legado Genius
+
+Removidas limpezas genéricas que podiam apagar uma primeira linha terminada em Lyrics, a expressão You might also like dentro de um verso ou Embed no final da música. O cliente agora remove apenas uma linha inicial exatamente N Contributors e um cabeçalho exatamente igual ao título confirmado seguido de Lyrics. Versos com palavras semelhantes permanecem íntegros. Vinte e três testes de qualidade/identidade passaram, incluindo regressões para esses casos. A alteração protege futuras chamadas do cliente legado e não reconstrói automaticamente versos eventualmente perdidos em documentos antigos. O coletor moderno já usa extração integral dos contêineres.
+
+
+### Validação conjunta do módulo de letras na máquina destino
+
+Suíte tests/unit/lyrics: 374 testes passaram em 28,07 s, com --basetemp novo dentro de data/runtime no disco D:. A primeira execução encontrou cinco falhas ambientais porque tmp_path padrão ficava no C: e o BatchClassificationService exige o disco do projeto; a proteção de produção foi preservada. Dois testes de recovery_web foram atualizados para páginas simuladas com MusicRecording/título/artista exigidos pela nova conferência e para a versão v3 do derivador. A repetição expôs dois testes que liam manifesto UTF-8 com encoding padrão Windows e corrompiam Repositórios no caminho SQLite; leitura explicitamente UTF-8 corrigida nos testes. A execução final passou integralmente. Os adaptadores de classificação nesses testes são simulados, sem chamadas pagas. Isso verifica integração de software, não certifica todas as letras ou rankings. Coletores reais 3660/2580 e espera 9752 confirmados ativos durante a verificação.
+
+
+### Evidência auxiliar de duração
+
+Uma consulta pública controlada ao embed Spotify de 28fP6qcMGPfYOjrx8AOWFn retornou HTTP200, URI exata e duration=200506 ms (igual ao valor da consulta oficial anterior). spotify_entity passa a preservar duration_ms positivo inteiro sem tokens; apply_native_display_metadata o leva à resolução vinculada por hash/URI. Candidatos LRCLIB preservam duration_seconds quando presente. A auditoria sinaliza recording_duration_mismatch quando a diferença supera max(3 s, 2% da duração Spotify); ausência ou proximidade não valida gravação/letra/completude. O coletor já iniciado não recarrega o parser e registros antigos não ganharam duração por inferência. Trinta e sete testes focados passaram antes da regra comparativa, e 21 passaram após integrá-la, incluindo mismatch, aproximação e valor não finito. Nenhuma coleta ampla adicional de duração foi iniciada.
+
+
+### Duração integrada à busca de alternativas
+
+recover_with_fallback recebe metadata_resolution do candidato selecionado, mantendo título/artista originais na auditoria; uma divergência de duração passa a impedir aceitação antecipada e permite a tentativa AZLyrics/Musixmatch. A obtenção LRCLIB vinculada por créditos Genius também preserva a duração do registro. Dezoito testes focados passaram e Ruff passou, incluindo o cenário de duração divergente seguido de fonte alternativa. O resultado divergente continua disponível para revisão caso nenhuma alternativa passe. A execução v13 em espera carregará essa lógica ao iniciar, sem reiniciar v12. Processos 3660/2580/9752 confirmados vivos nesta etapa. Durações antigas ausentes continuam desconhecidas.
+
+
+### Recuperação incremental sem reexaminar toda a seleção
+
+replay_cached_quota_lyrics.py aceita --candidate-ids-file (JSONL candidate_id), exige lista não vazia e inteiramente contida na seleção atual, filtra a resolução de metadados e a leitura de blobs ao escopo solicitado, e publica SHA-256 da lista. Nenhuma cota/posição é alterada. Lista derivada de provas nativas verificadas por hash com retrieved_at posterior a 2026-10-31T23:18:56Z: 1.459 candidatos. Execução offline-native-incremental-20261031 terminou às 23:43:37Z em aproximadamente sete segundos: 568 elegíveis processados, 47 novas propostas, uma existente, zero erros/rede. Auditoria independente das 47 propostas confirmou pertença ao filtro e ausência de flags/quarentena; evidência proposal-verification.json. Ruff passou.
+
+Snapshot 07d8a8324ef9bfce759fcaed73ad4a9830e763be7981a8ab875e8c78c198d4fc gravado e conferido às 23:44:20Z, incorporando também o avanço do coletor principal: 28.373 candidatos, 16.598 textos distintos, 176 novos blobs históricos (19.968 totais). Não atribuir todos os 176 blobs às 47 propostas incrementais. Cobertura atual: 18.715 candidatos com texto, 9.658 sem texto, 68.642 posições com texto e 17.448 posições selecionadas sem texto. Permanecem 3.730 lacunas de ranking; nenhum candidato liberado para classificação paga.
+
+
+### Coleta limitada de duração para identidades suspeitas
+
+O coletor nativo aceita --candidate-ids-file e --refresh-missing-duration; só consulta IDs da seleção Spotify e preserva provas anteriores em lotes imutáveis antes de atualizar a SQLite. Uma falha HTTP não substitui metadados positivos. Publica resolved_in_scope e duration_in_scope além do total global. Nove testes passaram, incluindo atualização restrita bem-sucedida e HTTP404 preservando a prova anterior; Ruff passou.
+
+Lista de 228 IDs Spotify derivada dos 238 candidatos com texto compartilhado por identidades diferentes: data/runtime/priority-native-durations-20261031/candidate-ids.jsonl. Wrapper real PID24432 (launcher24640), criado às 20:47:50 BRT, espera o handle real2580 encerrar. Após isso tentará durações por até uma hora, com --skip-if-previous-provider-pause: não inicia se a execução anterior terminou em provider_access_paused/waiting_provider_cooldown. Estado waiting_for_previous_owner confirmado. Não há segundo coletor nativo paralelo nem novo download de letras nessa tarefa; a aquisição de durações ainda não começou. O lock nativo continua exclusivo.
+
+
+### Duração considerada antes de encerrar a aquisição
+
+A verificação recording_duration_mismatch foi centralizada em text_quality. fetch_candidate recebe expected_duration_ms e filtra versões LRCLIB divergentes antes de escolher texto/encerrar a busca. Isso evita que o fallback volte a retornar a mesma versão divergente antes de alcançar AZLyrics/Musixmatch e permite distinguir duas edições com título/artista iguais quando só uma duração é compatível. recover_with_fallback repassa a duração vinculada; o replay local também o faz. Chaves de propostas agora usam main-entity-native-display-v3 e a duração, preservando os artefatos antigos. Trinta e nove testes focados passaram e Ruff passou; cobrem alternativa HTML após duração divergente e versões LRCLIB indistinguíveis sem duração. Ausência de duração continua desconhecida; uma aproximação não certifica identidade/completude. A versão em execução não foi reiniciada.
+
+
+### Planejamento verificável do replay incremental
+
+Novo replay_new_native_metadata.py seleciona apenas IDs presentes na seleção e provas públicas Spotify recentes, com SHA-256/URI/nomes conferidos e timestamps com fuso. Plano guarda hashes da seleção, mapa e filtro; lista vazia encerra sem iniciar uma busca global. Três testes passaram (escopo, corte temporal, bytes alterados, URI errada e exigência de fuso) e Ruff passou. Execução offline-native-incremental-v3-20261031 terminou em 2026-11-01T00:01:21Z: 955 IDs recentes, 684 elegíveis processados, 49 propostas, zero erros/rede. As propostas são candidatas, não letras certificadas.
+
+Novo wrapper real24684/launcher23428, criado às21:01:46 BRT de31/10, espera o handle real24432 (tarefa de durações) e então executa replay_new_native_metadata.py com o mesmo limite inferior23:43Z, incorporando os novos metadados publicados; waiting_for_previous_owner confirmado. Não há coleta paralela de letras por esse wrapper.
+
+Snapshot5c5897c0fd39ff867b80261e4c30ff16de9adc12e93b2e1723d11d28e8a5ca76 conferido às00:02:08Z (21:02 BRT): 28.373 candidatos, 16.711 textos distintos e 215 novos blobs históricos (20.183 totais), incluindo progresso do coletor principal. Cobertura: 18.834 candidatos com texto, 9.539 sem texto; 68.978 posições com texto, 17.112 selecionadas sem texto e 3.730 faltas de ranking. Zero candidatos liberados para classificação paga.
+
+
+### Créditos e qualificadores de versão no mesmo parêntese
+
+A normalização Genius agora separa apenas sufixos explícitos conhecidos após " - " dentro de créditos: Song (feat. Guest - Live) pode corresponder a Song (Live) com Guest comprovado, sem corresponder a Song de estúdio. O sufixo completo é preservado (incluindo local/ano), e a busca usa esse título com versão. Termos desconhecidos não são apagados. A verificação anterior já recusava a versão de estúdio nesse caso, mas também não recuperava a versão correta. Trinta e três testes de descoberta/importação/identidade passaram e Ruff passou; regressões cobrem Live, Ao Vivo, 2018 Remaster, Radio Edit, local de show e Remix, mantendo a recusa de artista participante diferente. Entradas sem título/artista retornam falso. A mudança será carregada pela próxima execução, sem reinício do coletor atual.
+
+
+### Participações ausentes não equivalem a lista vazia
+
+A auditoria local dos últimos100 resultados Genius identificou113 ocorrências de hits correspondentes em respostas de busca em cache; todas tinham featured_artists explicitamente presente como lista. Evidência agregada em data/runtime/genius-credit-field-audit-20261031.json (não são113 respostas únicas nem prova sobre toda a base). O matcher agora recusa campo ausente/nulo/malformado e participantes sem nome. Busca resumida consulta api/songs/{id} antes de aceitar a identidade, inclusive para pedido aparentemente solo; detalhes com convidado não solicitado são recusados antes de baixar letra. Novas provas registram performer_credit_fields_explicit=true. O cliente legado também consulta detalhes para esses resultados resumidos. Cinquenta e sete testes focados passaram e Ruff passou, incluindo detalhe que revela um convidado desconhecido versus participação solicitada correta. Nenhuma promoção científica automática nem chamada paga; os testes HTTP usam transporte simulado.
+
+Replay incremental-next (desde00:01Z): 1.340 IDs recentes, 983 elegíveis examinados, 51 propostas, zero erros/rede. Snapshot6dcb9999232a44c038d8fd56eb461ccaae5a9422c275b14475c47eb75b9fc5ed concluído e conferido: 28.373 candidatos, 16.715 textos distintos atuais, 24 novos blobs históricos, classification_ready=false. A sessão89852/PID372 foi acompanhada até saída0; nenhuma reinicialização por demora. As propostas incluem reparos e evidências não elegíveis, não51 músicas novas validadas.
+
+### Continuidade local e retomada no logon — 31/10/2026, 22:00 BRT
+
+Conferidos PID, criação e comando: 3660 (v12), 2580 (metadados), 9752
+(v13 em espera), 24432 (durações em espera) e 24684 (replay em espera).
+Nenhum desses processos foi interrompido ou duplicado.
+
+Adicionado `scripts/supervise_quota_recovery.py`, com lock exclusivo,
+inventário CIM de comandos/criação a cada 60 segundos, checkpoints e logs em
+`data/runtime/quota-supervisor-20261031`. Adota trabalhadores existentes;
+retoma os ausentes após perda de processos; preserva pausas/bloqueios nativos;
+encadeia metadados, 228 durações, replay local, staging verificado e cobertura.
+Após as janelas existentes de letras, inicia janelas de oito horas usando a
+mesma aquisição/cache e estados separados. Erros de trabalhadores interrompem
+o supervisor com `attention-required.json`, sem retentativas rápidas. Não usa
+IA, classificação paga, substituição de posições ou alterações de cotas.
+
+Retomada instalada na pasta Startup do usuário como
+`PromiscuidadeMusical - Retomada.lnk`, apontando para
+`scripts/start_quota_supervisor.ps1` com janela oculta e Python da `.venv`.
+O teste real pelo atalho alcançou o lock do supervisor já ativo (segunda
+instância recusada). O Agendador foi testado mas o launcher da `.venv` falhou
+nesse contexto com saída 103; a tarefa experimental foi removida. Não alegar
+execução antes do logon nem teste de reinício físico do Windows. O supervisor
+atual foi recarregado para incluir registro de saída das próximas janelas;
+apenas os processos do próprio supervisor foram encerrados nessa recarga.
+
+Quatro testes focados passaram e Ruff passou: adoção de wrapper sem duplicar,
+retomada sem processo, pausa terminal do provedor e falha de dependência.
+Último inventário de revisão preservado: 18.852 com texto, 9.521 sem texto;
+3.730 lacunas de ranking em 25 células. Nada disso certifica letras. Nenhuma
+nova auditoria integral ou snapshot foi iniciado nesta passagem.
+
+### Campanha autônoma de 24 horas — 01/11/2026, 20:16 BRT
+
+Solicitação explícita: processamento de fundo por 24 horas sem depender do
+chat/créditos de IA. Janela persistida em `campaign.json`: início
+2026-11-01T23:16:49.951710Z, fim 2026-11-02T23:16:49.951710Z
+(02/11 às 20:16:49 BRT). O supervisor deixa de abrir novas janelas ao terminar
+o prazo, drena o trabalho em voo e grava cobertura/auditoria finais. Novas
+janelas têm duração limitada pelo restante da campanha, inclusive após reboot.
+
+Tarefa Windows `PromiscuidadeMusical-24h-Recovery`: verificação a cada cinco
+minutos por 24 horas e gatilho de logon, instâncias duplicadas ignoradas,
+execução oculta e permitida em bateria. Teste real de uma invocação teve saída
+0; após recarregar somente o supervisor, o Agendador iniciou o proprietário
+real13416/launcher19344 às20:16:51. O coletor real2168, criado às17:32:44,
+foi adotado sem interrupção. A tarefa permanece Running enquanto seu supervisor
+está ativo; gatilhos repetidos não abrem outro proprietário. Não há heartbeat
+Codex nem consumo de IA para monitoramento.
+
+Corrigida a causa de diferenças entre app/Agendador: os executáveis e o cluster
+estão no cache físico do pacote Codex. A `.venv/pyvenv.cfg` agora aponta para o
+Python físico existente; configuração anterior preservada em
+`pyvenv-before-watchdog.cfg`. O launcher usa o LOCALAPPDATA físico registrado
+na campanha, remove overrides Python herdados e usa logs por PID, evitando
+compartilhamento exclusivo de stdout. O cluster16 existente é retomado pelo
+`research_environment.ps1`; não se cria cluster vazio nem se acessa o material
+PostgreSQL18 da máquina antiga. Credenciais não foram expostas.
+
+Tentativa de tarefa S4U para executar antes do logon recebeu Acesso negado.
+Logo, a retomada suportada é na sessão aberta e no próximo logon. Não prometer
+execução com Windows desligado/antes de login. O supervisor mantém um pedido
+processual ES_SYSTEM_REQUIRED para impedir suspensão automática por ociosidade,
+sem alterar permanentemente o plano de energia.
+
+Integridade: hashes dos arquivos fonte/cotas/seleção ficam congelados na
+campanha e são conferidos antes de novas janelas. Todos os86.090 vínculos
+atuais em arquivo e staging foram comparados com a candidata nativa no mesmo
+país/ano/plataforma/posição do Parquet de origem, sem divergências. A trava é
+executada também antes da fila e do staging; não certifica a fonte externa ou
+o texto por si só. Rankings provisórios, identidade e completude pendentes
+seguem bloqueados; nenhuma promoção científica ou classificação paga.
+
+Falhas transitórias fatais de worker têm retomada limitada a três tentativas,
+com intervalo mínimo de cinco minutos. Falhas de integridade entram em
+`safety-hold.json` e não são contornadas pelo watchdog. Erros individuais de
+rede continuam usando os limites/cooldowns dos provedores. A descoberta de
+charts repete somente TimeoutError, no máximo duas rodadas com seis horas
+entre rodadas; os registros originais vão para timeout-retry-history.json.
+Não repete automaticamente rejeições de identidade/conteúdo nem bloqueios
+401/403/429. Retentativa real iniciada como17424/launcher2208 às20:16:52.
+
+Cobertura e auditoria de escopo são atualizadas após cada snapshot bem-sucedido
+e ao encerrar a campanha, em vez de repetir snapshots completos por minuto.
+38 testes focados passaram e Ruff passou: prazo persistente/fuso/expiração,
+alteração de fonte congelada, proteção de caminho, candidata/país/ano/posição,
+limites de cota, adoção/duplicação de processos e preservação de timeouts.
+O último inventário consolidado mantém21.538 com texto e6.835 sem texto;
+3.730 posições anuais permanecem pendentes. Não confundir automação operacional
+com conclusão científica ou garantia de letras ainda não validadas.
+
+### Rodada direcionada executada — 03/11/2026, 20:19 BRT
+
+A campanha ampla de24h não foi repetida. Novo runner
+`scripts/run_targeted_revision.py`, com proprietário exclusivo, checkpoints
+por fase e logs em `data/runtime/targeted-revision-20261103`. O launcher local
+foi direcionado pelo campaign.mode=targeted_revision e o watchdog existente
+foi atualizado para uma janela de seis horas (até04/11 às02:19 BRT). A fase de
+rede é uma única rodada de até duas horas, limitada a500 candidatos já
+selecionados nas cotas. Não há novas posições, alteração de cotas ou IA paga.
+A campanha anterior foi preservada em campaign-24h-20261101-ended.json.
+
+1. Alternativas de ranking: arquivada a página primária Apple Music
+https://music.apple.com/in/playlist/top-100-songs-2018-india/pl.7df4aa48d58c4689bad274bfe7c54cce.
+JSON-LD contém99 faixas com URLs/IDs nativos e datePublished=2018-11-29.
+Profundidade inferior à cota440, publicação antes do encerramento do ano e
+ordem atual sem comprovação das posições históricas impedem uso como ranking
+anual definitivo. Observações em alternative-ranking-evidence.json, sempre
+DISCOVERY_QUARANTINE; zero posições anuais adicionadas. O ranking anual Circle
+para KR/2018 foi localizado, mas a fonte proíbe TDM não autorizado; não foi
+iniciada coleta em massa. Totais cumulativos Kworb não foram aceitos como
+métrica anual de IL. Decisões em ranking-source-decisions.json.
+
+2. Verificação dos textos: streaming do snapshot PostgreSQL
+ ee52f67a92080f2c266b3c600c5fe63bf3ac94154b7e9b6966ac6323a926c9a3.
+22.250 candidatas examinadas por hash, regras atuais de qualidade e provas de
+atribuição:2.529 com sinais de reparo/quarentena,19.721 sem essas flags, mas
+SEM certificação de gravação/completude.112 grupos de texto compartilhado
+entre identidades diferentes foram preservados como sinais de conflito, sem
+escolha automática. Principais sinais:1.893 sem prova completa de intérpretes
+Genius,1.798 com escopo de página não comprovado,1.479 sem prova de origem da
+identidade e1.186 com créditos de colaboração não comprovados (há sobreposição).
+Relatórios text-evidence-audit.jsonl, text-audit-summary.json,
+shared-text-conflicts.json e repair-candidates.jsonl. Zero validações
+científicas automáticas e zero liberação para classificação.
+
+3. Recuperação de letras:500 candidatos sem texto priorizados por quantidade
+de vínculos e melhor posição, afetando3.954 posições já existentes nas cotas.
+Plano preserva os sinais de falha anteriores. Replay offline conferiu os500,
+com zero propostas novas, zero erros e zero rede. Aquisição real8576, iniciada
+às20:21, confirmou escopo500 e uma rodada. Às20:23 já tinha seis candidatas
+com texto pendente de validação; o ganho consolidado só deve ser contado após
+o staging. O runner fará staging, cobertura e conferência exata de país/ano/
+plataforma/posição/identificador ao concluir, sem intervenção do chat.
+
+Correção de aquisição: um httpx.RequestError na descoberta podia encerrar a
+tentativa antes das fontes alternativas. recover_with_fallback agora preserva
+o tipo do erro e continua a próxima etapa, com o mesmo HTTP/cache/cooldowns e
+as mesmas verificações de identidade e qualidade. Teste simula ReadTimeout
+seguido de AZLyrics com identidade exata; não libera classificação.
+
+A primeira chamada do novo auditor omitiu o argumento source exigido pelo
+derivador e foi corrigida antes da execução concluída; diagnóstico original
+preservado em corrected-initial-audit-call.json. Corrigido também o hash do
+plano JSONL no Windows: o hash inicial considerava LF antes da tradução para
+CRLF; o coletor já usava o hash real correto. O plano atual confere SHA256
+1214cbee5a9218e421d292054b533e80ee9f799aeedc6fdd2f68d75d7c0717a7,
+com o valor inicial preservado. Novos planos são gravados como bytes UTF-8.
+
+54 testes focados passaram e Ruff passou, incluindo timeout/fonte alternativa,
+recusa de escopo vazio/fora da seleção, preservação de versão/posição e hash
+exato dos bytes escritos no Windows. Mantêm-se3.730 lacunas anuais; nenhuma
+fonte parcial ou ambígua foi usada para declarar o esquema completo.
+
+### Inicialização silenciosa do Windows — 03/11/2026, 23:19 BRT
+
+Corrigida a janela de mensagens pg_ctl no logon. O atalho Startup e a tarefa
+Windows agora usam `wscript.exe` com `start_quota_supervisor.vbs` (host GUI,
+filho oculto e retorno de saída preservado). O bootstrap usa
+`research_environment.ps1 -Quiet`; detalhes ficam em postgres-bootstrap.log.
+O launcher verifica o marcador finished/safety-hold da rodada direcionada
+antes de preparar o banco, evitando retomar PostgreSQL para trabalho concluído.
+
+O ambiente ganhou mutex por cluster para serializar status/start concorrentes.
+O processo pg_ctl é criado sem console, com código de saída obtido por handle
+do próprio processo, leitura assíncrona limitada e prazo de60s no start. Não
+se aguarda a vida inteira do servidor descendente. O script PowerShell com
+mensagens em português foi gravado como UTF-8 com BOM para Windows PowerShell5.
+Não há exclusão manual de postmaster.pid nem alteração de dados/cotas.
+
+Verificações reais: duas chamadas -Quiet simultâneas tiveram código0 e stdout/
+stderr vazios; chamada manual exibiu disponível/sessão corretamente; o atalho
+real retornou0 e a tarefa agendada também retornou0. PostgreSQL PID8952
+permaneceu o mesmo durante as verificações finais. Nos testes iniciais foram
+corrigidos bloqueio de pipes herdados e código de saída nulo de Start-Process;
+a versão final usa Process.Start/WaitForExit e captura assíncrona. Reinício
+físico do computador não foi necessário para testar o caminho de logon.

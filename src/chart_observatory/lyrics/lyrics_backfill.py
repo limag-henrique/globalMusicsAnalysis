@@ -38,7 +38,6 @@ import polars as pl
 
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiLyricsClassifier,
-    GeminiOutcomeStatus,
     LrclibClient,
     LyricsOvhClient,
     normalize_lookup_text,
@@ -189,24 +188,12 @@ class LyricsEngine:
         return None, None, {}
 
     def annotate(self, song_id: str, title: str, artist: str, lyrics: str) -> dict[str, Any] | None:
-        """Classify lyrics via Gemini, returning the result dict or None.
+        """Acquisition has no adjudicated document; paid interpretation is separate."""
+        from chart_observatory.lyrics.classification_gate import ClassificationEligibilityError
 
-        The classifier already handles transient retries internally (429, 5xx),
-        so this method does not add its own retry loop. Non-transient outcomes
-        (BLOCKED, AUTH_ERROR, MALFORMED) are returned as None without wasting
-        additional API calls.
-        """
-        del song_id, title, artist  # Classification uses lyrics only.
-        clients = self._get_clients()
-        gemini: GeminiLyricsClassifier | None = clients.get("GEMINI")
-        if not gemini:
-            return None
-
-        self.rate_gemini.wait()
-        response = gemini.classify(lyrics)
-        if response.outcome is GeminiOutcomeStatus.SUCCESS and response.result is not None:
-            return response.result.model_dump(mode="json")
-        return None
+        raise ClassificationEligibilityError(
+            "unbound_legacy_annotation: use the adjudicated document classification service"
+        )
 
 
 def _normalize_song_key(title: str, artist: str) -> tuple[str, str]:
@@ -365,6 +352,13 @@ def run_full_automation(
 ) -> None:
     if workers < 1:
         raise ValueError("workers must be at least 1")
+    if not skip_gemini:
+        from chart_observatory.lyrics.classification_gate import ClassificationEligibilityError
+
+        raise ClassificationEligibilityError(
+            "unbound_legacy_annotation: acquire with --skip-gemini; "
+            "classify adjudicated documents separately"
+        )
 
     _load_dotenv()
     genius_token = genius_token or os.environ.get("GENIUS") or os.environ.get("GENIUS_ACCESS_TOKEN")

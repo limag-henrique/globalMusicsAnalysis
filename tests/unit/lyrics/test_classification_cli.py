@@ -6,6 +6,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
 
+import pytest
 from sqlalchemy import select
 from typer.testing import CliRunner
 
@@ -16,6 +17,7 @@ from chart_observatory.db.models.corpus import LyricClassificationSnapshot
 from chart_observatory.lyrics.classification_service import ClassificationRunSummary
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
 def _settings() -> SimpleNamespace:
     return SimpleNamespace(

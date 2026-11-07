@@ -100,7 +100,9 @@ def test_unavailable_api_does_not_prevent_scraping_other_source(tmp_path):
     def respond(request):
         if request.url.host == "lrclib.net":
             raise httpx.ConnectError("unavailable", request=request)
-        return httpx.Response(200, text='''<div data-lyrics-container="true">
+        return httpx.Response(200, text='''<script type="application/ld+json">
+            {"@type":"MusicRecording","name":"Song","byArtist":{"name":"Artist"}}
+            </script><div data-lyrics-container="true">
             [Verse 1]<br>First complete verse with sufficient words<br>Another lyric line</div>''')
 
     with httpx.Client(transport=httpx.MockTransport(respond)) as client:
@@ -122,7 +124,9 @@ def test_collect_all_preserves_disagreeing_sources_without_claiming_validation(t
                 "trackName": "Song", "artistName": "Artist", "id": 1,
                 "plainLyrics": "A first provider lyric\nAnother complete lyric line",
             }])
-        return httpx.Response(200, text='''<div data-lyrics-container="true">
+        return httpx.Response(200, text='''<script type="application/ld+json">
+            {"@type":"MusicRecording","name":"Song","byArtist":{"name":"Artist"}}
+            </script><div data-lyrics-container="true">
             A different provider lyric<br>Another complete lyric line</div>''')
 
     with httpx.Client(transport=httpx.MockTransport(respond)) as client:
@@ -134,6 +138,6 @@ def test_collect_all_preserves_disagreeing_sources_without_claiming_validation(t
     assert result["completeness_validated"] is False
     for variant in result["variants"]:
         assert len(variant["original_text_sha256"]) == 64
-        assert variant["derivative_version"] == "lyrics-text-quality-v2"
+        assert variant["derivative_version"] == "lyrics-text-quality-v3"
         assert variant["extraction_method"] == "conventional_api_or_html"
         assert isinstance(variant["transformations"], list)

@@ -67,7 +67,11 @@ def spotify_entity(html, native):
     if not isinstance(title, str) or not title.strip() or not artists or not all(artists):
         return None
     # Never persist the embed session/access token or other page settings.
-    return dict(title=title, artist=" | ".join(artists), uri=entity["uri"])
+    result = dict(title=title, artist=" | ".join(artists), uri=entity["uri"])
+    duration = entity.get("duration")
+    if isinstance(duration, int) and not isinstance(duration, bool) and duration > 0:
+        result["duration_ms"] = duration
+    return result
 
 
 def resolve(limit=None):

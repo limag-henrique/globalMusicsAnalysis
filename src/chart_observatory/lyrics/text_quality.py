@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import math
 import re
 from dataclasses import dataclass
 
@@ -30,6 +31,28 @@ _PARTIAL_TEXT = re.compile(
     r"(?:ver|leer) (?:la )?letra completa",
     re.IGNORECASE,
 )
+
+
+def recording_duration_mismatch(native_ms, provider_seconds):
+    """Flag only a measurable discrepancy; missing/invalid values prove nothing."""
+    if (
+        not isinstance(native_ms, int)
+        or isinstance(native_ms, bool)
+        or native_ms <= 0
+        or not isinstance(provider_seconds, (int, float))
+        or isinstance(provider_seconds, bool)
+    ):
+        return False
+    try:
+        expected, observed = native_ms / 1000, float(provider_seconds)
+    except (OverflowError, ValueError):
+        return False
+    return (
+        math.isfinite(expected)
+        and math.isfinite(observed)
+        and observed > 0
+        and abs(expected - observed) > max(3, expected * 0.02)
+    )
 
 
 def has_partial_lyrics_notice(text: str) -> bool:

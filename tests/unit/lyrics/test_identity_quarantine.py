@@ -21,8 +21,9 @@ from chart_observatory.lyrics.identity_quarantine import (
 )
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
-def test_exploratory_source_override_preserves_default_scientific_quarantine(tmp_path):
+def test_exploratory_override_cannot_bypass_dispatch_quarantine(tmp_path):
     engine = create_engine("sqlite+pysqlite:///:memory:")
     Base.metadata.create_all(engine)
     with Session(engine) as session:
@@ -72,7 +73,7 @@ def test_exploratory_source_override_preserves_default_scientific_quarantine(tmp
                 session, signature, quarantine_manifest_path=manifest, include_identity_holds=True
             )
         )
-        assert [item.lyric_document_id for item in candidates] == [doc.id]
+        assert candidates == []
         assert unauthorized.id not in {item.lyric_document_id for item in candidates}
         assert load_suspended_sources(manifest) == frozenset({"LETRAS"})
         assert not scientifically_eligible_document_ids([doc.id], load_quarantine_entries(manifest))

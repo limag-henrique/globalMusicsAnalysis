@@ -1,0 +1,246 @@
+{
+  "files": [
+    {
+      "path": "data/runtime/remediation-20261106/manuscript-validation.json",
+      "sha256": "401cf49c0588ccfa05a3d2cb1962025d62117b8d88b64eaf5fc39630ebf10bec",
+      "bytes": 9039,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/quota-sensitivity/summary.json",
+      "sha256": "5bda56c663a76f9fa4b771b7954bc435ce3b9274ffe30848663b99f6d8693a07",
+      "bytes": 18097,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/repair-applied.json",
+      "sha256": "90b5da8a43aeb1cd7288da014d0deb94333b4dd68c6774d88f99aaaa2acb4492",
+      "bytes": 631,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/repair-simulation.json",
+      "sha256": "39f07a93a30855aabab4f5eb482f1fa530be035e9f2293283997d9dddda651c4",
+      "bytes": 240,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/replay-full/status.json",
+      "sha256": "dbb392f3a953baded92b65f40bbec64f640d8400c26ad1e329cc4e3c56497fba",
+      "bytes": 471,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/staging-diff.json",
+      "sha256": "5ac7dcdf447df6abc985c216ba93c02c9fe876fe353f147de4537dab7a5ceccd",
+      "bytes": 930,
+      "private_runtime": true
+    },
+    {
+      "path": "data/runtime/remediation-20261106/staging/status.json",
+      "sha256": "f194fe3bf8387ac1ed857d1603d982ddb43eb2f2b1a3014f5cec1d0365f8d079",
+      "bytes": 442,
+      "private_runtime": true
+    },
+    {
+      "path": "docs/audit/2026-11-06-remediation/after-corpus-summary.json",
+      "sha256": "ba315d013338437173c959ae5c1ec4657a37f885254df382c209f7aa764f9882",
+      "bytes": 1930,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/audit/2026-11-06-remediation/execution.json",
+      "sha256": "8d0654fbfedb1f400e67e5c8731350d88cd31a4429d6e0766ce30e456b1f3f5a",
+      "bytes": 2899,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/audit/2026-11-06-remediation/full-corpus-summary.json",
+      "sha256": "fed0f69c5de7c01aeef8a75f488dbc62f6b56bd1913e62beb070bb7aad9b2f52",
+      "bytes": 1899,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/audit/2026-11-06-remediation/postgres-validation.json",
+      "sha256": "fa06bf93dd03fde32e164cd5b3cca6ac28e299a85eb47020f3d1975a79584353",
+      "bytes": 1824,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/audit/2026-11-06-remediation/questions.json",
+      "sha256": "782621ef7d5309e535508a445cc3950c8c38ff6a2aed80888bb397096173a40e",
+      "bytes": 15272,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/operations/classification-eligibility-gate.md",
+      "sha256": "35636cc913fab2980e6c26c768135be6bdf20b0c96a89f8c4919b7f4ac784ada",
+      "bytes": 7573,
+      "private_runtime": false
+    },
+    {
+      "path": "docs/operations/readiness-remediation-20261106.md",
+      "sha256": "35176ad71f719a38de560b14b2ae004b569ded51a23ecdf804bf6ae5e767b320",
+      "bytes": 15250,
+      "private_runtime": false
+    },
+    {
+      "path": "report.md",
+      "sha256": "bea0f4d15e4357456f367ca5ac024de2f03bb9ee8bb583d48134a06b063c4b17",
+      "bytes": 4748,
+      "private_runtime": false
+    },
+    {
+      "path": "scripts/analyze_quota_sensitivity.py",
+      "sha256": "b3f8862b9379b003183cd137e8956736266d98e19b9cfe5ad4ecfb8873d9a3d6",
+      "bytes": 4506,
+      "private_runtime": false
+    },
+    {
+      "path": "scripts/audit_current_lyric_corpus.py",
+      "sha256": "4acf5718fa8b225f742252f0931475fc0c4a7fb478012af3e92afc573ca78475",
+      "bytes": 10027,
+      "private_runtime": false
+    },
+    {
+      "path": "scripts/replay_cached_quota_lyrics.py",
+      "sha256": "1c7d702afe50e20c607f584fadc587b729f8bc0cf960269ab109fbee3633dcff",
+      "bytes": 13364,
+      "private_runtime": false
+    },
+    {
+      "path": "scripts/stage_quota_lyrics.py",
+      "sha256": "c0bdbf7f990c026fd9402032fdae9349d2fc2b4ec1f00c09b3dc3ef791583e07",
+      "bytes": 11539,
+      "private_runtime": false
+    },
+    {
+      "path": "scripts/validate_postgres_gate.py",
+      "sha256": "cb2dc4ec388038ec3d8746dfabe9b744fba4abf9bd08b29e4d980621819b4e3a",
+      "bytes": 15408,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/adjudication.py",
+      "sha256": "58f96f9a1d88895e593d28e09ae9450207209714fbab81bb864e583e30cbc43e",
+      "bytes": 3840,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/batch_importer.py",
+      "sha256": "204d4b459140bf3d0974e2be1b224bb089b03202a9fbf8a9999513362f5de841",
+      "bytes": 15042,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/batch_repository.py",
+      "sha256": "0db4d978e3699c97de13be91ad4bd4063f5b1a6af751bd2bf9a58fd220d722b9",
+      "bytes": 17753,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/batch_service.py",
+      "sha256": "7e82b0416507bb2408d80455ceb04dbb2ec4bbb07bfb76b56913c62fcb43cba3",
+      "bytes": 43029,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/classification_gate.py",
+      "sha256": "ee7124f22bc8525849a0455d22d1ac60a2287dd9d59a871b03f5fac7ce2ab777",
+      "bytes": 4915,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/classification_queue.py",
+      "sha256": "7881b8ab58d304fc1bb0d918dea51773751be6af91b78fd6c27232676574e0e4",
+      "bytes": 7471,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/classification_service.py",
+      "sha256": "92168e9582b082f157407549a4bd16977d6b10a5b69b192c90c762a84c619419",
+      "bytes": 19004,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/corpus_quality.py",
+      "sha256": "544be96329bb15dc6b2679a73ca97a8a223d11b1d9363f36305734d02a3ee8a3",
+      "bytes": 2568,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/gemini_pipeline.py",
+      "sha256": "a7ec6bc9c1614104ac3b0523cfc9223496b652ae3b76805c01ee3e3269b2f9b0",
+      "bytes": 23916,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/genius_client.py",
+      "sha256": "60090a12a10c84bb4fa5df81fe5a0554fc33194971400fa9883e069b4c79dc60",
+      "bytes": 10113,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/letras_client.py",
+      "sha256": "f40f177f239a34f020e86f1a84edede5ecd06213271235f1430ef2fa2fcbc578",
+      "bytes": 6831,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/lyrics_backfill.py",
+      "sha256": "9e8463d2d0feed0e448b0b83d1f4612a1c35c1fed872535ab6e80cd1dd128407",
+      "bytes": 23253,
+      "private_runtime": false
+    },
+    {
+      "path": "src/chart_observatory/lyrics/revision_protocol.py",
+      "sha256": "04c7da69ab6e7266c61e0b51c9fab22f94c0b0664375926274dd60e477a716c3",
+      "bytes": 16426,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/integration/lyrics/test_adjudication_postgres.py",
+      "sha256": "3515f6a2cffd3ef188e9ffb6bfdaeab2aa77e5ead2beeff30596382bbea245d1",
+      "bytes": 4493,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/integration/lyrics/test_classification_gate_postgres.py",
+      "sha256": "95e0c588023d1c82db5bb2c69ae648ef5792963ab5f1990058154e36ca96b69f",
+      "bytes": 20033,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/unit/lyrics/test_adjudication.py",
+      "sha256": "b59d4168d3c7f4a346a9924131cdcc89730bc9d7e6adfacee07cc576673d154f",
+      "bytes": 3717,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/unit/lyrics/test_batch_importer.py",
+      "sha256": "30410dd3bcf110effb229e8d43afdfbf7d98bc60ead38e29483270e7cd45280c",
+      "bytes": 10673,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/unit/lyrics/test_classification_gate.py",
+      "sha256": "c776907508a84a10953ac03c4e2754af774b97b22bd040a4b8f00de79fedfcb4",
+      "bytes": 16596,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/unit/lyrics/test_corpus_quality.py",
+      "sha256": "82a7221da977d0749506352fbbc0720e7bf6230422b1182a33cb35586e5497d9",
+      "bytes": 2334,
+      "private_runtime": false
+    },
+    {
+      "path": "tests/unit/lyrics/test_revision_protocol.py",
+      "sha256": "9349957007729469550a6707771c8532304648dff3b6184ec5e86941b08c7f64",
+      "bytes": 9693,
+      "private_runtime": false
+    }
+  ],
+  "self_excluded": true,
+  "private_material": "Backups, dumps, raw responses, lyric texts and proposals excluded from versioned package"
+}

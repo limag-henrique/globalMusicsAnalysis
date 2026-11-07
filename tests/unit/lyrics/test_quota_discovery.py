@@ -1,4 +1,5 @@
 import httpx
+import pytest
 
 from chart_observatory.lyrics.quota_acquisition import PacedHTTP
 from chart_observatory.lyrics.quota_discovery import (
@@ -268,6 +269,7 @@ def test_discovery_matches_provider_metadata_and_keeps_last_line(tmp_path):
                                     {
                                         "result": {
                                             "title": "Song",
+                                            "featured_artists": [],
                                             "primary_artist": {"name": "Artist"},
                                             "url": "https://genius.com/real-lyrics",
                                         }
@@ -310,13 +312,21 @@ def test_repair_rechecks_old_blob_quality_without_mutating_history(tmp_path):
     raw = b"Only a portion of these lyrics is available"
     path.write_bytes(raw)
     digest = hashlib.sha256(raw).hexdigest()
-    old = dict(source="LRCLIB", text_path=str(path), text_sha256=digest,
-               source_metadata=dict(observed_title="Song", observed_artist="Artist"))
-    result = dict(source="LRCLIB", generated_by_ai=False,
-                  text="A complete fixture line\n" * 30,
-                  source_metadata=dict(observed_title="Song", observed_artist="Artist"))
-    replay = dict(replay_kind="flagged_repair", replaces_text_sha256=digest,
-                  payload=payload, result=result)
+    old = dict(
+        source="LRCLIB",
+        text_path=str(path),
+        text_sha256=digest,
+        source_metadata=dict(observed_title="Song", observed_artist="Artist"),
+    )
+    result = dict(
+        source="LRCLIB",
+        generated_by_ai=False,
+        text="A complete fixture line\n" * 30,
+        source_metadata=dict(observed_title="Song", observed_artist="Artist"),
+    )
+    replay = dict(
+        replay_kind="flagged_repair", replaces_text_sha256=digest, payload=payload, result=result
+    )
     assert usable_cached_repair(payload, old, replay) is result
     assert "text_quality_flags" not in old
     path.write_bytes(b"changed blob")
@@ -326,14 +336,28 @@ def test_repair_rechecks_old_blob_quality_without_mutating_history(tmp_path):
 def test_retry_uses_alternative_sources_and_rejects_wrong_song(monkeypatch):
     import chart_observatory.lyrics.quota_discovery as module
 
-    monkeypatch.setattr(module, "discover_candidate", lambda *a, **k: {
-        "status": "not_found_or_unverified", "source_errors": ["GENIUS_SEARCH:403"]})
+    monkeypatch.setattr(
+        module,
+        "discover_candidate",
+        lambda *a, **k: {
+            "status": "not_found_or_unverified",
+            "source_errors": ["GENIUS_SEARCH:403"],
+        },
+    )
     calls = []
+
     def fetch(*args, **kwargs):
         calls.append(kwargs)
-        return dict(source="AZLYRICS", text="A complete fixture line\n" * 30,
-                    source_metadata=dict(observed_title="Song", observed_artist="Artist",
-                                         page_identity_scope="exact_page_title"))
+        return dict(
+            source="AZLYRICS",
+            text="A complete fixture line\n" * 30,
+            source_metadata=dict(
+                observed_title="Song",
+                observed_artist="Artist",
+                page_identity_scope="exact_page_title",
+            ),
+        )
+
     monkeypatch.setattr(module, "fetch_candidate", fetch)
     result = module.recover_with_fallback("Song", "Artist", object())
     assert result["source"] == "AZLYRICS"
@@ -341,3 +365,159 @@ def test_retry_uses_alternative_sources_and_rejects_wrong_song(monkeypatch):
     rejected = module.recover_with_fallback("Song (Live)", "Artist", object())
     assert not rejected.get("text")
     assert "GENIUS_SEARCH:403" in rejected["source_errors"]
+
+
+def test_discovery_timeout_preserves_error_and_reaches_alternative(monkeypatch):
+    import httpx
+
+    import chart_observatory.lyrics.quota_discovery as module
+
+    def timeout(*args, **kwargs):
+        raise httpx.ReadTimeout("fixture timeout")
+
+    monkeypatch.setattr(module, "discover_candidate", timeout)
+    monkeypatch.setattr(
+        module,
+        "fetch_candidate",
+        lambda *a, **k: dict(
+            source="AZLYRICS",
+            text="Fixture line\n" * 30,
+            source_metadata=dict(
+                observed_title="Song",
+                observed_artist="Artist",
+                page_identity_scope="exact_page_title",
+            ),
+        ),
+    )
+    result = module.recover_with_fallback("Song", "Artist", object())
+    assert result["source"] == "AZLYRICS"
+    assert "IDENTITY_DISCOVERY:ReadTimeout" in result["source_errors"]
+    assert not result.get("classification_ready")
+
+
+def test_duration_mismatch_is_held_without_certifying_matching_duration():
+    payload = dict(title="Song", artist="Artist", metadata_resolution=dict(duration_ms=200506))
+    result = dict(
+        source="LRCLIB",
+        source_metadata=dict(observed_title="Song", observed_artist="Artist", duration_seconds=240),
+    )
+    audit = audit_saved_result(payload, result)
+    assert "recording_duration_mismatch" in audit["text_quality_flags"]
+    result["source_metadata"]["duration_seconds"] = 201
+    audit = audit_saved_result(payload, result)
+    assert "recording_duration_mismatch" not in audit["text_quality_flags"]
+    assert not audit["identity_validated"] and not audit["completeness_validated"]
+    result["source_metadata"]["duration_seconds"] = float("nan")
+    flags = audit_saved_result(payload, result)["text_quality_flags"]
+    assert "recording_duration_mismatch" not in flags
+
+
+def test_duration_difference_continues_to_alternative_source(monkeypatch):
+    import chart_observatory.lyrics.quota_discovery as module
+
+    mismatched = dict(
+        source="LRCLIB",
+        text="A complete fixture line\n" * 30,
+        source_metadata=dict(observed_title="Song", observed_artist="Artist", duration_seconds=240),
+    )
+    alternative = dict(
+        source="AZLYRICS",
+        text="Another complete fixture line\n" * 30,
+        source_metadata=dict(
+            observed_title="Song", observed_artist="Artist", page_identity_scope="exact_page_title"
+        ),
+    )
+    monkeypatch.setattr(module, "discover_candidate", lambda *a, **k: mismatched)
+    calls = []
+
+    def fetch(*args, **kwargs):
+        calls.append(kwargs)
+        return alternative
+
+    monkeypatch.setattr(module, "fetch_candidate", fetch)
+    assert (
+        module.recover_with_fallback(
+            "Song", "Artist", object(), metadata_resolution=dict(duration_ms=200506)
+        )
+        is alternative
+    )
+    assert calls == [{"html_sources": {"AZLYRICS", "MUSIXMATCH"}, "expected_duration_ms": 200506}]
+    assert mismatched["source_metadata"]["duration_seconds"] == 240
+
+
+@pytest.mark.parametrize(
+    "version", ["Live", "Ao Vivo", "2018 Remaster", "Radio Edit", "Live at Wembley 1986", "Remix"]
+)
+def test_feature_credit_does_not_remove_recording_version(version):
+    from chart_observatory.lyrics.quota_discovery import split_feature_credits
+
+    requested = f"Song (feat. Guest - {version})"
+    title, credits = split_feature_credits(requested)
+    assert title == f"Song ({version})" and credits == ["Guest"]
+    hit = dict(
+        title=title, primary_artist=dict(name="Artist"), featured_artists=[dict(name="Guest")]
+    )
+    assert match_genius_identity(requested, "Artist", hit)
+    assert not match_genius_identity(requested, "Artist", {**hit, "title": "Song"})
+    assert not match_genius_identity(
+        requested, "Artist", {**hit, "featured_artists": [dict(name="Different Guest")]}
+    )
+
+
+@pytest.mark.parametrize("requested, expected", [("Artist", False), ("Artist|Guest", True)])
+def test_partial_search_hit_requires_full_credit_lookup(tmp_path, requested, expected):
+    partial = dict(
+        id=123,
+        title="Song",
+        primary_artist=dict(name="Artist"),
+        url="https://genius.com/artist-song-lyrics",
+    )
+    paths = []
+
+    def respond(request):
+        paths.append(request.url.path)
+        if request.url.host == "lrclib.net":
+            return httpx.Response(200, json=[])
+        if request.url.path == "/api/search/multi":
+            return httpx.Response(
+                200,
+                json={"response": {"sections": [{"type": "song", "hits": [{"result": partial}]}]}},
+            )
+        if request.url.path == "/api/songs/123":
+            return httpx.Response(
+                200,
+                json={
+                    "response": {
+                        "song": {**partial, "featured_artists": [dict(id=2, name="Guest")]}
+                    }
+                },
+            )
+        assert expected, "must not download a song with an unrequested guest"
+        return httpx.Response(
+            200,
+            text=(
+                '<script type="application/ld+json">{"@type":"MusicRecording",'
+                '"name":"Song","byArtist":{"name":"Artist"}}</script>'
+                '<div data-lyrics-container="true">'
+                + "<br>".join(f"Complete fixture verse {i}" for i in range(25))
+                + "</div>"
+            ),
+        )
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = discover_candidate("Song", requested, PacedHTTP(tmp_path, client))
+    assert "/api/songs/123" in paths
+    assert bool(result.get("text")) is expected
+    if expected:
+        assert (
+            result["source_metadata"]["provider_credit_evidence"][
+                "performer_credit_fields_explicit"
+            ]
+            is True
+        )
+
+
+@pytest.mark.parametrize("featured", [None, {}, "Guest", ["Guest"], [{}]])
+def test_unknown_or_malformed_featured_credits_do_not_mean_solo(featured):
+    hit = dict(title="Song", primary_artist=dict(name="Artist"), featured_artists=featured)
+    assert not match_genius_identity("Song", "Artist", hit)

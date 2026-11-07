@@ -10,11 +10,13 @@ from chart_observatory.lyrics.letras_client import LetrasClient
 
 
 def test_genius_fetch_does_not_duplicate_nested_lyric_containers() -> None:
-    html = '''<div data-lyrics-container="true">[Verse 1]<br>First complete verse
-    <div data-lyrics-container="true">[Chorus]<br>Entire repeated chorus</div></div>'''
-    html = ('<script type="application/ld+json">'
-            '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
-            '</script>') + html
+    html = """<div data-lyrics-container="true">[Verse 1]<br>First complete verse
+    <div data-lyrics-container="true">[Chorus]<br>Entire repeated chorus</div></div>"""
+    html = (
+        '<script type="application/ld+json">'
+        '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
+        "</script>"
+    ) + html
     with httpx.Client(
         transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))
     ) as http:
@@ -28,9 +30,11 @@ def test_genius_fetch_preserves_first_verse_after_nested_metadata() -> None:
     html = """<div data-lyrics-container="true"><div>2 Contributors</div>
         [Verse 1]<br>First complete verse with enough words<br>Another line</div>
         <div data-lyrics-container="true">[Verse 2]<br>Second complete verse</div>"""
-    html = ('<script type="application/ld+json">'
-            '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
-            '</script>') + html
+    html = (
+        '<script type="application/ld+json">'
+        '{"@type":"MusicRecording","name":"Example","byArtist":{"name":"Artist"}}'
+        "</script>"
+    ) + html
     with httpx.Client(
         transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))
     ) as http:
@@ -95,8 +99,16 @@ def test_letras_fetch_removes_observed_terminal_footer_variants(footer: str) -> 
     assert lyrics == "First complete lyric line\nSecond complete lyric line"
 
 
-@pytest.mark.parametrize("notice", ["Only a portion", "Lyrics snippet", "Ver a letra completa",
-                                    "Apenas um trecho da letra", "Leer la letra completa"])
+@pytest.mark.parametrize(
+    "notice",
+    [
+        "Only a portion",
+        "Lyrics snippet",
+        "Ver a letra completa",
+        "Apenas um trecho da letra",
+        "Leer la letra completa",
+    ],
+)
 def test_explicit_preview_notices_are_rejected_and_auditable(notice):
     from chart_observatory.lyrics.quota_acquisition import candidate
     from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
@@ -104,3 +116,56 @@ def test_explicit_preview_notices_are_rejected_and_auditable(notice):
     text = "First full line\n" + notice + "\nLast available line"
     assert candidate(text, "GENIUS") is None
     assert "explicit_partial_lyrics_notice" in prepare_lyric_derivative(text, "GENIUS").flags
+
+
+@pytest.mark.parametrize(
+    "first_line",
+    ["These are my Lyrics", "You might also like my song", "2 Contributors to this lonely world"],
+)
+def test_genius_cleaner_preserves_lyric_words_that_resemble_interface(first_line):
+    from html import escape
+
+    page = (
+        '<div data-lyrics-container="true">'
+        + escape(first_line)
+        + "<br>A complete final verse that ends with Embed</div>"
+    )
+    client = GeniusClient()
+    try:
+        text = client._extract_lyrics_from_html(page, "Example")
+    finally:
+        client._http.close()
+    assert text == first_line + "\nA complete final verse that ends with Embed"
+
+
+def test_genius_cleaner_removes_only_exact_known_title_header():
+    page = (
+        '<div data-lyrics-container="true">Example Lyrics<br>'
+        "First complete verse with enough words<br>Last complete verse</div>"
+    )
+    client = GeniusClient()
+    try:
+        text = client._extract_lyrics_from_html(page, "Example")
+    finally:
+        client._http.close()
+    assert text == "First complete verse with enough words\nLast complete verse"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Sim.",
+        "يا ليل",
+        "愛",
+        "Enviada por minha saudade\nCorrigida por você\nViu algum erro no amor?",
+    ],
+)
+def test_legacy_extractors_preserve_legitimate_short_and_metadata_like_lines(text):
+    import html
+
+    from chart_observatory.lyrics.genius_client import GeniusClient
+    from chart_observatory.lyrics.letras_client import LetrasClient
+
+    page = '<div data-lyrics-container="true">' + html.escape(text).replace("\n", "<br>") + "</div>"
+    assert GeniusClient()._extract_lyrics_from_html(page) == text
+    assert LetrasClient()._clean_lyrics(text) == text

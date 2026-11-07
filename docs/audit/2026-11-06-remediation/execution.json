@@ -1,0 +1,41 @@
+{
+  "unit_contract_tests": "767 passed, 2 warnings in 40.38s",
+  "final_focused_regression": "94 passed in 5.10s",
+  "restored_postgres_tests": "41 passed in 4.30s",
+  "separate_postgres_adjudication_tests": "3 passed; queue lock also passed (already included in clone suite)",
+  "skips_explained": "40 clone-specific cases skipped in initial separate-database run, then all passed under guarded clone harness",
+  "lint": "All checks passed for changed gate/remediation Python files",
+  "mypy": "classification_gate.py: Success, no issues found; imports silent, no-incremental",
+  "paid_inference_calls": 0,
+  "external_lyric_requests": 0,
+  "new_canonical_approvals": 0,
+  "migrations": "Existing 0001..0015 applied only to isolated empty test database; production schema unchanged",
+  "processing": {
+    "baseline_candidates": 28373,
+    "after_text_candidates": 22293,
+    "filled": 4,
+    "repaired": 1,
+    "unavailable_local": 6080,
+    "verified_complete": 0
+  },
+  "preservation": "33,247 acquisition tasks preserved, unaffected candidate results identical; rerun import 0; SQLite quick_check ok; PostgreSQL source unchanged during clone validation; later staging append-only",
+  "running_jobs": "Finite audit/replay/staging/testing completed. No collection or paid job left running; existing primary PostgreSQL remains available.",
+  "commands": [
+    ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q --basetemp tmp/pytest-remediation-complete",
+    ".venv/Scripts/python.exe scripts/validate_postgres_gate.py",
+    ".venv/Scripts/python.exe scripts/audit_current_lyric_corpus.py --output data/runtime/remediation-20261106/full",
+    ".venv/Scripts/python.exe scripts/audit_current_lyric_corpus.py --output data/runtime/remediation-20261106/after",
+    ".venv/Scripts/python.exe scripts/replay_cached_quota_lyrics.py --base-root data/derived/annual_revision/reconciled-russia-2018-2026-20261031 --state-root data/runtime/remediation-20261106/replay-full --output-root data/runtime/remediation-20261106/proposals-full --include-flagged --candidate-ids-file data/runtime/remediation-20261106/all-replay-ids.jsonl",
+    ".venv/Scripts/python.exe scripts/stage_quota_lyrics.py --base-root data/derived/annual_revision/reconciled-russia-2018-2026-20261031 --state-root data/runtime/remediation-20261106/staging",
+    ".venv/Scripts/python.exe scripts/analyze_quota_sensitivity.py",
+    "pdfinfo and pdftoppm -scale-to 1100 -png on the existing manuscript"
+  ],
+  "limitations": [
+    "No independently completed human gold set",
+    "Full execution-signature integration with historical online caches remains pending",
+    "No new licensed external lyric acquisition",
+    "No fresh paid inference",
+    "No re-fit of every manuscript statistical model",
+    "Contact sheet review is not full-resolution typographical certification"
+  ]
+}

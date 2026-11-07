@@ -88,3 +88,29 @@ def test_country_year_pagination_uses_matching_rank_before_title():
     assert second["rows"][0]["candidate_id"] == "later"
     assert len(second["rows"][0]["bindings"]) == 1
     engine.dispose()
+
+
+def test_snapshot_coverage_includes_empty_quota_cells_and_is_scoped():
+    from chart_observatory.lyrics.staging_review import coverage_for_run
+
+    engine = create_engine("sqlite://")
+    row = dict(
+        candidate_id="one",
+        text_sha256=None,
+        acquisition_status="pending_review",
+        payload=dict(
+            title="Song",
+            artist="Artist",
+            chart_bindings=[dict(country_code="BR", year=2020, position=1)],
+        ),
+        source_result={},
+        audit={},
+    )
+    run = persist_lyric_staging(engine, {"test": "coverage"}, [row], {})
+    result = coverage_for_run(engine, {"BR": 2, "AD": 1}, run_id=run["run_id"])
+    cells = {(r["country_code"], r["year"]): r for r in result["cells"]}
+    assert cells["AD", 2020]["missing_ranking_positions"] == [1]
+    assert cells["AD", 2020]["missing_text_positions"] == []
+    assert cells["BR", 2020]["missing_text_positions"] == [1]
+    assert coverage_for_run(engine, {"BR": 2}, run_id="missing") is None
+    engine.dispose()

@@ -1,0 +1,314 @@
+{
+  "source": "docs/audit/2026-11-06/REPORT.md",
+  "questions": [
+    {
+      "id": 1,
+      "original_question": "Coleta mundial completa?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 1",
+      "root_cause_or_limitation": "Frame limitado a charts disponíveis; não é cobertura mundial.",
+      "changes_made": "Recontagem e snapshot preservado",
+      "relevant_files": [
+        "scripts/audit_research_snapshot.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "67/68 mercados; 587/612 células; 86090 vínculos",
+      "remaining_dependencies": "Fontes e anos faltantes.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 2,
+      "original_question": "Representatividade?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 2",
+      "root_cause_or_limitation": "Viés de plataforma e seleção não probabilística.",
+      "changes_made": "Estimandos e limitações documentados; sem extrapolação populacional",
+      "relevant_files": [
+        "docs/operations/readiness-remediation-20261106.md"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Nenhuma generalização mundial certificada",
+      "remaining_dependencies": "Benchmark externo e referências nacionais.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 3,
+      "original_question": "Quotas adequadas?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 3",
+      "root_cause_or_limitation": "Piso/teto e diversidade são decisões operacionais.",
+      "changes_made": "Dez cenários executados no mesmo frame congelado",
+      "relevant_files": [
+        "scripts/analyze_quota_sensitivity.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Baseline reproduzido; 10 cenários",
+      "remaining_dependencies": "Não mede efeitos temáticos ou poder estatístico.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 4,
+      "original_question": "Índia versus Países Baixos?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 4",
+      "root_cause_or_limitation": "Alocação não garante representatividade intranacional.",
+      "changes_made": "Raiz com/sem diversidade e expoentes alternativos",
+      "relevant_files": [
+        "scripts/analyze_quota_sensitivity.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Atual 440/130; sem diversidade 430/130",
+      "remaining_dependencies": "Escolha científica humana da política.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 5,
+      "original_question": "Duplicatas?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 5",
+      "root_cause_or_limitation": "Candidato não equivale a gravação/texto adjudicado.",
+      "changes_made": "Repetições e colisões recontadas sem fusão automática",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/identity_collisions.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "11055 candidatos repetidos; 5151 entre países;112 grupos textuais",
+      "remaining_dependencies": "Precisão/recall da resolução humana.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 6,
+      "original_question": "Economia?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 6",
+      "root_cause_or_limitation": "Economia de tarefas não é fatura real.",
+      "changes_made": "Replay offline e reutilização por hash",
+      "relevant_files": [
+        "scripts/replay_cached_quota_lyrics.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "8613 examinados; zero rede; ganho potencial67,04% por vínculo",
+      "remaining_dependencies": "Fatura/tokens e benchmark completo ausentes.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 7,
+      "original_question": "Letras completas?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 7",
+      "root_cause_or_limitation": "Não há referência independente de completude.",
+      "changes_made": "Reauditou todo staging; recuperou quatro lacunas e um reparo",
+      "relevant_files": [
+        "scripts/audit_current_lyric_corpus.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "22289->22293 com texto; completos verificados0",
+      "remaining_dependencies": "Adjudicação por áudio/transcrição autorizada.",
+      "final_status": "REQUIRES_HUMAN_REVIEW"
+    },
+    {
+      "id": 8,
+      "original_question": "Cortes iniciais/finais?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 8",
+      "root_cause_or_limitation": "Regex genérica removia versos e tamanho rejeitava letras curtas.",
+      "changes_made": "Extratores corrigidos e regressões multilíngues",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/letras_client.py",
+        "src/chart_observatory/lyrics/genius_client.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "29 regressões focadas passaram; hashes SQLite/staging conferem",
+      "remaining_dependencies": "Causa individual dos cortes históricos requer resposta bruta e referência.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 9,
+      "original_question": "Matching pode explicar erros?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 9",
+      "root_cause_or_limitation": "Flags não provam erro causal na anotação.",
+      "changes_made": "Identidades conflitantes isoladas e pré-requisitos do contraste definidos",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/corpus_quality.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "588 identity_conflict no screening posterior",
+      "remaining_dependencies": "Identidade e rótulos independentes.",
+      "final_status": "REQUIRES_HUMAN_REVIEW"
+    },
+    {
+      "id": 10,
+      "original_question": "Separar input/modelo?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 10",
+      "root_cause_or_limitation": "Sem referência humana, contraste input/modelo não é identificável.",
+      "changes_made": "Protocolo pareado2x2 documentado; sem inferência paga",
+      "relevant_files": [
+        "docs/audit/2026-11-06/REPORT.md"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Nenhum efeito de modelo inventado",
+      "remaining_dependencies": "Inputs corrigidos verificados, referência humana e budget.",
+      "final_status": "REQUIRES_HUMAN_REVIEW"
+    },
+    {
+      "id": 11,
+      "original_question": "Reuso seguro?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 11",
+      "root_cause_or_limitation": "Assinatura nominal legada não captura todos os inputs.",
+      "changes_made": "Perfil completo e invalidação por língua na preparação; gate antes do reuso",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/revision_protocol.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "26 testes de registry/perfil passaram",
+      "remaining_dependencies": "Integrar assinatura completa em todos os caches legados antes de pagar.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 12,
+      "original_question": "Corrigir/quarentenar?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 12",
+      "root_cause_or_limitation": "Ausência de adjudicação não autoriza reparo destrutivo.",
+      "changes_made": "Adjudicação transacional, backup, replay e novo snapshot imutável",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/adjudication.py",
+        "src/chart_observatory/lyrics/quota_replay_import.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "5 mudanças;33247 tarefas preservadas;segunda aplicação0",
+      "remaining_dependencies": "Backlog humano e promoção staging->catálogo.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 13,
+      "original_question": "Maior ganho científico?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 13",
+      "root_cause_or_limitation": "Gold set multilíngue ainda sem avaliações independentes.",
+      "changes_made": "Materiais/requisitos de revisão auditados; UNKNOWN mantido",
+      "relevant_files": [
+        "research/article/revision-analysis/validation-protocol.txt"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "3381 candidatos históricos provisórios;sem novas métricas humanas",
+      "remaining_dependencies": "Avaliadores por língua e adjudicador.",
+      "final_status": "REQUIRES_HUMAN_REVIEW"
+    },
+    {
+      "id": 14,
+      "original_question": "Maior ganho arquitetural?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 14",
+      "root_cause_or_limitation": "Caminhos de classificação divergiam e legado podia gerar sem documento.",
+      "changes_made": "Gate online/batch/force/estimate/import e backfill sem inferência direta",
+      "relevant_files": [
+        "src/chart_observatory/lyrics/classification_gate.py",
+        "src/chart_observatory/lyrics/batch_importer.py"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "767unit/contract;41clonePostgreSQL;3adjudicaçãoPostgreSQL",
+      "remaining_dependencies": "Assinatura completa legada e autenticação de revisores.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 15,
+      "original_question": "Manuscrito consistente?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 15",
+      "root_cause_or_limitation": "Freeze histórico difere da campanha; métricas humanas ausentes.",
+      "changes_made": "50hashes conferidos e 11páginas renderizadas;texto histórico preservado",
+      "relevant_files": [
+        "data/runtime/remediation-20261106/manuscript-validation.json"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "50/50hashes;154995documentos conforme manifesto",
+      "remaining_dependencies": "Não foram refeitos todos os modelos;revisão humana integral/idiomas.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 16,
+      "original_question": "Antes do lote seguinte?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 16",
+      "root_cause_or_limitation": "Gate não substitui budget/direitos/referência humana.",
+      "changes_made": "Bloqueio mantido e pré-requisitos explícitos",
+      "relevant_files": [
+        "docs/operations/classification-eligibility-gate.md"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "0pagamentos;0novas aprovações reais",
+      "remaining_dependencies": "Budget150conciliado,piloto,evidência de direitos e QA.",
+      "final_status": "PARTIALLY_RESOLVED"
+    },
+    {
+      "id": 17,
+      "original_question": "O que falta do relatório futuro?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 17",
+      "root_cause_or_limitation": "Relatório futuro ainda não foi fornecido.",
+      "changes_made": "Definido contrato de IDs/hash/input/output/config/revisor/língua/exposição IA",
+      "relevant_files": [
+        "docs/audit/2026-11-06/REPORT.md"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Requisitos de evidência registrados sem inventar revisão",
+      "remaining_dependencies": "Receber relatório e adjudicar; resolução refere-se à especificação requerida.",
+      "final_status": "RESOLVED_AND_VERIFIED"
+    },
+    {
+      "id": 18,
+      "original_question": "Caminho eficiente?",
+      "initial_evidence": "docs/audit/2026-11-06/REPORT.md, item 18",
+      "root_cause_or_limitation": "Publicação exige qualidade,evidência e não só execução.",
+      "changes_made": "Prioridades executadas:gate,replay,adjudicação,testes,cobertura e pacote de revisão",
+      "relevant_files": [
+        "report.md"
+      ],
+      "tests_and_commands": [
+        ".venv/Scripts/python.exe -m pytest tests/unit tests/contract -q",
+        "data/runtime/remediation-20261106/postgres-clone/pytest.log"
+      ],
+      "resulting_metrics": "Reparos aplicados,backup verificado,zeroinferência",
+      "remaining_dependencies": "Conclusão científica depende de humanos,licenças e integração futura.",
+      "final_status": "PARTIALLY_RESOLVED"
+    }
+  ]
+}

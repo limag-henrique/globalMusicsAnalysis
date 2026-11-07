@@ -22,6 +22,11 @@ from chart_observatory.ingestion.import_quotas import (
     provisional_selection,
     recovery_targets,
 )
+from chart_observatory.ingestion.quota_boundary import (
+    validate_quota_memberships,
+    validate_ranking_positions,
+)
+from chart_observatory.lyrics.identity_collisions import flag_shared_text_identities
 from chart_observatory.lyrics.quota_acquisition import identity
 from chart_observatory.lyrics.quota_discovery import (
     audit_saved_result,
@@ -74,6 +79,8 @@ def stage(base):
     selected += provisional_selection(
         rankings, coverage, load_quotas(base / "sources/country_quotas.csv"), selected
     )
+    validate_quota_memberships(selected, load_quotas(base / "sources/country_quotas.csv"))
+    validate_ranking_positions(selected, rankings)
     enrichment = json.loads((base / "metadata-enrichment.json").read_text(encoding="utf-8"))[
         "resolved"
     ]
@@ -106,7 +113,7 @@ def stage(base):
         offline[replay["payload"]["recording_id"]].append(
             (path, hashlib.sha256(raw).hexdigest(), replay)
         )
-    records, texts, title_hashes = [], {}, defaultdict(set)
+    records, texts = [], {}
     overlay_count, overlay_conflicts, repair_count = 0, 0, 0
     for index, payload in enumerate(payloads, 1):
         key = payload["recording_id"]
@@ -175,7 +182,6 @@ def stage(base):
                 set(audit["text_quality_flags"]) | set(quality.flags)
             )
             audit["text_quality_version"] = quality.version
-            title_hashes[digest].add(identity(payload.get("title")))
         records.append(
             dict(
                 candidate_id=key,
@@ -193,9 +199,7 @@ def stage(base):
                 total=len(payloads),
                 unique_texts=len(texts),
             )
-    for record in records:
-        if len(title_hashes.get(record.get("text_sha256"), set())) > 1:
-            record["audit"]["text_quality_flags"].append("same_text_different_titles")
+    flag_shared_text_identities(records)
     source = dict(
         selection_root=str(base),
         selection_manifest_sha256=hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
@@ -248,7 +252,10 @@ def stage(base):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-root", type=Path, required=True)
+    parser.add_argument("--state-root", type=Path, help="Separate status directory for this snapshot")
     args = parser.parse_args()
+    if args.state_root:
+        STATE = args.state_root.resolve()
     import msvcrt
 
     STATE.mkdir(exist_ok=True)

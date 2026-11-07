@@ -9,6 +9,7 @@ from sqlalchemy import JSON, Integer, cast, exists, func, inspect, or_, select
 
 from chart_observatory.lyrics.quota_discovery import usable_cached_repair, usable_cached_replay
 from chart_observatory.lyrics.quota_staging import blobs, candidates, runs
+from chart_observatory.lyrics.staging_coverage import summarize_coverage
 
 
 def list_snapshots(engine, limit=20):
@@ -31,6 +32,26 @@ def _run(conn, run_id):
         else query.order_by(runs.c.created_at.desc(), runs.c.id)
     )
     return conn.execute(query.limit(1)).first()
+
+
+def coverage_for_run(engine, quotas, *, run_id):
+    """Read all membership coverage, including quota cells with no selected candidate."""
+    with engine.connect() as conn:
+        if not _run(conn, run_id):
+            return None
+        records = (
+            conn.execute(
+                select(
+                    candidates.c.candidate_id,
+                    candidates.c.payload,
+                    candidates.c.text_sha256,
+                    candidates.c.audit,
+                ).where(candidates.c.run_id == run_id)
+            )
+            .mappings()
+            .all()
+        )
+    return summarize_coverage(records, quotas)
 
 
 def _binding_filter(dialect, country, year):

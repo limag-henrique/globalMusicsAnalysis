@@ -293,3 +293,8 @@ o leitor recuperou as duas alternativas completas (LRCLIB: 3.415 caracteres;
 Genius: 4.136), ambas com hashes de evidência e texto conferidos. A execução real
 do Streamlit AppTest abriu os dois painéis sem exceções e exibiu três blocos
 de texto: candidato anterior e duas alternativas. A liberação permaneceu falsa.
+
+
+### Cobertura explícita na tela de revisão
+
+A página de importação agora consulta a cobertura completa da versão escolhida no PostgreSQL (cache por run_id/cotas), incluindo células vazias. O painel por país/ano mostra cota, selecionadas, provisórias, posições com texto, faltas de ranking e faltas de letra; a busca por nome e o filtro de letra não alteram essas contagens de cobertura. Sete testes de cobertura/revisão passaram e Ruff passou. AppTest com o banco real teve zero exceções; AD/2018 mostrou 100 previstas, 100 sem música no ranking e zero selecionadas sem letra, com 28.373 candidatos/18.631 com texto/16.507 textos distintos na versão selecionada. Contadores não certificam identidade, completude ou ranking anual fora do alcance das fontes. Nenhuma escrita no banco pela interface.

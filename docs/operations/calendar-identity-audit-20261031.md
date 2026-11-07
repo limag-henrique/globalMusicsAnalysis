@@ -661,3 +661,99 @@ os pacotes brutos originais continuam preservados para reconciliação.
 ### Evidência primária de disponibilidade das fontes na Índia
 
 Os anúncios oficiais registram lançamento local do Spotify em 26/02/2019 (https://newsroom.spotify.com/2019-02-26/spotify-launches-in-india/) e do YouTube Charts em 16/09/2019 (https://blog.google/intl/en-in/products/platforms/youtube-charts-launch-in-india/). Os dois documentos foram arquivados com SHA-256 em data/raw/ranking-source-availability/20261031/manifest.json. Isso orienta a busca de IN/2018 para fontes históricas alternativas, sem provar inexistência de todo conjunto retrospectivo. A cota 440 permanece pendente e não foi alterada. Listas atuais de visualizações globais acumuladas para músicas lançadas em 2018 não medem consumo dentro da Índia durante o ano e não são substitutas válidas. Nenhum ranking novo recuperado nesta investigação.
+
+
+### Auditoria semanal completa de KR/RU em 2018
+
+CSV YouTube 2018 conferido contra sidecar SHA-256. Inventário por semana em data/runtime/historical-2018-weekly-identity-audit-20261031.json, com quantidade de linhas, posições contíguas, chaves repetidas e valores/nomes dos registros envolvidos. KR tem 35 semanas, 25 sem chaves repetidas e 10 com repetições; RU tem 35, 20 sem repetições e 15 com repetições. Ausência de chave repetida não certifica correção/completude do chart. No pacote bruto KR, o vídeo Fm5iP0S1z9w corresponde ao índice 271, Dance The Night Away/TWICE; portanto o caso duplicado não foi criado apenas pela normalização CSV. Nenhuma mudança de ranking realizada: não houve soma arbitrária, deduplicação de métricas nem descarte silencioso de semanas para alegar ranking anual. A investigação agora pode concentrar verificação independente nas semanas explicitamente identificadas.
+
+
+### Conferência oficial KR/2018-07-26
+
+A navegação Chromium pública para https://charts.youtube.com/charts/TopSongs/kr/weekly/20180726 retornou HTTP200, país South Korea e período Jul 20–26, 2018, com 100 posições. Captura em data/runtime/historical-korea-probe-20261031/probe.json, SHA-256 5458a34df671ed84b2b2f5b27540013465fee1ced5e33721531ee1b269df01da. As posições 3 e 4 publicadas são ambas Dance The Night Away/TWICE, com 2.887.274 e 2.680.195 views. A comparação integral com o CSV confirmou 100/100 métricas e 100/100 títulos, 91/100 créditos de artista normalizados. Portanto o caso de repetição existe na apresentação oficial, não apenas no pacote/normalizador. Inspeção limitada aos metadados públicos das entradas mostrou o mesmo ID de artista /g/11btzyw8k4 e não resolveu uma identidade independente da gravação. Não usar o ID do artista como ID da música nem somar as duas entradas. Metadados públicos capturados em entry-identifiers.json e public-song-entity-identifiers.json; comparação em official-comparison.json. Nenhuma alteração na seleção anual ou nas cotas. A consulta Kworb atual (https://kworb.net/youtube/insights/kr.html) mostrava semana de 2026 e não foi aceita como evidência de 2018.
+
+
+### Candidato sem nome SPOTIFY:2me5SocGcxPzFwPe03my19
+
+VN/2018, posição provisória 133/cota180, permanece sem título/artista. A consulta à base diária Kaggle normalizada encontrou 35 ocorrências do ID, todas com nomes vazios. Busca web pelo ID exato não retornou resultados. Uma única consulta MusicBrainz ws/2/url por resource exato open.spotify.com/track/2me5SocGcxPzFwPe03my19, incluindo recording-rels, retornou HTTP404; evidência em data/runtime/missing-native-identity-20261031/musicbrainz-probe.json e resolution-audit.json. Isso descreve as consultas realizadas, sem provar ausência em toda fonte possível. As tentativas oficiais Spotify anteriores também não trouxeram nomes; não foram repetidas. Nenhum nome foi inferido de posição, artista popular ou semelhança. Nenhuma letra/posição foi alterada.
+
+### Descoberta histórica dirigida e recuperação após reinício — 01/11/2026
+
+O Windows reiniciou às 09:21 BRT. A verificação das 09:23 encontrou o supervisor,
+coletores e PostgreSQL ausentes; o atalho Startup havia registrado falha 103
+do launcher da `.venv`. A retomada anterior, portanto, não funcionou nesse
+reinício. `start_quota_supervisor.ps1` agora prepara o ambiente com
+`research_environment.ps1`, inicia somente o cluster PostgreSQL 16 de destino
+existente (55433, sem criar banco) e invoca o Python da `.venv` diretamente,
+sem a composição intermediária cmd/Start-Process. O atalho real foi executado
+com sucesso nesta sessão: supervisor 21176 e coletor real 19196, janela
+supervised-lyrics-20261031/cycle-0001. Isso verifica o atalho, não um segundo
+reinício físico. O supervisor foi depois recarregado para adotar a coleta de
+rankings; nenhum coletor de letras ou rankings foi interrompido na recarga.
+
+Novo `discover_quota_chart_gaps.py`: lê somente as 25 células com lacunas,
+consulta os charts semanais oficiais YouTube de 2018–2026, até 15/10/2026,
+confere país/período renderizados, posição publicada e visualizações exatas.
+Uma sessão Chromium, cache/checkpoint por semana, intervalo de três segundos,
+janela de oito horas, lock e interrupção por 401/403/429. Duas consultas
+consecutivas sem evidência suficiente suspendem aquela célula; não provam
+inexistência do ranking. O supervisor retoma execuções interrompidas, mas
+mantém erros explícitos para atenção, sem loop de acesso ao provedor.
+
+Importação aditiva na tabela `quota_chart_discovery_snapshots`, separada dos
+rankings definitivos e da seleção congelada. Capturas imutáveis por SHA-256
+em `data/runtime/chart-gap-discovery-20261101/captures`; checkpoints e logs no
+mesmo diretório. Conferência SQL inicial: IL/2024, 24 semanas e 2.400
+observações importadas. São posições semanais, não 2.400 músicas únicas nem
+novas posições anuais validadas. A coleta permanece em execução.
+
+Relatórios `annual-discovery-PAIS-ANO.json` exigem todas as semanas para emitir
+candidatos provisórios até a cota existente. Repetição de título/artista na
+mesma semana bloqueia a agregação, sem somar linhas conflitantes. Totais por
+strings exatas permanecem em DISCOVERY_QUARANTINE, com bloqueio por identidade
+nativa e revisão do protocolo anual. Nenhuma promoção automática ao ranking,
+nenhuma alteração das cotas e nenhuma classificação paga.
+
+Doze testes focados passaram e Ruff passou: janela aprovada, país/período,
+corte de outubro, preservação de duplicatas, bloqueio de história incompleta,
+limite da cota e rejeição de evidência alterada, além dos testes do supervisor.
+Último inventário pré-reinício: 19.144 candidatos com texto, 9.229 sem texto,
+3.730 lacunas anuais em 25 células; texto não certifica atribuição/completude.
+
+### Correção do limite de análise e da comunicação das contagens — 01/11/2026
+
+A cota de Israel continua sendo **120 músicas por ano**. As 3.700 informadas
+anteriormente eram ocorrências semanais coletadas como referência, com repetição
+da mesma música ao longo das semanas. Não eram 3.700 músicas selecionadas para
+análise. A comunicação dessa distinção foi insuficiente; não houve ampliação
+da cota nem inclusão da tabela semanal na análise.
+
+`audit_quota_analysis_scope.py` conferiu tanto `combined.jsonl` como os vínculos
+do snapshot PostgreSQL mais recente: 86.090 vínculos em cada lado, zero posições
+excedentes, zero ocorrências semanais usadas para análise e zero candidatos
+liberados para classificação. Israel tem 120 posições em cada ano selecionado;
+2023 e 2024 permanecem vazios enquanto o ranking anual não for reconciliado.
+Evidência: `data/runtime/quota-analysis-boundary-20261101.json`, com hashes da
+seleção e da tabela de cotas. Não foram apagadas evidências históricas.
+
+Nova trava `ingestion/quota_boundary.py` aplicada antes da criação da fila e do
+staging, e na preparação/importação de novos snapshots: rejeita posição acima
+de N, duplicação, cota diferente da tabela, ano fora de 2018–2026 e entrada de
+DISCOVERY_QUARANTINE como vínculo anual. Corrigidos também os padrões antigos
+2017 nos pontos de preparação/seleção para 2018; os dados históricos permanecem
+preservados. Relatórios de descoberta agora explicitam limite anual, zero
+vínculos adicionados e ocorrências semanais de referência. A tabela de cotas
+mantém SHA256 fcf64432b5cce91a666424cac2a54766d6645b81a4f9f859f17b6b085dc50f5a.
+
+28 testes focados passaram; Ruff passou. O coletor real de letras PID19196 e
+o coletor real de referências de charts PID9736 continuaram ativos, sem
+interrupção ou duplicação. As travas novas serão carregadas nas próximas
+execuções; o staging carregará o código atualizado quando for chamado.
+
+A investigação adicional de IL/2024-12-19 encontrou o mesmo vídeo representativo
+bWz97rgzxLE nas posições publicadas 13 e 51, com os mesmos créditos e título.
+Prova pública do componente renderizado em
+`chart-gap-discovery-20261101/identity-probe-IL-20241219.json`. Isso impede tratar
+a repetição como duas gravações distintas ou somá-la arbitrariamente. Nenhuma
+posição foi escolhida/excluída para fabricar o ranking anual. Seguem pendentes
+3.730 posições de ranking e a validação de identidade/completude das letras.

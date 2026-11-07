@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -20,6 +21,7 @@ from chart_observatory.lyrics.repository import (
     ingest_lyric_document,
 )
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
 def test_human_reported_text_is_not_queued_for_a_new_paid_classification(monkeypatch):
     from chart_observatory.lyrics import review_evidence

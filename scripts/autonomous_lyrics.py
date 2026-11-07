@@ -27,6 +27,10 @@ from chart_observatory.ingestion.import_quotas import (
     provisional_selection,
     recovery_targets,
 )
+from chart_observatory.ingestion.quota_boundary import (
+    validate_quota_memberships,
+    validate_ranking_positions,
+)
 from chart_observatory.lyrics.quota_acquisition import (
     AcquisitionStore,
     PacedHTTP,
@@ -43,6 +47,7 @@ from chart_observatory.lyrics.quota_discovery import (
     settle_metadata_reconciliation,
 )
 from chart_observatory.lyrics.quota_replay_import import import_cached_candidates
+from chart_observatory.quota_campaign import remaining_seconds
 from chart_observatory.runtime_status import publish_status
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -120,6 +125,8 @@ def bundle():
     quotas = load_quotas(BASE / "sources/country_quotas.csv")
     provisional = provisional_selection(rankings, coverage, quotas, final)
     combined = final + provisional
+    validate_quota_memberships(combined, quotas)
+    validate_ranking_positions(combined, rankings)
     enrichment_path = BASE / "metadata-enrichment.json"
     if enrichment_path.exists():
         enrichment = json.loads(enrichment_path.read_text(encoding="utf-8")).get("resolved", {})
@@ -228,7 +235,24 @@ def refresh_pending_native_metadata(store, wanted, path, pending):
     return updated, {**refreshed, "updated_queued_candidates": changed}
 
 
-def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
+def filter_targeted_candidates(targets, path):
+    raw = Path(path).read_bytes()
+    requested = {
+        json.loads(line)["candidate_id"]
+        for line in raw.decode("utf-8").splitlines()
+        if line.strip()
+    }
+    available = {row["recording_id"] for row in targets}
+    if not requested or not requested <= available:
+        raise ValueError("targeted candidate IDs must be nonempty and within current selection")
+    return [row for row in targets if row["recording_id"] in requested], hashlib.sha256(
+        raw
+    ).hexdigest()
+
+
+def main(
+    hours=8, method_prefix="exact-discovery-v2", wait_pid=None, candidate_ids_file=None, rounds=3
+):
     STATE.mkdir(parents=True, exist_ok=True)
     if wait_pid:
         import ctypes
@@ -259,6 +283,11 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
             wait_for_database()
             report("preparing_selection")
             targets, summary = bundle()
+            if candidate_ids_file:
+                targets, filter_hash = filter_targeted_candidates(targets, candidate_ids_file)
+                summary = dict(
+                    summary, scoped_candidates=len(targets), candidate_filter_sha256=filter_hash
+                )
             store = AcquisitionStore(OUTPUT)
             store.conn.executescript("""
                 CREATE TABLE IF NOT EXISTS recovery_attempts(
@@ -359,6 +388,9 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
                             store.finish(key, {**value, "status": "reused_pending_validation"})
                             break
             deadline = time.monotonic() + hours * 3600
+            remaining = remaining_seconds()
+            if remaining is not None:
+                deadline = min(deadline, time.monotonic() + remaining)
             browser = PublicBrowser(maximum_pages=200)
             with httpx.Client(
                 timeout=20,
@@ -373,7 +405,7 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
                 )
                 http = PacedHTTP(OUTPUT / "http-cache", client, cache_sources=old_caches)
                 native_signature = None
-                for round_number in range(1, 4):
+                for round_number in range(1, rounds + 1):
                     display_path = BASE / "native-display-metadata.json"
                     if (
                         display_path.exists()
@@ -402,6 +434,16 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
                         if collision_file.exists()
                         else {}
                     )
+                    shared_collision_file = (
+                        OUTPUT / "identity-audit/shared-text-repair-targets.jsonl"
+                    )
+                    if shared_collision_file.exists():
+                        suspicious.update(
+                            {
+                                row["identity"]: row["text_sha256"]
+                                for row in rows(shared_collision_file)
+                            }
+                        )
                     pending = []
                     for key, raw_payload, state, raw_result in store.conn.execute(
                         "SELECT identity,payload,status,result FROM tasks"
@@ -414,7 +456,7 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
                             audit = audit_saved_result(payload, result)
                             collision = suspicious.get(key) == result.get("text_sha256")
                             if collision:
-                                audit["cross_title_text_collision"] = True
+                                audit["shared_text_identity_collision"] = True
                             if payload.get("requires_metadata_reconciliation"):
                                 audit["ranking_metadata_changed"] = True
                             with store.conn:
@@ -489,8 +531,12 @@ def main(hours=8, method_prefix="exact-discovery-v2", wait_pid=None):
                     def acquire(payload, first_time):
                         try:
                             return recover_with_fallback(
-                                payload["title"], payload["artist"], http,
-                                first_time=first_time, browser=browser,
+                                payload["title"],
+                                payload["artist"],
+                                http,
+                                first_time=first_time,
+                                browser=browser,
+                                metadata_resolution=payload.get("metadata_resolution"),
                             )
                         except Exception as exc:
                             return dict(
@@ -641,6 +687,8 @@ if __name__ == "__main__":
     parser.add_argument("--wait-pid", type=int)
     parser.add_argument("--state-root", type=Path)
     parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--candidate-ids-file", type=Path)
+    parser.add_argument("--rounds", type=int, choices=(1, 2, 3), default=3)
     args = parser.parse_args()
     if not 0 < args.hours <= 24:
         parser.error("hours must be in (0,24]")
@@ -648,4 +696,4 @@ if __name__ == "__main__":
         STATE = args.state_root.resolve()
     if args.base_root:
         BASE = args.base_root.resolve()
-    main(args.hours, args.method_prefix, args.wait_pid)
+    main(args.hours, args.method_prefix, args.wait_pid, args.candidate_ids_file, args.rounds)

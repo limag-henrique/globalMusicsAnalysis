@@ -137,9 +137,43 @@ class GeniusClient:
         return None
 
     def _scrape_search_result(self, result: dict, title: str, artist: str) -> str | None:
-        from chart_observatory.lyrics.quota_discovery import match_genius_identity
+        from chart_observatory.lyrics.quota_acquisition import identity
+        from chart_observatory.lyrics.quota_discovery import (
+            match_genius_identity,
+            split_feature_credits,
+        )
 
-        if not isinstance(result, dict) or not match_genius_identity(title, artist, result):
+        if not isinstance(result, dict):
+            return None
+        if not match_genius_identity(title, artist, result):
+            primary = result.get("primary_artist") or {}
+            song_id = result.get("id")
+            if (
+                not isinstance(primary, dict)
+                or identity(primary.get("name"))
+                not in {identity(name) for name in artist.split("|")}
+                or identity(result.get("title"))
+                not in {identity(title), identity(split_feature_credits(title)[0])}
+                or not isinstance(song_id, int)
+                or isinstance(song_id, bool)
+                or song_id <= 0
+            ):
+                return None
+            try:
+                response = self._http.get(f"https://genius.com/api/songs/{song_id}")
+                if response.status_code != 200:
+                    return None
+                detailed = response.json().get("response", {}).get("song", {})
+            except (httpx.HTTPError, ValueError, AttributeError):
+                return None
+            if (
+                not isinstance(detailed, dict)
+                or detailed.get("id") != song_id
+                or not match_genius_identity(title, artist, detailed)
+            ):
+                return None
+            result = detailed
+        if result.get("lyrics_state") not in (None, "complete"):
             return None
         return self._scrape_lyrics_page(result.get("url", ""), title, artist, result)
 
@@ -175,11 +209,11 @@ class GeniusClient:
                 )
             if not verified:
                 return None
-            return self._extract_lyrics_from_html(resp.text)
+            return self._extract_lyrics_from_html(resp.text, expected_title)
         except (httpx.HTTPError, httpx.TimeoutException):
             return None
 
-    def _extract_lyrics_from_html(self, html: str) -> str | None:
+    def _extract_lyrics_from_html(self, html: str, title: str = "") -> str | None:
         """Extract lyrics text from a Genius page HTML string."""
         # Find all lyrics containers
         page = BeautifulSoup(html, "html.parser")
@@ -198,26 +232,21 @@ class GeniusClient:
 
         full_lyrics = "\n".join(lines).strip()
 
-        # Clean Genius metadata noise
-        # 1. Remove "N ContributorsTranslations..." prefix
-        full_lyrics = re.sub(
-            r"^\d+\s*Contributor[s]?.*?(?=\n\[|\n[A-Z0-9])",
-            "",
-            full_lyrics,
-            count=1,
-            flags=re.DOTALL,
-        )
-        # 2. Remove "Song Title Lyrics" header
-        full_lyrics = re.sub(r"^.*?\bLyrics\s*\n", "", full_lyrics, count=1)
-        # 3. Remove "You might also like"
-        full_lyrics = re.sub(r"\bYou might also like\b", "", full_lyrics, flags=re.I)
-        # 4. Remove trailing "Embed" or "123Embed"
-        full_lyrics = re.sub(r"\d*Embed$", "", full_lyrics.strip())
-        # 5. Clean up excessive newlines
-        full_lyrics = re.sub(r"\n{3,}", "\n\n", full_lyrics).strip()
+        # Remove only exact standalone metadata at the beginning. Generic phrases
+        # such as "Lyrics", "You might also like" or "Embed" may be real verses.
+        lyric_lines = full_lyrics.splitlines()
+        if lyric_lines and re.fullmatch(r"\d+\s+Contributors?", lyric_lines[0].strip()):
+            lyric_lines.pop(0)
+        while lyric_lines and not lyric_lines[0].strip():
+            lyric_lines.pop(0)
+        if (
+            title
+            and lyric_lines
+            and lyric_lines[0].strip().casefold() == f"{title} Lyrics".casefold()
+        ):
+            lyric_lines.pop(0)
+        full_lyrics = re.sub(r"\n{3,}", "\n\n", "\n".join(lyric_lines)).strip()
 
-        # Must have at least 30 characters and at least 2 lines to be valid lyrics
-        if len(full_lyrics) < 30 or "\n" not in full_lyrics:
-            return None
-
-        return full_lyrics
+        # Length/line count are quality signals, not evidence of incompleteness.
+        # Identity is checked by the caller; short texts still require adjudication.
+        return full_lyrics or None

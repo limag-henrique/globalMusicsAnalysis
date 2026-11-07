@@ -1,0 +1,47 @@
+M docs/operations/autonomous-lyrics-20261031.md
+ M docs/operations/calendar-identity-audit-20261031.md
+ M docs/operations/postgres-lyric-staging-20261031.md
+ M scripts/autonomous_lyrics.py
+ M scripts/collect_native_spotify_metadata.py
+ M scripts/prepare_quota_import.py
+ M scripts/replay_cached_quota_lyrics.py
+ M scripts/research_environment.ps1
+ M scripts/resolve_public_track_metadata.py
+ M scripts/stage_quota_lyrics.py
+ M src/chart_observatory/ingestion/import_quotas.py
+ M src/chart_observatory/lyrics/genius_client.py
+ M src/chart_observatory/lyrics/quota_acquisition.py
+ M src/chart_observatory/lyrics/quota_discovery.py
+ M src/chart_observatory/lyrics/staging_review.py
+ M src/chart_observatory/lyrics/text_quality.py
+ M src/chart_observatory/ui/quota_import.py
+ M tests/unit/lyrics/test_acquisition_text_quality.py
+ M tests/unit/lyrics/test_genius_identity_guard.py
+ M tests/unit/lyrics/test_native_metadata_retry.py
+ M tests/unit/lyrics/test_public_track_metadata.py
+ M tests/unit/lyrics/test_quota_acquisition.py
+ M tests/unit/lyrics/test_quota_discovery.py
+ M tests/unit/lyrics/test_recovery_web.py
+ M tests/unit/lyrics/test_review_preparation.py
+ M tests/unit/lyrics/test_staging_review.py
+?? docs/audit/
+?? scripts/audit_quota_analysis_scope.py
+?? scripts/audit_research_snapshot.py
+?? scripts/discover_quota_chart_gaps.py
+?? scripts/replay_new_native_metadata.py
+?? scripts/run_targeted_revision.py
+?? scripts/start_quota_supervisor.ps1
+?? scripts/start_quota_supervisor.vbs
+?? scripts/supervise_quota_recovery.py
+?? src/chart_observatory/ingestion/quota_boundary.py
+?? src/chart_observatory/lyrics/identity_collisions.py
+?? src/chart_observatory/lyrics/native_replay_targets.py
+?? src/chart_observatory/quota_campaign.py
+?? tests/unit/ingestion/test_quota_boundary.py
+?? tests/unit/lyrics/test_chart_gap_discovery.py
+?? tests/unit/lyrics/test_identity_collisions.py
+?? tests/unit/lyrics/test_native_replay_targets.py
+?? tests/unit/lyrics/test_quota_campaign.py
+?? tests/unit/lyrics/test_quota_supervisor.py
+?? tests/unit/lyrics/test_targeted_candidate_scope.py
+?? tests/unit/lyrics/test_targeted_revision_plan.py

@@ -26,6 +26,48 @@ def canonical_json(value):
     )
 
 
+def execution_profile(
+    *,
+    model_id,
+    resolved_model_version,
+    prompt_template,
+    output_schema,
+    rubric_version,
+    prompt_version,
+    preprocessing_version,
+    protocol_version,
+    generation_configuration,
+):
+    """Build a complete reuse profile; never resolve a mutable model alias by guessing."""
+    required = (
+        model_id,
+        resolved_model_version,
+        prompt_template,
+        rubric_version,
+        prompt_version,
+        preprocessing_version,
+        protocol_version,
+    )
+    if any(not isinstance(value, str) or not value.strip() for value in required):
+        raise ValueError("explicit resolved model and protocol inputs are required")
+    if not output_schema or not generation_configuration:
+        raise ValueError("schema and generation configuration are required")
+    return dict(
+        model_id=model_id,
+        rubric_version=rubric_version,
+        prompt_version=prompt_version,
+        configuration=dict(
+            resolved=True,
+            resolved_model_version=resolved_model_version,
+            prompt_sha256=hashlib.sha256(prompt_template.encode()).hexdigest(),
+            output_schema_sha256=hashlib.sha256(canonical_json(output_schema).encode()).hexdigest(),
+            preprocessing_version=preprocessing_version,
+            protocol_version=protocol_version,
+            generation=json.loads(canonical_json(generation_configuration)),
+        ),
+    )
+
+
 @dataclass(frozen=True)
 class NormalizedText:
     text: str
@@ -344,7 +386,13 @@ def prepare_text_requests(rows, profile, registry):
             text_identity_id=row["text_identity_id"],
             normalized_hash=normalized.normalized_hash,
             normalization_version=normalized.version,
-            **profile,
+            **{
+                **profile,
+                "configuration": {
+                    **profile["configuration"],
+                    "context_language": row.get("language"),
+                },
+            },
         )
         existing = registry.result(key)
         if existing is not None:

@@ -36,7 +36,17 @@ def wait_until(deadline):
         time.sleep(max(0, min(15, deadline - time.time())))
 
 
-def run(base, not_before=None, hours=8):
+def valid_duration(proof):
+    duration = (proof.get("metadata") or {}).get("duration_ms")
+    return (
+        proof.get("status") == 200
+        and isinstance(duration, int)
+        and not isinstance(duration, bool)
+        and duration > 0
+    )
+
+
+def run(base, not_before=None, hours=8, *, candidate_ids=None, refresh_duration=False):
     STATE.mkdir(exist_ok=True)
     with (STATE / "owner.lock").open("a+b") as lock:
         lock.seek(0)
@@ -50,7 +60,13 @@ def run(base, not_before=None, hours=8):
         deadline = time.monotonic() + hours * 3600
         unproductive, rate_pauses = 0, 0
         while time.monotonic() < deadline:
-            pause = collect(base, deadline)
+            pause = (
+                collect(
+                    base, deadline, candidate_ids=candidate_ids, refresh_duration=refresh_duration
+                )
+                if candidate_ids is not None or refresh_duration
+                else collect(base, deadline)
+            )
             if not pause or pause["status"] not in (429, 500, 502, 503, 504):
                 break
             rate_pauses += pause["status"] == 429
@@ -61,7 +77,7 @@ def run(base, not_before=None, hours=8):
             wait_until(time.time() + delay)
 
 
-def collect(base, deadline=None):
+def collect(base, deadline=None, *, candidate_ids=None, refresh_duration=False):
     wanted = sorted(
         {
             row["candidate_id"]
@@ -71,6 +87,10 @@ def collect(base, deadline=None):
             if row["candidate_id"].startswith("SPOTIFY:")
         }
     )
+    if candidate_ids is not None:
+        if not candidate_ids or set(candidate_ids) - set(wanted):
+            raise ValueError("metadata filter is empty or outside selected Spotify candidates")
+        wanted = [key for key in wanted if key in candidate_ids]
     db = sqlite3.connect(CACHE / "native-metadata.sqlite")
     db.execute(
         "CREATE TABLE IF NOT EXISTS evidence(candidate_id TEXT PRIMARY KEY, proof TEXT NOT NULL)"
@@ -88,7 +108,11 @@ def collect(base, deadline=None):
                     (key, saved.read_text(encoding="utf-8")),
                 )
     known = dict(db.execute("SELECT candidate_id,proof FROM evidence"))
-    pending = [key for key in wanted if key not in known]
+    pending = [
+        key
+        for key in wanted
+        if key not in known or (refresh_duration and not valid_duration(json.loads(known[key])))
+    ]
     counts = dict(
         selected=len(wanted),
         cached=len(wanted) - len(pending),
@@ -127,6 +151,10 @@ def collect(base, deadline=None):
         part.write_text(json.dumps(refs, ensure_ascii=False, indent=2), encoding="utf-8")
         part.replace(previous)
         counts["resolved"] = len(proofs)
+        counts["resolved_in_scope"] = sum(key in proofs for key in wanted)
+        counts["duration_in_scope"] = sum(
+            key in proofs and valid_duration(proofs[key]) for key in wanted
+        )
         part = STATE / "status.part"
         part.write_text(
             json.dumps(
@@ -235,6 +263,13 @@ def collect(base, deadline=None):
                                         "INSERT OR IGNORE INTO evidence VALUES (?,?)",
                                         (key, json.dumps(proof, ensure_ascii=False)),
                                     )
+                    if refresh_duration and valid_duration(proof):
+                        with db:
+                            db.execute(
+                                "INSERT INTO evidence VALUES (?,?) ON CONFLICT(candidate_id) "
+                                "DO UPDATE SET proof=excluded.proof",
+                                (key, json.dumps(proof, ensure_ascii=False)),
+                            )
                     if not proof.get("metadata"):
                         counts["unavailable"] += 1
                     if proof.get("status") not in (
@@ -271,7 +306,28 @@ if __name__ == "__main__":
     parser.add_argument("--base-root", type=Path, required=True)
     parser.add_argument("--not-before", type=float)
     parser.add_argument("--hours", type=float, default=8)
+    parser.add_argument("--candidate-ids-file", type=Path)
+    parser.add_argument("--refresh-missing-duration", action="store_true")
+    parser.add_argument("--skip-if-previous-provider-pause", action="store_true")
     args = parser.parse_args()
     if not 0 < args.hours <= 24:
         parser.error("hours must be in (0,24]")
-    run(args.base_root.resolve(), args.not_before, args.hours)
+    if args.skip_if_previous_provider_pause and (STATE / "status.json").exists():
+        previous_status = json.loads((STATE / "status.json").read_text(encoding="utf-8"))
+        if previous_status.get("stage") in {"provider_access_paused", "waiting_provider_cooldown"}:
+            print(json.dumps({"stage": "skipped_respecting_previous_provider_pause"}))
+            raise SystemExit(0)
+    candidate_ids = None
+    if args.candidate_ids_file:
+        candidate_ids = {
+            json.loads(line)["candidate_id"]
+            for line in args.candidate_ids_file.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        }
+    run(
+        args.base_root.resolve(),
+        args.not_before,
+        args.hours,
+        candidate_ids=candidate_ids,
+        refresh_duration=args.refresh_missing_duration,
+    )

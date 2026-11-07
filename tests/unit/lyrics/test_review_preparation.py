@@ -102,7 +102,7 @@ def test_review_package_is_blind_and_preserves_persistent_registry(
         )
     output = tmp_path / "output"
     preparation.prepare(prepared, output, validated)
-    manifest = json.loads((output / "manifest.json").read_text())
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["identity_claims"] == 3
     assert manifest["pilot_music"] == int(with_verified)
     assert manifest["pilot_deficit"] == 80 - int(with_verified)

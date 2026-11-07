@@ -27,6 +27,7 @@ from chart_observatory.lyrics.repository import (
     ingest_lyric_document,
 )
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
 def test_prepare_run_reserves_candidates_with_random_opaque_keys() -> None:
     engine = create_engine("sqlite+pysqlite:///:memory:")

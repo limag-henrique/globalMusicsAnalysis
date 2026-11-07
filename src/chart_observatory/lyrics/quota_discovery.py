@@ -7,6 +7,8 @@ from contextlib import suppress
 from pathlib import Path
 from urllib.parse import urlparse
 
+import httpx
+
 from chart_observatory.lyrics.quota_acquisition import (
     candidate,
     extract_html,
@@ -14,12 +16,30 @@ from chart_observatory.lyrics.quota_acquisition import (
     identity,
     lrclib_text,
 )
-from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
+from chart_observatory.lyrics.text_quality import (
+    prepare_lyric_derivative,
+    recording_duration_mismatch,
+)
 
 
-def recover_with_fallback(title, artist, http, *, first_time=False, browser=None):
+def recover_with_fallback(
+    title, artist, http, *, first_time=False, browser=None, metadata_resolution=None
+):
     """Try paced alternative HTML sources even for previously attempted candidates."""
-    payload = dict(title=title, artist=artist)
+    payload = dict(title=title, artist=artist, metadata_resolution=metadata_resolution or {})
+    network_errors = []
+
+    def attempt(label, action):
+        try:
+            result = action()
+            if network_errors:
+                result = dict(
+                    result, source_errors=list(result.get("source_errors", [])) + network_errors
+                )
+            return result
+        except httpx.RequestError as exc:
+            network_errors.append(f"{label}:{type(exc).__name__}")
+            return {}
 
     def acceptable(result):
         audit = audit_saved_result(payload, result)
@@ -27,13 +47,27 @@ def recover_with_fallback(title, artist, http, *, first_time=False, browser=None
             audit["source_quarantined"] or audit["text_quality_flags"]
         )
 
-    initial = fetch_candidate(title, artist, http) if first_time else {}
+    duration_options = {}
+    if metadata_resolution and metadata_resolution.get("duration_ms") is not None:
+        duration_options["expected_duration_ms"] = metadata_resolution["duration_ms"]
+    initial = (
+        attempt("INITIAL_FETCH", lambda: fetch_candidate(title, artist, http, **duration_options))
+        if first_time
+        else {}
+    )
     if acceptable(initial):
         return initial
-    discovered = discover_candidate(title, artist, http, browser=browser)
+    discovered = attempt(
+        "IDENTITY_DISCOVERY", lambda: discover_candidate(title, artist, http, browser=browser)
+    )
     if acceptable(discovered):
         return discovered
-    alternative = fetch_candidate(title, artist, http, html_sources={"AZLYRICS", "MUSIXMATCH"})
+    alternative = attempt(
+        "ALTERNATIVE_FETCH",
+        lambda: fetch_candidate(
+            title, artist, http, html_sources={"AZLYRICS", "MUSIXMATCH"}, **duration_options
+        ),
+    )
     if acceptable(alternative):
         return alternative
     # Keep rejected evidence available for review; never label it validated.
@@ -44,7 +78,8 @@ def recover_with_fallback(title, artist, http, *, first_time=False, browser=None
     return {
         **discovered,
         "source_errors": list(discovered.get("source_errors", []))
-        + list(alternative.get("source_errors", [])),
+        + list(alternative.get("source_errors", []))
+        + network_errors,
     }
 
 
@@ -67,16 +102,48 @@ def search_identities(title, artist):
 
 FEATURE_CREDIT = re.compile(r"[\[(]\s*(?:feat\.?|ft\.?|featuring|with)\s+([^\])]+)[\])]", re.I)
 
+_VERSION_SUFFIX = re.compile(
+    r"\s+-\s+(?=(?:\d{4}\s+)?(?:live|ao vivo|remix|remaster(?:ed)?|radio edit|"
+    r"acoustic|instrumental|clean|explicit|sped up|slowed)\b)",
+    re.I,
+)
+
+
+def split_feature_credits(title):
+    """Remove performer annotations while retaining explicit version suffixes."""
+    credits = []
+
+    def replace(match):
+        parts = _VERSION_SUFFIX.split(match[1], maxsplit=1)
+        credits.append(parts[0].strip())
+        return f"({parts[1].strip()})" if len(parts) == 2 else ""
+
+    return FEATURE_CREDIT.sub(replace, title).strip(), credits
+
 
 def match_genius_identity(title, artist, result):
     """Only credit annotations may differ, and featured performers must be evidenced."""
+    if any(not isinstance(value, str) or not value.strip() for value in (title, artist)):
+        return False
+    feature_title, feature_credits = split_feature_credits(title)
+    # Exact provider titles retain the original annotation interpretation.
+    if identity(result.get("title")) == identity(title):
+        feature_credits = FEATURE_CREDIT.findall(title)
     primary = result.get("primary_artist") or {}
     if not isinstance(primary, dict):
         return False
-    featured = result.get("featured_artists") or []
-    leads = result.get("primary_artists") or [primary]
-    if not isinstance(leads, list):
-        leads = [primary]
+    featured = result.get("featured_artists")
+    leads = result.get("primary_artists", [primary])
+    if not isinstance(featured, list) or not isinstance(leads, list):
+        return False
+    leads = leads or [primary]
+    if any(
+        not isinstance(person, dict)
+        or not isinstance(person.get("name"), str)
+        or not person["name"].strip()
+        for person in leads + featured
+    ):
+        return False
     names = [r.get("name", "") for r in leads if isinstance(r, dict)] + [
         r.get("name", "") for r in featured if isinstance(r, dict)
     ]
@@ -92,7 +159,7 @@ def match_genius_identity(title, artist, result):
                 supporting.extend(r.get("name", "") for r in values if isinstance(r, dict))
         credits = {identity(name) for name in names + supporting if isinstance(name, str)}
         lead_names = {identity(r.get("name")) for r in leads if isinstance(r, dict)}
-        allowed_performers = required | {identity(value) for value in FEATURE_CREDIT.findall(title)}
+        allowed_performers = required | {identity(value) for value in feature_credits}
         artist_matches = (
             required.issubset(credits)
             and bool(required & lead_names)
@@ -100,7 +167,7 @@ def match_genius_identity(title, artist, result):
         )
     else:
         extra = [name for name in names if identity(name) != identity(artist)]
-        annotated = {identity(value) for value in FEATURE_CREDIT.findall(title)}
+        annotated = {identity(value) for value in feature_credits}
         all_extras_annotated = (
             not extra
             or all(identity(name) in annotated for name in extra)
@@ -113,8 +180,8 @@ def match_genius_identity(title, artist, result):
         return False
     if identity(result.get("title")) == identity(title):
         return True
-    credits = FEATURE_CREDIT.findall(title)
-    if not credits or identity(FEATURE_CREDIT.sub("", title)) != identity(result.get("title")):
+    credits = feature_credits
+    if not credits or identity(feature_title) != identity(result.get("title")):
         return False
     observed = {identity(name) for name in names[1:]}
     observed.add(identity(" | ".join(names[1:])))
@@ -193,6 +260,7 @@ def role_bound_lrclib_candidate(title, artist, rows, proofs):
         next(iter(texts)),
         "LRCLIB",
         id=row.get("id"),
+        duration_seconds=row.get("duration"),
         observed_title=row["trackName"],
         observed_artist=row["artistName"],
         requested_artist=artist,
@@ -241,6 +309,7 @@ def discover_candidate(title, artist, http, browser=None):
                     next(iter(texts)),
                     "LRCLIB",
                     id=exact[0].get("id"),
+                    duration_seconds=exact[0].get("duration"),
                     observed_title=exact[0].get("trackName"),
                     observed_artist=exact[0].get("artistName"),
                     requested_artist=artist,
@@ -258,7 +327,7 @@ def discover_candidate(title, artist, http, browser=None):
             errors.append(f"LRCLIB:{response.status_code}")
         response = http.get(
             "https://genius.com/api/search/multi",
-            params={"per_page": 5, "q": f"{credited} {FEATURE_CREDIT.sub('', title).strip()}"},
+            params={"per_page": 5, "q": f"{credited} {split_feature_credits(title)[0]}"},
         )
         if response.status_code != 200:
             errors.append(f"GENIUS_SEARCH:{response.status_code}")
@@ -291,7 +360,7 @@ def discover_candidate(title, artist, http, browser=None):
                     requested_names = {identity(value) for value in artist.split("|")}
                     title_matches = identity(result.get("title")) in {
                         identity(title),
-                        identity(FEATURE_CREDIT.sub("", title)),
+                        identity(split_feature_credits(title)[0]),
                     }
                     song_id = result.get("id")
                     if not (
@@ -345,6 +414,7 @@ def discover_candidate(title, artist, http, browser=None):
                         "id": primary.get("id"),
                         "name": primary.get("name"),
                     }
+                    credits["performer_credit_fields_explicit"] = True
                     credits["song_id"] = result.get("id")
                     credits["lyrics_state"] = result.get("lyrics_state")
                     urls.append((url, primary.get("name"), result.get("title"), credits))
@@ -480,6 +550,10 @@ def audit_saved_result(payload, result):
     flags = list(result.get("text_quality_flags", []))
     requested = payload.get("artist") or ""
     metadata = result.get("source_metadata") or {}
+    native_duration = (payload.get("metadata_resolution") or {}).get("duration_ms")
+    lyric_duration = metadata.get("duration_seconds")
+    if recording_duration_mismatch(native_duration, lyric_duration):
+        flags.append("recording_duration_mismatch")
     evidenced_artist = metadata.get("requested_artist") or metadata.get("observed_artist")
     if ("|" in requested or ", " in requested) and (
         metadata.get("full_requested_artist_credit_matched") is not True

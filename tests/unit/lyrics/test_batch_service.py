@@ -5,7 +5,6 @@ from types import SimpleNamespace
 from uuid import UUID, uuid4
 
 import pytest
-from chart_observatory.lyrics import campaign_budget as campaign_budget_module
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
@@ -16,6 +15,7 @@ from chart_observatory.db.models.lyrics_batch import (
     LyricClassificationBatchRun,
 )
 from chart_observatory.lyrics import batch_service as batch_service_module
+from chart_observatory.lyrics import campaign_budget as campaign_budget_module
 from chart_observatory.lyrics.batch_contract import BatchRunKind, BatchRunState
 from chart_observatory.lyrics.batch_importer import BatchImportSummary
 from chart_observatory.lyrics.batch_repository import BatchRepository
@@ -36,6 +36,7 @@ from chart_observatory.lyrics.classification_queue import (
 )
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
 @pytest.fixture(autouse=True)
 def isolated_campaign_budget(tmp_path, monkeypatch):

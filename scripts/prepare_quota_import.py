@@ -17,18 +17,22 @@ from chart_observatory.ingestion.import_quotas import (
     recovery_targets,
     select_quota_candidates,
 )
+from chart_observatory.ingestion.quota_boundary import validate_quota_memberships
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/derived/research_quality/import-quotas-20261030"
 
 
-def prepare(source, output, *, start_year=2017, end_year=2026, metadata_only_overflow=False):
+def prepare(source, output, *, start_year=2018, end_year=2026, metadata_only_overflow=False):
+    if not 2018 <= start_year <= end_year <= 2026:
+        raise ValueError("new quota imports must stay within 2018–2026")
     quotas = load_quotas(source / "country_quotas.csv")
     with (source / "source_coverage.csv").open(encoding="utf-8-sig", newline="") as handle:
         coverage = list(csv.DictReader(handle))
     rankings = pl.read_parquet(source / "rankings.parquet").to_dicts()
     result = select_quota_candidates(rankings, coverage, quotas,
                                      years=range(start_year, end_year + 1))
+    validate_quota_memberships(result["selections"], quotas)
     targets = recovery_targets(result["selections"])
     if len(targets) > 30000 and not metadata_only_overflow:
         raise ValueError("candidate union exceeds 30000; recalibrate before acquisition")
@@ -69,8 +73,8 @@ if __name__ == "__main__":
                         help="Persist a separate immutable snapshot in the configured database")
     parser.add_argument("--prepared", action="store_true",
                         help="Reuse and verify an existing output directory before persistence")
-    parser.add_argument("--start-year", type=int, choices=range(2017, 2027), default=2017)
-    parser.add_argument("--end-year", type=int, choices=range(2017, 2027), default=2026)
+    parser.add_argument("--start-year", type=int, choices=range(2018, 2027), default=2018)
+    parser.add_argument("--end-year", type=int, choices=range(2018, 2027), default=2026)
     parser.add_argument("--metadata-only-overflow", action="store_true",
                         help="Allow metadata above 30000; keep lyric acquisition blocked")
     args = parser.parse_args()
@@ -99,6 +103,7 @@ if __name__ == "__main__":
 
         with (args.output / "selected.jsonl").open(encoding="utf-8") as handle:
             rows = [json.loads(line) for line in handle if line.strip()]
+        validate_quota_memberships(rows, load_quotas(args.source / "country_quotas.csv"))
         engine = create_engine(Settings.load(ROOT).database_url)
         try:
             persisted = persist_snapshot(engine, manifest, rows)

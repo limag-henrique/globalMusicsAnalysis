@@ -1,0 +1,38 @@
+{
+  "marker": "classification-gate-isolated-copy-v1",
+  "run_id": "2e64d400195f4b1bab53b925c993506e",
+  "started_at": "2026-11-07T01:25:00.459510+00:00",
+  "finished_at": "2026-11-07T01:27:37.192043+00:00",
+  "paid_calls": 0,
+  "source_before": {
+    "transaction_read_only": "on",
+    "alembic": "0015_gemini_batch",
+    "canonical_tracks": 159080,
+    "lyric_documents": 159111,
+    "lyric_classification_snapshots": 167952,
+    "quota_lyric_staging_candidates": 766071,
+    "quota_lyric_staging_blobs": 27094,
+    "canonical_tracks_row_manifest_sha256": "0a44e26b588f257dad887b786f64eb0f158a45e5a822cfee35471847132ddace",
+    "lyric_documents_row_manifest_sha256": "7456d11b15e8f2bace90e7bdb4d7d23625a4a9e675fde142950f116e97b0a10e",
+    "lyric_classification_snapshots_row_manifest_sha256": "fd19cb131d371a03dddce65ab968ea1507f06bc4bf3df699137eec13795a4f85"
+  },
+  "source_after": {
+    "transaction_read_only": "on",
+    "alembic": "0015_gemini_batch",
+    "canonical_tracks": 159080,
+    "lyric_documents": 159111,
+    "lyric_classification_snapshots": 167952,
+    "quota_lyric_staging_candidates": 766071,
+    "quota_lyric_staging_blobs": 27094,
+    "canonical_tracks_row_manifest_sha256": "0a44e26b588f257dad887b786f64eb0f158a45e5a822cfee35471847132ddace",
+    "lyric_documents_row_manifest_sha256": "7456d11b15e8f2bace90e7bdb4d7d23625a4a9e675fde142950f116e97b0a10e",
+    "lyric_classification_snapshots_row_manifest_sha256": "fd19cb131d371a03dddce65ab968ea1507f06bc4bf3df699137eec13795a4f85"
+  },
+  "source_logical_fingerprints_unchanged": true,
+  "restored_research_unchanged": true,
+  "clone_stopped": true,
+  "exit_code": 0,
+  "dump_sha256": "f9c801f0763e80148fae41ff65194aa548f86d914ab968552e8a83b5f1f6c2e7",
+  "dump_bytes": 537095312,
+  "test_result": "41 passed in 4.30s"
+}

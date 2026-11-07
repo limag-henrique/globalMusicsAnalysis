@@ -385,3 +385,77 @@ def test_alternative_provider_availability_prevents_global_pause(tmp_path):
         assert 55 < http.search_retry_delay(domains) <= 60
         with pytest.raises(ValueError, match="at least one"):
             http.search_retry_delay(())
+
+
+def test_wrong_lrclib_duration_does_not_hide_valid_html_alternative(tmp_path):
+    lines = [f"Complete fixture verse {i}" for i in range(20)]
+    html = (
+        '<title>Artist - "Song" Lyrics | AZLyrics.com</title>'
+        '<div class="col-lg-8 text-center"><div>' + "<br>".join(lines) + "</div></div>"
+    )
+    calls = []
+
+    def respond(request):
+        calls.append(request.url.host)
+        if request.url.host == "lrclib.net":
+            return httpx.Response(
+                200,
+                json=[
+                    dict(
+                        trackName="Song",
+                        artistName="Artist",
+                        duration=240,
+                        plainLyrics="Different edition line\n" * 30,
+                    )
+                ],
+            )
+        assert request.url.host == "www.azlyrics.com"
+        return httpx.Response(200, text=html)
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = fetch_candidate(
+            "Song",
+            "Artist",
+            PacedHTTP(tmp_path, client),
+            html_sources={"AZLYRICS"},
+            expected_duration_ms=200506,
+        )
+    assert calls == ["lrclib.net", "www.azlyrics.com"]
+    assert result["source"] == "AZLYRICS" and result["text"].endswith(lines[-1])
+
+
+def test_verified_duration_can_disambiguate_same_named_lrclib_editions(tmp_path):
+    rows = [
+        dict(
+            id=1,
+            trackName="Song",
+            artistName="Artist",
+            duration=200,
+            plainLyrics="Matching version complete line\n" * 30,
+        ),
+        dict(
+            id=2,
+            trackName="Song",
+            artistName="Artist",
+            duration=240,
+            plainLyrics="Different version complete line\n" * 30,
+        ),
+    ]
+    with httpx.Client(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, json=rows))
+    ) as client:
+        http = PacedHTTP(tmp_path, client)
+        unknown = fetch_candidate("Song", "Artist", http, html_sources=set())
+        assert not unknown.get("text")
+        selected = fetch_candidate(
+            "Song", "Artist", http, html_sources=set(), expected_duration_ms=200506
+        )
+    assert selected["source_metadata"]["id"] == 1
+    assert selected["source_metadata"]["duration_seconds"] == 200
+    from chart_observatory.lyrics.quota_discovery import audit_saved_result
+
+    audit = audit_saved_result(
+        dict(title="Song", artist="Artist", metadata_resolution=dict(duration_ms=200506)), selected
+    )
+    assert audit["identity_validated"] is False
+    assert audit["completeness_validated"] is False

@@ -209,3 +209,56 @@ def test_same_names_do_not_merge_platform_identities_and_derived_ids_are_not_nat
         assert conn.execute("SELECT count(*) FROM recordings").fetchone()[0] == 0
     with pytest.raises(ValueError, match="derived"):
         registry.record_pending_claims([{**claims[0], "native_id": "web-derived:123"}])
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("resolved_model_version", "model@new"),
+        ("prompt_template", "New instructions"),
+        ("output_schema", {"type": "array"}),
+        ("rubric_version", "new-rubric"),
+        ("prompt_version", "new-prompt"),
+        ("preprocessing_version", "new-preprocessor"),
+        ("protocol_version", "new-protocol"),
+        ("generation_configuration", {"temperature": 1}),
+    ],
+)
+def test_complete_execution_profile_invalidates_every_scientific_input(field, value):
+    from chart_observatory.lyrics.revision_protocol import execution_profile
+
+    inputs = dict(
+        model_id="model",
+        resolved_model_version="model@fixed",
+        prompt_template="Instructions",
+        output_schema={"type": "object"},
+        rubric_version="rubric",
+        prompt_version="prompt",
+        preprocessing_version="prep",
+        protocol_version="protocol",
+        generation_configuration={"temperature": 0},
+    )
+    first = key(**execution_profile(**inputs))
+    second = key(**execution_profile(**{**inputs, field: value}))
+    assert first.digest != second.digest
+
+
+def test_language_context_changes_prepared_signature(tmp_path):
+    registry = RevisionRegistry(tmp_path / "language-signature.sqlite")
+    normalized = normalize_text("Synthetic words with an ambiguous language cue")
+    base = dict(
+        text_identity_id="edition",
+        normalized_hash=normalized.normalized_hash,
+        normalization_version=normalized.version,
+        text=normalized.text,
+        identity_confirmed=True,
+        integrity_validated=True,
+        text_language_role="original",
+    )
+    profile = dict(
+        rubric_version="r", prompt_version="p", model_id="m", configuration={"resolved": True}
+    )
+    requests = prepare_text_requests(
+        [{**base, "language": "en"}, {**base, "language": "pt"}], profile, registry
+    )
+    assert len(requests["requests"]) == 2

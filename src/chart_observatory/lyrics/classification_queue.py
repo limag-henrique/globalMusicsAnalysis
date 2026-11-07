@@ -8,18 +8,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from uuid import UUID
 
-from sqlalchemy import Engine, exists, func, select, text
+from sqlalchemy import Engine, exists, select, text
 from sqlalchemy.orm import Session
 
 from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
 from chart_observatory.db.models.lyrics_batch import LyricClassificationBatchItem
-from chart_observatory.lyrics import review_evidence
-from chart_observatory.lyrics.identity_quarantine import (
-    excluded_document_ids,
-    load_quarantine_entries,
-    load_suspended_sources,
+from chart_observatory.lyrics.classification_gate import (
+    ClassificationEligibilityError,
+    ClassificationGate,
 )
-from chart_observatory.lyrics.repository import AUTHORIZED_RIGHTS
 
 MIN_CLASSIFIABLE_TEXT_CHARS = 20
 HANDLED_CLASSIFICATION_STATUSES = (
@@ -95,6 +92,7 @@ def iter_remaining_candidates(
     *,
     quarantine_manifest_path: Path | None = None,
     include_identity_holds: bool = False,
+    only_unclassified: bool = True,
 ) -> Iterator[ClassificationCandidate]:
     """Stream remaining candidates so local outcomes do not consume provider limits."""
 
@@ -108,17 +106,12 @@ def iter_remaining_candidates(
             LyricClassificationSnapshot.classification_status.in_(HANDLED_CLASSIFICATION_STATUSES),
         )
     )
-    statement = select(LyricDocument).where(
-        LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)), ~handled
-    )
-    excluded_ids = excluded_document_ids(load_quarantine_entries(quarantine_manifest_path))
-    if excluded_ids and not include_identity_holds:
-        statement = statement.where(LyricDocument.id.not_in(excluded_ids))
-    suspended_sources = load_suspended_sources(quarantine_manifest_path)
-    if suspended_sources and not include_identity_holds:
-        statement = statement.where(
-            func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
-        )
+    # Retain the legacy argument for callers; it never bypasses scientific QA.
+    del include_identity_holds
+    gate = ClassificationGate.load(quarantine_manifest_path)
+    statement = select(LyricDocument)
+    if only_unclassified:
+        statement = statement.where(~handled)
     if exclude_active_batch:
         active = exists(
             select(LyricClassificationBatchItem.opaque_key).where(
@@ -134,11 +127,8 @@ def iter_remaining_candidates(
     statement = statement.order_by(LyricDocument.created_at, LyricDocument.id)
 
     seen: set[tuple[UUID, str]] = set()
-    human_reports = review_evidence.load_review_evidence()
     for document in session.scalars(statement).yield_per(100):
-        if review_evidence.review_blocks(
-            human_reports, str(document.id), document.content_sha256,
-        ):
+        if not gate.assess(document).eligible:
             continue
         local_signature = (document.canonical_track_id, document.content_sha256)
         if local_signature in seen:
@@ -152,6 +142,21 @@ def iter_remaining_candidates(
             language=document.language_code,
             instrumental=(document.metadata_json or {}).get("instrumental") is True,
         )
+
+
+def require_candidate_eligibility(session: Session, candidate: ClassificationCandidate) -> None:
+    """Recheck current evidence and bytes immediately before tokens or generation."""
+    document = session.get(LyricDocument, candidate.lyric_document_id, populate_existing=True)
+    if document is None:
+        raise ClassificationEligibilityError("document_unavailable")
+    ClassificationGate.load().require(document)
+    if (
+        document.canonical_track_id != candidate.canonical_track_id
+        or document.content_sha256 != candidate.lyrics_hash
+        or document.text != candidate.text
+        or document.language_code != candidate.language
+    ):
+        raise ClassificationEligibilityError("candidate_changed_since_selection")
 
 
 @contextmanager

@@ -27,6 +27,7 @@ from chart_observatory.lyrics.text_quality import (
     html_lyric_text,
     outer_lyric_containers,
     prepare_lyric_derivative,
+    recording_duration_mismatch,
 )
 
 
@@ -537,7 +538,7 @@ def candidate(text, source, **metadata):
     )
 
 
-def fetch_candidate(title, artist, http, *, html_sources=None):
+def fetch_candidate(title, artist, http, *, html_sources=None, expected_duration_ms=None):
     """Try one source at a time; never replace a failed version with the base song."""
     http.start_trace()
     if (
@@ -566,6 +567,7 @@ def fetch_candidate(title, artist, http, *, html_sources=None):
                     and identity(str(row.get("trackName", ""))) == identity(title)
                     and identity(str(row.get("artistName", ""))) == identity(artist)
                     and not row.get("instrumental")
+                    and not recording_duration_mismatch(expected_duration_ms, row.get("duration"))
                     and lrclib_text(row)
                 ]
                 if isinstance(rows, list)
@@ -577,6 +579,7 @@ def fetch_candidate(title, artist, http, *, html_sources=None):
                     next(iter(texts)),
                     "LRCLIB",
                     id=exact[0].get("id"),
+                    duration_seconds=exact[0].get("duration"),
                     observed_title=exact[0].get("trackName"),
                     observed_artist=exact[0].get("artistName"),
                     requested_artist=artist,

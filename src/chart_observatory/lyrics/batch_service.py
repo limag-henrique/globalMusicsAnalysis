@@ -55,10 +55,15 @@ from chart_observatory.lyrics.classification import (
     TAXONOMY_VERSION,
     CostRateCard,
 )
+from chart_observatory.lyrics.classification_gate import (
+    ClassificationEligibilityError,
+    ClassificationGate,
+)
 from chart_observatory.lyrics.classification_queue import (
     ClassificationCandidate,
     ClassificationSignature,
     classification_queue_lock,
+    require_candidate_eligibility,
 )
 from chart_observatory.lyrics.gemini_pipeline import build_lyrics_generation_config
 from chart_observatory.lyrics.revision_budget import (
@@ -352,13 +357,18 @@ class BatchClassificationService:
         self._revision_guard = RevisionBudgetPolicy(phase=revision_phase)
 
     def _default_cost_guard(
-        self, session: Session, cost: Decimal, cap: Decimal,
-        *, exclude_run_id: UUID | None = None,
+        self,
+        session: Session,
+        cost: Decimal,
+        cap: Decimal,
+        *,
+        exclude_run_id: UUID | None = None,
     ) -> Decimal:
         run = session.get(LyricClassificationBatchRun, exclude_run_id) if exclude_run_id else None
         version = run.prompt_version if run is not None else PROMPT_VERSION
         guard = (
-            self._revision_guard if version in REVISION_PROMPT_VERSIONS
+            self._revision_guard
+            if version in REVISION_PROMPT_VERSIONS
             else enforce_cumulative_cost_cap
         )
         return guard(session, cost, cap, exclude_run_id=exclude_run_id)
@@ -396,8 +406,11 @@ class BatchClassificationService:
             bucket_name=bucket_name,
             adc_available=True,
             migration_ready=True,
-            absolute_cost_cap_usd=(Decimal("180") if PROMPT_VERSION in REVISION_PROMPT_VERSIONS
-                                   else MAX_TOTAL_BATCH_COST_USD),
+            absolute_cost_cap_usd=(
+                Decimal("180")
+                if PROMPT_VERSION in REVISION_PROMPT_VERSIONS
+                else MAX_TOTAL_BATCH_COST_USD
+            ),
         )
 
     def prepare_canary(self, max_cost_usd: Decimal) -> list[BatchPreparation]:
@@ -446,7 +459,9 @@ class BatchClassificationService:
             raise CostBudgetExceeded("run has no conservative cost reservation")
         if run.prompt_version in REVISION_PROMPT_VERSIONS:
             self._revision_guard(
-                self._session, Decimal(run.conservative_cost_usd), max_cost_usd,
+                self._session,
+                Decimal(run.conservative_cost_usd),
+                max_cost_usd,
                 exclude_run_id=run.id,
             )
         self._cost_guard(
@@ -455,6 +470,7 @@ class BatchClassificationService:
             max_cost_usd,
             exclude_run_id=run.id,
         )
+        self._validate_run_eligibility(run)
         self._storage.verify(self._stored_source(run))
         job = self._vertex.submit(run)
         run.provider_job_name = job.name
@@ -639,10 +655,12 @@ class BatchClassificationService:
                     exact_exports = list(export_stream)
                     exports: Sequence[BatchExportItem] | Iterator[BatchExportItem] = exact_exports
                 else:
+
                     def counted_exports():
                         for export in export_stream:
                             exact_tokens.extend(self._exact_tokens([export]))
                             yield export
+
                     exports = counted_exports()
                 with tempfile.TemporaryDirectory(
                     dir=str(self._temporary_root) if self._temporary_root else None
@@ -687,14 +705,16 @@ class BatchClassificationService:
                         exclude_run_id=run.id,
                     )
                     if PROMPT_VERSION in REVISION_PROMPT_VERSIONS:
-                        self._revision_guard(self._session, total_conservative, max_cost_usd,
-                                             exclude_run_id=run.id)
+                        self._revision_guard(
+                            self._session, total_conservative, max_cost_usd, exclude_run_id=run.id
+                        )
                     preparations = []
                     for shard_run, artifact, hashes, estimate in zip(
                         prepared_runs, artifacts, shard_hashes, estimates, strict=True
                     ):
                         self._repository.record_request_hashes(shard_run.id, iter(hashes))
                         object_name = f"runs/{shard_run.id}/input.jsonl"
+                        self._validate_run_eligibility(shard_run)
                         stored = self._storage.upload(artifact.path, object_name)
                         uploaded_objects.append(stored)
                         shard_run.source_uri = stored.uri
@@ -748,16 +768,25 @@ class BatchClassificationService:
     def _iter_export_items(self, run_id: UUID) -> Iterator[BatchExportItem]:
         rows = self._session.execute(
             select(LyricClassificationBatchItem, LyricDocument)
-            .join(
+            .outerjoin(
                 LyricDocument,
                 LyricDocument.id == LyricClassificationBatchItem.lyric_document_id,
             )
             .where(LyricClassificationBatchItem.batch_run_id == run_id)
             .order_by(LyricClassificationBatchItem.line_number)
-            .execution_options(yield_per=100)
+            .execution_options(yield_per=100, populate_existing=True)
         )
         config = build_lyrics_generation_config("gemini-3.8-flash", "LOW", BATCH_MAX_OUTPUT_TOKENS)
+        gate = ClassificationGate.load()
         for item, document in rows:
+            if document is None:
+                raise ClassificationEligibilityError("reserved_document_unavailable")
+            gate.require(document)
+            if (
+                document.canonical_track_id != item.canonical_track_id
+                or document.content_sha256 != item.lyrics_hash
+            ):
+                raise ClassificationEligibilityError("reserved_document_binding_mismatch")
             if document.text is None:
                 raise RuntimeError("reserved lyric document is unavailable")
             yield BatchExportItem(
@@ -773,11 +802,34 @@ class BatchClassificationService:
                 config=config,
             )
 
+    def _validate_run_eligibility(self, run: LyricClassificationBatchRun) -> None:
+        """Reject stale uploaded batches without rewriting their historical inputs."""
+        count = 0
+        for export in self._iter_export_items(run.id):
+            item = export.item
+            if (
+                item.model_id != run.model_id
+                or item.taxonomy_version != run.taxonomy_version
+                or item.prompt_version != run.prompt_version
+                or run.taxonomy_version != TAXONOMY_VERSION
+                or run.prompt_version != PROMPT_VERSION
+                or run.model_id != "gemini-3.8-flash"
+                or run.thinking_level != "LOW"
+            ):
+                raise ClassificationEligibilityError("batch_configuration_mismatch")
+            payload = build_batch_request(item, export.candidate, export.config)
+            if canonical_request_sha256(payload) != item.request_sha256:
+                raise ClassificationEligibilityError("batch_request_changed")
+            count += 1
+        if count != run.request_count or not count:
+            raise ClassificationEligibilityError("batch_item_count_mismatch")
+
     def _exact_tokens(self, exports: Sequence[BatchExportItem]) -> list[int]:
         if self._token_counter is None:
             raise RuntimeError("pre-submit token counter is unavailable")
         values: list[int] = []
         for export in exports:
+            require_candidate_eligibility(self._session, export.candidate)
             value = self._token_counter.estimate_input_tokens(
                 export.candidate.text or "", export.candidate.language
             )

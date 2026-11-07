@@ -10,10 +10,9 @@ from decimal import Decimal
 from typing import Protocol
 from uuid import UUID
 
-from sqlalchemy import exists, func, select
 from sqlalchemy.orm import Session
 
-from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
+from chart_observatory.db.models.corpus import LyricClassificationSnapshot
 from chart_observatory.lyrics.classification import (
     PROMPT_VERSION,
     TAXONOMY_VERSION,
@@ -27,19 +26,14 @@ from chart_observatory.lyrics.classification_queue import (
     ClassificationCandidate,
     ClassificationSignature,
     classification_queue_lock,
-    select_remaining_candidates,
+    iter_remaining_candidates,
+    require_candidate_eligibility,
 )
 from chart_observatory.lyrics.gemini_pipeline import (
     GeminiClassificationResponse,
     GeminiOutcomeStatus,
 )
-from chart_observatory.lyrics.identity_quarantine import (
-    excluded_document_ids,
-    load_quarantine_entries,
-    load_suspended_sources,
-)
 from chart_observatory.lyrics.repository import (
-    AUTHORIZED_RIGHTS,
     ClassificationSnapshotInput,
     append_classification_snapshot,
     find_matching_snapshot,
@@ -180,88 +174,23 @@ class LyricsClassificationService:
         return summary
 
     def count_initial_pass_remaining(self) -> int:
-        """Count authorized tracks with no durable outcome in the unattended queue."""
-        quarantined_ids = excluded_document_ids(load_quarantine_entries())
-        suspended_sources = load_suspended_sources()
-        handled_snapshot = exists(
-            select(LyricClassificationSnapshot.id).where(
-                LyricClassificationSnapshot.canonical_track_id
-                == LyricDocument.canonical_track_id,
-                LyricClassificationSnapshot.classification_status.in_(
-                    HANDLED_CLASSIFICATION_STATUSES
-                ),
+        """Count the same positively validated signatures used by dispatch."""
+        return sum(
+            1
+            for _ in iter_remaining_candidates(
+                self._session,
+                ClassificationSignature(self._model_id, TAXONOMY_VERSION, PROMPT_VERSION),
             )
         )
-        statement = select(func.count(func.distinct(LyricDocument.canonical_track_id))).where(
-            LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS)),
-            ~handled_snapshot,
-        )
-        if quarantined_ids:
-            statement = statement.where(LyricDocument.id.not_in(quarantined_ids))
-        if suspended_sources:
-            statement = statement.where(
-                func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
-            )
-        count = self._session.scalar(statement)
-        return int(count or 0)
 
     def _select_candidates(self, request: ClassificationRequest) -> list[_Candidate]:
-        if request.only_unclassified:
-            return select_remaining_candidates(
-                self._session,
-                ClassificationSignature(
-                    self._model_id, TAXONOMY_VERSION, PROMPT_VERSION
-                ),
-                request.limit,
-            )
-        statement = select(LyricDocument).where(
-            LyricDocument.rights_status.in_(sorted(AUTHORIZED_RIGHTS))
-        )
-        quarantined_ids = excluded_document_ids(load_quarantine_entries())
-        suspended_sources = load_suspended_sources()
-        if quarantined_ids:
-            statement = statement.where(LyricDocument.id.not_in(quarantined_ids))
-        if suspended_sources:
-            statement = statement.where(
-                func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
-            )
-        if request.only_unclassified:
-            successful_snapshot = exists(
-                select(LyricClassificationSnapshot.id).where(
-                    LyricClassificationSnapshot.canonical_track_id
-                    == LyricDocument.canonical_track_id,
-                    LyricClassificationSnapshot.classification_status.in_(
-                        HANDLED_CLASSIFICATION_STATUSES
-                    ),
-                )
-            )
-            statement = statement.where(~successful_snapshot)
-        statement = statement.order_by(LyricDocument.created_at, LyricDocument.id)
-
-        selected: list[_Candidate] = []
-        seen_signatures: set[tuple[UUID, str, str, str, str]] = set()
-        for document in self._session.scalars(statement).yield_per(100):
-            signature = (
-                document.canonical_track_id,
-                document.content_sha256,
-                self._model_id,
-                TAXONOMY_VERSION,
-                PROMPT_VERSION,
-            )
-            if signature in seen_signatures:
-                continue
-            seen_signatures.add(signature)
-            metadata = document.metadata_json or {}
-            selected.append(
-                _Candidate(
-                    lyric_document_id=document.id,
-                    canonical_track_id=document.canonical_track_id,
-                    lyrics_hash=document.content_sha256,
-                    text=document.text,
-                    language=document.language_code,
-                    instrumental=metadata.get("instrumental") is True,
-                )
-            )
+        selected = []
+        for candidate in iter_remaining_candidates(
+            self._session,
+            ClassificationSignature(self._model_id, TAXONOMY_VERSION, PROMPT_VERSION),
+            only_unclassified=request.only_unclassified,
+        ):
+            selected.append(candidate)
             if request.limit is not None and len(selected) >= request.limit:
                 break
         return selected
@@ -274,6 +203,7 @@ class LyricsClassificationService:
     ) -> None:
         provider_candidates: list[_Candidate] = []
         for candidate in candidates:
+            require_candidate_eligibility(self._session, candidate)
             match = self._find_match(candidate)
             if not request.force and match is not None and self._is_handled_match(match):
                 if request.estimate_cost:
@@ -328,6 +258,7 @@ class LyricsClassificationService:
             for candidate in candidates:
                 while len(pending) >= request.workers:
                     self._complete_one(pending, summary)
+                require_candidate_eligibility(self._session, candidate)
                 match = self._find_match(candidate)
                 if match is not None and not request.force and self._is_handled_match(match):
                     summary.skipped_idempotent += 1
@@ -420,10 +351,16 @@ class LyricsClassificationService:
         provider_outcome: str | None = None,
     ) -> None:
         validated_result = result if isinstance(result, LyricsClassification) else None
-        local = (provider_outcome is None and result is None and usage is None
-                 and status in {"instrumental", "insufficient_text"})
+        local = (
+            provider_outcome is None
+            and result is None
+            and usage is None
+            and status in {"instrumental", "insufficient_text"}
+        )
         if local:
-            usage = UsageTelemetry(input_tokens=0, output_tokens=0, thought_tokens=0, total_tokens=0)
+            usage = UsageTelemetry(
+                input_tokens=0, output_tokens=0, thought_tokens=0, total_tokens=0
+            )
         row = append_classification_snapshot(
             self._session,
             ClassificationSnapshotInput(
@@ -493,9 +430,7 @@ class LyricsClassificationService:
         return None
 
     @staticmethod
-    def _add_usage(
-        summary: ClassificationRunSummary, usage: UsageTelemetry | None
-    ) -> None:
+    def _add_usage(summary: ClassificationRunSummary, usage: UsageTelemetry | None) -> None:
         if usage is None:
             return
         if usage.input_tokens is not None:

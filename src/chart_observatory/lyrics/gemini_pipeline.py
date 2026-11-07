@@ -561,11 +561,13 @@ class GeminiAnnotationClient:
         lyrics: str,
         language: str | None = None,
     ) -> dict[str, Any]:
-        del song_id, title, artist
-        response = self._classifier.classify(lyrics=lyrics, language=language)
-        if response.result is None:
-            raise GeminiApiError(response.error or "Gemini classification failed")
-        return response.result.model_dump(mode="json")
+        # A raw string has no document/hash-bound adjudication. Do not offer a
+        # parallel paid path around LyricsClassificationService.
+        from chart_observatory.lyrics.classification_gate import ClassificationEligibilityError
+
+        raise ClassificationEligibilityError(
+            "unbound_legacy_annotation: use the adjudicated document classification service"
+        )
 
 
 def existing_song_ids(output: Path) -> set[str]:

@@ -31,3 +31,15 @@ def test_kworb_archive_extracts_explicit_track_metadata_without_reading_chart_ro
     <div class="daily"><table><tr><td>Other text</td></tr></table></div></div>"""
     assert kworb_metadata(html) == dict(title="Song - Live", artist="Artist | Guest")
     assert kworb_metadata("<div>Generic page</div>") is None
+
+
+def test_public_embed_keeps_exact_track_duration_without_session_fields():
+    entity = dict(uri="spotify:track:abc", type="track", title="Song",
+                  duration=200506, artists=[{"name": "Artist"}])
+    data = dict(props=dict(pageProps=dict(state=dict(data=dict(entity=entity)))))
+    html = '<script id="__NEXT_DATA__">' + json.dumps(data) + '</script>'
+    assert spotify_entity(html, "abc")["duration_ms"] == 200506
+    entity["duration"] = True
+    data["props"]["pageProps"]["state"]["data"]["entity"] = entity
+    html = '<script id="__NEXT_DATA__">' + json.dumps(data) + '</script>'
+    assert "duration_ms" not in spotify_entity(html, "abc")

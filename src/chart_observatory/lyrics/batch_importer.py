@@ -12,7 +12,7 @@ from uuid import UUID
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from chart_observatory.db.models.corpus import LyricClassificationSnapshot
+from chart_observatory.db.models.corpus import LyricClassificationSnapshot, LyricDocument
 from chart_observatory.db.models.lyrics_batch import (
     LyricClassificationBatchItem,
     LyricClassificationBatchRun,
@@ -25,6 +25,7 @@ from chart_observatory.lyrics.classification import (
     LyricsClassification,
     UsageTelemetry,
 )
+from chart_observatory.lyrics.classification_gate import ClassificationGate
 from chart_observatory.lyrics.repository import (
     ClassificationSnapshotInput,
     append_classification_snapshot,
@@ -96,6 +97,7 @@ class BatchImporter:
                 self._persist_error(run, item, "batch_request_fingerprint_mismatch")
                 self._fail_run(run, "batch_request_fingerprint_mismatch")
                 raise BatchIntegrityError("request fingerprint mismatch")
+            self._require_import_eligibility(item)
             try:
                 self._import_row(run, item, payload, summary)
                 pending_rows += 1
@@ -111,6 +113,24 @@ class BatchImporter:
         if pending_rows:
             self._session.commit()
         return summary
+
+    def _require_import_eligibility(self, item: LyricClassificationBatchItem) -> None:
+        """Hold new annotations after revocation; preserve provider artifacts/history.
+
+        Already reconciled snapshots remain immutable and can still be accounted for.
+        No artificial classification or retry is created for a missing approval.
+        """
+        document = self._session.get(LyricDocument, item.lyric_document_id, populate_existing=True)
+        if document is None:
+            raise BatchIntegrityError("batch_eligibility:document_unavailable")
+        decision = ClassificationGate.load().assess(document)
+        if not decision.eligible:
+            raise BatchIntegrityError(f"batch_eligibility:{decision.reason}")
+        if (
+            item.canonical_track_id != document.canonical_track_id
+            or item.lyrics_hash != document.content_sha256
+        ):
+            raise BatchIntegrityError("batch_eligibility:document_binding_mismatch")
 
     def finalize_missing(self, run_id: UUID) -> BatchImportSummary:
         run = self._run(run_id)

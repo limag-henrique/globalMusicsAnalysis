@@ -34,7 +34,7 @@ class LocalResponsesOnly(PacedHTTP):
         return super().get(url, **kwargs)
 
 
-def main(include_flagged=False):
+def main(include_flagged=False, candidate_ids_file=None):
     OUTPUT.mkdir(exist_ok=True)
     STATE.mkdir(parents=True, exist_ok=True)
     with (STATE / "owner.lock").open("a+b") as lock:
@@ -46,10 +46,31 @@ def main(include_flagged=False):
         msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
         publish_status(
             STATE / "status.json",
-            dict(stage="verifying_local_selection_and_metadata", pid=os.getpid(),
-                 updated_at=datetime.now(UTC).isoformat(), network_requests=0),
+            dict(
+                stage="verifying_local_selection_and_metadata",
+                pid=os.getpid(),
+                updated_at=datetime.now(UTC).isoformat(),
+                network_requests=0,
+            ),
         )
         selected = read_rows(BASE / "combined.jsonl")
+        filter_hash = None
+        if candidate_ids_file is not None:
+            raw_filter = Path(candidate_ids_file).read_bytes()
+            filter_hash = hashlib.sha256(raw_filter).hexdigest()
+            requested = set()
+            for line in raw_filter.decode("utf-8").splitlines():
+                if not line.strip():
+                    continue
+                key = json.loads(line).get("candidate_id")
+                if not isinstance(key, str) or not key.strip():
+                    raise ValueError("candidate filter requires candidate_id strings")
+                requested.add(key)
+            current_ids = {row["candidate_id"] for row in selected}
+            if not requested or requested - current_ids:
+                raise ValueError("candidate filter is empty or outside current selection")
+            selected = [row for row in selected if row["candidate_id"] in requested]
+        scope = {row["candidate_id"] for row in selected}
         enrichment = json.loads((BASE / "metadata-enrichment.json").read_text(encoding="utf-8"))
         for row in selected:
             meta = enrichment.get("resolved", {}).get(row["candidate_id"], {})
@@ -59,7 +80,12 @@ def main(include_flagged=False):
         display_path = BASE / "native-display-metadata.json"
         if display_path.exists():
             apply_native_display_metadata(
-                selected, json.loads(display_path.read_text(encoding="utf-8"))
+                selected,
+                {
+                    key: value
+                    for key, value in json.loads(display_path.read_text(encoding="utf-8")).items()
+                    if key in scope
+                },
             )
         with sqlite3.connect(
             f"file:{(STORE / 'acquisition.sqlite').as_posix()}?mode=ro", uri=True
@@ -67,6 +93,7 @@ def main(include_flagged=False):
             known = {
                 key: (state, json.loads(result) if result else {})
                 for key, state, result in db.execute("SELECT identity,status,result FROM tasks")
+                if key in scope
             }
         if include_flagged:
             # Refresh stale flags from immutable blobs without changing the live writer's DB.
@@ -74,9 +101,14 @@ def main(include_flagged=False):
                 if verified == 1 or verified % 500 == 0:
                     publish_status(
                         STATE / "status.json",
-                        dict(stage="verifying_saved_text_quality", pid=os.getpid(),
-                             updated_at=datetime.now(UTC).isoformat(), network_requests=0,
-                             verified_tasks=verified, total_tasks=len(known)),
+                        dict(
+                            stage="verifying_saved_text_quality",
+                            pid=os.getpid(),
+                            updated_at=datetime.now(UTC).isoformat(),
+                            network_requests=0,
+                            verified_tasks=verified,
+                            total_tasks=len(known),
+                        ),
                     )
                 if state == "running" or not result.get("text_path"):
                     continue
@@ -109,18 +141,27 @@ def main(include_flagged=False):
             and known.get(row["recording_id"], ("pending", {}))[0] != "running"
         ]
         counts = dict(
-            total=len(targets), processed=0, recovered=0, previously_recovered=0, errors=0
+            total=len(targets),
+            processed=0,
+            recovered=0,
+            previously_recovered=0,
+            previously_examined=0,
+            not_found=0,
+            errors=0,
         )
 
         def report(stage):
-            publish_status(STATE / "status.json",
-                    dict(
-                        stage=stage,
-                        pid=os.getpid(),
-                        updated_at=datetime.now(UTC).isoformat(),
-                        network_requests=0,
-                        counts=counts,
-                    ),
+            publish_status(
+                STATE / "status.json",
+                dict(
+                    stage=stage,
+                    pid=os.getpid(),
+                    updated_at=datetime.now(UTC).isoformat(),
+                    network_requests=0,
+                    candidate_filter_sha256=filter_hash,
+                    scoped_candidates=len(scope),
+                    counts=counts,
+                ),
             )
 
         def forbidden(request):
@@ -145,7 +186,8 @@ def main(include_flagged=False):
                         payload["recording_id"],
                         payload["title"],
                         payload["artist"],
-                        "main-entity-native-display-v2",
+                        "main-entity-native-display-v4",
+                        (payload.get("metadata_resolution") or {}).get("duration_ms"),
                         *([kind, old_hash] if old_hash else []),
                     ],
                     ensure_ascii=False,
@@ -153,6 +195,11 @@ def main(include_flagged=False):
                 path = OUTPUT / (hashlib.sha256(signature.encode()).hexdigest() + ".json")
                 if path.exists():
                     return "previously_recovered"
+                outcome_path = path.with_suffix(".outcome.json")
+                if outcome_path.exists():
+                    previous = json.loads(outcome_path.read_text(encoding="utf-8"))
+                    if previous.get("outcome") == "not_found":
+                        return "previously_examined"
                 try:
                     result = discover_candidate(payload["title"], payload["artist"], http)
                     audit = audit_saved_result(payload, result)
@@ -166,6 +213,9 @@ def main(include_flagged=False):
                             payload["artist"],
                             http,
                             html_sources={"AZLYRICS", "MUSIXMATCH"},
+                            expected_duration_ms=(payload.get("metadata_resolution") or {}).get(
+                                "duration_ms"
+                            ),
                         )
                         alternative_audit = audit_saved_result(payload, alternative)
                         if (
@@ -197,6 +247,19 @@ def main(include_flagged=False):
                         )
                         part.replace(path)
                         return "recovered"
+                    publish_status(
+                        outcome_path,
+                        dict(
+                            candidate_id=payload["recording_id"],
+                            outcome="not_found",
+                            network_requests=0,
+                            classification_ready=False,
+                            cache_scope=(
+                                "Frozen local cache for this replay output; "
+                                "use a new output after cache changes"
+                            ),
+                        ),
+                    )
                     return "not_found"
                 except Exception as exc:
                     if isinstance(exc, AssertionError):
@@ -219,10 +282,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-root", type=Path)
     parser.add_argument("--state-root", type=Path)
+    parser.add_argument(
+        "--output-root", type=Path, help="Separate local proposal/checkpoint directory"
+    )
     parser.add_argument("--include-flagged", action="store_true")
+    parser.add_argument(
+        "--candidate-ids-file",
+        type=Path,
+        help="Optional JSONL candidate_id filter within the existing selection",
+    )
     args = parser.parse_args()
     if args.base_root:
         BASE = args.base_root.resolve()
     if args.state_root:
         STATE = args.state_root.resolve()
-    main(args.include_flagged)
+    if args.output_root:
+        OUTPUT = args.output_root.resolve()
+    main(args.include_flagged, args.candidate_ids_file)

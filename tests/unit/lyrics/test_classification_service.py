@@ -29,6 +29,7 @@ from chart_observatory.lyrics.gemini_pipeline import (
 )
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
 
 @pytest.fixture
 def session(monkeypatch) -> Session:

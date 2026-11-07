@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-11-07T01:19:56.609269+00:00",
+  "run_id": "dc8f9e5c257837abe48ba69dfdaa22070dd30809340f3c3bfb7de6e2ebcad039",
+  "audit_version": "quota-corpus-quality-v1",
+  "code_sha256": "fe301c87e3a43fce22f9976ade9b6d65b3a34060c593371d8e9713bc356a0ebe",
+  "candidates": 28373,
+  "states": {
+    "acquired_unverified": 19760,
+    "pending_adjudication": 1912,
+    "unavailable": 6084,
+    "identity_conflict": 588,
+    "suspected_partial": 29
+  },
+  "flags": {
+    "source_identity_evidence_missing": 1479,
+    "full_provider_performer_evidence_missing": 1893,
+    "page_identity_scope_unverified": 1798,
+    "requested_collaboration_credits_unverified": 1186,
+    "no_local_text": 6084,
+    "requested_title_or_artist_metadata_mismatch": 164,
+    "provider_performer_or_version_mismatch": 35,
+    "short_text": 24,
+    "recording_duration_mismatch": 2,
+    "very_short_text": 11
+  },
+  "providers": {
+    "GENIUS": 16274,
+    "LYRICS_OVH": 16,
+    "LRCLIB": 5592,
+    "UNKNOWN": 6084,
+    "LETRAS": 387,
+    "AZLYRICS": 17,
+    "GOOGLE_MANUAL": 3
+  },
+  "character_buckets": {
+    "standard": 22251,
+    "missing": 6084,
+    "short": 35,
+    "long": 3
+  },
+  "local_chain": {
+    "same_text_hash": 22289,
+    "different_or_missing_local_version": 6084
+  },
+  "sqlite_quick_check": "ok",
+  "collision_groups": 112,
+  "previous_suspect_candidates": 2529,
+  "previous_suspects_in_scope": 2529,
+  "previous_suspect_current_states": {
+    "pending_adjudication": 1912,
+    "identity_conflict": 588,
+    "suspected_partial": 29
+  },
+  "verified_complete": 0,
+  "classification_ready": 0,
+  "language": "UNKNOWN_NOT_INFERRED_FROM_COUNTRY",
+  "full_inventory": true,
+  "network_requests": 0,
+  "paid_calls": 0,
+  "production_writes": 0,
+  "caveat": "States are source/heuristic screening, not confirmed error or completeness rates."
+}

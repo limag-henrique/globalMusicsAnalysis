@@ -300,20 +300,11 @@ def test_legacy_annotation_facade_delegates_with_lyrics_only(monkeypatch) -> Non
         http_client=object(),
     )
 
-    result = client.annotate(
-        "secret-song-id",
-        "Secret Title",
-        "Secret Artist",
-        "only these lyrics",
-    )
+    from chart_observatory.lyrics.classification_gate import ClassificationEligibilityError
 
-    assert result["classification_status"] == "classified"
-    assert calls[0]["model"] == "gemini-2.5-flash"
-    prompt = str(calls[0]["contents"])
-    assert "only these lyrics" in prompt
-    assert "secret-song-id" not in prompt
-    assert "Secret Title" not in prompt
-    assert "Secret Artist" not in prompt
+    with pytest.raises(ClassificationEligibilityError, match="unbound_legacy_annotation"):
+        client.annotate("secret-song-id", "Secret Title", "Secret Artist", "only these lyrics")
+    assert calls == []
 
 
 def test_usage_metadata_is_extracted_without_inventing_missing_tokens() -> None:

@@ -166,7 +166,7 @@ class LetrasClient:
             except json.JSONDecodeError:
                 return None
             lyrics = html_fragment_text(lyrics)
-            if lyrics and len(lyrics) > 30:
+            if lyrics:
                 return self._clean_lyrics(lyrics)
 
         return None
@@ -177,11 +177,7 @@ class LetrasClient:
         text = "\n".join(line.strip() for line in text.splitlines())
         text = re.sub(r"\n{3,}", "\n\n", text)
         text = re.sub(r"[ \t]+", " ", text)
-        text = re.sub(r"^\s*Enviada por.*$", "", text, flags=re.MULTILINE)
-        text = re.sub(r"^\s*Corrigida por.*$", "", text, flags=re.MULTILINE)
-        text = re.sub(r"^\s*Revisões por.*$", "", text, flags=re.MULTILINE)
-        text = re.sub(r"^\s*Viu algum erro.*$", "", text, flags=re.MULTILINE)
         text = text.strip()
-        if len(text) < 30 or "\n" not in text:
-            return None
-        return text
+        # Only the exact known terminal UI block is removed by the derivative.
+        # Generic phrases may be genuine verses, including the opening/ending.
+        return text or None

@@ -17,6 +17,8 @@ from chart_observatory.lyrics.batch_jsonl import canonical_request_sha256
 from chart_observatory.lyrics.classification import CostRateCard, LyricsClassification
 from chart_observatory.lyrics.repository import LyricDocumentInput, ingest_lyric_document
 
+pytestmark = pytest.mark.usefixtures("approved_fixture_ingest")
+
 
 def result_payload(status: str = "classified") -> dict[str, object]:
     return {
@@ -275,3 +277,30 @@ def test_finalize_is_idempotent_after_complete_import(session: Session) -> None:
 
     assert summary.processed == 0
     assert len(list(session.scalars(select(LyricClassificationSnapshot)))) == 1
+
+
+@pytest.mark.parametrize("change", ["revoke", "unverified", "hash"])
+def test_import_rechecks_gate_without_creating_annotations(session, change):
+    from chart_observatory.db.models.corpus import LyricDocument
+
+    run, items = setup_run(session, 1)
+    item, request = items[0]
+    doc = session.get(LyricDocument, item.lyric_document_id)
+    if change == "revoke":
+        doc.metadata_json = {
+            **doc.metadata_json,
+            "classification_adjudication": {
+                **doc.metadata_json["classification_adjudication"],
+                "integrity_verified": False,
+            },
+        }
+    elif change == "hash":
+        doc.text += " unexpected change"
+    else:
+        doc.metadata_json = {}
+    session.commit()
+    with pytest.raises(BatchIntegrityError, match="batch_eligibility"):
+        importer(session).import_available(run.id, [response_line(item, request)])
+    assert session.scalar(select(LyricClassificationSnapshot)) is None
+    assert item.snapshot_id is None
+    assert run.imported_count == 0

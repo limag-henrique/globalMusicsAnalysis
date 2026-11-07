@@ -13,7 +13,12 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from chart_observatory.config import Settings
 from chart_observatory.ingestion.import_quotas import load_quotas
-from chart_observatory.lyrics.staging_review import browse_pending, list_snapshots, pending_detail
+from chart_observatory.lyrics.staging_review import (
+    browse_pending,
+    coverage_for_run,
+    list_snapshots,
+    pending_detail,
+)
 
 
 @st.cache_resource
@@ -32,12 +37,21 @@ def snapshot_label(snapshot):
     )
 
 
-def countries_for_snapshot(snapshot):
+@st.cache_data(max_entries=4, show_spinner="Conferindo cobertura do snapshot...")
+def review_coverage(run_id, quotas):
+    return coverage_for_run(review_engine(), quotas, run_id=run_id)
+
+
+def quotas_for_snapshot(snapshot):
     root = Path.cwd().resolve()
     source = Path(snapshot["manifest"].get("selection_root", "")).resolve()
-    if source.is_relative_to(root) and (source / "sources/country_quotas.csv").exists():
-        return sorted(load_quotas(source / "sources/country_quotas.csv"))
-    return sorted(country.alpha_2 for country in pycountry.countries)
+    path = source / "sources/country_quotas.csv"
+    return load_quotas(path) if source.is_relative_to(root) and path.exists() else {}
+
+
+def countries_for_snapshot(snapshot):
+    quotas = quotas_for_snapshot(snapshot)
+    return sorted(quotas) if quotas else sorted(country.alpha_2 for country in pycountry.countries)
 
 
 def source_link(detail):
@@ -115,6 +129,48 @@ def render_quota_import():
     except SQLAlchemyError:
         st.error("A consulta ao snapshot não pôde ser concluída.")
         return
+    if quotas := quotas_for_snapshot(snapshot):
+        try:
+            coverage = review_coverage(selected, quotas)
+        except SQLAlchemyError:
+            coverage = None
+            st.warning("Não foi possível consultar a cobertura das cotas.")
+        if coverage:
+            cells = [
+                row
+                for row in coverage["cells"]
+                if (country == "Todos" or row["country_code"] == country)
+                and (year == "Todos" or row["year"] == year)
+            ]
+            with st.expander("Cobertura das cotas por país e ano", expanded=True):
+                st.caption("Cobertura da seleção, independente da busca e do filtro de letras.")
+                metrics = st.columns(3)
+                metrics[0].metric("Posições previstas", sum(row["quota"] for row in cells))
+                metrics[1].metric(
+                    "Sem música no ranking",
+                    sum(len(row["missing_ranking_positions"]) for row in cells),
+                )
+                metrics[2].metric(
+                    "Selecionadas sem letra",
+                    sum(len(row["missing_text_positions"]) for row in cells),
+                )
+                st.dataframe(
+                    [
+                        dict(
+                            País=row["country_code"],
+                            Ano=row["year"],
+                            Cota=row["quota"],
+                            Selecionadas=row["selected_positions"],
+                            Provisórias=row["provisional_positions"],
+                            Com_texto=row["positions_with_text"],
+                            Sem_ranking=len(row["missing_ranking_positions"]),
+                            Sem_letra=len(row["missing_text_positions"]),
+                        )
+                        for row in cells
+                    ],
+                    hide_index=True,
+                    width="stretch",
+                )
     st.caption(
         f"{result['total']} candidatas correspondem aos filtros. "
         "As posições usam as métricas observadas nos charts."

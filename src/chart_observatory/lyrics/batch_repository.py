@@ -20,6 +20,7 @@ from chart_observatory.lyrics.batch_contract import (
     validate_run_transition,
 )
 from chart_observatory.lyrics.classification import UsageTelemetry
+from chart_observatory.lyrics.classification_gate import ClassificationGate
 from chart_observatory.lyrics.classification_queue import (
     ACTIVE_BATCH_ITEM_STATES,
     HANDLED_CLASSIFICATION_STATUSES,
@@ -83,8 +84,12 @@ class BatchRepository:
                                 prompt_version=request.signature.prompt_version,
                                 classification_status=local_status,
                                 execution_mode="local",
-                                usage=UsageTelemetry(input_tokens=0, output_tokens=0,
-                                                     thought_tokens=0, total_tokens=0),
+                                usage=UsageTelemetry(
+                                    input_tokens=0,
+                                    output_tokens=0,
+                                    thought_tokens=0,
+                                    total_tokens=0,
+                                ),
                             ),
                         )
                         continue
@@ -231,7 +236,7 @@ class BatchRepository:
         handled = aliased(LyricClassificationSnapshot)
         active = aliased(LyricClassificationBatchItem)
         statement = (
-            select(LyricClassificationBatchItem, LyricClassificationSnapshot)
+            select(LyricClassificationBatchItem, LyricClassificationSnapshot, LyricDocument)
             .join(
                 LyricClassificationSnapshot,
                 LyricClassificationSnapshot.id == LyricClassificationBatchItem.snapshot_id,
@@ -302,8 +307,15 @@ class BatchRepository:
             statement = statement.where(
                 func.upper(LyricDocument.source).not_in(sorted(suspended_sources))
             )
+        gate = ClassificationGate.load()
         rows = self._session.execute(statement)
-        return [BatchRetryCandidate(item.lyric_document_id, snapshot.id) for item, snapshot in rows]
+        return [
+            BatchRetryCandidate(item.lyric_document_id, snapshot.id)
+            for item, snapshot, document in rows
+            if gate.assess(document).eligible
+            and document.canonical_track_id == item.canonical_track_id
+            and document.content_sha256 == item.lyrics_hash
+        ]
 
     def prepare_retry_run(
         self,
@@ -345,6 +357,7 @@ class BatchRepository:
                     document = self._session.get(LyricDocument, candidate.lyric_document_id)
                     if document is None:
                         raise ValueError("retry lyric document no longer exists")
+                    ClassificationGate.load().require(document)
                     self._session.add(
                         LyricClassificationBatchItem(
                             opaque_key=uuid4(),

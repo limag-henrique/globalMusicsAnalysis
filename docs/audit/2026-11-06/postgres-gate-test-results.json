@@ -1,0 +1,248 @@
+[
+  {
+    "name": "test_restored_database_has_real_foreign_keys_and_immutability_triggers",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.091",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[missing-online]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.080",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[missing-force]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.047",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[missing-estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.033",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[missing-force_estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[missing-remaining]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[pending-online]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.034",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[pending-force]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.033",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[pending-estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[pending-force_estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[pending-remaining]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.096",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[wrong_hash-online]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.035",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[wrong_hash-force]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[wrong_hash-estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[wrong_hash-force_estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[wrong_hash-remaining]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[revoked-online]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[revoked-force]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.030",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[revoked-estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[revoked-force_estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[revoked-remaining]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[suspended-online]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.031",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[suspended-force]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.030",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[suspended-estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[suspended-force_estimate]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_all_online_modes_refuse_invalid_evidence[suspended-remaining]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.032",
+    "passed": true
+  },
+  {
+    "name": "test_online_estimate_force_and_append_only_history",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.181",
+    "passed": true
+  },
+  {
+    "name": "test_batch_cannot_reserve_or_tokenize_unapproved_documents[missing]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.030",
+    "passed": true
+  },
+  {
+    "name": "test_batch_cannot_reserve_or_tokenize_unapproved_documents[revoked]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.028",
+    "passed": true
+  },
+  {
+    "name": "test_batch_cannot_reserve_or_tokenize_unapproved_documents[pending]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.020",
+    "passed": true
+  },
+  {
+    "name": "test_batch_cannot_reserve_or_tokenize_unapproved_documents[suspended]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.022",
+    "passed": true
+  },
+  {
+    "name": "test_batch_approved_document_prepares_and_submits_only_to_fake_adapters",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.102",
+    "passed": true
+  },
+  {
+    "name": "test_uploaded_batch_revalidates_committed_evidence_before_submission[revoked]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.087",
+    "passed": true
+  },
+  {
+    "name": "test_uploaded_batch_revalidates_committed_evidence_before_submission[changed_text]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.087",
+    "passed": true
+  },
+  {
+    "name": "test_uploaded_batch_revalidates_committed_evidence_before_submission[changed_language]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.088",
+    "passed": true
+  },
+  {
+    "name": "test_uploaded_batch_revalidates_committed_evidence_before_submission[pending]",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.085",
+    "passed": true
+  },
+  {
+    "name": "test_revocation_from_another_connection_is_seen_before_generation",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.030",
+    "passed": true
+  },
+  {
+    "name": "test_copied_research_database_remains_read_only_and_its_sample_is_not_modified",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.225",
+    "passed": true
+  },
+  {
+    "name": "test_force_and_estimate_cannot_reuse_a_revoked_approval_with_existing_history",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.061",
+    "passed": true
+  },
+  {
+    "name": "test_retry_reservation_rechecks_current_adjudication",
+    "class": "tests.integration.lyrics.test_classification_gate_postgres",
+    "seconds": "0.135",
+    "passed": true
+  },
+  {
+    "name": "test_queue_lock_stays_exclusive_across_commit_and_releases_afterward",
+    "class": "tests.integration.lyrics.test_classification_queue_lock",
+    "seconds": "0.128",
+    "passed": true
+  }
+]

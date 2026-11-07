@@ -1,0 +1,15 @@
+Audit verification, 2026-11-06 (America/Sao_Paulo)
+
+Offline unit suite: 96 passed in 6.62s.
+Modules: test_acquisition_text_quality, test_genius_identity_guard,
+test_quota_acquisition, test_quota_discovery, test_staging_review,
+test_quota_boundary, test_identity_collisions, test_quota_campaign.
+
+Ruff check scripts/audit_research_snapshot.py: All checks passed.
+Artifact checks: selection totals, cross-country count, quota check,
+zero paid-ready candidates, report existence, compressed CSV header passed.
+
+PostgreSQL read-only connection: unavailable, OperationalError.
+No PostgreSQL service was started. Saved staging status is historical evidence.
+No paid inference, acquisition, schema migration or production-data write performed.
+No full test suite, end-to-end run, human validation or visual PDF QA performed.

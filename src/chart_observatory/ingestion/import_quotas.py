@@ -52,6 +52,10 @@ def apply_native_display_metadata(rows, resolutions):
                 **reference,
                 uri=metadata["uri"],
                 recording_and_text_validation=False,
+                **({"duration_ms": metadata["duration_ms"]}
+                   if isinstance(metadata.get("duration_ms"), int)
+                   and not isinstance(metadata["duration_ms"], bool)
+                   and metadata["duration_ms"] > 0 else {}),
             ),
         )
 
@@ -72,7 +76,7 @@ def load_quotas(path: Path) -> dict[str, int]:
     return quotas
 
 
-def select_quota_candidates(rankings, coverage, quotas, *, years=range(2017, 2027)):
+def select_quota_candidates(rankings, coverage, quotas, *, years=range(2018, 2027)):
     """Choose one complete platform per cell; Spotify wins a completeness tie.
 
     The caller supplies freshly aggregated ranks and audited calendar coverage.
@@ -80,6 +84,8 @@ def select_quota_candidates(rankings, coverage, quotas, *, years=range(2017, 202
     Incomplete cells remain empty, and missing lyrics never advance the boundary.
     """
     years = tuple(years)
+    if any(type(year) is not int or not 2018 <= year <= 2026 for year in years):
+        raise ValueError("new quota selections must stay within 2018–2026")
     sources, groups = {}, defaultdict(list)
     for row in coverage:
         key = row["country_code"], int(row["year"]), row["platform"]
