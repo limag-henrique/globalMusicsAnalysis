@@ -21,6 +21,26 @@ def record(key, digest):
     )
 
 
+def test_negative_replay_checkpoint_does_not_break_import_of_successful_proposal(tmp_path):
+    root = Path(__file__).resolve().parents[3]
+    spec = importlib.util.spec_from_file_location(
+        "staging_negative_replay_test", root / "scripts/stage_quota_lyrics.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "negative.outcome.json").write_text(
+        json.dumps(dict(candidate_id="SPOTIFY:missing", outcome="not_found"))
+    )
+    proposal = dict(payload=dict(recording_id="SPOTIFY:found"), result=dict(text="fixture"))
+    (tmp_path / "positive.json").write_text(json.dumps(proposal))
+    records = module.offline_proposals(tmp_path)
+    assert set(records) == {"SPOTIFY:found"}
+    assert records["SPOTIFY:found"][0][2] == proposal
+    (tmp_path / "malformed.json").write_text("{}")
+    with pytest.raises(KeyError):
+        module.offline_proposals(tmp_path)
+
+
 def test_snapshot_is_idempotent_and_blobs_are_shared_without_approving_candidates():
     engine = create_engine("sqlite://")
     body = "Original full fixture text"

@@ -27,6 +27,20 @@ def test_deadline_requires_timezone(config):
         campaign.remaining_seconds()
 
 
+def test_reversed_calendar_deadline_is_not_a_successful_empty_campaign(config):
+    config.write_text(
+        json.dumps(dict(starts_at="2026-11-07T10:52:27-03:00", ends_at="2026-07-12T04:52:27-03:00"))
+    )
+    with pytest.raises(ValueError, match="must follow"):
+        campaign.require_active_campaign(datetime(2026, 11, 7, tzinfo=UTC))
+
+
+def test_expired_campaign_refused_before_acquisition(config):
+    config.write_text('{"ends_at":"2026-11-02T23:00:00Z"}')
+    with pytest.raises(ValueError, match="expired"):
+        campaign.require_active_campaign(datetime(2026, 11, 7, tzinfo=UTC))
+
+
 def test_frozen_source_change_stops_campaign(config):
     import hashlib
 

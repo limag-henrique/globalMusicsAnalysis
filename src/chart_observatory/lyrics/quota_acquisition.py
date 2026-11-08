@@ -22,6 +22,7 @@ from bs4 import BeautifulSoup
 from chart_observatory.lyrics.genius_client import _slugify
 from chart_observatory.lyrics.letras_client import _slugify_letras
 from chart_observatory.lyrics.recovery_web import CachedRecoveryHTTP
+from chart_observatory.lyrics.revision_protocol import NORMALIZATION_VERSION, normalize_text
 from chart_observatory.lyrics.text_quality import (
     has_partial_lyrics_notice,
     html_lyric_text,
@@ -67,6 +68,34 @@ def lrclib_text(row):
             return None
         lines.append(match[1])
     return "\n".join(lines).strip() or None
+
+
+def lrclib_text_signature(row):
+    """Compare formatting only; retain order, punctuation, sections and repetitions."""
+    value = lrclib_text(row)
+    return normalize_text(value).normalized_hash if value is not None else None
+
+
+def recovery_cache_sources(root, primary):
+    """Include recent campaign caches in local reuse, preserving their raw evidence."""
+    root = Path(root).resolve()
+    recent = list((root / "data/runtime").glob("import-all-lyrics-*/acquisition/http-cache"))
+    recent.sort(key=lambda path: path.stat().st_mtime, reverse=True)
+    quality = root / "data/derived/research_quality"
+    paths = [
+        *recent,
+        Path(primary),
+        *quality.glob("corpus-revision-*/*/http-cache"),
+        *quality.glob("recovery-expanded-*/http-cache"),
+        *(root / "data/derived/annual_revision").glob("*/acquisition/http-cache"),
+    ]
+    return tuple(
+        dict.fromkeys(
+            path.resolve()
+            for path in paths
+            if path.is_dir() and path.resolve().is_relative_to(root)
+        )
+    )
 
 
 def reconcile_task_metadata(payload, display):
@@ -602,10 +631,10 @@ def fetch_candidate(title, artist, http, *, html_sources=None, expected_duration
                 if isinstance(rows, list)
                 else []
             )
-            texts = {lrclib_text(row) for row in exact}
+            texts = {lrclib_text_signature(row) for row in exact}
             if len(texts) == 1:
                 result = candidate(
-                    next(iter(texts)),
+                    lrclib_text(exact[0]),
                     "LRCLIB",
                     id=exact[0].get("id"),
                     duration_seconds=exact[0].get("duration"),
@@ -616,6 +645,8 @@ def fetch_candidate(title, artist, http, *, html_sources=None, expected_duration
                     if exact[0].get("plainLyrics")
                     else "timestamped_lrc",
                     full_requested_artist_credit_matched=True,
+                    comparison_normalization_version=NORMALIZATION_VERSION,
+                    equivalent_provider_records=[row.get("id") for row in exact],
                 )
                 if result:
                     return {**result, "http_evidence": list(http.trace)}

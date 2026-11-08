@@ -438,8 +438,8 @@ def test_duration_difference_continues_to_alternative_source(monkeypatch):
     assert (
         module.recover_with_fallback(
             "Song", "Artist", object(), metadata_resolution=dict(duration_ms=200506)
-        )
-        is alternative
+        )["source"]
+        == alternative["source"]
     )
     assert calls == [{"html_sources": {"AZLYRICS", "MUSIXMATCH"}, "expected_duration_ms": 200506}]
     assert mismatched["source_metadata"]["duration_seconds"] == 240
@@ -521,3 +521,75 @@ def test_partial_search_hit_requires_full_credit_lookup(tmp_path, requested, exp
 def test_unknown_or_malformed_featured_credits_do_not_mean_solo(featured):
     hit = dict(title="Song", primary_artist=dict(name="Artist"), featured_artists=featured)
     assert not match_genius_identity("Song", "Artist", hit)
+
+
+def test_fallback_preserves_all_failure_stages_without_duplicating_timeout(monkeypatch):
+    import chart_observatory.lyrics.quota_discovery as module
+
+    request = httpx.Request("GET", "https://example.org/test")
+
+    def discovery(*_args, **_kwargs):
+        raise httpx.ReadTimeout("synthetic timeout", request=request)
+
+    def fetch(*_args, **kwargs):
+        stage = "alternate" if kwargs.get("html_sources") else "initial"
+        return dict(
+            status="not_found_or_unverified",
+            source_errors=[stage + ":404"],
+            http_evidence=[dict(url="https://example.org/" + stage, status=404)],
+        )
+
+    monkeypatch.setattr(module, "discover_candidate", discovery)
+    monkeypatch.setattr(module, "fetch_candidate", fetch)
+    result = module.recover_with_fallback("Song", "Artist", object(), first_time=True)
+    assert result["source_errors"] == [
+        "initial:404",
+        "IDENTITY_DISCOVERY:ReadTimeout",
+        "alternate:404",
+    ]
+    assert [e["acquisition_stage"] for e in result["http_evidence"]] == [
+        "INITIAL_FETCH",
+        "ALTERNATIVE_FETCH",
+    ]
+    assert len(result["acquisition_attempts"]) == 3
+    assert not result.get("classification_ready")
+
+
+def test_formatting_only_lrclib_variants_preserve_original_and_real_repetition(tmp_path):
+    a = "Original verse.\n\n[Refrão]\nAmor!\nAmor!"
+    b = "  Original\t verse.\r\n\r\n[Refrão]\r\nAmor! \r\nAmor!"
+    rows = [
+        dict(id=i, trackName="Song", artistName="Artist", plainLyrics=t)
+        for i, t in enumerate([a, b], 1)
+    ]
+
+    def respond(request):
+        assert request.url.host == "lrclib.net"
+        return httpx.Response(200, json=rows)
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = discover_candidate("Song", "Artist", PacedHTTP(tmp_path, client))
+    assert result["text"] == a
+    assert result["text"].count("Amor!") == 2
+    assert result["source_metadata"]["equivalent_provider_records"] == [1, 2]
+    assert not result.get("identity_validated")
+
+
+def test_lrclib_signature_does_not_merge_missing_verses_or_versions():
+    from chart_observatory.lyrics.quota_acquisition import lrclib_text_signature
+
+    first = dict(plainLyrics="First verse\nRefrain\nRefrain\nLast verse")
+    shorter = dict(plainLyrics="First verse\nRefrain\nLast verse")
+    assert lrclib_text_signature(first) != lrclib_text_signature(shorter)
+
+
+def test_replay_cache_inventory_includes_recent_campaigns(tmp_path):
+    from chart_observatory.lyrics.quota_acquisition import recovery_cache_sources
+
+    primary = tmp_path / "data/derived/lyrics/quota/http-cache"
+    recent = tmp_path / "data/runtime/import-all-lyrics-20261107/acquisition/http-cache"
+    primary.mkdir(parents=True)
+    recent.mkdir(parents=True)
+    sources = recovery_cache_sources(tmp_path, primary)
+    assert recent.resolve() in sources and primary.resolve() in sources
+    assert len(sources) == len(set(sources))

@@ -27,7 +27,22 @@ def remaining_seconds(now=None):
     end = datetime.fromisoformat(config["ends_at"])
     if end.tzinfo is None:
         raise ValueError("campaign deadline requires timezone")
+    if config.get("starts_at"):
+        start = datetime.fromisoformat(config["starts_at"])
+        if start.tzinfo is None:
+            raise ValueError("campaign start requires timezone")
+        if end <= start:
+            raise ValueError("campaign deadline must follow its start")
     return max(0, (end - (now or datetime.now(UTC))).total_seconds())
+
+
+def require_active_campaign(now=None):
+    """Reject expired/malformed campaigns before changing the acquisition store."""
+    remaining = remaining_seconds(now)
+    if remaining is not None and remaining <= 0:
+        raise ValueError("campaign expired; create a new explicit campaign")
+    verify_frozen_inputs()
+    return remaining
 
 
 def verify_frozen_inputs():

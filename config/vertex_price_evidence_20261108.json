@@ -1,0 +1,13 @@
+{
+  "model_id": "gemini-3.8-flash",
+  "location": "global",
+  "mode": "batch",
+  "currency": "USD",
+  "input_per_million_tokens": "0.375",
+  "output_including_reasoning_per_million_tokens": "1.875",
+  "verified_on": "2026-11-08",
+  "valid_through": "2026-12-31",
+  "source_url": "https://cloud.google.com/model-garden/pricing",
+  "model_documentation_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-8-flash",
+  "does_not_authorize_spending": true
+}

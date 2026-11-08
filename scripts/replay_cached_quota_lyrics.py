@@ -18,7 +18,11 @@ from chart_observatory.ingestion.import_quotas import (
     apply_native_display_metadata,
     recovery_targets,
 )
-from chart_observatory.lyrics.quota_acquisition import PacedHTTP, fetch_candidate
+from chart_observatory.lyrics.quota_acquisition import (
+    PacedHTTP,
+    fetch_candidate,
+    recovery_cache_sources,
+)
 from chart_observatory.lyrics.quota_discovery import audit_saved_result, discover_candidate
 from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
 from chart_observatory.runtime_status import publish_status
@@ -167,13 +171,7 @@ def main(include_flagged=False, candidate_ids_file=None):
         def forbidden(request):
             raise AssertionError("offline replay attempted network access")
 
-        quality = ROOT / "data/derived/research_quality"
-        caches = [
-            STORE / "http-cache",
-            *quality.glob("corpus-revision-*/*/http-cache"),
-            *quality.glob("recovery-expanded-*/http-cache"),
-            *(ROOT / "data/derived/annual_revision").glob("*/acquisition/http-cache"),
-        ]
+        caches = recovery_cache_sources(ROOT, STORE / "http-cache")
         with httpx.Client(transport=httpx.MockTransport(forbidden)) as client:
             http = LocalResponsesOnly(OUTPUT / "http-cache", client, cache_sources=caches)
 

@@ -15,7 +15,9 @@ from chart_observatory.lyrics.quota_acquisition import (
     fetch_candidate,
     identity,
     lrclib_text,
+    lrclib_text_signature,
 )
+from chart_observatory.lyrics.revision_protocol import NORMALIZATION_VERSION
 from chart_observatory.lyrics.text_quality import (
     prepare_lyric_derivative,
     recording_duration_mismatch,
@@ -27,19 +29,48 @@ def recover_with_fallback(
 ):
     """Try paced alternative HTML sources even for previously attempted candidates."""
     payload = dict(title=title, artist=artist, metadata_resolution=metadata_resolution or {})
-    network_errors = []
+    outcomes = []
 
     def attempt(label, action):
         try:
             result = action()
-            if network_errors:
-                result = dict(
-                    result, source_errors=list(result.get("source_errors", [])) + network_errors
-                )
-            return result
         except httpx.RequestError as exc:
-            network_errors.append(f"{label}:{type(exc).__name__}")
-            return {}
+            result = dict(
+                source_errors=[f"{label}:{type(exc).__name__}"],
+                http_evidence=list(getattr(http, "trace", ())),
+            )
+        if not isinstance(result, dict):
+            raise TypeError("acquisition stage must return a result dictionary")
+        outcomes.append((label, result))
+        return result
+
+    def finalize(chosen):
+        evidence, errors, stages = [], [], []
+        for label, result in outcomes:
+            errors.extend(result.get("source_errors", []))
+            evidence.extend(
+                {**event, "acquisition_stage": label} for event in result.get("http_evidence", [])
+            )
+            value = result.get("text")
+            audit = audit_saved_result(payload, result)
+            stages.append(
+                dict(
+                    stage=label,
+                    source=result.get("source"),
+                    status=result.get("status"),
+                    text_sha256=hashlib.sha256(value.encode()).hexdigest()
+                    if isinstance(value, str)
+                    else None,
+                    flags=audit["text_quality_flags"],
+                    source_quarantined=audit["source_quarantined"],
+                )
+            )
+        return {
+            **chosen,
+            "source_errors": errors,
+            "http_evidence": evidence,
+            "acquisition_attempts": stages,
+        }
 
     def acceptable(result):
         audit = audit_saved_result(payload, result)
@@ -56,12 +87,12 @@ def recover_with_fallback(
         else {}
     )
     if acceptable(initial):
-        return initial
+        return finalize(initial)
     discovered = attempt(
         "IDENTITY_DISCOVERY", lambda: discover_candidate(title, artist, http, browser=browser)
     )
     if acceptable(discovered):
-        return discovered
+        return finalize(discovered)
     alternative = attempt(
         "ALTERNATIVE_FETCH",
         lambda: fetch_candidate(
@@ -69,18 +100,21 @@ def recover_with_fallback(
         ),
     )
     if acceptable(alternative):
-        return alternative
-    # Keep rejected evidence available for review; never label it validated.
-    if discovered.get("text"):
-        return discovered
-    if initial.get("text"):
-        return initial
-    return {
-        **discovered,
-        "source_errors": list(discovered.get("source_errors", []))
-        + list(alternative.get("source_errors", []))
-        + network_errors,
-    }
+        return finalize(alternative)
+    # A held candidate is evidence for review, never an approved transcription.
+    for result in (discovered, initial, alternative):
+        audit = audit_saved_result(payload, result)
+        if (
+            result.get("text")
+            and not audit["source_quarantined"]
+            and not any(
+                "mismatch" in flag or "conflict" in flag for flag in audit["text_quality_flags"]
+            )
+        ):
+            return finalize(result)
+    rejected = {key: value for key, value in discovered.items() if key != "text"}
+    rejected["status"] = "not_found_or_unverified"
+    return finalize(rejected)
 
 
 def search_identities(title, artist):
@@ -252,12 +286,12 @@ def role_bound_lrclib_candidate(title, artist, rows, proofs):
             )
             if match_lrclib_credit_binding(title, artist, row.get("artistName"), metadata):
                 matches.append((row, metadata))
-    texts = {lrclib_text(row) for row, _metadata in matches}
+    texts = {lrclib_text_signature(row) for row, _metadata in matches}
     if len(texts) != 1:
         return None, len(texts) > 1
     row, metadata = matches[0]
     return candidate(
-        next(iter(texts)),
+        lrclib_text(row),
         "LRCLIB",
         id=row.get("id"),
         duration_seconds=row.get("duration"),
@@ -267,6 +301,8 @@ def role_bound_lrclib_candidate(title, artist, rows, proofs):
         full_requested_artist_credit_matched=True,
         lyric_representation="plain" if row.get("plainLyrics") else "timestamped_lrc",
         discovery="exact_title_and_role_bound_performers",
+        comparison_normalization_version=NORMALIZATION_VERSION,
+        equivalent_provider_records=[row.get("id") for row, _ in matches],
         **metadata,
     ), False
 
@@ -303,10 +339,10 @@ def discover_candidate(title, artist, http, browser=None):
                 if isinstance(data, list)
                 else []
             )
-            texts = {lrclib_text(r) for r in exact}
+            texts = {lrclib_text_signature(r) for r in exact}
             if len(texts) == 1:
                 result = candidate(
-                    next(iter(texts)),
+                    lrclib_text(exact[0]),
                     "LRCLIB",
                     id=exact[0].get("id"),
                     duration_seconds=exact[0].get("duration"),
@@ -318,6 +354,8 @@ def discover_candidate(title, artist, http, browser=None):
                     else "timestamped_lrc",
                     discovery="free_text_search_exact_result",
                     full_requested_artist_credit_matched=True,
+                    comparison_normalization_version=NORMALIZATION_VERSION,
+                    equivalent_provider_records=[row.get("id") for row in exact],
                 )
                 if result:
                     return {**result, "http_evidence": list(http.trace)}

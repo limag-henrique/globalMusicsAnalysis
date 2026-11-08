@@ -37,6 +37,7 @@ from chart_observatory.lyrics.quota_acquisition import (
     ranking_recovery_priority,
     reconcile_reindexed_task,
     reconcile_task_metadata,
+    recovery_cache_sources,
 )
 from chart_observatory.lyrics.quota_acquisition import candidate as lyric_candidate
 from chart_observatory.lyrics.quota_acquisition import identity as identity_key
@@ -47,7 +48,7 @@ from chart_observatory.lyrics.quota_discovery import (
     settle_metadata_reconciliation,
 )
 from chart_observatory.lyrics.quota_replay_import import import_cached_candidates
-from chart_observatory.quota_campaign import remaining_seconds
+from chart_observatory.quota_campaign import remaining_seconds, require_active_campaign
 from chart_observatory.runtime_status import publish_status
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -281,6 +282,7 @@ def main(
                 kernel.CloseHandle(dependency)
         elif kernel.GetLastError() != 87:
             raise OSError("unable to open previous owner process handle")
+    require_active_campaign()
     lock_path = ROOT / "data/runtime/quota-lyrics-20261030/owner.lock"
     with lock_path.open("r+b") as lock:
         msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
@@ -402,12 +404,7 @@ def main(
                 follow_redirects=True,
                 headers={"User-Agent": "ChartObservatory/0.1 lyrics research"},
             ) as client:
-                quality_root = ROOT / "data/derived/research_quality"
-                old_caches = list(quality_root.glob("corpus-revision-*/*/http-cache"))
-                old_caches.extend(quality_root.glob("recovery-expanded-*/http-cache"))
-                old_caches.extend(
-                    (ROOT / "data/derived/annual_revision").glob("*/acquisition/http-cache")
-                )
+                old_caches = list(recovery_cache_sources(ROOT, OUTPUT / "http-cache"))
                 cache = OUTPUT / "http-cache"
                 if search_cache_max_age_hours is not None:
                     # Refresh only old discovery responses in an isolated cache;

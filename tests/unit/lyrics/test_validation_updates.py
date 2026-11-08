@@ -33,3 +33,9 @@ def test_repaired_version_with_same_count_is_eventually_imported(updater):
     current = dict(fingerprint="corrected-text", with_text=100)
     assert not updater.needs_refresh(previous, current, 60)
     assert updater.needs_refresh(previous, current, 1800)
+
+
+def test_offline_recovery_is_imported_even_before_live_collector_applies_it(updater):
+    previous = dict(fingerprint="before", with_text=100, offline_proposals=0)
+    current = dict(fingerprint="after", with_text=100, offline_proposals=3)
+    assert updater.needs_refresh(previous, current, 1)

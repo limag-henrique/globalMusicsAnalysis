@@ -21,7 +21,11 @@ def needs_refresh(previous, observed, elapsed_seconds):
         return True
     if previous["fingerprint"] == observed["fingerprint"]:
         return False
-    return abs(observed["with_text"] - previous["with_text"]) >= 100 or elapsed_seconds >= 1800
+    return (
+        abs(observed["with_text"] - previous["with_text"]) >= 100
+        or observed.get("offline_proposals", 0) > previous.get("offline_proposals", 0)
+        or elapsed_seconds >= 1800
+    )
 
 
 def observe(candidate_ids):
@@ -41,11 +45,22 @@ def observe(candidate_ids):
             checksum.update(json.dumps([key, payload, raw], ensure_ascii=False).encode())
     if count != len(candidate_ids):
         raise ValueError("acquisition inventory does not match frozen selection")
+    proposals = 0
+    for path in sorted((STORE / "offline-replay").glob("*.json")):
+        if path.name.endswith(".outcome.json"):
+            continue
+        raw = path.read_bytes()
+        replay = json.loads(raw)
+        if replay.get("payload", {}).get("recording_id") in candidate_ids:
+            proposals += 1
+            checksum.update(path.name.encode())
+            checksum.update(raw)
     return dict(
         fingerprint=checksum.hexdigest(),
         candidates=count,
         with_text=with_text,
         without_text=count - with_text,
+        offline_proposals=proposals,
     )
 
 

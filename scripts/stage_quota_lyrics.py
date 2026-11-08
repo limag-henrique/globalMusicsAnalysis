@@ -37,6 +37,21 @@ from chart_observatory.lyrics.quota_staging import blobs, candidates, persist_ly
 from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
 from chart_observatory.runtime_status import publish_status
 
+
+def offline_proposals(directory):
+    """Negative replay checkpoints are not lyric proposals."""
+    proposals = defaultdict(list)
+    for path in sorted(directory.glob("*.json")):
+        if path.name.endswith(".outcome.json"):
+            continue
+        raw = path.read_bytes()
+        replay = json.loads(raw)
+        proposals[replay["payload"]["recording_id"]].append(
+            (path, hashlib.sha256(raw).hexdigest(), replay)
+        )
+    return proposals
+
+
 ROOT = Path(__file__).resolve().parents[1]
 STORE = ROOT / "data/derived/lyrics/quota-20261030"
 STATE = ROOT / "data/runtime/postgres-lyric-staging-20261031"
@@ -106,13 +121,7 @@ def stage(base):
                 "SELECT identity,payload,status,result FROM tasks"
             )
         }
-    offline = defaultdict(list)
-    for path in sorted((STORE / "offline-replay").glob("*.json")):
-        raw = path.read_bytes()
-        replay = json.loads(raw)
-        offline[replay["payload"]["recording_id"]].append(
-            (path, hashlib.sha256(raw).hexdigest(), replay)
-        )
+    offline = offline_proposals(STORE / "offline-replay")
     records, texts = [], {}
     overlay_count, overlay_conflicts, repair_count = 0, 0, 0
     for index, payload in enumerate(payloads, 1):
@@ -252,7 +261,9 @@ def stage(base):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-root", type=Path, required=True)
-    parser.add_argument("--state-root", type=Path, help="Separate status directory for this snapshot")
+    parser.add_argument(
+        "--state-root", type=Path, help="Separate status directory for this snapshot"
+    )
     args = parser.parse_args()
     if args.state_root:
         STATE = args.state_root.resolve()
