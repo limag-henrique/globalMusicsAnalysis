@@ -1,3 +1,4 @@
+import hashlib
 import importlib.util
 from datetime import date
 from decimal import Decimal
@@ -60,3 +61,18 @@ def test_future_or_expired_price_cannot_prepare_research(module, today):
 def test_model_region_mode_and_both_token_rates_are_bound_to_evidence(module, change):
     with pytest.raises(ValueError, match="differ"):
         module.validate_prices({**evidence(), **change}, settings(), date(2026, 11, 8))
+
+
+def test_frozen_rankings_are_checked_instead_of_trusting_old_manifest(module, tmp_path):
+    path = tmp_path / "ranking.csv"
+    path.write_bytes(b"original ranking")
+    expected = {"ranking.csv": hashlib.sha256(path.read_bytes()).hexdigest()}
+    assert module.verify_inputs(tmp_path, expected) == expected
+    path.write_bytes(b"changed ranking")
+    with pytest.raises(ValueError, match="input changed"):
+        module.verify_inputs(tmp_path, expected)
+
+
+def test_selection_manifest_cannot_read_outside_project(module, tmp_path):
+    with pytest.raises(ValueError, match="outside project"):
+        module.verify_inputs(tmp_path, {"../elsewhere": "a" * 64})

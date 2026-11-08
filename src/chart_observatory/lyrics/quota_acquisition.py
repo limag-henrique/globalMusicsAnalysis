@@ -225,9 +225,12 @@ class PacedHTTP(CachedRecoveryHTTP):
         *,
         search_cache_max_age_seconds=None,
         cooldown_path=None,
+        interval=0.5,
     ):
         # The scheduler owns provider retries and observes the complete Retry-After.
-        super().__init__(cache, client, interval=0.5, attempts=1)
+        if interval <= 0:
+            raise ValueError("request interval must be positive")
+        super().__init__(cache, client, interval=interval, attempts=1)
         self.cache_sources = tuple(Path(path) for path in cache_sources if Path(path).is_dir())
         if search_cache_max_age_seconds is not None and search_cache_max_age_seconds <= 0:
             raise ValueError("search cache age must be positive")

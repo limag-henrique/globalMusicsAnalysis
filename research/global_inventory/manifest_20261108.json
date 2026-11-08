@@ -1,0 +1,104 @@
+{
+  "version": "worldwide-music-inventory-v1",
+  "date": "2026-11-08",
+  "years": [
+    2018,
+    2026
+  ],
+  "existing_campaign_cutoff": "2026-10-15",
+  "scope": "Inventory expansion only; no operational quota or ranking changes",
+  "input_sha256": {
+    "research\\geography\\iso_3166_20261108.json": "a92b8767813b70402da6d5237746ffad00e084319b00f93bcff380cd5cc7fbe9",
+    "research\\geography\\un_m49_20261108.json": "ddfeb43d21aa965a5cb4e8137ccf42f312c8d2ec5db701ac844a5429d1f38f21",
+    "research\\global_inventory\\source_registry_20261108.json": "882f5005fbf1230a0e68b497469aa8376c6825aab0cc97a63d6339043bfa85fb",
+    "research\\global_inventory\\apple_country_chart_directory_20261108.json": "1339e22f7eaba51687b0aa4c9b6669be7244365f6aae35f2e80240b77081f73b",
+    "data\\derived\\annual_revision\\reconciled-russia-2018-2026-20261031\\sources\\country_quotas.csv": "fcf64432b5cce91a666424cac2a54766d6645b81a4f9f859f17b6b085dc50f5a",
+    "data\\derived\\annual_revision\\reconciled-russia-2018-2026-20261031\\combined.jsonl": "4deb7a26cfb06db473afed4369b4589b63be8675a303b7a553dce405fdd58293"
+  },
+  "summary": {
+    "total_geographic_entries": 250,
+    "iso_entries": 249,
+    "explicit_non_iso_exceptions": 1,
+    "country_year_cells": 2250,
+    "source_records": 27,
+    "baseline_quota_markets": 68,
+    "baseline_selected_markets": 67,
+    "baseline_memberships": 86090,
+    "documented_national_candidate_markets": 71,
+    "documented_national_candidates_outside_quota_frame": [
+      "AG",
+      "AI",
+      "AM",
+      "AZ",
+      "BB",
+      "BH",
+      "BM",
+      "BW",
+      "BY",
+      "BZ",
+      "CM",
+      "CN",
+      "CV",
+      "CY",
+      "DM",
+      "FJ",
+      "FM",
+      "GH",
+      "GM",
+      "KE",
+      "KH",
+      "KY",
+      "KZ",
+      "LK",
+      "MW",
+      "MZ",
+      "NG",
+      "NP",
+      "RW",
+      "TZ",
+      "UG",
+      "VG",
+      "ZM"
+    ],
+    "regions": {
+      "Africa": {
+        "inventory_entries": 60,
+        "baseline_quota_markets": 3,
+        "baseline_selected_markets": 3,
+        "national_documentary_candidates": 15
+      },
+      "Americas": {
+        "inventory_entries": 57,
+        "baseline_quota_markets": 19,
+        "baseline_selected_markets": 19,
+        "national_documentary_candidates": 20
+      },
+      "Asia": {
+        "inventory_entries": 51,
+        "baseline_quota_markets": 14,
+        "baseline_selected_markets": 14,
+        "national_documentary_candidates": 19
+      },
+      "Europe": {
+        "inventory_entries": 52,
+        "baseline_quota_markets": 30,
+        "baseline_selected_markets": 29,
+        "national_documentary_candidates": 13
+      },
+      "Oceania": {
+        "inventory_entries": 29,
+        "baseline_quota_markets": 2,
+        "baseline_selected_markets": 2,
+        "national_documentary_candidates": 4
+      },
+      "UN_REGION_UNASSIGNED": {
+        "inventory_entries": 1,
+        "baseline_quota_markets": 0,
+        "baseline_selected_markets": 0,
+        "national_documentary_candidates": 0
+      }
+    },
+    "new_rankings_imported": 0,
+    "paid_calls": 0
+  }
+}

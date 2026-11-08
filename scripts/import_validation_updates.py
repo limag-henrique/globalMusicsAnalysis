@@ -1,6 +1,7 @@
 """Import acquisition progress for human review without starting another collector."""
 
 import argparse
+import csv
 import hashlib
 import json
 import msvcrt
@@ -13,7 +14,38 @@ from pathlib import Path
 
 from import_all_quota_lyrics import BASE, ROOT, STORE, run_job
 
+from chart_observatory.ingestion.quota_boundary import validate_display_only_refresh
 from chart_observatory.runtime_status import publish_status
+
+
+def validate_campaign_selection(selected, config):
+    if hashlib.sha256(selected).hexdigest() == config["selection_sha256"]:
+        return
+    # Older collectors rewrote display enrichment into combined.jsonl. Verify
+    # the entire ranked selection independently from its frozen source files.
+    import polars as pl
+
+    from chart_observatory.ingestion.import_quotas import load_quotas, provisional_selection
+
+    for relative, digest in config["frozen_inputs"].items():
+        path = (ROOT / relative).resolve()
+        if not path.is_relative_to(ROOT) or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError("frozen acquisition source changed")
+    final = [
+        {**json.loads(line), "selection_status": "CALENDAR_ELIGIBLE", "coverage_status": "COMPLETE"}
+        for line in (BASE / "selection/selected.jsonl").read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+    with (BASE / "sources/source_coverage.csv").open(encoding="utf-8-sig") as handle:
+        coverage = list(csv.DictReader(handle))
+    ranks = pl.read_parquet(BASE / "sources/rankings.parquet").to_dicts()
+    provisional = provisional_selection(
+        ranks, coverage, load_quotas(BASE / "sources/country_quotas.csv"), final
+    )
+    validate_display_only_refresh(
+        [json.loads(line) for line in selected.decode("utf-8").splitlines() if line],
+        final + provisional,
+    )
 
 
 def needs_refresh(previous, observed, elapsed_seconds):
@@ -74,8 +106,7 @@ def main():
         parser.error("campaign must be inside project data/runtime")
     config = json.loads((campaign_root / "campaign.json").read_text())
     selected = (BASE / "combined.jsonl").read_bytes()
-    if hashlib.sha256(selected).hexdigest() != config["selection_sha256"]:
-        raise ValueError("frozen acquisition selection changed")
+    validate_campaign_selection(selected, config)
     ids = {
         json.loads(line)["candidate_id"] for line in selected.decode("utf-8").splitlines() if line
     }

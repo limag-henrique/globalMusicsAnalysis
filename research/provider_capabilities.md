@@ -1,5 +1,14 @@
 # Provider capabilities
 
+## Worldwide research inventory — 2026-11-08
+
+The [expanded research inventory](global_inventory/README.md) includes every ISO
+country/territory plus an explicit non-ISO exception, country/year gaps, primary
+source diligence and a [comparability plan](global_inventory/EXPANSION_PLAN_20261108.md).
+Its documentary candidates and discovery routes are separate from operational
+capabilities below: they do not certify historical availability, authorize bulk
+collection or change existing quotas and selections.
+
 The dynamic machine-readable inventory is [market_capabilities.csv](market_capabilities.csv).
 It is regenerated with:
 

@@ -575,6 +575,74 @@ def test_formatting_only_lrclib_variants_preserve_original_and_real_repetition(t
     assert not result.get("identity_validated")
 
 
+@pytest.mark.parametrize("duration,found", [(200506, True), (None, False), (300000, False)])
+def test_free_text_discovery_uses_native_duration_without_approving_it(tmp_path, duration, found):
+    rows = [
+        dict(
+            id=1,
+            trackName="Song",
+            artistName="Artist",
+            duration=200,
+            plainLyrics="First verse\nRepeated chorus\nRepeated chorus\nFinal verse",
+        ),
+        dict(
+            id=2,
+            trackName="Song",
+            artistName="Artist",
+            duration=240,
+            plainLyrics="A different extended edition\nAnother verse\nFinal verse",
+        ),
+    ]
+
+    def respond(request):
+        return (
+            httpx.Response(200, json=rows)
+            if request.url.host == "lrclib.net"
+            else httpx.Response(404)
+        )
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = discover_candidate(
+            "Song", "Artist", PacedHTTP(tmp_path, client), expected_duration_ms=duration
+        )
+    assert bool(result.get("text")) is found
+    if found:
+        assert result["source_metadata"]["id"] == 1
+        assert result["text"] == rows[0]["plainLyrics"]
+    assert not result.get("identity_validated")
+    assert not result.get("completeness_validated")
+    assert not result.get("classification_ready")
+
+
+def test_role_bound_discovery_also_rejects_wrong_duration():
+    from chart_observatory.lyrics.quota_discovery import role_bound_lrclib_candidate
+
+    person = dict(id=1, name="Artist")
+    proof = dict(
+        song_id=12,
+        primary_artist=person,
+        primary_artists=[person],
+        featured_artists=[],
+        performer_credit_fields_explicit=True,
+    )
+    proofs = [("https://genius.com/artist-song-lyrics", "Artist", "Song", proof)]
+    rows = [
+        dict(
+            id=i,
+            trackName="Song",
+            artistName="Artist",
+            duration=duration,
+            plainLyrics=f"Fixture edition {i}\nRefrain\nRefrain\nEnding",
+        )
+        for i, duration in [(1, 200), (2, 240)]
+    ]
+    assert role_bound_lrclib_candidate("Song", "Artist", rows, proofs) == (None, True)
+    chosen, conflict = role_bound_lrclib_candidate(
+        "Song", "Artist", rows, proofs, expected_duration_ms=200506
+    )
+    assert not conflict and chosen["source_metadata"]["id"] == 1
+
+
 def test_lrclib_signature_does_not_merge_missing_verses_or_versions():
     from chart_observatory.lyrics.quota_acquisition import lrclib_text_signature
 

@@ -1,0 +1,1304 @@
+[
+  {
+    "source_country": "Afghanistan",
+    "source_code": "wdm",
+    "year": 1995.0,
+    "ethnic": 0.7693445845406846
+  },
+  {
+    "source_country": "Albania",
+    "source_code": "wdm",
+    "year": 1989.0,
+    "ethnic": 0.220426
+  },
+  {
+    "source_country": "Algeria",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.3393999999999998
+  },
+  {
+    "source_country": "American Samoa",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Andorra",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.713946
+  },
+  {
+    "source_country": "Angola",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.78672
+  },
+  {
+    "source_country": "Antigua and Barbuda",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.16425600000000007
+  },
+  {
+    "source_country": "Argentina",
+    "source_code": "eb",
+    "year": 1986.0,
+    "ethnic": 0.255
+  },
+  {
+    "source_country": "Armenia",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.1271540000000001
+  },
+  {
+    "source_country": "Aruba",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Australia",
+    "source_code": "eb",
+    "year": 1986.0,
+    "ethnic": 0.09290199999999993
+  },
+  {
+    "source_country": "Austria",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.10677618231041257
+  },
+  {
+    "source_country": "Azerbaijan",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.20467199999999997
+  },
+  {
+    "source_country": "Bahamas",
+    "source_code": "lev",
+    "year": 1989.0,
+    "ethnic": 0.422845142439737
+  },
+  {
+    "source_country": "Bahrain",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.5021300000000001
+  },
+  {
+    "source_country": "Bangladesh",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.045433999999999974
+  },
+  {
+    "source_country": "Barbados",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.14234199999999986
+  },
+  {
+    "source_country": "Belarus",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.3221839999999999
+  },
+  {
+    "source_country": "Belgium",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.5554
+  },
+  {
+    "source_country": "Belize",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.70154
+  },
+  {
+    "source_country": "Benin",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.787216
+  },
+  {
+    "source_country": "Bermuda",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Bhutan",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.605
+  },
+  {
+    "source_country": "Bolivia",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.7396250600865246
+  },
+  {
+    "source_country": "Bosnia and Herzegovina",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.630038
+  },
+  {
+    "source_country": "Botswana",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.41024800000000006
+  },
+  {
+    "source_country": "Brazil",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.540836
+  },
+  {
+    "source_country": "Brunei",
+    "source_code": "wdm",
+    "year": 1995.0,
+    "ethnic": 0.5416
+  },
+  {
+    "source_country": "Bulgaria",
+    "source_code": "wdm",
+    "year": 1992.0,
+    "ethnic": 0.40211411441405753
+  },
+  {
+    "source_country": "Burkina Faso",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.737738
+  },
+  {
+    "source_country": "Burundi",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.2951440000000001
+  },
+  {
+    "source_country": "Cambodia",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.2104640000000001
+  },
+  {
+    "source_country": "Cameroon",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.86349
+  },
+  {
+    "source_country": "Canada",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.71242
+  },
+  {
+    "source_country": "Cape Verde",
+    "source_code": "eb",
+    "year": 1986.0,
+    "ethnic": 0.4174
+  },
+  {
+    "source_country": "Central African Republic",
+    "source_code": "eb",
+    "year": 1988.0,
+    "ethnic": 0.82951
+  },
+  {
+    "source_country": "Chad",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.8620160000000001
+  },
+  {
+    "source_country": "Chile",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.18614599999999992
+  },
+  {
+    "source_country": "China",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.15379034000000014
+  },
+  {
+    "source_country": "Colombia",
+    "source_code": "eb",
+    "year": 1985.0,
+    "ethnic": 0.6014
+  },
+  {
+    "source_country": "Comoros",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.0
+  },
+  {
+    "source_country": "Congo, Dem. Rep. (Zaire)",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.874726
+  },
+  {
+    "source_country": "Congo",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.874726
+  },
+  {
+    "source_country": "Costa Rica",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.2368
+  },
+  {
+    "source_country": "Cote d'Ivoire",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.8204240000000002
+  },
+  {
+    "source_country": "Croatia",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.36902599999999997
+  },
+  {
+    "source_country": "Cuba",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.5908
+  },
+  {
+    "source_country": "Cyprus",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.0938540000000001
+  },
+  {
+    "source_country": "Czech Republic",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.3221639999999998
+  },
+  {
+    "source_country": "Denmark",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.08186000000000004
+  },
+  {
+    "source_country": "Djibouti",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.796166
+  },
+  {
+    "source_country": "Dominica",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.20026200000000016
+  },
+  {
+    "source_country": "Dominican Republic",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.4294000000000001
+  },
+  {
+    "source_country": "East Timor",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Ecuador",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.655
+  },
+  {
+    "source_country": "Egypt",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.18359199999999998
+  },
+  {
+    "source_country": "El Salvador",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.19779999999999998
+  },
+  {
+    "source_country": "Equatorial Guinea ",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.3467
+  },
+  {
+    "source_country": "Eritrea",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.6524
+  },
+  {
+    "source_country": "Estonia",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.50617
+  },
+  {
+    "source_country": "Ethiopia",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.723472
+  },
+  {
+    "source_country": "Faroe Islands",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Fiji",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.5479419999999999
+  },
+  {
+    "source_country": "Finland",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.13149730999999987
+  },
+  {
+    "source_country": "France",
+    "source_code": "census",
+    "year": 1999.0,
+    "ethnic": 0.10321684080803145
+  },
+  {
+    "source_country": "French Guiana ",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "French Polynesia",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Gabon",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.7689600000000001
+  },
+  {
+    "source_country": "Gambia, The ",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.786402
+  },
+  {
+    "source_country": "Gaza Strip",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Georgia",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.4922740000000002
+  },
+  {
+    "source_country": "Germany",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.16820200000000007
+  },
+  {
+    "source_country": "Ghana",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.673332
+  },
+  {
+    "source_country": "Greece",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.15763009984791373
+  },
+  {
+    "source_country": "Greenland",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Grenada",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.26613399999999987
+  },
+  {
+    "source_country": "Guadeloupe",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Guam",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Guatemala",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.5122
+  },
+  {
+    "source_country": "Guinea",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.738942
+  },
+  {
+    "source_country": "Guinea-Bissau",
+    "source_code": "eb",
+    "year": 1979.0,
+    "ethnic": 0.808214
+  },
+  {
+    "source_country": "Guyana",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.6194979999999999
+  },
+  {
+    "source_country": "Haiti",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.09500000000000008
+  },
+  {
+    "source_country": "Honduras",
+    "source_code": "eb",
+    "year": 1987.0,
+    "ethnic": 0.18669999999999998
+  },
+  {
+    "source_country": "Hong Kong",
+    "source_code": "wdm",
+    "year": 1994.0,
+    "ethnic": 0.061952000000000035
+  },
+  {
+    "source_country": "Hungary",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.1522
+  },
+  {
+    "source_country": "Iceland",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.07979599999999976
+  },
+  {
+    "source_country": "India",
+    "source_code": "eb",
+    "year": 2000.0,
+    "ethnic": 0.4182
+  },
+  {
+    "source_country": "Indonesia",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.7351340000000001
+  },
+  {
+    "source_country": "Iran",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.6683999999999999
+  },
+  {
+    "source_country": "Iraq",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.3689100000000002
+  },
+  {
+    "source_country": "Ireland",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.12063499999999994
+  },
+  {
+    "source_country": "Isle of Man",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Israel",
+    "source_code": "census",
+    "year": 1995.0,
+    "ethnic": 0.3435937226940686
+  },
+  {
+    "source_country": "Italy",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.11451900000000015
+  },
+  {
+    "source_country": "Jamaica",
+    "source_code": "eb",
+    "year": 1982.0,
+    "ethnic": 0.4128940000000001
+  },
+  {
+    "source_country": "Japan",
+    "source_code": "cia",
+    "year": 1999.0,
+    "ethnic": 0.011927999999999717
+  },
+  {
+    "source_country": "Jersey",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Jordan",
+    "source_code": "wdm",
+    "year": 1993.0,
+    "ethnic": 0.5926
+  },
+  {
+    "source_country": "Kazakhstan",
+    "source_code": "cia",
+    "year": 1999.0,
+    "ethnic": 0.617122
+  },
+  {
+    "source_country": "Kenya",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.8588
+  },
+  {
+    "source_country": "Kiribati",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.05105399999999971
+  },
+  {
+    "source_country": "Korea, North",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.039200000000000124
+  },
+  {
+    "source_country": "Korea, South",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.0019979999999997222
+  },
+  {
+    "source_country": "Kyrgyzstan",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.675182
+  },
+  {
+    "source_country": "Kuwait",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.6604
+  },
+  {
+    "source_country": "Lao People's Dem Rep",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.513862
+  },
+  {
+    "source_country": "Latvia",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.586668
+  },
+  {
+    "source_country": "Lebanon",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.13139999999999985
+  },
+  {
+    "source_country": "Lesotho",
+    "source_code": "eb",
+    "year": 1986.0,
+    "ethnic": 0.255
+  },
+  {
+    "source_country": "Liberia",
+    "source_code": "wdm",
+    "year": 1992.0,
+    "ethnic": 0.908388
+  },
+  {
+    "source_country": "Libya",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.79203
+  },
+  {
+    "source_country": "Liechtenstein",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.5726100000000001
+  },
+  {
+    "source_country": "Lithuania",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.32227000000000017
+  },
+  {
+    "source_country": "Luxembourg",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.5302380000000001
+  },
+  {
+    "source_country": "Macau",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Macedonia (Former Yug. Rep)",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.5022579999999999
+  },
+  {
+    "source_country": "Madagascar",
+    "source_code": "lev",
+    "year": 1985.0,
+    "ethnic": 0.8791000000000001
+  },
+  {
+    "source_country": "Malawi",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.6744
+  },
+  {
+    "source_country": "Malaysia",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.5879619999999999
+  },
+  {
+    "source_country": "Mali",
+    "source_code": "cia",
+    "year": 1996.0,
+    "ethnic": 0.6906
+  },
+  {
+    "source_country": "Malta",
+    "source_code": "lev",
+    "year": 1996.0,
+    "ethnic": 0.04143221074438007
+  },
+  {
+    "source_country": "Marshall Islands",
+    "source_code": "eb",
+    "year": 1988.0,
+    "ethnic": 0.06033799999999978
+  },
+  {
+    "source_country": "Martinique",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Mauritania",
+    "source_code": "wdm",
+    "year": 1992.0,
+    "ethnic": 0.615
+  },
+  {
+    "source_country": "Mauritius",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.4633999999999999
+  },
+  {
+    "source_country": "Mayotte",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Mexico",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.5418000000000001
+  },
+  {
+    "source_country": "Micronesia",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.7005359999999999
+  },
+  {
+    "source_country": "Moldova",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.553478
+  },
+  {
+    "source_country": "Monaco",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.6838
+  },
+  {
+    "source_country": "Mongolia",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.36822400000000033
+  },
+  {
+    "source_country": "Morocco",
+    "source_code": "wdm",
+    "year": 1994.0,
+    "ethnic": 0.48405717924597985
+  },
+  {
+    "source_country": "Mozambique",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.693216
+  },
+  {
+    "source_country": "Myanmar (Burma)",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.5061860000000001
+  },
+  {
+    "source_country": "Namibia",
+    "source_code": "wdm",
+    "year": 1995.0,
+    "ethnic": 0.6329039999999999
+  },
+  {
+    "source_country": "Nauru",
+    "source_code": "cia",
+    "year": 1995.0,
+    "ethnic": 0.5831999999999999
+  },
+  {
+    "source_country": "Nepal",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.663222
+  },
+  {
+    "source_country": "Netherlands Antilles",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Netherlands",
+    "source_code": "lev",
+    "year": 1995.0,
+    "ethnic": 0.10537229031258763
+  },
+  {
+    "source_country": "New Caledonia",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "New Zealand",
+    "source_code": "census",
+    "year": 1996.0,
+    "ethnic": 0.39685
+  },
+  {
+    "source_country": "Nicaragua",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.48440000000000016
+  },
+  {
+    "source_country": "Niger",
+    "source_code": "eb",
+    "year": 1988.0,
+    "ethnic": 0.651762
+  },
+  {
+    "source_country": "Nigeria",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.85046
+  },
+  {
+    "source_country": "Northern Mariana Islands",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Norway",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.05860000000000004
+  },
+  {
+    "source_country": "Oman",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.4372560000000001
+  },
+  {
+    "source_country": "Pakistan",
+    "source_code": "wdm",
+    "year": 1995.0,
+    "ethnic": 0.7097999999999999
+  },
+  {
+    "source_country": "Palau",
+    "source_code": "cia",
+    "year": 2000.0,
+    "ethnic": 0.43120000000000014
+  },
+  {
+    "source_country": "Panama",
+    "source_code": "eb",
+    "year": 1992.0,
+    "ethnic": 0.5528
+  },
+  {
+    "source_country": "Papua New Guinea",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.27180000000000015
+  },
+  {
+    "source_country": "Paraguay",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.16889999999999994
+  },
+  {
+    "source_country": "Peru",
+    "source_code": "eb",
+    "year": 1981.0,
+    "ethnic": 0.656577
+  },
+  {
+    "source_country": "Philippines",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.23854073219701816
+  },
+  {
+    "source_country": "Poland",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.11833953418933477
+  },
+  {
+    "source_country": "Portugal",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.046757369614512316
+  },
+  {
+    "source_country": "Puerto Rico",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Qatar",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.7456
+  },
+  {
+    "source_country": "Reunion",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Romania",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.30687025701674964
+  },
+  {
+    "source_country": "Russian Federation",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.24517
+  },
+  {
+    "source_country": "Rwanda",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.32379999999999987
+  },
+  {
+    "source_country": "Saint Lucia",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.17686200000000007
+  },
+  {
+    "source_country": "Saint Vincent and Grenadines",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.30659800000000004
+  },
+  {
+    "source_country": "Western Samoa",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.13760800000000006
+  },
+  {
+    "source_country": "San Marino",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.2927350000000001
+  },
+  {
+    "source_country": "Sao Tome and Principe",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Saudi Arabia",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.18
+  },
+  {
+    "source_country": "Senegal",
+    "source_code": "eb",
+    "year": 1988.0,
+    "ethnic": 0.693884
+  },
+  {
+    "source_country": "Serbia/Montenegro (Yugoslavia)",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.573588
+  },
+  {
+    "source_country": "Seychelles",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.2024680000000001
+  },
+  {
+    "source_country": "Sierra Leone",
+    "source_code": "wdm",
+    "year": 1993.0,
+    "ethnic": 0.8190900000000002
+  },
+  {
+    "source_country": "Singapore",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.38567399999999996
+  },
+  {
+    "source_country": "Slovak Republic",
+    "source_code": "eb",
+    "year": 1996.0,
+    "ethnic": 0.2538959999999998
+  },
+  {
+    "source_country": "Slovenia",
+    "source_code": "cia",
+    "year": 1991.0,
+    "ethnic": 0.22164800000000007
+  },
+  {
+    "source_country": "Solomon Islands",
+    "source_code": "eb",
+    "year": 1986.0,
+    "ethnic": 0.11102199999999984
+  },
+  {
+    "source_country": "Somalia",
+    "source_code": "sm",
+    "year": 1999.0,
+    "ethnic": 0.8117
+  },
+  {
+    "source_country": "South Africa",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.7517428724324049
+  },
+  {
+    "source_country": "Spain",
+    "source_code": "eb",
+    "year": 1991.0,
+    "ethnic": 0.4164629999999999
+  },
+  {
+    "source_country": "Sri Lanka",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.415
+  },
+  {
+    "source_country": "St Kitts & Nevis",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.18419999999999992
+  },
+  {
+    "source_country": "Sudan",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.714712
+  },
+  {
+    "source_country": "Suriname",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.7332
+  },
+  {
+    "source_country": "Swaziland",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.05820000000000003
+  },
+  {
+    "source_country": "Sweden",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.05999364976527296
+  },
+  {
+    "source_country": "Switzerland",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.5314
+  },
+  {
+    "source_country": "Syria",
+    "source_code": "wdm",
+    "year": 1993.0,
+    "ethnic": 0.539922
+  },
+  {
+    "source_country": "Taiwan",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.2744000000000002
+  },
+  {
+    "source_country": "Tajikistan",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.510718
+  },
+  {
+    "source_country": "Tanzania",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.735296
+  },
+  {
+    "source_country": "Thailand",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.6338239999999999
+  },
+  {
+    "source_country": "Togo",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.7099279999999999
+  },
+  {
+    "source_country": "Tonga",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.08690200000000003
+  },
+  {
+    "source_country": "Trinidad and Tobago",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.64753
+  },
+  {
+    "source_country": "Tunisia",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.0394000000000001
+  },
+  {
+    "source_country": "Turkey",
+    "source_code": "cia",
+    "year": 2001.0,
+    "ethnic": 0.32
+  },
+  {
+    "source_country": "Turkmenistan",
+    "source_code": "eb",
+    "year": 1997.0,
+    "ethnic": 0.3918340000000001
+  },
+  {
+    "source_country": "Tuvalu",
+    "source_code": "eb",
+    "year": 1979.0,
+    "ethnic": 0.16293599999999997
+  },
+  {
+    "source_country": "Uganda",
+    "source_code": "eb",
+    "year": 1983.0,
+    "ethnic": 0.930175
+  },
+  {
+    "source_country": "Ukraine",
+    "source_code": "eb",
+    "year": 1998.0,
+    "ethnic": 0.47367199999999987
+  },
+  {
+    "source_country": "United Arab Emirates",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.6252
+  },
+  {
+    "source_country": "United Kingdom",
+    "source_code": "eb",
+    "year": 1994.0,
+    "ethnic": 0.12105899999999992
+  },
+  {
+    "source_country": "United States",
+    "source_code": "census",
+    "year": 2000.0,
+    "ethnic": 0.490111130469376
+  },
+  {
+    "source_country": "Uruguay",
+    "source_code": "eb",
+    "year": 1990.0,
+    "ethnic": 0.25040000000000007
+  },
+  {
+    "source_country": "Uzbekistan",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.41251399999999994
+  },
+  {
+    "source_country": "Vanuatu",
+    "source_code": "eb",
+    "year": 1989.0,
+    "ethnic": 0.041337999999999764
+  },
+  {
+    "source_country": "Venezuela",
+    "source_code": "eb",
+    "year": 1993.0,
+    "ethnic": 0.49660000000000004
+  },
+  {
+    "source_country": "Vietnam",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.23830799999999996
+  },
+  {
+    "source_country": "Virgin Islands (U.S.)",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "West Bank",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Yemen",
+    "source_code": ".",
+    "year": ".",
+    "ethnic": "."
+  },
+  {
+    "source_country": "Yugoslavia (pre 1991)",
+    "source_code": "eb",
+    "year": 1995.0,
+    "ethnic": 0.8091600000000001
+  },
+  {
+    "source_country": "Zambia",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.7808
+  },
+  {
+    "source_country": "Zimbabwe",
+    "source_code": "lev",
+    "year": 1998.0,
+    "ethnic": 0.3874
+  },
+  {
+    "source_country": "Source Key: eb=Encyclopedia Brit, cia=CIA, sm=Scarrit and Mozaffar",
+    "source_code": "",
+    "year": "",
+    "ethnic": ""
+  },
+  {
+    "source_country": "lev=Levinson, wdm=World Directory of Minorities, census=national census data",
+    "source_code": "",
+    "year": "",
+    "ethnic": ""
+  }
+]

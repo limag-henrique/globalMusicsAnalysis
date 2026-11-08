@@ -89,7 +89,8 @@ def recover_with_fallback(
     if acceptable(initial):
         return finalize(initial)
     discovered = attempt(
-        "IDENTITY_DISCOVERY", lambda: discover_candidate(title, artist, http, browser=browser)
+        "IDENTITY_DISCOVERY",
+        lambda: discover_candidate(title, artist, http, browser=browser, **duration_options),
     )
     if acceptable(discovered):
         return finalize(discovered)
@@ -267,13 +268,14 @@ def match_lrclib_credit_binding(title, artist, observed_artist, metadata):
     )
 
 
-def role_bound_lrclib_candidate(title, artist, rows, proofs):
+def role_bound_lrclib_candidate(title, artist, rows, proofs, *, expected_duration_ms=None):
     matches = []
     for row in rows:
         if (
             not isinstance(row, dict)
             or row.get("instrumental")
             or identity(row.get("trackName")) != identity(title)
+            or recording_duration_mismatch(expected_duration_ms, row.get("duration"))
             or not lrclib_text(row)
         ):
             continue
@@ -307,7 +309,7 @@ def role_bound_lrclib_candidate(title, artist, rows, proofs):
     ), False
 
 
-def discover_candidate(title, artist, http, browser=None):
+def discover_candidate(title, artist, http, browser=None, *, expected_duration_ms=None):
     http.start_trace()
     errors, urls, seen = [], [], set()
     lyric_rows = []
@@ -334,6 +336,7 @@ def discover_candidate(title, artist, http, browser=None):
                     and identity(r.get("trackName")) == identity(title)
                     and identity(r.get("artistName")) in accepted_artists
                     and not r.get("instrumental")
+                    and not recording_duration_mismatch(expected_duration_ms, r.get("duration"))
                     and lrclib_text(r)
                 ]
                 if isinstance(data, list)
@@ -503,7 +506,9 @@ def discover_candidate(title, artist, http, browser=None):
         for item in urls[:3]
         if identity(" | ".join(genius_performer_names(item[3]))) != identity(artist)
     ]
-    bound, conflicting = role_bound_lrclib_candidate(title, artist, lyric_rows, role_proofs)
+    bound, conflicting = role_bound_lrclib_candidate(
+        title, artist, lyric_rows, role_proofs, expected_duration_ms=expected_duration_ms
+    )
     if bound:
         return {**bound, "http_evidence": list(http.trace)}
     if role_proofs and not conflicting:
@@ -534,7 +539,9 @@ def discover_candidate(title, artist, http, browser=None):
                 continue
             if isinstance(rows, list):
                 lyric_rows.extend(rows)
-        bound, conflicting = role_bound_lrclib_candidate(title, artist, lyric_rows, role_proofs)
+        bound, conflicting = role_bound_lrclib_candidate(
+            title, artist, lyric_rows, role_proofs, expected_duration_ms=expected_duration_ms
+        )
         if bound:
             return {**bound, "http_evidence": list(http.trace)}
     if conflicting:

@@ -1,6 +1,31 @@
 """Fail closed at the annual analysis boundary; reference chart rows are never memberships."""
 
+import json
 from collections import defaultdict
+
+
+def validate_display_only_refresh(actual, expected):
+    """Display enrichment cannot change any ranked membership or source metric."""
+    display_fields = {
+        "title",
+        "artist",
+        "metadata_resolution",
+        "previous_metadata_resolution",
+        "original_display_metadata",
+    }
+
+    def signatures(rows):
+        return sorted(
+            json.dumps(
+                {k: v for k, v in row.items() if k not in display_fields},
+                sort_keys=True,
+                ensure_ascii=False,
+            )
+            for row in rows
+        )
+
+    if signatures(actual) != signatures(expected):
+        raise ValueError("frozen ranked memberships or source metrics changed")
 
 
 def validate_quota_memberships(rows, quotas):

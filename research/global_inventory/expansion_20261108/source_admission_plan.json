@@ -1,0 +1,435 @@
+[
+  {
+    "source_id": "TURNTABLE_NG",
+    "countries": [
+      "NG"
+    ],
+    "scope": "NATIONAL",
+    "family": "COMPOSITE_STREAMING_AIRPLAY",
+    "evidence_url": "https://www.turntablecharts.com/news/480",
+    "snapshot_adapter": "ENABLED_DOCUMENTED_URLS_ONLY",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "MDUNDO",
+    "countries": [
+      "KE",
+      "UG",
+      "TZ",
+      "NG",
+      "GH",
+      "ZA",
+      "US",
+      "ZM",
+      "CM",
+      "MW",
+      "MZ",
+      "RW"
+    ],
+    "scope": "NATIONAL_PLATFORM_LABEL",
+    "family": "PLATFORM_RANK",
+    "evidence_url": "https://play.mdundo.com/top-charts",
+    "snapshot_adapter": "ENABLED_DOCUMENTED_URLS_ONLY",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IFPI_SEA",
+    "countries": [
+      "ID",
+      "MY",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+    ],
+    "scope": "NATIONAL",
+    "family": "WEIGHTED_MULTIPLATFORM_STREAMING",
+    "evidence_url": "https://www.ifpi.org/ifpi-launches-official-southeast-asia-charts-hub-with-creation-of-new-charts-in-philippines-and-vietnam/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IFPI_MENA_NATIONAL",
+    "countries": [
+      "EG",
+      "SA",
+      "AE"
+    ],
+    "scope": "NATIONAL",
+    "family": "WEIGHTED_MULTIPLATFORM_STREAMING",
+    "evidence_url": "https://www.ifpi.org/ifpi-launches-four-new-music-charts-in-egypt-saudi-arabia-uae-and-north-africa/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IFPI_NORTH_AFRICA",
+    "countries": [
+      "DZ",
+      "MA",
+      "TN"
+    ],
+    "scope": "REGIONAL",
+    "family": "WEIGHTED_MULTIPLATFORM_STREAMING",
+    "evidence_url": "https://www.ifpi.org/ifpi-launches-four-new-music-charts-in-egypt-saudi-arabia-uae-and-north-africa/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IFPI_MENA_REGIONAL",
+    "countries": [
+      "DZ",
+      "BH",
+      "EG",
+      "IQ",
+      "JO",
+      "KW",
+      "LB",
+      "MA",
+      "OM",
+      "QA",
+      "SA",
+      "TN",
+      "AE"
+    ],
+    "scope": "REGIONAL",
+    "family": "WEIGHTED_MULTIPLATFORM_STREAMING",
+    "evidence_url": "https://www.ifpi.org/the-official-mena-chart-launches-calm-down-by-rema-regions-first-ever-1/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "CIRCLE_STREAMING",
+    "countries": [
+      "KR"
+    ],
+    "scope": "NATIONAL",
+    "family": "MULTIPLATFORM_STREAMING_RANK",
+    "evidence_url": "https://circlechart.co.kr/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "CIRCLE_DIGITAL",
+    "countries": [
+      "KR"
+    ],
+    "scope": "NATIONAL",
+    "family": "COMPOSITE_DIGITAL",
+    "evidence_url": "https://circlechart.co.kr/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "BILLBOARD_JP",
+    "countries": [
+      "JP"
+    ],
+    "scope": "NATIONAL",
+    "family": "COMPOSITE_OR_STREAMING_SEPARATE_SERIES",
+    "evidence_url": "https://www.billboard-japan.com/common/about/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IMI_INTERNATIONAL",
+    "countries": [
+      "IN"
+    ],
+    "scope": "REPERTOIRE_RESTRICTED",
+    "family": "WEIGHTED_STREAMING",
+    "evidence_url": "https://indianmi.org/faqs/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "TME_UNI",
+    "countries": [
+      "CN"
+    ],
+    "scope": "REPERTOIRE_RESTRICTED",
+    "family": "PLATFORM_CHINESE_REPERTOIRE",
+    "evidence_url": "https://www.tencentmusic.com/en-us/uni-chart.html",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "OFFICIAL_UK",
+    "countries": [
+      "GB"
+    ],
+    "scope": "NATIONAL",
+    "family": "COMPOSITE_OR_STREAMING_SEPARATE_SERIES",
+    "evidence_url": "https://www.officialcharts.com/charts/singles-chart/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "OFFICIAL_DE",
+    "countries": [
+      "DE"
+    ],
+    "scope": "NATIONAL",
+    "family": "NATIONAL_RANK",
+    "evidence_url": "https://www.offiziellecharts.de/charts/single",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "ARIA_AU",
+    "countries": [
+      "AU"
+    ],
+    "scope": "NATIONAL",
+    "family": "COMPOSITE_OR_STREAMING_SEPARATE_SERIES",
+    "evidence_url": "https://www.aria.com.au/charts-faqs",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "AOTEAROA_NZ",
+    "countries": [
+      "NZ"
+    ],
+    "scope": "NATIONAL",
+    "family": "NATIONAL_RANK",
+    "evidence_url": "https://aotearoamusiccharts.co.nz/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "TOSAC_REVERIFY",
+    "countries": [
+      "ZA"
+    ],
+    "scope": "COUNTRY_LEAD",
+    "family": "STREAMING_LEAD",
+    "evidence_url": "https://theofficialsacharts.co.za/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "KKBOX_DISCOVERY",
+    "countries": [
+      "TW",
+      "HK",
+      "JP",
+      "SG",
+      "MY"
+    ],
+    "scope": "COUNTRY_LEAD",
+    "family": "PLATFORM_RANK",
+    "evidence_url": "https://pkg.kfs.io/kk-web/event-static/kkboxinc/KKBOX_Brand_Book_2022_EN_v2.pdf",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "BOOMPLAY_DISCOVERY",
+    "countries": [
+      "NG",
+      "GH",
+      "KE",
+      "TZ",
+      "UG",
+      "CM",
+      "CI",
+      "SN",
+      "RW",
+      "ZM"
+    ],
+    "scope": "COUNTRY_LEAD",
+    "family": "PLATFORM_RANK",
+    "evidence_url": "https://www.boomplay.com/charts",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "SPOTIFY_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "PLATFORM_STREAMING",
+    "evidence_url": "https://support.spotify.com/us/artists/article/understanding-spotify-charts/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "YOUTUBE_MUSIC_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "PLATFORM_VIDEO_SONG",
+    "evidence_url": "https://support.google.com/youtube/answer/9014376?hl=en",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "APPLE_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "PLATFORM_RANK",
+    "evidence_url": "https://developer.apple.com/documentation/applemusicapi/charts",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "LASTFM_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "SCROBBLE_SAMPLE",
+    "evidence_url": "https://www.last.fm/api/show/geo.getTopTracks",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "IFPI_ASSOCIATIONS",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "DIRECTORY_NOT_CHART",
+    "evidence_url": "https://www.ifpi.org/about-us/local-associations/",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "SOUNDCHARTS_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "LICENSED_PROVIDER_DISCOVERY",
+    "evidence_url": "https://developers.soundcharts.com/documentation",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "CHARTMETRIC_DISCOVERY",
+    "countries": [],
+    "scope": "GLOBAL_DISCOVERY_ONLY",
+    "family": "LICENSED_PROVIDER_DISCOVERY",
+    "evidence_url": "https://api.chartmetric.com/api/docs",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "APPLE_DOCUMENTED_COUNTRY_PLAYLISTS",
+    "countries": [
+      "AG",
+      "AI",
+      "AM",
+      "AR",
+      "AT",
+      "AU",
+      "AZ",
+      "BB",
+      "BE",
+      "BG",
+      "BH",
+      "BM",
+      "BO",
+      "BR",
+      "BW",
+      "BY",
+      "BZ",
+      "CA",
+      "CL",
+      "CN",
+      "CO",
+      "CR",
+      "CV",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "DM",
+      "DO",
+      "EC",
+      "EE",
+      "EG",
+      "ES",
+      "FI",
+      "FJ",
+      "FM",
+      "FR",
+      "GB",
+      "GH",
+      "GM",
+      "JP",
+      "KH",
+      "KR",
+      "KY",
+      "KZ",
+      "LK",
+      "MX",
+      "NP",
+      "RU",
+      "SV",
+      "US",
+      "VG"
+    ],
+    "scope": "NATIONAL_PLATFORM_LABEL",
+    "family": "PLATFORM_RANK",
+    "evidence_url": "https://music.apple.com/us/new/top-charts/daily-global-top-charts",
+    "snapshot_adapter": "ENABLED_DOCUMENTED_URLS_ONLY",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  },
+  {
+    "source_id": "TURNTABLE_NG_STREAMING",
+    "countries": [
+      "NG"
+    ],
+    "scope": "NATIONAL",
+    "family": "MULTIPLATFORM_STREAMING_COMPONENT",
+    "evidence_url": "https://www.turntablecharts.com/news/480",
+    "snapshot_adapter": "HOLD_PROVIDER_SPECIFIC_ADAPTER_AND_ACCESS_REVIEW",
+    "annual_admission": "HOLD_UNTIL_COMPLETE_CALENDAR_AND_COMPARABLE_METRIC_VERIFIED",
+    "regional_replication_allowed": false,
+    "paid_acquisition_allowed": false
+  }
+]

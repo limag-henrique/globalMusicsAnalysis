@@ -39,7 +39,7 @@ class LocalResponsesOnly(PacedHTTP):
 
 
 def main(include_flagged=False, candidate_ids_file=None):
-    OUTPUT.mkdir(exist_ok=True)
+    OUTPUT.mkdir(parents=True, exist_ok=True)
     STATE.mkdir(parents=True, exist_ok=True)
     with (STATE / "owner.lock").open("a+b") as lock:
         lock.seek(0)
@@ -199,7 +199,14 @@ def main(include_flagged=False, candidate_ids_file=None):
                     if previous.get("outcome") == "not_found":
                         return "previously_examined"
                 try:
-                    result = discover_candidate(payload["title"], payload["artist"], http)
+                    result = discover_candidate(
+                        payload["title"],
+                        payload["artist"],
+                        http,
+                        expected_duration_ms=(payload.get("metadata_resolution") or {}).get(
+                            "duration_ms"
+                        ),
+                    )
                     audit = audit_saved_result(payload, result)
                     if (
                         not result.get("text")

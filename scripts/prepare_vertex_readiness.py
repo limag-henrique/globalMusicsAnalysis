@@ -50,6 +50,19 @@ def validate_prices(prices, settings, today):
         raise ValueError("configured batch prices/model/location differ from official evidence")
 
 
+def verify_inputs(root, expected):
+    root = root.resolve()
+    for relative, digest in expected.items():
+        path = (root / relative).resolve()
+        if not path.is_relative_to(root):
+            raise ValueError("frozen input outside project")
+        with path.open("rb") as handle:
+            actual = hashlib.file_digest(handle, "sha256").hexdigest()
+        if actual != digest:
+            raise ValueError("frozen selection input changed: " + relative)
+    return expected
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
@@ -62,6 +75,14 @@ def main():
     prices_path = ROOT / "config/vertex_price_evidence_20261108.json"
     prices = json.loads(prices_path.read_text())
     validate_prices(prices, settings, datetime.now(UTC).date())
+    selection_inputs = verify_inputs(
+        ROOT,
+        json.loads(
+            (ROOT / "data/runtime/import-all-lyrics-resume-20261107/campaign.json").read_text(
+                encoding="utf-8"
+            )
+        )["frozen_inputs"],
+    )
     config = build_lyrics_generation_config(
         settings.gemini_model, settings.gemini_thinking_level, 1024
     )
@@ -91,6 +112,7 @@ def main():
             taxonomy=TAXONOMY_VERSION,
             prompt=PROMPT_VERSION,
             implementation=implementation,
+            selection_inputs=selection_inputs,
             scope="frozen country-year quotas 2018-2026, partial 2026 cutoff 2026-10-15",
             content_frozen=True,
             scientific_acceptance=False,
@@ -156,6 +178,7 @@ def main():
                 production_ledger_modified=False,
                 provider_billing_export_verified=False,
                 effective_ceilings_usd=dict(quota_selection="150", revision_campaign="180"),
+                planning_ceiling_usd="150",
                 spendable_usd="0",
                 note="Local records do not attest the external billing account.",
             ),
@@ -166,6 +189,11 @@ def main():
                 run_id=run,
                 inventory=dict(counts),
                 canonical_adjudications=dict(approvals),
+                canonical_documents_eligible=approvals.get("eligible", 0),
+                local_dossier_prepared=True,
+                configured_prices_verified=True,
+                scientific_protocol_acceptance=False,
+                cloud_access_verified=False,
                 submission_ready=False,
                 paid_calls=0,
                 uploads=0,
@@ -177,6 +205,7 @@ def main():
                     "scientific_protocol_acceptance",
                     "external_billing_reconciliation",
                     "accepted_100_item_paid_pilot",
+                    "cloud_permissions_preflight",
                 ],
                 request_file_generated=False,
             ),
@@ -186,7 +215,14 @@ def main():
     manifest = {
         p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir() if p.is_file()
     }
-    save(out / "manifest.json", dict(created_at=datetime.now(UTC).isoformat(), sha256=manifest))
+    save(
+        out / "manifest.json",
+        dict(
+            created_at=datetime.now(UTC).isoformat(),
+            sha256=manifest,
+            producer_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        ),
+    )
     print(json.dumps(dict(output=str(out), inventory=dict(counts), paid_calls=0, ready=False)))
 
 

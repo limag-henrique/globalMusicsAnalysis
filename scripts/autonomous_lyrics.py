@@ -28,6 +28,7 @@ from chart_observatory.ingestion.import_quotas import (
     recovery_targets,
 )
 from chart_observatory.ingestion.quota_boundary import (
+    validate_display_only_refresh,
     validate_quota_memberships,
     validate_ranking_positions,
 )
@@ -97,6 +98,17 @@ def rows(path):
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def preserve_selection_snapshot(path, data):
+    if path.exists():
+        validate_display_only_refresh(rows(path), data)
+        return
+    part = path.with_suffix(".part")
+    with part.open("w", encoding="utf-8") as handle:
+        for row in data:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+    part.replace(path)
+
+
 def bundle():
     selection = BASE / "selection"
     command = [
@@ -145,9 +157,7 @@ def bundle():
             combined, json.loads(display_path.read_text(encoding="utf-8"))
         )
     for name, data in (("provisional", provisional), ("combined", combined)):
-        with (BASE / f"{name}.jsonl").open("w", encoding="utf-8") as handle:
-            for row in data:
-                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+        preserve_selection_snapshot(BASE / f"{name}.jsonl", data)
     tasks = recovery_targets(combined)
     native_path = BASE / "youtube-native-evidence/native-identity-map.jsonl"
     if native_path.exists():
