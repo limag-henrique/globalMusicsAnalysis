@@ -661,3 +661,119 @@ def test_replay_cache_inventory_includes_recent_campaigns(tmp_path):
     sources = recovery_cache_sources(tmp_path, primary)
     assert recent.resolve() in sources and primary.resolve() in sources
     assert len(sources) == len(set(sources))
+
+
+def _genius_song(song_id, title, primary_name, *, featured=(), primary_artists=None):
+    primary = {"id": song_id * 10, "name": primary_name}
+    return {
+        "id": song_id,
+        "title": title,
+        "url": f"https://genius.com/test-{song_id}-lyrics",
+        "lyrics_state": "complete",
+        "primary_artist": primary,
+        "primary_artists": primary_artists or [primary],
+        "featured_artists": [{"id": 900 + idx, "name": name} for idx, name in enumerate(featured)],
+        "producer_artists": [],
+        "writer_artists": [],
+    }
+
+
+def test_bilingual_and_combining_mark_identities_accept_cross_script_and_reject_versions():
+    assert match_genius_identity("Seven", "Jung Kook (정국)", _genius_song(1, "Seven", "Jung Kook"))
+    assert match_genius_identity("FLOWER", "JISOO", _genius_song(2, "꽃 (FLOWER)", "JISOO"))
+    assert match_genius_identity(
+        "El Mabda2 - المبدأ",
+        "TUL8TE",
+        _genius_song(3, "El Mabda2", "TUL8TE - توو ليت"),
+    )
+    assert match_genius_identity("لمّاح", "عايض", _genius_song(4, "لماح", "عايض"))
+    assert match_genius_identity(
+        "ซ่อน(ไม่)หา (Ghost)", "Jeff Satur", _genius_song(5, "ซ่อน(ไม่)หา", "Jeff Satur")
+    )
+    assert not match_genius_identity("Song", "Artist", _genius_song(6, "Song (EXPO ver.)", "Artist"))
+    assert not match_genius_identity(
+        "Song", "Artist", _genius_song(7, "Song (English Translation)", "Artist")
+    )
+    assert not match_genius_identity("FLOWER", "JISOO", _genius_song(8, "FLOWER (Romanized)", "JISOO"))
+    assert not match_genius_identity(
+        "FLOWER", "JISOO", _genius_song(9, "FLOWER", "Genius English Translations")
+    )
+
+
+def test_country_disambiguated_artist_and_multi_feature_credit_matching():
+    assert match_genius_identity("Sondela", "Mordecai (ZAF)", _genius_song(10, "Sondela", "Mordecai"))
+    assert match_genius_identity("Sondela", "Mordecai", _genius_song(11, "Sondela", "Mordecai (ZAF)"))
+    assert match_genius_identity(
+        "No Pole (feat. Don Toliver & with Future)",
+        "Metro Boomin",
+        _genius_song(12, "No Pole", "Metro Boomin", featured=["Don Toliver", "Future"]),
+    )
+    assert match_genius_identity(
+        "Track (feat. Roscosteazy, Optimist Music ZA & JussGigi)",
+        "Lead",
+        _genius_song(
+            13,
+            "Track",
+            "Lead",
+            featured=["Roscosteazy", "Optimist Music ZA", "JussGigi"],
+        ),
+    )
+
+
+def test_discover_candidate_skips_translation_accounts_and_expands_per_page(tmp_path):
+    import json
+
+    per_pages = []
+    state = {
+        "currentPage": "songPage",
+        "songPage": {"song": 42},
+        "entities": {
+            "songs": {
+                "42": {
+                    "id": 42,
+                    "title": "꽃 (FLOWER)",
+                    "url": "https://genius.com/jisoo-flower-lyrics",
+                    "lyricsState": "complete",
+                    "primaryArtist": 7,
+                    "primaryArtists": [7],
+                    "featuredArtists": [],
+                    "producerArtists": [],
+                    "writerArtists": [],
+                }
+            },
+            "artists": {"7": {"id": 7, "name": "JISOO"}},
+        },
+    }
+    encoded = json.dumps(json.dumps(state)).replace("'", "\\'")
+    html = (
+        '<html><head><meta property="og:url" content="https://genius.com/jisoo-flower-lyrics"/></head>'
+        f"<body><script>window.__PRELOADED_STATE__ = JSON.parse('{encoded[1:-1]}');</script>"
+        '<div data-lyrics-container="true">First line<br/>Second line<br/>Third line</div>'
+        "</body></html>"
+    )
+    noise_hit = _genius_song(99, "FLOWER (English Translation)", "Genius English Translations")
+    real_hit = {
+        **_genius_song(42, "꽃 (FLOWER)", "JISOO"),
+        "url": "https://genius.com/jisoo-flower-lyrics",
+    }
+
+    def respond(request):
+        if request.url.path == "/api/search/multi":
+            per_page = request.url.params.get("per_page")
+            per_pages.append(per_page)
+            hits = [{"result": noise_hit}]
+            if per_page == "15":
+                hits.append({"result": real_hit})
+            return httpx.Response(200, json={"response": {"sections": [{"type": "song", "hits": hits}]}})
+        if str(request.url) == "https://genius.com/jisoo-flower-lyrics":
+            return httpx.Response(200, text=html)
+        return httpx.Response(404)
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = discover_candidate("FLOWER", "JISOO", PacedHTTP(tmp_path, client))
+
+    assert per_pages == ["5", "15"]
+    assert result["status"] == "candidate_pending_validation"
+    assert result["source"] == "GENIUS"
+    assert result["source_metadata"]["observed_title"] == "꽃 (FLOWER)"
+    assert "First line\nSecond line\nThird line" in result["text"]

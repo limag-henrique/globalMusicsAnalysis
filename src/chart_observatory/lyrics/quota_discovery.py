@@ -256,8 +256,11 @@ def discover_candidate(title, artist, http, browser=None, *, expected_duration_m
                     r
                     for r in data
                     if isinstance(r, dict)
-                    and identity(r.get("trackName")) == identity(title)
-                    and identity(r.get("artistName")) in accepted_artists
+                    and identities_compatible(r.get("trackName"), title, is_artist=False)
+                    and (
+                        identities_compatible(r.get("artistName"), artist, is_artist=True)
+                        or identity(r.get("artistName")) in accepted_artists
+                    )
                     and not r.get("instrumental")
                     and not recording_duration_mismatch(expected_duration_ms, r.get("duration"))
                     and lrclib_text(r)
@@ -289,99 +292,119 @@ def discover_candidate(title, artist, http, browser=None, *, expected_duration_m
                 errors.append("divergent_exact_lrclib_editions")
         else:
             errors.append(f"LRCLIB:{response.status_code}")
-        response = http.get(
-            "https://genius.com/api/search/multi",
-            params={"per_page": 5, "q": f"{credited} {split_feature_credits(title)[0]}"},
-        )
-        if response.status_code != 200:
-            errors.append(f"GENIUS_SEARCH:{response.status_code}")
-            continue
-        try:
-            data = response.json()
-        except ValueError:
-            errors.append("GENIUS_SEARCH:invalid_json")
-            continue
-        if not isinstance(data, dict):
-            continue
-        envelope = data.get("response")
-        if not isinstance(envelope, dict):
-            continue
-        for section in envelope.get("sections", []):
-            if not isinstance(section, dict) or section.get("type") not in ("song", "top_hit"):
-                continue
-            for hit in section.get("hits", []):
-                result = hit.get("result") if isinstance(hit, dict) else None
-                if not isinstance(result, dict):
+        include_genius_accounts = "genius" in identity(artist)
+        for per_page in (5, 15):
+            response = http.get(
+                "https://genius.com/api/search/multi",
+                params={"per_page": per_page, "q": f"{credited} {split_feature_credits(title)[0]}"},
+            )
+            if response.status_code != 200:
+                errors.append(f"GENIUS_SEARCH:{response.status_code}")
+                break
+            try:
+                data = response.json()
+            except ValueError:
+                errors.append("GENIUS_SEARCH:invalid_json")
+                break
+            if not isinstance(data, dict):
+                break
+            envelope = data.get("response")
+            if not isinstance(envelope, dict):
+                break
+            before_urls = len(urls)
+            saw_translation_noise = False
+            for section in envelope.get("sections", []):
+                if not isinstance(section, dict) or section.get("type") not in ("song", "top_hit"):
                     continue
-                primary = result.get("primary_artist") or {}
-                if not isinstance(primary, dict):
-                    continue
-                if result.get("lyrics_state") not in (None, "complete"):
-                    errors.append("GENIUS_SEARCH:lyrics_declared_incomplete")
-                    continue
-                if not match_genius_identity(title, artist, result):
-                    primary_name = identity(primary.get("name"))
-                    requested_names = {identity(value) for value in artist.split("|")}
-                    title_matches = identity(result.get("title")) in {
-                        identity(title),
-                        identity(split_feature_credits(title)[0]),
-                    }
-                    song_id = result.get("id")
-                    if not (
-                        title_matches
-                        and primary_name in requested_names
-                        and isinstance(song_id, int)
-                        and not isinstance(song_id, bool)
-                    ):
+                for hit in section.get("hits", []):
+                    result = hit.get("result") if isinstance(hit, dict) else None
+                    if not isinstance(result, dict):
                         continue
-                    detail = http.get(f"https://genius.com/api/songs/{song_id}")
-                    if detail.status_code != 200:
-                        errors.append(f"GENIUS_CREDITS:{detail.status_code}")
+                    primary = result.get("primary_artist") or {}
+                    if not isinstance(primary, dict):
                         continue
-                    try:
-                        detailed = detail.json().get("response", {}).get("song", {})
-                    except (ValueError, AttributeError):
-                        continue
+                    primary_raw_name = primary.get("name")
                     if (
-                        not isinstance(detailed, dict)
-                        or detailed.get("id") != song_id
-                        or not match_genius_identity(title, artist, detailed)
+                        not include_genius_accounts
+                        and isinstance(primary_raw_name, str)
+                        and primary_raw_name.strip().casefold().startswith("genius ")
                     ):
+                        saw_translation_noise = True
                         continue
-                    result = detailed
-                    primary = result.get("primary_artist") or primary
-                if result.get("lyrics_state") not in (None, "complete"):
-                    errors.append("GENIUS_CREDITS:lyrics_declared_incomplete")
-                    continue
-                url = result.get("url")
-                if (
-                    isinstance(url, str)
-                    and urlparse(url).scheme == "https"
-                    and urlparse(url).hostname == "genius.com"
-                    and url not in seen
-                ):
-                    seen.add(url)
-                    credits = {
-                        field: [
-                            {"id": person.get("id"), "name": person.get("name")}
-                            for person in result.get(field, []) or []
-                            if isinstance(person, dict)
-                        ]
-                        for field in (
-                            "primary_artists",
-                            "featured_artists",
-                            "producer_artists",
-                            "writer_artists",
+                    if result.get("lyrics_state") not in (None, "complete"):
+                        errors.append("GENIUS_SEARCH:lyrics_declared_incomplete")
+                        continue
+                    if not match_genius_identity(title, artist, result):
+                        primary_variants = bilingual_identity_variants(
+                            primary.get("name"), is_artist=True
                         )
-                    }
-                    credits["primary_artist"] = {
-                        "id": primary.get("id"),
-                        "name": primary.get("name"),
-                    }
-                    credits["performer_credit_fields_explicit"] = True
-                    credits["song_id"] = result.get("id")
-                    credits["lyrics_state"] = result.get("lyrics_state")
-                    urls.append((url, primary.get("name"), result.get("title"), credits))
+                        requested_variants = set()
+                        for value in artist.split("|"):
+                            requested_variants |= bilingual_identity_variants(value, is_artist=True)
+                        feature_title, _ = split_feature_credits(title)
+                        title_matches = identities_compatible(
+                            result.get("title"), title, is_artist=False
+                        ) or identities_compatible(
+                            result.get("title"), feature_title, is_artist=False
+                        )
+                        song_id = result.get("id")
+                        if not (
+                            title_matches
+                            and bool(primary_variants & requested_variants)
+                            and isinstance(song_id, int)
+                            and not isinstance(song_id, bool)
+                        ):
+                            continue
+                        detail = http.get(f"https://genius.com/api/songs/{song_id}")
+                        if detail.status_code != 200:
+                            errors.append(f"GENIUS_CREDITS:{detail.status_code}")
+                            continue
+                        try:
+                            detailed = detail.json().get("response", {}).get("song", {})
+                        except (ValueError, AttributeError):
+                            continue
+                        if (
+                            not isinstance(detailed, dict)
+                            or detailed.get("id") != song_id
+                            or not match_genius_identity(title, artist, detailed)
+                        ):
+                            continue
+                        result = detailed
+                        primary = result.get("primary_artist") or primary
+                    if result.get("lyrics_state") not in (None, "complete"):
+                        errors.append("GENIUS_CREDITS:lyrics_declared_incomplete")
+                        continue
+                    url = result.get("url")
+                    if (
+                        isinstance(url, str)
+                        and urlparse(url).scheme == "https"
+                        and urlparse(url).hostname == "genius.com"
+                        and url not in seen
+                    ):
+                        seen.add(url)
+                        credits = {
+                            field: [
+                                {"id": person.get("id"), "name": person.get("name")}
+                                for person in result.get(field, []) or []
+                                if isinstance(person, dict)
+                            ]
+                            for field in (
+                                "primary_artists",
+                                "featured_artists",
+                                "producer_artists",
+                                "writer_artists",
+                            )
+                        }
+                        credits["primary_artist"] = {
+                            "id": primary.get("id"),
+                            "name": primary.get("name"),
+                        }
+                        credits["performer_credit_fields_explicit"] = True
+                        credits["song_id"] = result.get("id")
+                        credits["lyrics_state"] = result.get("lyrics_state")
+                        urls.append((url, primary.get("name"), result.get("title"), credits))
+            if len(urls) > before_urls or not saw_translation_noise:
+                break
     for url, credited, observed_title, credits in urls[:3]:
         allowed_artists = [credits["primary_artist"].get("name")]
         for field in ("primary_artists", "featured_artists"):
@@ -525,7 +548,7 @@ def audit_saved_result(payload, result):
     evidenced_artist = metadata.get("requested_artist") or metadata.get("observed_artist")
     if ("|" in requested or ", " in requested) and (
         metadata.get("full_requested_artist_credit_matched") is not True
-        or identity(evidenced_artist) != identity(requested)
+        or not identities_compatible(evidenced_artist, requested, is_artist=True)
     ):
         flags.append("requested_collaboration_credits_unverified")
     source = result.get("source", "UNKNOWN")
@@ -533,8 +556,11 @@ def audit_saved_result(payload, result):
         payload.get("title"), requested, metadata.get("observed_artist"), metadata
     )
     if source in {"LRCLIB", "AZLYRICS", "MUSIXMATCH"} and (
-        identity(metadata.get("observed_title")) != identity(payload.get("title"))
-        or (identity(metadata.get("observed_artist")) != identity(requested) and not role_bound)
+        not identities_compatible(metadata.get("observed_title"), payload.get("title"), is_artist=False)
+        or (
+            not identities_compatible(metadata.get("observed_artist"), requested, is_artist=True)
+            and not role_bound
+        )
     ):
         flags.append("requested_title_or_artist_metadata_mismatch")
     expected_scope = {"AZLYRICS": "exact_page_title", "MUSIXMATCH": "main_entity_only"}

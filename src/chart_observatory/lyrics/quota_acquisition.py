@@ -638,6 +638,7 @@ class PacedHTTP(CachedRecoveryHTTP):
             if response.status_code == 404:
                 self._negative.add(key)
         if azlyrics_challenge:
+            cached_path.unlink(missing_ok=True)
             return httpx.Response(429, request=request)
         return response
 

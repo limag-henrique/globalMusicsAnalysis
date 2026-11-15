@@ -529,3 +529,76 @@ def test_search_refresh_honors_shared_provider_pause(tmp_path):
         )
         assert http.get("https://lrclib.net/api/search", params={"q": "test"}).status_code == 429
         assert http.provider_retry_delays()["lrclib.net"] > 500
+
+
+def test_fetch_candidate_extracts_genius_preloaded_state_credits(tmp_path):
+    url = "https://genius.com/Jisoo-Flower-lyrics"
+    state = {
+        "currentPage": "songPage",
+        "songPage": {"song": 42},
+        "entities": {
+            "songs": {
+                "42": {
+                    "id": 42,
+                    "title": "꽃 (FLOWER)",
+                    "url": url,
+                    "lyricsState": "complete",
+                    "primaryArtist": 7,
+                    "primaryArtists": [7],
+                    "featuredArtists": [],
+                    "producerArtists": [],
+                    "writerArtists": [],
+                }
+            },
+            "artists": {"7": {"id": 7, "name": "JISOO"}},
+        },
+    }
+    encoded = json.dumps(json.dumps(state)).replace("'", "\\'")
+    html = (
+        f'<html><head><meta property="og:url" content="{url}"/></head>'
+        f"<body><script>window.__PRELOADED_STATE__ = JSON.parse('{encoded[1:-1]}');</script>"
+        '<div data-lyrics-container="true">First line<br/>Second line<br/>Third line</div>'
+        "</body></html>"
+    )
+
+    def respond(request):
+        if str(request.url) == url:
+            return httpx.Response(200, text=html)
+        return httpx.Response(404)
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        result = fetch_candidate(
+            "FLOWER", "JISOO", PacedHTTP(tmp_path, client), html_sources={"GENIUS"}
+        )
+
+    assert result["status"] == "candidate_pending_validation"
+    assert result["source"] == "GENIUS"
+    assert result["source_metadata"]["provider_credit_evidence"]["song_id"] == 42
+    assert result["source_metadata"]["full_requested_artist_credit_matched"] is True
+    assert "First line\nSecond line\nThird line" in result["text"]
+
+
+def test_azlyrics_access_challenge_and_musixmatch_202_trigger_domain_cooldown(tmp_path):
+    calls = []
+
+    def respond(request):
+        calls.append(str(request.url))
+        if request.url.host == "www.azlyrics.com":
+            return httpx.Response(200, text="<html><title>AZLyrics - request for access</title></html>")
+        if request.url.host == "www.musixmatch.com":
+            return httpx.Response(202, text="<html>accepted</html>")
+        return httpx.Response(404)
+
+    with httpx.Client(transport=httpx.MockTransport(respond)) as client:
+        http = PacedHTTP(tmp_path, client)
+        assert http.get("https://www.azlyrics.com/lyrics/a/song.html").status_code == 429
+        assert http.provider_retry_delays()["www.azlyrics.com"] > 0
+        assert http.get("https://www.azlyrics.com/lyrics/a/song.html").status_code == 429
+        assert http.get("https://www.musixmatch.com/lyrics/a/song").status_code == 202
+        assert http.provider_retry_delays()["www.musixmatch.com"] > 0
+        assert http.get("https://www.musixmatch.com/lyrics/a/song").status_code == 429
+
+    assert calls == [
+        "https://www.azlyrics.com/lyrics/a/song.html",
+        "https://www.musixmatch.com/lyrics/a/song",
+    ]
