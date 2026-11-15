@@ -1,5 +1,9 @@
 # Incorporação mundial por país e ano — 08/11/2026
 
+**Atualização de metadados:** [correção dos 30 vínculos adicionais incompletos](global-metadata-repair-20261108.md).
+Os 5.910 adicionais agora têm título e artista completos; permanece uma
+pendência nominal anterior no Vietnã, explicitada na auditoria.
+
 A incorporação operacional foi implementada e aplicada ao PostgreSQL para todas
 as 250 entradas geográficas e todos os anos de 2018–2026: 2.250 células. **O
 preenchimento integral das cotas ainda não foi alcançado.** Uma célula cadastrada
@@ -94,9 +98,10 @@ Versões antigas são preservadas e uma importação idêntica não duplica linh
 
 O processamento histórico não usa rede. A coleta auxiliar de metadados fez
 19 solicitações públicas por URI exata; todas ficaram indisponíveis e foram
-registradas, sem tentativas de contornar acesso. Permanecem 31 vínculos com
-título ou artista ausente (30 novos e um anterior preservado). Não foram
-substituídos por músicas abaixo da cota. As 5.400 posições de snapshots atuais
+registradas, sem tentativas de contornar acesso. Na etapa posterior, os 30
+vínculos novos sem nomes foram corrigidos por ID exato em arquivo histórico;
+permanece um vínculo anterior incompleto. Nenhuma música foi substituída por
+outra abaixo da cota. As 5.400 posições de snapshots atuais
 do lote anterior não foram reutilizadas como anos históricos.
 
 ## Limites que impedem declarar a coleta integral concluída

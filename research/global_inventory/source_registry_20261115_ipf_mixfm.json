@@ -1,0 +1,56 @@
+{
+  "version": "global-source-diligence-supplement-v2",
+  "checked_on": "2026-11-15",
+  "scope": "Primary source documentary supplement, not national coverage promotion",
+  "parent_registry": "research\\global_inventory\\source_registry_20261108.json",
+  "parent_sha256": "882f5005fbf1230a0e68b497469aa8376c6825aab0cc97a63d6339043bfa85fb",
+  "sources": [
+    {
+      "source_id": "MIXFM_CY_SINGLE_STATION",
+      "label": "Mix FM 102.3 Cyprus Top100 annual",
+      "countries": [
+        "CY"
+      ],
+      "scope": "SINGLE_BROADCASTER",
+      "family": "BROADCASTER_ANNUAL_PUBLISHED_RANK",
+      "evidence_url": "https://www.mixfmradio.com/index.php/music",
+      "checked_on": "2026-11-15",
+      "finding": "Primary broadcaster lists yearly Top 100 charts for 2019 to 2025; song selection and metric methodology are not yet audited. A single station chart does not establish national consumption.",
+      "documentary_status": "PRIMARY_PAGE_PRESERVED",
+      "historical_calendar_status": "NOT_AUDITED",
+      "ingestion_ready": false,
+      "depth": 100,
+      "metric": "PUBLISHED_RANK_NO_STREAM_EQUIVALENCE",
+      "broad_repertoire": true,
+      "blockers": [
+        "SINGLE_STATION_NOT_NATIONAL_CHART",
+        "PERIOD_AND_RANKING_METHODOLOGY_UNVERIFIED"
+      ],
+      "evidence_manifest": "data\\raw\\published_annual\\mixfm-source-context-20261115-0001\\manifest.json"
+    },
+    {
+      "source_id": "IPF_SI_PUBLIC_PERFORMANCE",
+      "label": "IPF Slovenia annual Top 500",
+      "countries": [
+        "SI"
+      ],
+      "scope": "NATIONAL_PUBLIC_PERFORMANCE",
+      "family": "PUBLISHED_PERFORMANCE_RANK",
+      "evidence_url": "https://ipf.si/ste-ustvarjalec/statistika/najbolj-predvajani-izvajalci-in-izvedbe/?y=2019",
+      "checked_on": "2026-11-15",
+      "finding": "500 native positions per year from 2018 to 2025 are preserved. Article 2 establishes calendar exercises; linkage to each table report year is documented as inference. The overlay observes 880 provisional quota positions, with zero scientific approvals.",
+      "documentary_status": "PRIMARY_RULES_AND_TABLES_PRESERVED",
+      "historical_calendar_status": "DOCUMENTARY_PERIOD_BINDING_REVIEW_REQUIRED",
+      "ingestion_ready": false,
+      "depth": 500,
+      "metric": "NATIVE_PUBLISHED_RANK_NOT_STREAMS",
+      "broad_repertoire": true,
+      "blockers": [
+        "SOURCE_STRATUM_PROTOCOL_REVIEW",
+        "DOCUMENTARY_PERIOD_BINDING_REVIEW",
+        "RECORDING_IDENTITY_REVIEW"
+      ],
+      "evidence_manifest": "data/raw/published_annual/ipf-period-evidence-20261115-0003/manifest.json"
+    }
+  ]
+}

@@ -25,6 +25,23 @@ US$180/600 abaixo ou em documentos históricos não configuram esta execução.
 
 ## 1. Visão Geral e Arquitetura
 
+### Fluxo verificável de pesquisa — 11/11/2026
+
+O grupo `chart-observatory research` oferece auditoria G1–G5, reconstrução
+independente de rankings, bloqueio executável por portão e preparação privada
+do contrato de 26 tópicos. Exige 80% global e em cada país/ano, sem transformar
+texto adquirido ou importação íntegra em aprovação científica. Consulte
+[o guia executável e os contratos de evidência](docs/operations/research-flow-20261110.md).
+Essa preparação não inicia inferência ou upload Vertex.
+O comando `research progress` informa percentuais com denominadores explícitos;
+`research project-mgd` prepara a reconstrução diretamente dos arquivos nativos.
+Consulte [a conferência de andamento e os resultados reais](docs/operations/research-native-progress-20261110.md).
+O [estado verificável de 11/11/2026](docs/operations/research-flow-live-status-20261111.md)
+registra a seleção v3, os gates reprovados e o estado atual do staging. A
+[avaliação de fontes e restrições](docs/operations/research-source-availability-20261111.md)
+documenta a cobertura histórica que falta, as verificações de profundidade e os
+bloqueios de direitos/retensão antes de Vertex AI.
+
 O **Chart Observatory** coleta, normaliza e reconcilia metadados de faixas musicais e observações de paradas (Spotify, YouTube, MGD, Kaggle) e integra um pipeline de classificação semântica e taxonômica de letras musicais com inteligência artificial via **Google Cloud Vertex AI** (`google-genai` SDK).
 
 ### Componentes Principais
