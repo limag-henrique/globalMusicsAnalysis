@@ -32,13 +32,266 @@ from chart_observatory.lyrics.text_quality import (
 )
 
 
+_SEMITIC_OPTIONAL_MARKS = re.compile(r"[\u064b-\u065f\u0670\u0640\u0591-\u05c7]")
+
+_VERSION_OR_TRANSLATION_QUALIFIER = re.compile(
+    r"\b(?:live|ao\s+vivo|remix|mix|remaster(?:ed)?|radio\s+edit|edit|version|ver\.?|"
+    r"acoustic|ac[uú]stic[oa]?|unplugged|symphonic|instrumental|karaoke|clean|explicit|"
+    r"sped\s+up|slowed|reverb|demo|cover|tribute|medley|reprise|skit|pt\.?\s*\d+|part\s+\d+|"
+    r"translation|translations|romanized|romanization|"
+    r"tradu[cç][aã]o|traducci[oó]n|traduzioni|перевод|번역|翻訳|الترجمة|체크|"
+    r"feat\.?|ft\.?|featuring|with|prod\.?|bonus|deluxe|edition|intro|outro|interlude|"
+    r"ost|soundtrack|annotated|calendar)\b",
+    re.I,
+)
+
+_NON_ORIGINAL_ARTIST_MARKER = re.compile(
+    r"\b(?:translations?|romanizations?|tradu[cç][õo]es|traducciones?|traduzioni|překlady|české|ceviriler)\b"
+    r"|перевод|번역|翻訳|الترجمات|الترجمة|歌詞和訳",
+    re.I,
+)
+
+FEATURE_CREDIT = re.compile(r"[\[(]\s*(?:feat\.?|ft\.?|featuring|with)\s+([^\])]+)[\])]", re.I)
+
+_VERSION_SUFFIX = re.compile(
+    r"\s+-\s+(?=(?:\d{4}\s+)?(?:live|ao vivo|remix|remaster(?:ed)?|radio edit|"
+    r"acoustic|instrumental|clean|explicit|sped up|slowed)\b)",
+    re.I,
+)
+
+
+def split_feature_credits(title):
+    """Remove performer annotations while retaining explicit version suffixes."""
+    credits = []
+
+    def replace(match):
+        parts = _VERSION_SUFFIX.split(match[1], maxsplit=1)
+        credits.append(parts[0].strip())
+        return f"({parts[1].strip()})" if len(parts) == 2 else ""
+
+    return FEATURE_CREDIT.sub(replace, title).strip(), credits
+
+
+def _expand_feature_credits(credits):
+    """Split multi-performer feature strings like 'A, B & with C' into individual names."""
+    expanded = []
+    for credit in credits:
+        if not isinstance(credit, str) or not credit.strip():
+            continue
+        cleaned = re.sub(r"^(?:with|feat\.?|ft\.?|featuring)\s+", "", credit.strip(), flags=re.I)
+        parts = [
+            re.sub(r"^(?:with|feat\.?|ft\.?|featuring)\s+", "", part.strip(), flags=re.I)
+            for part in re.split(r"\s*,\s*&\s*|\s*,\s+|\s+&\s+|\s+\band\b\s+", cleaned, flags=re.I)
+            if part.strip()
+        ]
+        if len(parts) > 1:
+            expanded.append((credit.strip(), tuple(parts)))
+        else:
+            expanded.append((cleaned, (cleaned,)))
+    return expanded
+
+
 def identity(value):
     # Preserve remix/live/clean/explicit qualifiers and featured performers.
     if not isinstance(value, str):
         return ""
-    normalized = unicodedata.normalize("NFKC", value).casefold().strip()
-    words = " ".join(re.sub(r"[^\w]+", " ", normalized).split())
-    return words or normalized
+    base_norm = unicodedata.normalize("NFKC", value).casefold().strip()
+    stripped = _SEMITIC_OPTIONAL_MARKS.sub("", base_norm)
+    chars = [
+        ch
+        if (ch.isalnum() or ch == "_" or unicodedata.category(ch) in ("Mn", "Mc"))
+        else " "
+        for ch in stripped
+    ]
+    words = " ".join("".join(chars).split())
+    return words or base_norm
+
+
+def _script_families(text):
+    families = set()
+    for ch in text:
+        if not ch.isalpha():
+            continue
+        name = unicodedata.name(ch, "")
+        for family in (
+            "LATIN",
+            "CYRILLIC",
+            "ARABIC",
+            "HEBREW",
+            "GREEK",
+            "HANGUL",
+            "CJK",
+            "HIRAGANA",
+            "KATAKANA",
+            "THAI",
+            "DEVANAGARI",
+        ):
+            if family in name:
+                families.add("CJK" if family in ("CJK", "HIRAGANA", "KATAKANA") else family)
+                break
+    return families
+
+
+def _split_trailing_parens(value):
+    text = value.rstrip()
+    if not text.endswith(")"):
+        return None
+    depth = 0
+    for idx in range(len(text) - 1, -1, -1):
+        ch = text[idx]
+        if ch == ")":
+            depth += 1
+        elif ch == "(":
+            depth -= 1
+            if depth == 0:
+                base = text[:idx].strip()
+                inner = text[idx + 1 : -1].strip()
+                return (base, inner) if base and inner else None
+    return None
+
+
+def bilingual_identity_variants(value, *, is_artist=False):
+    """Return normalized exact identity plus safe cross-script bilingual aliases."""
+    if not isinstance(value, str) or not value.strip():
+        return set()
+    cur = value.strip()
+    out = {identity(cur)}
+    if is_artist and _NON_ORIGINAL_ARTIST_MARKER.search(cur):
+        out.discard("")
+        return out
+    if is_artist:
+        country_tag = re.fullmatch(r"^(.*\S)\s*\([A-Z]{2,3}\)\s*$", cur)
+        if country_tag:
+            cur = country_tag[1].strip()
+            out.add(identity(cur))
+    paren_parts = _split_trailing_parens(cur)
+    if paren_parts:
+        base, inner = paren_parts
+        fams_a, fams_b = _script_families(base), _script_families(inner)
+        qualifier_blocked = not is_artist and (
+            _VERSION_OR_TRANSLATION_QUALIFIER.search(base)
+            or _VERSION_OR_TRANSLATION_QUALIFIER.search(inner)
+        )
+        if not qualifier_blocked and fams_a and fams_b and fams_a.isdisjoint(fams_b):
+            out.add(identity(base))
+            out.add(identity(inner))
+    if " - " in cur:
+        parts = [part.strip() for part in cur.split(" - ") if part.strip()]
+        if len(parts) == 2:
+            left, right = parts
+            fams_a, fams_b = _script_families(left), _script_families(right)
+            qualifier_blocked = not is_artist and (
+                _VERSION_OR_TRANSLATION_QUALIFIER.search(left)
+                or _VERSION_OR_TRANSLATION_QUALIFIER.search(right)
+            )
+            if not qualifier_blocked and fams_a and fams_b and fams_a.isdisjoint(fams_b):
+                out.add(identity(left))
+                out.add(identity(right))
+    out.discard("")
+    return out
+
+
+def identities_compatible(requested, observed, *, is_artist=False):
+    """Match exact identities or strictly disjoint cross-script bilingual equivalents."""
+    req_norm, obs_norm = identity(requested), identity(observed)
+    if not req_norm or not obs_norm:
+        return False
+    if req_norm == obs_norm:
+        return True
+    return bool(
+        bilingual_identity_variants(requested, is_artist=is_artist)
+        & bilingual_identity_variants(observed, is_artist=is_artist)
+    )
+
+
+def match_genius_identity(title, artist, result):
+    """Only credit annotations may differ, and featured performers must be evidenced."""
+    if any(not isinstance(value, str) or not value.strip() for value in (title, artist)):
+        return False
+    feature_title, feature_credits = split_feature_credits(title)
+    # Exact provider titles retain the original annotation interpretation.
+    if identities_compatible(result.get("title"), title, is_artist=False):
+        feature_credits = FEATURE_CREDIT.findall(title)
+    primary = result.get("primary_artist") or {}
+    if not isinstance(primary, dict):
+        return False
+    featured = result.get("featured_artists")
+    leads = result.get("primary_artists", [primary])
+    if not isinstance(featured, list) or not isinstance(leads, list):
+        return False
+    leads = leads or [primary]
+    if any(
+        not isinstance(person, dict)
+        or not isinstance(person.get("name"), str)
+        or not person["name"].strip()
+        for person in leads + featured
+    ):
+        return False
+    names = [r.get("name", "") for r in leads if isinstance(r, dict)] + [
+        r.get("name", "") for r in featured if isinstance(r, dict)
+    ]
+    names = [name for name in names if isinstance(name, str) and name.strip()]
+    if not names:
+        return False
+    if "|" in artist:
+        req_list = [value.strip() for value in artist.split("|") if value.strip()]
+        supporting = []
+        for field in ("producer_artists", "writer_artists"):
+            values = result.get(field) or []
+            if isinstance(values, list):
+                supporting.extend(r.get("name", "") for r in values if isinstance(r, dict))
+        credit_variants = set()
+        for name in names + supporting:
+            if isinstance(name, str) and name.strip():
+                credit_variants |= bilingual_identity_variants(name, is_artist=True)
+        lead_variants = set()
+        for r in leads:
+            if isinstance(r, dict) and isinstance(r.get("name"), str):
+                lead_variants |= bilingual_identity_variants(r["name"], is_artist=True)
+        allowed_variants = set()
+        for value in req_list:
+            allowed_variants |= bilingual_identity_variants(value, is_artist=True)
+        for full_credit, split_parts in _expand_feature_credits(feature_credits):
+            allowed_variants |= bilingual_identity_variants(full_credit, is_artist=True)
+            for part in split_parts:
+                allowed_variants |= bilingual_identity_variants(part, is_artist=True)
+        artist_matches = (
+            all(bilingual_identity_variants(v, is_artist=True) & credit_variants for v in req_list)
+            and bool(any(bilingual_identity_variants(v, is_artist=True) & lead_variants for v in req_list))
+            and all(bilingual_identity_variants(n, is_artist=True) & allowed_variants for n in names)
+        )
+    else:
+        extra = [name for name in names if not identities_compatible(name, artist, is_artist=True)]
+        expanded = _expand_feature_credits(feature_credits)
+        annotated = set()
+        for full_credit, split_parts in expanded:
+            annotated |= bilingual_identity_variants(full_credit, is_artist=True)
+            for part in split_parts:
+                annotated |= bilingual_identity_variants(part, is_artist=True)
+        all_extras_annotated = (
+            not extra
+            or all(bool(bilingual_identity_variants(name, is_artist=True) & annotated) for name in extra)
+            or identity(" | ".join(extra)) in annotated
+        )
+        artist_matches = identities_compatible(" | ".join(names), artist, is_artist=True) or (
+            identities_compatible(primary.get("name"), artist, is_artist=True) and all_extras_annotated
+        )
+    if not artist_matches:
+        return False
+    if identities_compatible(result.get("title"), title, is_artist=False):
+        return True
+    if not feature_credits or not identities_compatible(feature_title, result.get("title"), is_artist=False):
+        return False
+    observed = set()
+    for name in names[1:]:
+        observed |= bilingual_identity_variants(name, is_artist=True)
+    observed.add(identity(" | ".join(names[1:])))
+    for full_credit, split_parts in _expand_feature_credits(feature_credits):
+        if bilingual_identity_variants(full_credit, is_artist=True) & observed:
+            continue
+        if not all(bool(bilingual_identity_variants(part, is_artist=True) & observed) for part in split_parts):
+            return False
+    return True
 
 
 def ranking_recovery_priority(payload):
@@ -85,6 +338,7 @@ def recovery_cache_sources(root, primary):
     paths = [
         *recent,
         Path(primary),
+        *(root / "data/derived/lyrics").glob("*/http-cache"),
         *quality.glob("corpus-revision-*/*/http-cache"),
         *quality.glob("recovery-expanded-*/http-cache"),
         *(root / "data/derived/annual_revision").glob("*/acquisition/http-cache"),
@@ -370,11 +624,21 @@ class PacedHTTP(CachedRecoveryHTTP):
                 self.trace.append(dict(url=key, status=429, provider_paused=True))
                 return httpx.Response(429, request=request)
         response = super().get(url, **kwargs)
+        azlyrics_challenge = (
+            response.status_code == 200
+            and domain.endswith("azlyrics.com")
+            and "AZLyrics - request for access" in response.text[:2000]
+        )
         with self._domain_guard:
-            if response.status_code in (401, 403, 429, 500, 502, 503, 504):
+            if (
+                response.status_code in (202, 401, 403, 429, 500, 502, 503, 504)
+                or azlyrics_challenge
+            ):
                 self._pause_domain(domain, response)
             if response.status_code == 404:
                 self._negative.add(key)
+        if azlyrics_challenge:
+            return httpx.Response(429, request=request)
         return response
 
 
@@ -441,12 +705,21 @@ def structured_identity(page, title, artist, allowed_artists=()):
         credited = item.get("byArtist") or item.get("recordedBy")
         credited = credited if isinstance(credited, list) else [credited]
         names = [v.get("name", "") if isinstance(v, dict) else str(v or "") for v in credited]
-        observed = {identity(name) for name in names if name}
-        allowed = {identity(name) for name in allowed_artists if name}
-        artists_match = identity(" | ".join(names)) == identity(artist) or (
-            bool(allowed) and identity(artist) in observed and observed.issubset(allowed)
+        observed = [name for name in names if name]
+        allowed = [name for name in allowed_artists if name]
+        artists_match = (
+            identities_compatible(" | ".join(names), artist, is_artist=True)
+            or (len(observed) == 1 and identities_compatible(observed[0], artist, is_artist=True))
+            or (
+                bool(allowed)
+                and any(identities_compatible(artist, name, is_artist=True) for name in observed)
+                and all(
+                    any(identities_compatible(name, allow, is_artist=True) for allow in allowed)
+                    for name in observed
+                )
+            )
         )
-        if identity(str(item.get("name", ""))) == identity(title) and artists_match:
+        if identities_compatible(str(item.get("name", "")), title, is_artist=False) and artists_match:
             return True
     return False
 
@@ -489,10 +762,18 @@ def decode_js_json_literal(literal):
     return json.loads(json.loads('"' + "".join(encoded) + '"'))
 
 
-def genius_main_entity_identity(page, title, artist, allowed_artists, song_id):
-    """Bind current songPage only to an already matched provider song ID."""
-    if not isinstance(song_id, int) or isinstance(song_id, bool) or song_id <= 0:
-        return False
+def _genius_person_record(person, artists):
+    record = person if isinstance(person, dict) else artists[str(person)]
+    if not isinstance(record, dict) or not isinstance(record.get("name"), str) or not record["name"].strip():
+        raise KeyError("missing artist record")
+    return {"id": record.get("id"), "name": record["name"]}
+
+
+def extract_genius_preloaded_credits(page):
+    """Extract canonical songPage credits from Genius embedded state when bound to og:url."""
+    canonical = page.select_one('meta[property="og:url"]')
+    if not canonical or not canonical.get("content"):
+        return None
     for script in page.find_all("script"):
         raw = script.string or script.get_text()
         if len(raw) > 2_000_000:
@@ -504,42 +785,86 @@ def genius_main_entity_identity(page, title, artist, allowed_artists, song_id):
             continue
         try:
             state = decode_js_json_literal(match[1])
+            song_id = state.get("songPage", {}).get("song")
             if (
                 state.get("currentPage") != "songPage"
-                or state.get("songPage", {}).get("song") != song_id
+                or not isinstance(song_id, int)
+                or isinstance(song_id, bool)
+                or song_id <= 0
             ):
                 continue
             entities = state["entities"]
             song = entities["songs"][str(song_id)]
-            if song.get("id") != song_id or identity(song.get("title")) != identity(title):
-                continue
-            if song.get("lyricsState") not in (None, "complete"):
+            if song.get("id") != song_id or song.get("lyricsState") not in (None, "complete"):
                 continue
             url = song.get("url")
             parsed = urlparse(url)
-            canonical = page.select_one('meta[property="og:url"]')
             if (
                 parsed.scheme != "https"
                 or parsed.hostname != "genius.com"
                 or parsed.username
-                or not canonical
                 or canonical.get("content") != url
             ):
                 continue
-            ids = song.get("primaryArtists", []) + song.get("featuredArtists", [])
-            if not ids:
+            artists_map = entities["artists"]
+            primary_artists = [_genius_person_record(p, artists_map) for p in song.get("primaryArtists", []) or []]
+            featured_artists = [_genius_person_record(p, artists_map) for p in song.get("featuredArtists", []) or []]
+            if not primary_artists and not featured_artists:
                 continue
-            names = []
-            for person in ids:
-                record = person if isinstance(person, dict) else entities["artists"][str(person)]
-                names.append(record["name"])
-            observed = {identity(name) for name in names}
-            allowed = {identity(name) for name in allowed_artists if name}
-            if identity(artist) in observed and observed.issubset(allowed):
-                return True
+            supporting = {}
+            for src_key, dst_key in (
+                ("producerArtists", "producer_artists"),
+                ("writerArtists", "writer_artists"),
+            ):
+                items = []
+                for person in song.get(src_key, []) or []:
+                    try:
+                        items.append(_genius_person_record(person, artists_map))
+                    except (KeyError, TypeError, AttributeError):
+                        continue
+                supporting[dst_key] = items
+            lead = song.get("primaryArtist")
+            primary_artist = (
+                _genius_person_record(lead, artists_map)
+                if isinstance(lead, (dict, int, str)) and lead
+                else (primary_artists[0] if primary_artists else featured_artists[0])
+            )
+            return {
+                "song_id": song_id,
+                "title": song.get("title"),
+                "url": url,
+                "lyrics_state": song.get("lyricsState"),
+                "primary_artist": primary_artist,
+                "primary_artists": primary_artists,
+                "featured_artists": featured_artists,
+                "performer_credit_fields_explicit": True,
+                **supporting,
+            }
         except (ValueError, TypeError, KeyError, AttributeError, SyntaxError, RecursionError):
             continue
-    return False
+    return None
+
+
+def genius_main_entity_identity(page, title, artist, allowed_artists, song_id):
+    """Bind current songPage only to an already matched provider song ID."""
+    if not isinstance(song_id, int) or isinstance(song_id, bool) or song_id <= 0:
+        return False
+    credits = extract_genius_preloaded_credits(page)
+    if not credits or credits.get("song_id") != song_id:
+        return False
+    if not identities_compatible(credits.get("title"), title, is_artist=False):
+        return False
+    names = [p["name"] for p in credits["primary_artists"] + credits["featured_artists"]]
+    allowed = [name for name in allowed_artists if name]
+    return bool(
+        names
+        and allowed
+        and any(identities_compatible(artist, name, is_artist=True) for name in names)
+        and all(
+            any(identities_compatible(name, allow, is_artist=True) for allow in allowed)
+            for name in names
+        )
+    )
 
 
 def extract_html(html, source, title, artist, allowed_artists=(), *, provider_song_id=None):
@@ -674,21 +999,52 @@ def fetch_candidate(title, artist, http, *, html_sources=None, expected_duration
             if response.status_code != 200:
                 errors.append(f"{source}:{response.status_code}")
                 continue
-            text = extract_html(response.text, source, title, primary_artist)
-            result = candidate(
-                text,
-                source,
-                url=str(response.url),
-                observed_title=title,
-                observed_artist=primary_artist,
-                requested_artist=artist,
-                full_requested_artist_credit_matched=identity(primary_artist) == identity(artist),
-                page_identity_scope="exact_page_title"
-                if source == "AZLYRICS"
-                else "main_entity_only",
+            preloaded = (
+                extract_genius_preloaded_credits(BeautifulSoup(response.text, "html.parser"))
+                if source == "GENIUS"
+                else None
             )
+            if preloaded and match_genius_identity(title, artist, preloaded):
+                allowed = [
+                    person["name"]
+                    for person in preloaded["primary_artists"] + preloaded["featured_artists"]
+                ]
+                observed_title = preloaded["title"]
+                observed_artist = preloaded["primary_artist"]["name"]
+                text = extract_html(
+                    response.text,
+                    source,
+                    observed_title,
+                    observed_artist,
+                    allowed,
+                    provider_song_id=preloaded["song_id"],
+                )
+                metadata = dict(
+                    url=str(response.url),
+                    observed_title=observed_title,
+                    observed_artist=observed_artist,
+                    requested_artist=artist,
+                    full_requested_artist_credit_matched=True,
+                    provider_credit_evidence=preloaded,
+                    page_identity_scope="main_entity_only",
+                )
+            else:
+                text = extract_html(response.text, source, title, primary_artist)
+                metadata = dict(
+                    url=str(response.url),
+                    observed_title=title,
+                    observed_artist=primary_artist,
+                    requested_artist=artist,
+                    full_requested_artist_credit_matched=identities_compatible(
+                        primary_artist, artist, is_artist=True
+                    ),
+                    page_identity_scope="exact_page_title"
+                    if source == "AZLYRICS"
+                    else "main_entity_only",
+                )
+            result = candidate(text, source, **metadata)
             if result:
-                if identity(primary_artist) != identity(artist):
+                if not metadata["full_requested_artist_credit_matched"]:
                     result["text_quality_flags"].append(
                         "requested_collaboration_credits_unverified"
                     )

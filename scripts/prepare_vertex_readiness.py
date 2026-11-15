@@ -66,6 +66,7 @@ def verify_inputs(root, expected):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--base-root", type=Path)
     args = parser.parse_args()
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "data/runtime"):
@@ -75,14 +76,35 @@ def main():
     prices_path = ROOT / "config/vertex_price_evidence_20261108.json"
     prices = json.loads(prices_path.read_text())
     validate_prices(prices, settings, datetime.now(UTC).date())
-    selection_inputs = verify_inputs(
-        ROOT,
-        json.loads(
-            (ROOT / "data/runtime/import-all-lyrics-resume-20261107/campaign.json").read_text(
-                encoding="utf-8"
-            )
-        )["frozen_inputs"],
+    base = (
+        args.base_root.resolve()
+        if args.base_root
+        else ROOT / "data/derived/annual_revision/reconciled-russia-2018-2026-20261031"
     )
+    if not base.is_relative_to(ROOT / "data/derived/annual_revision"):
+        parser.error("selection outside project annual data")
+    global_manifest = base / "manifest.json"
+    if (
+        global_manifest.exists()
+        and json.loads(global_manifest.read_text()).get("protocol") == "worldwide-annual-quotas-v1"
+    ):
+        selected_manifest = json.loads(global_manifest.read_text())
+        selection_inputs = verify_inputs(
+            ROOT,
+            {
+                str((base / name).relative_to(ROOT)): digest
+                for name, digest in selected_manifest["output_hashes"].items()
+            },
+        )
+    else:
+        selection_inputs = verify_inputs(
+            ROOT,
+            json.loads(
+                (ROOT / "data/runtime/import-all-lyrics-resume-20261107/campaign.json").read_text(
+                    encoding="utf-8"
+                )
+            )["frozen_inputs"],
+        )
     config = build_lyrics_generation_config(
         settings.gemini_model, settings.gemini_thinking_level, 1024
     )
@@ -139,7 +161,10 @@ def main():
         with Session(engine) as session:
             session.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY"))
             run = session.execute(
-                select(runs.c.id).order_by(runs.c.created_at.desc()).limit(1)
+                select(runs.c.id)
+                .where(runs.c.manifest["selection_root"].as_string() == str(base))
+                .order_by(runs.c.created_at.desc())
+                .limit(1)
             ).scalar_one()
             with (out / "pending-candidates.jsonl").open("w", encoding="utf-8") as queue:
                 for row in session.execute(
@@ -194,6 +219,7 @@ def main():
                 configured_prices_verified=True,
                 scientific_protocol_acceptance=False,
                 cloud_access_verified=False,
+                legacy_paid_scope_cap_exceeded=counts["total"] > 30000,
                 submission_ready=False,
                 paid_calls=0,
                 uploads=0,

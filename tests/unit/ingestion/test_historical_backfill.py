@@ -78,7 +78,7 @@ def test_missing_week_stays_incomplete_and_does_not_turn_sample_into_census():
             )
         ]
     )
-    _, coverage = annual_ranks(
+    ranked, coverage = annual_ranks(
         frame,
         markets={"BR"},
         year=2026,
@@ -95,6 +95,132 @@ def test_missing_week_stays_incomplete_and_does_not_turn_sample_into_census():
         date(2026, 1, 8),
         date(2026, 1, 15),
     }
+
+
+def test_short_chart_period_blocks_complete_calendar_even_when_all_dates_exist():
+    frame = pl.DataFrame(
+        [
+            dict(
+                country_code="BR",
+                period_end=date(2026, 1, day),
+                source_position=rank,
+                native_id=f"track-{day}-{rank}",
+                title="Song",
+                artist="Artist",
+                metric_value=10,
+            )
+            for day, ranks in [(1, [1, 2]), (2, [1])]
+            for rank in ranks
+        ]
+    )
+    _, coverage = annual_ranks(
+        frame,
+        markets={"BR"},
+        year=2026,
+        cutoff=date(2026, 1, 2),
+        frequency="DAILY",
+        platform="YOUTUBE",
+        provider="SHORT_PERIOD",
+        expected_depth=2,
+    )
+    assert coverage[0]["collected_periods"] == coverage[0]["expected_periods"] == 2
+    assert coverage[0]["minimum_source_rows_per_period"] == 1
+    assert coverage[0]["depth_shortfall_periods"] == 1
+    assert coverage[0]["coverage_status"] == "INCOMPLETE"
+
+
+def test_duplicate_track_rows_do_not_satisfy_chart_depth():
+    frame = pl.DataFrame(
+        [
+            dict(
+                country_code="BR",
+                period_end=date(2026, 1, day),
+                source_position=rank,
+                native_id=native_id,
+                title="Song",
+                artist="Artist",
+                metric_value=10,
+            )
+            for day, ranks in [(1, [(1, "a"), (2, "b")]), (2, [(1, "a"), (1, "a")])]
+            for rank, native_id in ranks
+        ]
+    )
+    _, coverage = annual_ranks(
+        frame,
+        markets={"BR"},
+        year=2026,
+        cutoff=date(2026, 1, 2),
+        frequency="DAILY",
+        platform="SPOTIFY",
+        provider="DUPLICATE_ROWS",
+        expected_depth=2,
+    )
+    assert coverage[0]["minimum_source_rows_per_period"] == 2
+    assert coverage[0]["minimum_unique_tracks_per_period"] == 1
+    assert coverage[0]["depth_shortfall_periods"] == 1
+    assert coverage[0]["coverage_status"] == "INCOMPLETE"
+
+
+def test_ties_can_reduce_max_rank_without_failing_chart_depth():
+    frame = pl.DataFrame(
+        [
+            dict(
+                country_code="BR",
+                period_end=date(2026, 1, day),
+                source_position=1,
+                native_id=f"track-{day}-{track}",
+                title="Song",
+                artist="Artist",
+                metric_value=10,
+            )
+            for day in (1, 2)
+            for track in (1, 2)
+        ]
+    )
+    _, coverage = annual_ranks(
+        frame,
+        markets={"BR"},
+        year=2026,
+        cutoff=date(2026, 1, 2),
+        frequency="DAILY",
+        platform="YOUTUBE",
+        provider="TIED_SOURCE",
+        expected_depth=2,
+    )
+    assert coverage[0]["depth_shortfall_periods"] == 0
+    assert coverage[0]["rank_start_missing_periods"] == 0
+    assert coverage[0]["coverage_status"] == "COMPLETE"
+
+
+def test_out_of_range_native_rank_invalidates_source():
+    frame = pl.DataFrame(
+        [
+            dict(
+                country_code="BR",
+                period_end=date(2026, 1, day),
+                source_position=rank,
+                native_id=f"track-{day}-{rank}",
+                title="Song",
+                artist="Artist",
+                metric_value=10,
+            )
+            for day in (1, 2)
+            for rank in (1, 3)
+        ]
+    )
+    ranked, coverage = annual_ranks(
+        frame,
+        markets={"BR"},
+        year=2026,
+        cutoff=date(2026, 1, 2),
+        frequency="DAILY",
+        platform="SPOTIFY",
+        provider="BAD_RANK",
+        expected_depth=2,
+    )
+    assert coverage[0]["rank_invalid_observations"] == 2
+    assert coverage[0]["coverage_status"] == "CONFLICT_OR_INVALID"
+    assert ranked == []
 
 
 def test_complete_source_beats_deeper_incomplete_and_metrics_are_not_added():

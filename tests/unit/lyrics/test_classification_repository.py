@@ -4,7 +4,7 @@ from decimal import Decimal
 from uuid import UUID, uuid4
 
 import pytest
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, event, select
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import Session
 
@@ -159,6 +159,21 @@ def test_forced_snapshot_appends_immutable_history(
     assert session.scalars(select(LyricClassificationSnapshot)).all() == [first, forced]
 
 
+@pytest.fixture
+def tied_snapshot_clock():
+    """Make the tie under test explicit, independent of SQLite's wall clock."""
+
+    def fixed_created_at(_mapper, _connection, target):
+        target.created_at = datetime(2026, 1, 1, tzinfo=UTC)
+
+    event.listen(LyricClassificationSnapshot, "before_insert", fixed_created_at)
+    try:
+        yield
+    finally:
+        event.remove(LyricClassificationSnapshot, "before_insert", fixed_created_at)
+
+
+@pytest.mark.usefixtures("tied_snapshot_clock")
 def test_matching_signature_returns_last_forced_snapshot_when_created_at_ties(
     session: Session, lyric_document: LyricDocument
 ) -> None:
@@ -182,6 +197,7 @@ def test_matching_signature_returns_last_forced_snapshot_when_created_at_ties(
     assert match.id == latest.id
 
 
+@pytest.mark.usefixtures("tied_snapshot_clock")
 def test_matching_signature_uses_append_order_for_tied_terminal_forced_branches(
     session: Session, lyric_document: LyricDocument
 ) -> None:

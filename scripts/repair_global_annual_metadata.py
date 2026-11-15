@@ -90,6 +90,9 @@ def main(include_legacy_missing=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--include-legacy-missing", action="store_true",
-                        help="Repair missing names in the new version of legacy memberships")
+    parser.add_argument(
+        "--include-legacy-missing",
+        action="store_true",
+        help="Repair missing names in the new version of legacy memberships",
+    )
     main(include_legacy_missing=parser.parse_args().include_legacy_missing)

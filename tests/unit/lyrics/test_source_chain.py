@@ -34,8 +34,26 @@ def test_chain_reproduces_full_unicode_text_and_repetitions_without_certifying_a
         tmp_path,
     )
     assert check["status"] == "source_chain_matched"
+    assert check["exact_text_hash_match"] is True
+    assert check["extracted_text_sha256"] == hashlib.sha256(body.encode()).hexdigest()
     assert not check["identity_validated"] and not check["completeness_validated"]
     assert not check["classification_ready"]
+
+
+def test_normalized_match_does_not_claim_exact_byte_reproduction(tmp_path):
+    result, source_body = evidence(tmp_path)
+    stored = source_body + "\n"
+    check = verify_source_chain(
+        dict(title="Song", artist="Artist"),
+        result,
+        stored,
+        hashlib.sha256(stored.encode()).hexdigest(),
+        tmp_path,
+    )
+
+    assert check["status"] == "source_chain_matched"
+    assert check["exact_text_hash_match"] is False
+    assert check["extracted_text_sha256"] == hashlib.sha256(source_body.encode()).hexdigest()
 
 
 def test_same_song_title_is_not_enough_when_provider_identity_differs(tmp_path):

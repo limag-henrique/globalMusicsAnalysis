@@ -1,8 +1,10 @@
 import hashlib
+import json
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from chart_observatory.lyrics.web_comparison import compare_lrclib
+from chart_observatory.lyrics.web_comparison import compare_lrclib, reuse_recent_web_responses
 
 TEXT = "\n".join(f"Original fixture verse {i}" for i in range(25))
 
@@ -71,3 +73,31 @@ def test_stored_corruption_is_not_hidden_by_matching_web_content():
         dict(title="Song", artist="Artist"), {}, TEXT, "0" * 64, [row()], []
     )
     assert check["status"] == "stored_hash_mismatch" and candidate is None
+
+
+@pytest.mark.parametrize("case", ["recent", "expired", "corrupt"])
+def test_reuse_of_the_same_web_pass_preserves_dates_and_checks_original_bytes(tmp_path, case):
+    source = tmp_path / "source"
+    target = tmp_path / "target"
+    source.mkdir()
+    now = datetime(2026, 11, 8, 22, tzinfo=UTC)
+    observed = now - timedelta(hours=25 if case == "expired" else 2)
+    url = "https://lrclib.net/api/get/12"
+    body = '{"id":12}'
+    record = dict(
+        url=url,
+        retrieved_at=observed.isoformat(),
+        body=body,
+        body_sha256=hashlib.sha256(body.encode()).hexdigest(),
+    )
+    if case == "corrupt":
+        record["body"] = "[]"
+    raw = json.dumps(record).encode()
+    name = hashlib.sha256(url.encode()).hexdigest() + ".json"
+    (source / name).write_bytes(raw)
+    copied = reuse_recent_web_responses(source, target, now)
+    if case == "recent":
+        assert copied == 1 and (target / name).read_bytes() == raw
+        assert reuse_recent_web_responses(source, target, now) == 0
+    else:
+        assert copied == 0 and not list(target.glob("*.json"))

@@ -74,6 +74,27 @@ def report(stage, **details):
 
 def stage(base):
     report("verifying_immutable_selection")
+    global_manifest = base / "manifest.json"
+    if (
+        global_manifest.exists()
+        and json.loads(global_manifest.read_text()).get("protocol") == "worldwide-annual-quotas-v1"
+    ):
+        from chart_observatory.lyrics.global_import import stage_global
+
+        engine = create_engine(Settings.load(ROOT).database_url)
+        try:
+            result = stage_global(
+                engine,
+                base,
+                ROOT / "data/derived/annual_revision/reconciled-russia-2018-2026-20261031",
+                STORE,
+                progress=lambda i, n: report("verifying_global_lyric_blobs", candidates=i, total=n),
+            )
+            report("staged_pending_review", **result, paid_ready_candidates=0)
+            print(json.dumps(result, ensure_ascii=True))
+            return
+        finally:
+            engine.dispose()
     manifest_path = base / "selection/manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     for folder, hashes in (
@@ -261,12 +282,17 @@ def stage(base):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-root", type=Path, required=True)
+    parser.add_argument("--store-root", type=Path)
     parser.add_argument(
         "--state-root", type=Path, help="Separate status directory for this snapshot"
     )
     args = parser.parse_args()
     if args.state_root:
         STATE = args.state_root.resolve()
+    if args.store_root:
+        STORE = args.store_root.resolve()
+        if not STORE.is_relative_to(ROOT / "data/derived/lyrics"):
+            parser.error("store must remain in project lyrics directory")
     import msvcrt
 
     STATE.mkdir(exist_ok=True)

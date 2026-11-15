@@ -2,9 +2,11 @@
 
 $ErrorActionPreference = 'Stop'
 $researchRoot = Split-Path -Parent $PSScriptRoot
-$pgBase = Join-Path $env:LOCALAPPDATA 'ChartObservatory'
-$pgCtl = Join-Path $pgBase 'postgresql16\bin\pg_ctl.exe'
-$pgData = Join-Path $pgBase 'postgres16-destination'
+. (Join-Path $PSScriptRoot 'research_postgres_paths.ps1')
+$pgLayout = Get-ResearchPostgresLayout
+$pgBase = $pgLayout.Base
+$pgCtl = Join-Path $pgLayout.Binaries 'pg_ctl.exe'
+$pgData = $pgLayout.Cluster
 if (-not (Test-Path -LiteralPath $pgCtl)) { throw 'PostgreSQL local não preparado.' }
 if (-not (Test-Path -LiteralPath (Join-Path $pgData 'PG_VERSION'))) {
     throw 'Cluster de destino não encontrado; este comando não cria banco vazio.'

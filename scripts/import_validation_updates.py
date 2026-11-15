@@ -19,8 +19,17 @@ from chart_observatory.runtime_status import publish_status
 
 
 def validate_campaign_selection(selected, config):
-    if hashlib.sha256(selected).hexdigest() == config["selection_sha256"]:
+    expected = config.get("selection_sha256") or config.get("frozen_inputs", {}).get(
+        str((BASE / "combined.jsonl").relative_to(ROOT))
+    )
+    if hashlib.sha256(selected).hexdigest() == expected:
         return
+    global_manifest = BASE / "manifest.json"
+    if (
+        global_manifest.exists()
+        and json.loads(global_manifest.read_text()).get("protocol") == "worldwide-annual-quotas-v1"
+    ):
+        raise ValueError("frozen global selection changed; create a new reviewed cohort")
     # Older collectors rewrote display enrichment into combined.jsonl. Verify
     # the entire ranked selection independently from its frozen source files.
     import polars as pl
@@ -63,18 +72,24 @@ def needs_refresh(previous, observed, elapsed_seconds):
 def observe(candidate_ids):
     checksum = hashlib.sha256()
     count = with_text = 0
-    with sqlite3.connect((STORE / "acquisition.sqlite").as_uri() + "?mode=ro", uri=True) as conn:
-        conn.execute("PRAGMA query_only=ON")
-        conn.execute("BEGIN")
-        for key, payload, raw in conn.execute(
-            "SELECT identity,payload,result FROM tasks ORDER BY identity"
-        ):
-            if key not in candidate_ids:
-                continue
-            result = json.loads(raw) if raw else {}
-            count += 1
-            with_text += bool(result.get("text_sha256") and result.get("text_path"))
-            checksum.update(json.dumps([key, payload, raw], ensure_ascii=False).encode())
+    current = {}
+    for source in dict.fromkeys((ROOT / "data/derived/lyrics/quota-20261030", STORE)):
+        with sqlite3.connect(
+            (source / "acquisition.sqlite").as_uri() + "?mode=ro", uri=True
+        ) as conn:
+            conn.execute("PRAGMA query_only=ON")
+            conn.execute("BEGIN")
+            for key, payload, raw in conn.execute(
+                "SELECT identity,payload,result FROM tasks ORDER BY identity"
+            ):
+                if key not in candidate_ids:
+                    continue
+                current[key] = (payload, raw)
+    for key, (payload, raw) in sorted(current.items()):
+        result = json.loads(raw) if raw else {}
+        count += 1
+        with_text += bool(result.get("text_sha256") and result.get("text_path"))
+        checksum.update(json.dumps([key, payload, raw], ensure_ascii=False).encode())
     if count != len(candidate_ids):
         raise ValueError("acquisition inventory does not match frozen selection")
     proposals = 0
@@ -97,10 +112,21 @@ def observe(candidate_ids):
 
 
 def main():
+    global BASE, STORE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-root", required=True, type=Path)
     parser.add_argument("--once", action="store_true")
+    parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--store-root", type=Path)
     args = parser.parse_args()
+    if args.base_root:
+        BASE = args.base_root.resolve()
+    if args.store_root:
+        STORE = args.store_root.resolve()
+    if not BASE.is_relative_to(ROOT / "data/derived/annual_revision") or not STORE.is_relative_to(
+        ROOT / "data/derived/lyrics"
+    ):
+        parser.error("selection/store outside project data directories")
     campaign_root = args.campaign_root.resolve()
     if not campaign_root.is_relative_to((ROOT / "data/runtime").resolve()):
         parser.error("campaign must be inside project data/runtime")
@@ -152,6 +178,8 @@ def main():
                         "scripts/stage_quota_lyrics.py",
                         "--base-root",
                         str(BASE),
+                        "--store-root",
+                        str(STORE),
                         "--state-root",
                         str(output / "staging"),
                     ],
@@ -166,6 +194,10 @@ def main():
                         "scripts/audit_current_lyric_corpus.py",
                         "--output",
                         str(output / "audit"),
+                        "--base-root",
+                        str(BASE),
+                        "--store-root",
+                        str(STORE),
                     ],
                     output / "audit",
                     dict(os.environ),

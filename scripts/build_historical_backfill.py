@@ -78,6 +78,7 @@ def build(output, cutoff, include_kaggle, normalized_kaggle=None):
                 frequency="WEEKLY",
                 platform=platform,
                 provider=f"ZENODO_23645386_{platform}",
+                expected_depth=100 if platform == "YOUTUBE" else 200,
             )
             rankings.extend(rows)
             coverage.extend(cells)
@@ -101,6 +102,7 @@ def build(output, cutoff, include_kaggle, normalized_kaggle=None):
                 frequency="DAILY",
                 platform="SPOTIFY",
                 provider="KAGGLE_GONZALOPEZGIL_V151",
+                expected_depth=200,
             )
             rankings, coverage = merge_sources(rankings, coverage, rows, cells)
             print(json.dumps(dict(source="KAGGLE_DAILY", year=year, cells=len(cells))), flush=True)

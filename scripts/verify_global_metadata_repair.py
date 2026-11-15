@@ -45,8 +45,10 @@ def main():
         engine.dispose()
     if not before or len(before) != len(after):
         raise ValueError("repair lost or added a ranked membership")
+
     def key(row):
         return row["country_code"], row["year"], row["position"]
+
     before.sort(key=key)
     after.sort(key=key)
     changes = []
@@ -87,9 +89,15 @@ def main():
     ]
     if missing:
         raise ValueError(f"additional memberships still have missing names: {len(missing)}")
-    if any(not isinstance(r.get(f), str) or not r[f].strip()
-           for r in after for f in ("title", "artist")):
-        raise ValueError("global import still has missing display metadata")
+    remaining = [
+        r
+        for r in after
+        if any(not isinstance(r.get(f), str) or not r[f].strip() for f in ("title", "artist"))
+    ]
+    before_index = {key(r): r for r in before}
+    for row in remaining:
+        if row["country_code"] in new or row != before_index[key(row)]:
+            raise ValueError("repair introduced or retained an additional missing name")
     report = dict(
         status="PASS",
         before_run_id=before_id,
@@ -99,7 +107,15 @@ def main():
         repaired_memberships=len(changes),
         repaired_native_ids=len(verified),
         additional_missing_title_or_artist=0,
-        total_missing_title_or_artist=0,
+        total_missing_title_or_artist=len(remaining),
+        overall_metadata_complete=not remaining,
+        preexisting_unresolved=[
+            {
+                k: r.get(k)
+                for k in ("country_code", "year", "position", "candidate_id", "title", "artist")
+            }
+            for r in remaining
+        ],
         changes=changes,
         all_other_memberships_unchanged=True,
         ranks_metrics_quotas_unchanged=True,

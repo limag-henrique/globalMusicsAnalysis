@@ -56,7 +56,9 @@ def main():
     )
     index = {(r["country_code"], r["year"], r["position"]): r for r in members}
     archive_path = OUT / "archive-display-metadata.json"
-    archive_refs = json.loads(archive_path.read_text(encoding="utf-8")) if archive_path.exists() else {}
+    archive_refs = (
+        json.loads(archive_path.read_text(encoding="utf-8")) if archive_path.exists() else {}
+    )
     baseline_display_repairs = 0
     for row in baseline:
         if index[row["country_code"], row["year"], row["position"]] != row:

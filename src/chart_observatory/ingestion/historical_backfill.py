@@ -44,13 +44,22 @@ def required_dates(year, cutoff, frequency):
     return required
 
 
-def annual_ranks(frame, *, markets, year, cutoff, frequency, platform, provider):
+def annual_ranks(
+    frame, *, markets, year, cutoff, frequency, platform, provider, expected_depth=None
+):
     """Audit one year of normalized rows; identical repeated item/periods count once.
 
     Conflicting metrics or missing native IDs make the affected cell ineligible.
     Missing display metadata is tracked separately and never changes stream sums.
+    When ``expected_depth`` is supplied, every observed period must contain at
+    least that many source rows before its calendar can be considered complete.
+    Tied ranks may make a top-K chart contain more than K rows or have a maximum
+    rank below K, so row count and rank bounds are checked without requiring
+    contiguous rank numbers.
     Weekly boundary periods use their native end year; 2026 stays partial.
     """
+    if expected_depth is not None and (type(expected_depth) is not int or expected_depth <= 0):
+        raise ValueError("expected chart depth must be a positive integer")
     expected = required_dates(year, cutoff, frequency)
     frame = frame.filter(pl.col("period_end").is_in(sorted(expected)))
     rankings, coverage = [], []
@@ -70,6 +79,29 @@ def annual_ranks(frame, *, markets, year, cutoff, frequency, platform, provider)
             | pl.col("artist").is_null()
             | (pl.col("artist").str.strip_chars() == "")
         ).height
+        period_rows = records.group_by("period_end").len()
+        period_tracks = records.group_by("period_end").agg(
+            pl.col("native_id").n_unique().alias("unique_tracks")
+        )
+        depth_shortfall_periods = (
+            period_tracks.filter(pl.col("unique_tracks") < expected_depth).height
+            if expected_depth is not None
+            else 0
+        )
+        rank_invalid_observations = 0
+        rank_start_missing_periods = 0
+        if expected_depth is not None and "source_position" in records.columns:
+            rank_invalid_observations = records.filter(
+                pl.col("source_position").is_null()
+                | (pl.col("source_position") < 1)
+                | (pl.col("source_position") > expected_depth)
+            ).height
+            rank_start_missing_periods = (
+                records.group_by("period_end")
+                .agg(pl.col("source_position").min().alias("minimum_rank"))
+                .filter(pl.col("minimum_rank") != 1)
+                .height
+            )
 
         def known(column):
             return (
@@ -88,11 +120,13 @@ def annual_ranks(frame, *, markets, year, cutoff, frequency, platform, provider)
         conflicts = daily.filter(pl.col("variants") != 1).height
         dates = set(daily["period_end"].to_list())
         depth = daily.group_by("period_end").len()["len"].min()
+        minimum_source_rows = period_rows["len"].min()
+        minimum_unique_tracks = period_tracks["unique_tracks"].min()
         status = (
             "CONFLICT_OR_INVALID"
-            if invalid or conflicts
+            if invalid or conflicts or rank_invalid_observations or rank_start_missing_periods
             else "COMPLETE"
-            if dates == expected
+            if dates == expected and not depth_shortfall_periods
             else "INCOMPLETE"
         )
         coverage.append(
@@ -105,6 +139,12 @@ def annual_ranks(frame, *, markets, year, cutoff, frequency, platform, provider)
                 collected_periods=len(dates),
                 coverage_status=status,
                 minimum_depth=depth,
+                expected_depth=expected_depth,
+                minimum_source_rows_per_period=minimum_source_rows,
+                minimum_unique_tracks_per_period=minimum_unique_tracks,
+                depth_shortfall_periods=depth_shortfall_periods,
+                rank_invalid_observations=rank_invalid_observations,
+                rank_start_missing_periods=rank_start_missing_periods,
                 invalid_items=invalid,
                 metadata_missing_observations=metadata_missing,
                 conflicting_items=conflicts,
@@ -117,7 +157,7 @@ def annual_ranks(frame, *, markets, year, cutoff, frequency, platform, provider)
                 identity_status="native_id_pending_recording_review",
             )
         )
-        if invalid or conflicts:
+        if invalid or conflicts or rank_invalid_observations or rank_start_missing_periods:
             continue
         annual = (
             daily.group_by("native_id")

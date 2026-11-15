@@ -94,11 +94,18 @@ def verify_source_chain(payload, result, body, digest, root):
     ]
     if matching:
         pending = bool(audit["source_quarantined"] or audit["text_quality_flags"])
+        exact = next(
+            (item for item in matching if hashlib.sha256(item[0].encode()).hexdigest() == digest),
+            None,
+        )
+        selected = exact or matching[0]
         return dict(
             outcome,
             status="source_chain_match_metadata_pending" if pending else "source_chain_matched",
-            evidence_sha256=matching[0][1],
-            source_url=matching[0][2],
+            evidence_sha256=selected[1],
+            source_url=selected[2],
+            exact_text_hash_match=exact is not None,
+            extracted_text_sha256=hashlib.sha256(selected[0].encode()).hexdigest(),
             errors=errors,
         )
     return dict(

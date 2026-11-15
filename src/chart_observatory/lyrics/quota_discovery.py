@@ -10,12 +10,19 @@ from urllib.parse import urlparse
 import httpx
 
 from chart_observatory.lyrics.quota_acquisition import (
+    FEATURE_CREDIT,
+    _VERSION_SUFFIX,
+    _expand_feature_credits,
+    bilingual_identity_variants,
     candidate,
     extract_html,
     fetch_candidate,
+    identities_compatible,
     identity,
     lrclib_text,
     lrclib_text_signature,
+    match_genius_identity,
+    split_feature_credits,
 )
 from chart_observatory.lyrics.revision_protocol import NORMALIZATION_VERSION
 from chart_observatory.lyrics.text_quality import (
@@ -135,92 +142,8 @@ def search_identities(title, artist):
     return list(dict.fromkeys(artists))
 
 
-FEATURE_CREDIT = re.compile(r"[\[(]\s*(?:feat\.?|ft\.?|featuring|with)\s+([^\])]+)[\])]", re.I)
-
-_VERSION_SUFFIX = re.compile(
-    r"\s+-\s+(?=(?:\d{4}\s+)?(?:live|ao vivo|remix|remaster(?:ed)?|radio edit|"
-    r"acoustic|instrumental|clean|explicit|sped up|slowed)\b)",
-    re.I,
-)
-
-
-def split_feature_credits(title):
-    """Remove performer annotations while retaining explicit version suffixes."""
-    credits = []
-
-    def replace(match):
-        parts = _VERSION_SUFFIX.split(match[1], maxsplit=1)
-        credits.append(parts[0].strip())
-        return f"({parts[1].strip()})" if len(parts) == 2 else ""
-
-    return FEATURE_CREDIT.sub(replace, title).strip(), credits
-
-
-def match_genius_identity(title, artist, result):
-    """Only credit annotations may differ, and featured performers must be evidenced."""
-    if any(not isinstance(value, str) or not value.strip() for value in (title, artist)):
-        return False
-    feature_title, feature_credits = split_feature_credits(title)
-    # Exact provider titles retain the original annotation interpretation.
-    if identity(result.get("title")) == identity(title):
-        feature_credits = FEATURE_CREDIT.findall(title)
-    primary = result.get("primary_artist") or {}
-    if not isinstance(primary, dict):
-        return False
-    featured = result.get("featured_artists")
-    leads = result.get("primary_artists", [primary])
-    if not isinstance(featured, list) or not isinstance(leads, list):
-        return False
-    leads = leads or [primary]
-    if any(
-        not isinstance(person, dict)
-        or not isinstance(person.get("name"), str)
-        or not person["name"].strip()
-        for person in leads + featured
-    ):
-        return False
-    names = [r.get("name", "") for r in leads if isinstance(r, dict)] + [
-        r.get("name", "") for r in featured if isinstance(r, dict)
-    ]
-    names = [name for name in names if isinstance(name, str) and name.strip()]
-    if not names:
-        return False
-    if "|" in artist:
-        required = {identity(value) for value in artist.split("|") if value.strip()}
-        supporting = []
-        for field in ("producer_artists", "writer_artists"):
-            values = result.get(field) or []
-            if isinstance(values, list):
-                supporting.extend(r.get("name", "") for r in values if isinstance(r, dict))
-        credits = {identity(name) for name in names + supporting if isinstance(name, str)}
-        lead_names = {identity(r.get("name")) for r in leads if isinstance(r, dict)}
-        allowed_performers = required | {identity(value) for value in feature_credits}
-        artist_matches = (
-            required.issubset(credits)
-            and bool(required & lead_names)
-            and {identity(name) for name in names}.issubset(allowed_performers)
-        )
-    else:
-        extra = [name for name in names if identity(name) != identity(artist)]
-        annotated = {identity(value) for value in feature_credits}
-        all_extras_annotated = (
-            not extra
-            or all(identity(name) in annotated for name in extra)
-            or identity(" | ".join(extra)) in annotated
-        )
-        artist_matches = identity(" | ".join(names)) == identity(artist) or (
-            identity(primary.get("name")) == identity(artist) and all_extras_annotated
-        )
-    if not artist_matches:
-        return False
-    if identity(result.get("title")) == identity(title):
-        return True
-    credits = feature_credits
-    if not credits or identity(feature_title) != identity(result.get("title")):
-        return False
-    observed = {identity(name) for name in names[1:]}
-    observed.add(identity(" | ".join(names[1:])))
-    return all(identity(credit) in observed for credit in credits)
+# FEATURE_CREDIT, _VERSION_SUFFIX, split_feature_credits, and match_genius_identity
+# are imported from quota_acquisition and re-exported here for callers and tests.
 
 
 def genius_performer_names(proof):
@@ -259,7 +182,7 @@ def match_lrclib_credit_binding(title, artist, observed_artist, metadata):
     names = genius_performer_names(proof)
     return (
         bool(names)
-        and identity(observed_artist) == identity(" | ".join(names))
+        and identities_compatible(" | ".join(names), observed_artist, is_artist=True)
         and (
             match_genius_identity(
                 title, artist, {**proof, "title": metadata.get("credit_binding_title")}
@@ -274,7 +197,7 @@ def role_bound_lrclib_candidate(title, artist, rows, proofs, *, expected_duratio
         if (
             not isinstance(row, dict)
             or row.get("instrumental")
-            or identity(row.get("trackName")) != identity(title)
+            or not identities_compatible(row.get("trackName"), title, is_artist=False)
             or recording_duration_mismatch(expected_duration_ms, row.get("duration"))
             or not lrclib_text(row)
         ):

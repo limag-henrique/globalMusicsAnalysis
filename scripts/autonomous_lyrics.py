@@ -110,6 +110,17 @@ def preserve_selection_snapshot(path, data):
 
 
 def bundle():
+    global_manifest = BASE / "manifest.json"
+    if (
+        global_manifest.exists()
+        and json.loads(global_manifest.read_text()).get("protocol") == "worldwide-annual-quotas-v1"
+    ):
+        from chart_observatory.lyrics.global_import import plan_global
+
+        targets, _delta, summary = plan_global(
+            BASE, ROOT / "data/derived/annual_revision/reconciled-russia-2018-2026-20261031"
+        )
+        return targets, summary
     selection = BASE / "selection"
     command = [
         sys.executable,
@@ -430,7 +441,8 @@ def main(
                         if search_cache_max_age_hours is not None
                         else None
                     ),
-                    cooldown_path=OUTPUT / "http-cache/provider-cooldowns.sqlite",
+                    cooldown_path=ROOT
+                    / "data/derived/lyrics/quota-20261030/http-cache/provider-cooldowns.sqlite",
                 )
                 native_signature = None
                 for round_number in range(1, rounds + 1):
@@ -685,7 +697,16 @@ def main(
                             )
             report("staging_postgres_snapshot", counters=store.summary(), selection=summary)
             staged = subprocess.run(
-                [sys.executable, "scripts/stage_quota_lyrics.py", "--base-root", str(BASE)],
+                [
+                    sys.executable,
+                    "scripts/stage_quota_lyrics.py",
+                    "--base-root",
+                    str(BASE),
+                    "--store-root",
+                    str(OUTPUT),
+                    "--state-root",
+                    str(STATE / "staging"),
+                ],
                 cwd=ROOT,
                 check=False,
             )
@@ -715,6 +736,7 @@ if __name__ == "__main__":
     parser.add_argument("--wait-pid", type=int)
     parser.add_argument("--state-root", type=Path)
     parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--store-root", type=Path)
     parser.add_argument("--candidate-ids-file", type=Path)
     parser.add_argument("--search-cache-max-age-hours", type=float)
     parser.add_argument("--rounds", type=int, choices=(1, 2, 3), default=3)
@@ -727,6 +749,10 @@ if __name__ == "__main__":
         STATE = args.state_root.resolve()
     if args.base_root:
         BASE = args.base_root.resolve()
+    if args.store_root:
+        OUTPUT = args.store_root.resolve()
+        if not OUTPUT.is_relative_to(ROOT / "data/derived/lyrics"):
+            parser.error("acquisition store must remain in project lyrics directory")
     main(
         args.hours,
         args.method_prefix,

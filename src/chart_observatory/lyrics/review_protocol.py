@@ -142,6 +142,7 @@ def validate_assessment(result):
         "instrumental",
         "language_unsupported",
         "blocked",
+        "error",
     }:
         raise ValueError("explicit classification status is required")
     scores = result.get("scores", {})

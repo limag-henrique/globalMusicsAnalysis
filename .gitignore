@@ -39,7 +39,11 @@ desktop.ini
 # Local Databases & Logs
 *.sqlite
 *.sqlite3
+*.sqlite-wal
+*.sqlite-shm
 *.db
+*.db-wal
+*.db-shm
 *.log
 
 # Project Data Directories (keep structure via .gitkeep)
@@ -56,6 +60,12 @@ data/normalized/
 data/derived/lyrics/followup-*/
 data/derived/lyrics/pending-recovery-*/
 data/derived/lyrics/quota-*/
+data/derived/lyrics/global-*/
+data/derived/lyrics/low-coverage-*/
+data/derived/lyrics/v4-delta-*/
+data/derived/lyrics/*/texts/
+data/derived/lyrics/*/offline-replay/
+owner.lock
 data/derived/research_quality/automated-quality-*/
 data/derived/research_quality/corpus-revision-*/
 data/derived/research_quality/annual-top80-*/
@@ -72,6 +82,7 @@ publication-validation/
 reproduced/
 reproduced-figures/
 publication/packages/
+outputs/inventario-*/
 
 # Personal Notes / Scratch
 scratch/

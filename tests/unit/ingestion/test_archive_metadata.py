@@ -65,6 +65,11 @@ def test_inconsistent_page_title_is_rejected():
         kworb_display(html().replace("Artist - Song - Spotify Chart History", "Wrong title"))
 
 
+def test_missing_historical_title_cannot_be_inferred_from_artist():
+    with pytest.raises(ValueError, match="missing or ambiguous"):
+        kworb_display(html(title=""))
+
+
 def test_only_metadata_changes_and_no_recording_validation_is_granted(tmp_path):
     row = dict(
         candidate_id=KEY,

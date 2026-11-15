@@ -19,6 +19,8 @@ def main():
     parser.add_argument("--campaign-root", required=True, type=Path)
     parser.add_argument("--preparation-root", required=True, type=Path)
     parser.add_argument("--web-comparison-root", type=Path)
+    parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--store-root", type=Path)
     args = parser.parse_args()
     campaign, preparation = args.campaign_root.resolve(), args.preparation_root.resolve()
     if any(not p.is_relative_to(ROOT / "data/runtime") for p in (campaign, preparation)):
@@ -29,7 +31,17 @@ def main():
     if web and not web.is_relative_to(ROOT / "data/runtime"):
         parser.error("web comparison must remain in project data/runtime")
     try:
-        finalize(campaign, preparation, state, web)
+        base = args.base_root.resolve() if args.base_root else BASE
+        store = (
+            args.store_root.resolve()
+            if args.store_root
+            else ROOT / "data/derived/lyrics/quota-20261030"
+        )
+        if not base.is_relative_to(
+            ROOT / "data/derived/annual_revision"
+        ) or not store.is_relative_to(ROOT / "data/derived/lyrics"):
+            raise ValueError("selection/store outside project data")
+        finalize(campaign, preparation, state, web, base, store)
     except Exception as error:
         publish_status(
             state / "status.json",
@@ -43,7 +55,9 @@ def main():
         raise
 
 
-def finalize(campaign, preparation, state, web):
+def finalize(
+    campaign, preparation, state, web, base=BASE, store=ROOT / "data/derived/lyrics/quota-20261030"
+):
     config = json.loads((campaign / "campaign.json").read_text())
     deadline = datetime.fromisoformat(config["ends_at"]) + timedelta(hours=27 if web else 3)
     while datetime.now(UTC) < deadline:
@@ -84,7 +98,9 @@ def finalize(campaign, preparation, state, web):
                 sys.executable,
                 "scripts/replay_cached_quota_lyrics.py",
                 "--base-root",
-                str(BASE),
+                str(base),
+                "--store-root",
+                str(store),
                 "--state-root",
                 str(replay),
                 "--output-root",
@@ -101,6 +117,8 @@ def finalize(campaign, preparation, state, web):
                 str(proposals),
                 "--report",
                 str(replay / "publication-checks.json"),
+                "--store-root",
+                str(store),
             ],
             replay / "publication",
         ),
@@ -109,7 +127,9 @@ def finalize(campaign, preparation, state, web):
                 sys.executable,
                 "scripts/stage_quota_lyrics.py",
                 "--base-root",
-                str(BASE),
+                str(base),
+                "--store-root",
+                str(store),
                 "--state-root",
                 str(preparation / "final-staging"),
             ],
@@ -121,6 +141,10 @@ def finalize(campaign, preparation, state, web):
                 "scripts/audit_current_lyric_corpus.py",
                 "--output",
                 str(preparation / "final-quality-audit"),
+                "--base-root",
+                str(base),
+                "--store-root",
+                str(store),
             ],
             preparation / "final-quality-audit",
         ),
@@ -139,7 +163,14 @@ def finalize(campaign, preparation, state, web):
         ):
             src.backup(dst)
     audit_code = run_job(
-        [sys.executable, "scripts/verify_lyric_source_chains.py", "--output", str(output)],
+        [
+            sys.executable,
+            "scripts/verify_lyric_source_chains.py",
+            "--output",
+            str(output),
+            "--base-root",
+            str(base),
+        ],
         output,
         dict(os.environ),
     )
@@ -151,6 +182,8 @@ def finalize(campaign, preparation, state, web):
             "scripts/prepare_vertex_readiness.py",
             "--output",
             str(preparation / "final-dossier"),
+            "--base-root",
+            str(base),
         ],
         state / "dossier",
         dict(os.environ),

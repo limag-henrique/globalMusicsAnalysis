@@ -8,7 +8,7 @@ from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 
-from sqlalchemy import create_engine, select, text
+from sqlalchemy import create_engine, func, select, text
 
 from chart_observatory.config import Settings
 from chart_observatory.lyrics.quota_staging import blobs, candidates, runs
@@ -22,7 +22,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--base-root", type=Path)
+    parser.add_argument(
+        "--run-id", help="verify this exact staged run; never resolve it by recency"
+    )
     args = parser.parse_args()
+    if args.limit is not None and args.limit < 1:
+        parser.error("limit must be positive")
     args.output.mkdir(parents=True, exist_ok=True)
     ledger = sqlite3.connect(args.output / "checkpoint.sqlite")
     ledger.execute(
@@ -38,12 +44,55 @@ def main():
         (ROOT / "src/chart_observatory/lyrics/source_chain.py").read_bytes()
     ).hexdigest()
     queue_part = args.output / "adjudication-queue.jsonl.part"
+    run = None
+    selection_root = None
+    expected_candidates = 0
     try:
         with engine.connect() as conn, queue_part.open("w", encoding="utf-8") as queue:
             conn.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY"))
             conn.execute(text("SET LOCAL statement_timeout='120s'"))
-            run = conn.execute(
-                select(runs.c.id).order_by(runs.c.created_at.desc()).limit(1)
+            if args.run_id:
+                selected = (
+                    conn.execute(select(runs.c.id, runs.c.manifest).where(runs.c.id == args.run_id))
+                    .mappings()
+                    .one_or_none()
+                )
+                if selected is None:
+                    raise ValueError(f"staged run does not exist: {args.run_id}")
+                run = selected["id"]
+                selection_root = (selected["manifest"] or {}).get("selection_root")
+                if not selection_root:
+                    raise ValueError(f"staged run has no selection_root: {run}")
+                if args.base_root and Path(selection_root).resolve() != args.base_root.resolve():
+                    raise ValueError(
+                        "staged run selection mismatch: "
+                        f"{selection_root} != {args.base_root.resolve()}"
+                    )
+            else:
+                latest = select(runs.c.id, runs.c.manifest)
+                if args.base_root:
+                    latest = latest.where(
+                        runs.c.manifest["selection_root"].as_string()
+                        == str(args.base_root.resolve())
+                    )
+                selected = (
+                    conn.execute(latest.order_by(runs.c.created_at.desc()).limit(1))
+                    .mappings()
+                    .one_or_none()
+                )
+                if selected is None:
+                    raise ValueError("no staged run matches the requested selection")
+                run = selected["id"]
+                selection_root = (selected["manifest"] or {}).get("selection_root")
+                if not selection_root:
+                    raise ValueError(f"staged run has no selection_root: {run}")
+                if args.base_root and Path(selection_root).resolve() != args.base_root.resolve():
+                    raise ValueError(
+                        "staged run selection mismatch: "
+                        f"{selection_root} != {args.base_root.resolve()}"
+                    )
+            expected_candidates = conn.execute(
+                select(func.count()).select_from(candidates).where(candidates.c.run_id == run)
             ).scalar_one()
             query = (
                 select(candidates, blobs.c.body)
@@ -103,6 +152,7 @@ def main():
                     json.dumps(
                         dict(
                             run_id=run,
+                            selection_root=selection_root,
                             candidate_id=row["candidate_id"],
                             title=row["payload"].get("title"),
                             artist=row["payload"].get("artist"),
@@ -130,7 +180,10 @@ def main():
                         dict(
                             stage="verifying_web_evidence",
                             run_id=run,
+                            selection_root=selection_root,
                             checked=sum(counts.values()),
+                            expected_candidates=expected_candidates,
+                            full_inventory=args.limit is None,
                             counts=dict(counts),
                             network_requests=0,
                             paid_calls=0,
@@ -138,15 +191,21 @@ def main():
                     )
             ledger.commit()
         queue_part.replace(args.output / "adjudication-queue.jsonl")
+        queue_path = args.output / "adjudication-queue.jsonl"
+        checked_count = sum(counts.values())
+        full_inventory = args.limit is None and checked_count == expected_candidates
         publish_status(
             args.output / "status.json",
             dict(
-                stage="completed",
+                stage="completed" if full_inventory else "partial",
                 run_id=run,
-                checked=sum(counts.values()),
+                selection_root=selection_root,
+                checked=checked_count,
+                expected_candidates=expected_candidates,
                 counts=dict(counts),
                 observed_at=datetime.now(UTC).isoformat(),
                 full_inventory=args.limit is None,
+                complete=full_inventory,
                 identity_validated=0,
                 completeness_validated=0,
                 classification_ready=0,
@@ -156,13 +215,36 @@ def main():
                 unchanged_results_reused=reused,
             ),
         )
+        publish_status(
+            args.output / "manifest.json",
+            {
+                "run_id": run,
+                "selection_root": selection_root,
+                "expected_candidates": expected_candidates,
+                "checked": checked_count,
+                "complete": full_inventory,
+                "source_chain_code_sha256": code_hash,
+                "queue": {
+                    "file": queue_path.name,
+                    "sha256": hashlib.sha256(queue_path.read_bytes()).hexdigest(),
+                    "bytes": queue_path.stat().st_size,
+                },
+                "network_requests": 0,
+                "paid_calls": 0,
+                "production_writes": 0,
+            },
+        )
     except Exception as exc:
         publish_status(
             args.output / "status.json",
             dict(
                 stage="failed",
                 error_type=type(exc).__name__,
+                run_id=run,
+                selection_root=selection_root,
+                expected_candidates=expected_candidates,
                 checked=sum(counts.values()),
+                full_inventory=False,
                 paid_calls=0,
             ),
         )

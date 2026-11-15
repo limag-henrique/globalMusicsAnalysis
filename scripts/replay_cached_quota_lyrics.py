@@ -75,7 +75,12 @@ def main(include_flagged=False, candidate_ids_file=None):
                 raise ValueError("candidate filter is empty or outside current selection")
             selected = [row for row in selected if row["candidate_id"] in requested]
         scope = {row["candidate_id"] for row in selected}
-        enrichment = json.loads((BASE / "metadata-enrichment.json").read_text(encoding="utf-8"))
+        enrichment_path = BASE / "metadata-enrichment.json"
+        enrichment = (
+            json.loads(enrichment_path.read_text(encoding="utf-8"))
+            if enrichment_path.exists()
+            else {}
+        )
         for row in selected:
             meta = enrichment.get("resolved", {}).get(row["candidate_id"], {})
             for field in ("title", "artist"):
@@ -91,14 +96,20 @@ def main(include_flagged=False, candidate_ids_file=None):
                     if key in scope
                 },
             )
-        with sqlite3.connect(
-            f"file:{(STORE / 'acquisition.sqlite').as_posix()}?mode=ro", uri=True
-        ) as db:
-            known = {
-                key: (state, json.loads(result) if result else {})
-                for key, state, result in db.execute("SELECT identity,status,result FROM tasks")
-                if key in scope
-            }
+        known = {}
+        for source in dict.fromkeys((ROOT / "data/derived/lyrics/quota-20261030", STORE)):
+            with sqlite3.connect(
+                f"file:{(source / 'acquisition.sqlite').as_posix()}?mode=ro", uri=True
+            ) as db:
+                known.update(
+                    {
+                        key: (state, json.loads(result) if result else {})
+                        for key, state, result in db.execute(
+                            "SELECT identity,status,result FROM tasks"
+                        )
+                        if key in scope
+                    }
+                )
         if include_flagged:
             # Refresh stale flags from immutable blobs without changing the live writer's DB.
             for verified, (state, result) in enumerate(known.values(), 1):
@@ -286,6 +297,7 @@ def main(include_flagged=False, candidate_ids_file=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--store-root", type=Path)
     parser.add_argument("--state-root", type=Path)
     parser.add_argument(
         "--output-root", type=Path, help="Separate local proposal/checkpoint directory"
@@ -299,6 +311,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.base_root:
         BASE = args.base_root.resolve()
+    if args.store_root:
+        STORE = args.store_root.resolve()
+        OUTPUT = STORE / "offline-replay"
+        if not STORE.is_relative_to(ROOT / "data/derived/lyrics"):
+            parser.error("store must remain in project lyrics directory")
     if args.state_root:
         STATE = args.state_root.resolve()
     if args.output_root:

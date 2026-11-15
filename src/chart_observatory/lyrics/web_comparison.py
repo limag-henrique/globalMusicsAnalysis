@@ -1,6 +1,11 @@
 """Compare captured lyrics with a fresh public source; agreement is never adjudication."""
 
+import base64
 import hashlib
+import json
+import shutil
+from datetime import datetime
+from urllib.parse import urlparse
 
 from chart_observatory.lyrics.quota_acquisition import candidate, identity, lrclib_text
 from chart_observatory.lyrics.quota_discovery import (
@@ -9,6 +14,47 @@ from chart_observatory.lyrics.quota_discovery import (
 )
 from chart_observatory.lyrics.revision_protocol import normalize_text
 from chart_observatory.lyrics.text_quality import recording_duration_mismatch
+
+
+def reuse_recent_web_responses(source, destination, now, max_age_seconds=86400):
+    """Extend the same comparison pass without changing response bytes or dates."""
+    destination.mkdir(parents=True, exist_ok=True)
+    copied = 0
+    for path in source.glob("*.json"):
+        target = destination / path.name
+        if target.exists():
+            continue
+        try:
+            raw = path.read_bytes()
+            record = json.loads(raw)
+            url = record["url"]
+            parsed = urlparse(url)
+            observed = datetime.fromisoformat(record["retrieved_at"])
+            if (
+                parsed.scheme != "https"
+                or parsed.hostname != "lrclib.net"
+                or parsed.username
+                or observed.tzinfo is None
+                or not 0 <= (now - observed).total_seconds() <= max_age_seconds
+                or path.name != hashlib.sha256(url.encode()).hexdigest() + ".json"
+            ):
+                continue
+            body = (
+                base64.b64decode(record["body_base64"], validate=True)
+                if "body_base64" in record
+                else record["body"].encode("utf-8")
+            )
+            if hashlib.sha256(body).hexdigest() != record["body_sha256"]:
+                continue
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+        if shutil.disk_usage(destination).free < 1024**3 + 2 * len(raw):
+            raise OSError("insufficient disk space for response evidence")
+        part = target.with_suffix(".part")
+        part.write_bytes(raw)
+        part.replace(target)
+        copied += 1
+    return copied
 
 
 def compare_lrclib(payload, baseline, body, expected_hash, rows, evidence):

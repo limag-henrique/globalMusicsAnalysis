@@ -19,7 +19,7 @@ from sqlalchemy import create_engine, select, text
 from chart_observatory.config import Settings
 from chart_observatory.lyrics.quota_acquisition import PacedHTTP
 from chart_observatory.lyrics.quota_staging import blobs, candidates, runs
-from chart_observatory.lyrics.web_comparison import compare_lrclib
+from chart_observatory.lyrics.web_comparison import compare_lrclib, reuse_recent_web_responses
 from chart_observatory.runtime_status import publish_status
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,12 +27,24 @@ STORE = ROOT / "data/derived/lyrics/quota-20261030"
 
 
 def main():
+    global BASE, STORE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--state-root", type=Path, required=True)
     parser.add_argument("--hours", type=float, default=24)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--wait-campaign", type=Path)
+    parser.add_argument("--base-root", type=Path)
+    parser.add_argument("--store-root", type=Path)
+    parser.add_argument("--reuse-comparison-root", type=Path)
     args = parser.parse_args()
+    if args.base_root:
+        BASE = args.base_root.resolve()
+    if args.store_root:
+        STORE = args.store_root.resolve()
+    if not BASE.is_relative_to(ROOT / "data/derived/annual_revision") or not STORE.is_relative_to(
+        ROOT / "data/derived/lyrics"
+    ):
+        parser.error("selection/store must remain in their project data directories")
     state = args.state_root.resolve()
     if not state.is_relative_to(ROOT / "data/runtime") or not 0 < args.hours <= 24:
         parser.error("state must be in project data/runtime; hours must be in (0,24]")
@@ -166,10 +178,31 @@ def run(state, args):
         finally:
             engine.dispose()
     config = json.loads(config_path.read_text())
+    if (
+        args.reuse_comparison_root
+        and not db.execute("SELECT value FROM meta WHERE key='cache_reused'").fetchone()
+    ):
+        source = args.reuse_comparison_root.resolve()
+        if not source.is_relative_to(ROOT / "data/runtime"):
+            raise ValueError("comparison response source outside project runtime")
+        copied = reuse_recent_web_responses(
+            source / "acquisition/http-cache", state / "acquisition/http-cache", datetime.now(UTC)
+        )
+        db.execute("INSERT INTO meta VALUES ('cache_reused',?)", (str(copied),))
+        db.commit()
+        publish_status(
+            state / "reused-response-evidence.json",
+            dict(
+                source=str(source),
+                copied=copied,
+                maximum_age_at_campaign_start_seconds=86400,
+                original_observation_times_preserved=True,
+            ),
+        )
     deadline = datetime.fromisoformat(config["ends_at"])
     proposals = state / "proposals"
     proposals.mkdir(exist_ok=True)
-    cooldowns = STORE / "http-cache/provider-cooldowns.sqlite"
+    cooldowns = ROOT / "data/derived/lyrics/quota-20261030/http-cache/provider-cooldowns.sqlite"
     counts = Counter(json.loads(r)["status"] for (r,) in db.execute("SELECT result FROM results"))
     proposal_count = db.execute(
         "SELECT count(*) FROM results WHERE json_extract(result,'$.proposal_file') IS NOT NULL"
@@ -188,6 +221,8 @@ def run(state, args):
             str(proposals),
             "--report",
             str(directory / "checks.json"),
+            "--store-root",
+            str(STORE),
         ]
         if run_job(command, directory, dict(os.environ)):
             raise RuntimeError("source-checked proposal publication failed")
@@ -198,6 +233,8 @@ def run(state, args):
                 "scripts/stage_quota_lyrics.py",
                 "--base-root",
                 str(BASE),
+                "--store-root",
+                str(STORE),
                 "--state-root",
                 str(staging),
             ],
@@ -222,7 +259,13 @@ def run(state, args):
                 paid_calls=0,
                 approvals=0,
                 proposals=proposal_count,
-                published_proposals=published,
+                published_proposals=max(
+                    0,
+                    published - config.get("prior_unpublished_proposals_require_reconciliation", 0),
+                ),
+                inherited_proposals_not_republished=config.get(
+                    "inherited_proposals_not_republished", 0
+                ),
                 classification_ready=False,
                 updated_at=datetime.now(UTC).isoformat(),
                 **extra,
@@ -324,11 +367,24 @@ def run(state, args):
                 classification_ready=False,
                 compared_at=datetime.now(UTC).isoformat(),
             )
+            checked.setdefault("http_evidence", list(http.trace))
+            observations = []
+            for event in http.trace:
+                if event.get("cache_path"):
+                    observations.append(
+                        json.loads(Path(event["cache_path"]).read_text(encoding="utf-8")).get(
+                            "retrieved_at"
+                        )
+                    )
+            checked["web_observed_at"] = observations
+            checked["response_reused"] = bool(http.trace) and all(
+                e.get("cached") for e in http.trace
+            )
             if candidate and (body is None or flagged):
                 proposal = dict(
                     payload=payload,
                     result=candidate,
-                    network_requests=1,
+                    network_requests=sum(not e.get("cached", False) for e in http.trace),
                     replay_kind="missing_text" if body is None else "flagged_repair",
                     replaces_text_sha256=digest,
                     recovered_at=datetime.now(UTC).isoformat(),

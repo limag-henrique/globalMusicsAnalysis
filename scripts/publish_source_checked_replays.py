@@ -66,15 +66,23 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--proposals", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--store-root", type=Path)
     args = parser.parse_args()
     if any(not p.resolve().is_relative_to(ROOT) for p in (args.proposals, args.report)):
         parser.error("proposal and report paths must remain inside the project")
-    with sqlite3.connect((STORE / "acquisition.sqlite").as_uri() + "?mode=ro", uri=True) as db:
-        current = {
-            key: (json.loads(p), json.loads(r) if r else {})
-            for key, p, r in db.execute("SELECT identity,payload,result FROM tasks")
-        }
-    counts, checks = publish(args.proposals, current, STORE / "offline-replay", ROOT)
+    store = args.store_root.resolve() if args.store_root else STORE
+    if not store.is_relative_to(ROOT / "data/derived/lyrics"):
+        parser.error("store must remain in project lyrics directory")
+    current = {}
+    for source in dict.fromkeys((STORE, store)):
+        with sqlite3.connect((source / "acquisition.sqlite").as_uri() + "?mode=ro", uri=True) as db:
+            current.update(
+                {
+                    key: (json.loads(p), json.loads(r) if r else {})
+                    for key, p, r in db.execute("SELECT identity,payload,result FROM tasks")
+                }
+            )
+    counts, checks = publish(args.proposals, current, store / "offline-replay", ROOT)
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.with_suffix(".jsonl").write_text(
         "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in checks), encoding="utf-8"

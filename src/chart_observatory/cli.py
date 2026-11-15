@@ -78,6 +78,9 @@ from chart_observatory.lyrics.repository import (
     ingest_lyric_document,
 )
 from chart_observatory.procurement.schema_profiler import profile_sample
+from chart_observatory.research_flow_cli import app as research_flow_app
+from chart_observatory.research_progress_cli import progress_command
+from chart_observatory.research_source_projection_cli import project_mgd_command
 from chart_observatory.rights.gate import RightsGate
 from chart_observatory.rights.models import RightsGrant, RightsProfile
 from chart_observatory.rights.repository import InMemoryRightsRepository
@@ -110,6 +113,9 @@ from chart_observatory.ui.taxonomy import TAXONOMY_VERSION
 
 app = typer.Typer(help="Rights-gated cross-platform chart research tools.")
 app.add_typer(country_context_app, name="country-context")
+app.add_typer(research_flow_app, name="research")
+research_flow_app.command("project-mgd")(project_mgd_command)
+research_flow_app.command("progress")(progress_command)
 collect_app = typer.Typer()
 import_app = typer.Typer()
 coverage_app = typer.Typer()

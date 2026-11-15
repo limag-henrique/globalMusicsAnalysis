@@ -107,6 +107,7 @@ def main():
                 frequency="DAILY",
                 platform="SPOTIFY",
                 provider="RECONCILED_MGD_KAGGLE85_VERIFIED_OVERLAP",
+                expected_depth=200,
             )
             ranks.extend(selected)
             coverage.extend(cells)
