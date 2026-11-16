@@ -253,7 +253,7 @@
     "YOUTUBE": 10
   },
   "selections": [
-    "data/derived/annual_revision/population-total-150k-2018-2026-20261116-v7"
+    "data/derived/annual_revision/population-total-150k-2018-2026-20261116-v10-archives"
   ],
   "staging": [
     {
@@ -265,12 +265,20 @@
       "run_id": "f95dbbeb5e130565786dd67410966ad3c4b616be4a0039bb40e1249b4d4b08ce"
     },
     {
-      "database": "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261116-batch2/staging-v4/pending-staging.sqlite",
-      "run_id": "a64c0c0ee968e5c7979bd615f566152052472b13e9a2b508c13f19c261a3f4e9"
+      "database": "data\\runtime\\antigravity-collaboration-20261115\\lrclib-direct-id-refresh-20261116-run3\\staging-v4\\pending-staging.sqlite",
+      "run_id": "3895372dd8ba5a3ed5cfe1508d79eab4df8dc1499e0a628aa3af80b4eea4bf6a"
     },
     {
-      "database": "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261116-batch2/staging-v5/pending-staging.sqlite",
-      "run_id": "f95dbbeb5e130565786dd67410966ad3c4b616be4a0039bb40e1249b4d4b08ce"
+      "database": "data\\runtime\\antigravity-collaboration-20261115\\lrclib-direct-id-refresh-20261116-run3\\staging-v5\\pending-staging.sqlite",
+      "run_id": "325b20ec0bf20c5ee6d12fe8aa64fd691bf5afb94eafdb2b9f05c1302075e5b2"
+    },
+    {
+      "database": "data\\runtime\\antigravity-collaboration-20261115\\lrclib-direct-id-refresh-20261116-run4\\staging-v4\\pending-staging.sqlite",
+      "run_id": "429428d6e5fdc8bb47527af7cb2fa6dce54491adc56fd89eaadf14c219ad14a5"
+    },
+    {
+      "database": "data\\runtime\\antigravity-collaboration-20261115\\lrclib-direct-id-refresh-20261116-run4\\staging-v5\\pending-staging.sqlite",
+      "run_id": "69daa550e1c24e61845e84f191eac04bf665bd37d69ec7e8295a78294ba9475f"
     }
   ],
   "stores": [
@@ -281,11 +289,15 @@
     "data/derived/lyrics/global-20261108",
     "data/derived/lyrics/low-coverage-native-20261115",
     "data/derived/lyrics/low-coverage-native-agy-20261115",
-    "data/derived/lyrics/v4-delta-20261114"
+    "data/derived/lyrics/v4-delta-20261114",
+    "data/runtime/priority-population-missing-import-20261116-03-v9"
   ],
-  "population_selection": "data/derived/annual_revision/population-total-150k-2018-2026-20261116-v7",
+  "population_selection": "data/derived/annual_revision/population-total-150k-2018-2026-20261116-v10-archives",
   "hard_maximum_total_positions": 150000,
   "automatic_preparation_authorized": true,
   "automatic_preparation_authorization_date": "2026-11-16",
-  "scientific_approval_separate": true
+  "scientific_approval_separate": true,
+  "automatic_verification": "data/runtime/priority-full-verification-20261116-07-v10-native-complete",
+  "priority_acquisition": "data/runtime/priority-population-missing-import-20261116-03-v9",
+  "population_selection_revision": "v10-archives"
 }

@@ -89,8 +89,14 @@ def main():
         rows = [dict(r, quota_main=quota) for r in by_cell[key] if quota and r["position"] <= quota]
         selected.extend(rows)
         missing = sorted(set(range(1, (quota or 0) + 1)) - {r["position"] for r in rows})
-        provisional = sum(r.get("selection_status") == "PROVISIONAL_OBSERVED_PERIODS" for r in rows)
-        complete = len(rows) - provisional
+        provisional = sum(
+            str(r.get("selection_status", "")).startswith("PROVISIONAL_") for r in rows
+        )
+        complete = (
+            sum(r.get("selection_status") == "CALENDAR_ELIGIBLE" for r in rows)
+            if cell["year"] < 2026
+            else 0
+        )
         new_cells.append(
             dict(
                 cell,
@@ -117,7 +123,14 @@ def main():
         writer.writerows(details)
     output_hashes = {p.name: digest(p.read_bytes()) for p in out.iterdir() if p.is_file()}
     manifest = dict(
-        old,
+        protocol=old["protocol"],
+        selection_revision=out.name,
+        years=old["years"],
+        cutoff=old["cutoff"],
+        scientifically_verified=False,
+        classification_ready=False,
+        lyrics_acquisition_ready=False,
+        current_snapshots_used_as_annual=False,
         policy_id="population-total-150k-v1",
         parent_selection=str(args.selection.resolve()),
         parent_input_hashes=hashes,
@@ -125,6 +138,14 @@ def main():
         requested_positions=sum(q or 0 for q in quotas.values()),
         memberships=len(selected),
         unique_candidates=len({r["candidate_id"] for r in selected}),
+        candidate_identities=len({r["candidate_id"] for r in selected}),
+        countries_with_memberships=len({r["country_code"] for r in selected}),
+        cells_with_memberships=len({(r["country_code"], r["year"]) for r in selected}),
+        missing_positions=sum(c["missing_positions"] for c in new_cells),
+        missing_complete_annual_positions=sum(
+            c["missing_complete_annual_positions"] for c in new_cells
+        ),
+        candidate_limit_exceeded=False,
         hard_maximum_total_positions=TOTAL_POSITIONS,
         hard_maximum_classified_songs=TOTAL_POSITIONS,
         budget_is_shared_across_all_countries_years_platforms=True,

@@ -14,7 +14,11 @@ from verify_prioritized_corpus import initialize, load_inputs, priorities, verif
 from chart_observatory.final_pipeline import catalog, encode, save
 from chart_observatory.lyrics.quota_acquisition import AcquisitionStore, PacedHTTP
 from chart_observatory.lyrics.quota_discovery import recover_with_fallback
-from chart_observatory.lyrics.recovery_pipeline import load_native_spotify_proofs
+from chart_observatory.lyrics.recovery_pipeline import (
+    apply_native_proof_to_record,
+    load_native_spotify_proofs,
+)
+from chart_observatory.research_flow import load_selection
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -23,33 +27,38 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=3, choices=range(1, 5))
+    parser.add_argument("--selection", type=Path)
+    parser.add_argument(
+        "--stage",
+        action="append",
+        default=[],
+        metavar="DATABASE|RUN_ID",
+        help="Override configured staging inputs; repeat once per immutable staging run.",
+    )
+    parser.add_argument("--cache", action="append", default=[], type=Path)
     args = parser.parse_args()
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "data/runtime"):
         raise ValueError("output must remain in runtime")
     out.mkdir(parents=True, exist_ok=True)
     config = json.loads((ROOT / "config/final_pipeline.json").read_text())
+    stages = config["staging"]
+    if args.stage:
+        stages = []
+        for value in args.stage:
+            database, separator, run_id = value.partition("|")
+            if not separator or not database or not run_id:
+                parser.error("--stage must be DATABASE|RUN_ID")
+            stages.append(dict(database=database, run_id=run_id))
+    selection = (args.selection or (ROOT / config["population_selection"])).resolve()
+    _, _, selection_rows, _ = load_selection(selection)
     jobs, members = load_inputs(
-        ROOT / "data/runtime/final-pipeline/catalog.sqlite", config["staging"]
+        ROOT / "data/runtime/final-pipeline/catalog.sqlite",
+        stages,
+        selection_rows=selection_rows,
+        selection_scope=selection,
     )
-    policy = config.get("population_selection")
-    if policy:
-        from chart_observatory.research_flow import load_selection
-
-        _, _, selected_rows, _ = load_selection(ROOT / policy)
-        allowed = {r["candidate_id"] for r in selected_rows}
-        jobs = {key: value for key, value in jobs.items() if key in allowed}
-        members = [
-            (
-                str((ROOT / policy).resolve()),
-                r["country_code"],
-                str(r["year"]),
-                r["platform"],
-                r["position"],
-                r["candidate_id"],
-            )
-            for r in selected_rows
-        ]
+    policy = str(selection)
     priority, scope = priorities(members)
     if policy:
         summary = json.loads((ROOT / policy / "allocation-summary.json").read_text())
@@ -73,7 +82,19 @@ def main():
             gzip.compress(encode(load_native_spotify_proofs(ROOT)).encode(), mtime=0)
         )
     initialize(str(proof_file))
+    proofs = json.loads(gzip.decompress(proof_file.read_bytes()))
+    for cid in selected:
+        import copy
+
+        candidate = copy.deepcopy(jobs[cid][1])
+        native_ok, flags, _ = apply_native_proof_to_record(cid, candidate, None, proofs)
+        if native_ok and not flags:
+            jobs[cid][1] = candidate
     cache_sources = [Path(s) / "http-cache" for s in config["stores"]]
+    cache_sources.extend(path.resolve() for path in args.cache)
+    cache_sources.extend(
+        (Path(stage["database"]).resolve().parent.parent / "http-cache") for stage in stages
+    )
     with catalog(out / "control"):
         store = AcquisitionStore(out)
         for cid in selected:

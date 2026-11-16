@@ -6,11 +6,12 @@ import hashlib
 import html
 import math
 import re
+import unicodedata
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup, Tag
 
-TEXT_QUALITY_VERSION = "lyrics-text-quality-v4"
+TEXT_QUALITY_VERSION = "lyrics-text-quality-v5"
 _LETRAS_FOOTER = re.compile(
     r"(?:^|\n[ \t]*|(?<=\s))Adicionar aos favoritos\s+Adicionar à playlist\s+"
     r"Tamanho do texto\s+Cifra\s+(?:Imprimir\s+)?Corrigir\s+"
@@ -18,8 +19,11 @@ _LETRAS_FOOTER = re.compile(
     r"(?:\s+Anotações\s+Ativadas\s+Desativadas)?\s*$",
     re.IGNORECASE,
 )
-_SECOND_SECTION = re.compile(
-    r"^\s*\[(?:Verse|Vers|Куплет|Ritornello|Verso|Estrofa|Couplet|主歌)\s*(?:2|二)(?:[^\]]*)\]",
+_SECTION_HEADER = re.compile(r"^\s*\[([^\]]{1,80})\]\s*$", re.IGNORECASE)
+_NON_INITIAL_SECTION = re.compile(
+    r"^(?:pre[- ]?chorus|post[- ]?chorus|chorus|refrain|hook|bridge|outro|breakdown|"
+    r"(?:verse|vers|verso|ritornello|estrofa|couplet|куплет|主歌)\s*"
+    r"(?:[2-9]|[ivxlcdm]+|二|三|四|五))",
     re.IGNORECASE,
 )
 _ENTITY = re.compile(r"&#(?:[0-9]+|x[0-9a-fA-F]+);|&(?:amp|quot|apos|lt|gt|nbsp);")
@@ -58,6 +62,44 @@ def recording_duration_mismatch(native_ms, provider_seconds):
 def has_partial_lyrics_notice(text: str) -> bool:
     """Detect explicit preview notices, without inferring missing verses."""
     return bool(_PARTIAL_TEXT.search(text))
+
+
+def _normalized_lyric_line(line: str) -> str:
+    value = unicodedata.normalize("NFKD", line).casefold()
+    value = "".join(ch for ch in value if not unicodedata.combining(ch))
+    value = "".join(ch if ch.isalnum() else " " for ch in value)
+    return " ".join(value.split())
+
+
+def _starts_at_non_initial_section(lines: list[str]) -> bool:
+    for line in lines:
+        if not line.strip():
+            continue
+        match = _SECTION_HEADER.match(line)
+        return bool(match and _NON_INITIAL_SECTION.match(match.group(1).strip()))
+    return False
+
+
+def _refrain_only_pattern(lines: list[str]) -> bool:
+    lyric_lines = [
+        normalized
+        for line in lines
+        if not _SECTION_HEADER.match(line)
+        and (normalized := _normalized_lyric_line(line))
+    ]
+    if len(lyric_lines) < 8:
+        return False
+    counts: dict[str, int] = {}
+    for line in lyric_lines:
+        counts[line] = counts.get(line, 0) + 1
+    repeated_characters = sum(len(line) * (count - 1) for line, count in counts.items())
+    total_characters = sum(len(line) * count for line, count in counts.items())
+    return (
+        len(counts) <= 8
+        and total_characters >= 240
+        and total_characters > 0
+        and repeated_characters / total_characters >= 0.55
+    )
 
 
 @dataclass(frozen=True)
@@ -102,11 +144,13 @@ def prepare_lyric_derivative(text: str, source: str) -> LyricTextDerivative:
         flags.append("remaining_encoded_entity")
     if has_partial_lyrics_notice(cleaned):
         flags.append("explicit_partial_lyrics_notice")
-    if _SECOND_SECTION.search(cleaned):
+    if _starts_at_non_initial_section(cleaned.splitlines()):
         flags.append("possible_missing_initial_section")
     if re.search(r"\bYou might also like\b", cleaned, re.IGNORECASE):
         flags.append("remaining_interface_residue")
     lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
+    if _refrain_only_pattern(lines):
+        flags.append("suspected_refrain_only")
     if len(lines) >= 12 and len(lines) % 2 == 0:
         midpoint = len(lines) // 2
         if lines[:midpoint] == lines[midpoint:]:

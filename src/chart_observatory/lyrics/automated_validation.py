@@ -12,7 +12,7 @@ from chart_observatory.lyrics.quota_acquisition import (
 )
 from chart_observatory.lyrics.quota_discovery import match_lrclib_credit_binding
 
-VALIDATION_VERSION = "lyric-identity-completeness-v2-strict"
+VALIDATION_VERSION = "lyric-identity-completeness-v3-strict"
 
 _IDENTITY_BLOCKERS = {
     "requested_title_or_artist_metadata_mismatch",
@@ -40,6 +40,7 @@ _COMPLETENESS_BLOCKERS = {
     "remaining_interface_residue",
     "remaining_encoded_entity",
     "suspected_duplicated_container_halves",
+    "suspected_refrain_only",
 }
 
 

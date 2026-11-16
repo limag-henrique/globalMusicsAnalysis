@@ -103,9 +103,12 @@ def materialize(jobs_file, output, project):
 
     count = 0
     output = Path(output)
+    if output.exists():
+        raise ValueError("materialized output already exists")
+    temporary = output.with_suffix(output.suffix + ".tmp")
     with (
         Path(jobs_file).open(encoding="utf-8") as source,
-        output.open("x", encoding="utf-8") as dest,
+        temporary.open("x", encoding="utf-8") as dest,
     ):
         for line in source:
             job = json.loads(line)
@@ -118,4 +121,5 @@ def materialize(jobs_file, output, project):
                 raise ValueError("prepared text no longer available")
             dest.write(encode(dict(request=request_body(job, text))) + "\n")
             count += 1
+    temporary.replace(output)
     return count

@@ -1,0 +1,11 @@
+{
+  "source": "explicit_user_instruction_in_current_chat",
+  "date": "2026-11-16",
+  "user_answer": "Sim, permitir preparação com aprovação automática rigorosa",
+  "scope": "local_preparation_for_vertex_ai",
+  "policy": "automated-native-full-source-v1",
+  "maximum_songs_total": 150000,
+  "scientific_approval_remains_separate": true,
+  "human_review_must_not_be_fabricated": true,
+  "paid_inference_dispatched": false
+}

@@ -458,80 +458,124 @@ def import_staging(db, path, run_id, project):
     if not path.is_relative_to(project):
         raise ValueError("staging input outside project")
     imported = 0
-    with closing(sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)) as source:
-        source.execute("BEGIN")
-        if not source.execute(
-            "SELECT 1 FROM quota_lyric_staging_runs WHERE id=?", (run_id,)
-        ).fetchone():
-            raise ValueError("declared immutable staging run not found")
-        with db:
-            for key, payload, sha, body, sr_json, audit_json in source.execute(
-                "SELECT c.candidate_id,c.payload,c.text_sha256,b.body,c.source_result,c.audit "
-                "FROM quota_lyric_staging_candidates c JOIN quota_lyric_staging_blobs b "
-                "ON b.sha256=c.text_sha256 WHERE c.run_id=?",
-                (run_id,),
-            ):
-                target = db.execute(
-                    "SELECT payload,result FROM songs WHERE id=?", (key,)
-                ).fetchone()
-                if target is None:
-                    continue
-                old, new = json.loads(target[0]), json.loads(payload)
-                if any(identity(old.get(k)) != identity(new.get(k)) for k in ("title", "artist")):
-                    continue
-                if not _native_ids_compatible(old, new):
-                    continue
-                if digest(body.encode()) != sha:
-                    raise ValueError("staging text hash mismatch")
-                merged_payload, payload_changed = _merge_native_metadata(old, new)
-                result = dict(
-                    text_sha256=sha,
-                    staging_reference=dict(
-                        database=str(path),
-                        run_id=run_id,
-                        candidate_id=key,
-                    ),
-                )
-                if target[1]:
-                    old_result = json.loads(target[1])
-                    old_ref = old_result.get("staging_reference") or {}
-                    if old_ref.get("run_id") == run_id and old_result.get("text_sha256") == sha:
-                        if payload_changed:
-                            db.execute(
-                                "UPDATE songs SET payload=? WHERE id=?",
-                                (encode(merged_payload), key),
-                            )
+    ref_conns: dict[str, sqlite3.Connection] = {}
+    try:
+        with closing(sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)) as source:
+            source.execute("BEGIN")
+            if not source.execute(
+                "SELECT 1 FROM quota_lyric_staging_runs WHERE id=?", (run_id,)
+            ).fetchone():
+                raise ValueError("declared immutable staging run not found")
+            with db:
+                for key, payload, sha, body, sr_json, audit_json in source.execute(
+                    "SELECT c.candidate_id,c.payload,c.text_sha256,b.body,c.source_result,c.audit "
+                    "FROM quota_lyric_staging_candidates c JOIN quota_lyric_staging_blobs b "
+                    "ON b.sha256=c.text_sha256 WHERE c.run_id=?",
+                    (run_id,),
+                ):
+                    target = db.execute(
+                        "SELECT payload,result FROM songs WHERE id=?", (key,)
+                    ).fetchone()
+                    if target is None:
                         continue
-                    preloaded = (
-                        dict(json.loads(sr_json), text_sha256=sha),
-                        body,
-                        json.loads(audit_json),
-                    )
-                    old_score = _score_result(merged_payload, old_result, project)
-                    new_score = _score_result(
-                        merged_payload, result, project, preloaded=preloaded
-                    )
-                    if new_score <= old_score:
-                        if payload_changed:
-                            db.execute(
-                                "UPDATE songs SET payload=? WHERE id=?",
-                                (encode(merged_payload), key),
-                            )
+                    old, new = json.loads(target[0]), json.loads(payload)
+                    if any(
+                        identity(old.get(k)) != identity(new.get(k)) for k in ("title", "artist")
+                    ):
                         continue
-                    _record_replacement(
-                        db,
-                        key,
-                        old_result,
-                        result,
-                        "staging_evidence_improved",
-                        old_score,
-                        new_score,
+                    if not _native_ids_compatible(old, new):
+                        continue
+                    if digest(body.encode()) != sha:
+                        raise ValueError("staging text hash mismatch")
+                    merged_payload, payload_changed = _merge_native_metadata(old, new)
+                    result = dict(
+                        text_sha256=sha,
+                        staging_reference=dict(
+                            database=str(path),
+                            run_id=run_id,
+                            candidate_id=key,
+                        ),
                     )
-                db.execute(
-                    "UPDATE songs SET payload=?, result=? WHERE id=?",
-                    (encode(merged_payload), encode(result), key),
-                )
-                imported += 1
+                    if target[1]:
+                        old_result = json.loads(target[1])
+                        old_ref = old_result.get("staging_reference") or {}
+                        if old_ref.get("run_id") == run_id and old_result.get("text_sha256") == sha:
+                            if payload_changed:
+                                db.execute(
+                                    "UPDATE songs SET payload=? WHERE id=?",
+                                    (encode(merged_payload), key),
+                                )
+                            continue
+                        new_audit = json.loads(audit_json)
+                        new_auto = (new_audit.get("automated_validation") or {}).get(
+                            "automated_overall"
+                        )
+                        if old_result.get("text_sha256") == sha and old_ref:
+                            if new_auto != "passed":
+                                if payload_changed:
+                                    db.execute(
+                                        "UPDATE songs SET payload=? WHERE id=?",
+                                        (encode(merged_payload), key),
+                                    )
+                                continue
+                            ref_db_path = str(Path(old_ref["database"]).resolve())
+                            if ref_db_path not in ref_conns:
+                                ref_conns[ref_db_path] = sqlite3.connect(
+                                    Path(ref_db_path).as_uri() + "?mode=ro", uri=True
+                                )
+                            old_row = (
+                                ref_conns[ref_db_path]
+                                .execute(
+                                    "SELECT audit FROM quota_lyric_staging_candidates "
+                                    "WHERE run_id=? AND candidate_id=?",
+                                    (old_ref["run_id"], old_ref["candidate_id"]),
+                                )
+                                .fetchone()
+                            )
+                            if old_row:
+                                old_auto = (
+                                    json.loads(old_row[0]).get("automated_validation") or {}
+                                ).get("automated_overall")
+                                if old_auto == "passed":
+                                    if payload_changed:
+                                        db.execute(
+                                            "UPDATE songs SET payload=? WHERE id=?",
+                                            (encode(merged_payload), key),
+                                        )
+                                    continue
+                        preloaded = (
+                            dict(json.loads(sr_json), text_sha256=sha),
+                            body,
+                            new_audit,
+                        )
+                        old_score = _score_result(merged_payload, old_result, project)
+                        new_score = _score_result(
+                            merged_payload, result, project, preloaded=preloaded
+                        )
+                        if new_score <= old_score:
+                            if payload_changed:
+                                db.execute(
+                                    "UPDATE songs SET payload=? WHERE id=?",
+                                    (encode(merged_payload), key),
+                                )
+                            continue
+                        _record_replacement(
+                            db,
+                            key,
+                            old_result,
+                            result,
+                            "staging_evidence_improved",
+                            old_score,
+                            new_score,
+                        )
+                    db.execute(
+                        "UPDATE songs SET payload=?, result=? WHERE id=?",
+                        (encode(merged_payload), encode(result), key),
+                    )
+                    imported += 1
+    finally:
+        for conn in ref_conns.values():
+            conn.close()
     return imported
 
 
@@ -592,19 +636,50 @@ def validate_text(payload, result, project, *, preloaded=None):
     return assessment
 
 
-def acquire_lyrics(db, root, project, *, limit, retry=False):
+def population_order(selection):
+    from chart_observatory.research_flow import load_selection
+
+    selection = Path(selection).resolve()
+    manifest, _, members, _ = load_selection(selection)
+    allocation = json.loads((selection / "allocation-summary.json").read_text(encoding="utf-8"))
+    country_order = {
+        country: index for index, country in enumerate(allocation["priority_countries"])
+    }
+    priorities = {}
+    for row in members:
+        cid = row["candidate_id"]
+        key = (country_order[row["country_code"]], row["position"], row["year"], cid)
+        priorities[cid] = min(key, priorities.get(cid, key))
+    return manifest, members, priorities
+
+
+def acquire_lyrics(db, root, project, *, limit, retry=False, selection=None):
     from chart_observatory.lyrics.quota_acquisition import PacedHTTP
     from chart_observatory.lyrics.quota_discovery import recover_with_fallback
 
     if not 0 <= limit <= MAX_SONGS:
         raise ValueError(f"limit must be between 0 and {MAX_SONGS}")
     completed = 0
+    if selection:
+        _, _, priorities = population_order(selection)
+        available = {
+            row["id"]: row
+            for row in db.execute("SELECT id,payload,result,attempts FROM songs")
+            if row["id"] in priorities
+        }
+        rows = [available[cid] for cid in sorted(available, key=priorities.get)]
+    else:
+        rows = db.execute(
+            "SELECT id,payload,result,attempts FROM songs WHERE attempts=0 OR ? ORDER BY id",
+            (retry,),
+        ).fetchall()
     with httpx.Client(timeout=25, follow_redirects=True) as client:
         http = PacedHTTP(root / "http-cache", client)
-        query = "SELECT id,payload,result FROM songs WHERE attempts=0 OR ? ORDER BY id"
-        for row in db.execute(query, (retry,)).fetchall():
+        for row in rows:
             if completed >= limit:
                 break
+            if row["attempts"] and not retry:
+                continue
             payload = json.loads(row["payload"])
             old = json.loads(row["result"]) if row["result"] else {}
             validation = validate_text(payload, old, project)
@@ -767,6 +842,7 @@ def main(argv=None):
     parser.add_argument("--retry", action="store_true")
     parser.add_argument("--audit", type=Path)
     parser.add_argument("--prepared", type=Path)
+    parser.add_argument("--materialize", action="store_true")
     args = parser.parse_args(argv)
     project = Path.cwd().resolve()
     root = args.root.resolve()
@@ -785,6 +861,29 @@ def main(argv=None):
     countries = set(args.countries.upper().split(",")) if args.countries else None
     if countries and any(pycountry.countries.get(alpha_2=c) is None for c in countries):
         parser.error("countries must be ISO alpha-2 codes")
+    if (
+        args.stage == "vertex"
+        and config.get("automatic_preparation_authorized") is True
+        and args.audit is None
+        and args.prepared is None
+    ):
+        import sys
+
+        sys.path.insert(0, str(project / "scripts"))
+        from prepare_automatically_verified_vertex import main as automatic_vertex_main
+
+        output = project / "data/runtime" / f"automatic-vertex-population-150k-{uuid4().hex}"
+        forwarded = [
+            "--verification",
+            str(project / config["automatic_verification"]),
+            "--selection",
+            str(project / config["population_selection"]),
+            "--output",
+            str(output),
+        ]
+        if args.materialize:
+            forwarded.append("--materialize")
+        return automatic_vertex_main(forwarded)
     with catalog(root) as db:
         if args.stage == "rankings":
             selections = args.selection or [Path(p) for p in config.get("selections", [])]
@@ -796,6 +895,9 @@ def main(argv=None):
                 ready=bool(reports) and all(r["status"] == "complete" for r in reports),
             )
         elif args.stage == "lyrics":
+            selection_path = project / config["population_selection"]
+            population_manifest, _, population_priorities = population_order(selection_path)
+            population_import = import_selection(db, selection_path)
             staging_reused = 0
             for staging in config.get("staging", []):
                 staging_reused += import_staging(
@@ -809,7 +911,14 @@ def main(argv=None):
                 for p in stores
                 if (p / "acquisition.sqlite").is_file()
             )
-            count = acquire_lyrics(db, root, project, limit=args.limit, retry=args.retry)
+            count = acquire_lyrics(
+                db,
+                root,
+                project,
+                limit=args.limit,
+                retry=args.retry,
+                selection=selection_path,
+            )
             counts = {
                 "total": 0,
                 "with_text": 0,
@@ -819,8 +928,15 @@ def main(argv=None):
             }
             by_language = {}
             queue = root / "lyric-review-queue.jsonl.tmp"
+            selected_ids = set(population_priorities)
+            audit_rows = [
+                row
+                for row in db.execute("SELECT id,payload,result FROM songs")
+                if row["id"] in selected_ids
+            ]
+            audit_rows.sort(key=lambda row: population_priorities[row["id"]])
             with queue.open("w", encoding="utf-8") as handle:
-                for row in db.execute("SELECT id,payload,result FROM songs ORDER BY id"):
+                for row in audit_rows:
                     result = json.loads(row["result"]) if row["result"] else {}
                     has_text = bool(result.get("text_sha256"))
                     if has_text and counts["audited_texts"] >= args.audit_limit:
@@ -849,6 +965,10 @@ def main(argv=None):
                 db.execute("SELECT count(*) FROM replacement_ledger").fetchone()[0]
             )
             result = dict(
+                population_selection=config["population_selection"],
+                total_position_budget=population_manifest["requested_positions"],
+                selected_unique_songs=len(population_priorities),
+                population_import=population_import,
                 reused=reused,
                 staging_reused=staging_reused,
                 replacements_total=replacements_total,

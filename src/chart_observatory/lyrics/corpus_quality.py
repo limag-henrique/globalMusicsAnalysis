@@ -69,6 +69,7 @@ def assess_acquired_lyric(payload, source_result, text, expected_hash):
                 "short_text",
                 "missing_initial",
                 "partial",
+                "refrain_only",
                 "residue",
                 "encoded",
                 "duplicated_container",

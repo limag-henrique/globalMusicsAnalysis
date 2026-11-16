@@ -98,7 +98,9 @@ def verify(job):
         )
 
 
-def load_inputs(catalog_path, stages):
+def load_inputs(
+    catalog_path, stages, *, selection_rows=None, selection_scope=None, acquisitions=()
+):
     with sqlite3.connect(catalog_path.resolve().as_uri() + "?mode=ro", uri=True) as db:
         jobs = {
             cid: [cid, json.loads(payload), json.loads(result) if result else {}]
@@ -107,6 +109,22 @@ def load_inputs(catalog_path, stages):
         members = db.execute(
             "SELECT scope,country,period,platform,rank,song_id FROM memberships"
         ).fetchall()
+    if selection_rows is not None:
+        scope = str(selection_scope.resolve()) if selection_scope else "population-selection"
+        members = [
+            (
+                scope,
+                row["country_code"],
+                str(row["year"]),
+                row["platform"],
+                row["position"],
+                row["candidate_id"],
+            )
+            for row in selection_rows
+        ]
+        for row in selection_rows:
+            cid = row["candidate_id"]
+            jobs.setdefault(cid, [cid, row, {}])
     for stage in stages:
         path = Path(stage["database"]).resolve()
         with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True) as db:
@@ -134,6 +152,27 @@ def load_inputs(catalog_path, stages):
                         ),
                     ),
                 ]
+    for acquisition in acquisitions:
+        path = Path(acquisition).resolve()
+        with sqlite3.connect(path.as_uri() + "?mode=ro", uri=True) as db:
+            for cid, raw, _status, result_raw in db.execute(
+                "SELECT identity,payload,status,result FROM tasks"
+            ):
+                if cid not in jobs or not result_raw:
+                    continue
+                result = json.loads(result_raw)
+                if not result.get("text_sha256") or not result.get("text_path"):
+                    continue
+                payload = json.loads(raw)
+                if any(
+                    identity(payload.get(key)) != identity(jobs[cid][1].get(key))
+                    for key in ("title", "artist")
+                ):
+                    continue
+                jobs[cid] = [cid, payload, result]
+    if selection_rows is not None:
+        selected_ids = {row["candidate_id"] for row in selection_rows}
+        jobs = {cid: job for cid, job in jobs.items() if cid in selected_ids}
     return jobs, members
 
 
@@ -146,11 +185,11 @@ def priorities(members):
     selected = [r for r in members if r[0] == selected_scope]
     country_counts = Counter(r[1] for r in selected)
     priorities_by_song = {}
-    for scope, country, year, platform, rank, cid in selected:
+    for _scope, country, year, platform, rank, cid in selected:
         key = (-country_counts[country], country, rank, year, platform, cid)
         priorities_by_song[cid] = min(key, priorities_by_song.get(cid, key))
     # Current snapshots remain a separate scope after historical country/year positions.
-    for scope, country, period, platform, rank, cid in members:
+    for _scope, country, period, platform, rank, cid in members:
         if cid not in priorities_by_song:
             priorities_by_song[cid] = (1, country, rank, period, platform, cid)
     return priorities_by_song, selected_scope
@@ -160,14 +199,48 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--workers", type=int, default=4, choices=range(1, 9))
+    parser.add_argument("--selection", type=Path)
+    parser.add_argument(
+        "--stage",
+        action="append",
+        default=[],
+        metavar="DATABASE|RUN_ID",
+        help="Override configured staging inputs; repeat once per immutable staging run.",
+    )
+    parser.add_argument(
+        "--acquisition",
+        action="append",
+        default=[],
+        type=Path,
+        help="Overlay local recovery-store results for the selected cohort.",
+    )
     args = parser.parse_args()
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "data/runtime"):
         raise ValueError("output must remain in project runtime")
     out.mkdir(parents=True, exist_ok=False)
     config = json.loads((ROOT / "config/final_pipeline.json").read_text())
+    stages = config["staging"]
+    if args.stage:
+        stages = []
+        for value in args.stage:
+            database, separator, run_id = value.partition("|")
+            if not separator or not database or not run_id:
+                parser.error("--stage must be DATABASE|RUN_ID")
+            stages.append(dict(database=database, run_id=run_id))
+    selection_rows = None
+    selection_scope = None
+    if args.selection:
+        from chart_observatory.research_flow import load_selection
+
+        selection_scope = args.selection.resolve()
+        _, _, selection_rows, _ = load_selection(selection_scope)
     jobs, members = load_inputs(
-        ROOT / "data/runtime/final-pipeline/catalog.sqlite", config["staging"]
+        ROOT / "data/runtime/final-pipeline/catalog.sqlite",
+        stages,
+        selection_rows=selection_rows,
+        selection_scope=selection_scope,
+        acquisitions=args.acquisition,
     )
     order, scope = priorities(members)
     ordered = sorted(jobs, key=lambda cid: order.get(cid, (2, cid)))
@@ -178,6 +251,9 @@ def main():
         out / "inputs.json",
         dict(
             config=config,
+            selection=str(selection_scope) if selection_scope else None,
+            staging=stages,
+            acquisitions=[str(path.resolve()) for path in args.acquisition],
             candidates=len(jobs),
             memberships=len(members),
             native_proof_sha256=digest(proof_file.read_bytes()),
@@ -189,11 +265,15 @@ def main():
     records = []
     db = sqlite3.connect(out / "verification.sqlite")
     db.execute(
-        "CREATE TABLE candidates(id TEXT PRIMARY KEY,priority INTEGER,payload TEXT,result TEXT,verification TEXT)"
+        "CREATE TABLE candidates("
+        "id TEXT PRIMARY KEY,priority INTEGER,payload TEXT,result TEXT,verification TEXT)"
     )
-    with ProcessPoolExecutor(
-        max_workers=args.workers, initializer=initialize, initargs=(str(proof_file),)
-    ) as pool, (out / "decisions.preliminary.jsonl").open("x", encoding="utf-8") as log:
+    with (
+        ProcessPoolExecutor(
+            max_workers=args.workers, initializer=initialize, initargs=(str(proof_file),)
+        ) as pool,
+        (out / "decisions.preliminary.jsonl").open("x", encoding="utf-8") as log,
+    ):
         for index, record in enumerate(
             pool.map(verify, (jobs[c] for c in ordered), chunksize=8), 1
         ):

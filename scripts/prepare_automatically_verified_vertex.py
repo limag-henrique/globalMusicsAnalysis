@@ -19,18 +19,19 @@ from chart_observatory.research_flow import load_selection
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--verification", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--selection", type=Path)
     parser.add_argument("--materialize", action="store_true")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     config = json.loads((ROOT / "config/final_pipeline.json").read_text())
     if config.get("automatic_preparation_authorized") is not True:
         raise ValueError("automatic preparation has not been authorized")
     if not (args.verification / "report.json").is_file():
         raise ValueError("full cohort verification must finish before preparation")
-    selection = ROOT / config["population_selection"]
+    selection = (args.selection or ROOT / config["population_selection"]).resolve()
     manifest, _, members, _ = load_selection(selection)
     if manifest["requested_positions"] > 150_000:
         raise ValueError("population selection exceeds global budget")
@@ -50,79 +51,79 @@ def main():
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "data/runtime"):
         raise ValueError("output must remain in runtime")
-    out.mkdir(parents=True, exist_ok=False)
-    save(out / "contract.json", definition)
     counts = Counter()
     country_stats = defaultdict(Counter)
     verification = sqlite3.connect(
         (args.verification / "verification.sqlite").resolve().as_uri() + "?mode=ro", uri=True
     )
     jobs_file = out / "jobs.private.jsonl"
-    with (
-        catalog(ROOT / "data/runtime/final-pipeline") as ledger,
-        ledger,
-        jobs_file.open("x", encoding="utf-8") as jobs,
-        (out / "pending.jsonl").open("x", encoding="utf-8") as pending,
-    ):
-        for cid in sorted(by_song, key=priority.get):
-            counts["selected_unique_songs"] += 1
-            row = verification.execute(
-                "SELECT result,verification FROM candidates WHERE id=?", (cid,)
-            ).fetchone()
-            if row is None:
-                eligibility = dict(eligible=False, reasons=["not_verified"])
-            else:
-                result, decision = json.loads(row[0]), json.loads(row[1])
-                eligibility = assess(decision)
-            if not eligibility["eligible"]:
-                counts["pending"] += 1
-                pending.write(encode(dict(candidate_id=cid, eligibility=eligibility)) + "\n")
-                continue
-            _, text, _ = read_result(result, ROOT)
-            sha = decision["text_sha256"]
-            if text is None or digest(text.encode()) != sha:
-                raise ValueError("verified transcription changed before preparation")
-            request_id = digest(
-                encode([POLICY, cid, sha, definition_hash, settings.gemini_model]).encode()
-            )
-            if not register(
-                ledger,
-                recording_id=cid,
-                request_id=request_id,
-                text_hash=sha,
-                selection_hash=selection_hash,
-            ):
-                counts["blocked_by_global_cap"] += 1
-                continue
-            job = dict(
-                candidate_id=cid,
-                request_id=request_id,
-                text_sha256=sha,
-                source_reference=result,
-                selection_sha256=selection_hash,
-                verification_sha256=digest(row[1].encode()),
-                configured_model=settings.gemini_model,
-                configured_location=settings.google_cloud_location,
-                contract_sha256=definition_hash,
-                automatic_eligibility=eligibility,
-                scientific_approval=False,
-                paid_calls=0,
-                memberships=[
-                    dict(
-                        country_code=r["country_code"],
-                        year=r["year"],
-                        position=r["position"],
-                        platform=r["platform"],
-                        selection_status=r.get("selection_status"),
-                    )
-                    for r in by_song[cid]
-                ],
-            )
-            jobs.write(encode(job) + "\n")
-            counts["ready_for_automatic_preparation"] += 1
-            for membership in by_song[cid]:
-                country_stats[membership["country_code"]][str(membership["year"])] += 1
-                counts["ready_memberships"] += 1
+    with catalog(ROOT / "data/runtime/final-pipeline") as ledger:
+        out.mkdir(parents=True, exist_ok=False)
+        save(out / "contract.json", definition)
+        with (
+            ledger,
+            jobs_file.open("x", encoding="utf-8") as jobs,
+            (out / "pending.jsonl").open("x", encoding="utf-8") as pending,
+        ):
+            for cid in sorted(by_song, key=priority.get):
+                counts["selected_unique_songs"] += 1
+                row = verification.execute(
+                    "SELECT result,verification FROM candidates WHERE id=?", (cid,)
+                ).fetchone()
+                if row is None:
+                    eligibility = dict(eligible=False, reasons=["not_verified"])
+                else:
+                    result, decision = json.loads(row[0]), json.loads(row[1])
+                    eligibility = assess(decision)
+                if not eligibility["eligible"]:
+                    counts["pending"] += 1
+                    pending.write(encode(dict(candidate_id=cid, eligibility=eligibility)) + "\n")
+                    continue
+                _, text, _ = read_result(result, ROOT)
+                sha = decision["text_sha256"]
+                if text is None or digest(text.encode()) != sha:
+                    raise ValueError("verified transcription changed before preparation")
+                request_id = digest(
+                    encode([POLICY, cid, sha, definition_hash, settings.gemini_model]).encode()
+                )
+                if not register(
+                    ledger,
+                    recording_id=cid,
+                    request_id=request_id,
+                    text_hash=sha,
+                    selection_hash=selection_hash,
+                ):
+                    counts["blocked_by_global_cap"] += 1
+                    continue
+                job = dict(
+                    candidate_id=cid,
+                    request_id=request_id,
+                    text_sha256=sha,
+                    source_reference=result,
+                    selection_sha256=selection_hash,
+                    verification_sha256=digest(row[1].encode()),
+                    configured_model=settings.gemini_model,
+                    configured_location=settings.google_cloud_location,
+                    contract_sha256=definition_hash,
+                    automatic_eligibility=eligibility,
+                    scientific_approval=False,
+                    paid_calls=0,
+                    memberships=[
+                        dict(
+                            country_code=r["country_code"],
+                            year=r["year"],
+                            position=r["position"],
+                            platform=r["platform"],
+                            selection_status=r.get("selection_status"),
+                        )
+                        for r in by_song[cid]
+                    ],
+                )
+                jobs.write(encode(job) + "\n")
+                counts["ready_for_automatic_preparation"] += 1
+                for membership in by_song[cid]:
+                    country_stats[membership["country_code"]][str(membership["year"])] += 1
+                    counts["ready_memberships"] += 1
     verification.close()
     with (out / "ready-by-country-year.csv").open("x", encoding="utf-8", newline="") as file:
         writer = csv.writer(file)
@@ -137,7 +138,8 @@ def main():
         automatic_preparation_authorized=True,
         scientific_approval=False,
         human_review_fabricated=False,
-        source_texts_copied=False,
+        source_texts_copied_into_private_jobs=False,
+        materialized_request_texts=bool(args.materialize),
         model_revision_resolution_required_before_dispatch=True,
         paid_calls=0,
         uploads=0,
