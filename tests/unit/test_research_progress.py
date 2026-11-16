@@ -158,6 +158,19 @@ def test_missing_staging_does_not_invent_lyrics_percentage(campaign):
     assert result["lyrics_availability"] is None
 
 
+def test_recovery_campaign_candidate_count_alias_keeps_ready_unknown(campaign):
+    audit, status, _, data = campaign
+    data.pop("unique_candidates")
+    data.pop("paid_ready_candidates")
+    data["candidate_count"] = 100
+    data["status_contract"] = "research-staging-status-v2"
+    status.write_text(json.dumps(data), encoding="utf-8")
+    result = progress.build_progress(audit, status, now=NOW)
+    availability = result["lyrics_availability"]
+    assert availability["candidate_count_field"] == "candidate_count"
+    assert availability["recorded_paid_ready"] is None
+
+
 def test_progress_output_is_immutable_and_hash_bound_without_lyrics(campaign, tmp_path):
     result = progress.build_progress(campaign[0], campaign[1], now=NOW)
     output = tmp_path / "progress"

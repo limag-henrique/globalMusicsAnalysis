@@ -11,6 +11,25 @@ from chart_observatory import research_flow as flow
 from chart_observatory.pipeline_state import file_hash, process_alive
 
 VERSION = "research-progress-v2"
+STAGING_STATUS_CONTRACT = "research-staging-status-v2"
+
+
+def _staging_candidate_total(value):
+    """Return a validated candidate total from current or recovery status."""
+    for field in ("unique_candidates", "candidate_count"):
+        candidate_total = value.get(field)
+        if type(candidate_total) is int and candidate_total >= 0:
+            return candidate_total, field
+    raise ValueError("staging status requires unique_candidates or candidate_count")
+
+
+def _staging_ready_count(value):
+    ready = value.get("paid_ready_candidates")
+    if ready is None:
+        return None
+    if type(ready) is not int or ready < 0:
+        raise ValueError("paid_ready_candidates must be a non-negative integer")
+    return ready
 
 
 def fraction(numerator, denominator):
@@ -151,12 +170,16 @@ def build_progress(audit, staging_status=None, *, now=None):
             raise ValueError("staging status changed while reading")
         if value.get("global_manifest_sha256") != report["selection_sha256"]:
             raise ValueError("staging inventory belongs to another selection")
-        total = value.get("unique_candidates")
-        if total != inventory["candidate_identities"] or type(total) is not int:
+        total, total_field = _staging_candidate_total(value)
+        if total != inventory["candidate_identities"]:
             raise ValueError("staging candidate denominator differs from audit")
-        ready = fraction(value.get("paid_ready_candidates"), total)
-        availability = fraction(value.get("text_candidates"), total)
-        if ready["numerator"] > availability["numerator"]:
+        text = value.get("text_candidates")
+        if type(text) is not int or text < 0:
+            raise ValueError("text_candidates must be a non-negative integer")
+        availability = fraction(text, total)
+        ready_count = _staging_ready_count(value)
+        ready = fraction(ready_count, total) if ready_count is not None else None
+        if ready is not None and ready["numerator"] > availability["numerator"]:
             raise ValueError("ready candidates cannot exceed candidates with text")
         timestamp = _timestamp(value.get("updated_at"))
         age = (now - timestamp).total_seconds()
@@ -174,6 +197,8 @@ def build_progress(audit, staging_status=None, *, now=None):
                 "current_database_certified": False,
                 "scientific_approval": False,
                 "recorded_paid_ready": ready,
+                "status_contract": value.get("status_contract", "legacy"),
+                "candidate_count_field": total_field,
             }
         )
         if value.get("pid") is not None:

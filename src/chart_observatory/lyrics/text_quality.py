@@ -10,7 +10,7 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup, Tag
 
-TEXT_QUALITY_VERSION = "lyrics-text-quality-v3"
+TEXT_QUALITY_VERSION = "lyrics-text-quality-v4"
 _LETRAS_FOOTER = re.compile(
     r"(?:^|\n[ \t]*|(?<=\s))Adicionar aos favoritos\s+Adicionar à playlist\s+"
     r"Tamanho do texto\s+Cifra\s+(?:Imprimir\s+)?Corrigir\s+"
@@ -19,7 +19,7 @@ _LETRAS_FOOTER = re.compile(
     re.IGNORECASE,
 )
 _SECOND_SECTION = re.compile(
-    r"^\s*\[(?:Verse|Vers|Куплет|Ritornello|Verso|Estrofa)\s+2(?:[^\]]*)\]",
+    r"^\s*\[(?:Verse|Vers|Куплет|Ritornello|Verso|Estrofa|Couplet|主歌)\s*(?:2|二)(?:[^\]]*)\]",
     re.IGNORECASE,
 )
 _ENTITY = re.compile(r"&#(?:[0-9]+|x[0-9a-fA-F]+);|&(?:amp|quot|apos|lt|gt|nbsp);")
@@ -104,6 +104,13 @@ def prepare_lyric_derivative(text: str, source: str) -> LyricTextDerivative:
         flags.append("explicit_partial_lyrics_notice")
     if _SECOND_SECTION.search(cleaned):
         flags.append("possible_missing_initial_section")
+    if re.search(r"\bYou might also like\b", cleaned, re.IGNORECASE):
+        flags.append("remaining_interface_residue")
+    lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
+    if len(lines) >= 12 and len(lines) % 2 == 0:
+        midpoint = len(lines) // 2
+        if lines[:midpoint] == lines[midpoint:]:
+            flags.append("suspected_duplicated_container_halves")
     if len(cleaned.strip()) < 100:
         flags.append("very_short_text")
     elif len(cleaned.strip()) < 300:

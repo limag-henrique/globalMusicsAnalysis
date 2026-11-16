@@ -2,6 +2,9 @@
 
 ## 1. Executive Summary & Scientific Verdict
 
+> [!NOTE]
+> **Superseded by Reconciled Final Run (Section 8 below)**: After resolving a host MSIX AppContainer reset that cleared virtualized Python/PostgreSQL paths, PostgreSQL 16.15 (`127.0.0.1:55433/chart_observatory_recovery_20261007`) was restored cleanly from `tmp/postgres-gate-ce9e13c20d354b07b25a7878a84075ca/source.dump`, selections `v4`/`v5` and all milestone runs (`bdbac1a1`, `f59314e5`, `15da3853`, `a8085116`, `b85c4d84`) were replayed and parity-verified, `19` verified `LRCLIB` candidates unique to `15da3853` were reconciled (`0` hash conflicts), and `scripts/run_lyrics_recovery_pipeline.py` advanced `v4` to **`28,116 / 30,224` candidates (`87,275 / 90,600` position-linked texts, `96.33%`)** under run `0e4b956cfc254c96d5e0b3cc4a33343cbe80f58fc4ec2ea91f24c374d60e1b53` and `v5` (with Slovenia IPF provisional) to **`28,827 / 31,104` candidates (`87,986 / 91,480` positions, `96.18%`, `711 / 880` Slovenia IPF texts recovered)** under run `6bb3f8af88d48ab52d0c538449142f111ed4608bb2a8835eda9d5fb0c98aaa51`. Scientific approvals remain `0` (`G1: reprovado`, `G2–G5: pendente`).
+
 This session repaired core lyric identity/discovery/challenge-handling defects, executed an isolated low-coverage recovery campaign in parallel coordination with active OpenAI Codex workers, verified PostgreSQL staging and SHA-256 text integrity end-to-end, re-verified all local classification contracts, and re-evaluated the research gates without lowering thresholds, shrinking the global denominator, or fabricating approvals.
 
 - **Required >=80% end-to-end validation outcome**: **NOT REACHED (External & Scientific Blockers)** — `0` of `277,650` expected positions (`0.00%`) hold scientific G1 chart proof or G2 lyric approval (`research_ready: false`, `classification_ready: false`, `paid_calls: 0`).
@@ -134,3 +137,45 @@ Verified in [classification-preparation/report.json](file:///d:/Repositórios/Pr
 3. **Rights & Legal Clearance**: Document legal clearance for ML/AI processing of any Spotify-derived metadata/selection inputs and licensed lyric corpora.
 4. **Gate G4 & Formal Rubric Acceptance**: Record formal scientific acceptance (`validate_rubric(..., require_accepted=True)`) alongside declared institutional reference `MG.202652246900`, and complete independent human annotation benchmarks (`80` development + `240` validation tracks achieving Krippendorff's `alpha >= 0.80`, `macro_F1 >= 0.80`, and ordinal weighted `kappa >= 0.80`) before submitting any paid Vertex AI batch requests (`\$150` cap preserved).
 5. **Machine-Readable Obstacle Register**: [obstacle-register-20261115.json](file:///d:/Repositórios/PromiscuidadeMusical/data/runtime/antigravity-collaboration-20261115/obstacle-register-20261115.json).
+
+---
+
+## 8. Post-Reconciliation Pipeline Execution, Cohort Separation & Final Deliverables
+
+Executed reproducible entry point [run_lyrics_recovery_pipeline.py](file:///d:/Repositórios/PromiscuidadeMusical/scripts/run_lyrics_recovery_pipeline.py) (`inventory -> acquisition -> technical_verification -> review_queue -> persistence_reconciliation -> refreshed_inventory -> completion_report`) backed by [recovery_pipeline.py](file:///d:/Repositórios/PromiscuidadeMusical/src/chart_observatory/lyrics/recovery_pipeline.py) and [inventory_export.py](file:///d:/Repositórios/PromiscuidadeMusical/src/chart_observatory/lyrics/inventory_export.py).
+
+### 8.1 Staging Lineage Reconciliation (`85,476` vs `85,523` vs `86,452` vs Current)
+
+| Snapshot / Run ID | Timestamp | Candidates w/ Text | Position-Linked Texts | Provenance / Resolution |
+| --- | --- | ---: | ---: | --- |
+| `f59314e586e0` (`low-coverage-native-0002`) | `2026-11-15 21:31:07` | `27,290` | `85,476` | Original `inventario-completo.json` baseline (`checkpoint-0400`) |
+| `15da38539e2a` (`low-coverage-native-0003`) | `2026-11-15 22:08:42` | `27,317` | `85,523` | Codex unpatched `final`; held `19` verified `LRCLIB` texts absent from `b85c4d84` |
+| `b85c4d84d1e3` (`low-coverage-native-agy-0002`) | `2026-11-15 22:38:32` | `27,707` | `86,452` | Antigravity patched `final`; `0` hash conflicts against `15da3853` (`409` only in `b85c4d84`) |
+| Reconciled Baseline (`15da3853` + `b85c4d84`) | `2026-11-16T00:17:04Z` | `27,726` | `86,484` | Adopted `19` verified `LRCLIB` fills from `15da3853` with `reconciled_from_run_id` provenance |
+| **Final `v4` (`0e4b956cfc25`)** | `2026-11-16T02:35:24Z` | **`28,116`** | **`87,275`** | `+390` net beyond reconciled baseline (`store_exact: 10`, `http_cache_replay: 311`, `live_cont: 22`, `pg_v1_fallback: 81` incl. `23` + `11` LETRAS replacements) |
+| **Final `v5` Provisional (`6bb3f8af88d4`)** | `2026-11-16T02:35:24Z` | **`28,827`** | **`87,986`** | Includes `711 / 880` (`80.80%`) Slovenia IPF provisional texts (`http_cache_replay: 267`, `live: 110 + 161`, `pg_v1_fallback: 173`) kept separate from `v4` |
+
+### 8.2 Separate Measures: Imported-Song Cohort vs. Research Scopes (`v4` & `v5`)
+
+| Cohort / Research Scope | Unique Candidates | Candidates w/ Text | Missing | Memberships | Position Texts | Clean Unverified | Flagged | Quarantined | Sci Approved |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| **Imported Cohort (`canonical_tracks`)** | `159,080` | `159,080` | `0` | `N/A` | `159,111` docs | `N/A` | `N/A` | `26,540` `LETRAS` | `0` |
+| **Frozen Research `v4`** | `30,224` | `28,116` (`93.03%`) | `2,108` | `90,600` | `87,275` (`96.33%`) | `25,943` | `2,045` | `128` | `0` |
+| **Provisional Research `v5` (`+880` SI)** | `31,104` | `28,827` (`92.68%`) | `2,277` | `91,480` | `87,986` (`96.18%`) | `26,425` | `2,274` | `128` | `0` |
+
+- **Country/Year Availability**: `v4` maintains `609 / 615` occupied cells `>=80%` (`6` residual deficient cells: `SA 2026: 111/140`, `ZW 2018: 100/130`, `ZA 2026: 129/180`, `UG 2023: 91/170`, `ZW 2025: 38/130`, `UG 2025: 69/170`). `v5` reaches `614 / 623` occupied cells `>=80%` (`5` of `8` new Slovenia IPF `2018–2025` cells already `>=80%`: `SI 2019: 89/110`, `SI 2020: 89/110`, `SI 2022: 92/110`, `SI 2024: 90/110`, `SI 2025: 95/110`; `SI 2018: 85/110`, `SI 2021: 85/110`, `SI 2023: 86/110`).
+- **Source Chain & Technical Verification (`v4`)**: `acquired_unverified: 25,943`, `pending_adjudication: 760`, `identity_conflict: 1,152`, `suspected_partial: 133`, `quarantined_corrupt_source: 128` (down from `162`), `unavailable: 2,108`, `source_chain_matched: 25,879`.
+
+### 8.3 Parity, Change Ledger, Review Queues & Updated Deliverables
+
+- **Local / PostgreSQL Mirror Parity**: Verified via `verify_lyric_staging_mirror.py` for both `v4` (`0e4b956cfc25`, `25,050` unique verified SHA-256 blobs) and `v5` (`6bb3f8af88d4`, `25,368` blobs) with `run_signature_matches: true`, `local_postgresql_candidates_equal: true`, `local_postgresql_bodies_equal: true`, `scientific_approvals: 0`, `paid_calls: 0`. Also verified `research_database_health.current_inventory` (`current_database_certified: true`, `server_version: "16.15"`).
+- **Dynamic Inventory Outputs**:
+  - [inventario-completo.json](file:///d:/Repositórios/PromiscuidadeMusical/outputs/inventario-musicas-pais-ano-20261115/inventario-completo.json) (`sha256: 52c11904fe196b00fcf3106d19e4d10aa98a25ee89a0b1a3a7cc6a5372a37a1a`)
+  - [inventario.html](file:///d:/Repositórios/PromiscuidadeMusical/outputs/inventario-musicas-pais-ano-20261115/inventario.html) (`sha256: c4fb23604d0a7886c9f182ed3a857ed3fec8ef1f55d538348c9b288d94508295`) — removed hardcoded `0` and `'Pendente'` literals so `prontas_vertex`, cell counts, and per-row eligibility statuses render dynamically from embedded JSON.
+- **Pending Queue, Change Ledger & Human Review Interface**:
+  - [pending-and-unavailable-queue.jsonl](file:///d:/Repositórios/PromiscuidadeMusical/outputs/inventario-musicas-pais-ano-20261115/pending-and-unavailable-queue.jsonl) (`4,652` rows: `4,281` `v4` + `371` `v5_slovenia_provisional`; `sha256: 1aad767f0b7b6b19ebdf9b56822d47cbf807d710dedf363832ac3de8f331352a`)
+  - [change-ledger-v1-repairs.jsonl](file:///d:/Repositórios/PromiscuidadeMusical/outputs/inventario-musicas-pais-ano-20261115/change-ledger-v1-repairs.jsonl) (`1,154` rows: `34` `v1_quarantined_replacement`, `231` `v1_cohort_reuse`, `870` `missing_candidate_recovery`, `19` `cross_run_reconciliation_fill`; `sha256: e88e09c76df5776147640664164acfe7dfdceb48ccf6eef72b1d123f7d4355ea`)
+  - [review-interface.html](file:///d:/Repositórios/PromiscuidadeMusical/data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/review/review-interface.html), `quality-review.jsonl` (`4,574` rows), `native-display-review.jsonl` (`1,450` disagreements across `26,909` valid Spotify proofs)
+- **Frozen Copilot Handoff & Completion Report**:
+  - [completion-report-20261115.json](file:///d:/Repositórios/PromiscuidadeMusical/data/runtime/antigravity-collaboration-20261115/completion-report-20261115.json)
+  - [copilot-frozen-handoff-20261115.md](file:///d:/Repositórios/PromiscuidadeMusical/data/runtime/antigravity-collaboration-20261115/copilot-frozen-handoff-20261115.md)

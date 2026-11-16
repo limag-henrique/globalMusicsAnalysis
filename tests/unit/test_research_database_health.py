@@ -125,6 +125,14 @@ def test_live_inventory_binds_selection_uses_latest_compatible_run_and_is_readon
     assert result["production_writes"] == 0
 
 
+def test_live_inventory_accepts_versioned_recovery_candidate_count_alias(inventory):
+    selection, connection, engine = inventory
+    connection.runs[1]["manifest"].pop("unique_candidates")
+    connection.runs[1]["manifest"]["candidate_count"] = 3
+    result = health.current_inventory(selection.parent, selection, engine=engine)
+    assert result["staging"]["candidates"] == 3
+
+
 @pytest.mark.parametrize("counts", [(4, 2, 0), (3, 1, 2)])
 def test_inconsistent_candidate_inventory_cannot_be_certified(inventory, counts):
     selection, connection, engine = inventory

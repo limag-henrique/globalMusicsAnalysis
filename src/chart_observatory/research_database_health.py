@@ -15,6 +15,14 @@ from chart_observatory.lyrics.quota_staging import candidates, runs
 from chart_observatory.pipeline_state import file_hash
 
 
+def _manifest_candidate_total(manifest):
+    for field in ("unique_candidates", "candidate_count"):
+        value = manifest.get(field)
+        if type(value) is int and value >= 0:
+            return value
+    raise ValueError("staging manifest requires unique_candidates or candidate_count")
+
+
 def current_inventory(project, selection, *, engine=None):
     project, selection = Path(project).resolve(), Path(selection).resolve()
     selection_hash = file_hash(selection / "manifest.json")
@@ -72,7 +80,7 @@ def current_inventory(project, selection, *, engine=None):
                         func.count().filter(candidates.c.classification_ready.is_(True)),
                     ).where(candidates.c.run_id == run_id)
                 ).one()
-                expected = chosen["manifest"].get("unique_candidates")
+                expected = _manifest_candidate_total(chosen["manifest"])
                 if type(expected) is not int or count != expected or ready > with_text:
                     raise ValueError("current staging contradicts frozen candidate inventory")
                 report["staging"] = {

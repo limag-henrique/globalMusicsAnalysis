@@ -34,6 +34,7 @@ from chart_observatory.research_flow import load_selection
 from chart_observatory.runtime_status import publish_status
 
 ROOT = Path(__file__).resolve().parents[1]
+STATUS_CONTRACT = "research-staging-status-v2"
 
 
 def load_baseline(path, run_id):
@@ -256,6 +257,7 @@ def main():
     with store.conn:
         store.conn.execute("UPDATE tasks SET status='pending' WHERE status='running'")
     input_info = dict(
+        status_contract=STATUS_CONTRACT,
         producer_sha256=hashlib.sha256(loaded_source).hexdigest(),
         acquisition_store=str(args.store),
         **native_info,
@@ -267,10 +269,12 @@ def main():
         global_manifest_sha256=hashes[str(args.selection / "manifest.json")],
         memberships=manifest["memberships"],
         candidate_count=len(baseline),
+        unique_candidates=len(baseline),
         target_candidates=len(pending),
         initial_deficient_cells=len(low),
         initial_position_deficit=sum(low.values()),
         approvals=0,
+        paid_ready_candidates=0,
         paid_calls=0,
     )
     publish_status(args.state / "campaign.json", input_info)
