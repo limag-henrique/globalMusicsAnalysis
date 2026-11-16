@@ -85,6 +85,14 @@ def _assess_scope(
         data = _load_json(checkpoint_path)
         records: dict[str, dict] = data["records"]
         texts: dict[str, str] = data["texts"]
+        if any(
+            ((record.get("audit") or {}).get("automated_validation") or {}).get("schema_version")
+            != VALIDATION_VERSION
+            for record in records.values()
+        ):
+            raise ValueError(
+                "Incompatible validation checkpoint; preserve it and run a fresh versioned campaign"
+            )
         identity_counts: Counter[str] = Counter()
         completeness_counts: Counter[str] = Counter()
         overall_counts: Counter[str] = Counter()

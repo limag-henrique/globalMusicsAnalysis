@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import pycountry
 import pytest
@@ -43,6 +44,31 @@ def test_week_end_calendar_is_native_thursday_and_cutoff_bound():
     assert recovery.weeks(2018)[0] == "2018-01-04"
     with pytest.raises(ValueError):
         recovery.weeks(2017)
+
+
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("https://www.google.com/recaptcha/enterprise/bframe?hl=en", True),
+        ("https://www.google.com/recaptcha/api2/bframe?hl=en", True),
+        ("https://www.google.com/recaptcha/enterprise/anchor?hl=en", False),
+        ("https://example.com/recaptcha/enterprise/bframe", False),
+        ("not a URL", False),
+    ],
+)
+def test_interactive_recaptcha_frame_is_distinguished_from_normal_anchor(url, expected):
+    assert recovery.is_recaptcha_challenge_frame_url(url) is expected
+
+
+def test_interactive_recaptcha_frame_pauses_but_silent_anchor_does_not():
+    challenge = SimpleNamespace(
+        frames=[SimpleNamespace(url="https://www.google.com/recaptcha/enterprise/bframe?hl=en")]
+    )
+    silent_anchor = SimpleNamespace(
+        frames=[SimpleNamespace(url="https://www.google.com/recaptcha/enterprise/anchor?hl=en")]
+    )
+    assert recovery.recaptcha_challenge_present(challenge)
+    assert not recovery.recaptcha_challenge_present(silent_anchor)
 
 
 def test_plan_preserves_unknown_countries_and_quota_applicability(tmp_path, monkeypatch):

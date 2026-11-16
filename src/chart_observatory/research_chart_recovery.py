@@ -323,6 +323,23 @@ def _atomic(path, value):
     temporary.replace(path)
 
 
+def is_recaptcha_challenge_frame_url(url):
+    """Return true for Google's interactive reCAPTCHA challenge frame, not its anchor."""
+    try:
+        parsed = httpx.URL(url)
+    except (TypeError, ValueError):
+        return False
+    return parsed.host in {"google.com", "www.google.com"} and parsed.path in {
+        "/recaptcha/api2/bframe",
+        "/recaptcha/enterprise/bframe",
+    }
+
+
+def recaptcha_challenge_present(page):
+    """Detect an interactive challenge frame so the collector does not retry blindly."""
+    return any(is_recaptcha_challenge_frame_url(frame.url) for frame in page.frames)
+
+
 async def collect_campaign(
     *, project, selection, state, max_requests=12, hours=2, retry_unresolved=False
 ):
@@ -423,6 +440,19 @@ async def collect_campaign(
                                     "url": url,
                                 }
                                 break
+                            if recaptcha_challenge_present(page):
+                                pause_reason = "provider_captcha_challenge"
+                                checkpoint[key] = {
+                                    "status": "provider_paused_captcha",
+                                    "reason": "google_recaptcha_challenge_frame_present",
+                                    "http_status": status,
+                                    "url": url,
+                                    "observed_at": datetime.now(UTC).isoformat(),
+                                    "attempt_count": len(history) + 1,
+                                    "history": history,
+                                }
+                                _atomic(checkpoint_path, checkpoint)
+                                break
                             await page.locator("ytmc-entry-row #rank").last.wait_for(timeout=20000)
                             captions = await page.locator(
                                 "ytmc-dropdown-v2 paper-button"
@@ -479,10 +509,23 @@ async def collect_campaign(
                             }
                             failures = 0
                         except Exception as exc:
+                            if recaptcha_challenge_present(page):
+                                pause_reason = "provider_captcha_challenge"
+                                checkpoint[key] = {
+                                    "status": "provider_paused_captcha",
+                                    "reason": "google_recaptcha_challenge_frame_present",
+                                    "error_type": type(exc).__name__,
+                                    "url": url,
+                                    "observed_at": datetime.now(UTC).isoformat(),
+                                    "attempt_count": len(history) + 1,
+                                    "history": history,
+                                }
+                                _atomic(checkpoint_path, checkpoint)
+                                break
                             checkpoint[key] = {
                                 "status": "historical_route_unresolved",
                                 "error_type": type(exc).__name__,
-                                "reason": str(exc)[:200] if isinstance(exc, ValueError) else None,
+                                "reason": str(exc)[:300],
                                 "observed_market_codes": markets,
                                 "observed_periods": periods,
                                 "url": url,

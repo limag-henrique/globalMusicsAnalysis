@@ -1,0 +1,38 @@
+# Antigravity implementation and acceptance plan
+
+## Objective and denominator
+Acquire the selected chart entries and lyrics for the frozen research corpus. Preserve country, year, rank, platform recording ID, source and edition. Do not interpret this task as downloading audio files. Count unavailable rankings separately from identified songs missing lyrics. Report v4 and provisional v5 separately, including country/year coverage and the full expected-position denominator.
+
+An 80% success claim requires independently supported recording identity and transcription completeness. Provider field replay, matching titles, successful tests and database parity alone do not establish this claim.
+
+## Coordination
+Use versioned files in data/runtime/antigravity-collaboration-20261115. There is no direct Antigravity/Copilot messaging channel established in this session. Antigravity owns acquisition and incorporation; Copilot independently reviews defects and acceptance; Codex supplies remediation and strict reassessment. Claim ownership with an exclusive OS lock before modifying a store. Do not edit code used by a running worker.
+
+## Ordered work packages
+
+1. TECH-06: Freeze the code revision and hashes of rules, parser, native evidence databases and selection manifests. Every checkpoint must include these hashes. Resume only compatible stages; invalidate dependent stages after any semantic change. Keep previous snapshots immutable.
+2. TECH-01: Disable legacy title/artist-only adoption. The acquisition entry point now refuses this fallback. Review all 81 v4 and 173 provisional adoptions. Restore displaced candidates to the review queue, preserving before/after hashes. Recover replacements only with independent native-recording and source evidence; do not delete historical originals.
+3. TECH-02: Load native Spotify proofs before matching. Verify native URI, proof URL, title, full performer credits, duration, edition qualifiers and available ISRC. Review all 19 disputed LRCLIB adoptions individually. Never auto-accept a naming disagreement or shared lyric-provider ID across distinct recording editions.
+4. TECH-03: Re-audit residues, second-verse starts in multiple languages, duration disagreement and duplicated halves. New detectors flag these cases without deleting repeated choruses. Use the independently identified failures as regression fixtures. A source declaring complete is supporting evidence, not audio proof.
+5. TECH-04: Resolve evidence using recorded request/final redirect URLs and allowed provider hosts. Never lowercase arbitrary URL paths. Re-extract the 329 unresolved cases, check main-entity/native provider ID, raw response hash and extracted text hash. Adopt newly recovered replacements only after quality and identity checks.
+6. TECH-05: Apply the same strict checks to all 10 store-exact adoptions. No exemption for cached or historical texts.
+7. Acquisition: Build a durable queue from every frozen selection membership. Deduplicate acquisition by recording ID, preserve all country/year/rank memberships, prioritize missing/defective candidates and deficient cells, reuse verified cache, then perform bounded live provider requests with backoff and resumable status. Use `scripts/recover_low_coverage_lyrics.py --all-missing` to include every textless candidate, not only candidates in deficient cells. Preserve HTTP bodies and provenance. Do not bypass access challenges. Record terminal source errors and unresolved ranking sources honestly.
+8. Effective proof: For each candidate, obtain an official transcription demonstrably bound to the recording edition or a qualified audio/transcription review. Where automated independent-source concordance is used, preserve both sources and record remaining edition uncertainty. Never mark missing evidence as approved.
+9. Incorporation: Stage a new immutable run containing candidate ID, selection hash, original/replacement hash, native evidence, completeness evidence, parser/rule hashes and per-dimension decisions. Reject ambiguous or partial records before canonical adoption. Link downstream invalidation to old text hashes. Preserve prior classifications but exclude invalidated results.
+10. Parity: Independently compare SQLite/PostgreSQL manifests, run signatures, candidate sets, payloads, audit JSON and full text hashes/bodies. Check membership-to-candidate linkage and canonical recording-to-transcription linkage separately. Confirm a matching database copy is never counted as semantic song parity.
+11. Copilot acceptance: Reproduce all TECH-01–TECH-06 checks against the new run. Publish accepted/rejected decisions per defect, residual queue and exact counts by candidate, rank and country/year. Require a fresh acceptance report; historical test success cannot approve new data.
+
+## Required outputs
+Versioned source/code/input manifest; per-record strict decisions; correction ledger; missing ranking and lyric queues; new staging run IDs; independent parity report; per-cell coverage; independent acceptance report; explicit effective-proof numerator/denominator. Keep Vertex disabled until its existing gates are satisfied.
+
+## Current remediation status
+Initial patches disable legacy name-only fallback, expand quality detectors, accept recorded redirect paths, and tighten completeness assessment. scripts/audit_tech_remediation.py reassesses existing snapshots against native proofs and current quality rules. This is partial remediation: full source replay, acquisition, canonical repairs and independent acceptance remain required. No effective 80% completion claim is authorized by this initial audit.
+
+## Execution update — 2026-11-16
+The full `--all-missing` recovery queues completed for v4 and v5. Their immutable lyric staging run IDs are `b60033f140ba4a240d3f1afb47af01d353a4e1c0b3eed3d1a974ad601b02a5f0` and `43eebd34139c3c23feac1e295410f0844c3be0ed3e548cf7e51aa524c2136012`. Each has exact SQLite/PostgreSQL signature, candidate and body-hash parity; scientific approvals remain zero.
+
+The current read-only database inventory contains 90,600 v4 and 91,480 v5 observed country/year/rank memberships, each across 2,250 matrix cells. Against the frozen denominator of 277,650 positions, the remaining ranking gaps are 187,050 and 186,170. The v5 strict lyric reassessment supports both source identity and provider-field completeness for 18,416/31,104 candidates (59.2%); v4 supports 18,436/30,224 (61.0%). Neither reaches the 80% joint threshold, and no candidate has recording-to-transcription equivalence proof. Keep Vertex disabled.
+
+The detailed execution artifacts are under `data/runtime/antigravity-collaboration-20261115/full-corpus-acquisition-20261116/`: `current-membership-inventory.json`, per-version `staging-mirror-verification.json`, `strict-integrity-audit/`, and `strict-automated-validation/`. Next work must prioritize acquiring independently verifiable historical annual chart sources for the remaining ranking positions, then resolving strict lyric review queues; do not synthesize absent rankings from current snapshots or monthly samples.
+
+Public-source feasibility check: official YouTube Charts are listed for 61 countries/regions; the already-used Zenodo weekly archive covers 43 YouTube markets and 37 Spotify markets, so it does not extend this frozen selection. MusicID advertises 74 countries and thousands of charts but requires a subscription/license; Luminate CONNECT documents historical weekly charts but only one chart export at a time. Treat these as leads for a separately authorized/licensed source package, not as evidence that the 250-country gap can be filled by free bulk scraping.

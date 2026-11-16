@@ -7,7 +7,7 @@ import hashlib
 from chart_observatory.lyrics.quota_discovery import audit_saved_result
 from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
 
-QUALITY_AUDIT_VERSION = "quota-corpus-quality-v1"
+QUALITY_AUDIT_VERSION = "quota-corpus-quality-v2"
 
 
 def assess_acquired_lyric(payload, source_result, text, expected_hash):
@@ -25,7 +25,17 @@ def assess_acquired_lyric(payload, source_result, text, expected_hash):
         source_result,
     )
     derivative = prepare_lyric_derivative(text, source_result.get("source", "UNKNOWN"))
-    flags = set(source_audit["text_quality_flags"]) | set(derivative.flags)
+    native_flag_keys = {
+        "native_title_disagreement",
+        "native_artist_disagreement",
+        "native_recording_proof_missing",
+        "recording_duration_mismatch",
+        "shared_provider_id_across_editions",
+    }
+    preserved_native = (
+        set(source_result.get("text_quality_flags") or []) | set(payload.get("_native_flags") or [])
+    ) & native_flag_keys
+    flags = set(source_audit["text_quality_flags"]) | set(derivative.flags) | preserved_native
     if not payload.get("title") or not payload.get("artist"):
         flags.add("recording_metadata_missing")
     actual = hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -39,13 +49,31 @@ def assess_acquired_lyric(payload, source_result, text, expected_hash):
         state = "source_declared_partial"
     elif source_audit["source_quarantined"] or any(
         any(
-            key in f for key in ("mismatch", "conflict", "different_titles", "different_performers")
+            key in f
+            for key in (
+                "mismatch",
+                "conflict",
+                "different_titles",
+                "different_performers",
+                "disagreement",
+            )
         )
+        or f == "shared_provider_id_across_editions"
         for f in flags
     ):
         state = "identity_conflict"
     elif any(
-        any(key in f for key in ("short_text", "missing_initial", "partial", "residue", "encoded"))
+        any(
+            key in f
+            for key in (
+                "short_text",
+                "missing_initial",
+                "partial",
+                "residue",
+                "encoded",
+                "duplicated_container",
+            )
+        )
         for f in flags
     ):
         state = "suspected_partial"

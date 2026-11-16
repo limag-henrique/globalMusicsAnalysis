@@ -166,6 +166,11 @@ def main():
     parser.add_argument("--metadata-proofs", type=Path)
     parser.add_argument("--hours", type=float, default=8)
     parser.add_argument("--workers", type=int, default=4, choices=range(1, 9))
+    parser.add_argument(
+        "--all-missing",
+        action="store_true",
+        help="queue every candidate without text, including cells already at 80% availability",
+    )
     args = parser.parse_args()
     for name in ("source_staging", "selection", "state", "store"):
         value = getattr(args, name).resolve()
@@ -241,7 +246,13 @@ def main():
         record["payload"]
         for record in records
         if not record["text_sha256"]
-        and any((b["country_code"], b["year"]) in low for b in record["payload"]["chart_bindings"])
+        and (
+            args.all_missing
+            or any(
+                (b["country_code"], b["year"]) in low
+                for b in record["payload"]["chart_bindings"]
+            )
+        )
     ]
     pending.sort(
         key=lambda p: (

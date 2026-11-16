@@ -6,7 +6,15 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 
-from chart_observatory.lyrics.quota_acquisition import extract_html, identity, lrclib_text
+from bs4 import BeautifulSoup
+
+from chart_observatory.lyrics.quota_acquisition import (
+    extract_genius_preloaded_credits,
+    extract_html,
+    identity,
+    lrclib_text,
+    match_genius_identity,
+)
 from chart_observatory.lyrics.quota_discovery import audit_saved_result, genius_performer_names
 from chart_observatory.lyrics.revision_protocol import normalize_text
 
@@ -35,7 +43,7 @@ def verify_source_chain(payload, result, body, digest, root):
             continue
         if source in {"GENIUS", "AZLYRICS", "LETRAS", "MUSIXMATCH"}:
             target = metadata.get("url")
-            if not target or url.path != urlparse(target).path:
+            if not target:
                 continue
         path = Path(event["cache_path"]).resolve()
         if not path.is_relative_to(Path(root).resolve()):
@@ -43,6 +51,23 @@ def verify_source_chain(payload, result, body, digest, root):
             continue
         try:
             saved = json.loads(path.read_text(encoding="utf-8"))
+            if source in {"GENIUS", "AZLYRICS", "LETRAS", "MUSIXMATCH"}:
+                target_url = urlparse(metadata["url"])
+                final_url = urlparse(saved.get("final_url") or event.get("url") or "")
+                allowed_hosts = {
+                    "GENIUS": {"genius.com", "www.genius.com"},
+                    "AZLYRICS": {"azlyrics.com", "www.azlyrics.com"},
+                    "LETRAS": {"letras.mus.br", "www.letras.mus.br"},
+                    "MUSIXMATCH": {"musixmatch.com", "www.musixmatch.com"},
+                }[source]
+                if (
+                    target_url.hostname not in allowed_hosts
+                    or final_url.hostname not in allowed_hosts
+                ):
+                    continue
+                # Accept recorded redirects, never case-fold arbitrary URL paths.
+                if target_url.path not in {url.path, final_url.path}:
+                    continue
             raw = (
                 base64.b64decode(saved["body_base64"], validate=True)
                 if "body_base64" in saved
@@ -72,19 +97,54 @@ def verify_source_chain(payload, result, body, digest, root):
                         errors.append("provider_identity_mismatch")
                         continue
                     if candidate := lrclib_text(row):
-                        extracted.append((candidate, actual, event.get("url")))
+                        extracted.append((candidate, actual, event.get("url"), None, None, None))
             elif source in {"GENIUS", "AZLYRICS", "LETRAS", "MUSIXMATCH"}:
                 proof = metadata.get("provider_credit_evidence") or {}
+                obs_title = metadata.get("observed_title")
+                obs_artist = metadata.get("observed_artist")
+                song_id = proof.get("song_id") if isinstance(proof, dict) else None
+                allowed = genius_performer_names(proof) if isinstance(proof, dict) else []
+                reextracted_proof = None
+                if source == "GENIUS" and (not proof or not obs_title or not obs_artist):
+                    preloaded = extract_genius_preloaded_credits(
+                        BeautifulSoup(value, "html.parser")
+                    )
+                    if preloaded:
+                        if not match_genius_identity(
+                            payload.get("title"), payload.get("artist"), preloaded
+                        ):
+                            errors.append("provider_identity_mismatch")
+                            continue
+                        proof = preloaded
+                        reextracted_proof = preloaded
+                        obs_title = preloaded.get("title")
+                        obs_artist = (preloaded.get("primary_artist") or {}).get("name")
+                        song_id = preloaded.get("song_id")
+                        allowed = genius_performer_names(preloaded)
+                    elif not obs_title or not obs_artist:
+                        obs_title = obs_title or payload.get("title")
+                        obs_artist = (
+                            obs_artist or (payload.get("artist") or "").split("|", 1)[0].strip()
+                        )
                 candidate = extract_html(
                     value,
                     source,
-                    metadata.get("observed_title"),
-                    metadata.get("observed_artist"),
-                    genius_performer_names(proof),
-                    provider_song_id=proof.get("song_id"),
+                    obs_title,
+                    obs_artist,
+                    allowed,
+                    provider_song_id=song_id,
                 )
                 if candidate:
-                    extracted.append((candidate, actual, event.get("url")))
+                    extracted.append(
+                        (
+                            candidate,
+                            actual,
+                            event.get("url"),
+                            reextracted_proof,
+                            obs_title,
+                            obs_artist,
+                        )
+                    )
         except (OSError, UnicodeError, ValueError, TypeError, KeyError) as error:
             errors.append(type(error).__name__)
     matching = [
@@ -99,6 +159,13 @@ def verify_source_chain(payload, result, body, digest, root):
             None,
         )
         selected = exact or matching[0]
+        extra = {}
+        if selected[3] is not None:
+            extra = {
+                "reextracted_provider_credit_evidence": selected[3],
+                "reextracted_observed_title": selected[4],
+                "reextracted_observed_artist": selected[5],
+            }
         return dict(
             outcome,
             status="source_chain_match_metadata_pending" if pending else "source_chain_matched",
@@ -107,6 +174,7 @@ def verify_source_chain(payload, result, body, digest, root):
             exact_text_hash_match=exact is not None,
             extracted_text_sha256=hashlib.sha256(selected[0].encode()).hexdigest(),
             errors=errors,
+            **extra,
         )
     return dict(
         outcome,

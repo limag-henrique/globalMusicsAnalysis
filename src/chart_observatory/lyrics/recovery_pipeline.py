@@ -16,17 +16,25 @@ from pathlib import Path
 from typing import Any
 
 import httpx
+from bs4 import BeautifulSoup
 from sqlalchemy import insert, select, text
 from sqlalchemy.engine import Engine
 
 from chart_observatory.ingestion.import_quotas import recovery_targets
-from chart_observatory.lyrics.corpus_quality import assess_acquired_lyric
+from chart_observatory.lyrics.automated_validation import (
+    VALIDATION_VERSION,
+    assess_lyric_identity_completeness,
+)
+from chart_observatory.lyrics.corpus_quality import QUALITY_AUDIT_VERSION, assess_acquired_lyric
 from chart_observatory.lyrics.identity_collisions import flag_shared_text_identities
 from chart_observatory.lyrics.inventory_export import PARSER_VERSION, candidate_technical_status
 from chart_observatory.lyrics.quota_acquisition import (
     AcquisitionStore,
     PacedHTTP,
+    extract_genius_preloaded_credits,
+    identities_compatible,
     identity,
+    match_genius_identity,
     recovery_cache_sources,
 )
 from chart_observatory.lyrics.quota_discovery import (
@@ -41,7 +49,11 @@ from chart_observatory.lyrics.quota_staging import (
     runs,
 )
 from chart_observatory.lyrics.source_chain import verify_source_chain
-from chart_observatory.lyrics.text_quality import prepare_lyric_derivative
+from chart_observatory.lyrics.text_quality import (
+    TEXT_QUALITY_VERSION,
+    prepare_lyric_derivative,
+    recording_duration_mismatch,
+)
 from chart_observatory.research_flow import load_selection
 
 
@@ -50,6 +62,282 @@ def _parse_utc_timestamp(raw: str | datetime) -> datetime:
         return raw if raw.tzinfo is not None else raw.replace(tzinfo=UTC)
     parsed = datetime.fromisoformat(str(raw))
     return parsed if parsed.tzinfo is not None else parsed.replace(tzinfo=UTC)
+
+
+def load_native_spotify_proofs(root: Path) -> dict[str, dict[str, Any]]:
+    """Load newest verified native Spotify proof per candidate ID in read-only mode."""
+    proofs: dict[str, dict[str, Any]] = {}
+    meta_root = Path(root) / "data/raw/metadata_resolution"
+    if not meta_root.is_dir():
+        return proofs
+    for db_path in sorted(meta_root.glob("*/native-metadata.sqlite")):
+        with sqlite3.connect(db_path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0) as db:
+            for cid, raw in db.execute("SELECT candidate_id, proof FROM evidence"):
+                proof = json.loads(raw)
+                prev = proofs.get(cid)
+                if prev is None or proof.get("retrieved_at", "") > prev.get("retrieved_at", ""):
+                    proofs[cid] = proof
+    return proofs
+
+
+def apply_native_proof_to_record(
+    cid: str,
+    payload: dict[str, Any],
+    source_result: dict[str, Any] | None,
+    proofs: dict[str, dict[str, Any]],
+) -> tuple[bool, list[str], dict[str, Any]]:
+    """Verify native Spotify URI, proof URL, title, credits, duration, qualifiers, and ISRC."""
+    if not proofs:
+        return True, [], {}
+    native = proofs.get(cid) or {}
+    meta = native.get("metadata") or {}
+    track_id = cid.removeprefix("SPOTIFY:")
+    native_ok = (
+        cid.startswith("SPOTIFY:")
+        and native.get("status") == 200
+        and meta.get("uri") == f"spotify:track:{track_id}"
+        and native.get("source_url") == f"https://open.spotify.com/embed/track/{track_id}"
+        and isinstance(native.get("body_sha256"), str)
+        and len(native["body_sha256"]) == 64
+    )
+    if not native_ok:
+        return (
+            False,
+            ["native_recording_proof_missing"],
+            {
+                "native_proof_present": False,
+                "uri": meta.get("uri"),
+                "source_url": native.get("source_url"),
+                "body_sha256": native.get("body_sha256"),
+                "isrc": meta.get("isrc"),
+            },
+        )
+    flags: list[str] = []
+    title_compat = identities_compatible(payload.get("title"), meta.get("title"), is_artist=False)
+    artist_compat = identities_compatible(payload.get("artist"), meta.get("artist"), is_artist=True)
+    if not title_compat:
+        flags.append("native_title_disagreement")
+    if not artist_compat:
+        flags.append("native_artist_disagreement")
+    duration = meta.get("duration_ms")
+    valid_dur = isinstance(duration, int) and not isinstance(duration, bool) and duration > 0
+    if valid_dur:
+        mr = payload.setdefault("metadata_resolution", {})
+        mr.update(
+            {
+                "duration_ms": duration,
+                "uri": meta["uri"],
+                "source_url": native["source_url"],
+                "evidence_sha256": native["body_sha256"],
+                "retrieved_at": native.get("retrieved_at"),
+                "native_title": meta.get("title"),
+                "native_artist": meta.get("artist"),
+            }
+        )
+    provider_dur = ((source_result or {}).get("source_metadata") or {}).get("duration_seconds")
+    if recording_duration_mismatch(duration if valid_dur else None, provider_dur):
+        flags.append("recording_duration_mismatch")
+    native_ev = {
+        "native_proof_present": True,
+        "uri": meta.get("uri"),
+        "source_url": native.get("source_url"),
+        "body_sha256": native.get("body_sha256"),
+        "retrieved_at": native.get("retrieved_at"),
+        "native_title": meta.get("title"),
+        "native_artist": meta.get("artist"),
+        "duration_ms": duration if valid_dur else None,
+        "isrc": meta.get("isrc"),
+        "edition_qualifiers_checked": True,
+        "title_compatible": title_compat,
+        "artist_compatible": artist_compat,
+        "exact_display_match": all(
+            identity(payload.get(f)) == identity(meta.get(f)) for f in ("title", "artist")
+        ),
+    }
+    return True, flags, native_ev
+
+
+def _provider_record_key(source_result: dict[str, Any] | None) -> tuple[str, int] | None:
+    sr = source_result or {}
+    src = sr.get("source")
+    meta = sr.get("source_metadata") or {}
+    if src == "LRCLIB":
+        pid = meta.get("id")
+        if isinstance(pid, int) and not isinstance(pid, bool) and pid > 0:
+            return ("LRCLIB", pid)
+    elif src == "GENIUS":
+        pid = (meta.get("provider_credit_evidence") or {}).get("song_id")
+        if isinstance(pid, int) and not isinstance(pid, bool) and pid > 0:
+            return ("GENIUS", pid)
+    return None
+
+
+def _group_records_distinct_editions(
+    records: list[dict[str, Any]],
+    proofs: dict[str, dict[str, Any]],
+) -> tuple[set[tuple[str, int]], list[dict[str, Any]]]:
+    """Identify lyric-provider IDs reused across distinct recording editions."""
+    by_key: dict[tuple[str, int], dict[str, dict[str, Any]]] = {}
+    for rec in records:
+        if not rec.get("text_sha256"):
+            continue
+        pkey = _provider_record_key(rec.get("source_result"))
+        if pkey is not None:
+            by_key.setdefault(pkey, {})[rec["candidate_id"]] = rec
+    shared_keys: set[tuple[str, int]] = set()
+    collisions: list[dict[str, Any]] = []
+    for pkey, group in sorted(by_key.items()):
+        if len(group) < 2:
+            continue
+        cids = sorted(group)
+        titles: list[str] = []
+        artists: list[str] = []
+        durs: list[int] = []
+        for cid in cids:
+            rec = group[cid]
+            meta = (proofs.get(cid) or {}).get("metadata") or {}
+            pl = rec.get("payload") or {}
+            titles.append(meta.get("title") or pl.get("title") or "")
+            artists.append(meta.get("artist") or pl.get("artist") or "")
+            dur = meta.get("duration_ms") or (pl.get("metadata_resolution") or {}).get(
+                "duration_ms"
+            )
+            if isinstance(dur, int) and not isinstance(dur, bool) and dur > 0:
+                durs.append(dur)
+        t_diff = any(not identities_compatible(titles[0], t, is_artist=False) for t in titles[1:])
+        a_diff = any(not identities_compatible(artists[0], a, is_artist=True) for a in artists[1:])
+        dur_diff = len(durs) >= 2 and (max(durs) - min(durs)) > max(3000, min(durs) * 0.02)
+        if t_diff or a_diff or dur_diff:
+            shared_keys.add(pkey)
+            collisions.append(
+                {
+                    "source": pkey[0],
+                    "provider_record_id": pkey[1],
+                    "candidate_ids": cids,
+                    "title_differs": t_diff,
+                    "artist_differs": a_diff,
+                    "duration_differs": dur_diff,
+                }
+            )
+    return shared_keys, collisions
+
+
+def _flag_shared_provider_editions(
+    records: list[dict[str, Any]],
+    proofs: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    shared_keys, collisions = _group_records_distinct_editions(records, proofs)
+    if not shared_keys:
+        return []
+    for rec in records:
+        if not rec.get("text_sha256"):
+            continue
+        pkey = _provider_record_key(rec.get("source_result"))
+        if pkey in shared_keys:
+            audit = rec.setdefault("audit", {})
+            audit["text_quality_flags"] = sorted(
+                set(audit.get("text_quality_flags") or []) | {"shared_provider_id_across_editions"}
+            )
+    return collisions
+
+
+def _enrich_genius_metadata_from_evidence(
+    payload: dict[str, Any],
+    source_result: dict[str, Any],
+    chain: dict[str, Any],
+) -> bool:
+    """Attach verified preloaded Genius credits re-extracted from cached raw HTML."""
+    sr_meta = source_result.setdefault("source_metadata", {})
+    if chain.get("reextracted_provider_credit_evidence") and not sr_meta.get(
+        "provider_credit_evidence"
+    ):
+        sr_meta["provider_credit_evidence"] = chain["reextracted_provider_credit_evidence"]
+        sr_meta["observed_title"] = chain.get("reextracted_observed_title")
+        sr_meta["observed_artist"] = chain.get("reextracted_observed_artist")
+        sr_meta["requested_artist"] = payload.get("artist")
+        sr_meta["page_identity_scope"] = "main_entity_only"
+        sr_meta["full_requested_artist_credit_matched"] = True
+        return True
+    return False
+
+
+def _inspect_unresolved_genius_mismatch(
+    payload: dict[str, Any],
+    source_result: dict[str, Any],
+    root: Path,
+) -> None:
+    """Expose mismatched Genius preloaded credits on unresolved legacy records."""
+    if source_result.get("source") != "GENIUS":
+        return
+    sr_meta = source_result.setdefault("source_metadata", {})
+    if sr_meta.get("provider_credit_evidence"):
+        return
+    root_res = Path(root).resolve()
+    for ev in source_result.get("http_evidence") or []:
+        if ev.get("status") != 200 or not ev.get("cache_path"):
+            continue
+        cpath = Path(ev["cache_path"]).resolve()
+        if not cpath.is_relative_to(root_res) or not cpath.is_file():
+            continue
+        try:
+            saved = json.loads(cpath.read_text(encoding="utf-8"))
+            raw = (
+                base64.b64decode(saved["body_base64"], validate=True)
+                if "body_base64" in saved
+                else saved["body"].encode("utf-8")
+            )
+            if hashlib.sha256(raw).hexdigest() != saved.get("body_sha256"):
+                continue
+            html = raw.decode(saved.get("encoding") or "utf-8")
+            pre = extract_genius_preloaded_credits(BeautifulSoup(html, "html.parser"))
+            if pre and not match_genius_identity(payload.get("title"), payload.get("artist"), pre):
+                sr_meta["provider_credit_evidence"] = pre
+                sr_meta["observed_title"] = pre.get("title")
+                sr_meta["observed_artist"] = (pre.get("primary_artist") or {}).get("name")
+                sr_meta["requested_artist"] = payload.get("artist")
+                return
+        except (OSError, UnicodeError, ValueError, TypeError, KeyError):
+            continue
+
+
+def _load_web_concordance_map(root: Path) -> dict[str, dict[str, Any]]:
+    """Load read-only independent web comparison records without claiming edition proof."""
+    concordance: dict[str, dict[str, Any]] = {}
+    paths = [
+        Path(root)
+        / "data/runtime/import-all-lyrics-web-comparison-final-20261108/comparison.sqlite",
+        Path(root)
+        / "data/runtime/import-all-lyrics-web-comparison-global-20261108/comparison.sqlite",
+    ]
+    for db_path in paths:
+        if not db_path.is_file():
+            continue
+        with sqlite3.connect(db_path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0) as db:
+            for cid, rraw in db.execute("SELECT id, result FROM results"):
+                res = json.loads(rraw)
+                status = res.get("status")
+                prev = concordance.get(cid)
+                if prev is None or (
+                    status == "cross_provider_text_matches"
+                    and prev.get("comparison_status") != "cross_provider_text_matches"
+                ):
+                    concordance[cid] = {
+                        "comparison_db": str(db_path.name),
+                        "comparison_status": status,
+                        "concordant": status == "cross_provider_text_matches",
+                        "both_sources_preserved": bool(
+                            res.get("stored_sha256") and res.get("remote_sha256")
+                        ),
+                        "stored_sha256": res.get("stored_sha256"),
+                        "remote_sha256": res.get("remote_sha256"),
+                        "provider_id": res.get("provider_id"),
+                        "provider_title": res.get("provider_title"),
+                        "provider_artist": res.get("provider_artist"),
+                        "provider_duration_seconds": res.get("provider_duration_seconds"),
+                        "remaining_edition_uncertainty": True,
+                        "recording_transcription_proven": False,
+                    }
+    return concordance
 
 
 def replay_sqlite_staging_runs(
@@ -256,6 +544,23 @@ def reconcile_v4_staging_runs(
     if set(all_keys) != set(r_f) or set(all_keys) != set(r_c):
         raise ValueError("staging runs do not share identical v4 candidate sets")
 
+    proofs = load_native_spotify_proofs(root)
+    for rec in r_a.values():
+        apply_native_proof_to_record(
+            rec["candidate_id"], rec["payload"], rec.get("source_result"), proofs
+        )
+    for rec in r_c.values():
+        apply_native_proof_to_record(
+            rec["candidate_id"], rec["payload"], rec.get("source_result"), proofs
+        )
+
+    combined_for_edition_check = list(r_a.values()) + [
+        r_c[cid]
+        for cid in all_keys
+        if r_c[cid].get("text_sha256") and not r_a[cid].get("text_sha256")
+    ]
+    shared_edition_keys, _ = _group_records_distinct_editions(combined_for_edition_check, proofs)
+
     def _pos_texts(recs: dict[str, dict[str, Any]]) -> int:
         return sum(
             len(v["payload"]["chart_bindings"]) for v in recs.values() if v.get("text_sha256")
@@ -264,8 +569,10 @@ def reconcile_v4_staging_runs(
     merged: dict[str, dict[str, Any]] = {}
     merged_texts: dict[str, str] = {}
     diff_ledger: list[dict[str, Any]] = []
+    disputed_reviews: list[dict[str, Any]] = []
     conflicts_15da_vs_b85c = 0
     adopted_from_15da = 0
+    rejected_from_15da = 0
     adopted_from_b85c = 0
 
     for cid in all_keys:
@@ -282,33 +589,95 @@ def reconcile_v4_staging_runs(
 
         if sc and not sa:
             body_c = txt_c[sc]
+            native_ok, native_flags, native_ev = apply_native_proof_to_record(
+                cid, rc["payload"], rc["source_result"], proofs
+            )
             assessed_c = assess_acquired_lyric(rc["payload"], rc["source_result"], body_c, sc)
             chain_c = verify_source_chain(rc["payload"], rc["source_result"], body_c, sc, root)
-            chosen = json.loads(json.dumps(rc))
-            chosen["source_result"] = {
-                **chosen["source_result"],
-                "reconciled_from_run_id": c15da_id,
-                "reconciliation_reason": "present_verified_in_15da3853_absent_in_b85c4d84",
-                "reconciliation_chain_status": chain_c.get("status"),
+            pkey = _provider_record_key(rc.get("source_result"))
+            shared_edition = pkey in shared_edition_keys if pkey is not None else False
+            rejection_reasons: list[str] = list(native_flags)
+            if proofs and native_ok and not native_ev.get("exact_display_match", True):
+                rejection_reasons.append("native_display_naming_disagreement")
+            if shared_edition:
+                rejection_reasons.append("shared_provider_id_across_editions")
+            if assessed_c["quality_state"] != "acquired_unverified":
+                rejection_reasons.append(f"quality_state:{assessed_c['quality_state']}")
+            if chain_c.get("status") != "source_chain_matched" or not chain_c.get(
+                "exact_text_hash_match"
+            ):
+                rejection_reasons.append(f"source_chain:{chain_c.get('status')}")
+            rejection_reasons = sorted(set(rejection_reasons))
+
+            review_entry = {
+                "candidate_id": cid,
+                "source": (rc.get("source_result") or {}).get("source"),
+                "provider_record_id": pkey[1] if pkey else None,
+                "candidate_text_sha256": sc,
+                "native_proof_present": native_ev.get("native_proof_present", False),
+                "native_title": native_ev.get("native_title"),
+                "native_artist": native_ev.get("native_artist"),
+                "native_duration_ms": native_ev.get("duration_ms"),
+                "exact_display_match": native_ev.get("exact_display_match"),
+                "shared_provider_id_across_editions": shared_edition,
+                "source_chain_status": chain_c.get("status"),
+                "disposition": "rejected_to_review_queue" if rejection_reasons else "adopted",
+                "rejection_reasons": rejection_reasons,
             }
-            merged[cid] = chosen
-            merged_texts[sc] = body_c
-            adopted_from_15da += 1
-            diff_ledger.append(
-                {
-                    "candidate_id": cid,
-                    "change_kind": "cross_run_reconciliation_fill",
-                    "repair_method": f"adopted_from_run:{c15da_id[:12]}",
-                    "old_text_sha256": None,
-                    "old_source_system": None,
-                    "old_status": "missing_in_b85c4d84",
-                    "new_text_sha256": sc,
-                    "new_source_system": rc["source_result"].get("source"),
-                    "new_status": assessed_c["quality_state"],
-                    "source_chain_status": chain_c.get("status"),
-                    "verified_at": datetime.now(UTC).isoformat(),
+            disputed_reviews.append(review_entry)
+
+            if rejection_reasons:
+                chosen = json.loads(json.dumps(ra))
+                chosen["source_result"] = {
+                    **(chosen.get("source_result") or {}),
+                    "disputed_cross_run_candidate_sha256": sc,
+                    "disputed_cross_run_id": c15da_id,
+                    "disputed_rejection_reasons": rejection_reasons,
                 }
-            )
+                merged[cid] = chosen
+                rejected_from_15da += 1
+                diff_ledger.append(
+                    {
+                        "candidate_id": cid,
+                        "change_kind": "rejected_disputed_cross_run_adoption",
+                        "repair_method": f"rejected_from_run:{c15da_id[:12]}",
+                        "old_text_sha256": sc,
+                        "old_source_system": rc["source_result"].get("source"),
+                        "old_status": assessed_c["quality_state"],
+                        "new_text_sha256": None,
+                        "new_source_system": None,
+                        "new_status": "unavailable",
+                        "source_chain_status": chain_c.get("status"),
+                        "rejection_reasons": rejection_reasons,
+                        "verified_at": datetime.now(UTC).isoformat(),
+                    }
+                )
+            else:
+                chosen = json.loads(json.dumps(rc))
+                chosen["source_result"] = {
+                    **chosen["source_result"],
+                    "reconciled_from_run_id": c15da_id,
+                    "reconciliation_reason": "present_verified_in_15da3853_absent_in_b85c4d84",
+                    "reconciliation_chain_status": chain_c.get("status"),
+                }
+                merged[cid] = chosen
+                merged_texts[sc] = body_c
+                adopted_from_15da += 1
+                diff_ledger.append(
+                    {
+                        "candidate_id": cid,
+                        "change_kind": "cross_run_reconciliation_fill",
+                        "repair_method": f"adopted_from_run:{c15da_id[:12]}",
+                        "old_text_sha256": None,
+                        "old_source_system": None,
+                        "old_status": "missing_in_b85c4d84",
+                        "new_text_sha256": sc,
+                        "new_source_system": rc["source_result"].get("source"),
+                        "new_status": assessed_c["quality_state"],
+                        "source_chain_status": chain_c.get("status"),
+                        "verified_at": datetime.now(UTC).isoformat(),
+                    }
+                )
         elif sa and not sc:
             chosen = json.loads(json.dumps(ra))
             chosen["source_result"] = {
@@ -370,6 +739,8 @@ def reconcile_v4_staging_runs(
         ),
         "reconciled_v4_position_linked_texts": _pos_texts(merged),
         "adopted_from_15da3853": adopted_from_15da,
+        "rejected_from_15da3853": rejected_from_15da,
+        "disputed_15da3853_reviews": disputed_reviews,
         "only_in_b85c4d84_vs_15da3853": adopted_from_b85c,
         "hash_conflicts_15da3853_vs_b85c4d84": conflicts_15da_vs_b85c,
         "f59314e5_to_b85c4d84_gain_candidates": sum(
@@ -525,6 +896,78 @@ def build_prioritized_queue(
     return [item[1] for item in queued]
 
 
+_STRICT_BLOCKING_FLAGS = {
+    "native_title_disagreement",
+    "native_artist_disagreement",
+    "recording_duration_mismatch",
+    "shared_provider_id_across_editions",
+    "source_identity_evidence_missing",
+    "page_identity_scope_unverified",
+    "full_provider_performer_evidence_missing",
+    "requested_collaboration_credits_unverified",
+    "requested_title_or_artist_metadata_mismatch",
+    "provider_performer_or_version_mismatch",
+    "suspected_duplicated_container_halves",
+    "possible_missing_initial_section",
+    "remaining_interface_residue",
+    "remaining_encoded_entity",
+    "short_text",
+    "very_short_text",
+    "stored_text_hash_mismatch",
+    "source_result_hash_mismatch",
+    "explicit_partial_lyrics_notice",
+    "provider_declares_incomplete_lyrics",
+}
+
+
+def _would_share_provider_id_across_editions(
+    cid: str,
+    payload: dict[str, Any],
+    clean_sr: dict[str, Any],
+    existing_records: dict[str, dict[str, Any]] | None,
+    proofs: dict[str, dict[str, Any]],
+    precomputed_shared_keys: set[tuple[str, int]] | None,
+) -> bool:
+    pkey = _provider_record_key(clean_sr)
+    if pkey is None:
+        return False
+    if precomputed_shared_keys and pkey in precomputed_shared_keys:
+        return True
+    if not existing_records:
+        return False
+    cand_meta = (proofs.get(cid) or {}).get("metadata") or {}
+    cand_title = cand_meta.get("title") or payload.get("title") or ""
+    cand_artist = cand_meta.get("artist") or payload.get("artist") or ""
+    cand_dur = cand_meta.get("duration_ms") or (payload.get("metadata_resolution") or {}).get(
+        "duration_ms"
+    )
+    for other_cid, other_rec in existing_records.items():
+        if other_cid == cid or not other_rec.get("text_sha256"):
+            continue
+        if _provider_record_key(other_rec.get("source_result")) != pkey:
+            continue
+        o_meta = (proofs.get(other_cid) or {}).get("metadata") or {}
+        o_pl = other_rec.get("payload") or {}
+        o_title = o_meta.get("title") or o_pl.get("title") or ""
+        o_artist = o_meta.get("artist") or o_pl.get("artist") or ""
+        o_dur = o_meta.get("duration_ms") or (o_pl.get("metadata_resolution") or {}).get(
+            "duration_ms"
+        )
+        if not identities_compatible(cand_title, o_title, is_artist=False):
+            return True
+        if not identities_compatible(cand_artist, o_artist, is_artist=True):
+            return True
+        if (
+            isinstance(cand_dur, int)
+            and isinstance(o_dur, int)
+            and cand_dur > 0
+            and o_dur > 0
+            and abs(cand_dur - o_dur) > max(3000, min(cand_dur, o_dur) * 0.02)
+        ):
+            return True
+    return False
+
+
 def _accept_candidate_replacement(
     cid: str,
     payload: dict[str, Any],
@@ -535,8 +978,11 @@ def _accept_candidate_replacement(
     *,
     method_label: str,
     ledger_rows: list[dict[str, Any]],
+    proofs: dict[str, dict[str, Any]] | None = None,
+    shared_edition_keys: set[tuple[str, int]] | None = None,
+    existing_records: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], str] | None:
-    """Apply a missing-fill or quarantined-LETRAS repair only if verified superior."""
+    """Apply a missing-fill or quarantined-LETRAS repair only if strictly verified."""
     fresh_text = fresh_result.get("text")
     if not isinstance(fresh_text, str) or not fresh_text.strip():
         return None
@@ -551,42 +997,88 @@ def _accept_candidate_replacement(
     if old_sha and not was_quarantined:
         return None
 
+    if proofs is None:
+        proofs = load_native_spotify_proofs(root)
+
     clean_sr = {k: v for k, v in fresh_result.items() if k != "text"}
     clean_sr["text_sha256"] = fresh_sha
-    fresh_audit = audit_saved_result(payload, clean_sr)
+    working_payload = json.loads(json.dumps(payload))
+    native_ok, native_flags, native_ev = apply_native_proof_to_record(
+        cid, working_payload, clean_sr, proofs
+    )
+    chain = verify_source_chain(working_payload, clean_sr, fresh_text, fresh_sha, root)
+    if _enrich_genius_metadata_from_evidence(working_payload, clean_sr, chain):
+        chain = verify_source_chain(working_payload, clean_sr, fresh_text, fresh_sha, root)
+
+    fresh_audit = audit_saved_result(working_payload, clean_sr)
+    assessed = assess_acquired_lyric(working_payload, clean_sr, fresh_text, fresh_sha)
+    all_flags = sorted(set(assessed.get("flags") or []) | set(native_flags))
+    shared_edition = _would_share_provider_id_across_editions(
+        cid, working_payload, clean_sr, existing_records, proofs, shared_edition_keys
+    )
+    if shared_edition and "shared_provider_id_across_editions" not in all_flags:
+        all_flags = sorted([*all_flags, "shared_provider_id_across_editions"])
+
+    rejection_reasons: list[str] = []
+    if (
+        chain.get("status") != "source_chain_matched"
+        or chain.get("exact_text_hash_match") is not True
+    ):
+        rejection_reasons.append(f"source_chain:{chain.get('status')}")
     if fresh_audit.get("source_quarantined"):
-        return None
+        rejection_reasons.append("source_quarantined")
+    if assessed["quality_state"] != "acquired_unverified":
+        rejection_reasons.append(f"quality_state:{assessed['quality_state']}")
+    blocking = sorted(set(all_flags) & _STRICT_BLOCKING_FLAGS)
+    rejection_reasons.extend(blocking)
+    if proofs and cid.startswith("SPOTIFY:"):
+        if not native_ok:
+            rejection_reasons.append("native_recording_proof_missing")
+        elif not native_ev.get("exact_display_match", True):
+            rejection_reasons.append("native_display_naming_disagreement")
+    if shared_edition:
+        rejection_reasons.append("shared_provider_id_across_editions")
 
-    assessed = assess_acquired_lyric(payload, clean_sr, fresh_text, fresh_sha)
-    if assessed["quality_state"] in {
-        "source_declared_partial",
-        "suspected_partial",
-        "identity_conflict",
-    }:
-        return None
-
-    chain = verify_source_chain(payload, clean_sr, fresh_text, fresh_sha, root)
-    if old_sha and chain["status"] not in {
-        "source_chain_matched",
-        "source_chain_match_metadata_pending",
-    }:
-        # Repairing an existing v1/quarantined text requires verifiable HTTP source chain
+    if rejection_reasons:
+        if method_label.startswith("store_exact:"):
+            ledger_rows.append(
+                {
+                    "candidate_id": cid,
+                    "change_kind": "rejected_store_exact_candidate",
+                    "repair_method": method_label,
+                    "old_text_sha256": old_sha,
+                    "old_source_system": (old_rec.get("source_result") or {}).get("source"),
+                    "old_status": candidate_technical_status(old_rec),
+                    "candidate_text_sha256": fresh_sha,
+                    "candidate_source_system": fresh_src,
+                    "new_text_sha256": old_sha,
+                    "new_status": candidate_technical_status(old_rec),
+                    "source_chain_status": chain.get("status"),
+                    "rejection_reasons": sorted(set(rejection_reasons)),
+                    "verified_at": datetime.now(UTC).isoformat(),
+                }
+            )
         return None
 
     if old_sha:
         clean_sr["replaced_unverified_result"] = old_rec.get("source_result")
         clean_sr["replaces_text_sha256"] = old_sha
         clean_sr["repair_method"] = method_label
+    fresh_audit["text_quality_flags"] = all_flags
+    fresh_audit["native_evidence"] = native_ev
     fresh_audit["technical_verification"] = {
         "quality_state": assessed["quality_state"],
         "source_chain_status": chain.get("status"),
+        "raw_response_sha256": chain.get("evidence_sha256"),
+        "extracted_text_sha256": fresh_sha,
+        "exact_text_hash_match": chain.get("exact_text_hash_match"),
         "parser_version": PARSER_VERSION,
         "verified_at": datetime.now(UTC).isoformat(),
     }
     texts[fresh_sha] = fresh_text
     updated_rec = {
         "candidate_id": cid,
-        "payload": payload,
+        "payload": working_payload,
         "source_result": clean_sr,
         "audit": fresh_audit,
         "acquisition_status": "candidate_pending_validation",
@@ -606,6 +1098,8 @@ def _accept_candidate_replacement(
             "new_source_system": fresh_src,
             "new_status": assessed["quality_state"],
             "source_chain_status": chain.get("status"),
+            "raw_response_sha256": chain.get("evidence_sha256"),
+            "native_proof_sha256": native_ev.get("body_sha256"),
             "verified_at": datetime.now(UTC).isoformat(),
         }
     )
@@ -621,18 +1115,21 @@ def run_offline_store_and_cache_pass(
     ledger_rows: list[dict[str, Any]],
     *,
     label: str = "v4",
+    extra_cache_sources: tuple[Path, ...] = (),
 ) -> dict[str, int]:
     """Resolve missing & quarantined candidates purely from local stores and http-cache."""
     stats: Counter[str] = Counter()
+    proofs = load_native_spotify_proofs(root)
+    shared_edition_keys, _ = _group_records_distinct_editions(list(records.values()), proofs)
     targets = build_prioritized_queue(records, include_quarantined=True)
     target_ids = {p["recording_id"] for p in targets}
 
-    # 1. Exact candidate_id matches in legacy SQLite acquisition stores
+    # 1. Exact candidate_id matches in legacy SQLite acquisition stores (no exemptions)
     for st_dir in legacy_store_dirs:
         ap = st_dir / "acquisition.sqlite"
         if not ap.exists():
             continue
-        with sqlite3.connect(ap.resolve().as_uri() + "?mode=ro", uri=True) as sdb:
+        with sqlite3.connect(ap.resolve().as_uri() + "?mode=ro", uri=True, timeout=5.0) as sdb:
             for cid, rraw in sdb.execute(
                 "SELECT identity, result FROM tasks WHERE result IS NOT NULL"
             ):
@@ -666,14 +1163,32 @@ def run_offline_store_and_cache_pass(
                     root,
                     method_label=f"store_exact:{st_dir.name}:{label}",
                     ledger_rows=ledger_rows,
+                    proofs=proofs,
+                    shared_edition_keys=shared_edition_keys,
+                    existing_records=records,
                 )
                 if accepted:
                     records[cid] = accepted[0]
                     stats["store_exact_recovered"] += 1
+                elif (res.get("source") or "").upper() != "LETRAS":
+                    stats["store_exact_rejected"] += 1
 
     # 2. Zero-network HTTP cache replay via CacheOnlyHTTP + updated recover_with_fallback
     remaining = build_prioritized_queue(records, include_quarantined=True)
-    sources = recovery_cache_sources(root, temp_cache_dir)
+    base_sources = recovery_cache_sources(root, temp_cache_dir)
+    root_res = Path(root).resolve()
+    sources = tuple(
+        dict.fromkeys(
+            (
+                *base_sources,
+                *(
+                    p.resolve()
+                    for p in extra_cache_sources
+                    if p.is_dir() and p.resolve().is_relative_to(root_res)
+                ),
+            )
+        )
+    )
     temp_cache_dir.mkdir(parents=True, exist_ok=True)
     with httpx.Client(timeout=5) as client:
         http = CacheOnlyHTTP(
@@ -685,6 +1200,7 @@ def run_offline_store_and_cache_pass(
         for payload in remaining:
             cid = payload["recording_id"]
             rec = records[cid]
+            apply_native_proof_to_record(cid, payload, rec.get("source_result"), proofs)
             try:
                 res = recover_with_fallback(
                     payload["title"],
@@ -704,6 +1220,9 @@ def run_offline_store_and_cache_pass(
                 root,
                 method_label=f"http_cache_replay:{label}",
                 ledger_rows=ledger_rows,
+                proofs=proofs,
+                shared_edition_keys=shared_edition_keys,
+                existing_records=records,
             )
             if accepted:
                 records[cid] = accepted[0]
@@ -737,11 +1256,14 @@ def run_bounded_live_recovery(
     workers: int = 6,
     label: str = "v4",
     exclude_exhausted_stores: tuple[Path, ...] = (),
+    extra_cache_sources: tuple[Path, ...] = (),
 ) -> dict[str, Any]:
     """Run bounded live HTTP acquisition over the prioritized remaining queue."""
     if max_candidates <= 0 or max_seconds <= 0:
         return {"attempted": 0, "recovered": 0, "skipped_live": True}
 
+    proofs = load_native_spotify_proofs(root)
+    shared_edition_keys, _ = _group_records_distinct_editions(list(records.values()), proofs)
     prior_exhausted = _load_exhausted_ids(exclude_exhausted_stores)
     store_dir.mkdir(parents=True, exist_ok=True)
     owner = (store_dir / "owner.lock").open("a+b")
@@ -759,6 +1281,12 @@ def run_bounded_live_recovery(
     try:
         queue_payloads = build_prioritized_queue(records, include_quarantined=True)
         for payload in queue_payloads:
+            apply_native_proof_to_record(
+                payload["recording_id"],
+                payload,
+                records[payload["recording_id"]].get("source_result"),
+                proofs,
+            )
             store.enqueue(payload["recording_id"], payload)
         with store.conn:
             store.conn.execute("UPDATE tasks SET status='pending' WHERE status='running'")
@@ -783,6 +1311,19 @@ def run_bounded_live_recovery(
         cooldown_path = (
             root / "data/derived/lyrics/quota-20261030/http-cache/provider-cooldowns.sqlite"
         )
+        root_res = Path(root).resolve()
+        cache_sources = tuple(
+            dict.fromkeys(
+                (
+                    *recovery_cache_sources(root, store_dir),
+                    *(
+                        p.resolve()
+                        for p in extra_cache_sources
+                        if p.is_dir() and p.resolve().is_relative_to(root_res)
+                    ),
+                )
+            )
+        )
         with httpx.Client(
             timeout=15,
             follow_redirects=True,
@@ -792,7 +1333,7 @@ def run_bounded_live_recovery(
                 store_dir / "http-cache",
                 client,
                 interval=0.8,
-                cache_sources=recovery_cache_sources(root, store_dir),
+                cache_sources=cache_sources,
                 cooldown_path=cooldown_path,
             )
 
@@ -842,6 +1383,9 @@ def run_bounded_live_recovery(
                             root,
                             method_label=f"live_http:{label}",
                             ledger_rows=ledger_rows,
+                            proofs=proofs,
+                            shared_edition_keys=shared_edition_keys,
+                            existing_records=records,
                         )
                         if accepted:
                             records[cid] = accepted[0]
@@ -880,7 +1424,16 @@ def apply_pg_v1_clean_fallback(
     *,
     label: str = "v4",
 ) -> dict[str, int]:
-    """Reuse non-LETRAS PostgreSQL docs for unresolved items, flagged as existing_document_id."""
+    """Disable legacy name-only adoption; old documents require independent evidence."""
+    return {
+        "pg_fallback_applied": 0,
+        "quarantined_replaced": 0,
+        "legacy_name_only_fallback_disabled": 1,
+    }
+
+
+def _legacy_pg_v1_fallback_disabled(records, texts, pg_engine, ledger_rows, *, label="v4"):
+    """Retained implementation for audit only; never called by acquisition."""
     targets = build_prioritized_queue(records, include_quarantined=True)
     if not targets:
         return {"pg_fallback_applied": 0}
@@ -1003,47 +1556,93 @@ def verify_all_candidates(
     records_map: dict[str, dict[str, Any]],
     texts: dict[str, str],
     root: Path,
+    *,
+    selection_hash: str | None = None,
+    preverified_chains: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """Run corpus quality, source-chain, and shared-text collision verification."""
+    """Run native proofs, quality rules, source-chain re-extraction, and strict validation.
+
+    An unchanged candidate may reuse a previously persisted source-chain result when the
+    caller has checked its source text hash and exact raw-response proof. Changed records
+    must be re-extracted from their preserved HTTP evidence.
+    """
     records = [records_map[k] for k in sorted(records_map)]
+    proofs = load_native_spotify_proofs(root)
+    concordance_map = _load_web_concordance_map(root)
     status_counts: Counter[str] = Counter()
     chain_counts: Counter[str] = Counter()
     flag_counts: Counter[str] = Counter()
+    auto_counts: Counter[str] = Counter()
     now_iso = datetime.now(UTC).isoformat()
 
+    pass1_chains: dict[str, tuple[dict[str, Any], bool]] = {}
+    pass1_native: dict[str, tuple[bool, list[str], dict[str, Any]]] = {}
     for rec in records:
+        cid = rec["candidate_id"]
         digest = rec.get("text_sha256")
         body = texts.get(digest) if digest else None
-        rec["audit"] = audit_saved_result(rec["payload"], rec.get("source_result") or {})
-        assessed = assess_acquired_lyric(
-            rec["payload"], rec.get("source_result") or {}, body, digest
+        sr = rec.setdefault("source_result", {})
+        native_ok, native_flags, native_ev = apply_native_proof_to_record(
+            cid, rec["payload"], sr, proofs
         )
-        rec["audit"]["text_quality_flags"] = list(assessed.get("flags") or [])
-        rec["audit"]["source_quarantined"] = bool(
-            assessed.get("source_quarantined", rec["audit"].get("source_quarantined"))
-        )
+        pass1_native[cid] = (native_ok, native_flags, native_ev)
 
-    # Flag cross-identity text collisions before finalizing technical status
-    collisions = flag_shared_text_identities(records)
-
-    for rec in records:
-        digest = rec.get("text_sha256")
-        body = texts.get(digest) if digest else None
-        sr = rec.get("source_result") or {}
-        assessed = assess_acquired_lyric(rec["payload"], sr, body, digest)
-        # Merge shared-text collision flags added by flag_shared_text_identities
-        merged_flags = sorted(
-            set(assessed.get("flags") or []) | set(rec["audit"].get("text_quality_flags") or [])
-        )
-        rec["audit"]["text_quality_flags"] = merged_flags
-        flag_counts.update(merged_flags)
-
+        enriched = False
         if digest and body is not None and (sr.get("http_evidence") or []):
-            chain = verify_source_chain(rec["payload"], sr, body, digest, root)
+            if preverified_chains and cid in preverified_chains:
+                chain = dict(preverified_chains[cid])
+            else:
+                chain = verify_source_chain(rec["payload"], sr, body, digest, root)
+                enriched = _enrich_genius_metadata_from_evidence(rec["payload"], sr, chain)
+            if not enriched and chain.get("status") == "raw_evidence_unresolved":
+                _inspect_unresolved_genius_mismatch(rec["payload"], sr, root)
         elif digest:
             chain = {"status": "no_http_evidence_recorded"}
         else:
             chain = {"status": "unavailable"}
+        pass1_chains[cid] = (chain, enriched)
+
+        rec["audit"] = audit_saved_result(rec["payload"], sr)
+        assessed = assess_acquired_lyric(rec["payload"], sr, body, digest)
+        rec["audit"]["text_quality_flags"] = sorted(
+            set(assessed.get("flags") or []) | set(native_flags)
+        )
+        rec["audit"]["source_quarantined"] = bool(
+            assessed.get("source_quarantined", rec["audit"].get("source_quarantined"))
+        )
+        rec["audit"]["native_evidence"] = native_ev
+        rec["audit"]["independent_source_concordance"] = concordance_map.get(
+            cid,
+            {
+                "concordant": False,
+                "both_sources_preserved": False,
+                "remaining_edition_uncertainty": True,
+                "recording_transcription_proven": False,
+            },
+        )
+
+    # Flag cross-identity text collisions and shared provider IDs across distinct editions
+    collisions = flag_shared_text_identities(records)
+    shared_provider_collisions = _flag_shared_provider_editions(records, proofs)
+
+    for rec in records:
+        cid = rec["candidate_id"]
+        digest = rec.get("text_sha256")
+        body = texts.get(digest) if digest else None
+        sr = rec.get("source_result") or {}
+        native_ok, native_flags, native_ev = pass1_native[cid]
+        assessed = assess_acquired_lyric(rec["payload"], sr, body, digest)
+        merged_flags = sorted(
+            set(assessed.get("flags") or [])
+            | set(rec["audit"].get("text_quality_flags") or [])
+            | set(native_flags)
+        )
+        rec["audit"]["text_quality_flags"] = merged_flags
+        flag_counts.update(merged_flags)
+
+        chain, enriched = pass1_chains[cid]
+        if enriched and digest and body is not None and (sr.get("http_evidence") or []):
+            chain = verify_source_chain(rec["payload"], sr, body, digest, root)
         chain_counts[chain.get("status") or "unknown"] += 1
 
         raw_hashes = [
@@ -1051,21 +1650,45 @@ def verify_all_candidates(
             for ev in sr.get("http_evidence", [])
             if ev.get("status") == 200 and ev.get("body_sha256")
         ]
-        # Recompute state cleanly incorporating shared-text flags
         qstate = assessed["quality_state"]
         if (
             digest
-            and (
-                "same_text_different_titles" in merged_flags
-                or "same_text_different_performers" in merged_flags
+            and any(
+                f in merged_flags
+                for f in (
+                    "same_text_different_titles",
+                    "same_text_different_performers",
+                    "native_title_disagreement",
+                    "native_artist_disagreement",
+                    "recording_duration_mismatch",
+                    "shared_provider_id_across_editions",
+                )
             )
             and qstate == "acquired_unverified"
         ):
             qstate = "identity_conflict"
+        elif (
+            digest
+            and "suspected_duplicated_container_halves" in merged_flags
+            and qstate == "acquired_unverified"
+        ):
+            qstate = "suspected_partial"
         if rec["audit"].get("source_quarantined"):
             tech_status = "quarantined_corrupt_source"
         else:
             tech_status = qstate
+
+        auto_val = assess_lyric_identity_completeness(rec, body, chain)
+        auto_val["assessed_at"] = now_iso
+        auto_val["source_chain_evidence"] = {
+            "source_url": chain.get("source_url"),
+            "errors": chain.get("errors", []),
+            "validator_error_type": chain.get("error_type"),
+        }
+        rec["audit"]["automated_validation"] = auto_val
+        auto_counts[f"identity_{auto_val['identity']['status']}"] += 1
+        auto_counts[f"completeness_{auto_val['completeness']['status']}"] += 1
+        auto_counts[f"overall_{auto_val['automated_overall']}"] += 1
 
         rec["audit"]["technical_verification"] = {
             "quality_state": tech_status,
@@ -1073,10 +1696,43 @@ def verify_all_candidates(
             "raw_response_sha256": chain.get("evidence_sha256")
             or (raw_hashes[-1] if raw_hashes else None),
             "extracted_text_sha256": digest,
+            "exact_text_hash_match": chain.get("exact_text_hash_match"),
             "parser_version": PARSER_VERSION,
+            "quality_audit_version": QUALITY_AUDIT_VERSION,
+            "text_quality_version": TEXT_QUALITY_VERSION,
+            "validation_version": VALIDATION_VERSION,
             "scientific_approval_status": "not_approved",
             "classification_eligibility": "blocked_pending_gates",
             "verified_at": now_iso,
+        }
+        rec["audit"]["incorporation_record"] = {
+            "candidate_id": cid,
+            "selection_hash": selection_hash,
+            "original_text_sha256": sr.get("replaces_text_sha256"),
+            "replacement_text_sha256": digest,
+            "native_evidence": native_ev,
+            "completeness_evidence": auto_val["completeness"],
+            "parser_and_rule_hashes": {
+                "parser_version": PARSER_VERSION,
+                "quality_audit_version": QUALITY_AUDIT_VERSION,
+                "text_quality_version": TEXT_QUALITY_VERSION,
+                "validation_version": VALIDATION_VERSION,
+            },
+            "per_dimension_decisions": {
+                "identity": auto_val["identity"]["status"],
+                "completeness": auto_val["completeness"]["status"],
+                "source_text_integrity": auto_val["source_text_integrity"]["status"],
+                "native_recording_proof": (
+                    "passed"
+                    if native_ok
+                    and not any(
+                        f.startswith("native_") or f == "recording_duration_mismatch"
+                        for f in merged_flags
+                    )
+                    else "failed_or_missing"
+                ),
+                "recording_transcription_proven": False,
+            },
         }
         status_counts[tech_status] += 1
 
@@ -1084,9 +1740,11 @@ def verify_all_candidates(
         "total_candidates": len(records),
         "candidates_with_text": sum(bool(r.get("text_sha256")) for r in records),
         "shared_text_collisions": len(collisions),
+        "shared_provider_id_collisions": len(shared_provider_collisions),
         "technical_status_counts": dict(status_counts),
         "source_chain_counts": dict(chain_counts),
-        "top_quality_flags": dict(flag_counts.most_common(20)),
+        "automated_validation_counts": dict(auto_counts),
+        "top_quality_flags": dict(flag_counts.most_common(25)),
     }
     return records, summary
 

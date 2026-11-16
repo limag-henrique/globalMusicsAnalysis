@@ -156,7 +156,9 @@ def test_reconcile_v4_runs_scores_evidence_rather_than_newest_wins(tmp_path: Pat
         "SPOTIFY:3", "Gamma", "Artist C", [{"country_code": "UG", "year": 2024, "position": 3}]
     )
 
-    txt_clean = "Verse one complete lyric line repeated with melody\n" * 12
+    txt_clean = "\n".join(
+        f"Verse {i} complete lyric line with distinct melody and words" for i in range(1, 13)
+    )
     txt_letras = "Texto antigo em quarentena LETRAS"
     sha_clean = _sha256(txt_clean)
     sha_letras = _sha256(txt_letras)
@@ -368,7 +370,9 @@ def test_prioritized_queue_puts_deficient_cells_and_multi_memberships_first() ->
 
 def test_accept_replacement_records_quarantined_change_ledger(tmp_path: Path) -> None:
     lyric_old = "Letra antiga incompleta LETRAS"
-    lyric_new = "Verse one complete lyric line repeated with melody\n" * 12
+    lyric_new = "\n".join(
+        f"Verse {i} complete lyric line with distinct melody and words" for i in range(1, 13)
+    )
     payload = _make_payload(
         "SPOTIFY:q1", "Song Q", "Artist Q", [{"country_code": "BR", "year": 2022, "position": 1}]
     )

@@ -138,6 +138,6 @@ def test_collect_all_preserves_disagreeing_sources_without_claiming_validation(t
     assert result["completeness_validated"] is False
     for variant in result["variants"]:
         assert len(variant["original_text_sha256"]) == 64
-        assert variant["derivative_version"] == "lyrics-text-quality-v3"
+        assert variant["derivative_version"] == "lyrics-text-quality-v4"
         assert variant["extraction_method"] == "conventional_api_or_html"
         assert isinstance(variant["transformations"], list)

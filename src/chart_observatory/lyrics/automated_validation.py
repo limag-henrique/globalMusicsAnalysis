@@ -12,7 +12,7 @@ from chart_observatory.lyrics.quota_acquisition import (
 )
 from chart_observatory.lyrics.quota_discovery import match_lrclib_credit_binding
 
-VALIDATION_VERSION = "lyric-identity-completeness-v1"
+VALIDATION_VERSION = "lyric-identity-completeness-v2-strict"
 
 _IDENTITY_BLOCKERS = {
     "requested_title_or_artist_metadata_mismatch",
@@ -24,6 +24,10 @@ _IDENTITY_BLOCKERS = {
     "recording_duration_mismatch",
     "same_text_different_titles",
     "same_text_different_performers",
+    "native_title_disagreement",
+    "native_artist_disagreement",
+    "native_recording_proof_missing",
+    "shared_provider_id_across_editions",
 }
 _COMPLETENESS_BLOCKERS = {
     "explicit_partial_lyrics_notice",
@@ -33,6 +37,9 @@ _COMPLETENESS_BLOCKERS = {
     "very_short_text",
     "stored_text_hash_mismatch",
     "source_result_hash_mismatch",
+    "remaining_interface_residue",
+    "remaining_encoded_entity",
+    "suspected_duplicated_container_halves",
 }
 
 
@@ -125,14 +132,7 @@ def assess_lyric_identity_completeness(
     )
 
     provider_identity_ok, provider_identity_reasons = _valid_provider_identity(record, source_chain)
-    # The fresh native-ID/credit binding below supersedes these legacy metadata-only warnings.
-    if provider_identity_ok and source_integrity_ok:
-        blockers_identity -= {
-            "requested_collaboration_credits_unverified",
-            "full_provider_performer_evidence_missing",
-            "page_identity_scope_unverified",
-            "source_identity_evidence_missing",
-        }
+    # Legacy alerts require explicit independently recorded resolution.
     blockers_identity = sorted(blockers_identity)
     identity_pass = (
         source_integrity_ok
@@ -144,7 +144,8 @@ def assess_lyric_identity_completeness(
         "passed"
         if identity_pass
         else "failed"
-        if blockers_identity or any("mismatch" in reason for reason in provider_identity_reasons)
+        if (set(blockers_identity) - {"native_recording_proof_missing"})
+        or any("mismatch" in reason for reason in provider_identity_reasons)
         else "pending"
     )
 
@@ -180,6 +181,8 @@ def assess_lyric_identity_completeness(
     completeness_pass = (
         source_integrity_ok
         and provider_field_replayed
+        and exact_replay
+        and provider_declares_complete
         and not blockers_complete
         and not audit.get("source_quarantined")
     )
@@ -230,6 +233,25 @@ def assess_lyric_identity_completeness(
             "blocking_quality_flags": blockers_complete,
         },
         "automated_overall": overall,
+        "native_recording_alignment": {
+            "native_proof_present": "native_recording_proof_missing" not in flags,
+            "native_title_disagreement": "native_title_disagreement" in flags,
+            "native_artist_disagreement": "native_artist_disagreement" in flags,
+            "recording_duration_mismatch": "recording_duration_mismatch" in flags,
+            "shared_provider_id_across_editions": "shared_provider_id_across_editions" in flags,
+        },
+        "effective_proof": {
+            "recording_transcription_proven": False,
+            "official_edition_bound_transcription": False,
+            "qualified_audio_transcription_review": False,
+            "independent_source_concordance": bool(
+                (audit.get("independent_source_concordance") or {}).get("concordant")
+            ),
+            "both_sources_preserved": bool(
+                (audit.get("independent_source_concordance") or {}).get("both_sources_preserved")
+            ),
+            "remaining_edition_uncertainty": True,
+        },
         "scientific_approval_status": "not_approved",
         "classification_eligibility": "blocked_pending_gates",
         "limitations": [

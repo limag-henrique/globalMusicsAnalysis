@@ -2,6 +2,22 @@
 
 Research observatory and analytical platform for global music charts, popularity dynamics, and automated lyrical classification.
 
+## Entrada consolidada — 16/11/2026
+
+As três operações agora têm uma entrada única, com retomada e catálogo compartilhado:
+
+```powershell
+.venv/Scripts/python.exe scripts/run_final_pipeline.py rankings
+.venv/Scripts/python.exe scripts/run_final_pipeline.py lyrics
+.venv/Scripts/python.exe scripts/run_final_pipeline.py vertex
+```
+
+Consulte [configuração, reaproveitamento do AntiGravity e pendências reais](docs/operations/final-pipeline.md).
+O teto desta entrada é de **150.000 músicas preparadas para classificação**.
+Letras parciais e identidades não verificadas permanecem pendentes. A preparação
+não dispara cobrança no Vertex. As seções históricas abaixo descrevem versões
+anteriores e não substituem esse limite de quantidade nem o relatório atual.
+
 ## Execução em outro computador — nova fase de 30/10/2026
 
 Para transferir por pendrive, instalar o ambiente do zero, restaurar o banco,

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import sqlite3
 import subprocess
 import sys
@@ -17,7 +18,10 @@ from sqlalchemy import create_engine
 
 from chart_observatory import research_database_health as db_health
 from chart_observatory.config import Settings
+from chart_observatory.lyrics.automated_validation import VALIDATION_VERSION
+from chart_observatory.lyrics.corpus_quality import QUALITY_AUDIT_VERSION
 from chart_observatory.lyrics.inventory_export import (
+    PARSER_VERSION,
     rebuild_inventory_outputs,
     write_queues_and_change_ledger,
 )
@@ -34,6 +38,8 @@ from chart_observatory.lyrics.recovery_pipeline import (
     run_offline_store_and_cache_pass,
     verify_all_candidates,
 )
+from chart_observatory.lyrics.revision_protocol import NORMALIZATION_VERSION
+from chart_observatory.lyrics.text_quality import TEXT_QUALITY_VERSION
 from chart_observatory.research_flow import file_hash, load_selection
 from chart_observatory.runtime_status import publish_status
 
@@ -47,7 +53,7 @@ DEFAULT_V5_SELECTION = (
     / "data/derived/annual_revision/global-rescan-2018-2026-20261115-v5-published-provisional-0003"
 )
 DEFAULT_CAMPAIGN_DIR = (
-    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115"
+    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261116-remediated"
 )
 DEFAULT_OUTPUT_DIR = ROOT / "outputs/inventario-musicas-pais-ano-20261115"
 DEFAULT_COLLAB_DIR = ROOT / "data/runtime/antigravity-collaboration-20261115"
@@ -88,7 +94,28 @@ LEGACY_STORES = [
     ROOT / "data/derived/lyrics/low-coverage-native-20261115",
     ROOT / "data/derived/lyrics/low-coverage-native-agy-20261115",
     ROOT / "data/derived/lyrics/quota-20261030",
+    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/store-v4",
+    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/store-v5",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/full-corpus-acquisition-20261116/v4-store",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/full-corpus-acquisition-20261116/v5-store",
 ]
+
+EXTRA_CACHE_SOURCES = (
+    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/offline-cache-v4",
+    ROOT / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/offline-cache-v5",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/store-v4/http-cache",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/pipeline-run-20261115/store-v5/http-cache",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/full-corpus-acquisition-20261116"
+    / "v4-store/http-cache",
+    ROOT
+    / "data/runtime/antigravity-collaboration-20261115/full-corpus-acquisition-20261116"
+    / "v5-store/http-cache",
+)
 
 NATIVE_METADATA_DBS = [
     ROOT / "data/raw/metadata_resolution/20261031/native-metadata.sqlite",
@@ -232,24 +259,135 @@ def _export_review_packets(
     }
 
 
+def _checkpoint_code_contract(
+    v4_selection: Path | None = None,
+    v5_selection: Path | None = None,
+) -> dict[str, Any]:
+    paths = [
+        Path(__file__),
+        ROOT / "scripts/validate_lyric_identity_completeness.py",
+        ROOT / "scripts/verify_lyric_staging_mirror.py",
+        *sorted((ROOT / "src/chart_observatory/lyrics").glob("*.py")),
+    ]
+    git_head = None
+    try:
+        git_head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+        ).strip()
+    except (OSError, subprocess.SubprocessError):
+        git_head = None
+    native_hashes = {
+        str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in NATIVE_METADATA_DBS
+        if p.is_file()
+    }
+    selection_hashes: dict[str, str] = {}
+    for label, sel_dir in (("v4", v4_selection), ("v5", v5_selection)):
+        if sel_dir is None:
+            continue
+        for fname in ("manifest.json", "combined.jsonl", "countries.json"):
+            fpath = sel_dir / fname
+            if fpath.is_file():
+                selection_hashes[f"{label}/{fname}"] = hashlib.sha256(
+                    fpath.read_bytes()
+                ).hexdigest()
+    return {
+        "git_head": git_head,
+        "versions": {
+            "parser_version": PARSER_VERSION,
+            "quality_audit_version": QUALITY_AUDIT_VERSION,
+            "text_quality_version": TEXT_QUALITY_VERSION,
+            "validation_version": VALIDATION_VERSION,
+            "normalization_version": NORMALIZATION_VERSION,
+        },
+        "files": {
+            str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in paths
+            if path.is_file()
+        },
+        "native_evidence_dbs": native_hashes,
+        "selection_manifests": selection_hashes,
+    }
+
+
 def _save_stage_checkpoint(
     checkpoint_dir: Path,
     name: str,
     records: dict[str, dict[str, Any]],
     texts: dict[str, str],
+    *,
+    code_contract: dict[str, Any] | None = None,
+    upstream_sha256: str | None = None,
 ) -> Path:
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     path = checkpoint_dir / f"{name}.json"
     tmp = path.with_suffix(".part")
-    payload = {"records": records, "texts": texts}
+    payload = {
+        "records": records,
+        "texts": texts,
+        "code_contract": code_contract or _checkpoint_code_contract(),
+        "upstream_sha256": upstream_sha256,
+    }
     tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     tmp.replace(path)
     return path
 
 
-def _load_stage_checkpoint(path: Path) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+def _load_stage_checkpoint(
+    path: Path,
+    *,
+    code_contract: dict[str, Any] | None = None,
+    expected_upstream_sha256: str | None = None,
+) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
     data = json.loads(path.read_text(encoding="utf-8"))
+    expected = code_contract or _checkpoint_code_contract()
+    if data.get("code_contract") != expected:
+        raise ValueError(
+            "Checkpoint code/input contract missing or changed; rebuild dependent stages: "
+            + str(path)
+        )
+    if (
+        expected_upstream_sha256 is not None
+        and data.get("upstream_sha256") != expected_upstream_sha256
+    ):
+        raise ValueError(
+            "Checkpoint upstream lineage changed; rebuild dependent stages: " + str(path)
+        )
     return data["records"], data["texts"]
+
+
+def _archive_invalidated_checkpoints(
+    campaign_dir: Path,
+    checkpoint_paths: list[Path],
+    *,
+    reason: str,
+    expected_upstream: dict[str, str],
+) -> Path:
+    """Preserve stale dependent checkpoints before a safe rebuild overwrites them."""
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
+    archive_dir = campaign_dir / "checkpoints" / "invalidated" / f"{stamp}-technical-verification"
+    archive_dir.mkdir(parents=True, exist_ok=False)
+    archived: list[dict[str, str]] = []
+    for path in checkpoint_paths:
+        if not path.is_file():
+            continue
+        destination = archive_dir / path.name
+        shutil.copy2(path, destination)
+        archived.append(
+            {"source": str(path), "archive": str(destination), "sha256": file_hash(path)}
+        )
+    publish_status(
+        archive_dir / "invalidation.json",
+        {
+            "schema_version": "pipeline-checkpoint-invalidation-v1",
+            "created_at": datetime.now(UTC).isoformat(),
+            "reason": reason,
+            "expected_upstream_sha256": expected_upstream,
+            "archived_files": archived,
+            "action": "dependent stages rebuilt from current in-memory acquisition checkpoints",
+        },
+    )
+    return archive_dir
 
 
 def _verify_mirror_subprocess(sqlite_path: Path, run_id: str, out_json: Path) -> dict[str, Any]:
@@ -522,6 +660,7 @@ def main() -> None:
     checkpoints.mkdir(parents=True, exist_ok=True)
 
     engine = create_engine(Settings.load(ROOT).database_url, connect_args={"connect_timeout": 15})
+    contract = _checkpoint_code_contract(v4_selection, v5_selection)
     change_ledger_rows: list[dict[str, Any]] = []
     ledger_ckpt = checkpoints / "change_ledger.json"
     if args.resume and ledger_ckpt.exists():
@@ -550,7 +689,7 @@ def main() -> None:
         reconcile_ckpt = checkpoints / "v4_reconciled.json"
         reconcile_report_path = campaign_dir / "reconciliation-report.json"
         if args.resume and reconcile_ckpt.exists() and reconcile_report_path.exists():
-            v4_records, v4_texts = _load_stage_checkpoint(reconcile_ckpt)
+            v4_records, v4_texts = _load_stage_checkpoint(reconcile_ckpt, code_contract=contract)
             reconciliation = json.loads(reconcile_report_path.read_text(encoding="utf-8"))
         else:
             v4_records, v4_texts, reconciliation, diff_ledger = reconcile_v4_staging_runs(
@@ -569,19 +708,32 @@ def main() -> None:
                 ROOT,
             )
             change_ledger_rows.extend(diff_ledger)
-            _save_stage_checkpoint(checkpoints, "v4_reconciled", v4_records, v4_texts)
+            _save_stage_checkpoint(
+                checkpoints, "v4_reconciled", v4_records, v4_texts, code_contract=contract
+            )
             publish_status(reconcile_report_path, reconciliation)
             ledger_ckpt.write_text(
                 json.dumps(change_ledger_rows, ensure_ascii=False), encoding="utf-8"
             )
+        reconcile_sha = file_hash(reconcile_ckpt)
 
         v5_ckpt = checkpoints / "v5_initial.json"
         if args.resume and v5_ckpt.exists():
-            v5_records, v5_texts = _load_stage_checkpoint(v5_ckpt)
+            v5_records, v5_texts = _load_stage_checkpoint(
+                v5_ckpt, code_contract=contract, expected_upstream_sha256=reconcile_sha
+            )
             v5_only_ids = {k for k in v5_records if k not in v4_records}
         else:
             v5_records, v5_texts, v5_only_ids = build_v5_records(v5_selection, v4_records, v4_texts)
-            _save_stage_checkpoint(checkpoints, "v5_initial", v5_records, v5_texts)
+            _save_stage_checkpoint(
+                checkpoints,
+                "v5_initial",
+                v5_records,
+                v5_texts,
+                code_contract=contract,
+                upstream_sha256=reconcile_sha,
+            )
+        v5_init_sha = file_hash(v5_ckpt)
 
         if args.stage == "inventory":
             print(json.dumps({"stage": "inventory", "reconciliation": reconciliation}, indent=2))
@@ -604,8 +756,12 @@ def main() -> None:
             and v5_acq_ckpt.exists()
             and acq_stats_path.exists()
         ):
-            v4_records, v4_texts = _load_stage_checkpoint(v4_acq_ckpt)
-            v5_records, v5_texts = _load_stage_checkpoint(v5_acq_ckpt)
+            v4_records, v4_texts = _load_stage_checkpoint(
+                v4_acq_ckpt, code_contract=contract, expected_upstream_sha256=reconcile_sha
+            )
+            v5_records, v5_texts = _load_stage_checkpoint(
+                v5_acq_ckpt, code_contract=contract, expected_upstream_sha256=v5_init_sha
+            )
             acquisition_stats = json.loads(acq_stats_path.read_text(encoding="utf-8"))
             if args.continue_live and not args.skip_live:
                 v5_extra_map = {k: v5_records[k] for k in sorted(v5_only_ids)}
@@ -621,6 +777,7 @@ def main() -> None:
                     workers=args.workers,
                     label="v4_cont",
                     exclude_exhausted_stores=exhausted_v4,
+                    extra_cache_sources=EXTRA_CACHE_SOURCES,
                 )
                 v5_live_cont = run_bounded_live_recovery(
                     v5_extra_map,
@@ -632,6 +789,7 @@ def main() -> None:
                     max_seconds=args.max_seconds,
                     workers=args.workers,
                     label="v5_si_cont",
+                    extra_cache_sources=EXTRA_CACHE_SOURCES,
                 )
                 for cid, rec in v4_records.items():
                     if cid in v5_records:
@@ -642,8 +800,22 @@ def main() -> None:
                     v5_records[cid] = rec
                 acquisition_stats["v4_live_cont"] = v4_live_cont
                 acquisition_stats["v5_live_cont"] = v5_live_cont
-                _save_stage_checkpoint(checkpoints, "v4_acquired", v4_records, v4_texts)
-                _save_stage_checkpoint(checkpoints, "v5_acquired", v5_records, v5_texts)
+                _save_stage_checkpoint(
+                    checkpoints,
+                    "v4_acquired",
+                    v4_records,
+                    v4_texts,
+                    code_contract=contract,
+                    upstream_sha256=reconcile_sha,
+                )
+                _save_stage_checkpoint(
+                    checkpoints,
+                    "v5_acquired",
+                    v5_records,
+                    v5_texts,
+                    code_contract=contract,
+                    upstream_sha256=v5_init_sha,
+                )
                 publish_status(acq_stats_path, acquisition_stats)
                 ledger_ckpt.write_text(
                     json.dumps(change_ledger_rows, ensure_ascii=False), encoding="utf-8"
@@ -657,6 +829,7 @@ def main() -> None:
                 LEGACY_STORES,
                 change_ledger_rows,
                 label="v4",
+                extra_cache_sources=EXTRA_CACHE_SOURCES,
             )
             # Only process distinct v5-only (Slovenia IPF) targets in v5 acquisition passes
             v5_extra_map = {k: v5_records[k] for k in sorted(v5_only_ids)}
@@ -668,6 +841,7 @@ def main() -> None:
                 LEGACY_STORES,
                 change_ledger_rows,
                 label="v5_si",
+                extra_cache_sources=EXTRA_CACHE_SOURCES,
             )
 
             if args.skip_live:
@@ -686,6 +860,7 @@ def main() -> None:
                     workers=args.workers,
                     label="v4",
                     exclude_exhausted_stores=exhausted_v4,
+                    extra_cache_sources=EXTRA_CACHE_SOURCES,
                 )
                 v5_live = run_bounded_live_recovery(
                     v5_extra_map,
@@ -697,6 +872,7 @@ def main() -> None:
                     max_seconds=args.max_seconds,
                     workers=args.workers,
                     label="v5_si",
+                    extra_cache_sources=EXTRA_CACHE_SOURCES,
                 )
 
             v4_pg_fb = apply_pg_v1_clean_fallback(
@@ -728,12 +904,28 @@ def main() -> None:
                 "v4_pg_v1_fallback": v4_pg_fb,
                 "v5_pg_v1_fallback": v5_pg_fb,
             }
-            _save_stage_checkpoint(checkpoints, "v4_acquired", v4_records, v4_texts)
-            _save_stage_checkpoint(checkpoints, "v5_acquired", v5_records, v5_texts)
+            _save_stage_checkpoint(
+                checkpoints,
+                "v4_acquired",
+                v4_records,
+                v4_texts,
+                code_contract=contract,
+                upstream_sha256=reconcile_sha,
+            )
+            _save_stage_checkpoint(
+                checkpoints,
+                "v5_acquired",
+                v5_records,
+                v5_texts,
+                code_contract=contract,
+                upstream_sha256=v5_init_sha,
+            )
             publish_status(acq_stats_path, acquisition_stats)
             ledger_ckpt.write_text(
                 json.dumps(change_ledger_rows, ensure_ascii=False), encoding="utf-8"
             )
+        v4_acq_sha = file_hash(v4_acq_ckpt)
+        v5_acq_sha = file_hash(v5_acq_ckpt)
 
         if args.stage == "acquisition":
             print(json.dumps({"stage": "acquisition", "stats": acquisition_stats}, indent=2))
@@ -750,25 +942,76 @@ def main() -> None:
         v4_ver_ckpt = checkpoints / "v4_verified.json"
         v5_ver_ckpt = checkpoints / "v5_verified.json"
         ver_summary_path = campaign_dir / "verification-summary.json"
-        if (
+        reuse_verification = (
             args.resume
             and v4_ver_ckpt.exists()
             and v5_ver_ckpt.exists()
             and ver_summary_path.exists()
-        ):
-            v4_records, v4_texts = _load_stage_checkpoint(v4_ver_ckpt)
-            v5_records, v5_texts = _load_stage_checkpoint(v5_ver_ckpt)
-            ver_summary = json.loads(ver_summary_path.read_text(encoding="utf-8"))
+        )
+        if reuse_verification:
+            try:
+                verified_v4_records, verified_v4_texts = _load_stage_checkpoint(
+                    v4_ver_ckpt, code_contract=contract, expected_upstream_sha256=v4_acq_sha
+                )
+                verified_v5_records, verified_v5_texts = _load_stage_checkpoint(
+                    v5_ver_ckpt, code_contract=contract, expected_upstream_sha256=v5_acq_sha
+                )
+                ver_summary = json.loads(ver_summary_path.read_text(encoding="utf-8"))
+                v4_records, v4_texts = verified_v4_records, verified_v4_texts
+                v5_records, v5_texts = verified_v5_records, verified_v5_texts
+            except (ValueError, KeyError, json.JSONDecodeError) as error:
+                archive_dir = _archive_invalidated_checkpoints(
+                    campaign_dir,
+                    [v4_ver_ckpt, v5_ver_ckpt, ver_summary_path],
+                    reason=f"resume checkpoint rejected: {type(error).__name__}: {error}",
+                    expected_upstream={"v4": v4_acq_sha, "v5": v5_acq_sha},
+                )
+                print(
+                    json.dumps(
+                        {
+                            "stage": "technical_verification",
+                            "checkpoint_resume": "invalidated_and_rebuilt",
+                            "archived_checkpoints": str(archive_dir),
+                        }
+                    ),
+                    flush=True,
+                )
+                reuse_verification = False
+        if reuse_verification:
             v4_rec_list = [v4_records[k] for k in sorted(v4_records)]
             v5_rec_list = [v5_records[k] for k in sorted(v5_records)]
         else:
-            v4_rec_list, v4_ver = verify_all_candidates(v4_records, v4_texts, ROOT)
-            v5_rec_list, v5_ver = verify_all_candidates(v5_records, v5_texts, ROOT)
+            v4_rec_list, v4_ver = verify_all_candidates(
+                v4_records,
+                v4_texts,
+                ROOT,
+                selection_hash=file_hash(v4_selection / "manifest.json"),
+            )
+            v5_rec_list, v5_ver = verify_all_candidates(
+                v5_records,
+                v5_texts,
+                ROOT,
+                selection_hash=file_hash(v5_selection / "manifest.json"),
+            )
             v4_records = {r["candidate_id"]: r for r in v4_rec_list}
             v5_records = {r["candidate_id"]: r for r in v5_rec_list}
             ver_summary = {"v4": v4_ver, "v5": v5_ver}
-            _save_stage_checkpoint(checkpoints, "v4_verified", v4_records, v4_texts)
-            _save_stage_checkpoint(checkpoints, "v5_verified", v5_records, v5_texts)
+            _save_stage_checkpoint(
+                checkpoints,
+                "v4_verified",
+                v4_records,
+                v4_texts,
+                code_contract=contract,
+                upstream_sha256=v4_acq_sha,
+            )
+            _save_stage_checkpoint(
+                checkpoints,
+                "v5_verified",
+                v5_records,
+                v5_texts,
+                code_contract=contract,
+                upstream_sha256=v5_acq_sha,
+            )
             publish_status(ver_summary_path, ver_summary)
 
         if args.stage == "technical_verification":
@@ -816,6 +1059,7 @@ def main() -> None:
             extra_manifest={
                 "updated_at": datetime.now(UTC).isoformat(),
                 "selection_version": "v4-final-0002",
+                "code_contract": contract,
             },
         )
         v5_persist = persist_verified_staging(
@@ -829,6 +1073,7 @@ def main() -> None:
             extra_manifest={
                 "updated_at": datetime.now(UTC).isoformat(),
                 "selection_version": "v5-published-provisional-0003",
+                "code_contract": contract,
             },
         )
         v4_mirror = _verify_mirror_subprocess(
