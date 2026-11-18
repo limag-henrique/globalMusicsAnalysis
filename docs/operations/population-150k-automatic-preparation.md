@@ -78,11 +78,11 @@ verificado e ausência de alertas de qualidade, quarentena e conflitos no corpus
 Uma transcrição de áudio não é alegada como comprovada por esses testes.
 
 A auditoria completa v10 com os lotes e a recuperação complementar identificou
-20.632 músicas aptas à preparação técnica, com 56.481 vínculos país/ano. A preparação já foi materializada em
-`data/runtime/automatic-vertex-population-150k-20261116-03-v10-acquisition-final`.
+21.422 músicas aptas à preparação técnica, com 57.289 vínculos país/ano. A preparação já foi materializada em
+`data/runtime/automatic-vertex-population-150k-d81d6e27ae064c1ab2d6a002afb6c866`.
 O pacote contém jobs privados por referência, contrato compartilhado, tabela de
-posições prontas por país/ano e `vertex-requests.jsonl` com 20.632 requests
-completos (852.960.847 bytes). O JSONL materializa letras nas requests; o arquivo
+posições prontas por país/ano e `vertex-requests.jsonl` com 21.422 requests
+completos (885.123.109 bytes). O JSONL materializa letras nas requests; o arquivo
 `jobs.private.jsonl` mantém referências sem copiar letras. Não houve upload nem
 inferência do Vertex.
 
@@ -98,9 +98,9 @@ históricas e não representa aprovação dos gates científicos G1–G5.
 ## Estado de execução em 16/11/2026
 
 - A auditoria integral v10, após incorporar os lotes e o worker de recuperação,
-  terminou com 27.165 músicas: 25.143 com texto, 2.022 sem texto, 20.632 aptas à
+  terminou com 27.165 músicas: 25.143 com texto, 2.022 sem texto, 21.422 aptas à
   preparação técnica e zero erros de validador. As 1.231 letras encontradas pelo
-  worker foram reavaliadas; 150 músicas adicionais passaram todos os critérios
+  worker foram reavaliadas; 790 músicas adicionais passaram todos os critérios
   automáticos para preparação. Aprovação científica continua separada. Foram
   sinalizados 197 possíveis inícios em seção intermediária, 86 letras dominadas
   por refrão repetido e 40 duplicações de metade; as categorias se sobrepõem e
@@ -108,6 +108,13 @@ históricas e não representa aprovação dos gates científicos G1–G5.
 - O lote de recuperação terminou com 1.231 resultados de texto candidatos e
   2.022 músicas sem texto verificável. Os candidatos ainda não aprovados ficam
   fora da classificação Vertex.
+- O relatório `data/runtime/final-pipeline/lyrics-report.json` registra 19.349
+  aprovações na checagem de identidade/completude sobre o resultado consolidado
+  do catálogo. Essa métrica não é intercambiável com as 21.422 aprovações do
+  auditor 07: em 3.466 casos aptos no auditor de fonte específica, o catálogo
+  ainda tinha metadados de completude pendentes, embora o staging v5 usado na
+  auditoria reproduzisse o campo completo do provedor. O pacote Vertex usa as
+  referências e evidências do auditor 07.
 - A atualização corrente de charts tentou 498 país/fonte (Spotify e YouTube,
   249 países/territórios): 89 completas, 33 parciais, 86 falhas de consulta e
   290 fontes indisponíveis. Os charts atuais datam de 14/11 (Spotify) e 12/11

@@ -1,0 +1,12 @@
+# Apple Music Top Songs of 2019: China, Hong Kong–Macau, Taiwan, and Singapore
+
+Date consulted: 2026-11-17 UTC. Each direct market storefront returned HTTP 200 and its serialized playlist data exposed 100 consecutive `rankingText` positions (1–100). Track links use the matching storefront (`cn`, `hk`, `tw`, or `sg`).
+
+| Published market | Official Apple Music page | Ranked positions | Page bytes | Source-page SHA-256 |
+|---|---|---:|---:|---|
+| Mainland China (CN) | [2019 年度最热歌曲：中国内地](https://music.apple.com/cn/playlist/2019-%E5%B9%B4%E5%BA%A6%E6%9C%80%E7%83%AD%E6%AD%8C%E6%9B%B2-%E4%B8%AD%E5%9B%BD%E5%86%85%E5%9C%B0/pl.030f37a30a0b431fa899573dc50d6833) | 1–100 | 707,130 | `5b13e63fefeaf32751a6880a3a6e3985497d344c5a7de8828cb9d61322b8d09d` |
+| Hong Kong and Macau (combined) | [2019 百大熱門歌曲：港澳](https://music.apple.com/hk/playlist/2019-%E7%99%BE%E5%A4%A7%E7%86%B1%E9%96%80%E6%AD%8C%E6%9B%B2-%E6%B8%AF%E6%BE%B3/pl.11711db88c974479800ad4870cc68dd6) | 1–100 | 716,853 | `3f86cad81d7159443be40a13504fae0cae73b16ddd1fe0f983a01f324a39da16` |
+| Taiwan (TW) | [2019 百大熱門歌曲：台灣](https://music.apple.com/tw/playlist/2019-%E7%99%BE%E5%A4%A7%E7%86%B1%E9%96%80%E6%AD%8C%E6%9B%B2-%E5%8F%B0%E7%81%A3/pl.e276b07a9b1942e4a3e329b9adca528f) | 1–100 | 715,344 | `dc1b456131538c151c205598d61353bb8f9459ea6c7448ecb40540be6a623652` |
+| Singapore (SG) | [Top Songs of 2019: Singapore](https://music.apple.com/sg/playlist/top-songs-of-2019-singapore/pl.efc6c32cf6ec47bcb2d3af72a518c207) | 1–100 | 694,066 | `7a25baa785e617b2a2778b26b00a9d8f65aa53d8465ce8e166f10e7152cde871` |
+
+Page bodies, ranked rows, and local Apple song IDs are preserved in [`apple-music-cn-2019-annual`](../data/derived/annual_revision/provider_series/apple-music-cn-2019-annual/), [`apple-music-hk-mo-2019-annual`](../data/derived/annual_revision/provider_series/apple-music-hk-mo-2019-annual/), [`apple-music-tw-2019-annual`](../data/derived/annual_revision/provider_series/apple-music-tw-2019-annual/), and [`apple-music-sg-2019-annual`](../data/derived/annual_revision/provider_series/apple-music-sg-2019-annual/). Apple provides no exact chart-period start or end dates for these pages; both remain null. Each is a separate Apple Music series and none is merged into Spotify/YouTube positions. The Hong Kong–Macau playlist spans two territories, so its standardized `chart_market_code` remains null rather than assigning the combined series to Hong Kong alone.

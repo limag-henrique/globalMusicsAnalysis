@@ -414,7 +414,9 @@ def import_store(db, store, project):
             merged_payload, payload_changed = _merge_native_metadata(old, new)
             if target[1]:
                 old_result = json.loads(target[1])
-                if old_result.get("text_sha256") == result.get("text_sha256"):
+                old_score = _score_result(merged_payload, old_result, project)
+                new_score = _score_result(merged_payload, result, project)
+                if new_score <= old_score:
                     if payload_changed:
                         with db:
                             db.execute(
@@ -422,17 +424,18 @@ def import_store(db, store, project):
                                 (encode(merged_payload), key),
                             )
                     continue
-                old_score = _score_result(merged_payload, old_result, project)
-                new_score = _score_result(merged_payload, result, project)
-                if new_score <= old_score:
-                    continue
+                reason = (
+                    "same_text_store_evidence_enriched"
+                    if old_result.get("text_sha256") == result.get("text_sha256")
+                    else "store_evidence_improved"
+                )
                 with db:
                     _record_replacement(
                         db,
                         key,
                         old_result,
                         result,
-                        "store_evidence_improved",
+                        reason,
                         old_score,
                         new_score,
                     )
@@ -507,42 +510,6 @@ def import_staging(db, path, run_id, project):
                                 )
                             continue
                         new_audit = json.loads(audit_json)
-                        new_auto = (new_audit.get("automated_validation") or {}).get(
-                            "automated_overall"
-                        )
-                        if old_result.get("text_sha256") == sha and old_ref:
-                            if new_auto != "passed":
-                                if payload_changed:
-                                    db.execute(
-                                        "UPDATE songs SET payload=? WHERE id=?",
-                                        (encode(merged_payload), key),
-                                    )
-                                continue
-                            ref_db_path = str(Path(old_ref["database"]).resolve())
-                            if ref_db_path not in ref_conns:
-                                ref_conns[ref_db_path] = sqlite3.connect(
-                                    Path(ref_db_path).as_uri() + "?mode=ro", uri=True
-                                )
-                            old_row = (
-                                ref_conns[ref_db_path]
-                                .execute(
-                                    "SELECT audit FROM quota_lyric_staging_candidates "
-                                    "WHERE run_id=? AND candidate_id=?",
-                                    (old_ref["run_id"], old_ref["candidate_id"]),
-                                )
-                                .fetchone()
-                            )
-                            if old_row:
-                                old_auto = (
-                                    json.loads(old_row[0]).get("automated_validation") or {}
-                                ).get("automated_overall")
-                                if old_auto == "passed":
-                                    if payload_changed:
-                                        db.execute(
-                                            "UPDATE songs SET payload=? WHERE id=?",
-                                            (encode(merged_payload), key),
-                                        )
-                                    continue
                         preloaded = (
                             dict(json.loads(sr_json), text_sha256=sha),
                             body,

@@ -149,9 +149,9 @@ def main(argv=None):
         ),
     )
     if args.materialize:
-        report["materialized_requests"] = materialize(
-            jobs_file, out / "vertex-requests.jsonl", ROOT
-        )
+        request_path = out / "vertex-requests.jsonl"
+        report["materialized_requests"] = materialize(jobs_file, request_path, ROOT)
+        report["materialized_bytes"] = request_path.stat().st_size
     save(out / "report.json", report)
     print(encode(report), flush=True)
 

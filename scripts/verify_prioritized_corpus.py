@@ -198,8 +198,19 @@ def priorities(members):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument(
+        "--catalog",
+        type=Path,
+        default=ROOT / "data/runtime/final-pipeline/catalog.sqlite",
+        help="Read the consolidated catalog at this path.",
+    )
     parser.add_argument("--workers", type=int, default=4, choices=range(1, 9))
     parser.add_argument("--selection", type=Path)
+    parser.add_argument(
+        "--catalog-only",
+        action="store_true",
+        help="Audit the catalog as stored without overlaying configured staging or acquisition inputs.",
+    )
     parser.add_argument(
         "--stage",
         action="append",
@@ -218,9 +229,14 @@ def main():
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "data/runtime"):
         raise ValueError("output must remain in project runtime")
+    catalog_path = args.catalog.resolve()
+    if not catalog_path.is_relative_to(ROOT / "data/runtime"):
+        raise ValueError("catalog must remain inside project runtime")
+    if args.catalog_only and (args.stage or args.acquisition):
+        parser.error("--catalog-only cannot be combined with --stage or --acquisition")
     out.mkdir(parents=True, exist_ok=False)
     config = json.loads((ROOT / "config/final_pipeline.json").read_text())
-    stages = config["staging"]
+    stages = [] if args.catalog_only else config["staging"]
     if args.stage:
         stages = []
         for value in args.stage:
@@ -236,11 +252,11 @@ def main():
         selection_scope = args.selection.resolve()
         _, _, selection_rows, _ = load_selection(selection_scope)
     jobs, members = load_inputs(
-        ROOT / "data/runtime/final-pipeline/catalog.sqlite",
+        catalog_path,
         stages,
         selection_rows=selection_rows,
         selection_scope=selection_scope,
-        acquisitions=args.acquisition,
+        acquisitions=[] if args.catalog_only else args.acquisition,
     )
     order, scope = priorities(members)
     ordered = sorted(jobs, key=lambda cid: order.get(cid, (2, cid)))
@@ -251,6 +267,7 @@ def main():
         out / "inputs.json",
         dict(
             config=config,
+            catalog=str(catalog_path),
             selection=str(selection_scope) if selection_scope else None,
             staging=stages,
             acquisitions=[str(path.resolve()) for path in args.acquisition],
