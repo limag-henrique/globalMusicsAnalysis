@@ -347,20 +347,32 @@ def _merge_native_metadata(old, new):
 
 def _score_result(payload, result, project, *, preloaded=None):
     """Score a result's evidence quality; higher tuple means strictly stronger proof."""
+    from chart_observatory.lyrics.text_quality import recording_duration_mismatch
+
     try:
         check = validate_text(payload, result, project, preloaded=preloaded)
     except ValueError:
-        return (0, 0, 0, -999)
+        return (0, 0, 0, 0, -999)
     ident_ok = check.get("identity", {}).get("status") == "passed"
     comp_ok = check.get("completeness", {}).get("status") == "passed"
     integ_ok = check.get("source_text_integrity", {}).get("status") == "passed"
     blockers = len(check.get("identity", {}).get("blocking_quality_flags") or []) + len(
         check.get("completeness", {}).get("blocking_quality_flags") or []
     )
+    source_result = preloaded[0] if preloaded is not None else read_result(result, project)[0]
+    native_duration = (payload.get("metadata_resolution") or {}).get("duration_ms")
+    provider_duration = (source_result.get("source_metadata") or {}).get("duration_seconds")
+    duration_match = int(
+        isinstance(native_duration, int)
+        and native_duration > 0
+        and provider_duration is not None
+        and not recording_duration_mismatch(native_duration, provider_duration)
+    )
     return (
         int(ident_ok and comp_ok),
         int(ident_ok) + int(comp_ok),
         int(integ_ok),
+        duration_match,
         -blockers,
     )
 
@@ -388,8 +400,13 @@ def _record_replacement(db, key, old_result, new_result, reason, old_score, new_
 def import_store(db, store, project):
     """Read a transactionally consistent live store; only reference verified bodies."""
     from chart_observatory.lyrics.quota_acquisition import identity
+    from chart_observatory.lyrics.recovery_pipeline import (
+        apply_native_proof_to_record,
+        load_native_spotify_proofs,
+    )
 
     imported = 0
+    native_proofs = load_native_spotify_proofs(project)
     # Recording IDs must agree. No title/artist-only adoption from v1.
     with sqlite3.connect(
         (store / "acquisition.sqlite").resolve().as_uri() + "?mode=ro", uri=True
@@ -412,6 +429,7 @@ def import_store(db, store, project):
             if digest(path.read_bytes()) != result.get("text_sha256"):
                 continue
             merged_payload, payload_changed = _merge_native_metadata(old, new)
+            apply_native_proof_to_record(key, merged_payload, result, native_proofs)
             if target[1]:
                 old_result = json.loads(target[1])
                 old_score = _score_result(merged_payload, old_result, project)
@@ -456,11 +474,16 @@ def import_store(db, store, project):
 def import_staging(db, path, run_id, project):
     """Index an immutable staging run without copying its text or source results."""
     from chart_observatory.lyrics.quota_acquisition import identity
+    from chart_observatory.lyrics.recovery_pipeline import (
+        apply_native_proof_to_record,
+        load_native_spotify_proofs,
+    )
 
     path = path.resolve()
     if not path.is_relative_to(project):
         raise ValueError("staging input outside project")
     imported = 0
+    native_proofs = load_native_spotify_proofs(project)
     ref_conns: dict[str, sqlite3.Connection] = {}
     try:
         with closing(sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)) as source:
@@ -491,6 +514,8 @@ def import_staging(db, path, run_id, project):
                     if digest(body.encode()) != sha:
                         raise ValueError("staging text hash mismatch")
                     merged_payload, payload_changed = _merge_native_metadata(old, new)
+                    source_result = json.loads(sr_json)
+                    apply_native_proof_to_record(key, merged_payload, source_result, native_proofs)
                     result = dict(
                         text_sha256=sha,
                         staging_reference=dict(
@@ -511,7 +536,7 @@ def import_staging(db, path, run_id, project):
                             continue
                         new_audit = json.loads(audit_json)
                         preloaded = (
-                            dict(json.loads(sr_json), text_sha256=sha),
+                            dict(source_result, text_sha256=sha),
                             body,
                             new_audit,
                         )

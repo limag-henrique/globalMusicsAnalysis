@@ -144,7 +144,12 @@ def check_sqlite_canonical(catalog_path: Path, selection_path: Path) -> dict:
         "v10_staging_hash_mismatch": staging_hash_mismatch,
         "v10_staging_missing_ref": staging_missing_ref,
         "v10_song_shas": {
-            cid: (song_rows[cid] or {}).get("text_sha256")
+            cid: {
+                "text_sha256": (song_rows[cid] or {}).get("text_sha256"),
+                "source": (song_rows[cid] or {}).get("source"),
+                "staging_reference": (song_rows[cid] or {}).get("staging_reference"),
+                "text_path": (song_rows[cid] or {}).get("text_path"),
+            }
             for cid in sel_ids
             if cid in song_rows
         },
@@ -206,24 +211,57 @@ def check_postgres_ro(v10_song_shas: dict[str, str | None]) -> dict:
             ):
                 pg_cand_shas.setdefault(cid, set()).add(sha)
 
+            # Also check whether sqlite text_sha256 exists anywhere in pg_lyric_documents.content_sha256
+            pg_doc_shas_all = {
+                r[0]
+                for r in conn.execute(
+                    "SELECT DISTINCT content_sha256 FROM public.lyric_documents WHERE content_sha256 IS NOT NULL"
+                )
+            }
+
             in_both_exact_sha = 0
             in_both_diff_sha = 0
             in_sqlite_not_pg = 0
-            for cid, csha in v10_song_shas.items():
+            discrepancies = []
+            for cid, meta in sorted(v10_song_shas.items()):
+                csha = meta.get("text_sha256")
                 if not csha:
                     continue
                 if cid not in pg_cand_shas:
                     in_sqlite_not_pg += 1
+                    discrepancies.append({
+                        "candidate_id": cid,
+                        "discrepancy_type": "missing_from_pg_staging",
+                        "reason": "expected_snapshot_skew_filesystem_store_or_retry_not_in_pg_staging" if not meta.get("staging_reference") else "staging_reference_missing_in_pg",
+                        "sqlite_text_sha256": csha,
+                        "sqlite_source": meta.get("source"),
+                        "sqlite_staging_run_id": (meta.get("staging_reference") or {}).get("run_id"),
+                        "sqlite_text_path": meta.get("text_path"),
+                        "pg_staging_shas": [],
+                        "in_pg_lyric_documents_content_sha256": csha in pg_doc_shas_all,
+                    })
                 elif csha in pg_cand_shas[cid]:
                     in_both_exact_sha += 1
                 else:
                     in_both_diff_sha += 1
+                    discrepancies.append({
+                        "candidate_id": cid,
+                        "discrepancy_type": "different_sha_in_pg_staging",
+                        "reason": "expected_snapshot_skew_newer_store_or_retry_replacement_in_sqlite" if not meta.get("staging_reference") else "expected_snapshot_skew_newer_staging_run",
+                        "sqlite_text_sha256": csha,
+                        "sqlite_source": meta.get("source"),
+                        "sqlite_staging_run_id": (meta.get("staging_reference") or {}).get("run_id"),
+                        "sqlite_text_path": meta.get("text_path"),
+                        "pg_staging_shas": sorted(pg_cand_shas[cid]),
+                        "in_pg_lyric_documents_content_sha256": csha in pg_doc_shas_all,
+                    })
 
             info["sqlite_vs_pg_staging_parity"] = {
-                "v10_candidates_with_sha_in_sqlite": sum(1 for v in v10_song_shas.values() if v),
+                "v10_candidates_with_sha_in_sqlite": sum(1 for v in v10_song_shas.values() if v.get("text_sha256")),
                 "matched_exact_sha_in_pg_staging": in_both_exact_sha,
                 "present_in_pg_staging_different_sha_snapshot_skew": in_both_diff_sha,
                 "missing_from_pg_staging_snapshot_skew": in_sqlite_not_pg,
+                "discrepancies": discrepancies,
             }
         return info
 
@@ -246,8 +284,25 @@ def main(argv=None):
     sqlite_res = check_sqlite_canonical(args.catalog, args.selection)
     v10_shas = sqlite_res.pop("v10_song_shas")
     pg_res = check_postgres_ro(v10_shas)
+    discrepancies = pg_res["sqlite_vs_pg_staging_parity"].pop("discrepancies", [])
+    disc_path = args.output.with_name("persistence-parity-discrepancies-20261118-01.jsonl")
+    with disc_path.open("w", encoding="utf-8") as df:
+        for d in discrepancies:
+            df.write(json.dumps(d, ensure_ascii=False) + "\n")
+    from collections import Counter
+    pg_res["sqlite_vs_pg_staging_parity"]["discrepancy_reason_counts"] = dict(
+        Counter((d["discrepancy_type"], d["reason"]) for d in discrepancies).most_common()
+    )
+    pg_res["sqlite_vs_pg_staging_parity"]["discrepancies_jsonl"] = str(disc_path)
+    pg_res["sqlite_vs_pg_staging_parity"]["discrepancies_jsonl_sha256"] = hashlib.sha256(
+        disc_path.read_bytes()
+    ).hexdigest()
+    # Serialize tuple keys as strings
+    pg_res["sqlite_vs_pg_staging_parity"]["discrepancy_reason_counts"] = {
+        f"{k[0]}:{k[1]}": v for k, v in Counter((d["discrepancy_type"], d["reason"]) for d in discrepancies).most_common()
+    }
     report = {
-        "schema_version": "persistence-parity-report-v1",
+        "schema_version": "persistence-parity-report-v2",
         "generated_at_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "canonical_sqlite": sqlite_res,
         "postgresql_mirror": pg_res,

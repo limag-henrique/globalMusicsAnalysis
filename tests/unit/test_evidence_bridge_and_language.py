@@ -105,6 +105,73 @@ def test_staging_replacement_upgrades_better_evidence_and_preserves_ledger(tmp_p
         assert cur_after["text_sha256"] == new_sha
 
 
+def test_same_hash_staging_replacement_prefers_native_duration_match(tmp_path):
+    candidate_id = "SPOTIFY:123"
+    track_id = candidate_id.removeprefix("SPOTIFY:")
+    path = tmp_path / "staging.sqlite"
+    text = "Full verse one\nFull chorus with complete lyrics\nFull verse two\nOutro"
+    sha = final.digest(text.encode())
+    payload = {"title": "Song", "artist": "Artist"}
+    results = {
+        "run-old": {
+            "source": "LRCLIB",
+            "source_metadata": {"id": 1, "duration_seconds": 80},
+        },
+        "run-new": {
+            "source": "LRCLIB",
+            "source_metadata": {"id": 2, "duration_seconds": 372},
+        },
+    }
+    with sqlite3.connect(path) as source:
+        source.executescript("""
+            CREATE TABLE quota_lyric_staging_runs(id TEXT);
+            CREATE TABLE quota_lyric_staging_blobs(sha256 TEXT,body TEXT);
+            CREATE TABLE quota_lyric_staging_candidates(
+                candidate_id TEXT,payload TEXT,text_sha256 TEXT,
+                run_id TEXT,source_result TEXT,audit TEXT);
+        """)
+        for run_id, result in results.items():
+            source.execute("INSERT INTO quota_lyric_staging_runs VALUES (?)", (run_id,))
+            source.execute("INSERT OR IGNORE INTO quota_lyric_staging_blobs VALUES (?,?)", (sha, text))
+            source.execute(
+                "INSERT INTO quota_lyric_staging_candidates VALUES (?,?,?,?,?,?)",
+                (candidate_id, json.dumps(payload), sha, run_id, json.dumps(result), "{}"),
+            )
+
+    native_db = tmp_path / "data/raw/metadata_resolution/current/native-metadata.sqlite"
+    native_db.parent.mkdir(parents=True)
+    proof = {
+        "status": 200,
+        "source_url": f"https://open.spotify.com/embed/track/{track_id}",
+        "body_sha256": "a" * 64,
+        "retrieved_at": "2026-11-18T00:00:00Z",
+        "metadata": {
+            "uri": f"spotify:track:{track_id}",
+            "title": "Song",
+            "artist": "Artist",
+            "duration_ms": 371790,
+        },
+    }
+    with sqlite3.connect(native_db) as evidence:
+        evidence.execute("CREATE TABLE evidence(candidate_id TEXT,proof TEXT)")
+        evidence.execute("INSERT INTO evidence VALUES (?,?)", (candidate_id, json.dumps(proof)))
+
+    root = tmp_path / "catalog"
+    with final.catalog(root) as db:
+        final.add_song(db, candidate_id, payload)
+        assert final.import_staging(db, path, "run-old", tmp_path) == 1
+        assert final.import_staging(db, path, "run-new", tmp_path) == 1
+        current = json.loads(db.execute("SELECT result FROM songs WHERE id=?", (candidate_id,)).fetchone()[0])
+        assert current["staging_reference"]["run_id"] == "run-new"
+        ledger = db.execute(
+            "SELECT old_text_sha256,new_text_sha256,reason FROM replacement_ledger"
+        ).fetchone()
+        assert ledger["old_text_sha256"] == sha
+        assert ledger["new_text_sha256"] == sha
+        assert ledger["reason"] == "staging_evidence_improved"
+        assert final.import_staging(db, path, "run-old", tmp_path) == 0
+
+
 def test_review_packet_does_not_fabricate_human_review():
     assessment = {
         "source_text_integrity": {"status": "passed", "raw_response_sha256": "a" * 64, "replayed_text_sha256": "b" * 64},

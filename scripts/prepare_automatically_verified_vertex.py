@@ -86,14 +86,27 @@ def main(argv=None):
                 request_id = digest(
                     encode([POLICY, cid, sha, definition_hash, settings.gemini_model]).encode()
                 )
-                if not register(
-                    ledger,
-                    recording_id=cid,
-                    request_id=request_id,
-                    text_hash=sha,
-                    selection_hash=selection_hash,
-                ):
+                try:
+                    registered = register(
+                        ledger,
+                        recording_id=cid,
+                        request_id=request_id,
+                        text_hash=sha,
+                        selection_hash=selection_hash,
+                    )
+                except ValueError:
+                    eligibility["eligible"] = False
+                    eligibility["reasons"].append("existing_preparation_profile_conflict")
+                    counts["pending"] += 1
+                    counts["profile_conflict_pending"] += 1
+                    pending.write(encode(dict(candidate_id=cid, eligibility=eligibility)) + "\n")
+                    continue
+                if not registered:
                     counts["blocked_by_global_cap"] += 1
+                    eligibility["eligible"] = False
+                    eligibility["reasons"].append("global_preparation_cap_reached")
+                    counts["pending"] += 1
+                    pending.write(encode(dict(candidate_id=cid, eligibility=eligibility)) + "\n")
                     continue
                 job = dict(
                     candidate_id=cid,
