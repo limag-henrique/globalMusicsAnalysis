@@ -47,6 +47,8 @@ def main(argv=None):
         default=Path("data/runtime/priority-full-verification-20261117-13-canonical-live-current-code/decisions.jsonl"),
     )
     parser.add_argument("--strict-audit-version", default="v13")
+    parser.add_argument("--exclude-processed-db", type=Path)
+    parser.add_argument("--native-match-only", action="store_true")
     parser.add_argument(
         "--output-dir",
         type=Path,
@@ -54,6 +56,14 @@ def main(argv=None):
     )
     args = parser.parse_args(argv)
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    if any((args.output_dir / name).exists() for name in (
+        "supplemental-lyric-queue.jsonl", "queue-summary.json"
+    )):
+        raise ValueError("queue outputs already exist; use a new versioned directory")
+    processed = set()
+    if args.exclude_processed_db:
+        with sqlite3.connect(args.exclude_processed_db.resolve().as_uri() + "?mode=ro", uri=True) as db:
+            processed = {row[0] for row in db.execute("SELECT song_id FROM supplemental_lyrics")}
 
     audit_sha = hashlib.sha256(args.strict_audit.read_bytes()).hexdigest()
     strict_map = {}
@@ -84,6 +94,9 @@ def main(argv=None):
         "SELECT song_id, title, artist_credit, native_provider, native_song_id, version_tags_json, featured_artists_json "
         "FROM supplemental_songs"
     ).fetchall()
+    total_provider_identity_keys = len(supp_songs)
+    if len(strict_map) + total_provider_identity_keys > 150_000:
+        raise ValueError("conservative combined candidate budget exceeds 150000")
     mem_stats = {
         sid: (cnt, best_rank)
         for sid, cnt, best_rank in sdb.execute(
@@ -109,6 +122,8 @@ def main(argv=None):
     status_counts = Counter()
     queue_rows = []
     for song_id, title, artist, nat_prov, nat_id, vtags_j, farts_j in supp_songs:
+        if song_id in processed:
+            continue
         cnt, best_rank = mem_stats.get(song_id, (0, 999999))
         vtags = json.loads(vtags_j) if vtags_j else []
         farts = json.loads(farts_j) if farts_j else []
@@ -118,9 +133,9 @@ def main(argv=None):
         matched_cid = None
         if not (title or "").strip() or not (artist or "").strip():
             state = "unresolved_identity_missing_credit"
-        elif nat_prov == "SPOTIFY" and nat_id and f"SPOTIFY:{nat_id}" in canon_by_id:
-            matched_cid = f"SPOTIFY:{nat_id}"
-        else:
+        elif nat_prov and nat_id and f"{nat_prov}:{nat_id}" in canon_by_id:
+            matched_cid = f"{nat_prov}:{nat_id}"
+        elif not args.native_match_only:
             candidates = canon_by_title_artist.get((norm(title), norm(artist)), [])
             if not candidates:
                 candidates = canon_by_collab.get(collab_key(title, artist, vtags), [])
@@ -183,6 +198,9 @@ def main(argv=None):
         "strict_audit_path": str(args.strict_audit),
         "strict_audit_sha256": audit_sha,
         "total_supplemental_songs": len(queue_rows),
+        "total_provider_identity_keys": total_provider_identity_keys,
+        "excluded_processed": total_provider_identity_keys - len(queue_rows),
+        "native_match_only": args.native_match_only,
         "status_counts": dict(status_counts),
         "queue_path": str(q_path),
         "queue_sha256": hashlib.sha256(q_path.read_bytes()).hexdigest(),

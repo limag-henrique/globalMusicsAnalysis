@@ -2,19 +2,19 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sqlite3
-from pathlib import Path
-from uuid import uuid4
+
+import httpx
+import pytest
 
 from chart_observatory import final_pipeline as final
 from chart_observatory.lyrics.evidence_bridge import (
     build_minimal_review_packet,
-    classify_review_pathway,
     load_verified_scientific_approvals,
 )
 from chart_observatory.lyrics.language_identification import identify_language
+from chart_observatory.lyrics.recovery_web import CachedRecoveryHTTP
 
 
 def test_language_identification_scripts_and_lexical():
@@ -112,16 +112,42 @@ def test_same_hash_staging_replacement_prefers_native_duration_match(tmp_path):
     text = "Full verse one\nFull chorus with complete lyrics\nFull verse two\nOutro"
     sha = final.digest(text.encode())
     payload = {"title": "Song", "artist": "Artist"}
-    results = {
-        "run-old": {
+
+    def source_result(record_id, duration):
+        url = "https://lrclib.net/api/search?track_name=Song&artist_name=Artist"
+        row = {
+            "id": record_id,
+            "trackName": "Song",
+            "artistName": "Artist",
+            "duration": duration,
+            "plainLyrics": text,
+            "instrumental": False,
+        }
+        with httpx.Client(
+            transport=httpx.MockTransport(lambda _: httpx.Response(200, json=[row]))
+        ) as client:
+            http = CachedRecoveryHTTP(tmp_path / f"capture-{record_id}", client)
+            http.get(url)
+            events = list(http.trace)
+        return {
             "source": "LRCLIB",
-            "source_metadata": {"id": 1, "duration_seconds": 80},
-        },
-        "run-new": {
-            "source": "LRCLIB",
-            "source_metadata": {"id": 2, "duration_seconds": 372},
-        },
-    }
+            "source_metadata": {
+                "id": record_id,
+                "url": f"https://lrclib.net/api/get/{record_id}",
+                "observed_title": "Song",
+                "observed_artist": "Artist",
+                "requested_artist": "Artist",
+                "lyric_representation": "plain",
+                "duration_seconds": duration,
+                "full_requested_artist_credit_matched": True,
+            },
+            "http_evidence": events,
+            "text_sha256": sha,
+            "characters": len(text),
+            "text_quality_flags": [],
+        }
+
+    results = {"run-old": source_result(1, 80), "run-new": source_result(2, 372)}
     with sqlite3.connect(path) as source:
         source.executescript("""
             CREATE TABLE quota_lyric_staging_runs(id TEXT);
@@ -161,7 +187,9 @@ def test_same_hash_staging_replacement_prefers_native_duration_match(tmp_path):
         final.add_song(db, candidate_id, payload)
         assert final.import_staging(db, path, "run-old", tmp_path) == 1
         assert final.import_staging(db, path, "run-new", tmp_path) == 1
-        current = json.loads(db.execute("SELECT result FROM songs WHERE id=?", (candidate_id,)).fetchone()[0])
+        current = json.loads(
+            db.execute("SELECT result FROM songs WHERE id=?", (candidate_id,)).fetchone()[0]
+        )
         assert current["staging_reference"]["run_id"] == "run-new"
         ledger = db.execute(
             "SELECT old_text_sha256,new_text_sha256,reason FROM replacement_ledger"
@@ -170,6 +198,24 @@ def test_same_hash_staging_replacement_prefers_native_duration_match(tmp_path):
         assert ledger["new_text_sha256"] == sha
         assert ledger["reason"] == "staging_evidence_improved"
         assert final.import_staging(db, path, "run-old", tmp_path) == 0
+        current_payload, current_result = db.execute(
+            "SELECT payload,result FROM songs WHERE id=?", (candidate_id,)
+        ).fetchone()
+        assessment = final.validate_text(
+            json.loads(current_payload), json.loads(current_result), tmp_path
+        )
+        assert assessment["identity"]["status"] == "passed"
+        assert assessment["source_text_integrity"]["status"] == "passed"
+        assert assessment["effective_proof"]["recording_transcription_proven"] is False
+        assert assessment["scientific_approval_status"] == "not_approved"
+        assert assessment["classification_eligibility"] == "blocked_pending_gates"
+
+
+@pytest.mark.parametrize("duration", [None, "372", True, 0, -1, float("nan"), float("inf")])
+def test_native_duration_score_requires_valid_duration_and_matching_native_identity(duration):
+    assert final._native_duration_match(371790, duration, True) == 0
+    assert final._native_duration_match(371790, 372.0, False) == 0
+    assert final._native_duration_match(371790, 372.0, True) == 1
 
 
 def test_review_packet_does_not_fabricate_human_review():
@@ -206,8 +252,6 @@ def test_load_verified_scientific_approvals_missing_and_invalid(tmp_path):
 
 
 def test_acquire_lyrics_enforces_150k_cap_programmatically(tmp_path):
-    import pytest
-
     with final.catalog(tmp_path / "cat") as db:
         with pytest.raises(ValueError, match="150000"):
             final.acquire_lyrics(db, tmp_path / "cat", tmp_path, limit=150_001)

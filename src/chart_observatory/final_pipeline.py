@@ -345,10 +345,36 @@ def _merge_native_metadata(old, new):
     return merged, changed
 
 
-def _score_result(payload, result, project, *, preloaded=None):
-    """Score a result's evidence quality; higher tuple means strictly stronger proof."""
+def _native_duration_match(native_ms, provider_seconds, native_identity_compatible):
+    """Use duration only when both sides provide valid data for the verified native identity."""
+    import math
+
     from chart_observatory.lyrics.text_quality import recording_duration_mismatch
 
+    if not native_identity_compatible:
+        return 0
+    if (
+        not isinstance(native_ms, int)
+        or isinstance(native_ms, bool)
+        or native_ms <= 0
+        or not isinstance(provider_seconds, (int, float))
+        or isinstance(provider_seconds, bool)
+    ):
+        return 0
+    try:
+        valid_provider_duration = math.isfinite(float(provider_seconds)) and provider_seconds > 0
+    except (OverflowError, TypeError, ValueError):
+        return 0
+    return int(
+        valid_provider_duration
+        and not recording_duration_mismatch(native_ms, provider_seconds)
+    )
+
+
+def _score_result(
+    payload, result, project, *, preloaded=None, native_identity_compatible=False
+):
+    """Score a result's evidence quality; higher tuple means strictly stronger proof."""
     try:
         check = validate_text(payload, result, project, preloaded=preloaded)
     except ValueError:
@@ -362,18 +388,15 @@ def _score_result(payload, result, project, *, preloaded=None):
     source_result = preloaded[0] if preloaded is not None else read_result(result, project)[0]
     native_duration = (payload.get("metadata_resolution") or {}).get("duration_ms")
     provider_duration = (source_result.get("source_metadata") or {}).get("duration_seconds")
-    duration_match = int(
-        isinstance(native_duration, int)
-        and native_duration > 0
-        and provider_duration is not None
-        and not recording_duration_mismatch(native_duration, provider_duration)
+    duration_match = _native_duration_match(
+        native_duration, provider_duration, native_identity_compatible
     )
     return (
         int(ident_ok and comp_ok),
         int(ident_ok) + int(comp_ok),
         int(integ_ok),
-        duration_match,
         -blockers,
+        duration_match,
     )
 
 
@@ -429,11 +452,33 @@ def import_store(db, store, project):
             if digest(path.read_bytes()) != result.get("text_sha256"):
                 continue
             merged_payload, payload_changed = _merge_native_metadata(old, new)
-            apply_native_proof_to_record(key, merged_payload, result, native_proofs)
+            proof_payload = json.loads(encode(merged_payload))
+            _native_ok, native_flags, native_ev = apply_native_proof_to_record(
+                key, proof_payload, result, native_proofs
+            )
+            native_identity_compatible = bool(
+                native_ev.get("native_proof_present")
+                and not {
+                    "native_title_disagreement",
+                    "native_artist_disagreement",
+                }.intersection(native_flags)
+            )
+            if native_identity_compatible:
+                merged_payload = proof_payload
             if target[1]:
                 old_result = json.loads(target[1])
-                old_score = _score_result(merged_payload, old_result, project)
-                new_score = _score_result(merged_payload, result, project)
+                old_score = _score_result(
+                    merged_payload,
+                    old_result,
+                    project,
+                    native_identity_compatible=native_identity_compatible,
+                )
+                new_score = _score_result(
+                    merged_payload,
+                    result,
+                    project,
+                    native_identity_compatible=native_identity_compatible,
+                )
                 if new_score <= old_score:
                     if payload_changed:
                         with db:
@@ -515,7 +560,19 @@ def import_staging(db, path, run_id, project):
                         raise ValueError("staging text hash mismatch")
                     merged_payload, payload_changed = _merge_native_metadata(old, new)
                     source_result = json.loads(sr_json)
-                    apply_native_proof_to_record(key, merged_payload, source_result, native_proofs)
+                    proof_payload = json.loads(encode(merged_payload))
+                    _native_ok, native_flags, native_ev = apply_native_proof_to_record(
+                        key, proof_payload, source_result, native_proofs
+                    )
+                    native_identity_compatible = bool(
+                        native_ev.get("native_proof_present")
+                        and not {
+                            "native_title_disagreement",
+                            "native_artist_disagreement",
+                        }.intersection(native_flags)
+                    )
+                    if native_identity_compatible:
+                        merged_payload = proof_payload
                     result = dict(
                         text_sha256=sha,
                         staging_reference=dict(
@@ -540,9 +597,18 @@ def import_staging(db, path, run_id, project):
                             body,
                             new_audit,
                         )
-                        old_score = _score_result(merged_payload, old_result, project)
+                        old_score = _score_result(
+                            merged_payload,
+                            old_result,
+                            project,
+                            native_identity_compatible=native_identity_compatible,
+                        )
                         new_score = _score_result(
-                            merged_payload, result, project, preloaded=preloaded
+                            merged_payload,
+                            result,
+                            project,
+                            preloaded=preloaded,
+                            native_identity_compatible=native_identity_compatible,
                         )
                         if new_score <= old_score:
                             if payload_changed:

@@ -281,24 +281,76 @@ def load_codex_priority_ids(reservations_path: Path) -> set[str]:
     return priority
 
 
+def file_revision(path: Path) -> tuple | None:
+    try:
+        stat = path.stat()
+        return (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    except FileNotFoundError:
+        return None
+
+
+def read_strict_audit(path: Path) -> dict[str, dict[str, Any]]:
+    rows = {}
+    if path.exists():
+        with path.open(encoding="utf-8") as stream:
+            for line in stream:
+                if line.strip():
+                    row = json.loads(line)
+                    rows[row["candidate_id"]] = row
+    return rows
+
+
+class SnapshotRefresh:
+    """Refresh on committed catalog changes or changed audit/reservation files."""
+
+    def __init__(self, catalog: Path, audit: Path, reservations: Path):
+        self.catalog, self.audit, self.reservations = catalog, audit, reservations
+        self.reader = sqlite3.connect(catalog.resolve().as_uri() + "?mode=ro", uri=True)
+        self.revision = None
+        self.strict_map = {}
+        self.audit_revision = None
+        self.stats = {}
+
+    def refresh(self, conn: sqlite3.Connection) -> dict[str, int]:
+        revision = (
+            self.reader.execute("PRAGMA data_version").fetchone()[0],
+            file_revision(self.catalog), file_revision(Path(str(self.catalog) + "-wal")),
+            file_revision(self.audit), file_revision(self.reservations),
+        )
+        if revision == self.revision:
+            return self.stats
+        # Record pre-read revisions: changes during refresh trigger another refresh.
+        audit_revision = revision[3]
+        strict_map = (read_strict_audit(self.audit)
+                      if self.revision is None or audit_revision != self.audit_revision
+                      else self.strict_map)
+        self.stats = snapshot_catalog_and_audit(
+            conn, self.catalog, self.audit, self.reservations, strict_map=strict_map
+        )
+        self.strict_map = strict_map
+        self.audit_revision = audit_revision
+        self.revision = revision
+        return self.stats
+
+    def close(self) -> None:
+        self.reader.close()
+
+
 def snapshot_catalog_and_audit(
     conn: sqlite3.Connection,
     catalog_path: Path,
     strict_audit_path: Path,
     reservations_path: Path,
+    *, strict_map: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, int]:
     """Read-only snapshot of catalog.sqlite + v13 decisions.jsonl into verifier.sqlite."""
-    strict_map: dict[str, dict[str, Any]] = {}
-    if strict_audit_path.exists():
-        with strict_audit_path.open("r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip():
-                    d = json.loads(line)
-                    strict_map[d["candidate_id"]] = d
+    if strict_map is None:
+        strict_map = read_strict_audit(strict_audit_path)
 
     codex_priority_ids = load_codex_priority_ids(reservations_path)
 
     cat = sqlite3.connect(f"file:{catalog_path}?mode=ro", uri=True)
+    cat.execute("BEGIN")
     memberships_by_song: dict[str, list[dict[str, Any]]] = {}
     for scope, country, period, platform, rank, song_id in cat.execute(
         "SELECT scope, country, period, platform, rank, song_id FROM memberships"
@@ -329,7 +381,13 @@ def snapshot_catalog_and_audit(
             sa = strict_map.get(sid)
             text_sha = result.get("text_sha256") or (sa.get("text_sha256") if sa else None)
             staging_ref = result.get("staging_reference")
-            fp = compute_fingerprint(sid, text_sha, staging_ref, sa, len(mems))
+            base_fp = compute_fingerprint(sid, text_sha, staging_ref, sa, len(mems))
+            fp = sha256_text(json.dumps(
+                {"base": base_fp, "payload": payload, "result": result,
+                 "strict_audit": sa, "memberships": sorted(
+                     mems, key=lambda row: json.dumps(row, sort_keys=True))},
+                sort_keys=True, ensure_ascii=False,
+            ))
 
             prov_ok = 1 if (sa and sa.get("provider_supported")) else 0
             nat_ok = 1 if (sa and sa.get("native_and_provider_supported")) else 0
@@ -367,7 +425,7 @@ def snapshot_catalog_and_audit(
                     payload.get("title"),
                     payload.get("artist"),
                     len(mems),
-                    json.dumps(mems[:50], ensure_ascii=False),
+                    json.dumps(mems, ensure_ascii=False),
                     fp,
                     prov_ok,
                     nat_ok,
@@ -795,13 +853,7 @@ def main(argv: list[str] | None = None) -> int:
     conn = sqlite3.connect(db_path)
     init_verifier_db(conn)
 
-    strict_map: dict[str, dict[str, Any]] = {}
-    if args.strict_audit.exists():
-        with args.strict_audit.open("r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip():
-                    d = json.loads(line)
-                    strict_map[d["candidate_id"]] = d
+    refresh = SnapshotRefresh(args.catalog, args.strict_audit, args.reservations)
 
     http = HostPacedClient(args.run_dir / "captures", min_interval=args.http_interval)
     try:
@@ -810,9 +862,8 @@ def main(argv: list[str] | None = None) -> int:
         batches_done = 0
 
         while args.max_batches == 0 or batches_done < args.max_batches:
-            snap_stats = snapshot_catalog_and_audit(
-                conn, args.catalog, args.strict_audit, args.reservations
-            )
+            snap_stats = refresh.refresh(conn)
+            strict_map = refresh.strict_map
             # Select candidates whose fingerprint is not yet verified at current revision
             rows = conn.execute(
                 """
@@ -894,6 +945,7 @@ def main(argv: list[str] | None = None) -> int:
                 f"{len(batch_items)} items in {elapsed:.1f}s ({rate:.1f}/min) -> {manifest['verdict_counts']}"
             )
     finally:
+        refresh.close()
         http.close()
         conn.close()
     return 0

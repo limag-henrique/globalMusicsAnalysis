@@ -4,7 +4,6 @@ import argparse
 import hashlib
 import json
 import sqlite3
-import threading
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -19,6 +18,12 @@ from chart_observatory.lyrics.language_identification import identify_language
 from chart_observatory.lyrics.quota_acquisition import PacedHTTP
 from chart_observatory.lyrics.quota_discovery import audit_saved_result, recover_with_fallback
 from chart_observatory.lyrics.source_chain import verify_source_chain
+from chart_observatory.recovery_batches import (
+    RetrySchedule,
+    fingerprint,
+    freeze_batch,
+    worker_lock,
+)
 
 
 def sha256_text(text: str) -> str:
@@ -57,6 +62,14 @@ def init_db(conn: sqlite3.Connection) -> None:
         );
         """
     )
+
+
+def fair_retry_order(conn: sqlite3.Connection, items: list[dict]) -> list[dict]:
+    """Prefer never attempted and oldest attempted candidates across bounded runs."""
+    last_attempt = dict(conn.execute(
+        "SELECT song_id, MAX(id) FROM supplemental_lyric_ledger GROUP BY song_id"
+    ))
+    return sorted(items, key=lambda item: last_attempt.get(item["song_id"], 0))
 
 
 def classify_failure(result: dict, assessment: dict) -> str:
@@ -127,7 +140,17 @@ def main(argv=None):
     parser.add_argument("--interval", type=float, default=1.0)
     parser.add_argument("--cache-only", action="store_true", default=False)
     parser.add_argument("--retry-rate-limited", action="store_true", default=False)
+    parser.add_argument("--retry-min-seconds", type=float, default=3600)
+    parser.add_argument("--max-seconds", type=float, default=0)
     args = parser.parse_args(argv)
+    if args.workers < 1 or args.batch_size < 1 or args.max_batches < 0 or args.max_seconds < 0:
+        parser.error("positive workers/batch size and nonnegative limits required")
+    args.root.mkdir(parents=True, exist_ok=True)
+    with worker_lock(args.root / "worker.lock"):
+        return run(args)
+
+
+def run(args):
 
     project = Path.cwd().resolve()
     args.root.mkdir(parents=True, exist_ok=True)
@@ -142,6 +165,7 @@ def main(argv=None):
             Path("data/runtime/final-pipeline/http-cache"),
             Path("data/runtime/final-pipeline-post-final-run-20261117-02/http-cache"),
             Path("data/runtime/supplemental-lyrics-20261117-02/http-cache"),
+            Path("data/runtime/supplemental-lyrics-20261118-01/http-cache"),
         )
         if p.is_dir()
     ]
@@ -149,6 +173,22 @@ def main(argv=None):
     db_path = args.root / "supplemental-lyrics.sqlite"
     conn = sqlite3.connect(db_path)
     init_db(conn)
+    schedule = RetrySchedule(conn, minimum_seconds=args.retry_min_seconds)
+    conn.execute("CREATE TABLE IF NOT EXISTS supplemental_freeze_state(last_id INTEGER NOT NULL)")
+    if not conn.execute("SELECT count(*) FROM supplemental_freeze_state").fetchone()[0]:
+        existing = conn.execute("SELECT COALESCE(MAX(id),0) FROM supplemental_lyric_ledger").fetchone()[0]
+        conn.execute("INSERT INTO supplemental_freeze_state VALUES (?)", (existing,))
+    conn.commit()
+
+    def freeze_pending():
+        last = conn.execute("SELECT last_id FROM supplemental_freeze_state").fetchone()[0]
+        end = conn.execute("SELECT COALESCE(MAX(id),0) FROM supplemental_lyric_ledger").fetchone()[0]
+        if end > last:
+            freeze_batch(conn, args.root, last + 1, end, project=project)
+            with conn:
+                conn.execute("UPDATE supplemental_freeze_state SET last_id=?", (end,))
+
+    freeze_pending()
 
     already_done = {
         row[0]: (row[1], row[2])
@@ -274,6 +314,7 @@ def main(argv=None):
         "identity_ambiguous_multiple_canonical",
     }
     todo = []
+    deferred = 0
     for item in queue:
         if item["state"] not in actionable_states:
             continue
@@ -282,24 +323,20 @@ def main(argv=None):
             st, fcat = already_done[sid]
             if not (args.retry_rate_limited and fcat == "access_failed_rate_limited"):
                 continue
+            if not schedule.due(sid, fingerprint(item)):
+                deferred += 1
+                continue
         todo.append(item)
 
-    thread_local = threading.local()
-
-    def get_http() -> PacedHTTP:
-        if not hasattr(thread_local, "http"):
-            if args.cache_only:
-                transport = httpx.MockTransport(lambda req: httpx.Response(503, request=req))
-                client = httpx.Client(transport=transport)
-            else:
-                client = httpx.Client(timeout=20, follow_redirects=True)
-            thread_local.http = PacedHTTP(
-                cache_dir,
-                client,
-                cache_sources=fallback_caches,
-                interval=args.interval,
-            )
-        return thread_local.http
+    # One shared client owns domain pacing, concurrency, cooldowns and cache locks.
+    # Its request trace is thread-local, so independent candidates retain evidence.
+    todo = fair_retry_order(conn, todo)
+    if args.cache_only:
+        transport = httpx.MockTransport(lambda req: httpx.Response(503, request=req))
+        client = httpx.Client(transport=transport)
+    else:
+        client = httpx.Client(timeout=20, follow_redirects=True)
+    http = PacedHTTP(cache_dir, client, cache_sources=fallback_caches, interval=args.interval)
 
     def process_one(item: dict) -> tuple[dict, dict, str | None, str | None, str | None, dict]:
         sid = item["song_id"]
@@ -311,11 +348,12 @@ def main(argv=None):
             "candidate_id": sid,
             "metadata_resolution": meta_res,
         }
+        http.start_trace()
         try:
             result = recover_with_fallback(
                 item["title"],
                 item["artist_credit"],
-                get_http(),
+                http,
                 first_time=True,
                 metadata_resolution=meta_res,
             )
@@ -338,10 +376,17 @@ def main(argv=None):
         return item, result, sha, text_path, text, assessment
 
     total_acquired_session = 0
+    new_texts = 0
+    passed_before = conn.execute(
+        "SELECT count(*) FROM supplemental_lyrics WHERE validation_status='passed'"
+    ).fetchone()[0]
+    deadline = time.monotonic() + args.max_seconds if args.max_seconds else float("inf")
     batch_num = 0
     t_start = time.monotonic()
 
     for offset in range(0, len(todo), args.batch_size):
+        if time.monotonic() >= deadline:
+            break
         if args.max_batches and batch_num >= args.max_batches:
             break
         batch = todo[offset : offset + args.batch_size]
@@ -362,33 +407,46 @@ def main(argv=None):
                     overall = "instrumental"
                 fcat = None if overall == "passed" else classify_failure(result, assessment)
                 lang = (assessment.get("language_identification") or {}).get("language_code")
-                conn.execute(
-                    "INSERT OR REPLACE INTO supplemental_lyrics VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                    (
-                        sid,
-                        item["state"],
-                        item.get("matched_canonical_id"),
-                        sha,
-                        text_path,
-                        result.get("source"),
-                        overall,
-                        fcat,
-                        None,
-                        (assessment.get("identity") or {}).get("status"),
-                        (assessment.get("completeness") or {}).get("status"),
-                        (assessment.get("source_text_integrity") or {}).get("status"),
-                        lang,
-                        json.dumps(assessment.get("text_quality_flags") or []),
-                        json.dumps(result, ensure_ascii=False),
-                        json.dumps(assessment, ensure_ascii=False),
-                        now,
-                    ),
+                previous = conn.execute(
+                    "SELECT text_sha256 FROM supplemental_lyrics WHERE song_id=?", (sid,)
+                ).fetchone()
+                new_texts += int(sha is not None and (not previous or previous[0] != sha))
+                schedule.record(
+                    sid, fingerprint(item), fcat,
+                    provider_delay=max(http.provider_retry_delays().values(), default=0),
                 )
+                # An access failure is an attempt outcome, not a replacement text.
+                # Retain earlier text and its validation; the attempt remains in the ledger.
+                if sha is not None or not (previous and previous[0]):
+                    conn.execute(
+                        "INSERT OR REPLACE INTO supplemental_lyrics VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (
+                            sid,
+                            item["state"],
+                            item.get("matched_canonical_id"),
+                            sha,
+                            text_path,
+                            result.get("source"),
+                            overall,
+                            fcat,
+                            None,
+                            (assessment.get("identity") or {}).get("status"),
+                            (assessment.get("completeness") or {}).get("status"),
+                            (assessment.get("source_text_integrity") or {}).get("status"),
+                            lang,
+                            json.dumps(assessment.get("text_quality_flags") or []),
+                            json.dumps(result, ensure_ascii=False),
+                            json.dumps(assessment, ensure_ascii=False),
+                            now,
+                        ),
+                    )
                 conn.execute(
                     "INSERT INTO supplemental_lyric_ledger (song_id, previous_sha256, new_sha256, reason, recorded_at_utc) VALUES (?,?,?,?,?)",
-                    (sid, None, sha, f"batch_{batch_num}:{overall}:{fcat or 'ok'}", now),
+                    (sid, previous[0] if previous else None, sha, f"batch_{batch_num}:{overall}:{fcat or 'ok'}", now),
                 )
                 total_acquired_session += 1
+
+        freeze_pending()
 
         elapsed_b = max(0.01, time.monotonic() - b_start)
         counts = Counter(row[0] for row in conn.execute("SELECT validation_status FROM supplemental_lyrics"))
@@ -400,6 +458,16 @@ def main(argv=None):
             "linked_canonical_session": linked_now,
             "unresolved_recorded_session": unresolved_now,
             "acquired_session": total_acquired_session,
+            "attempts_this_invocation": total_acquired_session,
+            "new_texts_this_invocation": new_texts,
+            "new_passed_this_invocation": counts.get("passed", 0) - passed_before,
+            "deferred_retries": deferred,
+            "unresolved_total": sum(n for status, n in counts.items() if status not in (
+                "passed", "inherited_canonical_strict_passed", "instrumental"
+            )),
+            "next_retry_epoch": conn.execute(
+                "SELECT MIN(next_at) FROM supplemental_retry_schedule"
+            ).fetchone()[0],
             "remaining_actionable": max(0, len(todo) - (offset + len(batch))),
             "total_processed_in_db": sum(counts.values()),
             "total_in_queue": len(queue),
@@ -423,6 +491,16 @@ def main(argv=None):
         "linked_canonical_session": linked_now,
         "unresolved_recorded_session": unresolved_now,
         "acquired_session": total_acquired_session,
+        "attempts_this_invocation": total_acquired_session,
+        "new_texts_this_invocation": new_texts,
+        "new_passed_this_invocation": counts.get("passed", 0) - passed_before,
+        "deferred_retries": deferred,
+        "unresolved_total": sum(n for status, n in counts.items() if status not in (
+            "passed", "inherited_canonical_strict_passed", "instrumental"
+        )),
+        "next_retry_epoch": conn.execute(
+            "SELECT MIN(next_at) FROM supplemental_retry_schedule"
+        ).fetchone()[0],
         "remaining_actionable": max(0, len(todo) - total_acquired_session),
         "total_processed_in_db": sum(counts.values()),
         "total_in_queue": len(queue),
@@ -432,6 +510,7 @@ def main(argv=None):
     (args.root / "acquisition-report.json").write_text(
         json.dumps(final_report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    client.close()
     conn.close()
     print(json.dumps(final_report, ensure_ascii=False, indent=2))
 
